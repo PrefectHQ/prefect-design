@@ -1,3 +1,1 @@
-const myexport = ''
-
-export default myexport
+export default {}
