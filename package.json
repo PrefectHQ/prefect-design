@@ -1,0 +1,44 @@
+{
+  "name": "prefect-design",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/prefect-design.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrefectHQ/prefect-design.git"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "prefect"
+  ],
+  "scripts": {
+    "dev": "vue-tsc -w & tsc-alias -w & vite build -w",
+    "build": "vue-tsc && tsc-alias && vite build",
+    "lint:fix": "eslint src --fix --debug"
+  },
+  "module": "./dist/prefect-design.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/prefect-design.es.js",
+      "require": "./dist/prefect-design.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/types/index.d.ts",
+  "devDependencies": {
+    "@prefecthq/eslint-config": "1.0.15",
+    "@vitejs/plugin-vue": "^1.2.5",
+    "eslint": "^8.6.0",
+    "tsc-alias": "1.6.5",
+    "typescript": "^4.1.6",
+    "vite": "^2.4.2",
+    "vue-tsc": "0.33.9"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.5"
+  }
+}
