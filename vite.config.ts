@@ -17,8 +17,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'Miter Design',
-      fileName: (format) => `miter-design.${format}.js`
+      name: 'Prefect Design',
+      fileName: (format) => `prefect-design.${format}.js`
     },
     rollupOptions: {
       // ensures vue isn't added to the bundle
