@@ -1,41 +1,35 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "esnext",
-    "strict": true,
-    "declaration": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "jsx": "preserve",
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
     ],
-    "types": [
-      "vite/client",
-      "@types/jest"
-    ]
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "./dist/types/",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext"
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.d.ts",
     "src/**/*.vue"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.js"
   ]
 }
