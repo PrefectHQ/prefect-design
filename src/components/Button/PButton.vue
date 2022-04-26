@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="p-button" :class="classes">
+  <button type="button" class="p-button" :class="classes" :disabled="disabled">
     <div v-if="$slots.icon" class="p-button__icon">
       <slot name="icon" />
     </div>
@@ -15,6 +15,7 @@
     secondary?: boolean,
     inset?: boolean,
     rounded?: boolean,
+    disabled?: boolean,
     size?: Size,
   }>(), {
     size: 'md',
@@ -30,6 +31,7 @@
     'p-button-md': props.size === 'md',
     'p-button-lg': props.size === 'lg',
     'p-button-xl': props.size === 'xl',
+    'p-button--disabled': props.disabled,
   }))
 </script>
 
@@ -52,6 +54,8 @@
   text-white
   bg-prefect-600
   focus:ring-prefect-600
+}
+.p-button--primary:not(.p-button--disabled) { @apply
   hover:bg-prefect-700
 }
 
@@ -59,6 +63,8 @@
   text-prefect-600
   bg-prefect-100
   focus:ring-prefect-100
+}
+.p-button--secondary:not(.p-button--disabled) { @apply
   hover:bg-prefect-200
 }
 
@@ -69,6 +75,8 @@
   text-gray-500
   bg-white
   focus:ring-prefect-600
+}
+.p-button--inset:not(.p-button--disabled) { @apply
   hover:bg-gray-300
 }
 
@@ -125,5 +133,10 @@
 .p-button--rounded { @apply
   rounded-full
   p-3
+}
+
+.p-button--disabled { @apply
+  cursor-not-allowed
+  opacity-50
 }
 </style>

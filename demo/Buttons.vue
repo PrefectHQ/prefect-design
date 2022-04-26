@@ -1,8 +1,12 @@
 <template>
   <div class="flex items-start gap-2 mb-4">
     <p-button>something</p-button>
-    <p-button secondary>secondary</p-button>
-    <p-button inset>inset</p-button>
+    <p-button secondary>
+      secondary
+    </p-button>
+    <p-button inset>
+      inset
+    </p-button>
   </div>
 
   <div class="flex items-start gap-2 mb-4">
@@ -69,11 +73,21 @@
   </div>
 
   <div class="flex items-start gap-2 mb-4">
-    <p-button size="xs">size xs</p-button>
-    <p-button size="sm">size sm</p-button>
-    <p-button size="md">size md</p-button>
-    <p-button size="lg">size lg</p-button>
-    <p-button size="xl">size xl</p-button>
+    <p-button size="xs">
+      size xs
+    </p-button>
+    <p-button size="sm">
+      size sm
+    </p-button>
+    <p-button size="md">
+      size md
+    </p-button>
+    <p-button size="lg">
+      size lg
+    </p-button>
+    <p-button size="xl">
+      size xl
+    </p-button>
   </div>
 
   <div class="flex items-start gap-2 mb-4">
@@ -103,8 +117,25 @@
       </template>
     </p-button>
   </div>
+
+  <div class="flex items-start gap-2 mb-4">
+    <p-button disabled>
+      disabled
+    </p-button>
+    <p-button disabled secondary>
+      <template #icon>
+        <BeakerIcon />
+      </template>
+      disabled secondary with icon
+    </p-button>
+    <p-button disabled inset rounded>
+      <template #icon>
+        <BeakerIcon />
+      </template>
+    </p-button>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { BeakerIcon } from '@heroicons/vue/solid'
+  import { BeakerIcon } from '@heroicons/vue/solid'
 </script>
