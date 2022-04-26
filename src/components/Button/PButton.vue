@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, withDefaults } from 'vue'
+  import { computed, withDefaults, useSlots } from 'vue'
   import { Size } from '@/types/size'
 
   const props = withDefaults(defineProps<{
@@ -21,11 +21,15 @@
     size: 'md',
   })
 
+  const slots = useSlots()
+  console.log(slots)
+
   const classes = computed(() => ({
     'p-button--primary': !props.secondary && !props.inset,
     'p-button--secondary': props.secondary && !props.inset,
     'p-button--inset': props.inset,
     'p-button--rounded': props.rounded,
+    'p-button--equal-padding': slots.icon && !slots.default,
     'p-button-xs': props.size === 'xs',
     'p-button-sm': props.size === 'sm',
     'p-button-md': props.size === 'md',
@@ -89,6 +93,9 @@
   h-3
   w-3
 }
+.p-button-xs.p-button--equal-padding { @apply
+  p-2
+}
 
 .p-button-sm { @apply
   text-sm
@@ -98,6 +105,9 @@
 .p-button-sm .p-button__icon { @apply
   h-3.5
   w-3.5
+}
+.p-button-sm.p-button--equal-padding { @apply
+  p-2.5
 }
 
 .p-button-md { @apply
@@ -109,6 +119,9 @@
   h-4
   w-4
 }
+.p-button-md.p-button--equal-padding { @apply
+  p-3
+}
 
 .p-button-lg { @apply
   text-lg
@@ -118,6 +131,9 @@
 .p-button-lg .p-button__icon { @apply
   h-5
   w-5
+}
+.p-button-lg.p-button--equal-padding { @apply
+  p-3.5
 }
 
 .p-button-xl { @apply
@@ -129,10 +145,12 @@
   h-6
   w-6
 }
+.p-button-xl.p-button--equal-padding { @apply
+  p-4
+}
 
 .p-button--rounded { @apply
   rounded-full
-  p-3
 }
 
 .p-button--disabled { @apply
