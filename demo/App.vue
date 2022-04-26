@@ -11,7 +11,12 @@
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
-          <p-tag />
+          <p-tag>
+            <template #icon>
+              <BeakerIcon class="h-5 w-5 text-blue-500 mr-px" />
+            </template>
+            tag
+          </p-tag>
           <!-- /End replace -->
         </div>
       </main>
@@ -20,6 +25,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { BeakerIcon } from '@heroicons/vue/solid'
   import PTag from '../src/components/Tag/PTag.vue'
+
   // Hello!
 </script>
