@@ -1,6 +1,7 @@
 
-import { App, Plugin } from 'vue'
+export * from '@/components'
 
+import { App, Plugin } from 'vue'
 import { components } from '@/components'
 
 const plugin: Plugin = {
@@ -13,4 +14,3 @@ const plugin: Plugin = {
 }
 
 export { plugin }
-export { default as PIcon } from '@/components/Icon'
