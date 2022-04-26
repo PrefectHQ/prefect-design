@@ -15,10 +15,10 @@ export default defineConfig({
   },
   plugins: [vue()],
   build: {
+    emptyOutDir: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'Prefect Design',
-      fileName: (format) => `prefect-design.${format}.js`,
+      name: 'PrefectDesign',
     },
     rollupOptions: {
       // ensures vue isn't added to the bundle
