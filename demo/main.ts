@@ -4,12 +4,11 @@ import { createApp } from 'vue'
 import '@/styles/index.css'
 
 import App from './App.vue'
-import PrefectDesign from '@/index'
+import { plugin } from '@/index'
 
 const app = createApp(App)
-app.use(PrefectDesign)
+app.use(plugin)
 
 app.config.performance = true
-
 
 app.mount('#app')

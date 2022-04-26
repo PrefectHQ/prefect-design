@@ -11,7 +11,19 @@
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
-          <Tag />
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Tag</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Tag />
+            </div>
+          </div>
+
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Buttons</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Buttons />
+            </div>
+          </div>
           <!-- /End replace -->
         </div>
       </main>
@@ -20,5 +32,8 @@
 </template>
 
 <script lang="ts" setup>
+  import Buttons from './Buttons.vue'
   import Tag from './Tag.vue'
+
+  // Hello!
 </script>
