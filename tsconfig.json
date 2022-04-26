@@ -36,6 +36,7 @@
     "demo/**/*.vue",
     "./*.ts",
     "./*.d.ts",
+    "./postcss.config.js",
     "./tailwind.config.js"
   ]
 }
