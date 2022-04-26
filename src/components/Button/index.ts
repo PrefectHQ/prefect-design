@@ -7,3 +7,4 @@ PButton.install = (app: App) => {
 }
 
 export { PButton }
+export default PButton
