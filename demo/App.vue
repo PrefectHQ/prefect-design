@@ -12,7 +12,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
           <div class="px-4 py-8 sm:px-0">
-            <div class="border-4 border-dashed border-gray-200 rounded-lg h-96" />
+            <span class="text-2xl">Buttons</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Buttons />
+            </div>
           </div>
           <!-- /End replace -->
         </div>
@@ -22,5 +25,7 @@
 </template>
 
 <script lang="ts" setup>
+  import Buttons from './Buttons.vue'
+
   // Hello!
 </script>
