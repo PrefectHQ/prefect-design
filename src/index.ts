@@ -2,14 +2,11 @@
 export * from '@/components'
 
 import { App, Plugin } from 'vue'
-import { components } from '@/components'
+import { installs } from '@/components'
 
 const plugin: Plugin = {
   install(app: App) {
-    for (const key in components) {
-      const component = components[key]
-      component.install(app)
-    }
+    installs.forEach(install => install(app))
   },
 }
 
