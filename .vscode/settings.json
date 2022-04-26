@@ -1,0 +1,44 @@
+{
+  "editor.formatOnSave": false,
+  "javascript.format.enable": false,
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.options": {
+    "extensions": [
+      "*.html",
+      "*.js",
+      "*.vue",
+      "*.jsx",
+      "*.json",
+      "*.ts"
+    ]
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.flagWords": [
+    "canceled",
+    "gray"
+  ],
+  "cSpell.words": [
+    "backoff",
+    "composables",
+    "datetime",
+    "deauthorize",
+    "dismissable",
+    "emperical",
+    "Errored",
+    "idempotency",
+    "performantly",
+    "pinia",
+    "prefecthq",
+    "subflow",
+    "vite"
+  ],
+  "files.exclude": {
+    "node_modules": true,
+    "dist": true
+  },
+}
