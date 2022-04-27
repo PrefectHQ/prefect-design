@@ -33,8 +33,7 @@
 
 <script lang="ts" setup>
   import { TagIcon } from '@heroicons/vue/solid'
-  import { ref } from 'vue'
   import PTag from '../src/components/Tag/PTag.vue'
-  const states = ref(['Completed', 'Cancelled', 'Failed', 'Pending', 'Running', 'Scheduled'])
+  const states = ['Completed', 'Cancelled', 'Failed', 'Pending', 'Running', 'Scheduled']
 </script>
 

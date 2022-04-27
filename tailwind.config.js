@@ -34,7 +34,7 @@ module.exports = {
       colors: {
         primary: prefectPalette[500],
         prefect: prefectPalette,
-        stateColors,
+        'state-colors': stateColors,
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],

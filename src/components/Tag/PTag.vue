@@ -15,13 +15,13 @@
   import { computed, ref } from 'vue'
 
   const props = defineProps<{
-    color?: string,
+    color?: 'completed' | 'cancelled' | 'failed' | 'pending' | 'running' | 'scheduled',
     flat?: boolean,
   }>()
 
-  const states = ref(['completed', 'cancelled', 'failed', 'pending', 'running', 'scheduled'])
-  const mappedStates = computed(() => states.value.map(state => ({ [`p-tag--${state}`]: props.color?.toLowerCase() === state })))
-  const classes  = computed(() => [...[{ 'p-tag--flat': props.flat }], ...mappedStates.value])
+  const states = ['completed', 'cancelled', 'failed', 'pending', 'running', 'scheduled']
+  const mappedStates = computed(() => states.map(state => ({ [`p-tag--${state}`]: props.color?.toLowerCase() === state })))
+  const classes  = computed(() => [{ 'p-tag--flat': props.flat }, ...mappedStates.value])
 </script>
 
 <style>
@@ -36,6 +36,16 @@
   py-0.5
   text-sm
 }
+.p-tag:is(
+  .p-tag--completed,
+  .p-tag--cancelled,
+  .p-tag--failed,
+  .p-tag--pending,
+  .p-tag--running,
+  .p-tag--scheduled) {@apply
+    rounded-md
+}
+
 .p-tag--flat:is(
   .p-tag--completed,
   .p-tag, .p-tag--cancelled,
@@ -43,7 +53,7 @@
   .p-tag--pending,
   .p-tag--running,
   .p-tag--scheduled){ @apply
-  bg-transparent
+    bg-transparent
 }
 
 .p-tag--flat:is(
@@ -59,51 +69,45 @@
 
 .p-tag--completed { @apply
   text-slate-50
-  bg-stateColors-completed
-  rounded-md
+  bg-state-colors-completed
 }
 .p-tag--completed:is(.p-tag--flat) .p-tag--icon { @apply
-  text-stateColors-completed
+  text-state-colors-completed
 }
 .p-tag--cancelled { @apply
   text-slate-50
-  bg-stateColors-cancelled
-  rounded-md
+  bg-state-colors-cancelled
 }
 .p-tag--cancelled:is(.p-tag--flat) .p-tag--icon { @apply
-  text-stateColors-cancelled
+  text-state-colors-cancelled
 }
 .p-tag--failed{ @apply
   text-slate-50
-  bg-stateColors-failed
-  rounded-md
+  bg-state-colors-failed
 }
 .p-tag--failed:is(.p-tag--flat) .p-tag--icon { @apply
-  text-stateColors-failed
+  text-state-colors-failed
 }
 .p-tag--pending{ @apply
   text-slate-800
-  bg-stateColors-pending
-  rounded-md
+  bg-state-colors-pending
 }
 .p-tag--pending:is(.p-tag--flat) .p-tag--icon { @apply
-  text-stateColors-pending
+  text-state-colors-pending
 }
 .p-tag--running{ @apply
   text-slate-50
-  bg-stateColors-running
-  rounded-md
+  bg-state-colors-running
 }
 .p-tag--running:is(.p-tag--flat) .p-tag--icon { @apply
-  text-stateColors-running
+  text-state-colors-running
 }
 .p-tag--scheduled { @apply
   text-slate-800
-  bg-stateColors-scheduled
-  rounded-md
+  bg-state-colors-scheduled
 }
 .p-tag--scheduled:is(.p-tag--flat) .p-tag--icon { @apply
-  text-stateColors-scheduled
+  text-state-colors-scheduled
 }
 .p-tag--icon {@apply
   w-4
