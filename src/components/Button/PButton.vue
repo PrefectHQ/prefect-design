@@ -1,35 +1,41 @@
 <template>
   <button type="button" class="p-button" :class="classes" :disabled="disabled">
-    <div v-if="$slots.icon" class="p-button__icon">
-      <slot name="icon" />
+    <div v-if="icon" class="p-button__icon">
+      <p-icon :icon="icon" />
     </div>
     <slot />
   </button>
 </template>
 
 <script lang="ts" setup>
-  import { computed, withDefaults, useSlots } from 'vue'
+  import { computed, useSlots, PropType } from 'vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
+  import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
 
-  const props = withDefaults(defineProps<{
-    secondary?: boolean,
-    inset?: boolean,
-    rounded?: boolean,
-    disabled?: boolean,
-    size?: Size,
-  }>(), {
-    size: 'md',
+  const props = defineProps({
+    secondary: Boolean,
+    inset: Boolean,
+    rounded: Boolean,
+    disabled: Boolean,
+    size: {
+      type: String as PropType<Size>,
+      default: 'md',
+    },
+    icon: {
+      type: String as PropType<Icon>,
+      default: undefined,
+    },
   })
 
   const slots = useSlots()
-  console.log(slots)
 
   const classes = computed(() => ({
     'p-button--primary': !props.secondary && !props.inset,
     'p-button--secondary': props.secondary && !props.inset,
     'p-button--inset': props.inset,
     'p-button--rounded': props.rounded,
-    'p-button--equal-padding': slots.icon && !slots.default,
+    'p-button--equal-padding': props.icon && !slots.default,
     'p-button-xs': props.size === 'xs',
     'p-button-sm': props.size === 'sm',
     'p-button-md': props.size === 'md',
