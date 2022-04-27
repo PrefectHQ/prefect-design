@@ -1,10 +1,10 @@
 <template>
-  <div class="base-input" :class="classes" @click="control?.focus()">
+  <div class="base-input" :class="classes" :style="styles">
     <div v-if="prepend" class="base-input__prepend">
       {{ prepend }}
     </div>
     <slot name="prepend" />
-    <slot ref="control" name="control" :attrs="$attrs" />
+    <slot name="control" :attrs="attrs" />
     <div v-if="append" class="base-input__append">
       {{ append }}
     </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
+  import { defineComponent, computed, useAttrs } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -31,9 +31,16 @@
     append?: string,
   }>()
 
-  const control = ref<HTMLInputElement>()
+  const { class:attrClasses, style:attrStyles, ...attrs } = useAttrs()
+
+  const styles = computed(() => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...attrStyles as any,
+  }))
 
   const classes = computed(() => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...attrClasses as any,
     'base-input--valid': props.state?.valid,
     'base-input--invalid': props.state?.invalid,
     'base-input--changed': props.state?.changed,
