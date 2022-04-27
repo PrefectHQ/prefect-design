@@ -3,8 +3,8 @@
     class="p-tag"
     :class="classes"
   >
-    <div v-if="$slots.icon" class="p-tag--icon">
-      <slot name="icon" />
+    <div v-if="icon" class="p-tag--icon">
+      <p-icon :icon="icon" />
     </div>
 
     <span class="p-tag--label"><slot /></span>
@@ -12,11 +12,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import { computed } from 'vue'
+  import { Icon } from '@/types/icon'
 
   const props = defineProps<{
     color?: 'completed' | 'cancelled' | 'failed' | 'pending' | 'running' | 'scheduled',
     flat?: boolean,
+    icon?: Icon,
   }>()
 
   const states = ['completed', 'cancelled', 'failed', 'pending', 'running', 'scheduled']
