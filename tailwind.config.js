@@ -13,6 +13,15 @@ const prefectPalette = {
   900: '#01267C',
 }
 
+const stateColors = {
+  completed: '#2AC769',
+  cancelled: '#3D3D3D',
+  failed: '#FB4E4E',
+  pending: '#EBEEF7',
+  running: '#1860F2',
+  scheduled: '#FCD14E',
+}
+
 
 module.exports = {
   content: [
@@ -25,6 +34,7 @@ module.exports = {
       colors: {
         primary: prefectPalette[500],
         prefect: prefectPalette,
+        stateColors,
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
