@@ -33,6 +33,4 @@
 <script lang="ts" setup>
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
-
-  // Hello!
 </script>
