@@ -36,7 +36,7 @@
 <script lang="ts" setup>
   import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import PNumberInput from '@/components/NumberInput/PNumberInput.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { State } from '@/types/state'
@@ -47,5 +47,7 @@
   const exampleNumber = ref(null)
   const exampleSearch = ref('')
 
-  const exampleState = { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
+  const exampleState = computed(() => {
+    return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
+  })
 </script>
