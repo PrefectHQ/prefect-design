@@ -1,5 +1,12 @@
 import { default as PButton } from './Button'
+import { default as PTextInput } from './TextInput'
 
-export { PButton }
+export {
+  PButton,
+  PTextInput
+}
 
-export const installs = [PButton.install]
+export const installs = [
+  PButton.install,
+  PTextInput.install,
+]
