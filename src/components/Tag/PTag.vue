@@ -106,7 +106,7 @@
   text-stateColors-scheduled
 }
 .p-tag--icon {@apply
-  w-3
-  h-3
+  w-4
+  h-4
 }
 </style>
