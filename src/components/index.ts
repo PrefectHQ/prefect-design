@@ -1,5 +1,12 @@
 import { default as PButton } from './Button'
+import { default as PIcon } from './Icon'
 
-export { PButton }
+export {
+  PButton,
+  PIcon
+}
 
-export const installs = [PButton.install]
+export const installs = [
+  PButton.install,
+  PIcon.install,
+]
