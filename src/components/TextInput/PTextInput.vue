@@ -26,14 +26,14 @@
   import { State } from '@/types/state'
 
   const props = defineProps<{
-    modelValue: string,
+    modelValue: string | null,
     state?: State,
     prepend?: string,
     append?: string,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string): void,
+    (event: 'update:modelValue', value: string | null): void,
   }>()
 
   const control = ref<HTMLInputElement>()
@@ -42,7 +42,7 @@
     get() {
       return props.modelValue
     },
-    set(value: string) {
+    set(value: string | null) {
       emits('update:modelValue', value)
     },
   })
