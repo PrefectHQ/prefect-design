@@ -26,6 +26,4 @@
 
 <script lang="ts" setup>
   import Buttons from './Buttons.vue'
-
-  // Hello!
 </script>
