@@ -34,7 +34,7 @@
   text-black
   px-2.5
   py-0.5
-  text-xs
+  text-sm
 }
 .p-tag--flat:is(
   .p-tag--completed,
