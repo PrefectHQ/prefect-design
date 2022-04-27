@@ -31,16 +31,24 @@
     append?: string,
   }>()
 
-  const { class:attrClasses, style:attrStyles, ...attrs } = useAttrs()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const attrClasses = computed(() => useAttrs().class as any)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const attrStyles = computed(() => useAttrs().style as any)
+
+  const attrs = computed(() => {
+    const { class:_class, style:_style, ...attrs } = useAttrs()
+
+    return attrs
+  })
 
   const styles = computed(() => ({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ...attrStyles as any,
+    ...attrStyles.value,
   }))
 
   const classes = computed(() => ({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ...attrClasses as any,
+    ...attrClasses.value,
     'base-input--valid': props.state?.valid,
     'base-input--invalid': props.state?.invalid,
     'base-input--changed': props.state?.changed,
