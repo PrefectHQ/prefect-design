@@ -10,66 +10,29 @@
   </div>
 
   <div class="flex items-start gap-2 mb-4">
-    <p-button>
-      <template #icon>
-        <BeakerIcon />
-      </template>
+    <p-button icon="BeakerIcon">
       icon with text
     </p-button>
 
-    <p-button secondary>
-      <template #icon>
-        <BeakerIcon />
-      </template>
+    <p-button secondary icon="BeakerIcon">
       icon with text
     </p-button>
 
-    <p-button inset>
-      <template #icon>
-        <BeakerIcon />
-      </template>
+    <p-button inset icon="BeakerIcon">
       icon with text
     </p-button>
   </div>
 
   <div class="flex items-start gap-2 mb-4">
-    <p-button>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-
-    <p-button secondary>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-
-    <p-button inset>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
+    <p-button icon="BeakerIcon" />
+    <p-button secondary icon="BeakerIcon" />
+    <p-button inset icon="BeakerIcon" />
   </div>
 
   <div class="flex items-start gap-2 mb-4">
-    <p-button rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-
-    <p-button secondary rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-
-    <p-button inset rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
+    <p-button rounded icon="BeakerIcon" />
+    <p-button secondary rounded icon="BeakerIcon" />
+    <p-button inset rounded icon="BeakerIcon" />
   </div>
 
   <div class="flex items-start gap-2 mb-4">
@@ -91,51 +54,20 @@
   </div>
 
   <div class="flex items-start gap-2 mb-4">
-    <p-button size="xs" rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-    <p-button size="sm" rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-    <p-button size="md" rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-    <p-button size="lg" rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
-    <p-button size="xl" rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
+    <p-button size="xs" rounded icon="BeakerIcon" />
+    <p-button size="sm" rounded icon="BeakerIcon" />
+    <p-button size="md" rounded icon="BeakerIcon" />
+    <p-button size="lg" rounded icon="BeakerIcon" />
+    <p-button size="xl" rounded icon="BeakerIcon" />
   </div>
 
   <div class="flex items-start gap-2 mb-4">
     <p-button disabled>
       disabled
     </p-button>
-    <p-button disabled secondary>
-      <template #icon>
-        <BeakerIcon />
-      </template>
+    <p-button disabled secondary icon="BeakerIcon">
       disabled secondary with icon
     </p-button>
-    <p-button disabled inset rounded>
-      <template #icon>
-        <BeakerIcon />
-      </template>
-    </p-button>
+    <p-button disabled inset rounded icon="BeakerIcon" />
   </div>
 </template>
-
-<script lang="ts" setup>
-  import { BeakerIcon } from '@heroicons/vue/solid'
-</script>
