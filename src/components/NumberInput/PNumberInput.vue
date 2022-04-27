@@ -1,8 +1,8 @@
 <template>
-  <BaseInput class="p-text-input">
+  <BaseInput class="p-number-input">
     <slot v-for="(_, name) in $slots" :name="name" />
     <template #control>
-      <input v-model.number="value" type="number" class="p-text-input__control" @keypress="preventNonNumericalInput">
+      <input v-model.number="value" type="number" class="p-number-input__control" @keypress="preventNonNumericalInput">
     </template>
   </BaseInput>
 </template>
