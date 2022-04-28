@@ -1,12 +1,10 @@
 <template>
-  <span
-    class="p-tag"
-  >
-    <div v-if="icon" class="p-tag--icon">
+  <span class="p-tag">
+    <div v-if="icon" class="p-tag__icon">
       <p-icon :icon="icon" />
     </div>
 
-    <span class="p-tag--label">
+    <span class="p-tag__label">
       <slot>{{ label }}</slot>
     </span>
   </span>
