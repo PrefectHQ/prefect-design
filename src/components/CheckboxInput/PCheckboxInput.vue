@@ -1,17 +1,42 @@
 <template>
-  <input v-model="value" type="checkbox" class="p-checkbox-input" :class="classes" :disabled="disabled">
+  <div class="p-checkbox-input" :class="classes">
+    <label class="p-checkbox-input__label">
+      <slot name="label">
+        <div class="p-checkbox-input__label-text">
+          {{ label }}
+        </div>
+      </slot>
+      <input
+        v-model="value"
+        type="checkbox"
+        class="p-checkbox-input__control"
+        :disabled="disabled"
+        v-bind="$attrs"
+      >
+    </label>
+  </div>
 </template>
 
+<script lang="ts">
+  import { defineComponent, computed } from 'vue'
+
+  export default defineComponent({
+    name: 'PCheckboxInput',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { computed } from 'vue'
   import { State } from '@/types/state'
 
   type Booleanish = boolean | 'true' | 'false'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type ModelValue = Booleanish | any[] | undefined
+  type ModelValue = Booleanish | any[]
 
   const props = defineProps<{
-    modelValue: ModelValue,
+    modelValue?: ModelValue,
+    label?: string,
     state?: State,
     disabled?: boolean,
   }>()
@@ -47,15 +72,6 @@
 </script>
 
 <style>
-.p-checkbox-input { @apply
-  focus:ring-prefect-600
-  h-4
-  w-4
-  text-prefect-600
-  border-gray-300
-  rounded
-}
-
 .p-checkbox-input--disabled { @apply
   cursor-not-allowed
   opacity-50
@@ -64,5 +80,27 @@
 .p-checkbox-input--failed { @apply
   border-red-600
   focus:ring-red-600
+}
+
+.p-checkbox-input__control { @apply
+  focus:ring-prefect-600
+  h-4
+  w-4
+  text-prefect-600
+  border-gray-300
+  rounded
+}
+
+.p-checkbox-input__label { @apply
+  text-sm
+  font-medium
+  text-gray-700
+  flex
+  gap-x-2
+  items-center
+}
+
+.p-checkbox-input__label .p-checkbox-input__label-text { @apply
+  order-last
 }
 </style>
