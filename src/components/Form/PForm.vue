@@ -1,8 +1,10 @@
 <template>
   <form class="p-form" @submit.prevent="emits('submit', $event)">
     <div class="p-form__header">
-      <slot name="header">
-        {{ header }}
+      <slot name="heading">
+        <span>
+          {{ heading }}
+        </span>
       </slot>
     </div>
     <slot />
@@ -21,7 +23,7 @@
 
 <script lang="ts" setup>
   defineProps<{
-    header?: string,
+    heading?: string,
   }>()
 
   const emits = defineEmits<{

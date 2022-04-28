@@ -2,13 +2,17 @@
   <label class="p-label">
     <div class="p-label-text">
       <slot name="label">
-        {{ label }}
+        <span>
+          {{ label }}
+        </span>
       </slot>
     </div>
     <slot />
     <div class="p-label__message">
       <slot name="message">
-        {{ message }}
+        <span>
+          {{ message }}
+        </span>
       </slot>
     </div>
   </label>

@@ -2,7 +2,7 @@
   <div class="flex flex-col items-start gap-2 mb-4">
     <p-checkbox v-model="disabled" label="Disable All Fields" />
 
-    <p-form header="Header Text">
+    <p-form heading="Header Text">
       <p-label label="Plain text">
         <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" />
       </p-label>
