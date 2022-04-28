@@ -13,16 +13,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { withDefaults } from 'vue'
   import { Icon } from '@/types/icon'
-
-
-  const props = withDefaults(defineProps<{
+  const props = defineProps<{
     icon?: Icon,
     label: string,
-  }>(), {
-    label: '',
-  })
+  }>()
 </script>
 
 <style>
