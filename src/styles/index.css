@@ -4,10 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  padding: 24px;
-}
-
 [multiple],[type=date],[type=datetime-local],[type=email],[type=month],[type=number],[type=password],[type=search],[type=tel],[type=text],[type=time],[type=url],[type=week],select,textarea {
   border: none;
 }
