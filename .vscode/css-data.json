@@ -4,6 +4,10 @@
       {
           "name": "@apply",
           "description": "@apply tailwindcss classes"
+      },
+      {
+        "name": "@tailwind",
+        "description": "import tailwind modules"
       }
   ]
 }

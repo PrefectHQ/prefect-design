@@ -1,5 +1,5 @@
-
 export * from '@/components'
+export * from '@/types'
 
 import { App, Plugin } from 'vue'
 import { installs } from '@/components'
