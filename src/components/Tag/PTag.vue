@@ -4,7 +4,7 @@
       <p-icon :icon="icon" />
     </div>
 
-    <span class="p-tag--label">
+    <span class="p-tag__label">
       <slot>{{ label }}</slot>
     </span>
   </span>
