@@ -28,7 +28,7 @@
         <p-number-input v-model="exampleNumber" :disabled="disabled" :min="0" :max="20" />
       </p-label>
 
-      <p-label label="Props for prepend & append" lower-label="With some helpful text">
+      <p-label label="Props for prepend & append" message="With some helpful text">
         <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" />
       </p-label>
 
@@ -55,7 +55,7 @@
         </template>
       </p-checkbox>
 
-      <p-label label="Cartoons" :lower-label="JSON.stringify(exampleCheckboxArray)">
+      <p-label label="Cartoons" :message="JSON.stringify(exampleCheckboxArray)">
         <fieldset :disabled="disabled">
           <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Tom" label="Tom" />
           <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Jerry" label="Jerry" />

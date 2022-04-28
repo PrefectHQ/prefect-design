@@ -1,21 +1,21 @@
 <template>
   <form class="p-form" @submit.prevent="emits('submit', $event)">
-    <slot name="header">
-      <div class="p-form__header">
+    <div class="p-form__header">
+      <slot name="header">
         {{ header }}
-      </div>
-    </slot>
+      </slot>
+    </div>
     <slot />
-    <slot name="footer">
-      <div class="p-form__footer">
+    <div class="p-form__footer">
+      <slot name="footer">
         <p-button inset @click="emits('cancel')">
           Cancel
         </p-button>
         <p-button type="submit">
           Submit
         </p-button>
-      </div>
-    </slot>
+      </slot>
+    </div>
   </form>
 </template>
 

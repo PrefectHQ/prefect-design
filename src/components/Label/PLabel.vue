@@ -1,16 +1,16 @@
 <template>
   <label class="p-label">
-    <slot name="label">
-      <div class="p-label-text">
+    <div class="p-label-text">
+      <slot name="label">
         {{ label }}
-      </div>
-    </slot>
+      </slot>
+    </div>
     <slot />
-    <slot name="lower-label">
-      <div class="p-label__lower-label">
-        {{ lowerLabel }}
-      </div>
-    </slot>
+    <div class="p-label__message">
+      <slot name="message">
+        {{ message }}
+      </slot>
+    </div>
   </label>
 </template>
 
@@ -27,7 +27,7 @@
 <script lang="ts" setup>
   defineProps<{
     label?: string,
-    lowerLabel?: string,
+    message?: string,
   }>()
 </script>
 
@@ -42,7 +42,7 @@
   gap-y-1
 }
 
-.p-label__lower-label { @apply
+.p-label__message { @apply
   text-sm
   text-gray-500
 }
