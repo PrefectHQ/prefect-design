@@ -31,7 +31,6 @@
             </div>
           </div>
 
-
           <div class="px-4 py-8 sm:px-0">
             <span class="text-2xl">Tag</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
