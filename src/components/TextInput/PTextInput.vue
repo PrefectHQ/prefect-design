@@ -14,7 +14,7 @@
   import BaseInput from '@/components/BaseInput'
 
   const props = defineProps<{
-    modelValue: string | null,
+    modelValue: string | null | undefined,
   }>()
 
   const emits = defineEmits<{
@@ -23,7 +23,7 @@
 
   const value = computed({
     get() {
-      return props.modelValue
+      return props.modelValue ?? ''
     },
     set(value: string | null) {
       emits('update:modelValue', value)
