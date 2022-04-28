@@ -1,64 +1,67 @@
 <template>
   <div class="flex flex-col items-start gap-2 mb-4">
-    <div class="flex items-center gap-2">
-      <p-checkbox v-model="disabled" /> Disable All Fields
-    </div>
+    <p-checkbox v-model="disabled" label="Disable All Fields" />
 
-    <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" />
+    <p-form heading="Header Text">
+      <p-label label="Plain text">
+        <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" />
+      </p-label>
 
-    <p-text-input
-      v-model="exampleText"
-      :disabled="disabled"
-      :state="exampleState"
-      placeholder="stateful"
-    />
+      <p-label label="Stateful text">
+        <p-text-input v-model="exampleText" :disabled="disabled" :state="exampleState" placeholder="failed" />
+      </p-label>
 
-    <p-text-input v-model="exampleUrl" :disabled="disabled" class="form__url">
-      <template #prepend>
-        <span class="pl-2">https://</span>
-      </template>
-      <template #append>
-        <span class="h-5 w-5 text-gray-500 mx-2">
-          <ArchiveIcon />
-        </span>
-      </template>
-    </p-text-input>
+      <p-label label="Slots for prepend & append">
+        <p-text-input v-model="exampleUrl" :disabled="disabled" class="form__url">
+          <template #prepend>
+            <span class="pl-2">https://</span>
+          </template>
+          <template #append>
+            <span class="h-5 w-5 text-gray-500 mx-2">
+              <ArchiveIcon />
+            </span>
+          </template>
+        </p-text-input>
+      </p-label>
 
-    <p-number-input v-model="exampleNumber" :disabled="disabled" placeholder="numbers" :min="0" :max="20" />
+      <p-label label="Numbers only">
+        <p-number-input v-model="exampleNumber" :disabled="disabled" :min="0" :max="20" />
+      </p-label>
 
-    <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" />
+      <p-label label="Props for prepend & append" message="With some helpful text">
+        <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" />
+      </p-label>
 
-    <p-text-input v-model="exampleSearch" :disabled="disabled" type="search" placeholder="search...">
-      <template #prepend>
-        <span class="h-5 w-5 text-gray-500 ml-2">
-          <SearchIcon />
-        </span>
-      </template>
-    </p-text-input>
+      <p-label label="Search">
+        <p-text-input v-model="exampleSearch" :disabled="disabled" type="search" placeholder="search...">
+          <template #prepend>
+            <span class="h-5 w-5 text-gray-500 ml-2">
+              <SearchIcon />
+            </span>
+          </template>
+        </p-text-input>
+      </p-label>
 
-    <p-textarea v-model="exampleTextarea" :disabled="disabled" />
+      <p-label label="Text area">
+        <p-textarea v-model="exampleTextarea" :disabled="disabled" editor="textarea" />
+      </p-label>
 
-    <div class="flex items-center gap-2">
-      <p-checkbox v-model="exampleBoolean" :disabled="disabled" />
-      <span @click="exampleBoolean = !exampleBoolean">
-        <span v-if="typeof exampleBoolean === 'boolean'">{{ exampleBoolean }}</span>
-        <em v-else>undefined</em>
-      </span>
-    </div>
+      <p-checkbox v-model="exampleBoolean" :disabled="disabled">
+        <template #label>
+          <span class="order-last">
+            <span v-if="typeof exampleBoolean === 'boolean'">{{ exampleBoolean }}</span>
+            <em v-else>undefined</em>
+          </span>
+        </template>
+      </p-checkbox>
 
-    <div class="flex items-center gap-2">
-      <div class="flex items-center gap-2">
-        <p-checkbox v-model="exampleCheckboxArray" value="Tom" :disabled="disabled" />
-        Tom
-      </div>
-
-      <div class="flex items-center gap-2">
-        <p-checkbox v-model="exampleCheckboxArray" value="Jerry" :disabled="disabled" />
-        Jerry
-      </div>
-
-      <div>{{ exampleCheckboxArray }}</div>
-    </div>
+      <p-label label="Cartoons" :message="JSON.stringify(exampleCheckboxArray)">
+        <fieldset :disabled="disabled">
+          <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Tom" label="Tom" />
+          <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Jerry" label="Jerry" />
+        </fieldset>
+      </p-label>
+    </p-form>
   </div>
 </template>
 
@@ -67,6 +70,8 @@
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
   import PCheckbox from '@/components/Checkbox'
+  import PForm from '@/components/Form'
+  import PLabel from '@/components/Label'
   import PNumberInput from '@/components/NumberInput'
   import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
@@ -80,7 +85,7 @@
   const exampleNumber = ref(null)
   const exampleSearch = ref('')
   const exampleTextarea = ref('')
-  const exampleBoolean = ref<boolean>()
+  const exampleBoolean = ref<boolean>(false)
   const exampleCheckboxArray = ref<string[]>([])
 
   const exampleState = computed(() => {
