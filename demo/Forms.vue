@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-start gap-2 mb-4">
     <div class="flex items-center gap-2">
-      <p-checkbox-input v-model="disabled" /> Disable All Fields
+      <p-checkbox v-model="disabled" /> Disable All Fields
     </div>
 
     <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" />
@@ -36,10 +36,10 @@
       </template>
     </p-text-input>
 
-    <p-textarea-input v-model="exampleTextarea" :disabled="disabled" />
+    <p-textarea v-model="exampleTextarea" :disabled="disabled" />
 
     <div class="flex items-center gap-2">
-      <p-checkbox-input v-model="exampleBoolean" :disabled="disabled" />
+      <p-checkbox v-model="exampleBoolean" :disabled="disabled" />
       <span @click="exampleBoolean = !exampleBoolean">
         <span v-if="typeof exampleBoolean === 'boolean'">{{ exampleBoolean }}</span>
         <em v-else>undefined</em>
@@ -48,12 +48,12 @@
 
     <div class="flex items-center gap-2">
       <div class="flex items-center gap-2">
-        <p-checkbox-input v-model="exampleCheckboxArray" value="Tom" :disabled="disabled" />
+        <p-checkbox v-model="exampleCheckboxArray" value="Tom" :disabled="disabled" />
         Tom
       </div>
 
       <div class="flex items-center gap-2">
-        <p-checkbox-input v-model="exampleCheckboxArray" value="Jerry" :disabled="disabled" />
+        <p-checkbox v-model="exampleCheckboxArray" value="Jerry" :disabled="disabled" />
         Jerry
       </div>
 
@@ -66,9 +66,9 @@
   import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
-  import PCheckboxInput from '@/components/CheckboxInput'
+  import PCheckbox from '@/components/Checkbox'
   import PNumberInput from '@/components/NumberInput'
-  import PTextareaInput from '@/components/TextareaInput'
+  import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
 
