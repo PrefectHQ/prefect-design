@@ -43,7 +43,7 @@
       </p-label>
 
       <p-label label="Text area">
-        <p-textarea-input v-model="exampleTextarea" :disabled="disabled" editor="textarea" />
+        <p-textarea v-model="exampleTextarea" :disabled="disabled" editor="textarea" />
       </p-label>
 
       <p-checkbox v-model="exampleBoolean" :disabled="disabled">
@@ -73,7 +73,7 @@
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
   import PNumberInput from '@/components/NumberInput'
-  import PTextareaInput from '@/components/TextareaInput'
+  import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
 
