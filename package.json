@@ -16,7 +16,8 @@
     "dev": "vue-tsc -w & tsc-alias -w & vite build -w",
     "build": "vue-tsc && tsc-alias && vite build",
     "build:demo": "vite build --mode=demo",
-    "lint:fix": "eslint src --fix --debug"
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.es.js",
