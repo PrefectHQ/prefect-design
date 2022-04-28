@@ -50,6 +50,4 @@
   import Forms from './Forms.vue'
   import Tag from './Tag.vue'
   import Toggle from './Toggle.vue'
-
-  // Hello!
 </script>
