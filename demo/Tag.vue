@@ -7,7 +7,6 @@
       {{ item.name }}
     </p-tag>
   </div>
-  <p-tag label="text" />
 </template>
 
 <script lang="ts" setup>

@@ -11,6 +11,7 @@
 </template>
 
 <script lang="ts" setup>
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
 
   defineProps<{
