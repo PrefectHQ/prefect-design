@@ -18,27 +18,15 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.flagWords": [
-    "canceled",
-    "gray"
-  ],
   "cSpell.words": [
-    "backoff",
-    "composables",
-    "datetime",
-    "deauthorize",
-    "dismissable",
-    "emperical",
-    "Errored",
-    "idempotency",
-    "performantly",
-    "pinia",
+    "heroicons",
     "prefecthq",
-    "subflow",
+    "tailwindcss",
     "vite"
   ],
   "files.exclude": {
     "node_modules": true,
     "dist": true
   },
+  "css.customData": ["./.vscode/css-data.json"]
 }
