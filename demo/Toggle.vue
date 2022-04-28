@@ -1,18 +1,14 @@
 <template>
-  <div>
-    <p-toggle v-model="toggleOne">
-      <template #append>
-        <span class="text-sm font-medium text-gray-900">{{ toggleOne }}</span>
-      </template>
-    </p-toggle>
-  </div>
-  <div class="py-2">
-    <p-toggle v-model="toggleTwo" disabled>
-      <template #append>
-        <span class="text-sm font-medium text-gray-900">disabled</span>
-      </template>
-    </p-toggle>
-  </div>
+  <p-toggle v-model="toggleOne">
+    <template #append>
+      <span class="text-sm font-medium text-gray-900">{{ toggleOne }}</span>
+    </template>
+  </p-toggle>
+  <p-toggle v-model="toggleTwo" class="py-2" disabled>
+    <template #append>
+      <span class="text-sm font-medium text-gray-900">disabled</span>
+    </template>
+  </p-toggle>
 </template>
 
 <script lang="ts" setup>
