@@ -1,3 +1,4 @@
+const forms = require('@tailwindcss/forms')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 const prefectPalette = {
@@ -31,5 +32,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [forms],
 }

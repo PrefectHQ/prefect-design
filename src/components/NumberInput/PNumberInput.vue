@@ -1,8 +1,8 @@
 <template>
   <BaseInput class="p-number-input">
     <slot v-for="(_, name) in $slots" :name="name" />
-    <template #control>
-      <input v-model.number="value" type="number" class="p-number-input__control" @keypress="preventNonNumericalInput">
+    <template #control="{ attrs }">
+      <input v-model.number="value" type="number" class="p-number-input__control" v-bind="attrs" @keypress="preventNonNumericalInput">
     </template>
   </BaseInput>
 </template>
@@ -42,6 +42,10 @@
 </script>
 
 <style>
+.p-number-input__control {
+  cursor: inherit;
+}
+
 .p-number-input__control { @apply
   block
   w-full

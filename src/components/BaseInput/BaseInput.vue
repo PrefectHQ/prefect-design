@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, useAttrs } from 'vue'
+  import { defineComponent, computed, useAttrs, StyleValue } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -25,42 +25,56 @@
 <script lang="ts" setup>
   import { State } from '@/types/state'
 
+  type ClassValue = string | string[] | Record<string, boolean>
+
   const props = defineProps<{
     state?: State,
     prepend?: string,
     append?: string,
+    disabled?: boolean,
   }>()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const attrClasses = computed(() => useAttrs().class as any)
+  const attrClasses = computed(() => {
+    const value = useAttrs().class as ClassValue
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const attrStyles = computed(() => useAttrs().style as any)
+    if (Array.isArray(value)) {
+      return value.reduce((reduced, key) => ({
+        [key]: true,
+      }), {})
+    }
+
+    if (typeof value === 'string') {
+      return { [value]: true }
+    }
+
+    return value
+  })
+
+  const attrStyles = computed(() => useAttrs().style as StyleValue)
 
   const attrs = computed(() => {
     const { class:_class, style:_style, ...attrs } = useAttrs()
 
-    return attrs
+    return { ...attrs, disabled: props.disabled }
   })
 
-  const styles = computed(() => ({
-    ...attrStyles.value,
-  }))
+  const styles = computed(() => [attrStyles.value])
 
   const classes = computed(() => ({
     ...attrClasses.value,
-    'base-input--valid': props.state?.valid,
-    'base-input--invalid': props.state?.invalid,
-    'base-input--changed': props.state?.changed,
-    'base-input--touched': props.state?.touched,
-    'base-input--untouched': props.state?.untouched,
-    'base-input--pristine': props.state?.pristine,
-    'base-input--dirty': props.state?.dirty,
-    'base-input--pending': props.state?.pending,
-    'base-input--required': props.state?.required,
-    'base-input--validated': props.state?.validated,
-    'base-input--passed': props.state?.passed,
-    'base-input--failed': props.state?.failed,
+    'base-input--disabled': props.disabled,
+    'base-input--valid': !!props.state?.valid,
+    'base-input--invalid': !!props.state?.invalid,
+    'base-input--changed': !!props.state?.changed,
+    'base-input--touched': !!props.state?.touched,
+    'base-input--untouched': !!props.state?.untouched,
+    'base-input--pristine': !!props.state?.pristine,
+    'base-input--dirty': !!props.state?.dirty,
+    'base-input--pending': !!props.state?.pending,
+    'base-input--required': !!props.state?.required,
+    'base-input--validated': !!props.state?.validated,
+    'base-input--passed': !!props.state?.passed,
+    'base-input--failed': !!props.state?.failed,
   }))
 </script>
 
