@@ -30,6 +30,8 @@
         </span>
       </template>
     </p-text-input>
+
+    <p-textarea-input v-model="exampleTextarea" />
   </div>
 </template>
 
@@ -37,8 +39,9 @@
   import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
-  import PNumberInput from '@/components/NumberInput/PNumberInput.vue'
-  import PTextInput from '@/components/TextInput/PTextInput.vue'
+  import PNumberInput from '@/components/NumberInput'
+  import PTextareaInput from '@/components/TextareaInput'
+  import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
 
   const exampleText = ref('')
@@ -46,6 +49,7 @@
   const exampleDollars = ref(0)
   const exampleNumber = ref(null)
   const exampleSearch = ref('')
+  const exampleTextarea = ref('')
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
