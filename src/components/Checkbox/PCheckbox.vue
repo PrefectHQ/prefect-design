@@ -60,6 +60,10 @@
 </script>
 
 <style>
+.p-checkbox { @apply
+  my-1
+}
+
 .p-checkbox--disabled,
 :disabled .p-checkbox { @apply
   cursor-not-allowed
