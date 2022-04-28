@@ -2,7 +2,7 @@
   <BaseInput class="p-number-input">
     <slot v-for="(_, name) in $slots" :name="name" />
     <template #control>
-      <input v-model.number="value" type="number" class="p-number-input__control" @keypress="preventNonNumericalInput">
+      <input v-model="value" type="number" class="p-number-input__control" @keypress="preventNonNumericalInput">
     </template>
   </BaseInput>
 </template>
@@ -12,7 +12,7 @@
   import BaseInput from '@/components/BaseInput'
 
   const props = defineProps<{
-    modelValue: number | null,
+    modelValue: number | null | undefined,
   }>()
 
   const emits = defineEmits<{
@@ -21,15 +21,18 @@
 
   const value = computed({
     get() {
-      return props.modelValue
+      return props.modelValue ?? ''
     },
-    set(value: number | string | null) {
-      if (typeof value === 'string') {
-        const parsed = parseFloat(value)
-
-        value = isNaN(parsed) ? null : parsed
+    set(value: number | string) {
+      if (typeof value === 'number') {
+        emits('update:modelValue', value)
+        return
       }
-      emits('update:modelValue', value)
+
+      const parsed = parseFloat(value)
+      const nullOrValue = isNaN(parsed) ? null : parsed
+
+      emits('update:modelValue', nullOrValue)
     },
   })
 
