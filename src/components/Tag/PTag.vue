@@ -21,7 +21,7 @@
 </script>
 
 <style>
-.p-tag {@apply
+.p-tag { @apply
   gap-1
   inline-flex
   items-center
@@ -32,7 +32,7 @@
   py-0.5
   text-sm
 }
-.p-tag--icon {@apply
+.p-tag__icon { @apply
   w-4
   h-4
 }
