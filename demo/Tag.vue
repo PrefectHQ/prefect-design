@@ -7,14 +7,7 @@
       {{ item.name }}
     </p-tag>
   </div>
-
-  <div class="my-2">
-    <p-tag v-for="item in ['completed', 'cancelled', 'failed']" :key="item" icon="TagIcon" flat :class="`tag--${item}-flat`">
-      {{ item }}
-    </p-tag>
-  </div>
-  <p-tag value="text" />
-  <p-tag />
+  <p-tag label="text" />
 </template>
 
 <script lang="ts" setup>
@@ -30,6 +23,15 @@
 </script>
 
 <style>
+:root {
+  --completed: #2AC769;
+  --cancelled: #3D3D3D;
+  --failed: #FB4E4E;
+  --pending: #EBEEF7;
+  --running: #1860F2;
+  --scheduled: #FCD14E;
+}
+
 .tag {@apply
  rounded-md
 }
@@ -41,38 +43,28 @@
   text-slate-800
 }
 
-.tag--completed {@apply
-  bg-state-colors-completed
+.tag--completed {
+  background-color: var(--completed)
 }
 
-.tag--completed-flat .p-tag--icon{@apply
-  text-state-colors-completed
-}
-.tag--cancelled-flat .p-tag--icon{@apply
-  text-state-colors-cancelled
-}
-.tag--failed-flat .p-tag--icon{@apply
-  text-state-colors-failed
+.tag--cancelled {
+  background-color: var(--cancelled)
 }
 
-.tag--cancelled { @apply
-  bg-state-colors-cancelled
+.tag--failed{
+  background-color: var(--failed)
 }
 
-.tag--failed{ @apply
-  bg-state-colors-failed
+.tag--pending{
+  background-color: var(--pending)
 }
 
-.tag--pending{ @apply
-  bg-state-colors-pending
+.tag--running{
+  background-color: var(--running)
 }
 
-.tag--running{ @apply
-  bg-state-colors-running
-}
-
-.tag--scheduled { @apply
-  bg-state-colors-scheduled
+.tag--scheduled {
+  background-color: var(--scheduled)
 }
 </style>
 

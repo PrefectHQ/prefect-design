@@ -25,16 +25,20 @@
           </div>
 
           <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Toggle</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Toggle />
+            </div>
+          </div>
+
+
+          <div class="px-4 py-8 sm:px-0">
             <span class="text-2xl">Tag</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
               <Tag />
-              <span class="text-2xl">Toggle</span>
-              <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-                <Toggle />
-              </div>
             </div>
-          <!-- /End replace -->
           </div>
+          <!-- /End replace -->
         </div>
       </main>
     </div>
