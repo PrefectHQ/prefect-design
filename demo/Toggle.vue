@@ -7,15 +7,11 @@
     </p-toggle>
   </div>
   <div class="py-2">
-    <p-toggle v-model="toggleTwo">
-      <template #prepend>
-        <span class="text-sm font-medium text-gray-900">{{ toggleTwo }}</span>
+    <p-toggle v-model="toggleTwo" disabled>
+      <template #append>
+        <span class="text-sm font-medium text-gray-900">disabled</span>
       </template>
     </p-toggle>
-  </div>
-
-  <div class="py-2">
-    <p-toggle v-model="toggleThree" disabled />
   </div>
 </template>
 
@@ -25,6 +21,5 @@
 
   const toggleOne = ref(false)
   const toggleTwo = ref(false)
-  const toggleThree = ref(false)
 </script>
 
