@@ -7,18 +7,24 @@
       <p-icon :icon="icon" />
     </div>
 
-    <span class="p-tag--label"><slot /></span>
+    <span class="p-tag--label">
+      <slot>{{ value }}</slot>
+    </span>
   </span>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, withDefaults } from 'vue'
   import { Icon } from '@/types/icon'
 
-  const props = defineProps<{
+
+  const props = withDefaults(defineProps<{
     flat?: boolean,
     icon?: Icon,
-  }>()
+    value?: string,
+  }>(), {
+    value: '--',
+  })
 
   const classes = computed(() => ({
     'p-tag--flat': props.flat,

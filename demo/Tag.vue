@@ -13,6 +13,8 @@
       {{ item }}
     </p-tag>
   </div>
+  <p-tag value="text" />
+  <p-tag />
 </template>
 
 <script lang="ts" setup>
