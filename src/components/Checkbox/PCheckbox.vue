@@ -21,7 +21,7 @@
   import { defineComponent, computed } from 'vue'
 
   export default defineComponent({
-    name: 'PCheckboxInput',
+    name: 'PCheckbox',
     expose: [],
     inheritAttrs: false,
   })
@@ -30,9 +30,8 @@
 <script lang="ts" setup>
   import { State } from '@/types/state'
 
-  type Booleanish = boolean | 'true' | 'false'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type ModelValue = Booleanish | any[]
+  type ModelValue = boolean | any[]
 
   const props = defineProps<{
     modelValue?: ModelValue,
