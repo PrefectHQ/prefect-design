@@ -32,6 +32,10 @@
 </script>
 
 <style>
+.p-textarea-input__control {
+  cursor: inherit;
+}
+
 .p-textarea-input__control { @apply
   block
   w-full

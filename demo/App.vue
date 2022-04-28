@@ -28,9 +28,13 @@
             <span class="text-2xl">Tag</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
               <Tag />
+              <span class="text-2xl">Toggle</span>
+              <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+                <Toggle />
+              </div>
             </div>
-          </div>
           <!-- /End replace -->
+          </div>
         </div>
       </main>
     </div>
@@ -41,6 +45,7 @@
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
   import Tag from './Tag.vue'
+  import Toggle from './Toggle.vue'
 
   // Hello!
 </script>
