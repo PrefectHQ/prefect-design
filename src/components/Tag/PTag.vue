@@ -12,9 +12,10 @@
 
 <script lang="ts" setup>
   import { Icon } from '@/types/icon'
-  const props = defineProps<{
+
+  defineProps<{
     icon?: Icon,
-    label: string,
+    label?: string,
   }>()
 </script>
 
