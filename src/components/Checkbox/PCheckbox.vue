@@ -31,10 +31,10 @@
   import { State } from '@/types/state'
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type ModelValue = boolean | any[]
+  type ModelValue = boolean | any[] | undefined
 
   const props = defineProps<{
-    modelValue: ModelValue,
+    modelValue: ModelValue | null,
     label?: string,
     state?: State,
     disabled?: boolean,
@@ -46,7 +46,7 @@
 
   const value = computed({
     get() {
-      return props.modelValue
+      return props.modelValue ?? undefined
     },
     set(value: ModelValue) {
       emits('update:modelValue', value)

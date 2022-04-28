@@ -12,7 +12,7 @@
   import BaseInput from '@/components/BaseInput'
 
   const props = defineProps<{
-    modelValue: number | null,
+    modelValue: number | null | undefined,
   }>()
 
   const emits = defineEmits<{
@@ -21,15 +21,18 @@
 
   const value = computed({
     get() {
-      return props.modelValue
+      return props.modelValue ?? ''
     },
-    set(value: number | string | null) {
-      if (typeof value === 'string') {
-        const parsed = parseFloat(value)
-
-        value = isNaN(parsed) ? null : parsed
+    set(value: number | string) {
+      if (typeof value === 'number') {
+        emits('update:modelValue', value)
+        return
       }
-      emits('update:modelValue', value)
+
+      const parsed = parseFloat(value)
+      const nullOrValue = isNaN(parsed) ? null : parsed
+
+      emits('update:modelValue', nullOrValue)
     },
   })
 
