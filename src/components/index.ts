@@ -5,7 +5,7 @@ import { default as PIcon } from './Icon'
 import { default as PLabel } from './Label'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTag } from './Tag'
-import { default as PTextarea, default as PTextareaInput } from './Textarea'
+import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
 import { default as PToggle } from './Toggle'
 
@@ -16,11 +16,10 @@ export {
   PLabel,
   PIcon,
   PNumberInput,
-  PTag,
-  PTextareaInput,
   PTextarea,
   PTextInput,
-  PToggle
+  PToggle,
+  PTag
 }
 
 export const installs = [
@@ -30,9 +29,8 @@ export const installs = [
   PLabel.install,
   PIcon.install,
   PNumberInput.install,
-  PTag.install,
-  PTextareaInput.install,
   PTextarea.install,
   PTextInput.install,
   PToggle.install,
+  PTag.install,
 ]
