@@ -63,17 +63,6 @@
   const classes = computed(() => ({
     ...attrClasses.value,
     'base-input--disabled': props.disabled,
-    'base-input--valid': !!props.state?.valid,
-    'base-input--invalid': !!props.state?.invalid,
-    'base-input--changed': !!props.state?.changed,
-    'base-input--touched': !!props.state?.touched,
-    'base-input--untouched': !!props.state?.untouched,
-    'base-input--pristine': !!props.state?.pristine,
-    'base-input--dirty': !!props.state?.dirty,
-    'base-input--pending': !!props.state?.pending,
-    'base-input--required': !!props.state?.required,
-    'base-input--validated': !!props.state?.validated,
-    'base-input--passed': !!props.state?.passed,
     'base-input--failed': !!props.state?.failed,
   }))
 </script>
@@ -92,7 +81,8 @@
   rounded-md
 }
 
-.base-input--disabled { @apply
+.base-input--disabled,
+:disabled .base-input { @apply
   cursor-not-allowed
   opacity-50
 }
