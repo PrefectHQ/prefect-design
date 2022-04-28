@@ -30,6 +30,13 @@
               <Toggle />
             </div>
           </div>
+
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Tag</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Tag />
+            </div>
+          </div>
           <!-- /End replace -->
         </div>
       </main>
@@ -40,5 +47,6 @@
 <script lang="ts" setup>
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
+  import Tag from './Tag.vue'
   import Toggle from './Toggle.vue'
 </script>

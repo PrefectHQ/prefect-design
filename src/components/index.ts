@@ -4,6 +4,7 @@ import { default as PForm } from './Form'
 import { default as PIcon } from './Icon'
 import { default as PLabel } from './Label'
 import { default as PNumberInput } from './NumberInput'
+import { default as PTag } from './Tag'
 import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
 import { default as PToggle } from './Toggle'
@@ -17,7 +18,8 @@ export {
   PNumberInput,
   PTextarea,
   PTextInput,
-  PToggle
+  PToggle,
+  PTag
 }
 
 export const installs = [
@@ -30,4 +32,5 @@ export const installs = [
   PTextarea.install,
   PTextInput.install,
   PToggle.install,
+  PTag.install,
 ]
