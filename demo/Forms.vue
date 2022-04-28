@@ -31,7 +31,7 @@
       </template>
     </p-text-input>
 
-    <p-textarea-input v-model="exampleTextarea" />
+    <p-textarea v-model="exampleTextarea" />
   </div>
 </template>
 
@@ -40,7 +40,7 @@
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
   import PNumberInput from '@/components/NumberInput'
-  import PTextareaInput from '@/components/TextareaInput'
+  import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
 
