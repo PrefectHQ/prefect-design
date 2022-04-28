@@ -53,5 +53,7 @@
   block
   w-full
   rounded-md
+  border-0
+  focus:ring-0
 }
 </style>
