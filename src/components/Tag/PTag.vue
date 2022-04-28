@@ -1,7 +1,5 @@
 <template>
-  <span
-    class="p-tag"
-  >
+  <span class="p-tag">
     <div v-if="icon" class="p-tag--icon">
       <p-icon :icon="icon" />
     </div>
