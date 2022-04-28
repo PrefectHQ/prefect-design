@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, useAttrs } from 'vue'
+  import { defineComponent, computed, useAttrs, StyleValue } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -25,17 +25,31 @@
 <script lang="ts" setup>
   import { State } from '@/types/state'
 
+  type ClassValue = string | string[] | Record<string, boolean>
+
   const props = defineProps<{
     state?: State,
     prepend?: string,
     append?: string,
   }>()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const attrClasses = computed(() => useAttrs().class as any)
+  const attrClasses = computed(() => {
+    const value = useAttrs().class as ClassValue
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const attrStyles = computed(() => useAttrs().style as any)
+    if (Array.isArray(value)) {
+      return value.reduce((reduced, key) => ({
+        [key]: true,
+      }), {})
+    }
+
+    if (typeof value === 'string') {
+      return { [value]: true }
+    }
+
+    return value
+  })
+
+  const attrStyles = computed(() => useAttrs().style as StyleValue)
 
   const attrs = computed(() => {
     const { class:_class, style:_style, ...attrs } = useAttrs()
@@ -43,9 +57,7 @@
     return attrs
   })
 
-  const styles = computed(() => ({
-    ...attrStyles.value,
-  }))
+  const styles = computed(() => [attrStyles.value])
 
   const classes = computed(() => ({
     ...attrClasses.value,
