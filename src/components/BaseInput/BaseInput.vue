@@ -31,6 +31,7 @@
     state?: State,
     prepend?: string,
     append?: string,
+    disabled?: boolean,
   }>()
 
   const attrClasses = computed(() => {
@@ -54,25 +55,26 @@
   const attrs = computed(() => {
     const { class:_class, style:_style, ...attrs } = useAttrs()
 
-    return attrs
+    return { ...attrs, disabled: props.disabled }
   })
 
   const styles = computed(() => [attrStyles.value])
 
   const classes = computed(() => ({
     ...attrClasses.value,
-    'base-input--valid': props.state?.valid,
-    'base-input--invalid': props.state?.invalid,
-    'base-input--changed': props.state?.changed,
-    'base-input--touched': props.state?.touched,
-    'base-input--untouched': props.state?.untouched,
-    'base-input--pristine': props.state?.pristine,
-    'base-input--dirty': props.state?.dirty,
-    'base-input--pending': props.state?.pending,
-    'base-input--required': props.state?.required,
-    'base-input--validated': props.state?.validated,
-    'base-input--passed': props.state?.passed,
-    'base-input--failed': props.state?.failed,
+    'base-input--disabled': props.disabled,
+    'base-input--valid': !!props.state?.valid,
+    'base-input--invalid': !!props.state?.invalid,
+    'base-input--changed': !!props.state?.changed,
+    'base-input--touched': !!props.state?.touched,
+    'base-input--untouched': !!props.state?.untouched,
+    'base-input--pristine': !!props.state?.pristine,
+    'base-input--dirty': !!props.state?.dirty,
+    'base-input--pending': !!props.state?.pending,
+    'base-input--required': !!props.state?.required,
+    'base-input--validated': !!props.state?.validated,
+    'base-input--passed': !!props.state?.passed,
+    'base-input--failed': !!props.state?.failed,
   }))
 </script>
 
