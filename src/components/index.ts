@@ -4,6 +4,7 @@ import { default as PNumberInput } from './NumberInput'
 import { default as PTextareaInput } from './TextareaInput'
 import { default as PTextInput } from './TextInput'
 import { default as PToggle } from './Toggle'
+
 export {
   PButton,
   PIcon,
