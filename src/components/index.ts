@@ -3,13 +3,15 @@ import { default as PIcon } from './Icon'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTextareaInput } from './TextareaInput'
 import { default as PTextInput } from './TextInput'
+import { default as PToggle } from './Toggle'
 
 export {
   PButton,
   PIcon,
   PNumberInput,
   PTextareaInput,
-  PTextInput
+  PTextInput,
+  PToggle
 }
 
 export const installs = [
@@ -18,4 +20,5 @@ export const installs = [
   PNumberInput.install,
   PTextareaInput.install,
   PTextInput.install,
+  PToggle.install,
 ]
