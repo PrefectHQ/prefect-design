@@ -1,6 +1,6 @@
 <template>
   <label class="p-label">
-    <div class="p-label-text">
+    <div class="p-label__text">
       <slot name="label">
         <span>
           {{ label }}
