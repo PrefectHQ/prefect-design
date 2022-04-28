@@ -3,6 +3,7 @@
     "johnsoncodehk.volar",
     "johnsoncodehk.vscode-typescript-vue-plugin",
     "dbaeumer.vscode-eslint",
-    "syler.sass-indented"
+    "syler.sass-indented",
+    "bradlc.vscode-tailwindcss"
   ]
 }
