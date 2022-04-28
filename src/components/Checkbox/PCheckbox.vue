@@ -34,7 +34,7 @@
   type ModelValue = boolean | any[]
 
   const props = defineProps<{
-    modelValue?: ModelValue,
+    modelValue: ModelValue,
     label?: string,
     state?: State,
     disabled?: boolean,
@@ -46,7 +46,7 @@
 
   const value = computed({
     get() {
-      return props.modelValue ?? false
+      return props.modelValue
     },
     set(value: ModelValue) {
       emits('update:modelValue', value)
@@ -55,23 +55,13 @@
 
   const classes = computed(() => ({
     'p-checkbox--disabled': props.disabled,
-    'p-checkbox--valid': !!props.state?.valid,
-    'p-checkbox--invalid': !!props.state?.invalid,
-    'p-checkbox--changed': !!props.state?.changed,
-    'p-checkbox--touched': !!props.state?.touched,
-    'p-checkbox--untouched': !!props.state?.untouched,
-    'p-checkbox--pristine': !!props.state?.pristine,
-    'p-checkbox--dirty': !!props.state?.dirty,
-    'p-checkbox--pending': !!props.state?.pending,
-    'p-checkbox--required': !!props.state?.required,
-    'p-checkbox--validated': !!props.state?.validated,
-    'p-checkbox--passed': !!props.state?.passed,
     'p-checkbox--failed': !!props.state?.failed,
   }))
 </script>
 
 <style>
-.p-checkbox--disabled { @apply
+.p-checkbox--disabled,
+:disabled .p-checkbox { @apply
   cursor-not-allowed
   opacity-50
 }
