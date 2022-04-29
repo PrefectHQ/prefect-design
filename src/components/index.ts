@@ -7,6 +7,7 @@ import { default as PNumberInput } from './NumberInput'
 import { default as PTag } from './Tag'
 import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
+import { default as PToast } from './Toast'
 import { default as PToggle } from './Toggle'
 
 export {
@@ -18,6 +19,7 @@ export {
   PNumberInput,
   PTextarea,
   PTextInput,
+  PToast,
   PToggle,
   PTag
 }
@@ -31,6 +33,7 @@ export const installs = [
   PNumberInput.install,
   PTextarea.install,
   PTextInput.install,
+  PToast.install,
   PToggle.install,
   PTag.install,
 ]
