@@ -1,15 +1,30 @@
 <template>
-  <p-tag v-for="tag in visibleTags" :key="tag" class="mr-1">
+  <!--
+    <p-tag v-for="tag in visibleTags" :key="tag" class="mr-1">
     {{ tag }}
-  </p-tag>
+    </p-tag>
 
-  <p-tag v-if="tagAmountLimit">
+    <p-tag v-if="tagAmountLimit">
     +{{ hiddenTagsNumber }}
-  </p-tag>
+    </p-tag>
+  -->
+
+  <div ref="container">
+    <slot />
+  </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType } from 'vue'
+  import { computed, getCurrentInstance, PropType, useSlots } from 'vue'
+
+  // get parent of ref of "container "
+  // create intersection observor
+
+  const instance = getCurrentInstance()
+
+  const slots = useSlots()
+  console.log('slots', slots.default())
+  console.log(instance?.parent)
 
   const props = defineProps({
     tags: {

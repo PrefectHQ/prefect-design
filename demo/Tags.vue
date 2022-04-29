@@ -1,14 +1,18 @@
 <template>
   <div>
-    <p-tags :tags="numbers" />
+    <p-tag-wrapper :tags="numbers">
+      <p-tag>one</p-tag>
+      <p-tag>two</p-tag>
+      <p-tag>three</p-tag>
+    </p-tag-wrapper>
   </div>
 
   <div class="mt-4">
-    <p-tags :tags="words" />
+    <p-tag-wrapper :tags="words" />
   </div>
 
   <div class="mt-4">
-    <p-tags :tags="[]" />
+    <p-tag-wrapper :tags="[]" />
   </div>
 </template>
 
