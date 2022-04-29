@@ -1,5 +1,5 @@
 <template>
-  <div class="p-select">
+  <div class="p-select" @keydown="handleKeydown">
     <slot>
       <span class="p-select__icon">
         <SelectorIcon />
@@ -19,16 +19,23 @@
         aria-hidden="true"
         tabindex="-1"
         @click="openSelect"
-        @keydown="handleKeydown"
       >
         <span class="p-select__selected-value">{{ value }}</span>
       </button>
     </slot>
 
-    <template v-if="isOpen">
-      <ul class="p-select__options" role="listbox">
+    <template v-if="isOpen && optionsWithEmpty.length">
+      <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
         <template v-for="(option, index) in optionsWithEmpty" :key="index">
-          <p-select-option :label="option" :selected="option === value" @click.prevent="setValue(option)" />
+          <span ref="optionElements">
+            <p-select-option
+              :label="option"
+              :selected="option === value"
+              :highlighted="highlightedIndex === index"
+              @mouseenter="highlightedIndex = index"
+              @click.prevent="setValue(option)"
+            />
+          </span>
         </template>
       </ul>
     </template>
@@ -64,6 +71,8 @@
     (event: 'update:open', value: boolean): void,
   }>()
 
+  const optionElements = ref<HTMLElement[]>([])
+  const highlightedIndex = ref<number>(-1)
   const open = ref(false)
   const isOpen = computed({
     get() {
@@ -118,6 +127,26 @@
     closeSelect()
   }
 
+  function trySetHighlightedValue(): void {
+    const highlightedOption = optionsWithEmpty.value[highlightedIndex.value]
+
+    if (highlightedOption) {
+      value.value = highlightedOption
+    }
+  }
+
+  function tryMovingHighlightedIndex(change: number): void {
+    const newIndex = highlightedIndex.value + change
+
+    if (newIndex < 0 || newIndex >= optionsWithEmpty.value.length) {
+      return
+    }
+
+    highlightedIndex.value = newIndex
+    const element = optionElements.value[newIndex]
+    element.scrollIntoView({ block: 'nearest' })
+  }
+
   function handleKeydown(event: KeyboardEvent): void {
     const keysToIgnore = ['Shift', 'Tab', 'CapsLock', 'Control', 'Meta']
 
@@ -131,7 +160,20 @@
         closeSelect()
         break
       case 'ArrowUp':
+        if (isOpen.value) {
+          tryMovingHighlightedIndex(-1)
+          event.preventDefault()
+        }
+        break
       case 'ArrowDown':
+        if (isOpen.value) {
+          tryMovingHighlightedIndex(1)
+          event.preventDefault()
+        }
+        break
+      case 'Space':
+      case 'Enter':
+        trySetHighlightedValue()
         break
       default:
         openSelect()

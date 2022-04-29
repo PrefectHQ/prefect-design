@@ -25,10 +25,12 @@
   const props = defineProps<{
     label: string,
     selected: boolean,
+    highlighted: boolean,
   }>()
 
   const classes = computed(() => ({
     'p-select-option--selected': props.selected,
+    'p-select-option--highlighted': props.highlighted,
   }))
 </script>
 
@@ -42,13 +44,20 @@
   pl-3
   pr-9
   font-normal
-  hover:bg-prefect-600
-  hover:text-white
   text-sm
 }
 
 .p-select-option--selected { @apply
   font-semibold
+}
+
+.p-select-option--highlighted { @apply
+  bg-prefect-600
+  text-white
+}
+
+.p-select-option--highlighted .p-select-option__check { @apply
+  text-white
 }
 
 .p-select-option__text { @apply
@@ -71,10 +80,6 @@
   flex
   items-center
   pr-4
-}
-
-.p-select-option:hover .p-select-option__check { @apply
-  text-white
 }
 
 .p-select-option__check svg { @apply
