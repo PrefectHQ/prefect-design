@@ -7,9 +7,9 @@
       </p>
       <div class="flex flex-wrap items-start gap-2 mb-4">
         <template v-for="(icon, index) in prefectIconKeys" :key="index">
-          <div :title="icon">
+          <button type="button" :title="icon" @click="copy(icon)">
             <p-icon :icon="icon" class="w-10 h-10" />
-          </div>
+          </button>
         </template>
       </div>
       <p class="text-xl mb-1">
@@ -17,9 +17,9 @@
       </p>
       <div class="flex flex-wrap items-start gap-2 mb-4">
         <template v-for="(icon, index) in heroIconKeys" :key="index">
-          <div :title="icon">
+          <button type="button" :title="icon" @click="copy(icon)">
             <p-icon :icon="icon" class="w-10 h-10" />
-          </div>
+          </button>
         </template>
       </div>
     </div>
@@ -32,4 +32,11 @@
 
   const prefectIconKeys = Object.keys(prefectIcons)
   const heroIconKeys = Object.keys(heroIcons)
+
+  function copy(icon: string): void {
+    navigator.clipboard.writeText(`<p-icon icon="${icon}" />`)
+
+    // eslint-disable-next-line no-alert
+    alert('Copied to clipboard!')
+  }
 </script>
