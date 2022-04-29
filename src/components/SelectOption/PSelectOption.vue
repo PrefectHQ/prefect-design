@@ -44,6 +44,7 @@
   font-normal
   hover:bg-prefect-600
   hover:text-white
+  text-sm
 }
 
 .p-select-option--selected { @apply

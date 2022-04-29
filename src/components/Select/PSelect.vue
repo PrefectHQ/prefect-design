@@ -1,30 +1,34 @@
 <template>
   <div class="p-select">
-    <span class="p-select__icon">
-      <SelectorIcon />
-    </span>
-    <select v-model="value" class="p-select__native" @focus="open = false">
-      <template v-for="(option, index) in options" :key="index">
-        <option :selected="option === value">
-          {{ option }}
-        </option>
-      </template>
-    </select>
+    <slot>
+      <span class="p-select__icon">
+        <SelectorIcon />
+      </span>
 
-    <button
-      class="p-select__custom"
-      type="button"
-      aria-hidden="true"
-      tabindex="-1"
-      @click.stop="openSelect"
-      @keydown="closeIfTab"
-    >
-      <span class="p-select__selected-value">{{ value }}</span>
-    </button>
-    <template v-if="open">
+      <select v-model="value" class="p-select__native" @focus="isOpen = false">
+        <template v-for="(option, index) in optionsWithEmpty" :key="index">
+          <option :selected="option === value">
+            {{ option }}
+          </option>
+        </template>
+      </select>
+
+      <button
+        class="p-select__custom"
+        type="button"
+        aria-hidden="true"
+        tabindex="-1"
+        @click="openSelect"
+        @keydown="handleKeydown"
+      >
+        <span class="p-select__selected-value">{{ value }}</span>
+      </button>
+    </slot>
+
+    <template v-if="isOpen">
       <ul class="p-select__options" role="listbox">
-        <template v-for="(option, index) in options" :key="index">
-          <p-select-option :label="option" :selected="option === value" @click.prevent="value = option" />
+        <template v-for="(option, index) in optionsWithEmpty" :key="index">
+          <p-select-option :label="option" :selected="option === value" @click.prevent="setValue(option)" />
         </template>
       </ul>
     </template>
@@ -32,7 +36,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onUnmounted, ref, watch } from 'vue'
+  import { defineComponent, computed, onUnmounted, ref, withDefaults, watch } from 'vue'
 
   export default defineComponent({
     name: 'PSelect',
@@ -46,15 +50,31 @@
   import SelectorIcon from '@heroicons/vue/solid/SelectorIcon'
   import PSelectOption from '@/components/SelectOption'
 
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     modelValue: string | null | undefined,
     options: string[],
+    open?: boolean | undefined,
     allowDeselect?: boolean,
-  }>()
+  }>(), {
+    open: undefined,
+  })
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | null): void,
+    (event: 'update:open', value: boolean): void,
   }>()
+
+  const open = ref(false)
+  const isOpen = computed({
+    get() {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      return props.open ?? open.value
+    },
+    set(value: boolean) {
+      open.value = value
+      emits('update:open', value)
+    },
+  })
 
   const value = computed({
     get() {
@@ -65,51 +85,78 @@
     },
   })
 
-  const options = computed(() => {
-    const validOptions = props.options.filter(x => x !== '')
-
+  const optionsWithEmpty = computed(() => {
     if (props.allowDeselect) {
-      validOptions.unshift('')
+      return ['', ...props.options]
     }
 
-    return validOptions
+    return props.options
   })
 
-  const open = ref(false)
+  watch(isOpen, (newValue) => {
+    if (newValue) {
+      setTimeout(() => addListeners())
+    } else {
+      removeListeners()
+    }
+  })
 
   function openSelect(): void {
-    open.value = true
+    if (!isOpen.value) {
+      isOpen.value = true
+    }
   }
 
   function closeSelect(): void {
-    open.value = false
-  }
-
-  function closeIfTab(event: KeyboardEvent): void {
-    if (event.key === 'Tab') {
-      closeSelect()
+    if (isOpen.value) {
+      isOpen.value = false
     }
   }
 
-  watch(open, () => {
-    if (open.value) {
-      document.addEventListener('click', closeSelect)
-      window.addEventListener('resize', closeSelect)
-    } else {
-      document.removeEventListener('click', closeSelect)
-      window.removeEventListener('resize', closeSelect)
-    }
-  })
+  function setValue(newValue: string): void {
+    value.value = newValue
+    closeSelect()
+  }
 
-  onUnmounted(() => {
+  function handleKeydown(event: KeyboardEvent): void {
+    const keysToIgnore = ['Shift', 'Tab', 'CapsLock', 'Control', 'Meta']
+
+    if (keysToIgnore.includes(event.key)) {
+      return
+    }
+
+    switch (event.code) {
+      case 'Escape':
+      case 'Tab':
+        closeSelect()
+        break
+      case 'ArrowUp':
+      case 'ArrowDown':
+        break
+      default:
+        openSelect()
+    }
+  }
+
+  function addListeners(): void {
+    document.addEventListener('click', closeSelect)
+    window.addEventListener('resize', closeSelect)
+  }
+
+  function removeListeners(): void {
     document.removeEventListener('click', closeSelect)
     window.removeEventListener('resize', closeSelect)
+  }
+
+  onUnmounted(() => {
+    removeListeners()
   })
 </script>
 
 <style>
 .p-select { @apply
   relative
+  text-base
 }
 
 .p-select__native { @apply
@@ -118,12 +165,10 @@
   pl-3
   pr-10
   py-2
-  text-base
   border-gray-300
   focus:outline-none
   focus:ring-prefect-500
   focus:border-prefect-500
-  sm:text-sm
   rounded-md
   appearance-none
   bg-none
@@ -150,7 +195,6 @@
   focus:ring-1
   focus:ring-prefect-500
   focus:border-prefect-500
-  sm:text-sm
 }
 
 .p-select__selected-value { @apply
@@ -185,22 +229,16 @@
   max-h-60
   rounded-md
   py-1
-  text-base
   ring-1
   ring-black
   ring-opacity-5
   overflow-auto
   focus:outline-none
-  sm:text-sm
 }
 
 @media (hover: hover) {
   .p-select__custom { @apply
     block
-  }
-
-  .p-select__native:focus + .p-select__custom { @apply
-    hidden
   }
 }
 </style>
