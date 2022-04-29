@@ -61,6 +61,10 @@
           <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Jerry" label="Jerry" />
         </fieldset>
       </p-label>
+
+      <p-label label="Hybrid select">
+        <p-select v-model="exampleSelect" allow-deselect :options="['Tim Cook', 'Satya Nadella', 'Jeffery Bezos', 'Sundar Pichai', 'Elon Musk', 'Mark Lizardking']" />
+      </p-label>
     </p-form>
   </div>
 </template>
@@ -73,6 +77,7 @@
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
   import PNumberInput from '@/components/NumberInput'
+  import PSelect from '@/components/Select'
   import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
@@ -87,6 +92,7 @@
   const exampleTextarea = ref('')
   const exampleBoolean = ref<boolean>(false)
   const exampleCheckboxArray = ref<string[]>([])
+  const exampleSelect = ref(null)
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
