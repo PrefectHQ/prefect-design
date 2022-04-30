@@ -1,15 +1,8 @@
 <template>
   <li class="p-select-option" role="option" :class="classes">
-    <template v-if="label.length">
-      <span class="p-select-option__text">
-        {{ label }}
-      </span>
-    </template>
-    <template v-else>
-      <span class="p-select-option__text--empty">
-        empty
-      </span>
-    </template>
+    <span class="p-select-option__text">
+      {{ label }}
+    </span>
     <template v-if="selected">
       <span class="p-select-option__check">
         <CheckIcon />
@@ -65,11 +58,9 @@
   truncate
 }
 
-.p-select-option__text--empty { @apply
-  block
-  italic
-  text-gray-400
-  font-light
+/* if label is empty string, ensure equal height */
+.p-select-option__text:empty:before {
+  content: "\200b";
 }
 
 .p-select-option__check { @apply

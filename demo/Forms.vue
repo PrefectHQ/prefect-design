@@ -63,7 +63,7 @@
       </p-label>
 
       <p-label label="Hybrid select">
-        <p-select v-model="exampleSelect" allow-deselect :options="['Tim Cook', 'Satya Nadella', 'Jeffery Bezos', 'Sundar Pichai', 'Elon Musk', 'Mark Lizardking']" />
+        <p-select v-model="exampleSelect" allow-deselect :options="exampleOptions" />
       </p-label>
     </p-form>
   </div>
@@ -93,6 +93,15 @@
   const exampleBoolean = ref<boolean>(false)
   const exampleCheckboxArray = ref<string[]>([])
   const exampleSelect = ref(null)
+  const exampleOptions = [
+    { label: '', value: null },
+    { label: 'Tim Cook', value: 1 },
+    { label: 'Satya Nadella', value: 11 },
+    { label: 'Jeffery Bezos', value: 111 },
+    { label: 'Sundar Pichai', value: 1111 },
+    { label: 'Elon Musk', value: 11111 },
+    { label: 'Mark Lizardking', value: 111111 },
+  ]
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State

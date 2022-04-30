@@ -5,10 +5,10 @@
         <SelectorIcon />
       </span>
 
-      <select v-model="value" class="p-select__native" @focus="isOpen = false">
-        <template v-for="(option, index) in optionsWithEmpty" :key="index">
-          <option :selected="option === value">
-            {{ option }}
+      <select v-model="internalValue" class="p-select__native" @focus="isOpen = false">
+        <template v-for="(option, index) in selectOptions" :key="index">
+          <option :value="option.value" :selected="option.value === internalValue">
+            {{ option.label }}
           </option>
         </template>
       </select>
@@ -20,20 +20,20 @@
         tabindex="-1"
         @click="openSelect"
       >
-        <span class="p-select__selected-value">{{ value }}</span>
+        <span class="p-select__selected-value">{{ displayValue }}</span>
       </button>
     </slot>
 
-    <template v-if="isOpen && optionsWithEmpty.length">
+    <template v-if="isOpen && selectOptions.length">
       <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
-        <template v-for="(option, index) in optionsWithEmpty" :key="index">
+        <template v-for="(option, index) in selectOptions" :key="index">
           <span ref="optionElements">
             <p-select-option
-              :label="option"
-              :selected="option === value"
+              :label="option.label"
+              :selected="option.value === internalValue"
               :highlighted="highlightedIndex === index"
               @mouseenter="highlightedIndex = index"
-              @click.prevent="setValue(option)"
+              @click.prevent="setValue(option.value)"
             />
           </span>
         </template>
@@ -56,18 +56,18 @@
   // eslint-disable-next-line import/order
   import SelectorIcon from '@heroicons/vue/solid/SelectorIcon'
   import PSelectOption from '@/components/SelectOption'
+  import { SelectOption, isSelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
-    modelValue: string | null | undefined,
-    options: string[],
+    modelValue: string | number | null | undefined,
+    options: (string | number | SelectOption)[],
     open?: boolean | undefined,
-    allowDeselect?: boolean,
   }>(), {
     open: undefined,
   })
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | null): void,
+    (event: 'update:modelValue', value: string | number | null): void,
     (event: 'update:open', value: boolean): void,
   }>()
 
@@ -85,22 +85,24 @@
     },
   })
 
-  const value = computed({
+  const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | null) {
+    set(value: string | number | null) {
       emits('update:modelValue', value)
     },
   })
 
-  const optionsWithEmpty = computed(() => {
-    if (props.allowDeselect) {
-      return ['', ...props.options]
+  const displayValue = computed(() => selectOptions.value.find(x => x.value === internalValue.value)?.label)
+
+  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
+    if (isSelectOption(option)) {
+      return  option
     }
 
-    return props.options
-  })
+    return { label: option.toLocaleString(), value: option }
+  }))
 
   watch(isOpen, (newValue) => {
     if (newValue) {
@@ -122,23 +124,22 @@
     }
   }
 
-  function setValue(newValue: string): void {
-    value.value = newValue
+  function setValue(newValue: SelectOption['value']): void {
+    internalValue.value = newValue
     closeSelect()
   }
 
   function trySetHighlightedValue(): void {
-    const highlightedOption = optionsWithEmpty.value[highlightedIndex.value]
-
-    if (highlightedOption) {
-      value.value = highlightedOption
+    if (highlightedIndex.value > -1) {
+      const highlightedOption = selectOptions.value[highlightedIndex.value]
+      internalValue.value = highlightedOption.value
     }
   }
 
   function tryMovingHighlightedIndex(change: number): void {
     const newIndex = highlightedIndex.value + change
 
-    if (newIndex < 0 || newIndex >= optionsWithEmpty.value.length) {
+    if (newIndex < 0 || newIndex >= selectOptions.value.length) {
       return
     }
 
