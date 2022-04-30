@@ -62,6 +62,10 @@
         </fieldset>
       </p-label>
 
+      <p-label label="Native select">
+        <p-native-select v-model="exampleNativeSelect" :options="exampleOptions" />
+      </p-label>
+
       <p-label label="Hybrid select">
         <p-select v-model="exampleSelect" allow-deselect :options="exampleOptions" />
       </p-label>
@@ -76,6 +80,7 @@
   import PCheckbox from '@/components/Checkbox'
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
+  import PNativeSelect from '@/components/NativeSelect'
   import PNumberInput from '@/components/NumberInput'
   import PSelect from '@/components/Select'
   import PTextarea from '@/components/Textarea'
@@ -92,6 +97,7 @@
   const exampleTextarea = ref('')
   const exampleBoolean = ref<boolean>(false)
   const exampleCheckboxArray = ref<string[]>([])
+  const exampleNativeSelect = ref(null)
   const exampleSelect = ref(null)
   const exampleOptions = [
     { label: '', value: null },

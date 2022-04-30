@@ -1,40 +1,50 @@
 <template>
   <div class="p-select" @keydown="handleKeydown">
-    <slot>
-      <span class="p-select__icon">
-        <SelectorIcon />
-      </span>
+    <span class="p-select__icon">
+      <SelectorIcon />
+    </span>
 
-      <select v-model="internalValue" class="p-select__native" @focus="isOpen = false">
-        <template v-for="(option, index) in selectOptions" :key="index">
-          <option :value="option.value" :selected="option.value === internalValue">
-            {{ option.label }}
-          </option>
-        </template>
-      </select>
+    <p-native-select
+      v-model="internalValue"
+      class="p-select__native"
+      :options="selectOptions"
+      @focus="open = false"
+    />
 
-      <button
-        class="p-select__custom"
-        type="button"
-        aria-hidden="true"
-        tabindex="-1"
-        @click="openSelect"
-      >
-        <span class="p-select__selected-value">{{ displayValue }}</span>
-      </button>
-    </slot>
+    <div class="p-select__custom">
+      <slot :display-value="displayValue" :is-open="open" :open="openSelect" :close="closeSelect">
+        <button
+          type="button"
+          class="p-select__custom-button"
+          aria-hidden="true"
+          tabindex="-1"
+          @click="openSelect"
+        >
+          <span class="p-select__selected-value">{{ displayValue }}</span>
+        </button>
+      </slot>
+    </div>
 
-    <template v-if="isOpen && selectOptions.length">
+    <template v-if="open && selectOptions.length">
       <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
         <template v-for="(option, index) in selectOptions" :key="index">
-          <span ref="optionElements">
-            <p-select-option
-              :label="option.label"
+          <span
+            ref="optionElements"
+            @mouseenter="highlightedIndex = index"
+            @click.prevent="setValueAndClose(option.value)"
+          >
+            <slot
+              name="option"
+              :option="option"
               :selected="option.value === internalValue"
               :highlighted="highlightedIndex === index"
-              @mouseenter="highlightedIndex = index"
-              @click.prevent="setValue(option.value)"
-            />
+            >
+              <p-select-option
+                :label="option.label"
+                :selected="option.value === internalValue"
+                :highlighted="highlightedIndex === index"
+              />
+            </slot>
           </span>
         </template>
       </ul>
@@ -43,7 +53,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onUnmounted, ref, withDefaults, watch } from 'vue'
+  import { defineComponent, computed, onUnmounted, ref } from 'vue'
 
   export default defineComponent({
     name: 'PSelect',
@@ -55,35 +65,23 @@
 <script lang="ts" setup>
   // eslint-disable-next-line import/order
   import SelectorIcon from '@heroicons/vue/solid/SelectorIcon'
+  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PSelectOption from '@/components/SelectOption'
   import { SelectOption, isSelectOption } from '@/types/selectOption'
 
-  const props = withDefaults(defineProps<{
+  const props = defineProps<{
     modelValue: string | number | null | undefined,
     options: (string | number | SelectOption)[],
-    open?: boolean | undefined,
-  }>(), {
-    open: undefined,
-  })
+  }>()
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | number | null): void,
-    (event: 'update:open', value: boolean): void,
+    (event: 'open' | 'close'): void,
   }>()
 
   const optionElements = ref<HTMLElement[]>([])
   const highlightedIndex = ref<number>(-1)
   const open = ref(false)
-  const isOpen = computed({
-    get() {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      return props.open ?? open.value
-    },
-    set(value: boolean) {
-      open.value = value
-      emits('update:open', value)
-    },
-  })
 
   const internalValue = computed({
     get() {
@@ -104,28 +102,28 @@
     return { label: option.toLocaleString(), value: option }
   }))
 
-  watch(isOpen, (newValue) => {
-    if (newValue) {
-      setTimeout(() => addListeners())
-    } else {
-      removeListeners()
-    }
-  })
-
   function openSelect(): void {
-    if (!isOpen.value) {
-      isOpen.value = true
+    if (!open.value) {
+      open.value = true
+      emits('open')
+      setTimeout(() => addListeners())
     }
   }
 
   function closeSelect(): void {
-    if (isOpen.value) {
-      isOpen.value = false
+    if (open.value) {
+      open.value = false
+      emits('close')
+      removeListeners()
     }
   }
 
   function setValue(newValue: SelectOption['value']): void {
     internalValue.value = newValue
+  }
+
+  function setValueAndClose(newValue: SelectOption['value']): void {
+    setValue(newValue)
     closeSelect()
   }
 
@@ -161,13 +159,13 @@
         closeSelect()
         break
       case 'ArrowUp':
-        if (isOpen.value) {
+        if (open.value) {
           tryMovingHighlightedIndex(-1)
           event.preventDefault()
         }
         break
       case 'ArrowDown':
-        if (isOpen.value) {
+        if (open.value) {
           tryMovingHighlightedIndex(1)
           event.preventDefault()
         }
@@ -200,21 +198,7 @@
 .p-select { @apply
   relative
   text-base
-}
-
-.p-select__native { @apply
-  block
-  w-full
-  pl-3
-  pr-10
-  py-2
-  border-gray-300
-  focus:outline-none
-  focus:ring-prefect-500
-  focus:border-prefect-500
   rounded-md
-  appearance-none
-  bg-none
 }
 
 .p-select__custom { @apply
@@ -225,15 +209,20 @@
   left-0
   w-full
   h-full
-  border
-  border-gray-300
-  rounded-md
+}
+
+.p-select__custom-button { @apply
+  w-full
+  h-full
   shadow-sm
   pl-3
   pr-10
   py-2
   text-left
+  rounded-md
   cursor-default
+  border
+  border-gray-300
   focus:outline-none
   focus:ring-1
   focus:ring-prefect-500
