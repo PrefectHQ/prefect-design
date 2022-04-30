@@ -199,6 +199,19 @@
   relative
   text-base
   rounded-md
+  border
+  border-gray-300
+  focus-within:outline-none
+  focus-within:ring-1
+  focus-within:ring-prefect-500
+  focus-within:border-prefect-500
+}
+
+.p-select__native { @apply
+  rounded-md
+  cursor-default
+  border-none
+  ring-0
 }
 
 .p-select__custom { @apply
@@ -209,6 +222,7 @@
   left-0
   w-full
   h-full
+  rounded-md
 }
 
 .p-select__custom-button { @apply
@@ -219,14 +233,9 @@
   pr-10
   py-2
   text-left
-  rounded-md
   cursor-default
-  border
-  border-gray-300
-  focus:outline-none
-  focus:ring-1
-  focus:ring-prefect-500
-  focus:border-prefect-500
+  border-none
+  ring-0
 }
 
 .p-select__selected-value { @apply
