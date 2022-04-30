@@ -1,9 +1,5 @@
 <template>
   <div class="p-select" @keydown="handleKeydown">
-    <span class="p-select__icon">
-      <SelectorIcon />
-    </span>
-
     <p-native-select
       v-model="internalValue"
       class="p-select__native"
@@ -63,9 +59,7 @@
 </script>
 
 <script lang="ts" setup>
-  // eslint-disable-next-line import/order
-  import SelectorIcon from '@heroicons/vue/solid/SelectorIcon'
-  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
+  import PNativeSelect from '@/components/NativeSelect'
   import PSelectOption from '@/components/SelectOption'
   import { SelectOption, isSelectOption } from '@/types/selectOption'
 
@@ -243,24 +237,9 @@
   truncate
 }
 
-.p-select__icon { @apply
-  absolute
-  inset-y-0
-  right-0
-  pr-2
-  z-[2]
-  flex
-  items-center
-  pointer-events-none
-}
-
-.p-select__icon svg { @apply
-  w-4
-  h-4
-}
-
 .p-select__options { @apply
   absolute
+  hidden
   z-[3]
   mt-1
   left-0
@@ -279,6 +258,10 @@
 
 @media (hover: hover) {
   .p-select__custom { @apply
+    block
+  }
+
+  .p-select__options { @apply
     block
   }
 }
