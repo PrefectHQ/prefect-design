@@ -71,8 +71,11 @@
       </p-label>
 
       <p-label label="Combobox select">
-        {{ exampleCombobox }}
-        <p-combobox v-model="exampleCombobox" allow-unknown-value allow-deselect :options="['Tim Cook', 'Satya Nadella', 'Jeffery Bezos', 'Sundar Pichai', 'Elon Musk', 'Mark Lizardking']" />
+        <p-combobox v-model="exampleCombobox" allow-deselect :options="exampleOptions" />
+      </p-label>
+
+      <p-label label="Plain text combobox that allows unknown value">
+        <p-combobox v-model="exampleCombobox2" allow-unknown-value allow-deselect :options="['cool', 'story', 'bro']" />
       </p-label>
     </p-form>
   </div>
@@ -114,7 +117,8 @@
     { label: 'Elon Musk', value: 11111 },
     { label: 'Mark Lizardking', value: 111111 },
   ]
-  const exampleCombobox = ref('Evan Sutherland')
+  const exampleCombobox = ref(111)
+  const exampleCombobox2 = ref('')
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State

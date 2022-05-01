@@ -4,8 +4,10 @@
       <template #default="{ isOpen, open, close }">
         <input
           v-model="typedValue"
+          :placeholder="displayValue"
           type="text"
           class="p-combobox__text-input"
+          :class="classes"
           role="combobox"
           tabindex="-1"
           aria-controls="options"
@@ -47,7 +49,6 @@
       return props.modelValue ?? null
     },
     set(value: string | number | null) {
-      typedValue.value = value ? value.toLocaleString() : ''
       emits('update:modelValue', value)
     },
   })
@@ -61,28 +62,46 @@
       return { label: option.toLocaleString(), value: option }
     }))
 
-  const filteredSelectOptions = computed<SelectOption[]>(() => selectOptions.value
-    .filter(option => {
-      return typedValue.value === internalValue.value || option.value?.toLocaleString().startsWith(typedValue.value)
-    }))
+  const filteredSelectOptions = computed<SelectOption[]>(() => {
+    const options = selectOptions.value.filter(option => option.label.startsWith(typedValue.value))
 
-  const displayValue = computed(() => selectOptions.value.find(x => x.value === internalValue.value)?.label ?? '')
-  const typedValue = ref<string>(displayValue.value)
-
-  function resetTypedValue(): void {
-    typedValue.value = displayValue.value
-  }
-
-  function canSetValue(value: string): boolean {
-    if (props.allowUnknownValue) {
-      return true
+    if (typedValue.value && props.allowUnknownValue && lookupSelectOptionValueByLabel(typedValue.value) === undefined) {
+      options.push({ label:`"${typedValue.value}"`, value: typedValue.value })
     }
 
-    return !!selectOptions.value.find(option => [option.label, option.value].includes(value))
+    return options
+  })
+
+  const classes = computed(() => ({
+    'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
+  }))
+
+  const displayValue = computed(() => {
+    const matchingOptionValue = lookupSelectOptionLabelByValue(internalValue.value)
+
+    if (matchingOptionValue) {
+      return matchingOptionValue
+    }
+
+    return internalValue.value ? internalValue.value.toLocaleString() : ''
+  })
+
+  const typedValue = ref<string>('')
+
+  function lookupSelectOptionValueByLabel(label: SelectOption['label']): SelectOption['value'] | undefined  {
+    return selectOptions.value.find(option => option.label === label)?.value
   }
 
-  function setValue(newValue: string): void {
-    internalValue.value = newValue
+  function lookupSelectOptionLabelByValue(value: SelectOption['value']): SelectOption['label'] | undefined  {
+    return selectOptions.value.find(option => option.value === value)?.label
+  }
+
+  function resetTypedValue(): void {
+    typedValue.value = ''
+  }
+
+  function allowSpaceToBeEnteredInTextBox(event: KeyboardEvent): void {
+    event.stopPropagation()
   }
 
   function handleKeydown(event: KeyboardEvent, context: { isOpen: boolean, open: () => void, close: () => void }): void {
@@ -96,8 +115,7 @@
       if (!context.isOpen) {
         context.open()
       }
-      // without stopPropagation <p-select> will receive keypress and preventDefault
-      event.stopPropagation()
+      allowSpaceToBeEnteredInTextBox(event)
     }
   }
 </script>
@@ -126,6 +144,14 @@
   h-full
   pr-8
   rounded-md
+}
+
+.p-combobox__text-input::placeholder { @apply
+  text-current
+}
+
+.p-combobox__text-input--unknown-value { @apply
+  text-gray-400
 }
 
 .p-combobox__options { @apply
