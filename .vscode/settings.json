@@ -19,6 +19,7 @@
   "editor.insertSpaces": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
+    "Combobox",
     "heroicons",
     "prefecthq",
     "tailwindcss",

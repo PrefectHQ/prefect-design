@@ -69,6 +69,11 @@
       <p-label label="Hybrid select">
         <p-select v-model="exampleSelect" allow-deselect :options="exampleOptions" />
       </p-label>
+
+      <p-label label="Combobox select">
+        {{ exampleCombobox }}
+        <p-combobox v-model="exampleCombobox" allow-unknown-value allow-deselect :options="['Tim Cook', 'Satya Nadella', 'Jeffery Bezos', 'Sundar Pichai', 'Elon Musk', 'Mark Lizardking']" />
+      </p-label>
     </p-form>
   </div>
 </template>
@@ -78,6 +83,7 @@
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
   import PCheckbox from '@/components/Checkbox'
+  import PCombobox from '@/components/Combobox'
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
   import PNativeSelect from '@/components/NativeSelect'
@@ -108,6 +114,7 @@
     { label: 'Elon Musk', value: 11111 },
     { label: 'Mark Lizardking', value: 111111 },
   ]
+  const exampleCombobox = ref('Evan Sutherland')
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
