@@ -121,27 +121,34 @@
     closeSelect()
   }
 
-  function trySetHighlightedValue(): void {
-    if (highlightedIndex.value > -1) {
-      const highlightedOption = selectOptions.value[highlightedIndex.value]
-      internalValue.value = highlightedOption.value
+  function setValueIfHighlighted(option: SelectOption | undefined): void {
+    if (option) {
+      internalValue.value = option.value
     }
   }
 
   function tryMovingHighlightedIndex(change: number): void {
+    const maxIndex = selectOptions.value.length
     const newIndex = highlightedIndex.value + change
 
-    if (newIndex < 0 || newIndex >= selectOptions.value.length) {
+    if (!maxIndex) {
       return
     }
 
-    highlightedIndex.value = newIndex
-    const element = optionElements.value[newIndex]
+    if (newIndex < 0) {
+      highlightedIndex.value = 0
+    } else if (newIndex >= maxIndex) {
+      highlightedIndex.value = maxIndex -1
+    } else {
+      highlightedIndex.value = newIndex
+    }
+
+    const element = optionElements.value[highlightedIndex.value]
     element.scrollIntoView({ block: 'nearest' })
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    const keysToIgnore = ['Shift', 'Tab', 'CapsLock', 'Control', 'Meta']
+    const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta']
 
     if (keysToIgnore.includes(event.key)) {
       return
@@ -162,11 +169,19 @@
         if (open.value) {
           tryMovingHighlightedIndex(1)
           event.preventDefault()
+        } else {
+          openSelect()
+          event.preventDefault()
         }
         break
       case 'Space':
+        if (!open.value) {
+          openSelect()
+        }
+        event.preventDefault()
+        break
       case 'Enter':
-        trySetHighlightedValue()
+        setValueIfHighlighted(selectOptions.value[highlightedIndex.value])
         break
       default:
         openSelect()
