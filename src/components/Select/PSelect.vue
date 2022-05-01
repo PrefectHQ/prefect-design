@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onUnmounted, ref } from 'vue'
+  import { defineComponent, computed, onUnmounted, ref, nextTick } from 'vue'
 
   export default defineComponent({
     name: 'PSelect',
@@ -107,6 +107,7 @@
   function closeSelect(): void {
     if (open.value) {
       open.value = false
+      highlightedIndex.value = -1
       emits('close')
       removeListeners()
     }
@@ -118,21 +119,32 @@
 
   function setValueAndClose(newValue: SelectOption['value']): void {
     setValue(newValue)
-    closeSelect()
+    nextTick(() => closeSelect())
   }
 
-  function setValueIfHighlighted(option: SelectOption | undefined): void {
-    if (option) {
-      internalValue.value = option.value
+  function getHighlighted(): SelectOption | undefined {
+    return selectOptions.value[highlightedIndex.value]
+  }
+
+  function trySettingValueToHighlighted(): boolean {
+    const highlighted = getHighlighted()
+
+    if (!highlighted) {
+      return false
     }
+
+    setValue(highlighted.value)
+
+
+    return true
   }
 
-  function tryMovingHighlightedIndex(change: number): void {
+  function tryMovingHighlightedIndex(change: number): boolean {
     const maxIndex = selectOptions.value.length
     const newIndex = highlightedIndex.value + change
 
-    if (!maxIndex) {
-      return
+    if (!maxIndex || !open.value) {
+      return false
     }
 
     if (newIndex < 0) {
@@ -145,6 +157,8 @@
 
     const element = optionElements.value[highlightedIndex.value]
     element.scrollIntoView({ block: 'nearest' })
+
+    return true
   }
 
   function handleKeydown(event: KeyboardEvent): void {
@@ -162,17 +176,16 @@
       case 'ArrowUp':
         if (open.value) {
           tryMovingHighlightedIndex(-1)
-          event.preventDefault()
         }
+        event.preventDefault()
         break
       case 'ArrowDown':
         if (open.value) {
           tryMovingHighlightedIndex(1)
-          event.preventDefault()
         } else {
           openSelect()
-          event.preventDefault()
         }
+        event.preventDefault()
         break
       case 'Space':
         if (!open.value) {
@@ -181,7 +194,10 @@
         event.preventDefault()
         break
       case 'Enter':
-        setValueIfHighlighted(selectOptions.value[highlightedIndex.value])
+        if (trySettingValueToHighlighted()) {
+          closeSelect()
+        }
+        event.preventDefault()
         break
       default:
         openSelect()
