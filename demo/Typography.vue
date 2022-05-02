@@ -5,8 +5,8 @@
     <p class="text-sm text-gray-500">Use for metadata, tooltips</p>
   </div>
   <div class="mb-4">
-    <p class="text-sm">Text-sm, Font-size: 14px; Line-height: 20px;</p>
-    <p class="text-sm text-gray-500"></p>
+    <p class="text-sm">Text-sm</p>
+    <p class="text-sm text-gray-500">Font-size: 14px; Line-height: 20px;</p>
     <p class="text-sm text-gray-500">Use for form field labels, Key/Value pairs</p>
   </div>
   <div class="mb-4">
