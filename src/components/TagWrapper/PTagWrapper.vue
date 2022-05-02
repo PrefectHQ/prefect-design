@@ -44,11 +44,12 @@
   }
 
   function setOverflow(entries: ResizeObserverEntry[]): void {
-
-    const { children } = entries[0].target
-    // count = 0
-    Array.from(children).filter(child => !child.classList.contains('tag-wrapper__tag-overflow')).forEach((child) => {
-      setChild(child as HTMLElement)
+    entries.forEach((entry) => {
+      Array.from(entry.target.children)
+        .filter(child => !child.classList.contains('tag-wrapper__tag-overflow'))
+        .forEach((child) => {
+          setChild(child as HTMLElement)
+        })
     })
     overflowChildren.value = count
   }
