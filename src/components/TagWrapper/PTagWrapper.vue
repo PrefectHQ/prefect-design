@@ -1,7 +1,6 @@
 <template>
   <div ref="container" class="tag-wrapper">
     <slot />
-
     <p-tag v-if="hasOverflowChildren" class="tag-wrapper__tag-overflow">
       +{{ overflowChildren }}
     </p-tag>
@@ -18,7 +17,6 @@
 
   let count = 0
   function setChild(child: HTMLElement): void {
-    // todo: get width or magic of overflow tag
     const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
     const overflowTagWidth = 55
 
@@ -39,12 +37,10 @@
     } else {
       child.classList.remove('tag-wrapper__tag-hidden')
     }
-
-    child.classList.remove('tag-wrapper__tag-invisible')
   }
 
   function setOverflow(entries: ResizeObserverEntry[]): void {
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       Array.from(entry.target.children)
         .filter(child => !child.classList.contains('tag-wrapper__tag-overflow'))
         .forEach((child) => {
