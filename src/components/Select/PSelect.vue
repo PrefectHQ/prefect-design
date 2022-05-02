@@ -2,13 +2,21 @@
   <div class="p-select" @keydown="handleKeydown">
     <p-native-select
       v-model="internalValue"
+      size="1"
       class="p-select__native"
+      :multiple="multiple"
       :options="selectOptions"
       @focus="open = false"
     />
 
     <div class="p-select__custom">
-      <slot :selected-option="selectedOption" :is-open="open" :open="openSelect" :close="closeSelect">
+      <slot
+        :selected-option="selectedOption"
+        :display-value="displayValue"
+        :is-open="open"
+        :open="openSelect"
+        :close="closeSelect"
+      >
         <button
           type="button"
           class="p-select__custom-button"
@@ -16,7 +24,9 @@
           tabindex="-1"
           @click="openSelect"
         >
-          <span class="p-select__selected-value">{{ selectedOption?.label }}</span>
+          <span class="p-select__selected-value">
+            {{ displayValue }}
+          </span>
         </button>
       </slot>
     </div>
@@ -25,16 +35,21 @@
       <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
         <template v-if="selectOptions.length">
           <template v-for="(option, index) in selectOptions" :key="index">
-            <span ref="optionElements" @mouseenter="highlightedIndex = index" @click.prevent="setValueAndClose(option.value)">
+            <span
+              ref="optionElements"
+              @mouseenter="highlightedIndex = index"
+              @click="handleOptionClick(option)"
+            >
               <p-select-option
                 :label="option.label"
-                :selected="option.value === internalValue"
+                :multiple="multiple ?? false"
+                :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               >
                 <slot
                   name="option"
                   :option="option"
-                  :selected="option.value === internalValue"
+                  :selected="isSelected(option)"
                   :highlighted="highlightedIndex === index"
                 />
               </p-select-option>
@@ -67,14 +82,16 @@
   import PNativeSelect from '@/components/NativeSelect'
   import PSelectOption from '@/components/SelectOption'
   import { SelectOption, isSelectOption } from '@/types/selectOption'
+  import { toPluralString } from '@/utilities/strings'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
+    modelValue: string | number | null | (string | number | null)[] | undefined,
     options: (string | number | SelectOption)[],
+    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | null): void,
+    (event: 'update:modelValue', value: Exclude<typeof props.modelValue, undefined>): void,
     (event: 'open' | 'close'): void,
   }>()
 
@@ -86,20 +103,46 @@
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | null) {
+    set(value: Exclude<typeof props.modelValue, undefined>) {
       emits('update:modelValue', value)
     },
   })
 
-  const selectedOption = computed(() => selectOptions.value.find(x => x.value === internalValue.value))
+  const selectedOption = computed(() => {
+    if (Array.isArray(internalValue.value)) {
+      return selectOptions.value.filter(isSelected)
+    }
+
+    return selectOptions.value.find(x => x.value === internalValue.value)
+  })
 
   const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
     if (isSelectOption(option)) {
-      return  option
+      return option
     }
 
     return { label: option.toLocaleString(), value: option }
   }))
+
+  const displayValue = computed(() => {
+    if (Array.isArray(selectedOption.value)) {
+      if (!selectedOption.value.length) {
+        return null
+      }
+
+      return `${selectedOption.value.length} ${toPluralString('Item', selectedOption.value.length)}`
+    }
+
+    return selectedOption.value?.label ?? null
+  })
+
+  function isSelected(option: SelectOption): boolean {
+    if (Array.isArray(internalValue.value)) {
+      return internalValue.value.includes(option.value)
+    }
+
+    return option.value === internalValue.value
+  }
 
   function openSelect(): void {
     if (!open.value) {
@@ -118,13 +161,18 @@
     }
   }
 
-  function setValue(newValue: SelectOption['value']): void {
-    internalValue.value = newValue
-  }
+  function setValue(newValue: string | number | null): void {
+    if (Array.isArray(internalValue.value)) {
+      const index = internalValue.value.indexOf(newValue)
 
-  function setValueAndClose(newValue: SelectOption['value']): void {
-    setValue(newValue)
-    nextTick(() => closeSelect())
+      if (index > -1) {
+        internalValue.value.splice(index, 1)
+      } else {
+        internalValue.value = [...internalValue.value, newValue]
+      }
+    } else {
+      internalValue.value = newValue
+    }
   }
 
   function getHighlighted(): SelectOption | undefined {
@@ -139,7 +187,6 @@
     }
 
     setValue(highlighted.value)
-
 
     return true
   }
@@ -206,6 +253,14 @@
         break
       default:
         openSelect()
+    }
+  }
+
+  function handleOptionClick(option: SelectOption): void {
+    setValue(option.value)
+
+    if (!props.multiple) {
+      nextTick(() => closeSelect())
     }
   }
 

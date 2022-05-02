@@ -1,11 +1,16 @@
 <template>
   <div class="p-combobox" @keydown="handleComboboxKeydown">
-    <p-select v-model="internalValue" :options="filteredSelectOptions" @close="resetTypedValue">
-      <template #default="{ isOpen, open }">
+    <p-select
+      v-model="internalValue"
+      :multiple="multiple"
+      :options="filteredSelectOptions"
+      @close="resetTypedValue"
+    >
+      <template #default="{ isOpen, open, displayValue }">
         <input
           ref="textInput"
           v-model="typedValue"
-          :placeholder="displayValue"
+          :placeholder="displayValue ?? internalValue"
           type="text"
           class="p-combobox__text-input"
           :class="classes"
@@ -36,20 +41,21 @@
   import { isSelectOption, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
+    modelValue: string | number | null | (string | number | null)[] | undefined,
     options: (string | number | SelectOption)[],
     allowUnknownValue?: boolean,
+    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | null): void,
+    (event: 'update:modelValue', value: Exclude<typeof props.modelValue, undefined>): void,
   }>()
 
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | null) {
+    set(value: Exclude<typeof props.modelValue, undefined>) {
       emits('update:modelValue', value)
     },
   })
@@ -77,25 +83,11 @@
     'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
   }))
 
-  const displayValue = computed(() => {
-    const matchingOptionValue = lookupSelectOptionLabelByValue(internalValue.value)
-
-    if (matchingOptionValue) {
-      return matchingOptionValue
-    }
-
-    return internalValue.value ? internalValue.value.toLocaleString() : ''
-  })
-
   const typedValue = ref<string>('')
   const textInput = ref<HTMLInputElement>()
 
   function lookupSelectOptionValueByLabel(label: SelectOption['label']): SelectOption['value'] | undefined  {
     return selectOptions.value.find(option => option.label === label)?.value
-  }
-
-  function lookupSelectOptionLabelByValue(value: SelectOption['value']): SelectOption['label'] | undefined  {
-    return selectOptions.value.find(option => option.value === value)?.label
   }
 
   function resetTypedValue(): void {

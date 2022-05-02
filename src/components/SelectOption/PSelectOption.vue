@@ -1,9 +1,12 @@
 <template>
   <li class="p-select-option" role="option" :class="classes">
+    <template v-if="multiple">
+      <p-checkbox :model-value="selected" />
+    </template>
     <span class="p-select-option__text">
       <slot>{{ label }}</slot>
     </span>
-    <template v-if="selected">
+    <template v-if="selected && !multiple">
       <span class="p-select-option__check">
         <CheckIcon />
       </span>
@@ -14,11 +17,13 @@
 <script lang="ts" setup>
   import CheckIcon from '@heroicons/vue/solid/CheckIcon'
   import { computed } from 'vue'
+  import PCheckbox from '@/components/Checkbox'
 
   const props = defineProps<{
     label: string,
     selected: boolean,
     highlighted: boolean,
+    multiple: boolean,
   }>()
 
   const classes = computed(() => ({
@@ -38,6 +43,8 @@
   pr-9
   font-normal
   text-sm
+  flex
+  items-center
 }
 
 .p-select-option--selected { @apply

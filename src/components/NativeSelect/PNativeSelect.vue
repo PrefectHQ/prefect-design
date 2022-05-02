@@ -29,19 +29,19 @@
   import { isSelectOption, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
+    modelValue: string | number | null | (string | number | null)[] | undefined,
     options: (string | number | SelectOption)[],
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | null): void,
+    (event: 'update:modelValue', value: Exclude<typeof props.modelValue, undefined>): void,
   }>()
 
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | null) {
+    set(value: Exclude<typeof props.modelValue, undefined>) {
       emits('update:modelValue', value)
     },
   })
