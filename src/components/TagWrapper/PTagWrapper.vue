@@ -1,81 +1,70 @@
 <template>
-  <div ref="container" style="position:relative; display: block; white-space: nowrap;">
+  <div ref="container" class="tag-wrapper">
     <slot />
 
-    <p-tag v-if="overflowChildren > 0" class="overflow">
+    <p-tag v-show="hasOverflowChildren" class="overflow">
       +{{ overflowChildren }}
     </p-tag>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, PropType, ref, Ref, onMounted } from 'vue'
+  import { computed, ref, Ref, onMounted } from 'vue'
 
   const container: Ref<HTMLDivElement | undefined> = ref()
-  // get parent of ref of "container "
-  // create intersection observor
-
   const overflowChildren = ref(0)
-  onMounted(() => {
-    const observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-      const width = container.value?.parentElement?.offsetWidth
 
-      console.log(width)
-      entries.forEach(entry => {
-        let _overflowChildren = 0
+  const hasOverflowChildren = computed(() => overflowChildren.value > 0)
 
-        for (const child of entry.target.children) {
-          if (child.classList.contains('overflow')) {
-            continue
-          }
-
-          if (child.classList.contains('hidden')) {
-            child.classList.add('invisible')
-            child.classList.remove('hidden')
-          }
-
-          if (child.offsetLeft + child.offsetWidth  > width - 35) {
-            _overflowChildren++
-
-            child.classList.add('hidden')
-          } else {
-            child.classList.remove('hidden')
-          }
-
-          child.classList.remove('invisible')
-        }
-        overflowChildren.value = _overflowChildren
-
-      })
-    })
-
-
-    if (container.value) {
-      observer.observe(container.value)
+  let count = 0
+  function setChild(child: HTMLElement): void {
+    // todo: get width or magic of overflow tag
+    const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
+    const overflowTagWidth = 55
+    if (!child.offsetLeft && !child.offsetWidth) {
+      return
     }
 
-  })
+    const overflow = child.offsetLeft + child.offsetWidth  > containerWidth - overflowTagWidth
 
-  const props = defineProps({
-    tags: {
-      type: Array as PropType<string[]>,
-      default: function() {
-        return []
-      },
-    },
-    limit: {
-      type: Number,
-      default: 4,
-    },
+    if (child.classList.contains('hidden')) {
+      child.classList.add('invisible')
+      child.classList.remove('hidden')
+    }
+
+    if (overflow) {
+      count++
+      child.classList.add('hidden')
+    } else {
+      child.classList.remove('hidden')
+    }
+
+    child.classList.remove('invisible')
+  }
+
+  function setOverflow(entries: ResizeObserverEntry[]): void {
+
+    const { children } = entries[0].target
+    // count = 0
+    Array.from(children).filter(child => !child.classList.contains('overflow')).forEach((child) => {
+      setChild(child as HTMLElement)
+    })
+    overflowChildren.value = count
+  }
+  onMounted(() => {
+    if (container.value) {
+      new ResizeObserver(setOverflow).observe(container.value)
+    }
   })
-  const hiddenTagsSlice = computed(() => props.tags.slice(props.limit))
-  const hiddenTagsNumber = computed(() => hiddenTagsSlice.value.length)
-  const tagAmountLimit = computed(() => props.tags.length > props.limit)
-  const visibleTags = computed(() => props.tags.slice(0, props.limit))
 </script>
 
 
 <style>
+.tag-wrapper {
+  position:relative;
+  display: block;
+  white-space: nowrap;
+}
 .hidden {
   display: none !important;
 }

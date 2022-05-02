@@ -39,9 +39,9 @@
           </div>
 
           <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Tags</span>
+            <span class="text-2xl">Tag Wrapper</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Tags />
+              <TagWrapper />
             </div>
           </div>
           <!-- /End replace -->
@@ -55,6 +55,6 @@
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
   import Tag from './Tag.vue'
-  import Tags from './Tags.vue'
+  import TagWrapper from './TagWrapper.vue'
   import Toggle from './Toggle.vue'
 </script>
