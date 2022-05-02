@@ -9,7 +9,7 @@ import { plugins } from '@/plugins'
 const plugin: Plugin = {
   install(app: App) {
     installs.forEach(install => install(app))
-    plugins.forEach(install => install?.(app))
+    plugins.forEach(install => install(app))
   },
 }
 

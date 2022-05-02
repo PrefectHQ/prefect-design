@@ -86,7 +86,7 @@ function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'd
   return toast
 }
 
-const ToastPlugin: Plugin = {
+const ToastPlugin: Required<Plugin> = {
   install: (app: App, options: ToastPluginOptions = {}) => {
     const element = getMountElement(options.mountPoint)
 
