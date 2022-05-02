@@ -1,50 +1,68 @@
 <template>
-  <div aria-live="assertive" class="p-toast">
-    <div class="p-toast__container">
-      <transition>
-        <div v-if="show" class="p-toast__card">
-          <div class="flex items-start">
+  <div class="p-toast__container">
+    <transition>
+      <div class="p-toast__card">
+        <div class="flex items-start">
+          <!--
             <div class="p-toast__icon">
-              <p-icon :icon="icon" aria-hidden="true" />
+            <p-icon :icon="icon" aria-hidden="true" />
             </div>
-            <div class="p-toast__info">
+          -->
+          <div class="p-toast__info">
+            <!--
               <p class="p-toast__header">
-                <slot name="header" />
+              <slot name="header" />
               </p>
-              <p class="p-toast__message">
-                <slot name="message" />
-              </p>
-            </div>
-            <div class="p-toast__close">
+            -->
+            <p class="p-toast__message">
+              I am a toast, and this is amazing
+              {{ toast }}
+              <!-- <slot name="message" /> -->
+            </p>
+          </div>
+          <div class="p-toast__close">
+            <!--
               <button class="p-toast__close-btn" @click="show = false">
-                <span class="sr-only">Close</span>
-                <p-icon class="" icon="XIcon" aria-hidden="true" />
+              <span class="sr-only">Close</span>
+              <p-icon class="" icon="XIcon" aria-hidden="true" />
               </button>
-            </div>
+            -->
           </div>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { PropType, ref } from 'vue'
+  import { computed, PropType, ref, withDefaults } from 'vue'
   import { Icon } from '@/types/icon'
 
-  const props = defineProps({
-    icon: {
-      type: String as PropType<Icon>,
-      default: 'InformationCircleIcon',
-    },
-  })
+  // const props = withDefaults(defineProps<{
+  //   icon: string,
+  // }>(), {
+  //   // icon: 'default',
+  // })
 
-  const show = ref(true)
+  const props = defineProps<{
+    toast: any,
+  }>()
+
+
+  const iconMap: Record<string, string> = {
+    default: 'InformationCircleItem',
+    success: 'CheckCircleIcon',
+    error: 'XCircleIcon',
+  }
+
+  // const compyteIcon = computed(() => {
+  //     return props.icon?
+  // })
 </script>
 
 
 <style>
-.p-toast { @apply
+/* .p-toast { @apply
   fixed
   inset-0
   flex
@@ -53,7 +71,7 @@
   py-6
   pointer-events-none
   sm:p-6
-}
+} */
 
 .p-toast__container { @apply
  w-full
