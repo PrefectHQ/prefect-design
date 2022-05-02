@@ -1,8 +1,9 @@
 <template>
-  <div class="p-combobox">
+  <div class="p-combobox" @keydown="handleComboboxKeydown">
     <p-select v-model="internalValue" :options="filteredSelectOptions" @close="resetTypedValue">
-      <template #default="{ isOpen, open, close }">
+      <template #default="{ isOpen, open }">
         <input
+          ref="textInput"
           v-model="typedValue"
           :placeholder="displayValue"
           type="text"
@@ -13,7 +14,7 @@
           aria-controls="options"
           aria-expanded="false"
           @click="open"
-          @keydown="handleKeydown($event, { isOpen, open, close })"
+          @keydown="handleTextInputKeydown($event, isOpen, open)"
         >
       </template>
     </p-select>
@@ -87,6 +88,7 @@
   })
 
   const typedValue = ref<string>('')
+  const textInput = ref<HTMLInputElement>()
 
   function lookupSelectOptionValueByLabel(label: SelectOption['label']): SelectOption['value'] | undefined  {
     return selectOptions.value.find(option => option.label === label)?.value
@@ -104,16 +106,18 @@
     event.stopPropagation()
   }
 
-  function handleKeydown(event: KeyboardEvent, context: { isOpen: boolean, open: () => void, close: () => void }): void {
-    const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta']
+  function handleComboboxKeydown(event: KeyboardEvent): void {
+    const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta', 'Tab']
 
-    if (keysToIgnore.includes(event.key)) {
-      return
+    if (!keysToIgnore.includes(event.key)) {
+      textInput.value?.focus()
     }
+  }
 
+  function handleTextInputKeydown(event: KeyboardEvent, isOpen: boolean, open: () => void): void {
     if (event.code === 'Space') {
-      if (!context.isOpen) {
-        context.open()
+      if (!isOpen) {
+        open()
       }
       allowSpaceToBeEnteredInTextBox(event)
     }
