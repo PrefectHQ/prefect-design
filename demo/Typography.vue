@@ -32,7 +32,7 @@
   <div class="mb-4">
     <p class="text-3xl"><b>Text-3xl</b></p>
     <p class="text-sm text-gray-500">Font-size: 30px; Line-height: 36px; font-weight: bold;</p>
-    <p class="text-sm text-gray-500">Use for Hero Text Headings</p>
+    <p class="text-sm text-gray-500">Use for Hero Text Headings (Empty States, Marketing Screens)</p>
   </div>
 
 </template>
