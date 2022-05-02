@@ -5,7 +5,7 @@
     </span>
 
     <select v-model="internalValue" class="p-native-select__control" v-bind="$attrs">
-      <template v-for="(option, index) in options" :key="index">
+      <template v-for="(option, index) in selectOptions" :key="index">
         <option :value="option.value" :selected="option.value === internalValue">
           {{ option.label }}
         </option>
@@ -26,11 +26,11 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
-  import { SelectOption } from '@/types/selectOption'
+  import { isSelectOption, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | null | undefined,
-    options: SelectOption[],
+    options: (string | number | SelectOption)[],
   }>()
 
   const emits = defineEmits<{
@@ -45,6 +45,14 @@
       emits('update:modelValue', value)
     },
   })
+
+  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
+    if (isSelectOption(option)) {
+      return  option
+    }
+
+    return { label: option.toLocaleString(), value: option }
+  }))
 </script>
 
 <style>

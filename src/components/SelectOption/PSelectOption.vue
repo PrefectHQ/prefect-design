@@ -1,7 +1,7 @@
 <template>
   <li class="p-select-option" role="option" :class="classes">
     <span class="p-select-option__text">
-      {{ label }}
+      <slot>{{ label }}</slot>
     </span>
     <template v-if="selected">
       <span class="p-select-option__check">

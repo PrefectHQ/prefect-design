@@ -8,7 +8,7 @@
     />
 
     <div class="p-select__custom">
-      <slot :display-value="displayValue" :is-open="open" :open="openSelect" :close="closeSelect">
+      <slot :selected-option="selectedOption" :is-open="open" :open="openSelect" :close="closeSelect">
         <button
           type="button"
           class="p-select__custom-button"
@@ -16,32 +16,37 @@
           tabindex="-1"
           @click="openSelect"
         >
-          <span class="p-select__selected-value">{{ displayValue }}</span>
+          <span class="p-select__selected-value">{{ selectedOption?.label }}</span>
         </button>
       </slot>
     </div>
 
-    <template v-if="open && selectOptions.length">
+    <template v-if="open">
       <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
-        <template v-for="(option, index) in selectOptions" :key="index">
-          <span
-            ref="optionElements"
-            @mouseenter="highlightedIndex = index"
-            @click.prevent="setValueAndClose(option.value)"
-          >
-            <slot
-              name="option"
-              :option="option"
-              :selected="option.value === internalValue"
-              :highlighted="highlightedIndex === index"
-            >
+        <template v-if="selectOptions.length">
+          <template v-for="(option, index) in selectOptions" :key="index">
+            <span ref="optionElements" @mouseenter="highlightedIndex = index" @click.prevent="setValueAndClose(option.value)">
               <p-select-option
                 :label="option.label"
                 :selected="option.value === internalValue"
                 :highlighted="highlightedIndex === index"
-              />
+              >
+                <slot
+                  name="option"
+                  :option="option"
+                  :selected="option.value === internalValue"
+                  :highlighted="highlightedIndex === index"
+                />
+              </p-select-option>
+            </span>
+          </template>
+        </template>
+        <template v-else>
+          <div class="p-select__options--empty">
+            <slot name="options-empty">
+              No options
             </slot>
-          </span>
+          </div>
         </template>
       </ul>
     </template>
@@ -86,7 +91,7 @@
     },
   })
 
-  const displayValue = computed(() => selectOptions.value.find(x => x.value === internalValue.value)?.label)
+  const selectedOption = computed(() => selectOptions.value.find(x => x.value === internalValue.value))
 
   const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
     if (isSelectOption(option)) {
@@ -285,6 +290,13 @@
   ring-opacity-5
   overflow-auto
   focus:outline-none
+}
+
+.p-select__options--empty { @apply
+  px-4
+  py-2
+  italic
+  text-sm
 }
 
 @media (hover: hover) {
