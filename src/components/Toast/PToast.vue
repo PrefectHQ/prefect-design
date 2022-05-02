@@ -1,69 +1,82 @@
 <template>
-  <transition>
-    <div class="p-toast__card">
-      <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
-      <p class="p-toast__message">
-        {{ toast.message }}
-      </p>
-
-      <div class="p-toast__close">
-        <!--
-          <button class="p-toast__close-btn" @click="show = false">
+  <div class="p-toast__card">
+    <div class="p-toast__card-container">
+      <div class="p-toast__info">
+        <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
+        <p class="p-toast__message">
+          {{ message }}
+        </p>
+      </div>
+      <div v-if="dismissable" class="p-toast__close">
+        <button type="button" class="p-toast__close-btn" @click="removeToast">
           <span class="sr-only">Close</span>
           <p-icon class="" icon="XIcon" aria-hidden="true" />
-          </button>
-        -->
+        </button>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
+  import { computed, onMounted, withDefaults } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { Toast } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
-  const props = defineProps<{
-    toast: Toast,
-  }>()
-
+  const props = withDefaults(defineProps<{
+    message: string,
+    dismissable?: boolean,
+    timeout?: number,
+    type: string,
+  }>(), {
+    message: '',
+    timeout: 5000,
+  })
 
   const iconMap: Record<string, string> = {
+    default: 'InformationCircleIcon',
     success: 'CheckCircleIcon',
     error: 'XCircleIcon',
   }
 
-  const icon = computed(() => iconMap[props.toast.type] as Icon)
+  const icon = computed(() => iconMap[props.type] as Icon)
 
   const colorClasses = [
     { className: 'p-toast__icon--success', name: 'success'  },
     { className: 'p-toast__icon--error', name: 'error'  },
   ]
-
   const color = computed(() => {
-    return colorClasses.find(color => color.name == props.toast.type)?.className
+    return colorClasses.find(color => color.name == props.type)?.className
+  })
+
+
+  const emit = defineEmits<{
+    (event: 'close'): void,
+  }>()
+
+  const removeToast = (): void => {
+    emit('close')
+  }
+
+  const setToastTimeout = (): void => {
+    setTimeout(removeToast, props.timeout)
+  }
+
+  onMounted(() => {
+    setToastTimeout()
   })
 </script>
 
 
 <style>
-:root {
-  --success: #2AC769;
-  --error: #FB4E4E;
-}
-
 .p-toast__icon--success {
-  fill: var(--success)
+  fill: var(--completed)
 }
 
 .p-toast__icon--error {
-  fill: var(--error)
+  fill: var(--failed)
 }
 
 .p-toast__card { @apply
-  flex
-  items-center
   max-w-sm
   w-full
   bg-white
@@ -76,6 +89,16 @@
   overflow-hidden
   p-4
   mb-4
+}
+
+.p-toast__card-container { @apply
+ flex
+ justify-between
+}
+
+.p-toast__info { @apply
+  flex
+  items-center
 }
 
 .p-toast__icon { @apply
@@ -108,39 +131,5 @@
   focus:ring-indigo-500
   h-5
   w-5
-}
-
-.v-enter-active-class { @apply
-  transform
-  ease-out
-  duration-300
-  transition
-}
-
-.v-enter-from { @apply
-  translate-y-2
-  opacity-0
-  sm:translate-y-0
-  sm:translate-x-2
-}
-
-.v-enter-to { @apply
-  translate-y-0
-  opacity-100
-  sm:translate-x-0
-}
-
-.v-leave-active { @apply
-  transition
-  ease-in
-  duration-100
-}
-
-.v-leave-from { @apply
-  opacity-100
-}
-
-.v-leave-to-class{ @apply
-  opacity-0
 }
 </style>
