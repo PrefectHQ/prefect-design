@@ -44,6 +44,8 @@
               <Toast />
             </div>
           </div>
+
+          <Icons />
           <!-- /End replace -->
         </div>
       </main>
@@ -54,6 +56,7 @@
 <script lang="ts" setup>
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
+  import Icons from './Icons.vue'
   import Tag from './Tag.vue'
   import Toast from './Toast.vue'
   import Toggle from './Toggle.vue'
