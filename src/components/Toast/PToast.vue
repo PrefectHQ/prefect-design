@@ -20,16 +20,18 @@
 <script setup lang="ts">
   import { computed, onMounted, withDefaults } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import { ToastType } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
   const props = withDefaults(defineProps<{
     message: string,
     dismissable?: boolean,
     timeout?: number,
-    type?: string,
+    type?: ToastType,
   }>(), {
     message: '',
     timeout: 5000,
+    type: 'default',
   })
 
 
@@ -38,7 +40,7 @@
     success: 'CheckCircleIcon',
     error: 'XCircleIcon',
   }
-  const icon = computed(() => props.type ? iconMap[props.type] as Icon : iconMap.default)
+  const icon = computed(() => iconMap[props.type] as Icon)
 
 
   const colorClasses = [
