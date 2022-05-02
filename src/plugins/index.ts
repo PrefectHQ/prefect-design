@@ -1,4 +1,4 @@
-import { default as ToastPlugin } from './Toast'
+import ToastPlugin from './Toast'
 
 export {
   ToastPlugin

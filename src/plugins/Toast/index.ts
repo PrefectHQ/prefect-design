@@ -66,7 +66,8 @@ function getMountElement(mountPoint: Element | string | undefined): Element {
   return mountPoint
 }
 
-function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'default', dismissable: boolean = 'true', timeout: number = 5000): Toast {
+// eslint-disable-next-line max-params
+function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'default', dismissable: boolean = true, timeout: number = 5000): Toast {
   const id = getToastId()
 
   const options = typeof optionsOrMessage === 'string'
