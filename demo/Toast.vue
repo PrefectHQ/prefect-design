@@ -1,26 +1,22 @@
 <template>
-  <!--
-    <p-toast>
-    <template #header>
-    Successfully saved!
-    </template>
-    <template #message>
-    Some random words
-    </template>
-    </p-toast>
-  -->
-  <p-button @click="addToast">
-    Add toast
-  </p-button>
+  <div class="flex gap-3">
+    <p-button @click="addSuccessToast">
+      Success Toast
+    </p-button>
+    <p-button @click="addErrorToast">
+      Error Toast
+    </p-button>
+  </div>
 </template>
 
 <script lang="ts" setup>
-  import  PToast from '@/components/Toast/PToast.vue'
   import { showToast } from '@/plugins/Toast'
 
-  const addToast = () => {
-    console.log('copy')
-    showToast('This is my toast', 'success')
+  const addSuccessToast = (): void => {
+    showToast('This is success!', 'success')
+  }
+  const addErrorToast = (): void => {
+    showToast('Something went wrong', 'error')
   }
 </script>
 

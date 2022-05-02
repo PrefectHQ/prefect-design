@@ -1,87 +1,69 @@
 <template>
-  <div class="p-toast__container">
-    <transition>
-      <div class="p-toast__card">
-        <div class="flex items-start">
-          <!--
-            <div class="p-toast__icon">
-            <p-icon :icon="icon" aria-hidden="true" />
-            </div>
-          -->
-          <div class="p-toast__info">
-            <!--
-              <p class="p-toast__header">
-              <slot name="header" />
-              </p>
-            -->
-            <p class="p-toast__message">
-              I am a toast, and this is amazing
-              {{ toast }}
-              <!-- <slot name="message" /> -->
-            </p>
-          </div>
-          <div class="p-toast__close">
-            <!--
-              <button class="p-toast__close-btn" @click="show = false">
-              <span class="sr-only">Close</span>
-              <p-icon class="" icon="XIcon" aria-hidden="true" />
-              </button>
-            -->
-          </div>
-        </div>
+  <transition>
+    <div class="p-toast__card">
+      <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
+      <p class="p-toast__message">
+        {{ toast.message }}
+      </p>
+
+      <div class="p-toast__close">
+        <!--
+          <button class="p-toast__close-btn" @click="show = false">
+          <span class="sr-only">Close</span>
+          <p-icon class="" icon="XIcon" aria-hidden="true" />
+          </button>
+        -->
       </div>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
-  import { computed, PropType, ref, withDefaults } from 'vue'
+  import { computed } from 'vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
+  import { Toast } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
-  // const props = withDefaults(defineProps<{
-  //   icon: string,
-  // }>(), {
-  //   // icon: 'default',
-  // })
-
   const props = defineProps<{
-    toast: any,
+    toast: Toast,
   }>()
 
 
   const iconMap: Record<string, string> = {
-    default: 'InformationCircleItem',
     success: 'CheckCircleIcon',
     error: 'XCircleIcon',
   }
 
-  // const compyteIcon = computed(() => {
-  //     return props.icon?
-  // })
+  const icon = computed(() => iconMap[props.toast.type] as Icon)
+
+  const colorClasses = [
+    { className: 'p-toast__icon--success', name: 'success'  },
+    { className: 'p-toast__icon--error', name: 'error'  },
+  ]
+
+  const color = computed(() => {
+    return colorClasses.find(color => color.name == props.toast.type)?.className
+  })
 </script>
 
 
 <style>
-/* .p-toast { @apply
-  fixed
-  inset-0
-  flex
-  items-end
-  px-4
-  py-6
-  pointer-events-none
-  sm:p-6
-} */
+:root {
+  --success: #2AC769;
+  --error: #FB4E4E;
+}
 
-.p-toast__container { @apply
- w-full
- flex
- flex-col
- space-y-4
- items-end
+.p-toast__icon--success {
+  fill: var(--success)
+}
+
+.p-toast__icon--error {
+  fill: var(--error)
 }
 
 .p-toast__card { @apply
+  flex
+  items-center
   max-w-sm
   w-full
   bg-white
@@ -93,29 +75,17 @@
   ring-opacity-5
   overflow-hidden
   p-4
+  mb-4
 }
 
 .p-toast__icon { @apply
  flex-shrink-0
  h-6
  w-6
-}
-
-.p-toast__info { @apply
-  ml-3
-  w-0
-  flex-1
-  pt-0.5
-}
-
-.p-toast__header { @apply
-  text-sm
-  font-medium
-  text-gray-900
+ pr-1
 }
 
 .p-toast__message { @apply
-   mt-1
    text-sm
    text-gray-500
 }

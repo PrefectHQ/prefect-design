@@ -10,7 +10,7 @@ type Toast = ToastOptions & {
 
 type ToastOptions = {
   message: string,
-  type?: ToastType,
+  type: ToastType,
   timeout?: number,
   dismissable?: boolean,
 }
@@ -80,7 +80,6 @@ function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'd
   }
 
   queue.unshift(toast)
-
   console.log(queue)
 
   return toast
@@ -89,7 +88,6 @@ function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'd
 const ToastPlugin: Plugin = {
   install: (app: App, options: ToastPluginOptions = {}) => {
     const element = getMountElement(options.mountPoint)
-    console.log(element)
 
     createApp(ToastContainer).mount(element)
 
