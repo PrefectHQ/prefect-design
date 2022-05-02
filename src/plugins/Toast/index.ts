@@ -10,7 +10,7 @@ type Toast = ToastOptions & {
 
 type ToastOptions = {
   message: string,
-  type: ToastType,
+  type?: ToastType,
   timeout?: number,
   dismissable?: boolean,
 }
@@ -66,11 +66,11 @@ function getMountElement(mountPoint: Element | string | undefined): Element {
   return mountPoint
 }
 
-function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'default', dismissable: boolean = 'true'): Toast {
+function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'default', dismissable: boolean = 'true', timeout: number = 5000): Toast {
   const id = getToastId()
 
   const options = typeof optionsOrMessage === 'string'
-    ? { message: optionsOrMessage, type, dismissable }
+    ? { message: optionsOrMessage, type, dismissable, timeout }
     : optionsOrMessage
 
   const toast: Toast = {

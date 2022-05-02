@@ -16,10 +16,10 @@
   import { showToast } from '@/plugins/Toast'
 
   const addToast = (): void => {
-    showToast('This is default message')
+    showToast('This is default message', undefined, false)
   }
   const addSuccessToast = (): void => {
-    showToast('This is success!', 'success')
+    showToast('This is success!', 'success', undefined, 3000)
   }
   const addErrorToast = (): void => {
     showToast('Something went wrong..', 'error')

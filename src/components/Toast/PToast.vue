@@ -26,19 +26,20 @@
     message: string,
     dismissable?: boolean,
     timeout?: number,
-    type: string,
+    type?: string,
   }>(), {
     message: '',
     timeout: 5000,
   })
+
 
   const iconMap: Record<string, string> = {
     default: 'InformationCircleIcon',
     success: 'CheckCircleIcon',
     error: 'XCircleIcon',
   }
+  const icon = computed(() => props.type ? iconMap[props.type] as Icon : iconMap.default)
 
-  const icon = computed(() => iconMap[props.type] as Icon)
 
   const colorClasses = [
     { className: 'p-toast__icon--success', name: 'success'  },
