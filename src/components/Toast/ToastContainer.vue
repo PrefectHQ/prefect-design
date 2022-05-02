@@ -1,10 +1,10 @@
 <template>
   <div aria-live="assertive" class="p-toast-container">
-    <template v-for="toast in queue" :key="toast.id">
-      <transition name="toast" mode="out-in">
+    <transition-group name="toast">
+      <div v-for="toast in queue" :key="toast.id" class="p-toast-container__toast">
         <p-toast v-bind="toast" @close="toast.dismiss" />
-      </transition>
-    </template>
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -26,37 +26,52 @@
   sm:p-6
 }
 
-.toast-enter-active-class { @apply
-  transform
-  ease-out
-  duration-300
-  transition
+.p-toast-container__toast { @apply
+  pb-4
 }
 
-.toast-enter-from { @apply
-  translate-y-2
+.toast-enter-active {
+  transition: transform 0.75s, opacity 0.75s;
+
+  @apply
   opacity-0
-  sm:translate-y-0
-  sm:translate-x-2
+  translate-y-full
+}
+
+.toast-enter-active ~ .p-toast-container__toast { @apply
+  translate-y-full
+  transition-transform
+  duration-700
 }
 
 .toast-enter-to { @apply
+  opacity-100
   translate-y-0
+}
+
+.toast-enter-to ~ .p-toast-container__toast { @apply
+  translate-y-0
+}
+
+.toast-leave-active {
+  transition: transform 0.75s, opacity 0.75s;
+
+  @apply
   opacity-100
-  sm:translate-x-0
+  translate-y-0
 }
 
-.toast-leave-active { @apply
-  transition
-  ease-in
-  duration-100
+.toast-leave-active ~ .p-toast-container__toast { @apply
+  translate-y-0
+  transition-transform
+  duration-700
 }
 
-.toast-leave-from { @apply
-  opacity-100
-}
-
-.toast-leave-to-class{ @apply
+.toast-leave-to { @apply
   opacity-0
+  translate-y-full
+}
+.toast-leave-to ~ .p-toast-container__toast { @apply
+  translate-y-full
 }
 </style>

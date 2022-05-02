@@ -91,7 +91,6 @@
   ring-opacity-5
   overflow-hidden
   p-4
-  mb-4
 }
 
 .p-toast__card-container { @apply
