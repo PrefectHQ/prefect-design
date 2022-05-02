@@ -75,7 +75,7 @@
       </p-label>
 
       <p-label label="Plain text combobox that allows unknown value">
-        <p-combobox v-model="exampleCombobox2" allow-unknown-value allow-deselect :options="['cool', 'story', 'bro']" />
+        <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['cool', 'story', 'bro']" />
       </p-label>
     </p-form>
   </div>
