@@ -9,8 +9,7 @@
       <template #default="{ isOpen, open, displayValue }">
         <input
           ref="textInput"
-          v-model="typedValue"
-          :placeholder="displayValue ?? internalValue"
+          :value="typedValue ?? displayValue"
           type="text"
           class="p-combobox__text-input"
           :class="classes"
@@ -19,6 +18,7 @@
           aria-controls="options"
           aria-expanded="false"
           @click="open"
+          @input="handleInput($event as InputEvent)"
           @keydown="handleTextInputKeydown($event, isOpen, open)"
         >
       </template>
@@ -70,7 +70,7 @@
     }))
 
   const filteredSelectOptions = computed<SelectOption[]>(() => {
-    const options = selectOptions.value.filter(option => option.label.startsWith(typedValue.value))
+    const options = selectOptions.value.filter(option => option.label.startsWith(typedValue.value ?? ''))
 
     if (typedValue.value && props.allowUnknownValue && lookupSelectOptionValueByLabel(typedValue.value) === undefined) {
       options.push({ label:`"${typedValue.value}"`, value: typedValue.value })
@@ -83,7 +83,7 @@
     'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
   }))
 
-  const typedValue = ref<string>('')
+  const typedValue = ref<string | null>(null)
   const textInput = ref<HTMLInputElement>()
 
   function lookupSelectOptionValueByLabel(label: SelectOption['label']): SelectOption['value'] | undefined  {
@@ -91,7 +91,7 @@
   }
 
   function resetTypedValue(): void {
-    typedValue.value = ''
+    typedValue.value = null
   }
 
   function allowSpaceToBeEnteredInTextBox(event: KeyboardEvent): void {
@@ -113,6 +113,12 @@
       }
       allowSpaceToBeEnteredInTextBox(event)
     }
+  }
+
+  function handleInput(event: InputEvent): void {
+    const target = event.target as HTMLInputElement
+
+    typedValue.value = target.value
   }
 </script>
 
