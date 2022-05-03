@@ -9,7 +9,7 @@
       <template #default="{ isOpen, open, displayValue }">
         <input
           ref="textInput"
-          :value="typedValue ?? displayValue"
+          :value="typedValue ?? displayValue ?? internalValue"
           type="text"
           class="p-combobox__text-input"
           :class="classes"
