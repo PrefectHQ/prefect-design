@@ -10,8 +10,14 @@
       @close="showModal = false"
     >
       <template #icon>
-        <p-icon icon="CakeIcon" />
+        <div>
+          <p-icon
+            icon="CakeIcon"
+            class="mx-auto h-12 w-12 sm:mx-0 sm:h-10 sm:w-10"
+          />
+        </div>
       </template>
+
       <template #title>
         <h3>Modal title</h3>
       </template>

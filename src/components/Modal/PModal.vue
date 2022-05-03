@@ -15,14 +15,10 @@
         <transition name="card">
           <div class="p-modal__card">
             <div class="p-modal__body">
-              <div class="p-modal__icon">
-                <slot name="icon" />
-              </div>
+              <slot name="icon" class="p-modal__icon" />
 
               <div class="p-modal__textbox">
-                <div class="p-modal__title">
-                  <slot name="title" />
-                </div>
+                <slot name="title" class="p-modal__title" />
                 <slot name="content" />
               </div>
             </div>
@@ -128,16 +124,10 @@
 
 .p-modal__icon {
   @apply
-   mx-auto
    flex-shrink-0
    flex
    items-center
    justify-center
-   h-12
-   w-12
-   sm:mx-0
-   sm:h-10
-   sm:w-10
 }
 
 .p-modal__textbox {
