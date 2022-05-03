@@ -4,9 +4,9 @@
       <p-icon icon="SelectorIcon" />
     </span>
 
-    <select v-model="internalValue" class="p-native-select__control" v-bind="$attrs">
+    <select v-model="internalValue" class="p-native-select__control" :multiple="multiple" v-bind="$attrs">
       <template v-for="(option, index) in selectOptions" :key="index">
-        <option :value="option.value" :selected="option.value === internalValue">
+        <option class="p-native-select__option" :class="classes" :value="option.value" :selected="option.value === internalValue">
           {{ option.label }}
         </option>
       </template>
@@ -31,6 +31,7 @@
   const props = defineProps<{
     modelValue: string | number | null | (string | number | null)[] | undefined,
     options: (string | number | SelectOption)[],
+    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -52,6 +53,10 @@
     }
 
     return { label: option.toLocaleString(), value: option }
+  }))
+
+  const classes = computed(() => ({
+    'p-native-select__option--multiple': props.multiple,
   }))
 </script>
 
@@ -81,6 +86,7 @@
   w-full
   pl-3
   pr-10
+  text-base
   py-2
   border
   border-gray-300
@@ -92,5 +98,9 @@
   rounded-md
   appearance-none
   bg-none
+}
+
+.p-native-select__option--multiple { @apply
+  pb-1
 }
 </style>
