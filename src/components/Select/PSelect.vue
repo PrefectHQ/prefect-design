@@ -81,6 +81,7 @@
 <script lang="ts" setup>
   import PNativeSelect from '@/components/NativeSelect'
   import PSelectOption from '@/components/SelectOption'
+  import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption } from '@/types/selectOption'
   import { toPluralString } from '@/utilities/strings'
 
@@ -214,24 +215,23 @@
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta']
-
-    if (keysToIgnore.includes(event.key)) {
+    if (isAlphaNumeric(event.key)) {
+      openSelect()
       return
     }
 
-    switch (event.code) {
-      case 'Escape':
-      case 'Tab':
+    switch (event.key) {
+      case keys.escape:
+      case keys.tab:
         closeSelect()
         break
-      case 'ArrowUp':
+      case keys.upArrow:
         if (open.value) {
           tryMovingHighlightedIndex(-1)
         }
         event.preventDefault()
         break
-      case 'ArrowDown':
+      case keys.downArrow:
         if (open.value) {
           tryMovingHighlightedIndex(1)
         } else {
@@ -239,20 +239,20 @@
         }
         event.preventDefault()
         break
-      case 'Space':
+      case keys.space:
         if (!open.value) {
           openSelect()
         }
         event.preventDefault()
         break
-      case 'Enter':
+      case keys.enter:
         if (trySettingValueToHighlighted()) {
           closeSelect()
         }
         event.preventDefault()
         break
       default:
-        openSelect()
+        break
     }
   }
 
