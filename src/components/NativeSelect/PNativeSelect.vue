@@ -4,9 +4,9 @@
       <p-icon icon="SelectorIcon" />
     </span>
 
-    <select v-model="internalValue" class="p-native-select__control" :multiple="multiple" v-bind="$attrs">
+    <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="$attrs">
       <template v-for="(option, index) in selectOptions" :key="index">
-        <option class="p-native-select__option" :class="classes" :value="option.value" :selected="option.value === internalValue">
+        <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue">
           {{ option.label }}
         </option>
       </template>
@@ -101,6 +101,6 @@
 }
 
 .p-native-select__option--multiple { @apply
-  pb-1
+  h-10
 }
 </style>
