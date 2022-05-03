@@ -27,9 +27,9 @@
 
     const overflow = child.offsetLeft + child.offsetWidth  > containerWidth - overflowTagWidth
 
-    if (child.classList.contains('tag-wrapper__tag-hidden')) {
-      child.classList.add('tag-wrapper__tag-invisible')
-      child.classList.remove('tag-wrapper__tag-hidden')
+    if (child.classList.contains('tag-wrapper__tag--hidden')) {
+      child.classList.add('tag-wrapper__tag--invisible')
+      child.classList.remove('tag-wrapper__tag--hidden')
     }
 
     if (overflow) {
