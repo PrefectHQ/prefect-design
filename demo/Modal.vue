@@ -29,7 +29,7 @@
         </div>
       </template>
       <template #action-btn>
-        <p-button class="w-full inline-flex justify-center sm:ml-3 sm:w-auto sm:text-sm">
+        <p-button class="w-full inline-flex justify-center sm:ml-3 sm:w-auto sm:text-sm" @click="showModal = false">
           Submit
         </p-button>
       </template>
