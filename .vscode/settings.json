@@ -23,7 +23,8 @@
     "heroicons",
     "prefecthq",
     "tailwindcss",
-    "vite"
+    "vite",
+    "vitejs"
   ],
   "files.exclude": {
     "node_modules": true,

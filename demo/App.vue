@@ -12,6 +12,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <!-- Replace with your content -->
           <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Typography</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Typography />
+            </div>
+          </div>
+          <div class="px-4 py-8 sm:px-0">
             <span class="text-2xl">Buttons</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
               <Buttons />
@@ -37,6 +43,15 @@
               <Tag />
             </div>
           </div>
+
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Toast</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Toast />
+            </div>
+          </div>
+
+          <Icons />
           <!-- /End replace -->
         </div>
       </main>
@@ -45,8 +60,11 @@
 </template>
 
 <script lang="ts" setup>
+  import Typography from './Typography.vue'
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
+  import Icons from './Icons.vue'
   import Tag from './Tag.vue'
+  import Toast from './Toast.vue'
   import Toggle from './Toggle.vue'
 </script>
