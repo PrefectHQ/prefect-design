@@ -1,5 +1,6 @@
 import { default as PButton } from './Button'
 import { default as PCheckbox } from './Checkbox'
+import { PCode, PCodeRow } from './Code'
 import { default as PForm } from './Form'
 import { default as PIcon } from './Icon'
 import { default as PLabel } from './Label'
@@ -13,6 +14,8 @@ import { default as PToggle } from './Toggle'
 export {
   PButton,
   PCheckbox,
+  PCode,
+  PCodeRow,
   PForm,
   PLabel,
   PIcon,
@@ -27,6 +30,8 @@ export {
 export const installs = [
   PButton.install,
   PCheckbox.install,
+  PCode.install,
+  PCodeRow.install,
   PForm.install,
   PLabel.install,
   PIcon.install,
