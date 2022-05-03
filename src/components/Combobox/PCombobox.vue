@@ -70,9 +70,9 @@
     }))
 
   const filteredSelectOptions = computed<SelectOption[]>(() => {
-    const options = selectOptions.value.filter(option => option.label.startsWith(typedValue.value ?? ''))
+    const options = selectOptions.value.filter(option => checkOptionLabelStartsWithValue(option.label, typedValue.value))
 
-    if (typedValue.value && props.allowUnknownValue && lookupSelectOptionValueByLabel(typedValue.value) === undefined) {
+    if (typedValue.value && props.allowUnknownValue && !checkOptionExistsForLabel(typedValue.value)) {
       options.push({ label:`"${typedValue.value}"`, value: typedValue.value })
     }
 
@@ -86,8 +86,16 @@
   const typedValue = ref<string | null>(null)
   const textInput = ref<HTMLInputElement>()
 
-  function lookupSelectOptionValueByLabel(label: SelectOption['label']): SelectOption['value'] | undefined  {
-    return selectOptions.value.find(option => option.label === label)?.value
+  function checkOptionLabelStartsWithValue(label: string, value: string | null): boolean {
+    if (!value) {
+      return true
+    }
+
+    return label.toLowerCase().startsWith(value.toLowerCase())
+  }
+
+  function checkOptionExistsForLabel(label: string): boolean  {
+    return selectOptions.value.find(option => option.label === label) !== undefined
   }
 
   function resetTypedValue(): void {
