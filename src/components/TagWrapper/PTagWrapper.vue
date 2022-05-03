@@ -75,10 +75,12 @@
   display: block;
   white-space: nowrap;
 }
-.tag-wrapper__tag-hidden {
+
+.tag-wrapper__tag--hidden {
   display: none !important;
 }
-.tag-wrapper__tag-invisible {
+
+.tag-wrapper__tag--invisible {
   visibility: hidden !important;
 }
 </style>
