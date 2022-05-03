@@ -61,6 +61,22 @@
           <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Jerry" label="Jerry" />
         </fieldset>
       </p-label>
+
+      <p-label label="Native select">
+        <p-native-select v-model="exampleNativeSelect" :options="exampleOptions" />
+      </p-label>
+
+      <p-label label="Hybrid select">
+        <p-select v-model="exampleSelect" allow-deselect :options="exampleOptions" />
+      </p-label>
+
+      <p-label label="Combobox select">
+        <p-combobox v-model="exampleCombobox" allow-deselect :options="exampleOptions" />
+      </p-label>
+
+      <p-label label="Plain text combobox that allows unknown value">
+        <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['cool', 'story', 'bro']" />
+      </p-label>
     </p-form>
   </div>
 </template>
@@ -70,9 +86,12 @@
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
   import PCheckbox from '@/components/Checkbox'
+  import PCombobox from '@/components/Combobox'
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
+  import PNativeSelect from '@/components/NativeSelect'
   import PNumberInput from '@/components/NumberInput'
+  import PSelect from '@/components/Select'
   import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
@@ -87,6 +106,19 @@
   const exampleTextarea = ref('')
   const exampleBoolean = ref<boolean>(false)
   const exampleCheckboxArray = ref<string[]>([])
+  const exampleNativeSelect = ref(null)
+  const exampleSelect = ref(null)
+  const exampleOptions = [
+    { label: '', value: null },
+    { label: 'Tim Cook', value: 1 },
+    { label: 'Satya Nadella', value: 11 },
+    { label: 'Jeffery Bezos', value: 111 },
+    { label: 'Sundar Pichai', value: 1111 },
+    { label: 'Elon Musk', value: 11111 },
+    { label: 'Mark Lizardking', value: 111111 },
+  ]
+  const exampleCombobox = ref(111)
+  const exampleCombobox2 = ref('')
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
