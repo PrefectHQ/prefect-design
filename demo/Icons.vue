@@ -30,13 +30,15 @@
   import * as heroIcons from '@heroicons/vue/solid'
   import * as prefectIcons from '@/components/Icon/icons'
 
+  import { showToast } from '@/plugins/Toast'
+
   const prefectIconKeys = Object.keys(prefectIcons)
   const heroIconKeys = Object.keys(heroIcons)
 
-  function copy(icon: string): void {
-    navigator.clipboard.writeText(`<p-icon icon="${icon}" />`)
+  async function copy(icon: string): Promise<void> {
+    await navigator.clipboard.writeText(`<p-icon icon="${icon}" />`)
 
     // eslint-disable-next-line no-alert
-    alert('Copied to clipboard!')
+    showToast(`Copied ${icon} to clipboard!`, 'success', undefined, 3000)
   }
 </script>
