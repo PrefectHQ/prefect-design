@@ -34,9 +34,9 @@
 
     if (overflow) {
       count++
-      child.classList.add('tag-wrapper__tag-hidden')
+      child.classList.add('tag-wrapper__tag--hidden')
     } else  {
-      child.classList.remove('tag-wrapper__tag-hidden')
+      child.classList.remove('tag-wrapper__tag--hidden')
     }
   }
 
