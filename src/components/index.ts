@@ -3,6 +3,7 @@ import { default as PCheckbox } from './Checkbox'
 import { default as PForm } from './Form'
 import { default as PIcon } from './Icon'
 import { default as PLabel } from './Label'
+import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTag } from './Tag'
 import { default as PTextarea } from './Textarea'
@@ -15,6 +16,7 @@ export {
   PCheckbox,
   PForm,
   PLabel,
+  PModal,
   PIcon,
   PNumberInput,
   PTextarea,
@@ -29,6 +31,7 @@ export const installs = [
   PCheckbox.install,
   PForm.install,
   PLabel.install,
+  PModal.install,
   PIcon.install,
   PNumberInput.install,
   PTextarea.install,

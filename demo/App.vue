@@ -51,6 +51,13 @@
             </div>
           </div>
 
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Modal</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Modal />
+            </div>
+          </div>
+
           <Icons />
           <!-- /End replace -->
         </div>
@@ -60,11 +67,12 @@
 </template>
 
 <script lang="ts" setup>
-  import Typography from './Typography.vue'
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
   import Icons from './Icons.vue'
+  import Modal from './Modal.vue'
   import Tag from './Tag.vue'
   import Toast from './Toast.vue'
   import Toggle from './Toggle.vue'
+  import Typography from './Typography.vue'
 </script>
