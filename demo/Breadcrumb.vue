@@ -18,7 +18,7 @@
       <div class="order-last">
         <div class="flex gap-2 mb-4">
           <p-button class="visible order-3 sm:invisible sm:order-2" icon="Running" />
-          <p-button primary class="invisible order-2 sm:visible sm:order-3">Quickrun</p-button>
+          <p-button primary class="invisible order-2 sm:visible sm:order-3">Quick Run</p-button>
           <p-button class="order-last" inset icon="DotsVerticalIcon" />
         </div>
       </div>
