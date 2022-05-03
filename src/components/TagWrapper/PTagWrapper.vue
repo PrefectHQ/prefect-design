@@ -8,11 +8,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, Ref, onMounted } from 'vue'
+  import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
 
   const container: Ref<HTMLDivElement | undefined> = ref()
   const overflowChildren = ref(0)
 
+  let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
 
   let count = 0
@@ -49,10 +50,21 @@
     })
     overflowChildren.value = count
   }
-  onMounted(() => {
+
+  function createObserver(): void {
+    resizeObserver = new ResizeObserver(setOverflow)
+
     if (container.value) {
-      new ResizeObserver(setOverflow).observe(container.value)
+      resizeObserver.observe(container.value)
     }
+  }
+
+  onMounted(() => {
+    createObserver()
+  })
+
+  onUnmounted(() => {
+    resizeObserver?.disconnect()
   })
 </script>
 
