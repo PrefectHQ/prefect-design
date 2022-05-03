@@ -20,8 +20,9 @@
   function setChild(child: HTMLElement): void {
     const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
     /*
-    note: overflowTagWidth is a fixed width of the tag that displays the overflow number e.g. (+13)
+    note: overflowTagWidth is a fixed width for the tag that displays the overflow number e.g. (+13)
     This should be replaced with the calculation of the overflow tag
+    The fixed width is used to account for the content in the overflow tag
     */
     const overflowTagWidth = 55
 
