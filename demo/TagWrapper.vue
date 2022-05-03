@@ -25,6 +25,8 @@
 .resizable-container {
   min-width: 75px;
   max-width: 50%;
+  resize: horizontal;
+  overflow: hidden;
 }
 
 .resizable-container__tag {
