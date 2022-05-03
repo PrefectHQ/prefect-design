@@ -1,18 +1,31 @@
 <template>
-  <teleport v-if="showModal" :to="to">
+  <TransitionRoot as="div" :show="showModal">
     <div class="p-modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="p-modal__container">
-        <!-- BACKGROUND -->
-        <transition name="background">
+        <TransitionChild
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
+        >
           <div class="p-modal__background" aria-hidden="true" />
-        </transition>
+        </TransitionChild>
 
         <!-- This element is to trick the browser into centering the modal contents. – Tailwind -->
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-
-        <!-- SLOTS -->
-        <transition name="card">
+        <TransitionChild
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          enter-to="opacity-100 translate-y-0 sm:scale-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100 translate-y-0 sm:scale-100"
+          leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        >
           <div class="p-modal__card">
             <div class="p-modal__body">
               <slot name="icon" class="p-modal__icon" />
@@ -22,7 +35,6 @@
                 <slot name="content" />
               </div>
             </div>
-
 
             <div class="p-modal__footer">
               <slot name="action-btn" />
@@ -35,21 +47,19 @@
               </button>
             </div>
           </div>
-        </transition>
+        </TransitionChild>
       </div>
     </div>
-  </teleport>
+    <!-- </teleport> -->
+  </TransitionRoot>
 </template>
 
 <script setup lang="ts">
-  import { withDefaults } from 'vue'
+  import { TransitionChild, TransitionRoot } from '@headlessui/vue'
 
-  withDefaults(defineProps<{
-    to?: string,
+  defineProps<{
     showModal: boolean,
-  }>(), {
-    to: 'body',
-  })
+  }>()
 
   const emit = defineEmits<{
     (event: 'close'): void,
@@ -60,7 +70,7 @@
   }
 </script>
 
-<style scoped>
+<style>
 .p-modal {
   @apply
    fixed
@@ -182,60 +192,5 @@
   sm:ml-3
   sm:w-auto
   sm:text-sm
-}
-
-/* Background Transition */
-.background-enter-active {
-  @apply
-  ease-out
-  duration-1000
-}
-.background-enter-from {
-  @apply
-  opacity-0
-}
-.background-enter-to {
-  @apply
-  opacity-100
-}
-.background-leave-active {
-  @apply
-  ease-in
-  duration-1000
-}
-.background-leave-from {
-  @apply
-  opacity-100
-}
-.background-leave-to {
-  @apply
-  opacity-0
-}
-
-/* Modal Card Transition */
-.card-enter-active {
-  @apply
-  ease-out
-  duration-300
-}
-.card-enter-from {
-  @apply
-  opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95
-}
-.card-enter-to {
-  @apply
-  opacity-100 translate-y-0 sm:scale-100
-}
-.card-leave-active {
-  @apply
-  ease-in duration-200
-}
-.card-leave-from {
-  @apply
-  opacity-100 translate-y-0 sm:scale-100
-}
-.card-leave-to {
-  @apply
-  opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95
 }
 </style>

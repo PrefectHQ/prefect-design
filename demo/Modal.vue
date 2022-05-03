@@ -42,7 +42,3 @@
 
   const showModal = ref(false)
 </script>
-
-<style scoped>
-
-</style>
