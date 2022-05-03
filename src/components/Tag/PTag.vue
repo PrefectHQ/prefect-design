@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { getCurrentInstance } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
   defineProps<{

@@ -27,16 +27,16 @@
 
     const overflow = child.offsetLeft + child.offsetWidth  > containerWidth - overflowTagWidth
 
-    if (child.classList.contains('tag-wrapper__tag-hidden')) {
-      child.classList.add('tag-wrapper__tag-invisible')
-      child.classList.remove('tag-wrapper__tag-hidden')
+    if (child.classList.contains('tag-wrapper__tag--hidden')) {
+      child.classList.add('tag-wrapper__tag--invisible')
+      child.classList.remove('tag-wrapper__tag--hidden')
     }
 
     if (overflow) {
       count++
-      child.classList.add('tag-wrapper__tag-hidden')
+      child.classList.add('tag-wrapper__tag--hidden')
     } else  {
-      child.classList.remove('tag-wrapper__tag-hidden')
+      child.classList.remove('tag-wrapper__tag--hidden')
     }
   }
 
@@ -75,10 +75,12 @@
   display: block;
   white-space: nowrap;
 }
-.tag-wrapper__tag-hidden {
+
+.tag-wrapper__tag--hidden {
   display: none !important;
 }
-.tag-wrapper__tag-invisible {
+
+.tag-wrapper__tag--invisible {
   visibility: hidden !important;
 }
 </style>
