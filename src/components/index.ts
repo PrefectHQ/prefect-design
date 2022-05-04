@@ -2,6 +2,7 @@ import { default as PButton } from './Button'
 import { default as PCheckbox } from './Checkbox'
 import { default as PForm } from './Form'
 import { default as PIcon } from './Icon'
+import { default as PIconText } from './IconText'
 import { default as PLabel } from './Label'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTag } from './Tag'
@@ -21,7 +22,8 @@ export {
   PTextInput,
   PToast,
   PToggle,
-  PTag
+  PTag,
+  PIconText
 }
 
 export const installs = [
@@ -36,4 +38,5 @@ export const installs = [
   PToast.install,
   PToggle.install,
   PTag.install,
+  PIconText.install,
 ]
