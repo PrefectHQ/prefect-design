@@ -1,18 +1,14 @@
 <template>
   <div ref="container" class="tag-wrapper">
-    <template v-if="tags">
+    <slot>
       <template v-for="tag in tags">
-        <slot :name="tag" :tag="tag">
+        <slot name="tag" :tag="tag">
           <p-tag>
             {{ tag }}
           </p-tag>
         </slot>
       </template>
-    </template>
-
-    <template v-else>
-      <slot />
-    </template>
+    </slot>
 
     <p-tag v-show="hasOverflowChildren" class="tag-wrapper__tag-overflow">
       +{{ overflowChildren }}
