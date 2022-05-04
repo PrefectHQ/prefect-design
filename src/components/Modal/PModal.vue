@@ -13,9 +13,6 @@
         >
           <div class="p-modal__background" aria-hidden="true" />
         </TransitionChild>
-
-        <span class="p-modal__browser-center-trick" aria-hidden="true">&#8203;</span>
-
         <TransitionChild
           as="template"
           enter="ease-out duration-300"
@@ -81,15 +78,12 @@
 .p-modal__container {
   @apply
    flex
-   items-end
    justify-center
+   items-center
    min-h-screen
    pt-4
    px-4
    pb-20
-   text-center
-   sm:block
-   sm:p-0
 }
 
 .p-modal__background {
@@ -119,7 +113,6 @@
    text-left
    overflow-hidden
    shadow-xl
-   transform
    transition-all
    sm:my-8
    sm:align-middle
@@ -139,7 +132,6 @@
   sm:pb-4
   sm:gap-4
   sm:flex-row
-  sm:items-start
 }
 
 .p-modal__icon {
@@ -175,8 +167,7 @@
    bg-gray-50
    px-4
    py-3
-   sm:px-6
-   sm:flex
+   sm:pr-6
    sm:justify-end
    sm:flex-row
 }
