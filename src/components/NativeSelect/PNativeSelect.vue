@@ -26,23 +26,23 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
-  import { isSelectOption, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | (string | number | null)[] | undefined,
+    modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: Exclude<typeof props.modelValue, undefined>): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: Exclude<typeof props.modelValue, undefined>) {
+    set(value: SelectModelValue | SelectModelValue[]) {
       emits('update:modelValue', value)
     },
   })

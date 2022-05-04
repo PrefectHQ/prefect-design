@@ -86,17 +86,17 @@
   import PNativeSelect from '@/components/NativeSelect'
   import PSelectOption from '@/components/SelectOption'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, isSelectOption } from '@/types/selectOption'
+  import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
   import { toPluralString } from '@/utilities/strings'
 
   const props = defineProps<{
-    modelValue: string | number | null | (string | number | null)[] | undefined,
+    modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: Exclude<typeof props.modelValue, undefined>): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'open' | 'close'): void,
   }>()
 
@@ -109,7 +109,7 @@
     get() {
       return props.modelValue ?? null
     },
-    set(value: Exclude<typeof props.modelValue, undefined>) {
+    set(value: SelectModelValue | SelectModelValue[]) {
       emits('update:modelValue', value)
     },
   })
@@ -171,7 +171,7 @@
     }
   }
 
-  function setValue(newValue: string | number | null): void {
+  function setValue(newValue: SelectModelValue): void {
     if (Array.isArray(internalValue.value)) {
       const index = internalValue.value.indexOf(newValue)
 
