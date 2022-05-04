@@ -52,6 +52,7 @@
           </div>
 
           <Icons />
+          <TablesSection />
           <!-- /End replace -->
         </div>
       </main>
@@ -60,11 +61,12 @@
 </template>
 
 <script lang="ts" setup>
-  import Typography from './Typography.vue'
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
   import Icons from './Icons.vue'
+  import TablesSection from './sections/tables/tables.vue'
   import Tag from './Tag.vue'
   import Toast from './Toast.vue'
   import Toggle from './Toggle.vue'
+  import Typography from './Typography.vue'
 </script>
