@@ -26,8 +26,7 @@
 
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
-
-  function setChild(child: HTMLElement): number {
+  function setChildIsVisible(child: HTMLElement): boolean {
     const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
     /*
     note: overflowTagWidth is a fixed width for the tag that displays the overflow number e.g. (+13)
@@ -40,37 +39,32 @@
       child.classList.remove('p-tag-wrapper__tag--hidden')
     }
 
-    if (!child.offsetLeft && !child.offsetWidth) {
-      return 0
-    }
     const childOverflowsContainer = child.offsetLeft + child.offsetWidth  > containerWidth - overflowTagWidth
 
 
     if (childOverflowsContainer) {
       child.classList.add('p-tag-wrapper__tag--hidden')
-      return 1
+      return true
     }
     child.classList.remove('p-tag-wrapper__tag--hidden')
     child.classList.remove('p-tag-wrapper__tag--invisible')
-    return 0
+    return false
   }
 
   function updateOverflownChildren(entries: ResizeObserverEntry[]): void {
     overflowChildren.value = entries.reduce((sum, entry) => {
       const children = Array.from(entry.target.children) as HTMLElement[]
-
       return sum + getChildOverflow(children)
     }, 0)
   }
 
   function getChildOverflow(children: HTMLElement[]): number {
     return children
-      .filter(child => !child.classList.contains('tag-wrapper__tag-overflow'))
+      .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'))
       .reduce((childSum, child) => {
-        if (setChild(child)) {
+        if (setChildIsVisible(child)) {
           childSum++
         }
-
         return childSum
       }, 0)
   }
