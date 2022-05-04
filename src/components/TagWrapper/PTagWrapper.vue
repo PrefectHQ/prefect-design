@@ -44,11 +44,11 @@
 
     if (childOverflowsContainer) {
       child.classList.add('p-tag-wrapper__tag--hidden')
-      return true
+    } else {
+      child.classList.remove('p-tag-wrapper__tag--hidden')
+      child.classList.remove('p-tag-wrapper__tag--invisible')
     }
-    child.classList.remove('p-tag-wrapper__tag--hidden')
-    child.classList.remove('p-tag-wrapper__tag--invisible')
-    return false
+    return childOverflowsContainer
   }
 
   function updateOverflownChildren(entries: ResizeObserverEntry[]): void {
