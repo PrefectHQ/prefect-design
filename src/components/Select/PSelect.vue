@@ -1,14 +1,26 @@
 <template>
-  <div class="p-select" @keydown="handleKeydown">
+  <div
+    ref="selectElement"
+    class="p-select"
+    :class="classes"
+    @keydown="handleKeydown"
+  >
     <p-native-select
       v-model="internalValue"
+      size="1"
       class="p-select__native"
+      :multiple="multiple"
       :options="selectOptions"
-      @focus="open = false"
     />
 
     <div class="p-select__custom">
-      <slot :selected-option="selectedOption" :is-open="open" :open="openSelect" :close="closeSelect">
+      <slot
+        :selected-option="selectedOption"
+        :display-value="displayValue"
+        :is-open="open"
+        :open="openSelect"
+        :close="closeSelect"
+      >
         <button
           type="button"
           class="p-select__custom-button"
@@ -16,7 +28,9 @@
           tabindex="-1"
           @click="openSelect"
         >
-          <span class="p-select__selected-value">{{ selectedOption?.label }}</span>
+          <span class="p-select__selected-value">
+            {{ displayValue }}
+          </span>
         </button>
       </slot>
     </div>
@@ -25,20 +39,25 @@
       <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
         <template v-if="selectOptions.length">
           <template v-for="(option, index) in selectOptions" :key="index">
-            <span ref="optionElements" @mouseenter="highlightedIndex = index" @click.prevent="setValueAndClose(option.value)">
+            <li
+              ref="optionElements"
+              @mouseenter="highlightedIndex = index"
+              @click="handleOptionClick(option)"
+            >
               <p-select-option
                 :label="option.label"
-                :selected="option.value === internalValue"
+                :multiple="multiple"
+                :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               >
                 <slot
                   name="option"
                   :option="option"
-                  :selected="option.value === internalValue"
+                  :selected="isSelected(option)"
                   :highlighted="highlightedIndex === index"
                 />
               </p-select-option>
-            </span>
+            </li>
           </template>
         </template>
         <template v-else>
@@ -54,7 +73,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onUnmounted, ref, nextTick } from 'vue'
+  import { defineComponent, computed, onUnmounted, ref } from 'vue'
 
   export default defineComponent({
     name: 'PSelect',
@@ -66,18 +85,22 @@
 <script lang="ts" setup>
   import PNativeSelect from '@/components/NativeSelect'
   import PSelectOption from '@/components/SelectOption'
-  import { SelectOption, isSelectOption } from '@/types/selectOption'
+  import { isAlphaNumeric, keys } from '@/types/keyEvent'
+  import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { toPluralString } from '@/utilities/strings'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
+    modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
+    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | null): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'open' | 'close'): void,
   }>()
 
+  const selectElement = ref<HTMLElement>()
   const optionElements = ref<HTMLElement[]>([])
   const highlightedIndex = ref<number>(-1)
   const open = ref(false)
@@ -86,20 +109,50 @@
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | null) {
+    set(value: SelectModelValue | SelectModelValue[]) {
       emits('update:modelValue', value)
     },
   })
 
-  const selectedOption = computed(() => selectOptions.value.find(x => x.value === internalValue.value))
+  const selectedOption = computed(() => {
+    if (Array.isArray(internalValue.value)) {
+      return selectOptions.value.filter(isSelected)
+    }
+
+    return selectOptions.value.find(x => x.value === internalValue.value)
+  })
 
   const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
     if (isSelectOption(option)) {
-      return  option
+      return option
     }
 
     return { label: option.toLocaleString(), value: option }
   }))
+
+  const displayValue = computed(() => {
+    if (Array.isArray(selectedOption.value)) {
+      if (!selectedOption.value.length) {
+        return null
+      }
+
+      return `${selectedOption.value.length} ${toPluralString('Item', selectedOption.value.length)}`
+    }
+
+    return selectedOption.value?.label ?? null
+  })
+
+  const classes = computed(() => ({
+    'p-select--open': open.value,
+  }))
+
+  function isSelected(option: SelectOption): boolean {
+    if (Array.isArray(internalValue.value)) {
+      return internalValue.value.includes(option.value)
+    }
+
+    return option.value === internalValue.value
+  }
 
   function openSelect(): void {
     if (!open.value) {
@@ -118,13 +171,18 @@
     }
   }
 
-  function setValue(newValue: SelectOption['value']): void {
-    internalValue.value = newValue
-  }
+  function setValue(newValue: SelectModelValue): void {
+    if (Array.isArray(internalValue.value)) {
+      const index = internalValue.value.indexOf(newValue)
 
-  function setValueAndClose(newValue: SelectOption['value']): void {
-    setValue(newValue)
-    nextTick(() => closeSelect())
+      if (index > -1) {
+        internalValue.value.splice(index, 1)
+      } else {
+        internalValue.value = [...internalValue.value, newValue]
+      }
+    } else {
+      internalValue.value = newValue
+    }
   }
 
   function getHighlighted(): SelectOption | undefined {
@@ -139,7 +197,6 @@
     }
 
     setValue(highlighted.value)
-
 
     return true
   }
@@ -167,24 +224,23 @@
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta']
-
-    if (keysToIgnore.includes(event.key)) {
+    if (isAlphaNumeric(event.key)) {
+      openSelect()
       return
     }
 
-    switch (event.code) {
-      case 'Escape':
-      case 'Tab':
+    switch (event.key) {
+      case keys.escape:
+      case keys.tab:
         closeSelect()
         break
-      case 'ArrowUp':
+      case keys.upArrow:
         if (open.value) {
           tryMovingHighlightedIndex(-1)
         }
         event.preventDefault()
         break
-      case 'ArrowDown':
+      case keys.downArrow:
         if (open.value) {
           tryMovingHighlightedIndex(1)
         } else {
@@ -192,30 +248,45 @@
         }
         event.preventDefault()
         break
-      case 'Space':
+      case keys.space:
         if (!open.value) {
           openSelect()
         }
         event.preventDefault()
         break
-      case 'Enter':
+      case keys.enter:
         if (trySettingValueToHighlighted()) {
           closeSelect()
         }
         event.preventDefault()
         break
       default:
-        openSelect()
+        break
+    }
+  }
+
+  function handleOptionClick(option: SelectOption): void {
+    setValue(option.value)
+
+    if (!props.multiple) {
+      closeSelect()
+    }
+  }
+
+  function handleDocumentClick(event: MouseEvent): void {
+    const focusIsWithinSelect = selectElement.value?.contains(event.target as Node)
+    if (!focusIsWithinSelect && open.value) {
+      closeSelect()
     }
   }
 
   function addListeners(): void {
-    document.addEventListener('click', closeSelect)
+    document.addEventListener('click', handleDocumentClick)
     window.addEventListener('resize', closeSelect)
   }
 
   function removeListeners(): void {
-    document.removeEventListener('click', closeSelect)
+    document.removeEventListener('click', handleDocumentClick)
     window.removeEventListener('resize', closeSelect)
   }
 
@@ -235,6 +306,13 @@
   focus-within:ring-1
   focus-within:ring-prefect-500
   focus-within:border-prefect-500
+}
+
+.p-select--open { @apply
+  outline-none
+  ring-1
+  ring-prefect-500
+  border-prefect-500
 }
 
 .p-select__native { @apply

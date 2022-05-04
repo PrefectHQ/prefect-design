@@ -77,6 +77,10 @@
       <p-label label="Plain text combobox that allows unknown value">
         <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['cool', 'story', 'bro']" />
       </p-label>
+
+      <p-label label="Multi select">
+        <p-select v-model="exampleMultiSelect"  :options="exampleOptions" multiple />
+      </p-label>
     </p-form>
   </div>
 </template>
@@ -109,16 +113,17 @@
   const exampleNativeSelect = ref(null)
   const exampleSelect = ref(null)
   const exampleOptions = [
-    { label: '', value: null },
-    { label: 'Tim Cook', value: 1 },
-    { label: 'Satya Nadella', value: 11 },
-    { label: 'Jeffery Bezos', value: 111 },
-    { label: 'Sundar Pichai', value: 1111 },
-    { label: 'Elon Musk', value: 11111 },
-    { label: 'Mark Lizardking', value: 111111 },
+    { label: '', value: '' },
+    { label: 'Tim Cook', value: 'Apple' },
+    { label: 'Satya Nadella', value: 'Microsoft' },
+    { label: 'Jeffrey Bezos', value: 'Amazon' },
+    { label: 'Sundar Pichai', value: 'Google' },
+    { label: 'Elon Musk', value: 'Space-X' },
+    { label: 'Mark Lizardking', value: 'Facebook' },
   ]
-  const exampleCombobox = ref(111)
+  const exampleCombobox = ref('Space-X')
   const exampleCombobox2 = ref('')
+  const exampleMultiSelect = ref<string[]>([])
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State

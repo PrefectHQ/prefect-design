@@ -4,9 +4,9 @@
       <p-icon icon="SelectorIcon" />
     </span>
 
-    <select v-model="internalValue" class="p-native-select__control" v-bind="$attrs">
+    <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="$attrs">
       <template v-for="(option, index) in selectOptions" :key="index">
-        <option :value="option.value" :selected="option.value === internalValue">
+        <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue">
           {{ option.label }}
         </option>
       </template>
@@ -26,22 +26,23 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
-  import { isSelectOption, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
+    modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
+    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | null): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | null) {
+    set(value: SelectModelValue | SelectModelValue[]) {
       emits('update:modelValue', value)
     },
   })
@@ -52,6 +53,10 @@
     }
 
     return { label: option.toLocaleString(), value: option }
+  }))
+
+  const classes = computed(() => ({
+    'p-native-select__control--multiple': props.multiple,
   }))
 </script>
 
@@ -81,6 +86,7 @@
   w-full
   pl-3
   pr-10
+  text-base
   py-2
   border
   border-gray-300
@@ -92,5 +98,9 @@
   rounded-md
   appearance-none
   bg-none
+}
+
+.p-native-select__control--multiple { @apply
+  h-10
 }
 </style>
