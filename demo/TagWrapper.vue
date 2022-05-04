@@ -4,7 +4,9 @@
 
     <p-tag-wrapper :tags="numberArr">
       <template #seven="{ tag }">
-        <span class="text-prefect-500 font-bold">{{ tag.toUpperCase() }}</span>
+        <p-tag icon="HeartIcon">
+          {{ tag }}
+        </p-tag>
       </template>
     </p-tag-wrapper>
 

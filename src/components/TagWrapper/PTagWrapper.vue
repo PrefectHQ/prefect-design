@@ -1,11 +1,13 @@
 <template>
   <div ref="container" class="tag-wrapper">
     <template v-if="tags">
-      <p-tag v-for="tag in tags" :key="tag">
+      <template v-for="tag in tags">
         <slot :name="tag" :tag="tag">
-          {{ tag }}
+          <p-tag>
+            {{ tag }}
+          </p-tag>
         </slot>
-      </p-tag>
+      </template>
     </template>
 
     <template v-else>
