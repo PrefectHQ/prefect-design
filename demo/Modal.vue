@@ -6,7 +6,7 @@
 
 
     <p-modal
-      :show-modal="showModal"
+      v-model:showModal="showModal"
       @close="showModal = false"
     >
       <template #icon>

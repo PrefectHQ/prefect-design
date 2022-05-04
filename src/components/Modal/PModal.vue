@@ -61,11 +61,11 @@
   }>()
 
   const emit = defineEmits<{
-    (event: 'close'): void,
+    (event: 'update:showModal', value: boolean): void,
   }>()
 
   const closeModal = (): void => {
-    emit('close')
+    emit('update:showModal', false)
   }
 </script>
 
