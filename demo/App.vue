@@ -43,7 +43,8 @@
               <Tag />
             </div>
           </div>
-          <div>
+
+          <div class="px-4 py-8 sm:px-0">
             <span class="text-2xl">Toast</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
               <Toast />
@@ -66,7 +67,6 @@
 </template>
 
 <script lang="ts" setup>
-  import Typography from './Typography.vue'
   import Buttons from './Buttons.vue'
   import Forms from './Forms.vue'
   import Icons from './Icons.vue'
@@ -74,4 +74,5 @@
   import TagWrapper from './TagWrapper.vue'
   import Toast from './Toast.vue'
   import Toggle from './Toggle.vue'
+  import Typography from './Typography.vue'
 </script>
