@@ -1,5 +1,10 @@
 <template>
-  <div ref="selectElement" class="p-select" @keydown="handleKeydown">
+  <div
+    ref="selectElement"
+    class="p-select"
+    :class="classes"
+    @keydown="handleKeydown"
+  >
     <p-native-select
       v-model="internalValue"
       size="1"
@@ -136,6 +141,10 @@
 
     return selectedOption.value?.label ?? null
   })
+
+  const classes = computed(() => ({
+    'p-select--open': open.value,
+  }))
 
   function isSelected(option: SelectOption): boolean {
     if (Array.isArray(internalValue.value)) {
@@ -297,6 +306,13 @@
   focus-within:ring-1
   focus-within:ring-prefect-500
   focus-within:border-prefect-500
+}
+
+.p-select--open { @apply
+  outline-none
+  ring-1
+  ring-prefect-500
+  border-prefect-500
 }
 
 .p-select__native { @apply
