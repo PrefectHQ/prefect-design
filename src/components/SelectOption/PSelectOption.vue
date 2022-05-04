@@ -1,5 +1,5 @@
 <template>
-  <li class="p-select-option" role="option" :class="classes">
+  <span class="p-select-option" role="option" :class="classes">
     <template v-if="multiple">
       <p-checkbox :model-value="selected" />
     </template>
@@ -11,7 +11,7 @@
         <CheckIcon />
       </span>
     </template>
-  </li>
+  </span>
 </template>
 
 <script lang="ts" setup>
@@ -23,7 +23,7 @@
     label: string,
     selected: boolean,
     highlighted: boolean,
-    multiple: boolean,
+    multiple?: boolean,
   }>()
 
   const classes = computed(() => ({
@@ -52,12 +52,7 @@
 }
 
 .p-select-option--highlighted { @apply
-  bg-prefect-600
-  text-white
-}
-
-.p-select-option--highlighted .p-select-option__check { @apply
-  text-white
+  bg-prefect-100
 }
 
 .p-select-option__text { @apply

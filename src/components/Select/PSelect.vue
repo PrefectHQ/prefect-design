@@ -1,12 +1,11 @@
 <template>
-  <div class="p-select" @keydown="handleKeydown">
+  <div ref="selectElement" class="p-select" @keydown="handleKeydown">
     <p-native-select
       v-model="internalValue"
       size="1"
       class="p-select__native"
       :multiple="multiple"
       :options="selectOptions"
-      @focus="open = false"
     />
 
     <div class="p-select__custom">
@@ -35,14 +34,14 @@
       <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
         <template v-if="selectOptions.length">
           <template v-for="(option, index) in selectOptions" :key="index">
-            <span
+            <li
               ref="optionElements"
               @mouseenter="highlightedIndex = index"
               @click="handleOptionClick(option)"
             >
               <p-select-option
                 :label="option.label"
-                :multiple="multiple ?? false"
+                :multiple="multiple"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               >
@@ -53,7 +52,7 @@
                   :highlighted="highlightedIndex === index"
                 />
               </p-select-option>
-            </span>
+            </li>
           </template>
         </template>
         <template v-else>
@@ -69,7 +68,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onUnmounted, ref, nextTick } from 'vue'
+  import { defineComponent, computed, onUnmounted, ref } from 'vue'
 
   export default defineComponent({
     name: 'PSelect',
@@ -96,6 +95,7 @@
     (event: 'open' | 'close'): void,
   }>()
 
+  const selectElement = ref<HTMLElement>()
   const optionElements = ref<HTMLElement[]>([])
   const highlightedIndex = ref<number>(-1)
   const open = ref(false)
@@ -260,17 +260,24 @@
     setValue(option.value)
 
     if (!props.multiple) {
-      nextTick(() => closeSelect())
+      closeSelect()
+    }
+  }
+
+  function handleDocumentClick(event: MouseEvent): void {
+    const focusIsWithinSelect = selectElement.value?.contains(event.target as Node)
+    if (!focusIsWithinSelect && open.value) {
+      closeSelect()
     }
   }
 
   function addListeners(): void {
-    document.addEventListener('click', closeSelect)
+    document.addEventListener('click', handleDocumentClick)
     window.addEventListener('resize', closeSelect)
   }
 
   function removeListeners(): void {
-    document.removeEventListener('click', closeSelect)
+    document.removeEventListener('click', handleDocumentClick)
     window.removeEventListener('resize', closeSelect)
   }
 
