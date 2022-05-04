@@ -151,13 +151,16 @@ export const numberKeys = [
   keys['8'],
   keys['9'],
 ] as const
+
 export type NumberKey = typeof numberKeys[number]
+export type AlphaNumericKey = typeof alphaNumericKeys[number]
+
 export function isNumberKey(value: string): boolean {
   return numberKeys.includes(value as NumberKey)
 }
 
 export const alphaNumericKeys = [...alphaKeys, ...numberKeys] as const
-export type AlphaNumericKey = typeof alphaNumericKeys[number]
+
 export function isAlphaNumeric(value: string): boolean {
   return alphaNumericKeys.includes(value as AlphaNumericKey)
 }
