@@ -14,8 +14,7 @@
           <div class="p-modal__background" aria-hidden="true" />
         </TransitionChild>
 
-        <!-- This element is to trick the browser into centering the modal contents. – Tailwind -->
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <span class="p-modal__browser-center-trick" aria-hidden="true">&#8203;</span>
 
         <TransitionChild
           as="template"
@@ -30,14 +29,15 @@
             <div class="p-modal__body">
               <slot name="icon" class="p-modal__icon" />
 
-              <div class="p-modal__textbox">
+              <div class="p-modal__text-container">
                 <slot name="title" class="p-modal__title" />
                 <slot name="content" />
               </div>
             </div>
 
             <div class="p-modal__footer">
-              <slot name="action-btn" />
+              <slot name="actions" />
+
               <button
                 type="button"
                 class="p-modal__close-btn"
@@ -50,7 +50,6 @@
         </TransitionChild>
       </div>
     </div>
-    <!-- </teleport> -->
   </TransitionRoot>
 </template>
 
@@ -102,6 +101,14 @@
    transition-opacity
 }
 
+.p-modal__browser-center-trick {
+  @apply
+   hidden
+   sm:inline-block
+   sm:align-middle
+   sm:h-screen
+}
+
 .p-modal__card {
   @apply
    relative
@@ -122,13 +129,16 @@
 
 .p-modal__body {
   @apply
+  flex
+  flex-col
+  gap-3
   bg-white
-  px-4
+  p-4
   pt-5
-  pb-4
   sm:p-6
   sm:pb-4
-  sm:flex
+  sm:gap-4
+  sm:flex-row
   sm:items-start
 }
 
@@ -140,12 +150,12 @@
    justify-center
 }
 
-.p-modal__textbox {
+.p-modal__text-container {
   @apply
-   mt-3
+  flex
+  flex-col
+  gap-2
    text-center
-   sm:mt-0
-   sm:ml-4
    sm:text-left
 }
 
@@ -159,17 +169,20 @@
 
 .p-modal__footer {
   @apply
+  flex
+  flex-col
+  gap-3
    bg-gray-50
    px-4
    py-3
    sm:px-6
    sm:flex
-   sm:flex-row-reverse
+   sm:justify-end
+   sm:flex-row
 }
 
 .p-modal__close-btn {
   @apply
-  mt-3
   w-full
   inline-flex
   justify-center
@@ -188,9 +201,9 @@
   focus:ring-2
   focus:ring-offset-2
   focus:ring-indigo-500
-  sm:mt-0
-  sm:ml-3
   sm:w-auto
   sm:text-sm
+  sm:order-first
+  sm:py-3
 }
 </style>

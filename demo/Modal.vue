@@ -22,14 +22,12 @@
         <h3>Modal title</h3>
       </template>
       <template #content>
-        <div class="mt-2">
-          <p class="text-sm text-gray-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-          </p>
-        </div>
+        <p class="text-sm text-gray-500">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
+        </p>
       </template>
-      <template #action-btn>
-        <p-button class="w-full inline-flex justify-center sm:ml-3 sm:w-auto sm:text-sm" @click="showModal = false">
+      <template #actions>
+        <p-button class="w-full inline-flex justify-center sm:w-auto sm:text-sm" @click="showModal = false">
           Submit
         </p-button>
       </template>
