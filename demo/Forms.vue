@@ -79,7 +79,7 @@
       </p-label>
 
       <p-label label="Multi select">
-        <p-select v-model="exampleMultiSelect" allow-deselect :options="exampleOptions" multiple />
+        <p-select v-model="exampleMultiSelect"  :options="exampleOptions" multiple />
       </p-label>
     </p-form>
   </div>
