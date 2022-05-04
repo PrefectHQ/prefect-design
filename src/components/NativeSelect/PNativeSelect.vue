@@ -56,7 +56,7 @@
   }))
 
   const classes = computed(() => ({
-    'p-native-select__option--multiple': props.multiple,
+    'p-native-select__control--multiple': props.multiple,
   }))
 </script>
 
@@ -100,7 +100,7 @@
   bg-none
 }
 
-.p-native-select__option--multiple { @apply
+.p-native-select__control--multiple { @apply
   h-10
 }
 </style>

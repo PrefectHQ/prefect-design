@@ -3,14 +3,14 @@
     <template v-if="multiple">
       <p-checkbox :model-value="selected" />
     </template>
-    <span class="p-select-option__text">
-      <slot>{{ label }}</slot>
-    </span>
-    <template v-if="selected && !multiple">
+    <template v-else-if="selected">
       <span class="p-select-option__check">
         <CheckIcon />
       </span>
     </template>
+    <span class="p-select-option__text">
+      <slot>{{ label }}</slot>
+    </span>
   </span>
 </template>
 
@@ -67,12 +67,9 @@
 
 .p-select-option__check { @apply
   text-prefect-600
-  absolute
-  inset-y-0
-  right-0
   flex
   items-center
-  pr-4
+  pr-1
 }
 
 .p-select-option__check svg { @apply
