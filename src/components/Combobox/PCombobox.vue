@@ -1,11 +1,15 @@
 <template>
   <div class="p-combobox" @keydown="handleComboboxKeydown">
-    <p-select v-model="internalValue" :options="filteredSelectOptions" @close="resetTypedValue">
-      <template #default="{ isOpen, open }">
+    <p-select
+      v-model="internalValue"
+      :multiple="multiple"
+      :options="filteredSelectOptions"
+      @close="resetTypedValue"
+    >
+      <template #default="{ isOpen, open, displayValue }">
         <input
           ref="textInput"
-          v-model="typedValue"
-          :placeholder="displayValue"
+          :value="typedValue ?? displayValue ?? internalValue"
           type="text"
           class="p-combobox__text-input"
           :class="classes"
@@ -14,6 +18,7 @@
           aria-controls="options"
           aria-expanded="false"
           @click="open"
+          @input="handleInput($event as InputEvent)"
           @keydown="handleTextInputKeydown($event, isOpen, open)"
         >
       </template>
@@ -33,23 +38,24 @@
 
 <script lang="ts" setup>
   import PSelect from '@/components/Select'
-  import { isSelectOption, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
+    modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     allowUnknownValue?: boolean,
+    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | null): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | null) {
+    set(value: SelectModelValue | SelectModelValue[]) {
       emits('update:modelValue', value)
     },
   })
@@ -64,9 +70,9 @@
     }))
 
   const filteredSelectOptions = computed<SelectOption[]>(() => {
-    const options = selectOptions.value.filter(option => option.label.startsWith(typedValue.value))
+    const options = selectOptions.value.filter(option => checkOptionLabelStartsWithValue(option.label, typedValue.value))
 
-    if (typedValue.value && props.allowUnknownValue && lookupSelectOptionValueByLabel(typedValue.value) === undefined) {
+    if (typedValue.value && props.allowUnknownValue && !checkOptionExistsForLabel(typedValue.value)) {
       options.push({ label:`"${typedValue.value}"`, value: typedValue.value })
     }
 
@@ -77,29 +83,23 @@
     'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
   }))
 
-  const displayValue = computed(() => {
-    const matchingOptionValue = lookupSelectOptionLabelByValue(internalValue.value)
-
-    if (matchingOptionValue) {
-      return matchingOptionValue
-    }
-
-    return internalValue.value ? internalValue.value.toLocaleString() : ''
-  })
-
-  const typedValue = ref<string>('')
+  const typedValue = ref<string | null>(null)
   const textInput = ref<HTMLInputElement>()
 
-  function lookupSelectOptionValueByLabel(label: SelectOption['label']): SelectOption['value'] | undefined  {
-    return selectOptions.value.find(option => option.label === label)?.value
+  function checkOptionLabelStartsWithValue(label: string, value: string | null): boolean {
+    if (!value) {
+      return true
+    }
+
+    return label.toLowerCase().startsWith(value.toLowerCase())
   }
 
-  function lookupSelectOptionLabelByValue(value: SelectOption['value']): SelectOption['label'] | undefined  {
-    return selectOptions.value.find(option => option.value === value)?.label
+  function checkOptionExistsForLabel(label: string): boolean  {
+    return selectOptions.value.find(option => option.label === label) !== undefined
   }
 
   function resetTypedValue(): void {
-    typedValue.value = ''
+    typedValue.value = null
   }
 
   function allowSpaceToBeEnteredInTextBox(event: KeyboardEvent): void {
@@ -121,6 +121,12 @@
       }
       allowSpaceToBeEnteredInTextBox(event)
     }
+  }
+
+  function handleInput(event: InputEvent): void {
+    const target = event.target as HTMLInputElement
+
+    typedValue.value = target.value
   }
 </script>
 
