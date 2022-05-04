@@ -3,8 +3,8 @@
     <p-tag-wrapper :tags="numberArr" />
 
     <p-tag-wrapper :tags="numberArr">
-      <template #seven="{ tag }">
-        <p-tag icon="HeartIcon">
+      <template #tag="{ tag }">
+        <p-tag icon="Prefect">
           {{ tag }}
         </p-tag>
       </template>
