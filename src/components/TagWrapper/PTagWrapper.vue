@@ -55,20 +55,28 @@
     return 0
   }
 
-  function setOverflow(entries: ResizeObserverEntry[]): void {
-    let count = 0
-    entries.forEach(entry => {
-      Array.from(entry.target.children)
-        .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'))
-        .forEach((child) => {
-          count = count +  setChild(child as HTMLElement)
-        })
-    })
-    overflowChildren.value = count
+  function updateOverflownChildren(entries: ResizeObserverEntry[]): void {
+    overflowChildren.value = entries.reduce((sum, entry) => {
+      const children = Array.from(entry.target.children) as HTMLElement[]
+
+      return sum + getChildOverflow(children)
+    }, 0)
+  }
+
+  function getChildOverflow(children: HTMLElement[]): number {
+    return children
+      .filter(child => !child.classList.contains('tag-wrapper__tag-overflow'))
+      .reduce((childSum, child) => {
+        if (setChild(child)) {
+          childSum++
+        }
+
+        return childSum
+      }, 0)
   }
 
   function createObserver(): void {
-    resizeObserver = new ResizeObserver(setOverflow)
+    resizeObserver = new ResizeObserver(updateOverflownChildren)
 
     if (container.value) {
       resizeObserver.observe(container.value)
