@@ -1,25 +1,24 @@
 <template>
   <div class="resizable-container">
+    <p-tag-wrapper :tags="numberArr" />
+
+    <p-tag-wrapper :tags="numberArr">
+      <template #seven="{ tag }">
+        <span class="text-prefect-500 font-bold">{{ tag.toUpperCase() }}</span>
+      </template>
+    </p-tag-wrapper>
+
     <p-tag-wrapper>
       <p-tag v-for="i in 20" :key="i" class="resizable-container__tag">
-        {{ i }} tag
-      </p-tag>
-    </p-tag-wrapper>
-
-
-    <p-tag-wrapper>
-      <p-tag v-for="i in 40" :key="i" class="resizable-container__tag">
-        {{ i }} tag
-      </p-tag>
-    </p-tag-wrapper>
-
-    <p-tag-wrapper>
-      <p-tag v-for="i in 60" :key="i" class="resizable-container__tag">
-        {{ i }} tag
+        Tag {{ i }}
       </p-tag>
     </p-tag-wrapper>
   </div>
 </template>
+
+<script lang="ts" setup>
+  const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
+</script>
 
 <style>
 .resizable-container {
