@@ -10,13 +10,13 @@
       </template>
     </slot>
 
-    <span ref="overflowTag" class="p-tag-wrapper__tag-overflow">
+    <div ref="overflowTag" class="p-tag-wrapper__tag-overflow">
       <slot name="overflow-tags" :overflown-children="overflowChildren">
         <p-tag v-show="hasOverflowChildren">
           +{{ overflowChildren }}
         </p-tag>
       </slot>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -104,5 +104,9 @@
 
 .p-tag-wrapper__tag--invisible {
   visibility: hidden !important;
+}
+
+.p-tag-wrapper__tag-overflow {
+  display: inline-block;
 }
 </style>

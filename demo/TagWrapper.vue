@@ -11,7 +11,7 @@
     </p-tag-wrapper>
 
     <p-tag-wrapper>
-      <p-tag v-for="i in 20" :key="i" class="resizable-container__tag">
+      <p-tag v-for="i in 20" :key="i">
         Tag {{ i }}
       </p-tag>
     </p-tag-wrapper>
@@ -28,9 +28,5 @@
   max-width: 50%;
   resize: horizontal;
   overflow: hidden;
-}
-
-.resizable-container__tag {
-  display: inline-block;
 }
 </style>
