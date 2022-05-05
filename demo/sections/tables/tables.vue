@@ -1,14 +1,14 @@
 TableNativeColumn<template>
   <Section heading="Tables">
-    <SubSection heading="Native">
+    <SubSection heading="Basic">
       <p-table :data="data" />
     </SubSection>
 
-    <SubSection heading="Native - columns">
+    <SubSection heading="Using Columns">
       <p-table :data="data" :columns="columns" />
     </SubSection>
 
-    <SubSection heading="Native - custom">
+    <SubSection heading="Custom">
       <p-table :data="data" :columns="columns">
         <p-table-head>
           <template #row>
