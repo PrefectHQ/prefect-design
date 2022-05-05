@@ -10,7 +10,6 @@
       </header>
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <!-- Replace with your content -->
           <div class="px-4 py-8 sm:px-0">
             <span class="text-2xl">Typography</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
@@ -52,14 +51,34 @@
           </div>
 
           <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Icon Text</span>
+            <span class="text-2xl">Modal</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <IconText />
+              <Modal />
+            </div>
+          </div>
+
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Tag Wrapper</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <TagWrapper />
             </div>
           </div>
 
           <Icons />
-          <!-- /End replace -->
+
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Code</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <CodeBlocks />
+            </div>
+          </div>
+
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">IconText</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <IconText />
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -68,10 +87,13 @@
 
 <script lang="ts" setup>
   import Buttons from './Buttons.vue'
+  import CodeBlocks from './CodeBlocks.vue'
   import Forms from './Forms.vue'
   import Icons from './Icons.vue'
   import IconText from './IconText.vue'
+  import Modal from './Modal.vue'
   import Tag from './Tag.vue'
+  import TagWrapper from './TagWrapper.vue'
   import Toast from './Toast.vue'
   import Toggle from './Toggle.vue'
   import Typography from './Typography.vue'
