@@ -79,6 +79,9 @@
               <IconText />
             </div>
           </div>
+
+          <TablesSection />
+          <!-- /End replace -->
         </div>
       </main>
     </div>
@@ -92,6 +95,7 @@
   import Icons from './Icons.vue'
   import IconText from './IconText.vue'
   import Modal from './Modal.vue'
+  import TablesSection from './sections/tables/tables.vue'
   import Tag from './Tag.vue'
   import TagWrapper from './TagWrapper.vue'
   import Toast from './Toast.vue'
