@@ -29,6 +29,8 @@
           <CodeSection />
 
           <TablesSection />
+
+          <IconTextSection />
         </div>
       </main>
     </div>
@@ -40,6 +42,7 @@
   import CodeSection from './sections/CodeSection.vue'
   import FormsSection from './sections/FormsSection.vue'
   import IconsSection from './sections/IconsSection.vue'
+  import IconTextSection from './sections/IconTextSection.vue'
   import ModalsSection from './sections/ModalsSection.vue'
   import TablesSection from './sections/TablesSection.vue'
   import TagsSection from './sections/TagsSection.vue'
