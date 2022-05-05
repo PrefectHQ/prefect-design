@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { PTagWrapper, PTag } from '@/components'
   const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
 </script>
 
