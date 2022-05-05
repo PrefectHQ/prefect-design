@@ -1,9 +1,8 @@
 <template>
-  <div class="flex items-center">
+  <div class="p-text">
     <p-icon
-      v-if="icon"
       :icon="icon"
-      class="w-4 h-4 mr-1 p-icon-text"
+      class="p-text__icon"
     />
     <slot />
   </div>
@@ -13,8 +12,18 @@
   import { Icon } from '@/types/icon'
 
   defineProps<{
-    icon?: Icon,
+    icon: Icon,
   }>()
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.p-text { @apply
+  flex
+  items-center
+}
+.p-text__icon {@apply
+  w-6
+  h-6
+  mr-2
+}
+</style>
