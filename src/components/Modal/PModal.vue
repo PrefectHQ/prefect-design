@@ -67,7 +67,7 @@
   }
 
   watchEffect(() => {
-    props.showModal ?
+    return props.showModal ?
       document.body.classList.add('p-modal__stop-bg-scroll') :
       document.body.classList.remove('p-modal__stop-bg-scroll')
   })
