@@ -52,8 +52,9 @@
 
 <script setup lang="ts">
   import { TransitionChild, TransitionRoot } from '@headlessui/vue'
+  import { watchEffect } from 'vue'
 
-  defineProps<{
+  const props = defineProps<{
     showModal: boolean,
   }>()
 
@@ -64,6 +65,12 @@
   const closeModal = (): void => {
     emit('update:showModal', false)
   }
+
+  watchEffect(() => {
+    props.showModal ?
+      document.body.classList.add('p-modal__stop-bg-scroll') :
+      document.body.classList.remove('p-modal__stop-bg-scroll')
+  })
 </script>
 
 <style>
@@ -196,5 +203,10 @@
   sm:text-sm
   sm:order-first
   sm:py-3
+}
+
+.p-modal__stop-bg-scroll {
+  @apply
+  overflow-hidden
 }
 </style>
