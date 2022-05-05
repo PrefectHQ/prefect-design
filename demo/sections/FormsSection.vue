@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-start gap-2 mb-4">
+  <Section heading="Forms">
     <p-checkbox v-model="disabled" label="Disable All Fields" />
 
     <p-form heading="Header Text">
@@ -79,16 +79,17 @@
       </p-label>
 
       <p-label label="Multi select">
-        <p-select v-model="exampleMultiSelect"  :options="exampleOptions" multiple />
+        <p-select v-model="exampleMultiSelect" :options="exampleOptions" multiple />
       </p-label>
     </p-form>
-  </div>
+  </Section>
 </template>
 
 <script lang="ts" setup>
   import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { computed, ref } from 'vue'
+  import Section from '../components/Section.vue'
   import PCheckbox from '@/components/Checkbox'
   import PCombobox from '@/components/Combobox'
   import PForm from '@/components/Form'

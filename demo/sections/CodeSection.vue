@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Section heading="Code">
     <div>
       This is an <p-code>inline</p-code> code block.
     </div>
@@ -66,10 +66,11 @@
         </div>
       </div>
     </p-code>
-  </div>
+  </Section>
 </template>
 
 <script lang="ts" setup>
+  import Section from '../components/Section.vue'
   import { PCode } from '@/components'
 
   const multilineContent = `import { createApp } from 'vue'
