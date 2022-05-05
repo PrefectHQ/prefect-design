@@ -9,7 +9,7 @@
             "",
             "<script lang=\"ts\" setup></script>",
             "",
-            "<style lang=\"scss\" scoped></style>"
+            "<style></style>"
         ],
         "description": "Create an empty Vue component"
     },
@@ -53,7 +53,7 @@
         "scope": "vue",
         "prefix": "style",
         "body": [
-            "<style lang=\"scss\" scoped>",
+            "<style>",
             "$1",
             "</style>"
         ],
