@@ -65,6 +65,13 @@
             </div>
           </div>
 
+          <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Tab</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Tab />
+            </div>
+          </div>
+
           <Icons />
           <!-- /End replace -->
         </div>
@@ -78,6 +85,7 @@
   import Forms from './Forms.vue'
   import Icons from './Icons.vue'
   import Modal from './Modal.vue'
+  import Tab from './Tab.vue'
   import Tag from './Tag.vue'
   import TagWrapper from './TagWrapper.vue'
   import Toast from './Toast.vue'

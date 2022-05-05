@@ -5,6 +5,8 @@ import { default as PIcon } from './Icon'
 import { default as PLabel } from './Label'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
+import { default as PTab } from './Tab'
+import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
 import { default as PTagWrapper } from './TagWrapper'
 import { default as PTextarea } from './Textarea'
@@ -25,7 +27,9 @@ export {
   PToast,
   PToggle,
   PTag,
-  PTagWrapper
+  PTagWrapper,
+  PTab,
+  PTabs
 }
 
 export const installs = [
@@ -42,4 +46,6 @@ export const installs = [
   PToggle.install,
   PTag.install,
   PTagWrapper.install,
+  PTab.install,
+  PTabs.install,
 ]
