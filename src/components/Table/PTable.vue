@@ -1,98 +1,107 @@
-TableNativeColumn<template>
-  <section :class="classWithBase('p-table')">
-    <header :class="classWithBase('p-table__header')">
-      <slot name="header">
-        <template v-for="column in columns" :key="column">
-          <div :class="[classWithBase('p-table__heading'), classWithBase(`p-table__heading--${kebabCase(column)}`)]">
-            <slot :name="`${kebabCase(column)}-heading`" v-bind="{ column }">
-              <span>{{ column }}</span>
-            </slot>
-          </div>
+<template>
+  <div class="p-table">
+    <table class="p-table__table">
+      <slot>
+        <p-table-head>
+          <slot name="header">
+            <p-table-row>
+              <template v-for="column in columns" :key="column">
+                <p-table-header :style="getColumnStyle(column)">
+                  <slot :name="`${column}-heading`" v-bind="{ column }">
+                    {{ column.label }}
+                  </slot>
+                </p-table-header>
+              </template>
+            </p-table-row>
+          </slot>
+        </p-table-head>
+        <p-table-body>
+          <template v-for="(row, index) in data" :key="index">
+            <p-table-row>
+              <template v-for="column in columns" :key="column">
+                <p-table-data>
+                  <slot :name="column" :value="row[column.property]" v-bind="{ column, row }">
+                    {{ row[column.property] }}
+                  </slot>
+                </p-table-data>
+              </template>
+            </p-table-row>
+          </template>
+        </p-table-body>
+        <template v-if="slots.footer">
+          <p-table-foot>
+            <slot name="footer" />
+          </p-table-foot>
         </template>
       </slot>
-    </header>
-    <main :class="classWithBase('p-table__body')">
-      <template v-for="(row, index) in data" :key="index">
-        <div :class="classWithBase('p-table__row')">
-          <template v-for="column in columns" :key="column">
-            <div :class="[classWithBase('p-table__column'), classWithBase(`p-table__column--${kebabCase(column)}`)]">
-              <slot :name="kebabCase(column)" v-bind="{ column, row }" />
-            </div>
-          </template>
-        </div>
-      </template>
-    </main>
-    <template v-if="slots.footer">
-      <footer>
-        <slot name="footer" />
-      </footer>
-    </template>
-  </section>
+    </table>
+  </div>
 </template>
 
 <script lang="ts" setup>
-  import { useSlots } from 'vue'
-  import { kebabCase } from '@/utilities/strings'
+  import { computed, StyleValue, useSlots } from 'vue'
+  import PTableBody from './PTableBody.vue'
+  import PTableData from './PTableData.vue'
+  import PTableFoot from './PTableFoot.vue'
+  import PTableHead from './PTableHead.vue'
+  import PTableHeader from './PTableHeader.vue'
+  import PTableRow from './PTableRow.vue'
+  import { TableColumn } from '@/types/tables'
+  import { isStrings } from '@/utilities/arrays'
 
   const props = defineProps<{
     data: Record<string, unknown>[],
-    columns: string[],
-    baseClass?: string,
+    columns?: TableColumn[],
   }>()
 
   const slots = useSlots()
 
-  function classWithBase(value: string): string | string[] {
-    if (props.baseClass === undefined) {
-      return value
+  const columns = computed<TableColumn[]>(() => {
+    if (props.columns) {
+      if (isStrings(props.columns)) {
+        return convertStringsToTableColumns(props.columns)
+      }
+
+      return props.columns
     }
 
-    return [value, value.replace('p-table', props.baseClass)]
+    if (props.data.length) {
+      const properties = Object.keys(props.data[0])
+
+      return convertStringsToTableColumns(properties)
+    }
+
+    return []
+  })
+
+  function getColumnStyle(column: TableColumn): StyleValue {
+    if (column.width === undefined) {
+      return ''
+    }
+
+    return {
+      width: column.width,
+    }
+  }
+
+  function convertStringsToTableColumns(columns: string[]): TableColumn[] {
+    return columns.map(property => ({ label: property, property }))
   }
 </script>
 
-<style>
+<style scoped>
 .p-table { @apply
   overflow-hidden
+  overflow-x-auto
   shadow
   ring-1
   ring-black
   ring-opacity-5
   md:rounded-lg
+}
+.p-table__table { @apply
   min-w-full
   divide-y
   divide-gray-300
-}
-
-.p-table__header { @apply
-  bg-gray-50
-  grid
-}
-
-.p-table__heading { @apply
-  px-3
-  py-3.5
-  text-sm
-  font-semibold
-  text-gray-900
-  whitespace-nowrap
-}
-
-.p-table__body { @apply
-  divide-y
-  divide-gray-200
-  bg-white
-}
-
-.p-table__row { @apply
-  grid
-}
-
-.p-table__column { @apply
-  whitespace-nowrap
-  px-3
-  py-4
-  text-sm
-  text-gray-500
 }
 </style>
