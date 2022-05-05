@@ -10,3 +10,10 @@ export function toPluralString(word: string, count: number): string {
 
   return `${word}${ending}`
 }
+
+export function kebabCase(string: string): string {
+  return string
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase()
+}
