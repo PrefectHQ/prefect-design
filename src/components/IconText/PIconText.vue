@@ -22,14 +22,14 @@
 }
 
 .p-text__icon { @apply
-text-slate-400
+  text-slate-400
   w-4
   h-5
   mr-2
 }
 
 .p-text__label { @apply
-text-slate-500
+  text-slate-500
   text-xs
   leading-4
   font-normal
