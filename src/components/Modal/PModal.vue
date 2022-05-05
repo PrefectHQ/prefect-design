@@ -1,0 +1,186 @@
+<template>
+  <TransitionRoot as="div" :show="showModal">
+    <div class="p-modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="p-modal__container">
+        <TransitionChild
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
+        >
+          <div class="p-modal__background" aria-hidden="true" />
+        </TransitionChild>
+        <TransitionChild
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          enter-to="opacity-100 translate-y-0 sm:scale-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100 translate-y-0 sm:scale-100"
+          leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        >
+          <div class="p-modal__card">
+            <div class="p-modal__body">
+              <slot name="icon" class="p-modal__icon" />
+
+              <div class="p-modal__text-container">
+                <slot name="title" class="p-modal__title" />
+                <slot name="content" />
+              </div>
+            </div>
+
+            <div class="p-modal__footer">
+              <slot name="actions" :close-modal="closeModal" />
+              <p-button inset class="p-modal__close-btn" @click="closeModal">
+                Cancel
+              </p-button>
+            </div>
+          </div>
+        </TransitionChild>
+      </div>
+    </div>
+  </TransitionRoot>
+</template>
+
+<script setup lang="ts">
+  import { TransitionChild, TransitionRoot } from '@headlessui/vue'
+  import { watchEffect } from 'vue'
+
+  const props = defineProps<{
+    showModal: boolean,
+  }>()
+
+  const emit = defineEmits<{
+    (event: 'update:showModal', value: boolean): void,
+  }>()
+
+  const closeModal = (): void => {
+    emit('update:showModal', false)
+  }
+
+  watchEffect(() => {
+    document.body.classList.toggle('p-modal__stop-bg-scroll', props.showModal)
+  })
+</script>
+
+<style>
+.p-modal {
+  @apply
+   fixed
+   z-10
+   inset-0
+   overflow-y-auto
+}
+
+.p-modal__container {
+  @apply
+   flex
+   justify-center
+   items-center
+   min-h-screen
+   pt-4
+   px-4
+   pb-20
+}
+
+.p-modal__background {
+  @apply
+   fixed
+   inset-0
+   bg-gray-500
+   bg-opacity-75
+   transition-opacity
+}
+
+.p-modal__browser-center-trick {
+  @apply
+   hidden
+   sm:inline-block
+   sm:align-middle
+   sm:h-screen
+}
+
+.p-modal__card {
+  @apply
+   relative
+   inline-block
+   align-bottom
+   bg-white
+   rounded-lg
+   text-left
+   overflow-hidden
+   shadow-xl
+   transition-all
+   sm:my-8
+   sm:align-middle
+   sm:max-w-lg
+   sm:w-full
+}
+
+.p-modal__body {
+  @apply
+  flex
+  flex-col
+  gap-3
+  bg-white
+  p-4
+  pt-5
+  sm:p-6
+  sm:pb-4
+  sm:gap-4
+  sm:flex-row
+}
+
+.p-modal__icon {
+  @apply
+   flex-shrink-0
+   flex
+   items-center
+   justify-center
+}
+
+.p-modal__text-container {
+  @apply
+  flex
+  flex-col
+  gap-2
+   text-center
+   sm:text-left
+}
+
+.p-modal__title {
+  @apply
+   text-lg
+   leading-6
+   font-medium
+   text-gray-900
+}
+
+.p-modal__footer {
+  @apply
+  flex
+  flex-col
+  gap-3
+   bg-gray-50
+   px-4
+   py-3
+   sm:pr-6
+   sm:justify-end
+   sm:flex-row
+}
+
+.p-modal__close-btn {
+  @apply
+  inline-flex
+  justify-center
+  sm:order-first
+}
+
+.p-modal__stop-bg-scroll {
+  @apply
+  overflow-hidden
+}
+</style>
