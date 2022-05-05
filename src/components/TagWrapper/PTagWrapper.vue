@@ -11,7 +11,7 @@
     </slot>
 
     <div ref="overflowTag" class="p-tag-wrapper__tag-overflow">
-      <slot name="overflow-tags" :overflown-children="overflowChildren">
+      <slot name="overflow-tags" :overflowed-children="overflowChildren">
         <p-tag v-show="hasOverflowChildren">
           +{{ overflowChildren }}
         </p-tag>

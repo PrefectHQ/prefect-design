@@ -8,6 +8,12 @@
           {{ tag }}
         </p-tag>
       </template>
+
+      <template #overflow-tags="{ overflowedChildren }">
+        <div class="text-prefect-600">
+          +{{ overflowedChildren }}
+        </div>
+      </template>
     </p-tag-wrapper>
 
     <p-tag-wrapper>
