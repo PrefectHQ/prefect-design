@@ -1,4 +1,4 @@
-TableNativeColumn<template>
+<template>
   <div class="p-table-native">
     <table class="p-table-native__table">
       <thead class="p-table-native__header">
@@ -38,7 +38,6 @@ TableNativeColumn<template>
   import { computed, StyleValue, useSlots } from 'vue'
   import { TableNativeColumn } from '@/types/tables'
   import { isStrings } from '@/utilities/arrays'
-  import { convertStringsToTableColumns } from '@/utilities/tables'
 
   const props = defineProps<{
     data: Record<string, unknown>[],
@@ -73,6 +72,10 @@ TableNativeColumn<template>
     return {
       width: column.width,
     }
+  }
+
+  function convertStringsToTableColumns(columns: string[]): TableNativeColumn[] {
+    return columns.map(property => ({ label: property, property }))
   }
 </script>
 
