@@ -52,18 +52,21 @@
           </div>
 
           <div class="px-4 py-8 sm:px-0">
+            <span class="text-2xl">Modal</span>
+            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
+              <Modal />
+            </div>
+          </div>
+
+          <div class="px-4 py-8 sm:px-0">
             <span class="text-2xl">Tag Wrapper</span>
             <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
               <TagWrapper />
-              <span class="text-2xl">Modal</span>
-              <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-                <Modal />
-              </div>
             </div>
-
-            <Icons />
-          <!-- /End replace -->
           </div>
+
+          <Icons />
+          <!-- /End replace -->
         </div>
       </main>
     </div>
