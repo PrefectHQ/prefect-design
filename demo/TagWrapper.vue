@@ -1,0 +1,39 @@
+<template>
+  <div class="resizable-container">
+    <p-tag-wrapper :tags="numberArr" />
+
+    <p-tag-wrapper :tags="numberArr">
+      <template #tag="{ tag }">
+        <p-tag icon="Prefect">
+          {{ tag }}
+        </p-tag>
+      </template>
+
+      <template #overflow-tags="{ overflowedChildren }">
+        <div class="text-prefect-600">
+          +{{ overflowedChildren }}
+        </div>
+      </template>
+    </p-tag-wrapper>
+
+    <p-tag-wrapper>
+      <p-tag v-for="i in 20" :key="i">
+        Tag {{ i }}
+      </p-tag>
+    </p-tag-wrapper>
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { PTagWrapper, PTag } from '@/components'
+  const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
+</script>
+
+<style>
+.resizable-container {
+  min-width: 75px;
+  max-width: 50%;
+  resize: horizontal;
+  overflow: hidden;
+}
+</style>

@@ -6,6 +6,7 @@ import { default as PLabel } from './Label'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTag } from './Tag'
+import { default as PTagWrapper } from './TagWrapper'
 import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
 import { default as PToast } from './Toast'
@@ -23,7 +24,8 @@ export {
   PTextInput,
   PToast,
   PToggle,
-  PTag
+  PTag,
+  PTagWrapper
 }
 
 export const installs = [
@@ -39,4 +41,5 @@ export const installs = [
   PToast.install,
   PToggle.install,
   PTag.install,
+  PTagWrapper.install,
 ]
