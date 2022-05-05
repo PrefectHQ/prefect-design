@@ -1,9 +1,6 @@
 <template>
   <div class="p-text">
-    <p-icon
-      :icon="icon"
-      class="p-text__icon"
-    />
+    <p-icon :icon="icon" class="p-text__icon" />
     <slot />
   </div>
 </template>
