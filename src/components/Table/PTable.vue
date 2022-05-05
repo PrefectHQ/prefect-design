@@ -20,7 +20,7 @@
             <p-table-row>
               <template v-for="column in columns" :key="column">
                 <p-table-data>
-                  <slot :name="column" :value="row[column.property]" v-bind="{ column, row }">
+                  <slot :name="kebabCase(column.property)" :value="row[column.property]" v-bind="{ column, row }">
                     {{ row[column.property] }}
                   </slot>
                 </p-table-data>
@@ -48,6 +48,7 @@
   import PTableRow from './PTableRow.vue'
   import { TableColumn } from '@/types/tables'
   import { isStrings } from '@/utilities/arrays'
+  import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
     data: Record<string, unknown>[],
