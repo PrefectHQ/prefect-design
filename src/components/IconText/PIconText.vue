@@ -21,7 +21,8 @@
   flex
   items-center
 }
-.p-text__icon {@apply
+
+.p-text__icon { @apply
   w-6
   h-6
   mr-2
