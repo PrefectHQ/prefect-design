@@ -10,14 +10,20 @@
       </template>
     </slot>
 
-    <p-tag v-show="hasOverflowChildren" ref="overflowTag" class="p-tag-wrapper__tag-overflow">
-      +{{ overflowChildren }}
-    </p-tag>
+    <span ref="overflowTag" class="p-tag-wrapper__tag-overflow">
+      <slot name="overflow-tags" :overflown-children="overflowChildren">
+        <p-tag v-show="hasOverflowChildren">
+          +{{ overflowChildren }}
+        </p-tag>
+      </slot>
+    </span>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
+  import { PTag } from '@/components/Tag'
+
   defineProps<{
     tags?: string[],
   }>()
@@ -29,7 +35,8 @@
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
   function setChildIsVisible(child: HTMLElement): boolean {
     const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
-    const overflowTagWidth = overflowTag.value.$el?.clientWidth ?? 55
+    const overflowTagWidth = overflowTag.value.children[0].clientWidth ?? 55
+
     if (child.classList.contains('p-tag-wrapper__tag--hidden')) {
       child.classList.add('p-tag-wrapper__tag--invisible')
       child.classList.remove('p-tag-wrapper__tag--hidden')
