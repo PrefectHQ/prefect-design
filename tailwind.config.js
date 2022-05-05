@@ -29,6 +29,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
       },
     },
   },
