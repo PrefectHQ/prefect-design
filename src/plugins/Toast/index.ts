@@ -81,7 +81,6 @@ function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'd
   }
 
   queue.unshift(toast)
-  console.log(queue)
 
   return toast
 }

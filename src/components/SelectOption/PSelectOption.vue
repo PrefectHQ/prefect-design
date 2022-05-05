@@ -1,24 +1,29 @@
 <template>
-  <li class="p-select-option" role="option" :class="classes">
-    <span class="p-select-option__text">
-      <slot>{{ label }}</slot>
-    </span>
-    <template v-if="selected">
+  <span class="p-select-option" role="option" :class="classes">
+    <template v-if="multiple">
+      <p-checkbox :model-value="selected" />
+    </template>
+    <template v-else-if="selected">
       <span class="p-select-option__check">
         <CheckIcon />
       </span>
     </template>
-  </li>
+    <span class="p-select-option__text">
+      <slot>{{ label }}</slot>
+    </span>
+  </span>
 </template>
 
 <script lang="ts" setup>
   import CheckIcon from '@heroicons/vue/solid/CheckIcon'
   import { computed } from 'vue'
+  import PCheckbox from '@/components/Checkbox'
 
   const props = defineProps<{
     label: string,
     selected: boolean,
     highlighted: boolean,
+    multiple?: boolean,
   }>()
 
   const classes = computed(() => ({
@@ -38,6 +43,8 @@
   pr-9
   font-normal
   text-sm
+  flex
+  items-center
 }
 
 .p-select-option--selected { @apply
@@ -45,12 +52,7 @@
 }
 
 .p-select-option--highlighted { @apply
-  bg-prefect-600
-  text-white
-}
-
-.p-select-option--highlighted .p-select-option__check { @apply
-  text-white
+  bg-prefect-100
 }
 
 .p-select-option__text { @apply
@@ -65,12 +67,9 @@
 
 .p-select-option__check { @apply
   text-prefect-600
-  absolute
-  inset-y-0
-  right-0
   flex
   items-center
-  pr-4
+  pr-1
 }
 
 .p-select-option__check svg { @apply

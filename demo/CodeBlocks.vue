@@ -16,29 +16,32 @@
       Multiline content with code row
     </div>
     <p-code multiline class="mt-4">
-      <p-code-row v-for="(row, i) in cliRows" :key="i">
-        <template #leading>
+      <div v-for="(row, i) in cliRows" :key="i" class="code-row">
+        <div class="code-row__leading">
           {{ row.leading }}
-        </template>
+        </div>
 
-        {{ row.default }}
+        <div class="code-row__content">
+          {{ row.default }}
+        </div>
 
-        <template #trailing>
+        <div class="code-row__trailing">
           {{ row.trailing }}
-        </template>
-      </p-code-row>
+        </div>
+      </div>
     </p-code>
 
     <p-code multiline class="mt-4">
-      <p-code-row>
-        <template #default>
+      <div class="code-row">
+        <div class="code-row__leading" />
+        <div class="code-row__content">
           {{ multilineRow.default }}
-        </template>
+        </div>
 
-        <template #trailing>
+        <div class="code-row__trailing">
           {{ multilineRow.trailing }}
-        </template>
-      </p-code-row>
+        </div>
+      </div>
     </p-code>
 
 
@@ -47,23 +50,21 @@
     </div>
 
     <p-code multiline class="mt-4 max-h-96">
-      <p-code-row v-for="(row, i) in logRows" :key="i">
-        <template #leading>
-          <div style="width: 75px;">
-            <p-tag :class="logTypeClasses[row.type]">
-              {{ row.type }}
-            </p-tag>
-          </div>
-        </template>
+      <div v-for="(row, i) in logRows" :key="i" class="code-row">
+        <div class="code-row__leading" style="width: 75px;">
+          <p-tag :class="logTypeClasses[row.type]">
+            {{ row.type }}
+          </p-tag>
+        </div>
 
-        <template #default>
+        <div class="code-row__content">
           {{ row.content }}
-        </template>
+        </div>
 
-        <template #trailing>
+        <div class="code-row__trailing">
           {{ row.timestamp }}
-        </template>
-      </p-code-row>
+        </div>
+      </div>
     </p-code>
   </div>
 </template>
@@ -132,3 +133,22 @@ optional/parameter: The name of the parameter you want to do with the`,
     }
   })
 </script>
+
+
+<style>
+.code-row {
+  @apply flex w-full;
+}
+
+.code-row__leading {
+  @apply select-none;
+}
+
+.code-row__content {
+  @apply flex-grow select-auto whitespace-pre-wrap;
+}
+
+.code-row__trailing {
+  @apply text-xs text-slate-500 leading-6;
+}
+</style>
