@@ -1,7 +1,9 @@
 <template>
   <div class="p-text">
     <p-icon :icon="icon" class="p-text__icon" />
-    <slot />
+    <div class="p-text__label">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -20,8 +22,16 @@
 }
 
 .p-text__icon { @apply
-  w-6
-  h-6
+text-slate-400
+  w-4
+  h-5
   mr-2
+}
+
+.p-text__label { @apply
+text-slate-500
+  text-xs
+  leading-4
+  font-normal
 }
 </style>
