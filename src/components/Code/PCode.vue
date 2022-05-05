@@ -25,11 +25,16 @@
 </script>
 
 <style>
-.p-code-container {
-  @apply bg-slate-700 text-slate-50 rounded px-1 py-1;
+.p-code-container { @apply
+  bg-slate-700
+  text-slate-50
+  rounded
+  px-1
+  py-1
 }
-
-.p-code-container--block {
-   @apply px-2 py-2 overflow-x-auto;
+.p-code-container--block { @apply
+  px-2
+  py-2
+  overflow-x-auto
 }
 </style>
