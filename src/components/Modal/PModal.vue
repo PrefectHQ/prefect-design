@@ -33,15 +33,10 @@
             </div>
 
             <div class="p-modal__footer">
-              <slot name="actions" />
-
-              <button
-                type="button"
-                class="p-modal__close-btn"
-                @click="closeModal"
-              >
+              <slot name="actions" :close-modal="closeModal" />
+              <p-button inset class="p-modal__close-btn" @click="closeModal">
                 Cancel
-              </button>
+              </p-button>
             </div>
           </div>
         </TransitionChild>
@@ -67,9 +62,7 @@
   }
 
   watchEffect(() => {
-    return props.showModal ?
-      document.body.classList.add('p-modal__stop-bg-scroll') :
-      document.body.classList.remove('p-modal__stop-bg-scroll')
+    document.body.classList.toggle('p-modal__stop-bg-scroll', props.showModal)
   })
 </script>
 
@@ -181,28 +174,9 @@
 
 .p-modal__close-btn {
   @apply
-  w-full
   inline-flex
   justify-center
-  rounded-md
-  border
-  border-gray-300
-  shadow-sm
-  px-4
-  py-2
-  bg-white
-  text-base
-  font-medium
-  text-gray-700
-  hover:bg-gray-50
-  focus:outline-none
-  focus:ring-2
-  focus:ring-offset-2
-  focus:ring-indigo-500
-  sm:w-auto
-  sm:text-sm
   sm:order-first
-  sm:py-3
 }
 
 .p-modal__stop-bg-scroll {

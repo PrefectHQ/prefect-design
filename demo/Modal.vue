@@ -7,7 +7,6 @@
 
     <p-modal
       v-model:showModal="showModal"
-      @close="showModal = false"
     >
       <template #icon>
         <div>
