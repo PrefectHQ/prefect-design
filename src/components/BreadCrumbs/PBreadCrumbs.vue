@@ -8,7 +8,7 @@
     <div v-for="(crumb, index) in crumbs" :key="index">
       <div :class="separatorClass.crumb(index)">
         <component
-          :is="crumb.to?'router-link' : 'span'"
+          :is="crumb.to ? 'router-link' : 'span'"
           :to="crumb.to"
         >
           <span :class="linkClass.crumb(crumb)">{{ crumb.text }}</span>
