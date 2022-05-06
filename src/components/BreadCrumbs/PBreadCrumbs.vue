@@ -6,7 +6,7 @@
       </div>
     </template>
     <div v-for="(crumb, index) in crumbs" :key="index">
-      <div :class="classes.crumb(index)">
+      <div :class="separatorClass.crumb(index)">
         <component
           :is="crumb.to?'router-link' : 'span'"
           :to="crumb.to"
@@ -34,7 +34,7 @@
     icon?: Icon,
   }>()
 
-  const classes = computed(() => ({
+  const separatorClass = computed(() => ({
     crumb:(index: number) => ({
       'p-bread-crumbs__crumb--separate': index < props.crumbs.length - 1,
     }),
