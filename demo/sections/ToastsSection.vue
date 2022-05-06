@@ -1,18 +1,21 @@
 <template>
-  <div class="flex gap-3">
-    <p-button @click="addToast">
-      Toast
-    </p-button>
-    <p-button @click="addSuccessToast">
-      Success Toast
-    </p-button>
-    <p-button @click="addErrorToast">
-      Error Toast
-    </p-button>
-  </div>
+  <Section heading="Toasts">
+    <div class="flex gap-3">
+      <p-button @click="addToast">
+        Toast
+      </p-button>
+      <p-button @click="addSuccessToast">
+        Success Toast
+      </p-button>
+      <p-button @click="addErrorToast">
+        Error Toast
+      </p-button>
+    </div>
+  </Section>
 </template>
 
 <script lang="ts" setup>
+  import Section from '../components/Section.vue'
   import { showToast } from '@/plugins/Toast'
 
   const addToast = (): void => {

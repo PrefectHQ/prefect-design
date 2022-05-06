@@ -1,4 +1,4 @@
-TableNativeColumn<template>
+<template>
   <Section heading="Tables">
     <SubSection heading="Basic">
       <p-table :data="data" />
@@ -46,15 +46,42 @@ TableNativeColumn<template>
 </template>
 
 <script lang="ts" setup>
-  import Section from '../../components/section.vue'
-  import SubSection from '../../components/subSection.vue'
-  import data from './data.json'
+  import Section from '../components/Section.vue'
+  import SubSection from '../components/SubSection.vue'
   import PTable from '@/components/Table/PTable.vue'
   import PTableBody from '@/components/Table/PTableBody.vue'
   import PTableData from '@/components/Table/PTableData.vue'
   import PTableHead from '@/components/Table/PTableHead.vue'
   import PTableHeader from '@/components/Table/PTableHeader.vue'
   import { TableColumn } from '@/types/tables'
+
+  const data = [
+    {
+      'id': 1,
+      'first_name': 'Constantin',
+      'last_name': 'Marskell',
+      'email': 'cmarskell0@sitemeter.com',
+      'ip_address': '138.221.182.143',
+    }, {
+      'id': 2,
+      'first_name': 'Paten',
+      'last_name': 'Tuting',
+      'email': 'ptuting1@smugmug.com',
+      'ip_address': '147.159.143.252',
+    }, {
+      'id': 3,
+      'first_name': 'Tailor',
+      'last_name': 'Rosendall',
+      'email': 'trosendall2@vimeo.com',
+      'ip_address': '122.26.204.87',
+    }, {
+      'id': 4,
+      'first_name': 'Michelle',
+      'last_name': 'Tomicki',
+      'email': 'mtomicki3@hatena.ne.jp',
+      'ip_address': '57.215.223.191',
+    },
+  ]
 
   const columns: TableColumn<typeof data[number]>[] = [
     {
