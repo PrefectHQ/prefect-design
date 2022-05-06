@@ -1,6 +1,6 @@
 <template>
   <Section heading="Bread Crumbs">
-    <p-bread-crumbs :crumbs="crumbs" icon="CakeIcon" />
+    <p-bread-crumbs :crumbs="crumbs" />
   </Section>
 </template>
 

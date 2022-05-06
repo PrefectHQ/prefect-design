@@ -1,12 +1,5 @@
 <template>
   <nav class="p-bread-crumb">
-    <template v-if="icon || slots.icon">
-      <div class="p-bread-crumbs__icon">
-        <slot name="icon">
-          <p-icon :icon="icon" />
-        </slot>
-      </div>
-    </template>
     <div v-for="(crumb, index) in crumbs" :key="index">
       <div :class="classes.separator(index)">
         <component
@@ -21,9 +14,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, useSlots } from 'vue'
-  import PIcon from '@/components/Icon/PIcon.vue'
-  import { Icon } from '@/types/icon'
+  import { computed } from 'vue'
 
   type Crumb = {
     text: string,
@@ -32,10 +23,7 @@
 
   const props = defineProps<{
     crumbs: Crumb[],
-    icon: Icon,
   }>()
-
-  const slots = useSlots()
 
   const classes = computed(() => ({
     separator:(index: number) => ({
