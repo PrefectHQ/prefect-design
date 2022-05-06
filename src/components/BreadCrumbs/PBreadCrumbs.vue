@@ -6,14 +6,14 @@
       </div>
     </template>
     <div v-for="(crumb, index) in crumbs" :key="index">
-      <component
-        :is="crumb.to?'router-link' : 'span'"
-        :to="crumb.to"
-        class="p-bread-crumb__crumb"
-        :class="classes.crumb(index)"
-      >
-        <span :class="linkClass.crumb(crumb)">{{ crumb.text }}</span>
-      </component>
+      <div :class="classes.crumb(index)">
+        <component
+          :is="crumb.to?'router-link' : 'span'"
+          :to="crumb.to"
+        >
+          <span :class="linkClass.crumb(crumb)">{{ crumb.text }}</span>
+        </component>
+      </div>
     </div>
   </nav>
 </template>
@@ -51,6 +51,7 @@
 .p-bread-crumb {
   @apply
   flex
+  flex-wrap
   font-bold
   text-xl
 }
@@ -63,13 +64,17 @@
 }
 
 .p-bread-crumb__crumb--link {
-  color: blue;
-  cursor: pointer;
+  @apply
+  text-prefect-500
+  cursor-pointer
+  hover:underline
+  active:text-prefect-700
 }
 
-.p-bread-crumbs__crumb--separate > :after {
-  color: gray;
-  content: '\00a0/\00a0';
-  font-weight: 400;
+.p-bread-crumbs__crumb--separate {
+  @apply
+  after:content-['\00a0\/\00a0']
+  after:text-slate-400
+  after:font-normal
 }
 </style>

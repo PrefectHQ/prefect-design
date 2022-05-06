@@ -8,8 +8,7 @@
   import Section from '../components/Section.vue'
 
   const crumbs = [
-    { text: 'Account', to: '#' },
-    { text: 'Workspace', to: '#' },
-    { text: 'Workspace name' },
+    { text: 'ETL', to: '#' },
+    { text: 'hungry-hippo' },
   ]
 </script>
