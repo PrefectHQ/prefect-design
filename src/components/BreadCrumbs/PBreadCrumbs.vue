@@ -25,8 +25,8 @@
 
 
   type Crumb = {
-    text?: string | undefined | null,
-    to?: string | undefined,
+    text: string,
+    to?: string,
   }
 
   const props = defineProps<{
