@@ -1,17 +1,19 @@
 <template>
   <nav class="p-bread-crumb">
-    <template v-if="icon">
+    <template v-if="icon || slots.icon">
       <div class="p-bread-crumbs__icon">
-        <p-icon :icon="icon" />
+        <slot name="icon">
+          <p-icon :icon="icon" />
+        </slot>
       </div>
     </template>
     <div v-for="(crumb, index) in crumbs" :key="index">
-      <div :class="separatorClass.crumb(index)">
+      <div :class="classes.separator(index)">
         <component
           :is="crumb.to ? 'router-link' : 'span'"
           :to="crumb.to"
         >
-          <span :class="linkClass.crumb(crumb)">{{ crumb.text }}</span>
+          <span :class="classes.link(crumb)">{{ crumb.text }}</span>
         </component>
       </div>
     </div>
@@ -19,10 +21,9 @@
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
-
 
   type Crumb = {
     text: string,
@@ -31,17 +32,16 @@
 
   const props = defineProps<{
     crumbs: Crumb[],
-    icon?: Icon,
+    icon: Icon,
   }>()
 
-  const separatorClass = computed(() => ({
-    crumb:(index: number) => ({
+  const slots = useSlots()
+
+  const classes = computed(() => ({
+    separator:(index: number) => ({
       'p-bread-crumbs__crumb--separate': index < props.crumbs.length - 1,
     }),
-  }))
-
-  const linkClass = computed(() => ({
-    crumb:(crumb: Crumb) => ({
+    link:(crumb: Crumb) => ({
       'p-bread-crumb__crumb--link': !!crumb.to,
     }),
   }))
@@ -54,6 +54,7 @@
   flex-wrap
   font-bold
   text-xl
+  text-slate-700
 }
 
 .p-bread-crumbs__icon {
