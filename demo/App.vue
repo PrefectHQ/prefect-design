@@ -12,6 +12,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <TypographySection />
 
+          <BreadCrumbsSection />
+
           <ButtonsSection />
 
           <FormsSection />
@@ -38,6 +40,7 @@
 </template>
 
 <script lang="ts" setup>
+  import BreadCrumbsSection from './sections/BreadCrumbsSection.vue'
   import ButtonsSection from './sections/ButtonsSection.vue'
   import CodeSection from './sections/CodeSection.vue'
   import FormsSection from './sections/FormsSection.vue'
