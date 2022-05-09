@@ -7,7 +7,7 @@
   import { computed } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import { PositionMethod } from '@/types/position'
-  import * as placements from '@/utilities/placement'
+  import * as positions from '@/utilities/position'
 
   const props = defineProps<{
     position: PositionMethod,
@@ -17,23 +17,23 @@
     (event: 'update:position', value: PositionMethod): void,
   }>()
 
-  const options = Object.keys(placements)
+  const options = Object.keys(positions)
 
   const selected = computed({
-    get: (): keyof typeof placements => {
-      const keys = Object.keys(placements) as (keyof typeof placements)[]
-      let selected: keyof typeof placements
+    get: (): keyof typeof positions => {
+      const keys = Object.keys(positions) as (keyof typeof positions)[]
+      let selected: keyof typeof positions
 
       keys.forEach(key => {
-        if (placements[key] == props.position) {
+        if (positions[key] == props.position) {
           selected = key
         }
       })
 
       return selected!
     },
-    set: (value: keyof typeof placements): void => {
-      emit('update:position', placements[value])
+    set: (value: keyof typeof positions): void => {
+      emit('update:position', positions[value])
     },
   })
 </script>

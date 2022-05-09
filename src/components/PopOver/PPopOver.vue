@@ -1,9 +1,9 @@
 <template>
-  <div :ref="refs.trigger" class="p-pop-out">
+  <div :ref="refs.trigger" class="p-pop-over">
     <slot name="trigger" v-bind="{ open, close, toggle }" />
   </div>
   <teleport v-if="visible" :to="to">
-    <div :ref="refs.content" class="p-pop-out__content">
+    <div :ref="refs.content" class="p-pop-over__content">
       <slot />
     </div>
   </teleport>
@@ -12,7 +12,7 @@
 <script lang="ts" setup>
   import { withDefaults, reactive, ref, watch } from 'vue'
   import { PositionMethod } from '../../types/position'
-  import { left, right, bottom, top } from '../../utilities/placement'
+  import { left, right, bottom, top } from '../../utilities/position'
 
   const props = withDefaults(defineProps<{
     placement: PositionMethod | PositionMethod[],

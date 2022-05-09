@@ -1,6 +1,6 @@
 <template>
   <Section heading="Pop Overs">
-    <placement-select v-model:position="position" />
+    <position-select v-model:position="position" />
     <div ref="container" class="relative">
       <div ref="target" class="inline-block bg-black text-white m-20 p-2">
         target
@@ -16,10 +16,10 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import PlacementSelect from '../components/PlacementSelect.vue'
+  import PositionSelect from '../components/PositionSelect.vue'
   import Section from '../components/Section.vue'
   import { usePositionStyles } from '@/compositions/placement'
-  import { left } from '@/utilities/placement'
+  import { left } from '@/utilities/position'
 
   const position = ref(left)
 
