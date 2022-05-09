@@ -3,6 +3,8 @@ import { default as PButton } from './Button'
 import { default as PCheckbox } from './Checkbox'
 import { default as PCode } from './Code'
 import { default as PForm } from './Form'
+import { default as PGlobalSidebar } from './GlobalSidebar'
+import { default as PGlobalSidebarItem } from './GlobalSidebarItem'
 import { default as PIcon } from './Icon'
 import { default as PIconText } from './IconText'
 import { default as PLabel } from './Label'
@@ -21,6 +23,8 @@ export {
   PCheckbox,
   PCode,
   PForm,
+  PGlobalSidebar,
+  PGlobalSidebarItem,
   PLabel,
   PModal,
   PIcon,
@@ -40,6 +44,8 @@ export const installs = [
   PCheckbox.install,
   PCode.install,
   PForm.install,
+  PGlobalSidebar.install,
+  PGlobalSidebarItem.install,
   PLabel.install,
   PModal.install,
   PIcon.install,
