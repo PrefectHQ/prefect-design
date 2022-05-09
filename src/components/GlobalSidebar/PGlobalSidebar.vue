@@ -4,14 +4,12 @@
       <p-icon icon="PrefectGradient" class="global-sidebar__logo" />
       <div class="global_sidebar__item">
         <slot name="sidebar-items">
-          slot
+          <p-icon icon="FolderIcon" class="fill-slate-400" />
         </slot>
       </div>
     </div>
 
-    <div class="global-sidebar__profile">
-      profile
-    </div>
+    <div class="global-sidebar__profile" />
 
     <p-icon icon="MenuIcon" class="global-sidebar__close" />
   </div>
@@ -23,7 +21,7 @@
 <style>
 .global-sidebar {
   @apply
-  bg-slate-200
+  bg-slate-800
   fixed
   h-16
   w-screen
@@ -32,6 +30,7 @@
   items-center
   justify-between
   px-5
+  z-10
   sm:h-screen
   sm:w-16
   sm:flex-col
@@ -42,13 +41,8 @@
   @apply
   flex
   items-center
-  gap-3
+  gap-5
   sm:flex-col
-}
-
-.global_sidebar__item {
-  @apply
-  w-12
 }
 
 .global-sidebar__logo {
@@ -56,14 +50,24 @@
   w-6
 }
 
+  .global_sidebar__item {
+    @apply
+    w-9
+  }
+
 .global-sidebar__profile {
   @apply
+  h-10
+  w-10
+  rounded-full
+  bg-white
   hidden
   sm:block
 }
 
 .global-sidebar__close {
   @apply
+  fill-slate-400
   h-6
   w-6
   block
