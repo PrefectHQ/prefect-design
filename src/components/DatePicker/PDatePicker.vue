@@ -13,17 +13,17 @@
       <p-icon class="p-date-picker__icon" :class="classes.icon" icon="ChevronRightIcon" @click="handleNextClick" />
     </div>
     <div class="p-date-picker__body">
+      <p-calendar :month="viewingDate.getUTCMonth()" :year="viewingDate.getUTCFullYear()">
+        <template #date="{ date }">
+          <div class="p-date-picker__date" :class="classes.date(date)" @click="selectedDate = date">
+            {{ date.getUTCDate() }}
+          </div>
+        </template>
+      </p-calendar>
       <template v-if="modePickerComponent">
-        <component :is="modePickerComponent" v-model="selectedDate" />
-      </template>
-      <template v-else>
-        <p-calendar :month="viewingDate.getUTCMonth()" :year="viewingDate.getUTCFullYear()">
-          <template #date="{ date }">
-            <div class="p-date-picker__date" :class="classes.date(date)" @click="selectedDate = date">
-              {{ date.getUTCDate() }}
-            </div>
-          </template>
-        </p-calendar>
+        <div class="p-date-picker__overlay">
+          <component :is="modePickerComponent" v-model="selectedDate" @update:model-value="mode = null" />
+        </div>
       </template>
     </div>
     <div class="p-date-picker__bottom-bar" />
@@ -175,6 +175,23 @@
 
 .p-date-picker__icon--hidden { @apply
   invisible
+}
+
+.p-date-picker__body { @apply
+  relative
+}
+
+.p-date-picker__overlay { @apply
+  absolute
+  top-0
+  bottom-0
+  w-full
+  flex
+  justify-center
+  items-center
+  bg-white/[.95]
+  px-4
+  py-3
 }
 
 .p-date-picker__date { @apply
