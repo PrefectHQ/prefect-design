@@ -62,24 +62,28 @@
         </fieldset>
       </p-label>
 
-      <p-label label="Native select">
-        <p-native-select v-model="exampleNativeSelect" :options="exampleOptions" />
+      <p-label label="Native select" :message="JSON.stringify(exampleNativeSelect)">
+        <p-native-select v-model="exampleNativeSelect" :options="exampleOptionsWithEmpty" />
       </p-label>
 
-      <p-label label="Hybrid select">
-        <p-select v-model="exampleSelect" allow-deselect :options="exampleOptions" />
+      <p-label label="Hybrid select" :message="JSON.stringify(exampleSelect)">
+        <p-select v-model="exampleSelect" allow-deselect :options="exampleOptionsWithEmpty" />
       </p-label>
 
-      <p-label label="Combobox select">
+      <p-label label="Combobox select" :message="JSON.stringify(exampleCombobox)">
         <p-combobox v-model="exampleCombobox" allow-deselect :options="exampleOptions" />
       </p-label>
 
-      <p-label label="Plain text combobox that allows unknown value">
+      <p-label label="Plain text combobox that allows unknown value" :message="JSON.stringify(exampleCombobox2)">
         <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['cool', 'story', 'bro']" />
       </p-label>
 
-      <p-label label="Multi select">
+      <p-label label="Multi select" :message="JSON.stringify(exampleMultiSelect)">
         <p-select v-model="exampleMultiSelect" :options="exampleOptions" multiple />
+      </p-label>
+
+      <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)">
+        <p-native-date-input v-model="exampleDate" />
       </p-label>
     </p-form>
   </Section>
@@ -94,6 +98,7 @@
   import PCombobox from '@/components/Combobox'
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
+  import PNativeDateInput from '@/components/NativeDateInput'
   import PNativeSelect from '@/components/NativeSelect'
   import PNumberInput from '@/components/NumberInput'
   import PSelect from '@/components/Select'
@@ -114,7 +119,6 @@
   const exampleNativeSelect = ref(null)
   const exampleSelect = ref(null)
   const exampleOptions = [
-    { label: '', value: '' },
     { label: 'Tim Cook', value: 'Apple' },
     { label: 'Satya Nadella', value: 'Microsoft' },
     { label: 'Jeffrey Bezos', value: 'Amazon' },
@@ -122,9 +126,14 @@
     { label: 'Elon Musk', value: 'Space-X' },
     { label: 'Mark Lizardking', value: 'Facebook' },
   ]
+  const exampleOptionsWithEmpty = [
+    { label: '', value: null },
+    ...exampleOptions,
+  ]
   const exampleCombobox = ref('Space-X')
   const exampleCombobox2 = ref('')
   const exampleMultiSelect = ref<string[]>([])
+  const exampleDate = ref<Date | null>(new Date())
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
