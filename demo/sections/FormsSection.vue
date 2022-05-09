@@ -82,8 +82,12 @@
         <p-select v-model="exampleMultiSelect" :options="exampleOptions" multiple />
       </p-label>
 
-      <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)">
+      <p-label label="Date Input" :message="JSON.stringify(exampleDate)">
         <p-native-date-input v-model="exampleDate" />
+      </p-label>
+
+      <p-label label="Date Picker" :message="JSON.stringify(exampleDate)">
+        <p-date-picker v-model="exampleDate" />
       </p-label>
     </p-form>
   </Section>
@@ -96,6 +100,7 @@
   import Section from '../components/Section.vue'
   import PCheckbox from '@/components/Checkbox'
   import PCombobox from '@/components/Combobox'
+  import PDatePicker from '@/components/DatePicker'
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
   import PNativeDateInput from '@/components/NativeDateInput'
