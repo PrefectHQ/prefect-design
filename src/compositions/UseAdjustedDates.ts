@@ -10,7 +10,6 @@ export function useAdjustedDate(value: ComputedRef<Date>): ComputedRef<Date>
 export function useAdjustedDate(value: ComputedRef<Date | null>): ComputedRef<Date | null>
 export function useAdjustedDate(value: Date | null | ComputedRef<Date> | ComputedRef<Date | null>): Date | null | ComputedRef<Date> | ComputedRef<Date | null> {
   if (isRef(value)) {
-    console.log('ref detected')
     return computed(() => convertToBrowserDate(value.value))
   }
 
