@@ -1,5 +1,5 @@
 /* eslint-disable max-params */
-import { computed, reactive, Ref, watchEffect } from 'vue'
+import { computed, getCurrentInstance, onMounted, reactive, Ref, watch, watchEffect } from 'vue'
 import { Position, PositionMethod, PositionStyles } from '@/types/position'
 
 const emptyPosition = {
@@ -11,11 +11,15 @@ const emptyPosition = {
 
 export function usePosition(target: Ref<HTMLElement>, content: Ref<HTMLElement>, container: Ref<HTMLElement>, placement: Ref<PositionMethod>): Position {
   const position = reactive({} as Position)
+  const update = (): void => updatePosition(position, target.value, content.value, container.value, placement.value)
+  const observer = new ResizeObserver(update)
 
-  watchEffect(() => {
-    const newPosition = getPosition(target.value, content.value, container.value, placement.value)
+  useOnMountedIfComponentIsDetected(() => {
+    watchEffect(() => update())
 
-    Object.assign(position, emptyPosition, newPosition)
+    watch(target, (newTarget, oldTarget) => observerCallback(observer, newTarget, oldTarget), { immediate: true })
+    watch(content, (newContent, oldContent) => observerCallback(observer, newContent, oldContent), { immediate: true })
+    watch(container, (newContainer, oldContainer) => observerCallback(observer, newContainer, oldContainer), { immediate: true })
   })
 
   return position
@@ -41,20 +45,44 @@ export function usePositionStyles(target: Ref<HTMLElement>, content: Ref<HTMLEle
   })
 }
 
+function observerCallback(observer: ResizeObserver, newElement: HTMLElement, oldElement: HTMLElement | undefined): void {
+  observer.observe(newElement)
+
+  if (oldElement) {
+    observer.unobserve(oldElement)
+  }
+}
+
+export function useOnMountedIfComponentIsDetected(callback: () => void): void {
+  if (getCurrentInstance()) {
+    onMounted(callback)
+  } else {
+    callback()
+  }
+}
+
 export function getPosition(
-  target: HTMLElement | undefined,
-  content: HTMLElement | undefined,
-  container: HTMLElement | undefined,
+  target: HTMLElement,
+  content: HTMLElement,
+  container: HTMLElement,
   placement: PositionMethod,
 ): Position {
-  if (!target || !content || !container) {
-    return {} as Position
-  }
-
   const targetRect = target.getBoundingClientRect()
   const contentRect = content.getBoundingClientRect()
   const containerRect = container.getBoundingClientRect()
   const position = placement(targetRect, contentRect, containerRect)
 
   return position
+}
+
+export function updatePosition(
+  position: Position,
+  target: HTMLElement,
+  content: HTMLElement,
+  container: HTMLElement,
+  placement: PositionMethod,
+): void {
+  const newPosition = getPosition(target, content, container, placement)
+
+  Object.assign(position, emptyPosition, newPosition)
 }

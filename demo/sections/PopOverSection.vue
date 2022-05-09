@@ -1,7 +1,10 @@
 <template>
   <Section heading="Pop Overs">
     <position-select v-model:position="position" />
-    <div ref="container" class="relative">
+    <div ref="container" class="relative bg-slate-500 p-2 my-2">
+      <div>
+        container
+      </div>
       <div ref="target" class="inline-block bg-black text-white m-20 p-2">
         target
       </div>
