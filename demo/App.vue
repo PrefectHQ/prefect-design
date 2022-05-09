@@ -1,11 +1,11 @@
 <template>
-  <div class="min h-full" :class="calc">
+  <div class="min h-full">
     <transition>
       <p-global-sidebar v-if="showSidebar" />
     </transition>
 
 
-    <div class="py-10 pt-20 sm:ml-16 sm:pt-10">
+    <div class="py-10" :class="calc">
       <header>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 class="text-3xl font-bold leading-tight text-gray-900">
@@ -63,7 +63,6 @@
   import ButtonsSection from './sections/ButtonsSection.vue'
   import CodeSection from './sections/CodeSection.vue'
   import FormsSection from './sections/FormsSection.vue'
-  import GlobalSidebarSection from './sections/GlobalSidebarSection.vue'
   import IconsSection from './sections/IconsSection.vue'
   import IconTextSection from './sections/IconTextSection.vue'
   import ModalsSection from './sections/ModalsSection.vue'
@@ -85,16 +84,19 @@
 .ease-out {
   @apply
   transition-all
-  -translate-y-10
-  sm:-translate-y-0
-  sm:-translate-x-10
   duration-500
+  sm:w-full
 }
 
 .ease-in {
   @apply
   transition-all
   duration-500
+  translate-y-10
+  translate-x-0
+  sm:w-11/12
+  sm:translate-y-0
+  sm:translate-x-16
 }
 
 .v-enter-active {
