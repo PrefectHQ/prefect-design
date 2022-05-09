@@ -1,53 +1,200 @@
 <template>
   <div class="p-date-picker">
-    <div class="p-date-picker__top-bar" />
-    <div class="p-date-picker__calendar">
-      <p-calendar />
+    <div class="p-date-picker__top-bar">
+      <p-icon class="p-date-picker__icon" :class="classes.icon" icon="ChevronLeftIcon" @click="handlePreviousClick" />
+      <div class="p-date-picker__title">
+        <span class="p-date-picker__title-month" @click="handleMonthClick">
+          {{ monthNames[viewingDate.getUTCMonth()] }}
+        </span>
+        <span class="p-date-picker__title-year" @click="handleYearClick">
+          {{ viewingDate.getUTCFullYear() }}
+        </span>
+      </div>
+      <p-icon class="p-date-picker__icon" :class="classes.icon" icon="ChevronRightIcon" @click="handleNextClick" />
+    </div>
+    <div class="p-date-picker__body">
+      <template v-if="modePickerComponent">
+        <component :is="modePickerComponent" v-model="selectedDate" />
+      </template>
+      <template v-else>
+        <p-calendar :month="viewingDate.getUTCMonth()" :year="viewingDate.getUTCFullYear()">
+          <template #date="{ date }">
+            <div class="p-date-picker__date" :class="classes.date(date)" @click="selectedDate = date">
+              {{ date.getUTCDate() }}
+            </div>
+          </template>
+        </p-calendar>
+      </template>
     </div>
     <div class="p-date-picker__bottom-bar" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import PCalendar from '@/components/DatePicker/PCalendar.vue'
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
-  import { useAdjustedDate, useBrowserDate, utcOffsetMinutes } from '@/compositions/UseAdjustedDates'
+  import PIcon from '@/components/Icon'
+  import { getStartOfDay, monthNames } from '@/types/date'
 
-  // dates from server are correct UTC
-  // build custom version as simple as possible
-  // entered date gets translated to UTC by applying offset
-  // displaying date gets translated to component time by applying negative offset
-  // technically the component.value toString would be UTC to browser time, but that's ok
+  type Mode = 'year' | 'month' | 'time' | null
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
-    min?: Date,
-    max?: Date,
   }>()
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const adjustedValue = computed({
+  const today = getStartOfDay()
+
+  const selectedDate = computed({
     get() {
-      return props.modelValue ? useAdjustedDate(props.modelValue) : null
+      return props.modelValue ?? new Date(today)
     },
-    set(value: Date | null) {
-      emits('update:modelValue', value ? useBrowserDate(value) : null)
+    set(value: Date) {
+      emits('update:modelValue', value)
     },
   })
 
-  const adjustedMin = computed(() => props.min ? useAdjustedDate(props.min) : undefined)
-  const adjustedMax = computed(() => props.max ? useAdjustedDate(props.max) : undefined)
+  const mode = ref<Mode>(null)
+
+  const modePickerComponent = computed(() => {
+    switch (mode.value) {
+      case 'year':
+        return PYearPicker
+      case 'month':
+        return PMonthPicker
+      case 'time':
+        return PTimePicker
+      default:
+        return null
+    }
+  })
+
+  const viewingDate = ref(getStartOfDay(selectedDate.value))
+
+  watch(selectedDate, (value) => viewingDate.value = getStartOfDay(value))
+
+  const classes = computed(() => ({
+    date: (date: Date) => ({
+      'p-date-picker__date--today': isToday(date),
+      'p-date-picker__date--selected': isSelected(date),
+      'p-date-picker__date--out-of-month': !isInViewingMonth(date),
+    }),
+    icon: {
+      'p-date-picker__icon--hidden': !!mode.value,
+    },
+  }))
+
+  function handlePreviousClick(): void {
+    const value = new Date(viewingDate.value)
+
+    value.setUTCMonth(value.getUTCMonth() - 1)
+
+    viewingDate.value = value
+  }
+
+  function handleNextClick(): void {
+    const value = new Date(viewingDate.value)
+
+    value.setUTCMonth(value.getUTCMonth() + 1)
+
+    viewingDate.value = value
+  }
+
+  function handleMonthClick(): void {
+    if (mode.value === 'month') {
+      mode.value = null
+    } else {
+      mode.value = 'month'
+    }
+  }
+
+  function handleYearClick(): void {
+    if (mode.value === 'year') {
+      mode.value = null
+    } else {
+      mode.value = 'year'
+    }
+  }
+
+  function isToday(date: Date): boolean {
+    return date.getTime() === today.getTime()
+  }
+
+  function isSelected(date: Date): boolean {
+    return date.getTime() === selectedDate.value.getTime()
+  }
+
+  function isInViewingMonth(date: Date): boolean {
+    return date.getUTCMonth() === viewingDate.value.getUTCMonth() && date.getUTCFullYear() === viewingDate.value.getUTCFullYear()
+  }
 </script>
 
 <style>
 .p-date-picker { @apply
   border
+  p-2
+  select-none
   w-80
+}
+
+.p-date-picker__top-bar { @apply
+  capitalize
+  flex
+  justify-between
+  items-center
+}
+
+.p-date-picker__title { @apply
+  flex
+  gap-1
+}
+
+.p-date-picker__title-month { @apply
+  font-bold
+  cursor-pointer
+}
+
+.p-date-picker__title-year { @apply
+  text-prefect-600
+  cursor-pointer
+}
+
+.p-date-picker__icon { @apply
+  h-4
+  w-4
+  cursor-pointer
+  text-gray-500
+  hover:text-black
+}
+
+.p-date-picker__icon--hidden { @apply
+  invisible
+}
+
+.p-date-picker__date { @apply
+  text-center
+  hover:bg-gray-100
+  cursor-pointer
+  rounded
+}
+
+.p-date-picker__date--today { @apply
+  text-prefect-600
+}
+
+.p-date-picker__date--selected { @apply
+  text-white
+  bg-prefect-600
+  hover:bg-prefect-800
+}
+
+.p-date-picker__date--out-of-month { @apply
+  text-gray-300
 }
 </style>

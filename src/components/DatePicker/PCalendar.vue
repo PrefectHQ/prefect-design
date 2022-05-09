@@ -1,16 +1,5 @@
 <template>
   <div class="p-calendar">
-    <div class="p-calendar__month-bar">
-      <slot
-        name="month-bar"
-        :month="selectedMonth"
-        :month-name="monthNames[selectedMonth]"
-      >
-        <p-icon class="p-calendar__icon" icon="ChevronLeftIcon" @click="subtractMonth" />
-        {{ monthNames[selectedMonth] }} {{ selectedYear }}
-        <p-icon class="p-calendar__icon" icon="ChevronRightIcon" @click="addMonth" />
-      </slot>
-    </div>
     <div class="p-calendar__days-of-week">
       <template v-for="dayName in dayNames" :key="dayName">
         <div class="p-calendar__day-of-week">
@@ -20,38 +9,36 @@
     </div>
     <div class="p-calendar__dates">
       <template v-for="date in dates" :key="date.getTime()">
-        <slot
-          name="date"
-          :date="date"
-          :is-today="isToday(date)"
-          :is-selected="isSelected(date)"
-          :is-in-month="isInMonth(date)"
-        >
-          <div class="p-calendar-date" :class="classes.date(date)" @click="selectedDate = date">
+        <div class="p-calendar-date">
+          <slot name="date" :date="date">
             {{ date.getUTCDate() }}
-          </div>
-        </slot>
+          </slot>
+        </div>
       </template>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
-  import PIcon from '@/components/Icon'
+  import { computed } from 'vue'
+  import { dayNames, getStartOfDay } from '@/types/date'
 
-  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-  const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
-  const today = new Date()
-  today.setUTCHours(0, 0, 0, 0)
+  const props = defineProps<{
+    month: number,
+    year: number,
+  }>()
 
-  const selectedDate = ref(new Date(today))
+  const selectedMonth = computed(() => {
+    const value = getStartOfDay()
 
-  const selectedMonth = computed(() => selectedDate.value.getUTCMonth())
-  const selectedYear = computed(() => selectedDate.value.getUTCFullYear())
+    value.setUTCMonth(props.month)
+    value.setUTCFullYear(props.year)
+
+    return value
+  })
 
   const startOfMonth = computed(() => {
-    const value = new Date(selectedDate.value)
+    const value = new Date(selectedMonth.value)
 
     value.setUTCDate(1)
 
@@ -59,10 +46,10 @@
   })
 
   const endOfMonth = computed(() => {
-    const value = new Date(selectedDate.value)
+    const value = new Date(selectedMonth.value)
 
-    value.setUTCMonth(value.getUTCMonth() + 1)
     value.setUTCDate(0)
+    value.setUTCMonth(value.getUTCMonth() + 1)
 
     return value
   })
@@ -89,42 +76,6 @@
 
     return value
   })
-
-  const classes = computed(() => ({
-    date: (date: Date) => ({
-      'p-calendar-date--today': isToday(date),
-      'p-calendar-date--selected': isSelected(date),
-      'p-calendar-date--out-of-month': !isInMonth(date),
-    }),
-  }))
-
-  function subtractMonth(): void {
-    const value = new Date(selectedDate.value)
-
-    value.setUTCMonth(value.getUTCMonth() - 1)
-
-    selectedDate.value = value
-  }
-
-  function addMonth(): void {
-    const value = new Date(selectedDate.value)
-
-    value.setUTCMonth(value.getUTCMonth() + 1)
-
-    selectedDate.value = value
-  }
-
-  function isToday(date: Date): boolean {
-    return date.getTime() === today.getTime()
-  }
-
-  function isSelected(date: Date): boolean {
-    return date.getTime() === selectedDate.value.getTime()
-  }
-
-  function isInMonth(date: Date): boolean {
-    return date.getUTCMonth() === selectedMonth.value
-  }
 </script>
 
 <style>
@@ -135,23 +86,6 @@
   px-4
   py-3
   select-none
-}
-
-.p-calendar__month-bar { @apply
-  text-center
-  font-bold
-  capitalize
-  flex
-  justify-between
-  items-center
-}
-
-.p-calendar__icon { @apply
-  h-4
-  w-4
-  cursor-pointer
-  text-gray-500
-  hover:text-black
 }
 
 .p-calendar__days-of-week { @apply
@@ -176,22 +110,6 @@
 
 .p-calendar-date { @apply
   text-center
-  hover:bg-gray-100
-  cursor-pointer
   rounded
-}
-
-.p-calendar-date--today { @apply
-  text-prefect-600
-}
-
-.p-calendar-date--selected { @apply
-  text-white
-  bg-prefect-600
-  hover:bg-prefect-800
-}
-
-.p-calendar-date--out-of-month { @apply
-  text-gray-300
 }
 </style>
