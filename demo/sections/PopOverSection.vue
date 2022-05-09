@@ -1,11 +1,11 @@
 <template>
   <Section heading="Pop Overs">
-    <p-native-select v-model="placement" :options="options" />
-    <div ref="container" style="position: relative">
-      <div ref="target" class="inline-block bg-black text-white">
+    <placement-select v-model:position="position" />
+    <div ref="container" class="relative">
+      <div ref="target" class="inline-block bg-black text-white m-20 p-2">
         target
       </div>
-      <div ref="content" style="position: absolute;" :style="styles">
+      <div ref="content" class="bg-primary text-white p-2" :style="styles">
         content<br>test
       </div>
     </div>
@@ -15,28 +15,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, reactive, ref, computed } from 'vue'
+  import { ref } from 'vue'
+  import PlacementSelect from '../components/PlacementSelect.vue'
   import Section from '../components/Section.vue'
-  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import { usePositionStyles } from '@/compositions/placement'
-  import { Position } from '@/types/position'
-  import { left, right } from '@/utilities/placement'
+  import { left } from '@/utilities/placement'
 
-
-  const placements = {
-    left,
-    right,
-  } as const
-
-  const placement = ref<keyof typeof placements>('left')
-  const options = Object.keys(placements)
+  const position = ref(left)
 
   const target = ref()
   const content = ref()
   const container = ref()
-  const placementReactive = computed(() => placements[placement.value])
 
-  const styles = usePositionStyles(target, content, container, placementReactive)
+  const styles = usePositionStyles(target, content, container, position)
 </script>
 
 <style></style>
