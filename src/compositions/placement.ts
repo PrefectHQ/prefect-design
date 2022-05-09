@@ -12,7 +12,11 @@ const emptyPosition = {
 export function usePosition(target: Ref<HTMLElement>, content: Ref<HTMLElement>, container: Ref<HTMLElement>, placement: Ref<PositionMethod>): Position {
   const position = reactive({} as Position)
 
-  watchEffect(() => Object.assign(position, emptyPosition, getPosition(target.value, content.value, container.value, placement.value)))
+  watchEffect(() => {
+    const newPosition = getPosition(target.value, content.value, container.value, placement.value)
+
+    Object.assign(position, emptyPosition, newPosition)
+  })
 
   return position
 }
@@ -22,7 +26,7 @@ export function usePositionStyles(target: Ref<HTMLElement>, content: Ref<HTMLEle
 
   return computed(() => {
     const keys = Object.keys(position)
-    const styles: PositionStyles = {}
+    const styles: PositionStyles = { position: 'absolute' }
 
     keys.forEach(key => {
       const property = key as keyof Position
@@ -38,21 +42,11 @@ export function usePositionStyles(target: Ref<HTMLElement>, content: Ref<HTMLEle
 }
 
 export function getPosition(
-  target: HTMLElement,
-  content: HTMLElement,
-  container: HTMLElement,
+  target: HTMLElement | undefined,
+  content: HTMLElement | undefined,
+  container: HTMLElement | undefined,
   placement: PositionMethod,
 ): Position {
-  if (target === undefined) {
-    console.warn('target is undefined')
-  }
-  if (content === undefined) {
-    console.warn('content is undefined')
-  }
-  if (container === undefined) {
-    console.warn('container is undefined')
-  }
-
   if (!target || !content || !container) {
     return {} as Position
   }
@@ -61,8 +55,6 @@ export function getPosition(
   const contentRect = content.getBoundingClientRect()
   const containerRect = container.getBoundingClientRect()
   const position = placement(targetRect, contentRect, containerRect)
-
-  console.log({ position })
 
   return position
 }
