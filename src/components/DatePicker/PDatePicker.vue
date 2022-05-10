@@ -1,7 +1,9 @@
 <template>
   <div class="p-date-picker">
     <div class="p-date-picker__top-bar">
-      <p-icon class="p-date-picker__icon" :class="classes.icon" icon="ChevronLeftIcon" @click="handlePreviousClick" />
+      <div class="p-date-picker__icon">
+        <p-icon :class="classes.icon" icon="ChevronLeftIcon" @click="handlePreviousClick" />
+      </div>
       <div class="p-date-picker__title">
         <span class="p-date-picker__title-month" @click="handleMonthClick">
           {{ monthNames[viewingDate.getUTCMonth()] }}
@@ -10,7 +12,9 @@
           {{ viewingDate.getUTCFullYear() }}
         </span>
       </div>
-      <p-icon class="p-date-picker__icon" :class="classes.icon" icon="ChevronRightIcon" @click="handleNextClick" />
+      <div class="p-date-picker__icon">
+        <p-icon :class="classes.icon" icon="ChevronRightIcon" @click="handleNextClick" />
+      </div>
     </div>
     <div class="p-date-picker__body">
       <p-calendar :month="viewingDate.getUTCMonth()" :year="viewingDate.getUTCFullYear()">
@@ -26,11 +30,19 @@
         </div>
       </template>
     </div>
-    <div class="p-date-picker__bottom-bar" />
+    <div class="p-date-picker__bottom-bar">
+      <span class="p-date-picker__time-button">
+        {{ time }}
+      </span>
+      <span class="p-date-picker__today-button" @click="handleTodayClick">
+        Today
+      </span>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { format } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PCalendar from '@/components/DatePicker/PCalendar.vue'
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
@@ -43,6 +55,7 @@
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
+    showTime?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -79,6 +92,10 @@
 
   watch(selectedDate, (value) => viewingDate.value = getStartOfDay(value))
 
+  const time = computed(() => {
+    return format(selectedDate.value, 'h:mm a')
+  })
+
   const classes = computed(() => ({
     date: (date: Date) => ({
       'p-date-picker__date--today': isToday(date),
@@ -104,6 +121,10 @@
     value.setUTCMonth(value.getUTCMonth() + 1)
 
     viewingDate.value = value
+  }
+
+  function handleTodayClick(): void {
+    selectedDate.value = today
   }
 
   function handleMonthClick(): void {
@@ -152,25 +173,38 @@
 
 .p-date-picker__title { @apply
   flex
-  gap-1
+  gap-0.5
 }
 
 .p-date-picker__title-month { @apply
+  px-1
+  py-0.5
   font-bold
   cursor-pointer
+  hover:bg-gray-100
+  rounded
 }
 
 .p-date-picker__title-year { @apply
+  px-1
+  py-0.5
   text-prefect-600
   cursor-pointer
+  hover:bg-gray-100
+  rounded
 }
 
 .p-date-picker__icon { @apply
+  cursor-pointer
+  p-1
+  text-gray-500
+  hover:bg-gray-100
+  rounded
+}
+
+.p-date-picker__icon svg { @apply
   h-4
   w-4
-  cursor-pointer
-  text-gray-500
-  hover:text-black
 }
 
 .p-date-picker__icon--hidden { @apply
@@ -214,5 +248,20 @@
 
 .p-date-picker__date--out-of-month { @apply
   text-gray-300
+}
+
+.p-date-picker__bottom-bar { @apply
+  flex
+  justify-between
+}
+
+.p-date-picker__time-button,
+.p-date-picker__today-button { @apply
+  text-prefect-600
+  hover:bg-gray-100
+  px-2
+  py-1
+  cursor-pointer
+  rounded
 }
 </style>
