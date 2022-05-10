@@ -1,48 +1,108 @@
 /* eslint-disable max-params */
-import { computed, getCurrentInstance, onMounted, reactive, Ref, watch, watchEffect } from 'vue'
+import { computed, getCurrentInstance, onMounted, reactive, ref, Ref, watch, watchEffect } from 'vue'
 import { Position, PositionMethod, PositionStyles } from '@/types/position'
+import { toPixels } from '@/utilities/units'
 
-const emptyPosition = {
-  left: undefined,
-  right: undefined,
-  top: undefined,
-  bottom: undefined,
-}
-
-export function usePosition(target: Ref<HTMLElement>, content: Ref<HTMLElement>, container: Ref<HTMLElement>, placement: Ref<PositionMethod>): Position {
+export function usePosition(
+  target: Ref<HTMLElement> | HTMLElement,
+  content: Ref<HTMLElement> | HTMLElement,
+  container: Ref<HTMLElement> | HTMLElement,
+  placement: Ref<PositionMethod> | PositionMethod,
+): Position {
+  const targetRef = ref(target)
+  const contentRef = ref(content)
+  const containerRef = ref(container)
+  const placementRef = ref(placement)
   const position = reactive({} as Position)
-  const update = (): void => updatePosition(position, target.value, content.value, container.value, placement.value)
   const observer = new ResizeObserver(update)
 
-  useOnMountedIfComponentIsDetected(() => {
-    watchEffect(() => update())
+  function update(): void {
+    const newPosition = getPosition(targetRef.value, contentRef.value, containerRef.value, placementRef.value)
 
-    watch(target, (newTarget, oldTarget) => observerCallback(observer, newTarget, oldTarget), { immediate: true })
-    watch(content, (newContent, oldContent) => observerCallback(observer, newContent, oldContent), { immediate: true })
-    watch(container, (newContainer, oldContainer) => observerCallback(observer, newContainer, oldContainer), { immediate: true })
+    Object.assign(position, newPosition)
+  }
+
+  useOnMountedIfComponentIsDetected(() => {
+    watchEffect(update)
+
+    watch(targetRef, (newTarget, oldTarget) => observerCallback(observer, newTarget, oldTarget), { immediate: true })
+    watch(contentRef, (newContent, oldContent) => observerCallback(observer, newContent, oldContent), { immediate: true })
+    watch(containerRef, (newContainer, oldContainer) => observerCallback(observer, newContainer, oldContainer), { immediate: true })
   })
 
   return position
 }
 
-export function usePositionStyles(target: Ref<HTMLElement>, content: Ref<HTMLElement>, container: Ref<HTMLElement>, placement: Ref<PositionMethod>): Ref<PositionStyles> {
+export function usePositionStyles(
+  target: Ref<HTMLElement> | HTMLElement,
+  content: Ref<HTMLElement> | HTMLElement,
+  container: Ref<HTMLElement> | HTMLElement,
+  placement: Ref<PositionMethod> | PositionMethod,
+): Ref<PositionStyles> {
   const position = usePosition(target, content, container, placement)
 
-  return computed(() => {
-    const keys = Object.keys(position)
-    const styles: PositionStyles = { position: 'absolute' }
+  return computed(() => mapPositionToPositionStyles(position))
+}
 
-    keys.forEach(key => {
-      const property = key as keyof Position
-      const value = position[property]
+export function useMostVisiblePosition(
+  target: Ref<HTMLElement> | HTMLElement,
+  content: Ref<HTMLElement> | HTMLElement,
+  container: Ref<HTMLElement> | HTMLElement,
+  placements: Ref<PositionMethod[]> | PositionMethod[],
+): Position {
+  const targetRef = ref(target)
+  const contentRef = ref(content)
+  const containerRef = ref(container)
+  const placementRefs = ref(placements)
+  const position = reactive({} as Position)
+  const observer = new ResizeObserver(update)
 
-      if (value !== undefined) {
-        styles[property] = `${value}px`
-      }
-    })
+  function update(): void {
+    const positions = placementRefs.value.map(placement => usePosition(targetRef, contentRef, containerRef, placement))
+    // eslint-disable-next-line id-length
+    const positionsSortedByVisibility = [...positions].sort((a, b) => sortPositionsByVisibility(contentRef.value, containerRef.value, a, b))
+    const [mostVisiblePosition] = positionsSortedByVisibility
 
-    return styles
+    Object.assign(position, mostVisiblePosition)
+  }
+
+  useOnMountedIfComponentIsDetected(() => {
+    watchEffect(update)
+
+    watch(targetRef, (newTarget, oldTarget) => observerCallback(observer, newTarget, oldTarget), { immediate: true })
+    watch(contentRef, (newContent, oldContent) => observerCallback(observer, newContent, oldContent), { immediate: true })
+    watch(containerRef, (newContainer, oldContainer) => observerCallback(observer, newContainer, oldContainer), { immediate: true })
   })
+
+  return position
+}
+
+export function useMostVisiblePositionStyles(
+  target: Ref<HTMLElement> | HTMLElement,
+  content: Ref<HTMLElement> | HTMLElement,
+  container: Ref<HTMLElement> | HTMLElement,
+  placements: Ref<PositionMethod[]> | PositionMethod[],
+): Ref<PositionStyles> {
+  const mostVisiblePosition = useMostVisiblePosition(target, content, container, placements)
+
+  return computed(() => mapPositionToPositionStyles(mostVisiblePosition))
+}
+
+function getPositionVisibility(content: HTMLElement, container: HTMLElement, position: Position): number {
+  const rect = getDomRectForPosition(content, container, position)
+  const visibleWidth = Math.min(rect.right, window.scrollX + window.innerWidth) - Math.max(rect.left, 0)
+  const visibleHeight = Math.min(rect.bottom, window.scrollY + window.innerHeight) - Math.max(rect.top, 0)
+  const visibleArea = visibleWidth * visibleHeight
+  const totalArea = rect.width * rect.height
+
+  return visibleArea / totalArea
+}
+
+function getDomRectForPosition(content: HTMLElement, container: HTMLElement, position: Position): DOMRect {
+  const { width, height } = content.getBoundingClientRect()
+  const { left, top } = container.getBoundingClientRect()
+
+  return new DOMRect(position.left + left, position.top + top, width, height)
 }
 
 function observerCallback(observer: ResizeObserver, newElement: HTMLElement, oldElement: HTMLElement | undefined): void {
@@ -53,7 +113,7 @@ function observerCallback(observer: ResizeObserver, newElement: HTMLElement, old
   }
 }
 
-export function useOnMountedIfComponentIsDetected(callback: () => void): void {
+function useOnMountedIfComponentIsDetected(callback: () => void): void {
   if (getCurrentInstance()) {
     onMounted(callback)
   } else {
@@ -61,7 +121,7 @@ export function useOnMountedIfComponentIsDetected(callback: () => void): void {
   }
 }
 
-export function getPosition(
+function getPosition(
   target: HTMLElement,
   content: HTMLElement,
   container: HTMLElement,
@@ -75,14 +135,25 @@ export function getPosition(
   return position
 }
 
-export function updatePosition(
-  position: Position,
-  target: HTMLElement,
-  content: HTMLElement,
-  container: HTMLElement,
-  placement: PositionMethod,
-): void {
-  const newPosition = getPosition(target, content, container, placement)
+function sortPositionsByVisibility(content: HTMLElement, container: HTMLElement, positionA: Position, positionB: Position): 0 | 1 | -1 {
+  const aVisibility = getPositionVisibility(content, container, positionA)
+  const bVisibility = getPositionVisibility(content, container, positionB)
 
-  Object.assign(position, emptyPosition, newPosition)
+  if (bVisibility === aVisibility) {
+    return 0
+  }
+
+  if (bVisibility > aVisibility) {
+    return 1
+  }
+
+  return -1
+}
+
+function mapPositionToPositionStyles(position: Position): PositionStyles {
+  return {
+    top: toPixels(position.top),
+    left: toPixels(position.left),
+    position: 'absolute',
+  }
 }

@@ -1,19 +1,36 @@
 <template>
   <Section heading="Pop Overs">
-    <position-select v-model:position="position" />
-    <div ref="container" class="relative bg-slate-500 p-2 my-2">
-      <div>
-        container
+    <SubSection heading="Manual">
+      <position-select v-model:position="position" />
+      <div ref="manualContainer" class="relative bg-slate-500 p-2 my-2">
+        <div>
+          container
+        </div>
+        <div ref="manualTarget" class="inline-block bg-black text-white m-20 p-2">
+          target
+        </div>
+        <div ref="manualContent" class="bg-primary text-white p-2" :style="manualStyles">
+          content<br>test
+        </div>
       </div>
-      <div ref="target" class="inline-block bg-black text-white m-20 p-2">
-        target
-      </div>
-      <div ref="content" class="bg-primary text-white p-2" :style="styles">
-        content<br>test
-      </div>
-    </div>
 
-    {{ styles }}
+      {{ manualStyles }}
+    </SubSection>
+
+    <SubSection heading="Dynamic">
+      <div ref="dynamicContainer" class="relative bg-slate-500 p-2 my-2">
+        <div>
+          container
+        </div>
+        <div ref="dynamicTarget" class="inline-block bg-black text-white m-20 p-2">
+          target
+        </div>
+        <div ref="dynamicContent" class="bg-primary text-white p-20" :style="dynamicStyles">
+          content<br>test
+        </div>
+      </div>
+      {{ dynamicStyles }}
+    </SubSection>
   </Section>
 </template>
 
@@ -21,16 +38,21 @@
   import { ref } from 'vue'
   import PositionSelect from '../components/PositionSelect.vue'
   import Section from '../components/Section.vue'
-  import { usePositionStyles } from '@/compositions/placement'
-  import { left } from '@/utilities/position'
+  import SubSection from '../components/SubSection.vue'
+  import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/placement'
+  import { left, right } from '@/utilities/position'
 
   const position = ref(left)
 
-  const target = ref()
-  const content = ref()
-  const container = ref()
+  const manualTarget = ref()
+  const manualContent = ref()
+  const manualContainer = ref()
+  const manualStyles = usePositionStyles(manualTarget, manualContent, manualContainer, position)
 
-  const styles = usePositionStyles(target, content, container, position)
+  const dynamicTarget = ref()
+  const dynamicContent = ref()
+  const dynamicContainer = ref()
+  const dynamicStyles = useMostVisiblePositionStyles(dynamicTarget, dynamicContent, dynamicContainer, [left, right])
 </script>
 
 <style></style>
