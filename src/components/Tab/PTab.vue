@@ -1,7 +1,7 @@
 <template>
   <div class="p-tab">
     <nav class="p-tab__nav" :class="classes" aria-label="Tabs">
-      <a class="p-tab__a">
+      <a class="p-tab__a" :aria-current="isActive">
         <slot>Tab</slot>
       </a>
     </nav>
@@ -17,6 +17,8 @@
   const classes = computed(() => ({
     'p-tab__a-active': props.active,
   }))
+
+  const isActive = computed(() => props.active ? 'page' : undefined)
 </script>
 
 <style>
