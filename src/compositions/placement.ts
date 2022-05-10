@@ -10,9 +10,7 @@ export function usePosition(
   container: Ref<HTMLElement | undefined> | HTMLElement,
   placement: Ref<PositionMethod> | PositionMethod,
 ): Position {
-  const targetRef = ref(target)
-  const contentRef = ref(content)
-  const containerRef = ref(container)
+  const [targetRef, contentRef, containerRef] = refs([target, content, container])
   const placementRef = ref(placement)
   const position = reactive({} as Position)
   const observer = new ResizeObserver(update)
@@ -27,10 +25,7 @@ export function usePosition(
 
   useOnMountedIfComponentIsDetected(() => {
     watchEffect(update)
-
-    watch(targetRef, (newTarget, oldTarget) => observerCallback(observer, newTarget, oldTarget), { immediate: true })
-    watch(contentRef, (newContent, oldContent) => observerCallback(observer, newContent, oldContent), { immediate: true })
-    watch(containerRef, (newContainer, oldContainer) => observerCallback(observer, newContainer, oldContainer), { immediate: true })
+    observeTemplateRefs(observer, [targetRef, contentRef, containerRef])
   })
 
   useOnUnmountedIfComponentIsDetected(observer.disconnect)
@@ -55,9 +50,7 @@ export function useMostVisiblePosition(
   container: Ref<HTMLElement | undefined> | HTMLElement,
   placements: Ref<PositionMethod[]> | PositionMethod[],
 ): Position {
-  const targetRef = ref(target)
-  const contentRef = ref(content)
-  const containerRef = ref(container)
+  const [targetRef, contentRef, containerRef] = refs([target, content, container])
   const placementsRef = ref(placements)
   const position = reactive({} as Position)
   const observer = new ResizeObserver(update)
@@ -75,10 +68,7 @@ export function useMostVisiblePosition(
 
   useOnMountedIfComponentIsDetected(() => {
     watchEffect(update)
-
-    watch(targetRef, (newTarget, oldTarget) => observerCallback(observer, newTarget, oldTarget), { immediate: true })
-    watch(contentRef, (newContent, oldContent) => observerCallback(observer, newContent, oldContent), { immediate: true })
-    watch(containerRef, (newContainer, oldContainer) => observerCallback(observer, newContainer, oldContainer), { immediate: true })
+    observeTemplateRefs(observer, [targetRef, contentRef, containerRef])
   })
 
   useOnUnmountedIfComponentIsDetected(observer.disconnect)
@@ -173,4 +163,14 @@ function mapPositionToPositionStyles(position: Position): PositionStyles {
     left: toPixels(position.left),
     position: 'absolute',
   }
+}
+
+function observeTemplateRefs(observer: ResizeObserver, refs: Ref<HTMLElement | undefined>[]): void {
+  refs.forEach(ref => {
+    watch(ref, (newRef, oldRef) => observerCallback(observer, newRef, oldRef), { immediate: true })
+  })
+}
+
+function refs<T>(values: (Ref<T> | T)[]): Ref<T>[] {
+  return values.map(value => ref(value) as Ref<T>)
 }
