@@ -1,17 +1,19 @@
 <template>
   <div class="p-year-picker">
-    <template v-for="year in years" :key="year">
-      <div class="p-year-picker__year">
-        <span class="p-year-picker__year-name" :class="classes.year(year)" @click="setYear(year)">
-          {{ year }}
-        </span>
-      </div>
-    </template>
+    <div ref="topElement" class="p-year-picker__observer" data-target="top" />
+    <div class="p-year-picker-years">
+      <template v-for="year in years" :key="year">
+        <div class="p-year-picker__year" :class="classes.year(year)" @click="setYear(year)">
+          <span ref="yearElements">{{ year }}</span>
+        </div>
+      </template>
+    </div>
+    <div ref="bottomElement" class="p-year-picker__observer" data-target="bottom" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { getStartOfDay } from '@/types/date'
 
   const props = defineProps<{
@@ -33,11 +35,16 @@
 
   const selectedYear = computed(() => selectedDate.value.getUTCFullYear())
 
-  const years = computed(() => new Array(25).fill(null).map((placeholder, index) => selectedYear.value + (-12 + index)))
+  const years = ref([selectedYear.value])
+  unshiftYears()
+  pushYears()
+  const yearElements = ref<HTMLElement[]>([])
+  const topElement = ref<HTMLElement>()
+  const bottomElement = ref<HTMLElement>()
 
   const classes = computed(() => ({
     year:(year: number) => ({
-      'p-year-picker__year-name--selected': selectedDate.value.getUTCFullYear() === year,
+      'p-year-picker__year--selected': selectedDate.value.getUTCFullYear() === year,
     }),
   }))
 
@@ -48,33 +55,82 @@
 
     selectedDate.value = value
   }
+
+  function handleIntersection([entry]: IntersectionObserverEntry[]): void {
+    if (entry.isIntersecting) {
+      const target = entry.target as HTMLElement
+      if (target.dataset.target === 'top') {
+        unshiftYears()
+      } else {
+        pushYears()
+      }
+    }
+  }
+
+  function unshiftYears(): void {
+    const [minYear] = years.value
+
+    years.value = [...new Array(40).fill(null).map((x, index) => minYear - (40 - index)), ...years.value]
+  }
+
+  function pushYears(): void {
+    const maxYear = years.value[years.value.length - 1]
+
+    years.value = [...years.value, ...new Array(54).fill(null).map((x, index) => maxYear + index + 1)]
+  }
+
+  function scrollToYear(year: number): void {
+    const element = yearElements.value.find(node => node.innerText === year.toString())
+
+    if (element) {
+      element.scrollIntoView({ block: 'center' })
+    }
+  }
+
+  const observer = new IntersectionObserver(handleIntersection)
+
+  onMounted(() => {
+    scrollToYear(selectedYear.value)
+
+    if (topElement.value && bottomElement.value) {
+      observer.observe(topElement.value)
+      observer.observe(bottomElement.value)
+    }
+  })
 </script>
 
 <style>
 .p-year-picker { @apply
   h-full
+  overflow-y-auto
+}
+
+.p-year-picker-years { @apply
   grid
-  grid-cols-5
-  grid-rows-5
-  gap-4
+  grid-cols-4
+  justify-center
+  gap-2
 }
 
 .p-year-picker__year { @apply
   text-center
-}
-
-.p-year-picker__year-name { @apply
+  flex
+  items-center
   py-1
   px-2
-  capitalize
+  text-sm
   cursor-pointer
   rounded
   hover:bg-gray-100
 }
 
-.p-year-picker__year-name--selected { @apply
+.p-year-picker__year--selected { @apply
   text-white
   bg-prefect-600
   hover:bg-prefect-800
+}
+
+.p-year-picker__observer { @apply
+  h-1
 }
 </style>
