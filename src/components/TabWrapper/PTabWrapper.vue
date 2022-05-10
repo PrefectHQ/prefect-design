@@ -12,6 +12,8 @@
 
 <script lang="ts" setup>
   import { ref, computed } from 'vue'
+  import { PTab } from '@/components/Tab'
+
   const selectedIndex = ref()
 
   const props = defineProps<{

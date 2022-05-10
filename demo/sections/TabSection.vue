@@ -15,6 +15,8 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
+  import { PTabWrapper } from '@/components'
+
   const tabs = ['Tab One', 'Tab Two', 'Tab Three']
   const selectedTab = ref()
 </script>
