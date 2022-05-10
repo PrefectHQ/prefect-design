@@ -8,10 +8,10 @@
         <p-icon icon="ChevronLeftIcon" />
       </p-button>
       <div class="p-date-picker__title">
-        <p-button class="p-date-picker__title-month" flat size="sm" @click="handleMonthClick">
+        <p-button class="p-date-picker__title-month" flat @click="handleMonthClick">
           {{ monthNames[viewingDate.getUTCMonth()] }}
         </p-button>
-        <p-button class="p-date-picker__title-year" flat size="sm" @click="handleYearClick">
+        <p-button class="p-date-picker__title-year" flat @click="handleYearClick">
           {{ viewingDate.getUTCFullYear() }}
         </p-button>
       </div>
@@ -42,10 +42,10 @@
     </div>
 
     <div class="p-date-picker__bottom-bar">
-      <p-button size="xs" flat @click="handleTimeClick">
+      <p-button class="p-date-picker__time-button" size="sm" flat @click="handleTimeClick">
         {{ time }}
       </p-button>
-      <p-button size="xs" flat @click="handleTodayClick">
+      <p-button class="p-date-picker__today-button" size="sm" flat :disabled="isToday(selectedDate)" @click="handleTodayClick">
         Today
       </p-button>
     </div>
@@ -209,10 +209,16 @@
 .p-date-picker__title-month { @apply
   font-bold
   capitalize
+  text-lg
+  py-0.5
+  px-1
 }
 
 .p-date-picker__title-year { @apply
   text-prefect-600
+  text-lg
+  py-0.5
+  px-1
 }
 
 .p-date-picker__close-icon,
@@ -224,8 +230,8 @@
 .p-date-picker__close-icon svg,
 .p-date-picker__previous-icon svg,
 .p-date-picker__next-icon svg { @apply
-  h-4
-  w-4
+  h-5
+  w-5
 }
 
 .p-date-picker__previous-icon--hidden,
