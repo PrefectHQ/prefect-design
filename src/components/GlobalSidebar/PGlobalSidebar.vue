@@ -1,23 +1,24 @@
 <template>
-  <div class="global-sidebar">
-    <div class="global_sidebar__items">
-      <p-icon icon="PrefectGradient" class="global-sidebar__logo" />
-      <div class="global_sidebar__item">
-        <slot name="sidebar-items" />
-      </div>
+  <div class="sidebar">
+    <div class="sidebar__nav-links">
+      <slot name="sidebar-top-nav-links" />
     </div>
 
-    <div class="global-sidebar__profile" />
+    <div class="sidebar__nav-links">
+      <slot name="sidebar-bottom-nav-links" />
 
-    <p-icon icon="MenuIcon" class="global-sidebar__close" />
+      <div class="sidebar__profile">
+        <slot name="sidebar-profile-menu-button" />
+      </div>
+      <!-- ↓↓↓ Address toggle of context menu for mobile in Context Sidebar PR -->
+      <p-icon icon="MenuIcon" class="sidebar__show-context" />
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
 
 <style>
-.global-sidebar {
+.sidebar {
   @apply
   bg-slate-800
   fixed
@@ -35,40 +36,39 @@
   sm:py-5
 }
 
-.global_sidebar__items {
+.sidebar__nav-links {
   @apply
   flex
   items-center
-  gap-5
+  gap-3
+  flex-row
+  sm:gap-5
   sm:flex-col
 }
 
-.global-sidebar__logo {
+.sidebar__nav-links>*{
   @apply
   w-6
 }
 
-.global_sidebar__item {
+.sidebar__profile {
   @apply
-  w-9
-}
-
-.global-sidebar__profile {
-  @apply
+  cursor-pointer
   h-10
   w-10
   rounded-full
-  bg-white
   hidden
+  overflow-hidden
   sm:block
 }
 
-.global-sidebar__close {
+.sidebar__show-context {
   @apply
   fill-slate-400
   h-6
   w-6
   block
   sm:hidden
+  cursor-pointer
 }
 </style>
