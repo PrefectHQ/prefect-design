@@ -1,5 +1,5 @@
 <template>
-  <div ref="containerElement" class="p-year-picker">
+  <div class="p-year-picker">
     <div ref="topElement" class="p-year-picker__observer" data-target="top" />
     <div class="p-year-picker-years">
       <template v-for="year in years" :key="year">
@@ -24,9 +24,11 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
+  const today = new Date(getStartOfDay())
+
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? new Date(getStartOfDay())
+      return props.modelValue ?? today
     },
     set(value: Date) {
       emits('update:modelValue', value)
@@ -35,13 +37,23 @@
 
   const selectedYear = computed(() => selectedDate.value.getUTCFullYear())
 
-  const years = ref([selectedYear.value])
-  unshiftYears()
-  pushYears()
+  const viewingYear = ref(selectedYear.value)
+  const viewingCount = 80
   const yearElements = ref<HTMLElement[]>([])
-  const containerElement = ref<HTMLElement>()
   const topElement = ref<HTMLElement>()
   const bottomElement = ref<HTMLElement>()
+
+  const years = computed(() => {
+    const values: number[] = []
+    const minYear = viewingYear.value - viewingCount
+    const maxYear = viewingYear.value + viewingCount
+
+    for (let year=minYear; year<maxYear; year++) {
+      values.push(year)
+    }
+
+    return values
+  })
 
   const classes = computed(() => ({
     year:(year: number) => ({
@@ -62,27 +74,12 @@
       const target = entry.target as HTMLElement
 
       if (target.dataset.target === 'top') {
-        unshiftYears()
+        viewingYear.value = viewingYear.value - viewingCount
+        nextTick(() => scrollToYear(viewingYear.value))
       } else {
-        pushYears()
+        viewingYear.value = viewingYear.value + viewingCount
       }
     }
-  }
-
-  function unshiftYears(): void {
-
-    // prevent going past year 0?
-    const [minYear] = years.value
-
-    years.value = [...new Array(40).fill(null).map((x, index) => minYear - (40 - index)), ...years.value]
-
-    nextTick(() => scrollToYear(minYear))
-  }
-
-  function pushYears(): void {
-    const maxYear = years.value[years.value.length - 1]
-
-    years.value = [...years.value, ...new Array(54).fill(null).map((x, index) => maxYear + index + 1)]
   }
 
   function scrollToYear(year: number): void {
