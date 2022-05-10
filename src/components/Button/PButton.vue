@@ -13,9 +13,12 @@
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
 
+  type ButtonClass = 'primary' | 'secondary' | 'inset' | 'flat'
+
   const props = defineProps({
     secondary: Boolean,
     inset: Boolean,
+    flat: Boolean,
     rounded: Boolean,
     disabled: Boolean,
     size: {
@@ -31,9 +34,10 @@
   const slots = useSlots()
 
   const classes = computed(() => ({
-    'p-button--primary': !props.secondary && !props.inset,
-    'p-button--secondary': props.secondary && !props.inset,
-    'p-button--inset': props.inset,
+    'p-button--primary': buttonClass.value === 'primary',
+    'p-button--secondary': buttonClass.value === 'secondary',
+    'p-button--inset': buttonClass.value === 'inset',
+    'p-button--flat': buttonClass.value === 'flat',
     'p-button--rounded': props.rounded,
     'p-button--equal-padding': props.icon && !slots.default,
     'p-button-xs': props.size === 'xs',
@@ -43,6 +47,22 @@
     'p-button-xl': props.size === 'xl',
     'p-button--disabled': props.disabled,
   }))
+
+  const buttonClass = computed<ButtonClass>(() => {
+    if (props.flat) {
+      return 'flat'
+    }
+
+    if (props.inset) {
+      return 'inset'
+    }
+
+    if (props.secondary) {
+      return 'secondary'
+    }
+
+    return 'primary'
+  })
 </script>
 
 <style>
@@ -88,6 +108,19 @@
 }
 .p-button--inset:not(.p-button--disabled) { @apply
   hover:bg-gray-300
+}
+
+.p-button--flat { @apply
+  border
+  border-transparent
+  focus:outline-none
+  text-gray-700
+  focus:ring-2
+  focus:ring-offset-2
+  focus:ring-prefect-600
+}
+.p-button--flat:not(.p-button--disabled) { @apply
+  hover:bg-gray-100
 }
 
 .p-button-xs { @apply
