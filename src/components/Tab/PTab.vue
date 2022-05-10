@@ -1,6 +1,6 @@
 <template>
-  <div class="p-tab">
-    <nav class="p-tab__nav" :class="classes" aria-label="Tabs">
+  <div class="p-tab" :class="classes.disabled">
+    <nav class="p-tab__nav" :class="classes.active" aria-label="Tabs">
       <a class="p-tab__a" :aria-current="isActive">
         <slot>Tab</slot>
       </a>
@@ -12,12 +12,18 @@
   import { computed } from 'vue'
   const props = defineProps<{
     active?: boolean,
+    disabled?: boolean,
   }>()
 
   const classes = computed(() => ({
-    'p-tab__a-active': props.active,
-  }))
+    active: {
+      'p-tab__a-active': props.active,
+    },
+    disabled: {
+      'p-tab__a-disabled': props.disabled,
+    },
 
+  }))
   const isActive = computed(() => props.active ? 'page' : undefined)
 </script>
 
@@ -25,7 +31,6 @@
 .p-tab { @apply
   inline-flex
 }
-
 .p-tab__nav {@apply
   py-4
   border-b-2
@@ -51,5 +56,10 @@ border-slate-200
 .p-tab__a-active { @apply
  border-prefect-600
  text-prefect-600
+}
+
+.p-tab__a-disabled { @apply
+  pointer-events-none
+  opacity-50
 }
 </style>
