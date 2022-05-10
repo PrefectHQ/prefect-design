@@ -1,41 +1,38 @@
 <template>
-  <div ref="wrapper">
-    <slot />
+  <p-tab v-for="(tab, index) in tabs" :key="tab" :active="selectedIndex === index" @click="selectTab(index)">
+    <slot :name="`tab-heading-${index}`" :tab="tab" :index="index">
+      {{ tab }}
+    </slot>
+  </p-tab>
+
+  <div class="mt-5">
+    <slot name="tab-content" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, computed } from 'vue'
-  const wrapper = ref()
+  import { ref, computed } from 'vue'
+  const selectedIndex = ref()
 
   const props = defineProps<{
-    modelValue:  null,
+    modelValue:  number,
+    tabs: string[],
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: null): void,
+    (event: 'update:modelValue', value: number): void,
   }>()
 
-  const value = computed({
+  const internalValue = computed({
     get() {
       return props.modelValue
     },
-    set(value: null) {
+    set(value: number) {
       emits('update:modelValue', value)
     },
   })
-
-  function onTabClick(event: any): void {
-    value.value = event.target.textContent ?? 'default'
-    event.target.classList.add('p-tab__span-active')
-    console.log('clicked', event.target)
+  function selectTab(index: number): void {
+    internalValue.value = index
+    selectedIndex.value = index
   }
-  onMounted(() => {
-
-    Array.from(wrapper.value.children).forEach(tab => tab.onclick = onTabClick)
-    // wrapper.value.children[0].onclick = onTabClick
-  })
 </script>
-
-<style lang="scss" scoped>
-</style>

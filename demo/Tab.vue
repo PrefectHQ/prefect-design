@@ -1,28 +1,34 @@
 <template>
   <div class="container">
-    <p-tabs v-model="tab">
-      <p-tab>
-        <p-icon icon="Prefect" class="-ml-0.5 mr-2 h-5 w-5" />
-        Hello
-      </p-tab>
+    <p-tabs v-model="selectedTab" :tabs="['Logs', 'Task Runs', 'Sub Flow Runs']">
+      <template #tab-heading-0="{ tab }">
+        <p-icon icon="Prefect" class="mr-2 w-4 h-4" />
+        <span>{{ tab }}</span>
+      </template>
 
-      <p-tab>
-        <p-icon icon="Prefect" class="-ml-0.5 mr-2 h-5 w-5" />
-        Hola
-      </p-tab>
+      <template #tab-heading-1="{ tab }">
+        <p-icon icon="Prefect" class="mr-2 w-4 h-4" />
+        <span>{{ tab }}</span>
+      </template>
+
+      <template #tab-heading-2="{ tab }">
+        <p-icon icon="Prefect" class="mr-2 w-4 h-4" />
+        <span>{{ tab }}</span>
+      </template>
     </p-tabs>
-    {{ tab }}
   </div>
+  Selected tab index: {{ selectedTab }}
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import { PTab } from '@/components/Tab'
-  const tab = ref()
+  import PTabs from '@/components/Tabs/PTabs.vue'
+
+  const selectedTab = ref()
 </script>
 
 <style>
 .container {
-  max-width: 40%;
+  width: 80%;
 }
 </style>

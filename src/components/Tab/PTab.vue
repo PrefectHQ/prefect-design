@@ -1,53 +1,60 @@
 <template>
   <div class="p-tab">
-    <div class="sm:p-tab-mobile">
-      <div class="border-b border-gray-200">
-        <button
-          class="p-tab__button"
-          type="button"
-        >
-          <span
-            class="p-tab__span"
-          >
-            <slot>Tab</slot>
-          </span>
-        </button>
-      </div>
-    </div>
+    <nav class="p-tab__nav" :class="classes" aria-label="Tabs">
+      <a class="p-tab__a">
+        <slot>Tab</slot>
+      </a>
+    </nav>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
+  const props = defineProps<{
+    active?: boolean,
+    disabled?: boolean,
+  }>()
+
+  const classes = computed(() => ({
+    'p-tab__a-active': props.active,
+    'p-tab__a-disabled': props.disabled,
+  }))
 </script>
 
 <style>
-.p-tab {@apply
+.p-tab { @apply
   inline-flex
-  mr-2
-}
-.p-tab-mobile {@apply
-  block
 }
 
-.p-tab__button {@apply
-  -mb-px
-}
-.p-tab__span {@apply
-  inline-flex
-  items-center
+.p-tab__nav {@apply
   py-4
-  px-1
-  border-transparent
-  text-gray-500
-  hover:text-gray-700
-  hover:border-gray-300
-  whitespace-nowrap
-}
-.p-tab__span-active {@apply
   border-b-2
+border-slate-200
+}
+
+.p-tab__nav:not(.p-tab__a-active) {@apply
+  hover:border-gray-300
+  text-gray-500
+  hover:text-gray-600
+}
+
+.p-tab__a { @apply
+  px-10
+  text-center
   font-medium
   text-sm
-  border-indigo-500
-  text-indigo-600
+  cursor-pointer
+  inline-flex
+  items-center
+}
+
+.p-tab__a-active { @apply
+ border-prefect-600
+text-prefect-600
+}
+
+.p-tab__a-disabled { @apply
+  cursor-not-allowed
+  opacity-50
 }
 </style>
