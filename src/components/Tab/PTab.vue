@@ -34,7 +34,7 @@
 .p-tab__nav {@apply
   py-4
   border-b-2
-border-slate-200
+  border-slate-200
 }
 
 .p-tab__nav:not(.p-tab__a-active) {@apply
