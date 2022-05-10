@@ -17,6 +17,7 @@
       {{ manualStyles }}
     </SubSection>
 
+
     <SubSection heading="Composition - Dynamic">
       <position-select v-model:position="positions" multiple />
       <div ref="dynamicContainer" class="relative bg-slate-500 p-2 my-2">
@@ -44,9 +45,9 @@
   import { left, right } from '@/utilities/position'
 
   const position = ref(left)
-  const manualTarget = ref()
-  const manualContent = ref()
-  const manualContainer = ref()
+  const manualTarget = ref<HTMLDivElement>()
+  const manualContent = ref<HTMLDivElement>()
+  const manualContainer = ref<HTMLDivElement>()
   const manualStyles = usePositionStyles(manualTarget, manualContent, manualContainer, position)
 
   const positions = ref([left, right])
