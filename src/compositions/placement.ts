@@ -53,12 +53,12 @@ export function useMostVisiblePosition(
   const targetRef = ref(target)
   const contentRef = ref(content)
   const containerRef = ref(container)
-  const placementRefs = ref(placements)
+  const placementsRef = ref(placements)
   const position = reactive({} as Position)
   const observer = new ResizeObserver(update)
 
   function update(): void {
-    const positions = placementRefs.value.map(placement => usePosition(targetRef, contentRef, containerRef, placement))
+    const positions = placementsRef.value.map(placement => usePosition(targetRef, contentRef, containerRef, placement))
     // eslint-disable-next-line id-length
     const positionsSortedByVisibility = [...positions].sort((a, b) => sortPositionsByVisibility(contentRef.value, containerRef.value, a, b))
     const [mostVisiblePosition] = positionsSortedByVisibility

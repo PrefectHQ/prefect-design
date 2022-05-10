@@ -1,6 +1,6 @@
 <template>
   <Section heading="Pop Overs">
-    <SubSection heading="Manual">
+    <SubSection heading="Composition - Manual">
       <position-select v-model:position="position" />
       <div ref="manualContainer" class="relative bg-slate-500 p-2 my-2">
         <div>
@@ -17,7 +17,8 @@
       {{ manualStyles }}
     </SubSection>
 
-    <SubSection heading="Dynamic">
+    <SubSection heading="Composition - Dynamic">
+      <position-select v-model:position="positions" multiple />
       <div ref="dynamicContainer" class="relative bg-slate-500 p-2 my-2">
         <div>
           container
@@ -43,16 +44,14 @@
   import { left, right } from '@/utilities/position'
 
   const position = ref(left)
-
   const manualTarget = ref()
   const manualContent = ref()
   const manualContainer = ref()
   const manualStyles = usePositionStyles(manualTarget, manualContent, manualContainer, position)
 
+  const positions = ref([left, right])
   const dynamicTarget = ref()
   const dynamicContent = ref()
   const dynamicContainer = ref()
-  const dynamicStyles = useMostVisiblePositionStyles(dynamicTarget, dynamicContent, dynamicContainer, [left, right])
+  const dynamicStyles = useMostVisiblePositionStyles(dynamicTarget, dynamicContent, dynamicContainer, positions)
 </script>
-
-<style></style>
