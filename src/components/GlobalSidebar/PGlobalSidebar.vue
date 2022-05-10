@@ -3,9 +3,7 @@
     <div class="global_sidebar__items">
       <p-icon icon="PrefectGradient" class="global-sidebar__logo" />
       <div class="global_sidebar__item">
-        <slot name="sidebar-items">
-          <p-icon icon="FolderIcon" class="fill-slate-400" />
-        </slot>
+        <slot name="sidebar-items" />
       </div>
     </div>
 
@@ -50,10 +48,10 @@
   w-6
 }
 
-  .global_sidebar__item {
-    @apply
-    w-9
-  }
+.global_sidebar__item {
+  @apply
+  w-9
+}
 
 .global-sidebar__profile {
   @apply
