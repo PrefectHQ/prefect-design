@@ -86,9 +86,8 @@
         <p-native-date-input v-model="exampleDate" />
       </p-label>
 
-      <p-label label="Date Picker" :message="JSON.stringify(exampleDate)">
-        <p-date-picker v-model="exampleDate" />
-      </p-label>
+      <p-label label="Date Picker" :message="JSON.stringify(exampleDate)" />
+      <p-date-picker v-model="exampleDate" />
     </p-form>
   </Section>
 </template>

@@ -1,27 +1,37 @@
 <template>
   <div class="p-date-picker">
     <div class="p-date-picker__top-bar">
-      <div class="p-date-picker__icon">
-        <p-icon :class="classes.icon" icon="ChevronLeftIcon" @click="handlePreviousClick" />
-      </div>
+      <p-button class="p-date-picker__close-icon" :class="classes.close" size="xs" inset @click="closeOverlay">
+        <p-icon icon="XIcon" />
+      </p-button>
+      <p-button class="p-date-picker__previous-icon" :class="classes.previous" size="xs" inset @click="handlePreviousClick">
+        <p-icon icon="ChevronLeftIcon" />
+      </p-button>
       <div class="p-date-picker__title">
-        <span class="p-date-picker__title-month" @click="handleMonthClick">
+        <p-button class="p-date-picker__title-month" inset size="sm" @click="handleMonthClick">
           {{ monthNames[viewingDate.getUTCMonth()] }}
-        </span>
-        <span class="p-date-picker__title-year" @click="handleYearClick">
+        </p-button>
+        <p-button class="p-date-picker__title-year" inset size="sm" @click="handleYearClick">
           {{ viewingDate.getUTCFullYear() }}
-        </span>
+        </p-button>
       </div>
-      <div class="p-date-picker__icon">
-        <p-icon :class="classes.icon" icon="ChevronRightIcon" @click="handleNextClick" />
-      </div>
+      <p-button class="p-date-picker__next-icon" :class="classes.next" size="xs" inset @click="handleNextClick">
+        <p-icon icon="ChevronRightIcon" />
+      </p-button>
     </div>
+
     <div class="p-date-picker__body">
       <p-calendar :month="viewingDate.getUTCMonth()" :year="viewingDate.getUTCFullYear()">
         <template #date="{ date }">
-          <div class="p-date-picker__date" :class="classes.date(date)" @click="selectedDate = date">
+          <p-button
+            class="p-date-picker__date"
+            :class="classes.date(date)"
+            :inset="!isSelected(date)"
+            size="xs"
+            @click="selectedDate = date"
+          >
             {{ date.getUTCDate() }}
-          </div>
+          </p-button>
         </template>
       </p-calendar>
       <template v-if="modePickerComponent">
@@ -30,13 +40,14 @@
         </div>
       </template>
     </div>
+
     <div class="p-date-picker__bottom-bar">
-      <span class="p-date-picker__time-button">
+      <p-button size="xs" inset @click="handleTimeClick">
         {{ time }}
-      </span>
-      <span class="p-date-picker__today-button" @click="handleTodayClick">
+      </p-button>
+      <p-button size="xs" inset @click="handleTodayClick">
         Today
-      </span>
+      </p-button>
     </div>
   </div>
 </template>
@@ -44,6 +55,7 @@
 <script lang="ts" setup>
   import { format } from 'date-fns'
   import { computed, ref, watch } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
   import PCalendar from '@/components/DatePicker/PCalendar.vue'
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
@@ -102,8 +114,14 @@
       'p-date-picker__date--selected': isSelected(date),
       'p-date-picker__date--out-of-month': !isInViewingMonth(date),
     }),
-    icon: {
-      'p-date-picker__icon--hidden': !!mode.value,
+    close: {
+      'p-date-picker__close-icon--hidden': !mode.value,
+    },
+    previous: {
+      'p-date-picker__previous-icon--hidden': !!mode.value,
+    },
+    next: {
+      'p-date-picker__next-icon--hidden': !!mode.value,
     },
   }))
 
@@ -125,11 +143,24 @@
 
   function handleTodayClick(): void {
     selectedDate.value = today
+    closeOverlay()
+  }
+
+  function closeOverlay(): void {
+    mode.value = null
+  }
+
+  function handleTimeClick(): void {
+    if (mode.value === 'time') {
+      closeOverlay()
+    } else {
+      mode.value = 'time'
+    }
   }
 
   function handleMonthClick(): void {
     if (mode.value === 'month') {
-      mode.value = null
+      closeOverlay()
     } else {
       mode.value = 'month'
     }
@@ -137,7 +168,7 @@
 
   function handleYearClick(): void {
     if (mode.value === 'year') {
-      mode.value = null
+      closeOverlay()
     } else {
       mode.value = 'year'
     }
@@ -165,7 +196,6 @@
 }
 
 .p-date-picker__top-bar { @apply
-  capitalize
   flex
   justify-between
   items-center
@@ -173,46 +203,43 @@
 
 .p-date-picker__title { @apply
   flex
-  gap-0.5
+  gap-1.5
 }
 
 .p-date-picker__title-month { @apply
-  px-1
-  py-0.5
   font-bold
-  cursor-pointer
-  hover:bg-gray-100
-  rounded
+  capitalize
 }
 
 .p-date-picker__title-year { @apply
-  px-1
-  py-0.5
   text-prefect-600
-  cursor-pointer
-  hover:bg-gray-100
-  rounded
 }
 
-.p-date-picker__icon { @apply
-  cursor-pointer
+.p-date-picker__close-icon,
+.p-date-picker__previous-icon,
+.p-date-picker__next-icon { @apply
   p-1
-  text-gray-500
-  hover:bg-gray-100
-  rounded
 }
 
-.p-date-picker__icon svg { @apply
+.p-date-picker__close-icon svg,
+.p-date-picker__previous-icon svg,
+.p-date-picker__next-icon svg { @apply
   h-4
   w-4
 }
 
-.p-date-picker__icon--hidden { @apply
+.p-date-picker__previous-icon--hidden,
+.p-date-picker__close-icon--hidden { @apply
+  hidden
+}
+
+.p-date-picker__next-icon--hidden { @apply
   invisible
 }
 
 .p-date-picker__body { @apply
   relative
+  my-2
 }
 
 .p-date-picker__overlay { @apply
@@ -230,38 +257,21 @@
 }
 
 .p-date-picker__date { @apply
-  text-center
-  hover:bg-gray-100
-  cursor-pointer
-  rounded
+  justify-center
+  px-0
 }
 
-.p-date-picker__date--today { @apply
+.p-date-picker__date--today:not(.p-date-picker__date--selected) { @apply
   text-prefect-600
-}
-
-.p-date-picker__date--selected { @apply
-  text-white
-  bg-prefect-600
-  hover:bg-prefect-800
 }
 
 .p-date-picker__date--out-of-month { @apply
   text-gray-300
+  hover:text-gray-400
 }
 
 .p-date-picker__bottom-bar { @apply
   flex
   justify-between
-}
-
-.p-date-picker__time-button,
-.p-date-picker__today-button { @apply
-  text-prefect-600
-  hover:bg-gray-100
-  px-2
-  py-1
-  cursor-pointer
-  rounded
 }
 </style>

@@ -2,10 +2,10 @@
   <div class="p-year-picker">
     <div ref="topElement" class="p-year-picker__observer" data-target="top" />
     <div class="p-year-picker-years">
-      <template v-for="year in years" :key="year">
-        <div class="p-year-picker__year" :class="classes.year(year)" @click="setYear(year)">
-          <span ref="yearElements">{{ year }}</span>
-        </div>
+      <template v-for="(year, index) in years" :key="year">
+        <button type="button" :tabindex="index" class="p-year-picker__year" :class="classes.year(year)" @click="setYear(year)">
+          <span ref="yearElements" :data-year="year">{{ year }}</span>
+        </button>
       </template>
     </div>
     <div ref="bottomElement" class="p-year-picker__observer" data-target="bottom" />
@@ -83,10 +83,11 @@
   }
 
   function scrollToYear(year: number): void {
-    const element = yearElements.value.find(node => node.innerText === year.toString())
+    const element = yearElements.value.find(node => node.dataset.year === year.toString())
 
     if (element) {
       element.scrollIntoView({ block: 'center' })
+      nextTick(() => element.parentElement?.focus())
     }
   }
 
@@ -120,14 +121,13 @@
 
 .p-year-picker__year { @apply
   text-center
-  flex
-  items-center
   py-1
   px-2
   text-sm
   cursor-pointer
   rounded
   hover:bg-gray-100
+  focus:ring-prefect-600
 }
 
 .p-year-picker__year--selected { @apply

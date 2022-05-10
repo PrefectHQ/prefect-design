@@ -9,11 +9,11 @@
     </div>
     <div class="p-calendar__dates">
       <template v-for="date in dates" :key="date.getTime()">
-        <div class="p-calendar-date">
-          <slot name="date" :date="date">
+        <slot name="date" :date="date">
+          <div class="p-calendar__date">
             {{ date.getUTCDate() }}
-          </slot>
-        </div>
+          </div>
+        </slot>
       </template>
     </div>
   </div>
@@ -108,8 +108,7 @@
   gap-x-3
 }
 
-.p-calendar-date { @apply
+.p-calendar__date { @apply
   text-center
-  rounded
 }
 </style>
