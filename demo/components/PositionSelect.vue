@@ -1,39 +1,54 @@
 <template>
-  <p-native-select v-model="selected" :options="options" />
+  <p-select v-model="selected" :options="options" />
 </template>
 
 <script lang="ts" setup>
   /* eslint-disable import/namespace */
   import { computed } from 'vue'
-  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
+  import PSelect from '@/components/Select/PSelect.vue'
   import { PositionMethod } from '@/types/position'
-  import * as positions from '@/utilities/position'
+  import { left, right, bottom, top } from '@/utilities/position'
 
   const props = defineProps<{
-    position: PositionMethod,
+    // using any because vue's type warnings for props is dumb...
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    position: any,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:position', value: PositionMethod): void,
+    (event: 'update:position', value: PositionMethod | PositionMethod[]): void,
   }>()
 
-  const options = Object.keys(positions)
+  const keyToFunction = new Map([
+    ['left', left],
+    ['right', right],
+    ['bottom', bottom],
+    ['top', top],
+  ])
+
+  const functionToKey = new Map([
+    [left, 'left'],
+    [right, 'right'],
+    [bottom, 'bottom'],
+    [top, 'top'],
+  ])
+
+  const options = Array.from(keyToFunction.keys())
 
   const selected = computed({
-    get: (): keyof typeof positions => {
-      const keys = Object.keys(positions) as (keyof typeof positions)[]
-      let selected: keyof typeof positions
+    get: (): string | string[] => {
+      if (Array.isArray(props.position)) {
+        return props.position.map(key => functionToKey.get(key)!)
+      }
 
-      keys.forEach(key => {
-        if (positions[key] == props.position) {
-          selected = key
-        }
-      })
-
-      return selected!
+      return functionToKey.get(props.position)!
     },
-    set: (value: keyof typeof positions): void => {
-      emit('update:position', positions[value])
+    set: (value: string | string[]): void => {
+      if (typeof value === 'string') {
+        emit('update:position', keyToFunction.get(value)!)
+      } else {
+        emit('update:position', value.map(key => keyToFunction.get(key)!))
+      }
     },
   })
 </script>
