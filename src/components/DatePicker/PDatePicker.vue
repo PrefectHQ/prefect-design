@@ -1,21 +1,21 @@
 <template>
   <div class="p-date-picker">
     <div class="p-date-picker__top-bar">
-      <p-button class="p-date-picker__close-icon" :class="classes.close" size="xs" inset @click="closeOverlay">
+      <p-button class="p-date-picker__close-icon" :class="classes.close" size="xs" flat @click="closeOverlay">
         <p-icon icon="XIcon" />
       </p-button>
-      <p-button class="p-date-picker__previous-icon" :class="classes.previous" size="xs" inset @click="handlePreviousClick">
+      <p-button class="p-date-picker__previous-icon" :class="classes.previous" size="xs" flat @click="handlePreviousClick">
         <p-icon icon="ChevronLeftIcon" />
       </p-button>
       <div class="p-date-picker__title">
-        <p-button class="p-date-picker__title-month" inset size="sm" @click="handleMonthClick">
+        <p-button class="p-date-picker__title-month" flat size="sm" @click="handleMonthClick">
           {{ monthNames[viewingDate.getUTCMonth()] }}
         </p-button>
-        <p-button class="p-date-picker__title-year" inset size="sm" @click="handleYearClick">
+        <p-button class="p-date-picker__title-year" flat size="sm" @click="handleYearClick">
           {{ viewingDate.getUTCFullYear() }}
         </p-button>
       </div>
-      <p-button class="p-date-picker__next-icon" :class="classes.next" size="xs" inset @click="handleNextClick">
+      <p-button class="p-date-picker__next-icon" :class="classes.next" size="xs" flat @click="handleNextClick">
         <p-icon icon="ChevronRightIcon" />
       </p-button>
     </div>
@@ -26,7 +26,7 @@
           <p-button
             class="p-date-picker__date"
             :class="classes.date(date)"
-            :inset="!isSelected(date)"
+            :flat="!isSelected(date)"
             size="xs"
             @click="selectedDate = date"
           >
@@ -42,10 +42,10 @@
     </div>
 
     <div class="p-date-picker__bottom-bar">
-      <p-button size="xs" inset @click="handleTimeClick">
+      <p-button size="xs" flat @click="handleTimeClick">
         {{ time }}
       </p-button>
-      <p-button size="xs" inset @click="handleTodayClick">
+      <p-button size="xs" flat @click="handleTodayClick">
         Today
       </p-button>
     </div>

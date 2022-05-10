@@ -1,7 +1,7 @@
 <template>
   <div class="p-month-picker">
     <template v-for="(month, index) in monthNames" :key="month">
-      <p-button class="p-month-picker__month" size="xs" :inset="!isSelected(index)" @click="setMonth(index)">
+      <p-button class="p-month-picker__month" size="xs" :flat="!isSelected(index)" @click="setMonth(index)">
         {{ month }}
       </p-button>
     </template>
