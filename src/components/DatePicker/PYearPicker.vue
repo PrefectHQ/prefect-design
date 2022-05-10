@@ -1,5 +1,5 @@
 <template>
-  <div class="p-year-picker">
+  <div ref="containerElement" class="p-year-picker">
     <div ref="topElement" class="p-year-picker__observer" data-target="top" />
     <div class="p-year-picker-years">
       <template v-for="year in years" :key="year">
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue'
+  import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
   import { getStartOfDay } from '@/types/date'
 
   const props = defineProps<{
@@ -39,6 +39,7 @@
   unshiftYears()
   pushYears()
   const yearElements = ref<HTMLElement[]>([])
+  const containerElement = ref<HTMLElement>()
   const topElement = ref<HTMLElement>()
   const bottomElement = ref<HTMLElement>()
 
@@ -59,6 +60,7 @@
   function handleIntersection([entry]: IntersectionObserverEntry[]): void {
     if (entry.isIntersecting) {
       const target = entry.target as HTMLElement
+
       if (target.dataset.target === 'top') {
         unshiftYears()
       } else {
@@ -68,9 +70,13 @@
   }
 
   function unshiftYears(): void {
+
+    // prevent going past year 0?
     const [minYear] = years.value
 
     years.value = [...new Array(40).fill(null).map((x, index) => minYear - (40 - index)), ...years.value]
+
+    nextTick(() => scrollToYear(minYear))
   }
 
   function pushYears(): void {
@@ -87,9 +93,11 @@
     }
   }
 
-  const observer = new IntersectionObserver(handleIntersection)
+  let observer: IntersectionObserver | null = null
 
   onMounted(() => {
+    observer = new IntersectionObserver(handleIntersection)
+
     scrollToYear(selectedYear.value)
 
     if (topElement.value && bottomElement.value) {
@@ -97,12 +105,13 @@
       observer.observe(bottomElement.value)
     }
   })
+
+  onUnmounted(() => observer?.disconnect())
 </script>
 
 <style>
 .p-year-picker { @apply
   h-full
-  overflow-y-auto
 }
 
 .p-year-picker-years { @apply
@@ -128,9 +137,5 @@
   text-white
   bg-prefect-600
   hover:bg-prefect-800
-}
-
-.p-year-picker__observer { @apply
-  h-1
 }
 </style>

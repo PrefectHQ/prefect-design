@@ -192,6 +192,7 @@
   bg-white/[.95]
   px-4
   py-3
+  overflow-y-auto
 }
 
 .p-date-picker__date { @apply
