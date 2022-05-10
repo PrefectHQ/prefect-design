@@ -1,11 +1,11 @@
 <template>
   <Section heading="Tabs">
-    <p-tabs v-model="selectedTab" :tabs="tabs">
+    <p-tab-wrapper v-model="selectedTab" :tabs="tabs">
       <template #tab-heading-0="{ tab }">
         <p-icon icon="Prefect" class="w-4 h-4 mr-2" />
         <span>{{ tab }}</span>
       </template>
-    </p-tabs>
+    </p-tab-wrapper>
 
 
     Selected tab index: {{ selectedTab }}
