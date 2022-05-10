@@ -118,6 +118,7 @@
   focus:ring-2
   focus:ring-offset-2
   focus:ring-prefect-600
+  shadow-none
 }
 .p-button--flat:not(.p-button--disabled) { @apply
   hover:bg-gray-100
