@@ -11,7 +11,7 @@ export const top: PositionMethod = function(target: DOMRect, content: DOMRect, c
 }
 
 export const right: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
-  const top = target.top - container.top - 0.5 * content.height + target.height / 2
+  const top = target.top - container.top - content.height / 2 + target.height / 2
   const left = target.left - container.left + target.width
 
   return {
@@ -31,7 +31,7 @@ export const bottom: PositionMethod = function(target: DOMRect, content: DOMRect
 }
 
 export const left: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
-  const top = target.top - container.top - 0.5 * content.height + target.height / 2
+  const top = target.top - container.top - content.height / 2 + target.height / 2
   const left = target.left - container.left - content.width
 
   return {
