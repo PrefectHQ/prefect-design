@@ -12,12 +12,10 @@
   import { computed } from 'vue'
   const props = defineProps<{
     active?: boolean,
-    disabled?: boolean,
   }>()
 
   const classes = computed(() => ({
     'p-tab__a-active': props.active,
-    'p-tab__a-disabled': props.disabled,
   }))
 </script>
 
@@ -50,11 +48,6 @@ border-slate-200
 
 .p-tab__a-active { @apply
  border-prefect-600
-text-prefect-600
-}
-
-.p-tab__a-disabled { @apply
-  cursor-not-allowed
-  opacity-50
+ text-prefect-600
 }
 </style>
