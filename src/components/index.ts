@@ -1,7 +1,10 @@
+import { default as PBreadCrumbs } from './BreadCrumbs'
 import { default as PButton } from './Button'
 import { default as PCheckbox } from './Checkbox'
+import { default as PCode } from './Code'
 import { default as PForm } from './Form'
 import { default as PIcon } from './Icon'
+import { default as PIconText } from './IconText'
 import { default as PLabel } from './Label'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
@@ -15,8 +18,10 @@ import { default as PToast } from './Toast'
 import { default as PToggle } from './Toggle'
 
 export {
+  PBreadCrumbs,
   PButton,
   PCheckbox,
+  PCode,
   PForm,
   PLabel,
   PModal,
@@ -29,12 +34,15 @@ export {
   PTag,
   PTagWrapper,
   PTab,
-  PTabs
+  PTabs,
+  PIconText
 }
 
 export const installs = [
+  PBreadCrumbs.install,
   PButton.install,
   PCheckbox.install,
+  PCode.install,
   PForm.install,
   PLabel.install,
   PModal.install,
@@ -45,6 +53,7 @@ export const installs = [
   PToast.install,
   PToggle.install,
   PTag.install,
+  PIconText.install,
   PTagWrapper.install,
   PTab.install,
   PTabs.install,

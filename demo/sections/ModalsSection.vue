@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Section heading="Modals">
     <p-button @click="showModal = true">
       Open Modal
     </p-button>
@@ -31,11 +31,12 @@
         </p-button>
       </template>
     </p-modal>
-  </div>
+  </Section>
 </template>
 
 <script setup lang="ts">
   import { ref } from 'vue'
+  import Section from '../components/Section.vue'
 
   const showModal = ref(false)
 </script>

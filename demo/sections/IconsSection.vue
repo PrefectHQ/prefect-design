@@ -1,10 +1,6 @@
 <template>
-  <div class="px-4 py-8 sm:px-0">
-    <span class="text-2xl">Icons</span>
-    <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-      <p class="text-xl mb-1">
-        Prefect Icons
-      </p>
+  <Section heading="Icons">
+    <SubSection heading="Prefect Icons">
       <div class="flex flex-wrap items-start gap-2 mb-4">
         <template v-for="(icon, index) in prefectIconKeys" :key="index">
           <button type="button" :title="icon" @click="copy(icon)">
@@ -12,9 +8,8 @@
           </button>
         </template>
       </div>
-      <p class="text-xl mb-1">
-        Hero Icons
-      </p>
+    </SubSection>
+    <SubSection heading="Hero Icons">
       <div class="flex flex-wrap items-start gap-2 mb-4">
         <template v-for="(icon, index) in heroIconKeys" :key="index">
           <button type="button" :title="icon" @click="copy(icon)">
@@ -22,12 +17,14 @@
           </button>
         </template>
       </div>
-    </div>
-  </div>
+    </SubSection>
+  </Section>
 </template>
 
 <script lang="ts" setup>
   import * as heroIcons from '@heroicons/vue/solid'
+  import Section from '../components/Section.vue'
+  import SubSection from '../components/SubSection.vue'
   import * as prefectIcons from '@/components/Icon/icons'
 
   import { showToast } from '@/plugins/Toast'

@@ -10,70 +10,31 @@
       </header>
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <!-- Replace with your content -->
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Typography</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Typography />
-            </div>
-          </div>
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Buttons</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Buttons />
-            </div>
-          </div>
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Forms</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Forms />
-            </div>
-          </div>
+          <TypographySection />
 
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Toggle</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Toggle />
-            </div>
-          </div>
+          <BreadCrumbsSection />
 
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Tag</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Tag />
-            </div>
-          </div>
+          <ButtonsSection />
 
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Toast</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Toast />
-            </div>
-          </div>
+          <FormsSection />
 
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Modal</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Modal />
-            </div>
-          </div>
+          <TogglesSection />
 
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Tag Wrapper</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <TagWrapper />
-            </div>
-          </div>
+          <TagsSection />
 
-          <div class="px-4 py-8 sm:px-0">
-            <span class="text-2xl">Tab</span>
-            <div class="border-4 border-dashed border-gray-200 rounded-lg p-4">
-              <Tab />
-            </div>
-          </div>
+          <ToastsSection />
 
-          <Icons />
-          <!-- /End replace -->
+          <ModalsSection />
+
+          <IconsSection />
+
+          <CodeSection />
+
+          <TablesSection />
+
+          <IconTextSection />
+
+          <TabSection />
         </div>
       </main>
     </div>
@@ -81,14 +42,17 @@
 </template>
 
 <script lang="ts" setup>
-  import Buttons from './Buttons.vue'
-  import Forms from './Forms.vue'
-  import Icons from './Icons.vue'
-  import Modal from './Modal.vue'
-  import Tab from './Tab.vue'
-  import Tag from './Tag.vue'
-  import TagWrapper from './TagWrapper.vue'
-  import Toast from './Toast.vue'
-  import Toggle from './Toggle.vue'
-  import Typography from './Typography.vue'
+  import BreadCrumbsSection from './sections/BreadCrumbsSection.vue'
+  import ButtonsSection from './sections/ButtonsSection.vue'
+  import CodeSection from './sections/CodeSection.vue'
+  import FormsSection from './sections/FormsSection.vue'
+  import IconsSection from './sections/IconsSection.vue'
+  import IconTextSection from './sections/IconTextSection.vue'
+  import ModalsSection from './sections/ModalsSection.vue'
+  import TablesSection from './sections/TablesSection.vue'
+  import TabSection from './sections/TabSection.vue'
+  import TagsSection from './sections/TagsSection.vue'
+  import ToastsSection from './sections/ToastsSection.vue'
+  import TogglesSection from './sections/TogglesSection.vue'
+  import TypographySection from './sections/TypographySection.vue'
 </script>
