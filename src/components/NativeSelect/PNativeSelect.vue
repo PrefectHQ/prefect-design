@@ -94,7 +94,6 @@
   focus:ring-1
   focus:ring-prefect-500
   focus:border-prefect-500
-  focus:border-prefect-500
   rounded-md
   appearance-none
   bg-none
