@@ -33,7 +33,7 @@
 .p-tab__div {@apply
   py-4
   border-b-2
-border-slate-200
+  border-slate-200
 }
 
 .p-tab__div:not(.p-tab__btn-active) {@apply
