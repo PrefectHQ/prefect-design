@@ -61,7 +61,7 @@
 .slide-enter-from,
 .slide-leave-to {
   @apply
-  translate-y-full
+  -translate-y-full
   sm:translate-x-full
   sm:translate-y-0
  }

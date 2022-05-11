@@ -38,10 +38,14 @@
   flex
   items-center
   gap-4
-  w-7
   flex-row
   sm:gap-5
   sm:flex-col
+}
+
+.p-global-sidebar__nav-links > *{
+  @apply
+  w-6
 }
 
 .p-global-sidebar__profile {
