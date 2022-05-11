@@ -28,26 +28,34 @@
             :class="classes.date(date)"
             :flat="!isSelected(date)"
             size="xs"
+            :disabled="!!mode"
             @click="selectedDate = date"
           >
             {{ date.getUTCDate() }}
           </p-button>
         </template>
       </p-calendar>
+
       <template v-if="modePickerComponent">
         <div class="p-date-picker__overlay">
           <component :is="modePickerComponent" v-model="selectedDate" @update:model-value="mode = null" />
         </div>
       </template>
-    </div>
 
-    <div class="p-date-picker__bottom-bar">
-      <p-button class="p-date-picker__time-button" size="sm" flat @click="handleTimeClick">
-        {{ time }}
-      </p-button>
-      <p-button class="p-date-picker__today-button" size="sm" flat :disabled="isToday(selectedDate)" @click="handleTodayClick">
-        Today
-      </p-button>
+      <div class="p-date-picker__bottom-bar" :class="classes.bottom">
+        <p-button class="p-date-picker__time-button" size="sm" flat @click="handleTimeClick">
+          {{ time }}
+        </p-button>
+        <p-button
+          class="p-date-picker__today-button"
+          size="sm"
+          flat
+          :disabled="isToday(selectedDate)"
+          @click="handleTodayClick"
+        >
+          Today
+        </p-button>
+      </div>
     </div>
   </div>
 </template>
@@ -122,6 +130,9 @@
     },
     next: {
       'p-date-picker__next-icon--hidden': !!mode.value,
+    },
+    bottom: {
+      'p-date-picker__bottom-bar--hidden': !!mode.value,
     },
   }))
 
@@ -279,5 +290,9 @@
 .p-date-picker__bottom-bar { @apply
   flex
   justify-between
+}
+
+.p-date-picker__bottom-bar--hidden { @apply
+  invisible
 }
 </style>
