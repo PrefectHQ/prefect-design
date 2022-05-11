@@ -13,7 +13,7 @@
   import { defineComponent, withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
 
   export default defineComponent({
-    name: 'BaseInput',
+    name: 'PPopOver',
     expose: [],
     inheritAttrs: false,
   })
