@@ -180,8 +180,8 @@ function sortPositionsByVisibility(content: Element, container: Element, positio
 
 function mapPositionToPositionStyles(position: Partial<Position>): PositionStyles {
   return {
-    top: position.top ? toPixels(position.top) : null,
-    left: position.left ? toPixels(position.left) : null,
+    top: position.top ? toPixels(position.top) : undefined,
+    left: position.left ? toPixels(position.left) : undefined,
     position: 'absolute',
   }
 }
