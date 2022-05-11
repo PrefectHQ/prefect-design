@@ -2,7 +2,7 @@
   <Section heading="Global Sidebar">
     <p-toggle @update:value="toggleGlobalSidebar" @click="toggleGlobalSidebar">
       <template #append>
-        <span class="text-sm font-medium text-gray-900">Show Sidebar</span>
+        <span class="text-sm font-medium text-gray-900">Show Global Sidebar</span>
       </template>
     </p-toggle>
 

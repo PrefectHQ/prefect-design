@@ -12,6 +12,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <GlobalSidebarSection @update:value="toggleGlobalSidebar" />
 
+          <ContextSidebarSection @update:value="toggleContextSidebar" />
+
           <PopOverSection />
 
           <TypographySection />
@@ -48,6 +50,7 @@
   import BreadCrumbsSection from './sections/BreadCrumbsSection.vue'
   import ButtonsSection from './sections/ButtonsSection.vue'
   import CodeSection from './sections/CodeSection.vue'
+  import ContextSidebarSection from './sections/ContextSidebarSection.vue'
   import FormsSection from './sections/FormsSection.vue'
   import GlobalSidebarSection from './sections/GlobalSidebarSection.vue'
   import IconsSection from './sections/IconsSection.vue'
@@ -61,8 +64,12 @@
   import TypographySection from './sections/TypographySection.vue'
 
   const showGlobalSidebar = ref(false)
+  const showContextSidebar = ref(false)
 
   const toggleGlobalSidebar = (value: boolean): void => {
     showGlobalSidebar.value = value
+  }
+  const toggleContextSidebar = (value: boolean): void => {
+    showContextSidebar.value = value
   }
 </script>
