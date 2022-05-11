@@ -44,10 +44,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { format } from 'date-fns'
+  import { format, startOfDay } from 'date-fns'
   import { computed, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
-  import { getStartOfDay } from '@/types/date'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -59,14 +58,13 @@
 
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? new Date(today)
+      return props.modelValue ?? startOfDay(new Date())
     },
     set(value: Date) {
       emits('update:modelValue', value)
     },
   })
 
-  const today = getStartOfDay()
   const time = ref(new Date(selectedDate.value))
   const hourElements = ref<HTMLElement[]>([])
   const minuteElements = ref<HTMLElement[]>([])

@@ -18,9 +18,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { startOfDay } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
-  import { getStartOfDay, monthNames } from '@/types/date'
+  import { monthNames } from '@/types/date'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -34,7 +35,7 @@
 
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? new Date(getStartOfDay())
+      return props.modelValue ?? startOfDay(new Date())
     },
     set(value: Date) {
       emits('update:modelValue', value)

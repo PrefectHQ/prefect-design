@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts" setup>
+  import { startOfDay } from 'date-fns'
   import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
-  import { getStartOfDay } from '@/types/date'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -24,11 +24,9 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const today = new Date(getStartOfDay())
-
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? today
+      return props.modelValue ?? startOfDay(new Date())
     },
     set(value: Date) {
       emits('update:modelValue', value)

@@ -20,8 +20,9 @@
 </template>
 
 <script lang="ts" setup>
+  import { startOfDay } from 'date-fns'
   import { computed } from 'vue'
-  import { dayNames, getStartOfDay } from '@/types/date'
+  import { dayNames } from '@/types/date'
 
   const props = defineProps<{
     month: number,
@@ -29,7 +30,7 @@
   }>()
 
   const selectedMonth = computed(() => {
-    const value = getStartOfDay()
+    const value = startOfDay(new Date())
 
     value.setUTCMonth(props.month)
     value.setUTCFullYear(props.year)
