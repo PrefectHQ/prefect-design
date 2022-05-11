@@ -1,10 +1,10 @@
 <template>
   <div class="p-tab" :class="classes.disabled">
-    <nav class="p-tab__nav" :class="classes.active" aria-label="Tabs">
-      <a class="p-tab__a" :aria-current="isActive">
-        <slot>Tab</slot>
-      </a>
-    </nav>
+    <div class="p-tab__div" :class="classes.active">
+      <button type="button" class="p-tab__btn">
+        <slot />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -17,33 +17,32 @@
 
   const classes = computed(() => ({
     active: {
-      'p-tab__a-active': props.active,
+      'p-tab__btn-active': props.active,
     },
     disabled: {
-      'p-tab__a-disabled': props.disabled,
+      'p-tab__btn-disabled': props.disabled,
     },
 
   }))
-  const isActive = computed(() => props.active ? 'page' : undefined)
 </script>
 
 <style>
 .p-tab { @apply
   inline-flex
 }
-.p-tab__nav {@apply
+.p-tab__div {@apply
   py-4
   border-b-2
 border-slate-200
 }
 
-.p-tab__nav:not(.p-tab__a-active) {@apply
+.p-tab__div:not(.p-tab__btn-active) {@apply
   hover:border-gray-300
   text-gray-500
   hover:text-gray-600
 }
 
-.p-tab__a { @apply
+.p-tab__btn { @apply
   px-10
   text-center
   font-medium
@@ -53,12 +52,12 @@ border-slate-200
   items-center
 }
 
-.p-tab__a-active { @apply
+.p-tab__btn-active { @apply
  border-prefect-600
  text-prefect-600
 }
 
-.p-tab__a-disabled { @apply
+.p-tab__btn-disabled { @apply
   pointer-events-none
   opacity-50
 }

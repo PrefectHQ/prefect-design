@@ -9,7 +9,7 @@ import { default as PLabel } from './Label'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTab } from './Tab'
-import { default as PTabWrapper } from './TabWrapper'
+import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
 import { default as PTagWrapper } from './TagWrapper'
 import { default as PTextarea } from './Textarea'
@@ -34,7 +34,7 @@ export {
   PTag,
   PTagWrapper,
   PTab,
-  PTabWrapper,
+  PTabs,
   PIconText
 }
 
@@ -56,5 +56,5 @@ export const installs = [
   PIconText.install,
   PTagWrapper.install,
   PTab.install,
-  PTabWrapper.install,
+  PTabs.install,
 ]
