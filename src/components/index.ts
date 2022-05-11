@@ -2,6 +2,7 @@ import { default as PBreadCrumbs } from './BreadCrumbs'
 import { default as PButton } from './Button'
 import { default as PCheckbox } from './Checkbox'
 import { default as PCode } from './Code'
+import { default as PContextSidebar } from './ContextSidebar'
 import { default as PForm } from './Form'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PIcon } from './Icon'
@@ -21,6 +22,7 @@ export {
   PButton,
   PCheckbox,
   PCode,
+  PContextSidebar,
   PForm,
   PGlobalSidebar,
   PLabel,
@@ -41,6 +43,7 @@ export const installs = [
   PButton.install,
   PCheckbox.install,
   PCode.install,
+  PContextSidebar.install,
   PForm.install,
   PGlobalSidebar.install,
   PLabel.install,
