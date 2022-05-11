@@ -5,8 +5,6 @@
     </slot>
   </p-tab>
 
-  <!-- <slot :name="kebabCase(selectedTab)" /> -->
-
   <template v-for="tab in tabs" :key="tab">
     <div class="p-tab-wrapper__content">
       <slot v-if="selectedTab === tab" :name="kebabCase(tab)" />
