@@ -4,11 +4,11 @@
       <template v-for="option in hourOptions" :key="option">
         <p-button
           size="sm"
-          :inset="twelveHour !== option.toString()"
+          :inset="hours !== option.toString()"
           class="p-time-picker__hour-option"
           @click="setHours(option)"
         >
-          {{ option }}
+          <span ref="hourElements" :data-hour="option">{{ option }}</span>
         </p-button>
       </template>
     </div>
@@ -16,11 +16,11 @@
       <template v-for="option in minuteOptions" :key="option">
         <p-button
           size="sm"
-          :inset="minutes !== String(option).padStart(2, '0')"
+          :inset="minutes !== padMinutes(option)"
           class="p-time-picker__minute-option"
           @click="setMinutes(option)"
         >
-          {{ String(option).padStart(2, '0') }}
+          <span ref="minuteElements" :data-minute="padMinutes(option)">{{ padMinutes(option) }}</span>
         </p-button>
       </template>
     </div>
@@ -32,7 +32,7 @@
           class="p-time-picker__meridiem-option"
           @click="setMeridiem(option)"
         >
-          {{ option }}
+          <span ref="meridiemElements" :data-meridiem="option">{{ option }}</span>
         </p-button>
       </template>
     </div>
@@ -45,7 +45,7 @@
 
 <script lang="ts" setup>
   import { format } from 'date-fns'
-  import { computed, ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
   import { getStartOfDay } from '@/types/date'
 
@@ -68,12 +68,15 @@
 
   const today = getStartOfDay()
   const time = ref(new Date(selectedDate.value))
+  const hourElements = ref<HTMLElement[]>([])
+  const minuteElements = ref<HTMLElement[]>([])
+  const meridiemElements = ref<HTMLElement[]>([])
 
   const hourOptions = new Array(12).fill(null).map((x, index) => index + 1)
   const minuteOptions = new Array(60).fill(null).map((x, index) => index)
   const meridiemOptions = ['AM', 'PM'] as const
 
-  const twelveHour = computed(() => format(time.value, 'h'))
+  const hours = computed(() => format(time.value, 'h'))
   const minutes = computed(() => format(time.value, 'mm'))
   const meridiem = computed(() => format(time.value, 'a'))
 
@@ -113,9 +116,25 @@
     time.value = value
   }
 
+  function padMinutes(minutes: number): string {
+    return String(minutes).padStart(2, '0')
+  }
+
   function handleSetClick(): void {
     selectedDate.value = time.value
   }
+
+  onMounted(() => {
+    const hourElement = hourElements.value.find(node => node.dataset.hour === hours.value.toString())
+    const minuteElement = minuteElements.value.find(node => node.dataset.minute === minutes.value.toString())
+    const meridiemElement = meridiemElements.value.find(node => node.dataset.meridiem === meridiem.value.toString())
+
+    if (hourElement && minuteElement && meridiemElement) {
+      hourElement.scrollIntoView({ block: 'center' })
+      minuteElement.scrollIntoView({ block: 'center' })
+      meridiemElement.scrollIntoView({ block: 'center' })
+    }
+  })
 </script>
 
 <style>
