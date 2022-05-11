@@ -29,7 +29,7 @@
             :flat="!isSelected(date)"
             size="xs"
             :disabled="!!mode"
-            @click="selectedDate = date"
+            @click="handleDateClick(date)"
           >
             {{ date.getUTCDate() }}
           </p-button>
@@ -52,7 +52,6 @@
           class="p-date-picker__today-button"
           size="sm"
           flat
-          :disabled="isToday(selectedDate)"
           @click="handleTodayClick"
         >
           {{ showTime ? 'Now' : 'Today' }}
@@ -156,6 +155,16 @@
 
   function closeOverlay(): void {
     mode.value = null
+  }
+
+  function handleDateClick(date: Date): void {
+    const value = new Date(selectedDate.value)
+
+    value.setFullYear(date.getFullYear())
+    value.setMonth(date.getMonth())
+    value.setDate(date.getDate())
+
+    selectedDate.value = value
   }
 
   function handleTodayClick(): void {
