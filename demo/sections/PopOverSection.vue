@@ -45,14 +45,18 @@
   import { left, right } from '@/utilities/position'
 
   const position = ref(left)
-  const manualTarget = ref<HTMLDivElement>()
-  const manualContent = ref<HTMLDivElement>()
-  const manualContainer = ref<HTMLDivElement>()
-  const manualStyles = usePositionStyles(manualTarget, manualContent, manualContainer, position)
+  const {
+    target: manualTarget,
+    content: manualContent,
+    container: manualContainer,
+    styles: manualStyles,
+  } = usePositionStyles(position)
 
   const positions = ref([left, right])
-  const dynamicTarget = ref()
-  const dynamicContent = ref()
-  const dynamicContainer = ref()
-  const dynamicStyles = useMostVisiblePositionStyles(dynamicTarget, dynamicContent, dynamicContainer, positions)
+  const {
+    target: dynamicTarget,
+    content: dynamicContent,
+    container: dynamicContainer,
+    styles: dynamicStyles,
+  } = useMostVisiblePositionStyles(positions)
 </script>

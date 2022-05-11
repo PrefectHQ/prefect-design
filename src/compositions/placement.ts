@@ -1,23 +1,22 @@
 /* eslint-disable max-params */
 import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, ref, Ref, watch, watchEffect } from 'vue'
-import { Position, PositionMethod, PositionStyles } from '@/types/position'
-import { refValueIsDefined } from '@/utilities/reactivity'
+import { Position, PositionMethod, PositionStyles, UsePosition, UsePositionRefs, UsePositionStyles } from '@/types/position'
 import { toPixels } from '@/utilities/units'
 
 export function usePosition(
-  target: Ref<HTMLElement | undefined> | HTMLElement,
-  content: Ref<HTMLElement | undefined> | HTMLElement,
-  container: Ref<HTMLElement | undefined> | HTMLElement,
   placement: Ref<PositionMethod> | PositionMethod,
-): Position {
-  const [targetRef, contentRef, containerRef] = refs([target, content, container])
+  refs?: UsePositionRefs,
+): UsePosition {
+  const target = refs?.target ?? ref<HTMLElement | undefined>()
+  const content = refs?.content ?? ref<HTMLElement | undefined>()
+  const container = refs?.container ?? ref<HTMLElement | undefined>()
   const placementRef = ref(placement)
   const position = reactive({} as Position)
   const observer = new ResizeObserver(update)
 
   function update(): void {
-    if (refValueIsDefined(targetRef) && refValueIsDefined(contentRef) && refValueIsDefined(containerRef)) {
-      const newPosition = getPosition(targetRef.value, contentRef.value, containerRef.value, placementRef.value)
+    if (target.value && content.value && container.value) {
+      const newPosition = getPosition(target.value, content.value, container.value, placementRef.value)
 
       Object.assign(position, newPosition)
     }
@@ -25,66 +24,88 @@ export function usePosition(
 
   useOnMountedIfComponentIsDetected(() => {
     watchEffect(update)
-    observeTemplateRefs(observer, [targetRef, contentRef, containerRef])
+    observeTemplateRefs(observer, [target, content, container])
   })
 
   useOnUnmountedIfComponentIsDetected(observer.disconnect)
 
-  return position
+  return {
+    target,
+    content,
+    container,
+    position,
+  }
 }
 
 export function usePositionStyles(
-  target: Ref<HTMLElement | undefined> | HTMLElement,
-  content: Ref<HTMLElement | undefined> | HTMLElement,
-  container: Ref<HTMLElement | undefined> | HTMLElement,
   placement: Ref<PositionMethod> | PositionMethod,
-): Ref<PositionStyles> {
-  const position = usePosition(target, content, container, placement)
+  refs?: UsePositionRefs,
+): UsePositionStyles {
+  const { target, content, container, position } = usePosition(placement, refs)
+  const styles = reactive({} as PositionStyles)
 
-  return computed(() => mapPositionToPositionStyles(position))
+  watchEffect(() => Object.assign(styles, mapPositionToPositionStyles(position)))
+
+  return {
+    target,
+    content,
+    container,
+    styles,
+  }
 }
 
 export function useMostVisiblePosition(
-  target: Ref<HTMLElement | undefined> | HTMLElement,
-  content: Ref<HTMLElement | undefined> | HTMLElement,
-  container: Ref<HTMLElement | undefined> | HTMLElement,
   placements: Ref<PositionMethod[]> | PositionMethod[],
-): Position {
-  const [targetRef, contentRef, containerRef] = refs([target, content, container])
+  refs?: UsePositionRefs,
+): UsePosition {
+  const target = refs?.target ?? ref<HTMLElement | undefined>()
+  const content = refs?.content ?? ref<HTMLElement | undefined>()
+  const container = refs?.container ?? ref<HTMLElement | undefined>()
   const placementsRef = ref(placements)
   const position = reactive({} as Position)
   const observer = new ResizeObserver(update)
 
   function update(): void {
-    if (refValueIsDefined(targetRef) && refValueIsDefined(contentRef) && refValueIsDefined(containerRef)) {
-      const positions = placementsRef.value.map(placement => usePosition(targetRef, contentRef, containerRef, placement))
+    if (target.value && content.value && container.value) {
+      const positions = placementsRef.value.map(placement => usePosition(placement, { target, content, container }))
       // eslint-disable-next-line id-length
-      const positionsSortedByVisibility = [...positions].sort((a, b) => sortPositionsByVisibility(contentRef.value, containerRef.value, a, b))
+      const positionsSortedByVisibility = [...positions].sort((a, b) => sortPositionsByVisibility(content.value!, container.value!, a.position, b.position))
       const [mostVisiblePosition] = positionsSortedByVisibility
 
-      Object.assign(position, mostVisiblePosition)
+      Object.assign(position, mostVisiblePosition.position)
     }
   }
 
   useOnMountedIfComponentIsDetected(() => {
     watchEffect(update)
-    observeTemplateRefs(observer, [targetRef, contentRef, containerRef])
+    observeTemplateRefs(observer, [target, content, container])
   })
 
   useOnUnmountedIfComponentIsDetected(observer.disconnect)
 
-  return position
+  return {
+    target,
+    content,
+    container,
+    position,
+  }
 }
 
 export function useMostVisiblePositionStyles(
-  target: Ref<HTMLElement> | HTMLElement,
-  content: Ref<HTMLElement> | HTMLElement,
-  container: Ref<HTMLElement> | HTMLElement,
   placements: Ref<PositionMethod[]> | PositionMethod[],
-): Ref<PositionStyles> {
-  const mostVisiblePosition = useMostVisiblePosition(target, content, container, placements)
+  refs?: UsePositionRefs,
+): UsePositionStyles {
+  const { target, content, container, position } = useMostVisiblePosition(placements, refs)
+  const styles = reactive({} as PositionStyles)
 
-  return computed(() => mapPositionToPositionStyles(mostVisiblePosition))
+  watchEffect(() => Object.assign(styles, mapPositionToPositionStyles(position)))
+
+  return {
+    target,
+    content,
+    container,
+    styles,
+  }
 }
 
 function getPositionVisibility(content: HTMLElement, container: HTMLElement, position: Position): number {
@@ -169,8 +190,4 @@ function observeTemplateRefs(observer: ResizeObserver, refs: Ref<HTMLElement | u
   refs.forEach(ref => {
     watch(ref, (newRef, oldRef) => observerCallback(observer, newRef, oldRef), { immediate: true })
   })
-}
-
-function refs<T>(values: (Ref<T> | T)[]): Ref<T>[] {
-  return values.map(value => ref(value) as Ref<T>)
 }
