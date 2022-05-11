@@ -1,6 +1,6 @@
 <template>
   <Section heading="Global Sidebar">
-    <p-toggle @update:value="toggleGlobalSidebar" @click="toggleGlobalSidebar">
+    <p-toggle v-model="showGlobalSidebar">
       <template #append>
         <span class="text-sm font-medium text-gray-900">Show Global Sidebar</span>
       </template>
@@ -37,16 +37,7 @@
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
 
-  const emit = defineEmits<{
-    (event: 'update:value', value: boolean): void,
-  }>()
-
   const showGlobalSidebar = ref(false)
-
-  const toggleGlobalSidebar = (): void => {
-    showGlobalSidebar.value = !showGlobalSidebar.value
-    emit('update:value', showGlobalSidebar.value)
-  }
 
   const profileImage = ref('https://randomuser.me/api/portraits/women/49.jpg')
 </script>

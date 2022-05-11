@@ -1,6 +1,6 @@
 <template>
   <Section heading="Context Sidebar">
-    <p-toggle @update:value="toggleContextSidebar" @click="toggleContextSidebar">
+    <p-toggle v-model="showContextSidebar">
       <template #append>
         <span class="text-sm font-medium text-gray-900">Show Context Sidebar</span>
       </template>
@@ -34,16 +34,7 @@
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
 
-  const emit = defineEmits<{
-    (event: 'update:value', value: boolean): void,
-  }>()
-
   const showContextSidebar = ref(false)
-
-  const toggleContextSidebar = (): void => {
-    showContextSidebar.value = !showContextSidebar.value
-    emit('update:value', showContextSidebar.value)
-  }
 </script>
 
 <style>

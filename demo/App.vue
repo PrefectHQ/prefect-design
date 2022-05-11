@@ -10,9 +10,9 @@
       </header>
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <GlobalSidebarSection @update:value="toggleGlobalSidebar" />
+          <GlobalSidebarSection />
 
-          <ContextSidebarSection @update:value="toggleContextSidebar" />
+          <ContextSidebarSection />
 
           <PopOverSection />
 
@@ -62,14 +62,4 @@
   import ToastsSection from './sections/ToastsSection.vue'
   import TogglesSection from './sections/TogglesSection.vue'
   import TypographySection from './sections/TypographySection.vue'
-
-  const showGlobalSidebar = ref(false)
-  const showContextSidebar = ref(false)
-
-  const toggleGlobalSidebar = (value: boolean): void => {
-    showGlobalSidebar.value = value
-  }
-  const toggleContextSidebar = (value: boolean): void => {
-    showContextSidebar.value = value
-  }
 </script>
