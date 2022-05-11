@@ -1,5 +1,5 @@
 /* eslint-disable max-params */
-import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, ref, Ref, watch, watchEffect } from 'vue'
+import { getCurrentInstance, onMounted, onUnmounted, reactive, ref, Ref, watch, watchEffect } from 'vue'
 import { Position, PositionMethod, PositionStyles, UsePosition, UsePositionRefs, UsePositionStyles } from '@/types/position'
 import { toPixels } from '@/utilities/units'
 
@@ -7,9 +7,9 @@ export function usePosition(
   placement: Ref<PositionMethod> | PositionMethod,
   refs?: UsePositionRefs,
 ): UsePosition {
-  const target = refs?.target ?? ref<HTMLElement | undefined>()
-  const content = refs?.content ?? ref<HTMLElement | undefined>()
-  const container = refs?.container ?? ref<HTMLElement | undefined>()
+  const target = refs?.target ?? ref<Element | undefined>()
+  const content = refs?.content ?? ref<Element | undefined>()
+  const container = refs?.container ?? ref<Element | undefined>()
   const placementRef = ref(placement)
   const position = reactive({} as Position)
   const observer = new ResizeObserver(update)
@@ -58,14 +58,18 @@ export function useMostVisiblePosition(
   placements: Ref<PositionMethod[]> | PositionMethod[],
   refs?: UsePositionRefs,
 ): UsePosition {
-  const target = refs?.target ?? ref<HTMLElement | undefined>()
-  const content = refs?.content ?? ref<HTMLElement | undefined>()
-  const container = refs?.container ?? ref<HTMLElement | undefined>()
+  const target = refs?.target ?? ref<Element | undefined>()
+  const content = refs?.content ?? ref<Element | undefined>()
+  const container = refs?.container ?? ref<Element | undefined>()
   const placementsRef = ref(placements)
   const position = reactive({} as Position)
-  const observer = new ResizeObserver(update)
+  const observer = new ResizeObserver(() => {
+    console.log('observerUpdate')
+    update()
+  })
 
   function update(): void {
+    console.log('update', target.value, content.value, container.value)
     if (target.value && content.value && container.value) {
       const positions = placementsRef.value.map(placement => usePosition(placement, { target, content, container }))
       // eslint-disable-next-line id-length
@@ -108,7 +112,7 @@ export function useMostVisiblePositionStyles(
   }
 }
 
-function getPositionVisibility(content: HTMLElement, container: HTMLElement, position: Position): number {
+function getPositionVisibility(content: Element, container: Element, position: Position): number {
   const rect = getDomRectForPosition(content, container, position)
   const visibleWidth = Math.min(rect.right, window.scrollX + window.innerWidth) - Math.max(rect.left, 0)
   const visibleHeight = Math.min(rect.bottom, window.scrollY + window.innerHeight) - Math.max(rect.top, 0)
@@ -118,14 +122,14 @@ function getPositionVisibility(content: HTMLElement, container: HTMLElement, pos
   return visibleArea / totalArea
 }
 
-function getDomRectForPosition(content: HTMLElement, container: HTMLElement, position: Position): DOMRect {
+function getDomRectForPosition(content: Element, container: Element, position: Position): DOMRect {
   const { width, height } = content.getBoundingClientRect()
   const { left, top } = container.getBoundingClientRect()
 
   return new DOMRect(position.left + left, position.top + top, width, height)
 }
 
-function observerCallback(observer: ResizeObserver, newElement: HTMLElement | undefined, oldElement: HTMLElement | undefined): void {
+function observerCallback(observer: ResizeObserver, newElement: Element | undefined, oldElement: Element | undefined): void {
   if (newElement) {
     observer.observe(newElement)
   }
@@ -150,9 +154,9 @@ function useOnUnmountedIfComponentIsDetected(callback: () => void): void {
 }
 
 function getPosition(
-  target: HTMLElement,
-  content: HTMLElement,
-  container: HTMLElement,
+  target: Element,
+  content: Element,
+  container: Element,
   placement: PositionMethod,
 ): Position {
   const targetRect = target.getBoundingClientRect()
@@ -160,10 +164,12 @@ function getPosition(
   const containerRect = container.getBoundingClientRect()
   const position = placement(targetRect, contentRect, containerRect)
 
+  console.log({ position })
+
   return position
 }
 
-function sortPositionsByVisibility(content: HTMLElement, container: HTMLElement, positionA: Position, positionB: Position): 0 | 1 | -1 {
+function sortPositionsByVisibility(content: Element, container: Element, positionA: Position, positionB: Position): 0 | 1 | -1 {
   const aVisibility = getPositionVisibility(content, container, positionA)
   const bVisibility = getPositionVisibility(content, container, positionB)
 
@@ -186,7 +192,7 @@ function mapPositionToPositionStyles(position: Position): PositionStyles {
   }
 }
 
-function observeTemplateRefs(observer: ResizeObserver, refs: Ref<HTMLElement | undefined>[]): void {
+function observeTemplateRefs(observer: ResizeObserver, refs: Ref<Element | undefined>[]): void {
   refs.forEach(ref => {
     watch(ref, (newRef, oldRef) => observerCallback(observer, newRef, oldRef), { immediate: true })
   })

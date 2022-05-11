@@ -47,7 +47,11 @@
       if (typeof value === 'string') {
         emit('update:position', keyToFunction.get(value)!)
       } else {
-        emit('update:position', value.map(key => keyToFunction.get(key)!))
+        const allSorted = Array.from(keyToFunction.keys())
+        const sorted = [...value].sort((a, b) => allSorted.indexOf(a) - allSorted.indexOf(b))
+        const selected = sorted.map(key => keyToFunction.get(key)!)
+
+        emit('update:position', selected)
       }
     },
   })

@@ -1,22 +1,32 @@
 <template>
-  <div :ref="refs.trigger" class="p-pop-over">
-    <slot name="trigger" v-bind="{ open, close, toggle }" />
+  <div ref="target" class="p-pop-over" v-bind="attrs">
+    <slot name="target" v-bind="{ open, close, toggle }" />
   </div>
   <teleport v-if="visible" :to="to">
-    <div :ref="refs.content" class="p-pop-over__content">
+    <div ref="content" :style="styles">
       <slot />
     </div>
   </teleport>
 </template>
 
+<script lang="ts">
+  import { defineComponent, withDefaults, ref, watch, computed, useAttrs } from 'vue'
+
+  export default defineComponent({
+    name: 'BaseInput',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { withDefaults, reactive, ref, watch } from 'vue'
   import { PositionMethod } from '../../types/position'
   import { left, right, bottom, top } from '../../utilities/position'
+  import { useMostVisiblePositionStyles } from '@/compositions/placement'
 
   const props = withDefaults(defineProps<{
     placement: PositionMethod | PositionMethod[],
-    to: string,
+    to?: string,
   }>(), {
     placement: () => [left, right, bottom, top],
     to: 'body',
@@ -26,12 +36,12 @@
     (event: 'open', value: boolean): void,
   }>()
 
-  const visible = ref(false)
+  const attrs = useAttrs()
 
-  const refs = reactive({
-    trigger: ref(),
-    content: ref(),
-  })
+  const visible = ref(false)
+  const container = ref(document.querySelector(props.to) ?? undefined)
+  const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
+  const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
 
   function open(): void {
     visible.value = true
@@ -47,5 +57,3 @@
 
   watch(visible, value => emit('open', value))
 </script>
-
-<style></style>
