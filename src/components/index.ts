@@ -2,6 +2,8 @@ import { default as PBreadCrumbs } from './BreadCrumbs'
 import { default as PButton } from './Button'
 import { default as PCheckbox } from './Checkbox'
 import { default as PCode } from './Code'
+import { default as PContextNavLink } from './ContextNavLink'
+import { default as PContextSidebar } from './ContextSidebar'
 import { default as PForm } from './Form'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PGlobalSidebarItem } from './GlobalSidebarItem'
@@ -22,6 +24,8 @@ export {
   PButton,
   PCheckbox,
   PCode,
+  PContextNavLink,
+  PContextSidebar,
   PForm,
   PGlobalSidebar,
   PGlobalSidebarItem,
@@ -43,6 +47,8 @@ export const installs = [
   PButton.install,
   PCheckbox.install,
   PCode.install,
+  PContextNavLink.install,
+  PContextSidebar.install,
   PForm.install,
   PGlobalSidebar.install,
   PGlobalSidebarItem.install,
