@@ -87,7 +87,10 @@
       </p-label>
 
       <p-label label="Date Picker" :message="JSON.stringify(exampleDate)" />
-      <p-date-picker v-model="exampleDate" show-time />
+      <p-date-picker v-model="exampleDate" :show-time="showTimeInExampleDate" />
+      <p-label label="Show Time">
+        <p-checkbox v-model="showTimeInExampleDate" />
+      </p-label>
     </p-form>
   </Section>
 </template>
@@ -142,6 +145,8 @@
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
   })
+
+  const showTimeInExampleDate = ref(true)
 </script>
 
 <style>
