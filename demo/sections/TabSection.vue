@@ -7,7 +7,7 @@
       </template>
 
       <template #tab-one>
-        <div class="mt-5">
+        <div>
           Content One
         </div>
       </template>

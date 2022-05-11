@@ -1,6 +1,6 @@
 <template>
   <p-tab v-for="(tab, index) in tabs" :key="tab" :active="selectedTab === tab" @click="selectTab(tab)">
-    <slot :name="`${kebabCase(tab)}-heading`" :tab="tab" :index="index">
+    <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
       {{ tab }}
     </slot>
   </p-tab>
@@ -23,12 +23,12 @@
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:tab', value: string): void,
+    (event: 'tab', value: string): void,
   }>()
 
   function selectTab(tab: string): void {
     selectedTab.value = tab
-    emits('update:tab', tab)
+    emits('tab', tab)
   }
 </script>
 
