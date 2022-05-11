@@ -63,13 +63,9 @@ export function useMostVisiblePosition(
   const container = refs?.container ?? ref<Element | undefined>()
   const placementsRef = ref(placements)
   const position = reactive({} as Position)
-  const observer = new ResizeObserver(() => {
-    console.log('observerUpdate')
-    update()
-  })
+  const observer = new ResizeObserver(update)
 
   function update(): void {
-    console.log('update', target.value, content.value, container.value)
     if (target.value && content.value && container.value) {
       const positions = placementsRef.value.map(placement => usePosition(placement, { target, content, container }))
       // eslint-disable-next-line id-length
@@ -163,8 +159,6 @@ function getPosition(
   const contentRect = content.getBoundingClientRect()
   const containerRect = container.getBoundingClientRect()
   const position = placement(targetRect, contentRect, containerRect)
-
-  console.log({ position })
 
   return position
 }
