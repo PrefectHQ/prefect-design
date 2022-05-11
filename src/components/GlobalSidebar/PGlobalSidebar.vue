@@ -1,24 +1,21 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar__nav-links">
+  <div class="p-global-sidebar">
+    <div class="p-global-sidebar__nav-links">
       <slot name="sidebar-top-nav-links" />
     </div>
 
-    <div class="sidebar__nav-links">
+    <div class="p-global-sidebar__nav-links">
       <slot name="sidebar-bottom-nav-links" />
 
-      <div class="sidebar__profile">
+      <div class="p-global-sidebar__profile">
         <slot name="sidebar-profile-menu-button" />
       </div>
-      <!-- ↓↓↓ Address toggle of context menu for mobile in Context Sidebar PR -->
-      <p-icon icon="MenuIcon" class="sidebar__show-context" />
     </div>
   </div>
 </template>
 
-
 <style>
-.sidebar {
+.p-global-sidebar {
   @apply
   bg-slate-800
   fixed
@@ -36,7 +33,7 @@
   sm:py-5
 }
 
-.sidebar__nav-links {
+.p-global-sidebar__nav-links {
   @apply
   flex
   items-center
@@ -46,12 +43,13 @@
   sm:flex-col
 }
 
-.sidebar__nav-links>*{
+.p-global-sidebar__nav-links>*{
   @apply
   w-6
+fill-slate-400
 }
 
-.sidebar__profile {
+.p-global-sidebar__profile {
   @apply
   cursor-pointer
   h-10
@@ -62,7 +60,7 @@
   sm:block
 }
 
-.sidebar__show-context {
+.p-global-sidebar__show-context {
   @apply
   fill-slate-400
   h-6
