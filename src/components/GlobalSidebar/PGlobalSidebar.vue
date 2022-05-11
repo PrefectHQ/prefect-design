@@ -1,18 +1,36 @@
-<template>
+<!-- <template>
   <div class="p-global-sidebar">
     <div class="p-global-sidebar__nav-links">
-      <slot name="sidebar-top-nav-links" />
+      <slot name="upper-links" />
+      <button @click="toggleContextSidebar">
+        Btn
+      </button>
     </div>
 
     <div class="p-global-sidebar__nav-links">
-      <slot name="sidebar-bottom-nav-links" />
+      <slot name="bottom-links" />
 
       <div class="p-global-sidebar__profile">
-        <slot name="sidebar-profile-menu-button" />
+        <slot name="profile-button" />
       </div>
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const emit = defineEmits<{
+    (event: 'update:value', value: boolean): void,
+  }>()
+
+  const showContextSidebar = ref(false)
+
+  const toggleContextSidebar = (): void => {
+    showContextSidebar.value = !showContextSidebar.value
+    emit('update:value', showContextSidebar.value)
+  }
+</script>
 
 <style>
 .p-global-sidebar {
@@ -46,7 +64,7 @@
 .p-global-sidebar__nav-links>*{
   @apply
   w-6
-fill-slate-400
+  fill-slate-400
 }
 
 .p-global-sidebar__profile {
@@ -69,4 +87,4 @@ fill-slate-400
   sm:hidden
   cursor-pointer
 }
-</style>
+</style> -->

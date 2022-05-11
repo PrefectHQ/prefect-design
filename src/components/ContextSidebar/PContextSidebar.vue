@@ -1,9 +1,12 @@
-<template>
+<!-- <template>
   <div class="p-context-sidebar">
-    <div class="p-context-sidebar__nav-links">
-      <p>Workspaces</p>
-      <p>Organizations</p>
-      <slot name="context-nav-link" />
+    <div>
+      <slot name="header" />
+      <slot name="upper-links" />
+    </div>
+
+    <div>
+      <slot name="bottom-links" />
     </div>
   </div>
 </template>
@@ -18,7 +21,6 @@
   w-screen
   flex
   flex-row
-  items-center
   justify-between
   px-5
   z-10
@@ -29,4 +31,4 @@
   sm:flex-col
   sm:py-5
 }
-</style>
+</style> -->

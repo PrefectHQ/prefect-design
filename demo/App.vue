@@ -10,7 +10,7 @@
       </header>
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <GlobalSidebarSection />
+          <!-- <SidebarSection /> -->
 
           <TypographySection />
 
@@ -46,10 +46,10 @@
   import ButtonsSection from './sections/ButtonsSection.vue'
   import CodeSection from './sections/CodeSection.vue'
   import FormsSection from './sections/FormsSection.vue'
-  import GlobalSidebarSection from './sections/GlobalSidebarSection.vue'
   import IconsSection from './sections/IconsSection.vue'
   import IconTextSection from './sections/IconTextSection.vue'
   import ModalsSection from './sections/ModalsSection.vue'
+  // import SidebarSection from './sections/SidebarSection.vue'
   import TablesSection from './sections/TablesSection.vue'
   import TagsSection from './sections/TagsSection.vue'
   import ToastsSection from './sections/ToastsSection.vue'
