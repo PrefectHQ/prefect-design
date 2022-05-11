@@ -12,6 +12,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <GlobalSidebarSection @update:value="toggleGlobalSidebar" />
 
+          <PopOverSection />
+
           <TypographySection />
 
           <BreadCrumbsSection />
@@ -51,6 +53,7 @@
   import IconsSection from './sections/IconsSection.vue'
   import IconTextSection from './sections/IconTextSection.vue'
   import ModalsSection from './sections/ModalsSection.vue'
+  import PopOverSection from './sections/PopOverSection.vue'
   import TablesSection from './sections/TablesSection.vue'
   import TagsSection from './sections/TagsSection.vue'
   import ToastsSection from './sections/ToastsSection.vue'
