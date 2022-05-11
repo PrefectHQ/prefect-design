@@ -3,7 +3,7 @@
     <template v-for="option in minuteOptions" :key="option">
       <p-button
         size="sm"
-        :inset="minutes !== padMinutes(option)"
+        :flat="minutes !== padMinutes(option)"
         class="p-minute-picker__minute"
         @click="setMinutes(option)"
       >
@@ -37,7 +37,7 @@
   })
 
   const minuteElements = useScrollIntoViewOnMounted(x => x.dataset.minute === minutes.value.toString())
-  const minuteOptions = new Array(60).fill(null).map((x, index) => index)
+  const minuteOptions = [...new Array(60).keys()]
   const minutes = computed(() => format(selectedDate.value, 'mm'))
 
   function setMinutes(minutes: number): void {

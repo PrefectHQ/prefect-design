@@ -3,7 +3,7 @@
     <template v-for="option in meridiemOptions" :key="option">
       <p-button
         size="sm"
-        :inset="meridiem !== option"
+        :flat="meridiem !== option"
         class="p-meridiem-picker__meridiem"
         @click="setMeridiem(option)"
       >

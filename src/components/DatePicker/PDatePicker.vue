@@ -1,23 +1,38 @@
 <template>
   <div class="p-date-picker">
     <div class="p-date-picker__top-bar">
-      <p-button class="p-date-picker__close-icon" :class="classes.close" size="xs" flat @click="closeOverlay">
-        <p-icon icon="XIcon" />
-      </p-button>
-      <p-button class="p-date-picker__previous-icon" :class="classes.previous" size="xs" flat @click="handlePreviousClick">
-        <p-icon icon="ChevronLeftIcon" />
-      </p-button>
+      <p-button
+        class="p-date-picker__close-icon"
+        :class="classes.close"
+        size="sm"
+        flat
+        icon="XIcon"
+        @click="closeOverlay"
+      />
+      <p-button
+        class="p-date-picker__previous-icon"
+        :class="classes.previous"
+        size="sm"
+        flat
+        icon="ChevronLeftIcon"
+        @click="handlePreviousClick"
+      />
       <div class="p-date-picker__title">
         <p-button class="p-date-picker__title-month" flat @click="setMode('month')">
-          {{ monthNames[viewingDate.getMonth()] }}
+          {{ viewingMonth }}
         </p-button>
         <p-button class="p-date-picker__title-year" flat @click="setMode('year')">
-          {{ viewingDate.getFullYear() }}
+          {{ viewingYear }}
         </p-button>
       </div>
-      <p-button class="p-date-picker__next-icon" :class="classes.next" size="xs" flat @click="handleNextClick">
-        <p-icon icon="ChevronRightIcon" />
-      </p-button>
+      <p-button
+        class="p-date-picker__next-icon"
+        :class="classes.next"
+        size="sm"
+        flat
+        icon="ChevronRightIcon"
+        @click="handleNextClick"
+      />
     </div>
 
     <div class="p-date-picker__body">
@@ -70,8 +85,6 @@
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
-  import PIcon from '@/components/Icon'
-  import { monthNames } from '@/types/date'
 
   type Mode = 'year' | 'month' | 'time' | null
 
@@ -112,6 +125,8 @@
 
   watch(selectedDate, (value) => viewingDate.value = startOfDay(value))
 
+  const viewingMonth = computed(() => format(viewingDate.value, 'MMMM'))
+  const viewingYear = computed(() => format(viewingDate.value, 'yyyy'))
   const time = computed(() => format(selectedDate.value, 'h:mm a'))
 
   const todayDisabled = computed(() => props.showTime ? isSameMinute(selectedDate.value, new Date()) : isSameDay(selectedDate.value, new Date()))
@@ -200,7 +215,6 @@
 
 .p-date-picker__title-month { @apply
   font-bold
-  capitalize
   text-lg
   py-0.5
   px-1
@@ -217,13 +231,6 @@
 .p-date-picker__previous-icon,
 .p-date-picker__next-icon { @apply
   p-1
-}
-
-.p-date-picker__close-icon svg,
-.p-date-picker__previous-icon svg,
-.p-date-picker__next-icon svg { @apply
-  h-5
-  w-5
 }
 
 .p-date-picker__previous-icon--hidden,

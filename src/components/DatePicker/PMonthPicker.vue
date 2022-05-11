@@ -1,15 +1,15 @@
 <template>
   <div class="p-month-picker">
-    <template v-for="(month, index) in monthNames" :key="month">
+    <template v-for="(option) in monthOptions" :key="option.value">
       <div class="p-month-picker__month">
         <p-button
           size="xs"
           class="p-month-picker__month-button"
-          :flat="!isSelected(index)"
-          @click="selectedMonth = index"
+          :flat="!isSelected(option.value)"
+          @click="selectedDate = option.value"
         >
-          <span ref="monthElements" :data-month="index">
-            {{ month }}
+          <span ref="monthElements" :data-month="option.value">
+            {{ option.label }}
           </span>
         </p-button>
       </div>
@@ -18,10 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { startOfDay } from 'date-fns'
+  import { startOfDay, format, isSameMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
-  import { monthNames } from '@/types/date'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -42,21 +41,20 @@
     },
   })
 
-  const selectedMonth = computed({
-    get() {
-      return selectedDate.value.getMonth()
-    },
-    set(month: number) {
-      const value = new Date(selectedDate.value)
+  const selectedMonth = computed(() => selectedDate.value.getMonth())
+  const monthOptions = [...new Array(12).keys()].map(index => {
+    const value = new Date(selectedDate.value)
 
-      value.setMonth(month)
+    value.setMonth(index)
 
-      selectedDate.value = value
-    },
+    return {
+      value,
+      label: format(value, 'MMMM'),
+    }
   })
 
-  function isSelected(month: number): boolean {
-    return selectedMonth.value === month
+  function isSelected(value: Date): boolean {
+    return isSameMonth(selectedDate.value, value)
   }
 
   onMounted(() => {

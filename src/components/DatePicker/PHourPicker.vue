@@ -3,7 +3,7 @@
     <template v-for="option in hourOptions" :key="option">
       <p-button
         size="sm"
-        :inset="hours !== option.toString()"
+        :flat="hours !== option.toString()"
         class="p-hour-picker__hour"
         @click="setHours(option)"
       >
@@ -37,7 +37,7 @@
   })
 
   const hourElements = useScrollIntoViewOnMounted(x => x.dataset.hour === hours.value.toString())
-  const hourOptions = new Array(12).fill(null).map((x, index) => index + 1)
+  const hourOptions = [...new Array(12).keys()].map(index => index + 1)
   const hours = computed(() => format(selectedDate.value, 'h'))
   const meridiem = computed(() => format(selectedDate.value, 'a'))
 

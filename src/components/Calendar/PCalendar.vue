@@ -1,9 +1,9 @@
 <template>
   <div class="p-calendar">
     <div class="p-calendar__days-of-week">
-      <template v-for="dayName in dayNames" :key="dayName">
+      <template v-for="day in days" :key="day">
         <div class="p-calendar__day-of-week">
-          {{ dayName.slice(0, 2) }}
+          {{ day }}
         </div>
       </template>
     </div>
@@ -20,14 +20,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { startOfDay } from 'date-fns'
+  import { startOfDay, format, eachDayOfInterval, startOfWeek, endOfWeek } from 'date-fns'
   import { computed } from 'vue'
-  import { dayNames } from '@/types/date'
 
   const props = defineProps<{
     month: number,
     year: number,
   }>()
+
+  const days = eachDayOfInterval({ start:startOfWeek(new Date()), end: endOfWeek(new Date()) }).map(x => format(x, 'EEEEEE'))
 
   const selectedMonth = computed(() => {
     const value = startOfDay(new Date())
@@ -98,7 +99,6 @@
 }
 
 .p-calendar__day-of-week { @apply
-  capitalize
   text-center
 }
 
