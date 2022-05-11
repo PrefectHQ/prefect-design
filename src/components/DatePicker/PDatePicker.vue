@@ -8,10 +8,10 @@
         <p-icon icon="ChevronLeftIcon" />
       </p-button>
       <div class="p-date-picker__title">
-        <p-button class="p-date-picker__title-month" flat @click="handleMonthClick">
+        <p-button class="p-date-picker__title-month" flat @click="setMode('month')">
           {{ monthNames[viewingDate.getUTCMonth()] }}
         </p-button>
-        <p-button class="p-date-picker__title-year" flat @click="handleYearClick">
+        <p-button class="p-date-picker__title-year" flat @click="setMode('year')">
           {{ viewingDate.getUTCFullYear() }}
         </p-button>
       </div>
@@ -43,9 +43,11 @@
       </template>
 
       <div class="p-date-picker__bottom-bar" :class="classes.bottom">
-        <p-button class="p-date-picker__time-button" size="sm" flat @click="handleTimeClick">
-          {{ time }}
-        </p-button>
+        <template v-if="showTime">
+          <p-button class="p-date-picker__time-button" size="sm" flat @click="setMode('time')">
+            {{ time }}
+          </p-button>
+        </template>
         <p-button
           class="p-date-picker__today-button"
           size="sm"
@@ -53,7 +55,7 @@
           :disabled="isToday(selectedDate)"
           @click="handleTodayClick"
         >
-          Today
+          {{ showTime ? 'Now' : 'Today' }}
         </p-button>
       </div>
     </div>
@@ -61,7 +63,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format } from 'date-fns'
+  import { format, isSameDay, isSameMonth } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PCalendar from '@/components/DatePicker/PCalendar.vue'
@@ -152,49 +154,33 @@
     viewingDate.value = value
   }
 
-  function handleTodayClick(): void {
-    selectedDate.value = today
-    closeOverlay()
-  }
-
   function closeOverlay(): void {
     mode.value = null
   }
 
-  function handleTimeClick(): void {
-    if (mode.value === 'time') {
-      closeOverlay()
-    } else {
-      mode.value = 'time'
-    }
+  function handleTodayClick(): void {
+    selectedDate.value = props.showTime ? new Date() : today
+    closeOverlay()
   }
 
-  function handleMonthClick(): void {
-    if (mode.value === 'month') {
+  function setMode(value: Mode): void {
+    if (mode.value === value) {
       closeOverlay()
     } else {
-      mode.value = 'month'
-    }
-  }
-
-  function handleYearClick(): void {
-    if (mode.value === 'year') {
-      closeOverlay()
-    } else {
-      mode.value = 'year'
+      mode.value = value
     }
   }
 
   function isToday(date: Date): boolean {
-    return date.getTime() === today.getTime()
+    return isSameDay(date, today)
   }
 
   function isSelected(date: Date): boolean {
-    return date.getTime() === selectedDate.value.getTime()
+    return isSameDay(date, selectedDate.value)
   }
 
   function isInViewingMonth(date: Date): boolean {
-    return date.getUTCMonth() === viewingDate.value.getUTCMonth() && date.getUTCFullYear() === viewingDate.value.getUTCFullYear()
+    return isSameMonth(date, viewingDate.value)
   }
 </script>
 
@@ -294,5 +280,9 @@
 
 .p-date-picker__bottom-bar--hidden { @apply
   invisible
+}
+
+.p-date-picker__today-button:only-child {
+  margin-left: auto;
 }
 </style>
