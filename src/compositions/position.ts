@@ -178,10 +178,10 @@ function sortPositionsByVisibility(content: Element, container: Element, positio
   return -1
 }
 
-function mapPositionToPositionStyles(position: Position): PositionStyles {
+function mapPositionToPositionStyles(position: Partial<Position>): PositionStyles {
   return {
-    top: toPixels(position.top),
-    left: toPixels(position.left),
+    top: position.top ? toPixels(position.top) : null,
+    left: position.left ? toPixels(position.left) : null,
     position: 'absolute',
   }
 }

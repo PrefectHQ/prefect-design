@@ -20,9 +20,9 @@
 </script>
 
 <script lang="ts" setup>
-  import { PositionMethod } from '../../types/position'
-  import { left, right, bottom, top } from '../../utilities/position'
-  import { useMostVisiblePositionStyles } from '@/compositions/placement'
+  import { useMostVisiblePositionStyles } from '@/compositions/position'
+  import { PositionMethod } from '@/types/position'
+  import { left, right, bottom, top } from '@/utilities/position'
 
   const props = withDefaults(defineProps<{
     placement: PositionMethod | PositionMethod[],

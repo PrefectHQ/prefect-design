@@ -78,11 +78,11 @@
   import PButton from '@/components/Button/PButton.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PToggle from '@/components/Toggle/PToggle.vue'
-  import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/placement'
+  import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/position'
   import { left, right, top } from '@/utilities/position'
 
   const position = ref(left)
-  const showManual = ref(true)
+  const showManual = ref(false)
   const {
     target: manualTarget,
     content: manualContent,
