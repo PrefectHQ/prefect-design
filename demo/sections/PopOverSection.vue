@@ -55,12 +55,10 @@
     <SubSection heading="Component">
       <position-select v-model:position="componentPositions" multiple />
       <p-pop-over :placement="componentPositions" class="inline-block">
-        <template #target="{ targetRef, toggle }">
-          <div :ref="targetRef">
-            <p-button class="mt-2" @click="toggle">
-              Target
-            </p-button>
-          </div>
+        <template #target="{ toggle }">
+          <p-button class="mt-2" @click="toggle">
+            Target
+          </p-button>
         </template>
         <div class="bg-primary text-white p-20">
           <span>Component Content</span>
