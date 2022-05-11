@@ -44,12 +44,12 @@
 
   const selectedMonth = computed({
     get() {
-      return selectedDate.value.getUTCMonth()
+      return selectedDate.value.getMonth()
     },
     set(month: number) {
       const value = new Date(selectedDate.value)
 
-      value.setUTCMonth(month)
+      value.setMonth(month)
 
       selectedDate.value = value
     },

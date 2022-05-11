@@ -33,7 +33,7 @@
     },
   })
 
-  const selectedYear = computed(() => selectedDate.value.getUTCFullYear())
+  const selectedYear = computed(() => selectedDate.value.getFullYear())
 
   const viewingYear = ref(selectedYear.value)
   const viewingCount = 80
@@ -55,14 +55,14 @@
 
   const classes = computed(() => ({
     year:(year: number) => ({
-      'p-year-picker__year--selected': selectedDate.value.getUTCFullYear() === year,
+      'p-year-picker__year--selected': selectedDate.value.getFullYear() === year,
     }),
   }))
 
   function setYear(year: number): void {
     const value = new Date(selectedDate.value)
 
-    value.setUTCFullYear(year)
+    value.setFullYear(year)
 
     selectedDate.value = value
   }

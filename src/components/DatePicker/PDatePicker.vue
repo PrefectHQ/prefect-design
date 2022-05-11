@@ -9,10 +9,10 @@
       </p-button>
       <div class="p-date-picker__title">
         <p-button class="p-date-picker__title-month" flat @click="setMode('month')">
-          {{ monthNames[viewingDate.getUTCMonth()] }}
+          {{ monthNames[viewingDate.getMonth()] }}
         </p-button>
         <p-button class="p-date-picker__title-year" flat @click="setMode('year')">
-          {{ viewingDate.getUTCFullYear() }}
+          {{ viewingDate.getFullYear() }}
         </p-button>
       </div>
       <p-button class="p-date-picker__next-icon" :class="classes.next" size="xs" flat @click="handleNextClick">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="p-date-picker__body">
-      <p-calendar :month="viewingDate.getUTCMonth()" :year="viewingDate.getUTCFullYear()">
+      <p-calendar :month="viewingDate.getMonth()" :year="viewingDate.getFullYear()">
         <template #date="{ date }">
           <p-button
             class="p-date-picker__date"
@@ -31,7 +31,7 @@
             :disabled="!!mode"
             @click="handleDateClick(date)"
           >
-            {{ date.getUTCDate() }}
+            {{ date.getDate() }}
           </p-button>
         </template>
       </p-calendar>
@@ -139,7 +139,7 @@
   function handlePreviousClick(): void {
     const value = new Date(viewingDate.value)
 
-    value.setUTCMonth(value.getUTCMonth() - 1)
+    value.setMonth(value.getMonth() - 1)
 
     viewingDate.value = value
   }
@@ -147,7 +147,7 @@
   function handleNextClick(): void {
     const value = new Date(viewingDate.value)
 
-    value.setUTCMonth(value.getUTCMonth() + 1)
+    value.setMonth(value.getMonth() + 1)
 
     viewingDate.value = value
   }

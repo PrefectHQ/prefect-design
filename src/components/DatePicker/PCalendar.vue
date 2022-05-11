@@ -11,7 +11,7 @@
       <template v-for="date in dates" :key="date.getTime()">
         <slot name="date" :date="date">
           <div class="p-calendar__date">
-            {{ date.getUTCDate() }}
+            {{ date.getDate() }}
           </div>
         </slot>
       </template>
@@ -32,8 +32,8 @@
   const selectedMonth = computed(() => {
     const value = startOfDay(new Date())
 
-    value.setUTCMonth(props.month)
-    value.setUTCFullYear(props.year)
+    value.setMonth(props.month)
+    value.setFullYear(props.year)
 
     return value
   })
@@ -41,7 +41,7 @@
   const startOfMonth = computed(() => {
     const value = new Date(selectedMonth.value)
 
-    value.setUTCDate(1)
+    value.setDate(1)
 
     return value
   })
@@ -49,8 +49,8 @@
   const endOfMonth = computed(() => {
     const value = new Date(selectedMonth.value)
 
-    value.setUTCDate(0)
-    value.setUTCMonth(value.getUTCMonth() + 1)
+    value.setDate(0)
+    value.setMonth(value.getMonth() + 1)
 
     return value
   })
@@ -58,8 +58,8 @@
   const startOfRange = computed(() => {
     const start = new Date(startOfMonth.value)
 
-    while (start.getUTCDay() > 0) {
-      start.setUTCDate(start.getUTCDate() - 1)
+    while (start.getDay() > 0) {
+      start.setDate(start.getDate() - 1)
     }
 
     return start
@@ -70,9 +70,9 @@
     const endTime = endOfMonth.value.getTime()
     const date = new Date(startOfRange.value)
 
-    while (date.getTime() < endTime || date.getUTCDay() > 0) {
+    while (date.getTime() < endTime || date.getDay() > 0) {
       value.push(new Date(date))
-      date.setUTCDate(date.getUTCDate() + 1)
+      date.setDate(date.getDate() + 1)
     }
 
     return value
