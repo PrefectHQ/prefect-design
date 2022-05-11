@@ -1,37 +1,36 @@
 <template>
-  <transition>
-    <Section heading="Global Sidebar" :class="showGlobalSidebar ? 'ml-12' : ''">
-      <p-toggle @update:value="toggleGlobalSidebar" @click="toggleGlobalSidebar">
-        <template #append>
-          <span class="text-sm font-medium text-gray-900">Show Sidebar</span>
-        </template>
-      </p-toggle>
+  <Section heading="Global Sidebar">
+    <p-toggle @update:value="toggleGlobalSidebar" @click="toggleGlobalSidebar">
+      <template #append>
+        <span class="text-sm font-medium text-gray-900">Show Sidebar</span>
+      </template>
+    </p-toggle>
 
-      <Teleport to="#app">
-        <transition name="slide">
-          <p-global-sidebar
-            v-if="showGlobalSidebar"
-          >
-            <template #upper-links>
-              <p-icon icon="PrefectGradient" />
-              <p-icon icon="FolderIcon" />
-            </template>
+    <Teleport to="#app">
+      <transition name="slide">
+        <p-global-sidebar
+          v-if="showGlobalSidebar"
+          class="right-0"
+        >
+          <template #upper-links>
+            <p-icon icon="PrefectGradient" />
+            <p-icon icon="FolderIcon" class="stroke-slate-400" />
+          </template>
 
-            <template #bottom-links>
-              <p-icon icon="LightBulbIcon" />
-            </template>
+          <template #bottom-links>
+            <p-icon icon="LightBulbIcon" class="stroke-slate-400" />
+          </template>
 
-            <template #profile-button>
-              <button v-if="profileImage" type="button">
-                <img :src="profileImage" alt="Profile image">
-              </button>
-              <p-button rounded icon="UserIcon" />
-            </template>
-          </p-global-sidebar>
-        </transition>
-      </Teleport>
-    </Section>
-  </transition>
+          <template #profile-button>
+            <button v-if="profileImage" type="button">
+              <img :src="profileImage" alt="Profile image">
+            </button>
+            <p-button rounded icon="UserIcon" />
+          </template>
+        </p-global-sidebar>
+      </transition>
+    </Teleport>
+  </Section>
 </template>
 
 <script lang="ts" setup>
@@ -62,8 +61,8 @@
 .slide-enter-from,
 .slide-leave-to {
   @apply
-  -translate-y-full
-  sm:-translate-x-full
-  sm:-translate-y-0
+  translate-y-full
+  sm:translate-x-full
+  sm:translate-y-0
  }
 </style>
