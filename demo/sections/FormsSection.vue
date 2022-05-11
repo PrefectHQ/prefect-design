@@ -87,7 +87,7 @@
       </p-label>
 
       <p-label label="Date Picker" :message="JSON.stringify(exampleDate)" />
-      <p-date-picker v-model="exampleDate" />
+      <p-date-picker v-model="exampleDate" show-time />
     </p-form>
   </Section>
 </template>
