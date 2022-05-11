@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-  /* eslint-disable import/namespace */
   import { computed } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { PositionMethod } from '@/types/position'
@@ -47,8 +46,8 @@
       if (typeof value === 'string') {
         emit('update:position', keyToFunction.get(value)!)
       } else {
-        const allSorted = Array.from(keyToFunction.keys())
-        const sorted = [...value].sort((a, b) => allSorted.indexOf(a) - allSorted.indexOf(b))
+        // eslint-disable-next-line id-length
+        const sorted = [...value].sort((a, b) => options.indexOf(a) - options.indexOf(b))
         const selected = sorted.map(key => keyToFunction.get(key)!)
 
         emit('update:position', selected)
@@ -56,5 +55,3 @@
     },
   })
 </script>
-
-<style></style>

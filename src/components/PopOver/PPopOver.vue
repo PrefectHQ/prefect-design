@@ -25,7 +25,7 @@
   import { left, right, bottom, top } from '@/utilities/position'
 
   const props = withDefaults(defineProps<{
-    placement: PositionMethod | PositionMethod[],
+    placement?: PositionMethod | PositionMethod[],
     autoClose?: boolean,
     to?: string,
   }>(), {
@@ -57,7 +57,6 @@
   })
 
   function eventHandler(event: MouseEvent | FocusEvent): void {
-    console.log(event)
     if (target.value?.contains(event.target as Node) || content.value?.contains(event.target as Node)) {
       return
     }
