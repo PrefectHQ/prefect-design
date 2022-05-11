@@ -1,16 +1,18 @@
 <template>
   <div class="p-month-picker">
     <template v-for="(month, index) in monthNames" :key="month">
-      <p-button
-        class="p-month-picker__month"
-        size="xs"
-        :flat="!isSelected(index)"
-        @click="selectedMonth = index"
-      >
-        <span ref="monthElements" :data-month="index">
-          {{ month }}
-        </span>
-      </p-button>
+      <div class="p-month-picker__month">
+        <p-button
+          size="xs"
+          class="p-month-picker__month-button"
+          :flat="!isSelected(index)"
+          @click="selectedMonth = index"
+        >
+          <span ref="monthElements" :data-month="index">
+            {{ month }}
+          </span>
+        </p-button>
+      </div>
     </template>
   </div>
 </template>
@@ -75,6 +77,10 @@
 }
 
 .p-month-picker__month { @apply
+  text-center
+}
+
+.p-month-picker__month-button { @apply
   justify-center
 }
 </style>
