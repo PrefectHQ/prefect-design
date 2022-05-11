@@ -10,6 +10,8 @@
       </header>
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <GlobalSidebarSection @update:value="toggleGlobalSidebar" />
+
           <TypographySection />
 
           <BreadCrumbsSection />
@@ -40,10 +42,12 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue'
   import BreadCrumbsSection from './sections/BreadCrumbsSection.vue'
   import ButtonsSection from './sections/ButtonsSection.vue'
   import CodeSection from './sections/CodeSection.vue'
   import FormsSection from './sections/FormsSection.vue'
+  import GlobalSidebarSection from './sections/GlobalSidebarSection.vue'
   import IconsSection from './sections/IconsSection.vue'
   import IconTextSection from './sections/IconTextSection.vue'
   import ModalsSection from './sections/ModalsSection.vue'
@@ -52,4 +56,10 @@
   import ToastsSection from './sections/ToastsSection.vue'
   import TogglesSection from './sections/TogglesSection.vue'
   import TypographySection from './sections/TypographySection.vue'
+
+  const showGlobalSidebar = ref(false)
+
+  const toggleGlobalSidebar = (value: boolean): void => {
+    showGlobalSidebar.value = value
+  }
 </script>

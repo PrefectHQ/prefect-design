@@ -37,7 +37,7 @@
   @apply
   flex
   items-center
-  gap-3
+  gap-4
   flex-row
   sm:gap-5
   sm:flex-col
