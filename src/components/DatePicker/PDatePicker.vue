@@ -65,8 +65,8 @@
 <script lang="ts" setup>
   import { format, startOfDay, isSameDay, isSameMonth, isSameMinute } from 'date-fns'
   import { computed, ref, watch } from 'vue'
-  import PButton from '@/components/Button/PButton.vue'
-  import PCalendar from '@/components/DatePicker/PCalendar.vue'
+  import PButton from '@/components/Button'
+  import PCalendar from '@/components/Calendar'
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
