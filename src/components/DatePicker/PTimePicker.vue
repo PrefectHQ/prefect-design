@@ -4,11 +4,11 @@
       <template v-for="option in hourOptions" :key="option">
         <p-button
           size="sm"
-          :inset="twelveHour !== option.label"
+          :inset="twelveHour !== option.toString()"
           class="p-time-picker__hour-option"
-          @click="time = option.value"
+          @click="setHours(option)"
         >
-          {{ option.label }}
+          {{ option }}
         </p-button>
       </template>
     </div>
@@ -16,11 +16,11 @@
       <template v-for="option in minuteOptions" :key="option">
         <p-button
           size="sm"
-          :inset="minutes !== option.label"
+          :inset="minutes !== String(option).padStart(2, '0')"
           class="p-time-picker__minute-option"
-          @click="time = option.value"
+          @click="setMinutes(option)"
         >
-          {{ option.label }}
+          {{ String(option).padStart(2, '0') }}
         </p-button>
       </template>
     </div>
@@ -28,16 +28,16 @@
       <template v-for="option in meridiemOptions" :key="option">
         <p-button
           size="sm"
-          :inset="meridiem !== option.label"
+          :inset="meridiem !== option"
           class="p-time-picker__meridiem-option"
-          @click="time = option.value"
+          @click="setMeridiem(option)"
         >
-          {{ option.label }}
+          {{ option }}
         </p-button>
       </template>
     </div>
 
-    <p-button icon="CheckIcon" flat @click="handleSetClick">
+    <p-button secondary size="sm" @click="handleSetClick">
       Set
     </p-button>
   </div>
@@ -45,14 +45,9 @@
 
 <script lang="ts" setup>
   import { format } from 'date-fns'
-  import { computed, Ref, ref } from 'vue'
+  import { computed, ref } from 'vue'
   import PButton from '@/components/Button'
   import { getStartOfDay } from '@/types/date'
-
-  type DateOption = {
-    value: Date,
-    label: string,
-  }
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -73,38 +68,38 @@
 
   const today = getStartOfDay()
   const time = ref(new Date(selectedDate.value))
-  const hourOptions = computed(() => new Array(12).fill(null).map((x, index) => getDateOptionAtHours(time, index)))
-  const minuteOptions = computed(() => new Array(60).fill(null).map((x, index) => getDateOptionAtMinutes(time, index)))
-  const meridiemOptions = computed(() => [getDateOptionAtMeridiem(time, 'AM'), getDateOptionAtMeridiem(time, 'PM')])
+
+  const hourOptions = new Array(12).fill(null).map((x, index) => index + 1)
+  const minuteOptions = new Array(60).fill(null).map((x, index) => index)
+  const meridiemOptions = ['AM', 'PM'] as const
 
   const twelveHour = computed(() => format(time.value, 'h'))
   const minutes = computed(() => format(time.value, 'mm'))
   const meridiem = computed(() => format(time.value, 'a'))
 
-  function getDateOptionAtHours(date: Ref<Date>, hours: number): DateOption {
-    const value = new Date(date.value)
+  function setHours(hours: number): void {
+    const value = new Date(time.value)
+    const selectedHours = hours % 12
 
-    value.setHours(hours)
-
-    return {
-      value,
-      label: format(value, 'h'),
+    if (meridiem.value === 'AM') {
+      value.setHours(selectedHours)
+    } else {
+      value.setHours(selectedHours + 12)
     }
+
+    time.value = value
   }
 
-  function getDateOptionAtMinutes(date: Ref<Date>, minutes: number): DateOption {
-    const value = new Date(date.value)
+  function setMinutes(minutes: number): void {
+    const value = new Date(time.value)
 
     value.setMinutes(minutes)
 
-    return {
-      value,
-      label: format(value, 'mm'),
-    }
+    time.value = value
   }
 
-  function getDateOptionAtMeridiem(date: Ref<Date>, meridiem: 'AM' | 'PM'): DateOption {
-    const value = new Date(date.value)
+  function setMeridiem(meridiem: typeof meridiemOptions[number]): void {
+    const value = new Date(time.value)
     const currentMeridiem = format(value, 'a')
 
     if (meridiem === 'AM' && currentMeridiem !== 'AM') {
@@ -115,10 +110,7 @@
       value.setHours(value.getHours() + 12)
     }
 
-    return {
-      value,
-      label: meridiem,
-    }
+    time.value = value
   }
 
   function handleSetClick(): void {
@@ -130,6 +122,7 @@
 .p-time-picker { @apply
   flex
   flex-auto
+  items-start
   gap-1
   h-full
 }
