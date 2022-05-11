@@ -5,7 +5,7 @@ import { toPixels } from '@/utilities/units'
 
 export function usePosition(
   placement: Ref<PositionMethod> | PositionMethod,
-  refs?: UsePositionRefs,
+  refs?: Partial<UsePositionRefs>,
 ): UsePosition {
   const target = refs?.target ?? ref<Element | undefined>()
   const content = refs?.content ?? ref<Element | undefined>()
@@ -39,7 +39,7 @@ export function usePosition(
 
 export function usePositionStyles(
   placement: Ref<PositionMethod> | PositionMethod,
-  refs?: UsePositionRefs,
+  refs?: Partial<UsePositionRefs>,
 ): UsePositionStyles {
   const { target, content, container, position } = usePosition(placement, refs)
   const styles = reactive({} as PositionStyles)
@@ -56,7 +56,7 @@ export function usePositionStyles(
 
 export function useMostVisiblePosition(
   placements: Ref<PositionMethod[]> | PositionMethod[],
-  refs?: UsePositionRefs,
+  refs?: Partial<UsePositionRefs>,
 ): UsePosition {
   const target = refs?.target ?? ref<Element | undefined>()
   const content = refs?.content ?? ref<Element | undefined>()
@@ -93,7 +93,7 @@ export function useMostVisiblePosition(
 
 export function useMostVisiblePositionStyles(
   placements: Ref<PositionMethod[]> | PositionMethod[],
-  refs?: UsePositionRefs,
+  refs?: Partial<UsePositionRefs>,
 ): UsePositionStyles {
   const { target, content, container, position } = useMostVisiblePosition(placements, refs)
   const styles = reactive({} as PositionStyles)

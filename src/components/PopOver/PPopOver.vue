@@ -4,13 +4,13 @@
   </div>
   <teleport v-if="visible" :to="to">
     <div ref="content" :style="styles">
-      <slot />
+      <slot v-bind="{ close }" />
     </div>
   </teleport>
 </template>
 
 <script lang="ts">
-  import { defineComponent, withDefaults, ref, watch, computed, useAttrs } from 'vue'
+  import { defineComponent, withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -26,6 +26,7 @@
 
   const props = withDefaults(defineProps<{
     placement: PositionMethod | PositionMethod[],
+    autoClose?: boolean,
     to?: string,
   }>(), {
     placement: () => [left, right, bottom, top],
@@ -42,6 +43,27 @@
   const container = ref(document.querySelector(props.to) ?? undefined)
   const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
   const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
+
+  onMounted(() => {
+    if (props.autoClose) {
+      document.addEventListener('click', eventHandler)
+      document.addEventListener('focusin', eventHandler)
+    }
+  })
+
+  onUnmounted(() => {
+    document.removeEventListener('click', eventHandler)
+    document.removeEventListener('focusin', eventHandler)
+  })
+
+  function eventHandler(event: MouseEvent | FocusEvent): void {
+    console.log(event)
+    if (target.value?.contains(event.target as Node) || content.value?.contains(event.target as Node)) {
+      return
+    }
+
+    close()
+  }
 
   function open(): void {
     visible.value = true

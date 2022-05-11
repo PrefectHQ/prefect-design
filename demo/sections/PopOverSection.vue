@@ -54,7 +54,7 @@
 
     <SubSection heading="Component">
       <position-select v-model:position="componentPositions" multiple />
-      <p-pop-over :placement="componentPositions" class="inline-block">
+      <p-pop-over :placement="componentPositions" class="inline-block" auto-close>
         <template #target="{ toggle }">
           <p-button class="mt-2" @click="toggle">
             Target
