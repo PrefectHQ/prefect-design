@@ -128,6 +128,9 @@
   rounded
   hover:bg-gray-100
   focus:ring-prefect-600
+  focus:outline-none
+  focus:ring-2
+  focus:ring-offset-2
 }
 
 .p-year-picker__year--selected { @apply
