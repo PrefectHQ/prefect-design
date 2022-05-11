@@ -29,7 +29,7 @@
     autoClose?: boolean,
     to?: string,
   }>(), {
-    placement: () => [left, right, bottom, top],
+    placement: () => [right, bottom, top, left],
     to: 'body',
   })
 
