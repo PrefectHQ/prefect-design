@@ -37,9 +37,11 @@
       </template>
     </div>
 
-    <p-button secondary size="sm" @click="handleSetClick">
-      Set
-    </p-button>
+    <div class="p-time-picker__actions">
+      <p-button class="p-time-picker__set-button" secondary size="sm" @click="handleSetClick">
+        Set
+      </p-button>
+    </div>
   </div>
 </template>
 
@@ -140,24 +142,32 @@
   flex
   flex-auto
   items-start
-  gap-1
+  justify-center
   h-full
 }
 
 .p-time-picker__hours,
 .p-time-picker__minutes,
-.p-time-picker__meridiem { @apply
+.p-time-picker__meridiem,
+.p-time-picker__actions { @apply
   h-full
   flex
   flex-col
-  p-1
+  py-1
+  px-3
   gap-2
   overflow-y-auto
 }
 
 .p-time-picker__hour-option,
 .p-time-picker__minute-option,
-.p-time-picker__meridiem-option { @apply
+.p-time-picker__meridiem-option,
+.p-time-picker__set-button { @apply
+  justify-center
+}
+
+.p-time-picker__meridiem,
+.p-time-picker__actions { @apply
   justify-center
 }
 </style>
