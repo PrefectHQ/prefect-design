@@ -1,9 +1,9 @@
+import '@/styles/index.css'
+
 export * from '@/components'
 export * from '@/plugins'
 export * from '@/types'
 export * from '@/utilities'
-
-import '@/styles/index.css'
 
 import { App, Plugin } from 'vue'
 import { installs } from '@/components'
