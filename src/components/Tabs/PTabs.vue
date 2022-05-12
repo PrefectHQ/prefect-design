@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-  import {  ref } from 'vue'
+  import { ref } from 'vue'
   import { PTab } from '@/components/Tab'
   import { kebabCase } from '@/utilities/strings'
 
