@@ -1,12 +1,14 @@
 <template>
-  <a
-    :href="href"
-    class="p-context-nav-item"
-    :class="{ 'p-context-nav-item--active': isActive }"
-  >
-    <p-icon :icon="icon" class="p-context-nav-item__icon" />
-    <span>{{ title }}</span>
-  </a>
+  <div class="p-context-nav-item">
+    <a
+      class="p-context-nav-item__link"
+      :href="href"
+      :class="{ 'p-context-nav-item--active': isActive }"
+    >
+      <p-icon :icon="icon" class="p-context-nav-item__icon" />
+      <span>{{ title }}</span>
+    </a>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +23,19 @@
 <style>
 .p-context-nav-item {
   @apply
+  -mx-3
+  py-2
+  px-2
+  border-b
+  border-slate-600
+  first:border-t
+  sm:first:pt-1
+  sm:border-0
+  sm:py-0
+}
+
+.p-context-nav-item__link {
+  @apply
   flex
   items-center
   gap-3
@@ -28,14 +43,14 @@
   leading-5
   font-medium
   py-2.5
-  rounded-md
-  -mx-2
   px-2
+  rounded-md
+  hover:bg-slate-600
+  active:bg-slate-800
+  focus:bg-white/25
   transition
   duration-200
   ease-linear
-  hover:bg-slate-600
-  focus:bg-white/25
 }
 
 .p-context-nav-item__icon{
