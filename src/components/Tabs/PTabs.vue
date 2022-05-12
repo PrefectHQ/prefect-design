@@ -41,7 +41,7 @@
 <style>
 .p-tabs { @apply
   flex
-  border-b-2
+  border-b
   border-slate-200
 }
 .p-tabs__content { @apply

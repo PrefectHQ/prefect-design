@@ -19,12 +19,10 @@
   const slots = useSlots()
 
   const slotKeys = computed(() => {
-    let key
     if (slots.default) {
-      const slotKeys = slots.default()[0].key as string
-      key = slotKeys.replace('-heading', '')
+      return String(slots.default()[0].key)
     }
-    return key
+    return ''
   })
 
   const props = defineProps<{
@@ -43,9 +41,9 @@
 <style>
 .p-tab { @apply
   cursor-pointer
+  py-4
   border-b
   border-transparent
-  py-4
 }
 
 .p-tab:not(.p-tab__active) { @apply
