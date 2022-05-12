@@ -6,7 +6,7 @@
       :aria-selected="active"
       :aria-controls="`${slotKeys}-panel`"
       :tabindex="setTabIndex"
-      class="p-tab__btn"
+      class="p-tab__li"
       :class="classes.active"
     >
       <slot />
@@ -60,7 +60,7 @@
   opacity-50
 }
 
-.p-tab__btn { @apply
+.p-tab__li { @apply
   px-10
   py-4
   text-center
@@ -70,7 +70,7 @@
   items-center
 }
 
-.p-tab__btn:not(.p-tab__active) { @apply
+.p-tab__li:not(.p-tab__active) { @apply
   border-b-2
   border-transparent
   hover:border-gray-300
