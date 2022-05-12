@@ -1,7 +1,6 @@
 {
   "recommendations": [
-    "johnsoncodehk.volar",
-    "johnsoncodehk.vscode-typescript-vue-plugin",
+    "vue.volar",
     "dbaeumer.vscode-eslint",
     "syler.sass-indented",
     "bradlc.vscode-tailwindcss"
