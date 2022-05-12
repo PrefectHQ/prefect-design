@@ -1,5 +1,5 @@
 <template>
-  <div class="p-tab" :class="classes" role="tablist" aria-label="Tabs">
+  <div class="p-tab" :class="classes.disabled" role="tablist" aria-label="Tabs">
     <button
       :id="slotKeys"
       type="button"
@@ -8,6 +8,7 @@
       :aria-controls="`${slotKeys}-panel`"
       :tabindex="setTabIndex"
       class="p-tab__btn"
+      :class="classes.active"
     >
       <slot />
     </button>
@@ -31,8 +32,12 @@
   }>()
 
   const classes = computed(() => ({
-    'p-tab__active': props.active,
-    'p-tab__disabled': props.disabled,
+    active: {
+      'p-tab__active': props.active,
+    },
+    disabled: {
+      'p-tab__disabled': props.disabled,
+    },
   }))
 
   const setTabIndex = computed(() => props.active ? 0 : -1)
@@ -41,18 +46,12 @@
 <style>
 .p-tab { @apply
   cursor-pointer
-  py-4
   border-b
-  border-transparent
-}
-
-.p-tab:not(.p-tab__active) { @apply
-  hover:border-gray-300
-  text-gray-500
-  hover:text-gray-600
+  border-slate-200
 }
 
 .p-tab__active { @apply
+ border-b
  border-prefect-600
  text-prefect-600
 }
@@ -64,10 +63,17 @@
 
 .p-tab__btn { @apply
   px-10
+  py-4
   text-center
   font-medium
   text-sm
   flex
   items-center
+}
+
+.p-tab__btn:not(.p-tab__active) { @apply
+  hover:border-gray-300
+  text-gray-500
+  hover:text-gray-600
 }
 </style>

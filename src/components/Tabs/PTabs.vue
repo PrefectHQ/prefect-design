@@ -44,6 +44,11 @@
   border-b
   border-slate-200
 }
+
+.p-tabs .p-tab { @apply
+  border-transparent
+}
+
 .p-tabs__content { @apply
   mt-5
 }
