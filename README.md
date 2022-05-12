@@ -1,10 +1,15 @@
 # Prefect Design
 A collection of low-level Vue components. 
 
+## Demo
+https://prefect-design.netlify.app/
+
 ## Development
 ```
 npm run serve
 ```
 
 ## Installation
-_Coming soon!_
+```
+npm i @prefecthq/prefect-design --save
+```
