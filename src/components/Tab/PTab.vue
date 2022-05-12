@@ -5,9 +5,10 @@
       role="tab"
       :aria-selected="active"
       :aria-controls="`${slotKeys}-panel`"
-      :tabindex="setTabIndex"
+      tabindex="0"
       class="p-tab__li"
       :class="classes.active"
+      @keydown.enter.space="handleKeydown"
     >
       <slot />
     </li>
@@ -20,7 +21,7 @@
 
   const slotKeys = computed(() => {
     if (slots.default) {
-      return String(slots.default()[0].key)
+      return slots.default()[0].key as string
     }
     return ''
   })
@@ -39,7 +40,14 @@
     },
   }))
 
-  const setTabIndex = computed(() => props.active ? 0 : -1)
+
+  function handleKeydown(event: Event): void {
+    if (props.disabled) {
+      return
+    }
+    const tab =  event.target as HTMLElement
+    tab.focus()
+  }
 </script>
 
 <style>

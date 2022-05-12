@@ -2,7 +2,12 @@
   <section
     class="p-tabs"
   >
-    <p-tab v-for="(tab, index) in tabs" :key="tab" :active="selectedTab === tab" @click="selectTab(tab)">
+    <p-tab
+      v-for="(tab, index) in tabs"
+      :key="tab"
+      :active="selectedTab === tab"
+      @click="selectTab(tab)"
+    >
       <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
         {{ tab }}
       </slot>
@@ -11,14 +16,20 @@
 
 
   <template v-for="tab in tabs" :key="tab">
-    <section v-if="selectedTab === tab" :id="`_${kebabCase(tab)}-heading-panel`" class="p-tabs__content" role="tabpanel" :aria-labelledby="`_${kebabCase(tab)}-heading`">
+    <section
+      v-if="selectedTab === tab"
+      :id="`_${kebabCase(tab)}-heading-panel`"
+      class="p-tabs__content"
+      role="tabpanel"
+      :aria-labelledby="`_${kebabCase(tab)}-heading`"
+    >
       <slot :name="kebabCase(tab)" />
     </section>
   </template>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import {  ref } from 'vue'
   import { PTab } from '@/components/Tab'
   import { kebabCase } from '@/utilities/strings'
 
