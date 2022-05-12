@@ -35,14 +35,6 @@
     },
   })
 
-  function mouseenter(): void {
-    hover.value = true
-  }
-
-  function mouseleave(): void {
-    hover.value = false
-  }
-
   const hover = ref(false)
   const show = computed(() => hover.value || props.selected.includes(props.value))
 
@@ -51,11 +43,19 @@
       'list-item-input__control--visible': show.value,
     },
   }))
+
+  function mouseenter(): void {
+    hover.value = true
+  }
+
+  function mouseleave(): void {
+    hover.value = false
+  }
 </script>
 
 <style>
 .list-item-input { @apply
-bg-gray-50
+  bg-gray-50
   shadow
   rounded-lg
   overflow-hidden

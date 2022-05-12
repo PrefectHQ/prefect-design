@@ -6,7 +6,7 @@
 
 <style>
 .list-item { @apply
-bg-gray-50
+  bg-gray-50
   shadow
   rounded-lg
   flex
