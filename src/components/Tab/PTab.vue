@@ -1,45 +1,67 @@
 <template>
-  <div class="p-tab" :class="classes.disabled">
-    <div class="p-tab__div" :class="classes.active">
-      <button type="button" class="p-tab__btn">
-        <slot />
-      </button>
-    </div>
+  <div class="p-tab" :class="classes" role="tablist" aria-label="Tabs">
+    <button
+      :id="slotKeys"
+      type="button"
+      role="tab"
+      :aria-selected="active"
+      :aria-controls="`${slotKeys}-panel`"
+      :tabindex="setTabIndex"
+      class="p-tab__btn"
+    >
+      <slot />
+    </button>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
+  const slots = useSlots()
+
+  const slotKeys = computed(() => {
+    let key
+    if (slots.default) {
+      const slotKeys = slots.default()[0].key as string
+      key = slotKeys.replace('-heading', '')
+    }
+    return key
+  })
+
   const props = defineProps<{
     active?: boolean,
     disabled?: boolean,
   }>()
 
   const classes = computed(() => ({
-    active: {
-      'p-tab__btn-active': props.active,
-    },
-    disabled: {
-      'p-tab__btn-disabled': props.disabled,
-    },
-
+    'p-tab__active': props.active,
+    'p-tab__disabled': props.disabled,
   }))
+
+  const setTabIndex = computed(() => props.active ? 0 : -1)
 </script>
 
 <style>
 .p-tab { @apply
-  inline-flex
-}
-.p-tab__div {@apply
+  cursor-pointer
+  border-b
+  border-transparent
   py-4
-  border-b-2
-  border-slate-200
 }
 
-.p-tab__div:not(.p-tab__btn-active) {@apply
+.p-tab:not(.p-tab__active) { @apply
   hover:border-gray-300
   text-gray-500
   hover:text-gray-600
+}
+
+.p-tab__active { @apply
+ border-prefect-600
+ text-prefect-600
+}
+
+.p-tab__disabled { @apply
+  pointer-events-none
+  opacity-50
 }
 
 .p-tab__btn { @apply
@@ -47,18 +69,7 @@
   text-center
   font-medium
   text-sm
-  cursor-pointer
-  inline-flex
+  flex
   items-center
-}
-
-.p-tab__btn-active { @apply
- border-prefect-600
- text-prefect-600
-}
-
-.p-tab__btn-disabled { @apply
-  pointer-events-none
-  opacity-50
 }
 </style>
