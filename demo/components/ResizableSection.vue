@@ -63,7 +63,7 @@
 }
 
 .resizable-section__content { @apply
-  max-w-full min-w-[200px] w-full overflow-auto;
+  max-w-full min-w-[200px] w-full overflow-auto overscroll-contain;
 }
 
 
