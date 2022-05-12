@@ -10,6 +10,8 @@
       </header>
       <main>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <PopOverSection />
+
           <TypographySection />
 
           <BreadCrumbsSection />
@@ -49,6 +51,7 @@
   import IconsSection from './sections/IconsSection.vue'
   import IconTextSection from './sections/IconTextSection.vue'
   import ModalsSection from './sections/ModalsSection.vue'
+  import PopOverSection from './sections/PopOverSection.vue'
   import TablesSection from './sections/TablesSection.vue'
   import TabSection from './sections/TabSection.vue'
   import TagsSection from './sections/TagsSection.vue'

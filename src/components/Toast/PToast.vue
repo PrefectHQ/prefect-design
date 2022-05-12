@@ -71,12 +71,14 @@
 
 
 <style>
-.p-toast__icon--success {
-  fill: var(--completed)
+/* TODO: This should be responsive to global CVD settings */
+.p-toast__icon--success { @apply
+  text-emerald-500
 }
 
-.p-toast__icon--error {
-  fill: var(--failed)
+/* TODO: This should be responsive to global CVD settings */
+.p-toast__icon--error { @apply
+  text-rose-500
 }
 
 .p-toast__card { @apply
