@@ -72,7 +72,8 @@
 }
 
 .resizable-section__handle { @apply
-  bg-slate-200 w-[16px] h-full border-l-[1px] border-slate-500 flex cursor-ew-resize;
+  bg-slate-200 w-[16px] h-full flex cursor-ew-resize;
+  filter: drop-shadow(0 0 0.15rem rgba(0, 0, 0, 0.2));
 }
 
 .resizable-section__resize-icon { @apply

@@ -15,6 +15,6 @@
 
 <style>
 .layout-section { @apply
-  bg-slate-700 w-full h-[400px];
+   w-full h-[400px];
 }
 </style>
