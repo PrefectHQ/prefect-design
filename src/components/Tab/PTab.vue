@@ -1,5 +1,5 @@
 <template>
-  <div class="p-tab" :class="classes.disabled" role="tablist" aria-label="Tabs">
+  <div class="p-tab" :class="classes.disabled" role="tablist" aria-label="Tab">
     <button
       :id="slotKeys"
       type="button"
