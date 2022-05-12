@@ -1,11 +1,13 @@
 <template>
   <div ref="container" class="resizable-section">
-    <div ref="content" class="resizable-section__content">
+    <div ref="content" class="resizable-section__content" @mouseup="stop" />
+
+    <teleport v-if="frame" :to="frame">
       <slot />
-    </div>
+    </teleport>
 
     <div class="resizable-section__aside">
-      <div ref="handle" class="resizable-section__handle" @mousedown="start">
+      <div ref="handle" class="resizable-section__handle" @mousedown="start" @mouseup="stop">
         <p-icon icon="MenuAlt4Icon" class="resizable-section__resize-icon" />
       </div>
 
@@ -30,15 +32,19 @@
   const maxWidth = ref(0)
   const minWidth = 200
   const handleWidth = 16
+  const frame = ref()
+  const iframe = document.createElement('iframe')
 
   const start = (): void => {
     dragging.value = true
+    iframe.classList.add('pointer-events-none')
     window.addEventListener('mouseup',  stop)
     window.addEventListener('mousemove', drag)
   }
 
   const stop = (): void => {
     dragging.value = false
+    iframe.classList.remove('pointer-events-none')
     window.removeEventListener('mousemove', drag)
     window.removeEventListener('mouseup', stop)
   }
@@ -51,9 +57,37 @@
     content.value.style.width = toPixels(contentWidth.value)
   }
 
+  const onLoad = (): void => {
+    frame.value = (iframe.contentDocument ?? iframe.contentWindow?.document)?.getElementById('app')
+  }
+
   onMounted(() => {
     maxWidth.value = container.value.offsetWidth
     contentWidth.value = content.value.offsetWidth
+
+
+    const html = '<body><div id="app" /></body>'
+    iframe.onload = onLoad
+    content.value.appendChild(iframe)
+
+
+    const doc = iframe.contentDocument ?? iframe.contentWindow?.document
+
+    if (!doc) {
+      return
+    }
+
+    doc.open()
+    doc.write(html)
+    doc.close()
+
+
+    const styles = document.getElementsByTagName('style')
+    for (const style of styles) {
+      const styleElement = style.cloneNode(true)
+      doc.head.appendChild(styleElement)
+    }
+
   })
 </script>
 
@@ -92,5 +126,9 @@
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+iframe { @apply
+  w-full h-full;
 }
 </style>
