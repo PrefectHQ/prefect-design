@@ -66,6 +66,7 @@
   text-sm
   flex
   items-center
+  -mb-0.5
 }
 
 .p-tab__li:not(.p-tab__active) { @apply
