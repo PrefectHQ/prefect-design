@@ -7,6 +7,7 @@
       :key="tab"
       :active="selectedTab === tab"
       @click="selectTab(tab)"
+      @keydown.enter.space="handleKeydown"
     >
       <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
         {{ tab }}
@@ -46,6 +47,19 @@
   function selectTab(tab: string): void {
     selectedTab.value = tab
     emits('tab', tab)
+  }
+
+  function handleKeydown(event: Event): void {
+    const tab = event.target as HTMLElement
+    if (tab.parentElement?.classList.contains('p-tab__disabled')) {
+      return
+    }
+
+    if (tab.textContent) {
+      selectedTab.value = tab.textContent
+    }
+
+    tab.focus()
   }
 </script>
 

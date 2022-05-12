@@ -8,7 +8,6 @@
       tabindex="0"
       class="p-tab__li"
       :class="classes.active"
-      @keydown.enter.space="handleKeydown"
     >
       <slot />
     </li>
@@ -39,15 +38,6 @@
       'p-tab__disabled': props.disabled,
     },
   }))
-
-
-  function handleKeydown(event: Event): void {
-    if (props.disabled) {
-      return
-    }
-    const tab =  event.target as HTMLElement
-    tab.focus()
-  }
 </script>
 
 <style>
