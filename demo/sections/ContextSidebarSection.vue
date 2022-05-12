@@ -13,9 +13,10 @@
           class="right-0"
         >
           <template #header>
-            <span class="font-normal text-sm">Acme Technologies</span>
-            <span class="font-bold text-base">DS Team Q1 collection</span>
-            <div class="border-b border-slate-600 -mx-5 mb-5 mt-3" />
+            <div class="flex flex-col my-3 sm:mt-0">
+              <span class="font-normal text-sm mx-3">Acme Technologies</span>
+              <span class="font-bold text-base mx-3">DS Team Q1 collection</span>
+            </div>
           </template>
 
           <template #upper-links>
@@ -36,7 +37,6 @@
           </template>
 
           <template #bottom-links>
-            <div class="border-b border-slate-600 -mx-5 mb-5 mt-3" />
             <router-link
               v-slot="{ href, navigate, isExactActive }"
               to="/edit"
