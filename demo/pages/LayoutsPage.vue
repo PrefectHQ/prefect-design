@@ -2,10 +2,10 @@
   <div class="min-h-full">
     <div class="mt-6 h-screen w-full">
       <resizable-section class="layout-resizable-section">
-        <div class="layout-container">
-          <div class="layout-section" />
-          <div class="layout-section" />
-          <div class="layout-section" />
+        <div class="layout">
+          <div class="layout-section app-nav-1" />
+          <div class="layout-section app-nav-2" />
+          <div class="layout-section app-content" />
         </div>
       </resizable-section>
     </div>
@@ -26,9 +26,11 @@
   h-[400px];
 }
 
-.layout-container { @apply
-  h-full w-full grid gap-8 p-8;
+.layout {
+  @apply h-full w-full grid p-8;
 
   grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
+  column-gap: 8px;
+  row-gap: 8px;
 }
 </style>
