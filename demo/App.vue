@@ -46,7 +46,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
   import BreadCrumbsSection from './sections/BreadCrumbsSection.vue'
   import ButtonsSection from './sections/ButtonsSection.vue'
   import CodeSection from './sections/CodeSection.vue'
