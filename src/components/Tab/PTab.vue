@@ -1,8 +1,7 @@
 <template>
-  <div class="p-tab" :class="classes.disabled" role="tablist" aria-label="Tab">
-    <button
+  <ul class="p-tab" :class="classes.disabled" role="tablist" aria-label="Tab">
+    <li
       :id="slotKeys"
-      type="button"
       role="tab"
       :aria-selected="active"
       :aria-controls="`${slotKeys}-panel`"
@@ -11,8 +10,8 @@
       :class="classes.active"
     >
       <slot />
-    </button>
-  </div>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts" setup>
