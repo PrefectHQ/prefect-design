@@ -11,7 +11,7 @@
 
 
   <template v-for="tab in tabs" :key="tab">
-    <section v-if="selectedTab === tab" :id="`_${kebabCase(tab)}-panel`" class="p-tabs__content" role="tabpanel" :aria-labelledby="`_${kebabCase(tab)}`">
+    <section v-if="selectedTab === tab" :id="`_${kebabCase(tab)}-heading-panel`" class="p-tabs__content" role="tabpanel" :aria-labelledby="`_${kebabCase(tab)}-heading`">
       <slot :name="kebabCase(tab)" />
     </section>
   </template>
