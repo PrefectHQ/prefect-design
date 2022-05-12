@@ -59,7 +59,7 @@
 
 <style>
 .resizable-section { @apply
-  min-h-[200px] w-full flex relative rounded-lg overflow-hidden;
+  min-h-[200px] w-full flex relative rounded-lg overflow-hidden ring-1 ring-gray-900 ring-opacity-5;
 }
 
 .resizable-section__content { @apply
