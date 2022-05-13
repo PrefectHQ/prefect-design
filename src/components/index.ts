@@ -5,6 +5,7 @@ import { default as PCode } from './Code'
 import { default as PContextNavItem } from './ContextNavItem'
 import { default as PContextSidebar } from './ContextSidebar'
 import { default as PForm } from './Form'
+import { default as PGlobalNavItem } from './GlobalNavItem'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PIcon } from './Icon'
 import { default as PIconText } from './IconText'
@@ -24,6 +25,7 @@ export {
   PCheckbox,
   PCode,
   PContextNavItem,
+  PGlobalNavItem,
   PContextSidebar,
   PForm,
   PGlobalSidebar,
@@ -48,6 +50,7 @@ export const installs = [
   PContextNavItem.install,
   PContextSidebar.install,
   PForm.install,
+  PGlobalNavItem.install,
   PGlobalSidebar.install,
   PLabel.install,
   PModal.install,
