@@ -18,26 +18,26 @@
   import PListItem from '../ListItem'
 
   const props = defineProps<{
-    selected: unknown[],
+    selected: unknown[] | null | undefined,
     value: unknown,
     disabled?: boolean,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:selected', value: unknown[]): void,
+    (event: 'update:selected', value: unknown[] | undefined): void,
   }>()
 
   const model = computed({
     get() {
-      return props.selected
+      return props.selected ?? undefined
     },
-    set(value: unknown[]) {
+    set(value: unknown[] | undefined) {
       emit('update:selected', value)
     },
   })
 
   const hover = ref(false)
-  const show = computed(() => hover.value || props.selected.includes(props.value))
+  const show = computed(() => hover.value || props.selected?.includes(props.value))
 
   const classes = computed(() => ({
     control: {
