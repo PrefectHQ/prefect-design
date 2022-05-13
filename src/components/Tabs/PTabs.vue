@@ -71,7 +71,7 @@
 
 .p-tab { @apply
   border-b
-border-gray-200
+  border-gray-200
   flex
   items-center
   -mb-px
