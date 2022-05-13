@@ -8,7 +8,7 @@
         :active="selectedTab === tab"
         :area-controls="`${kebabCase(tab)}-content`"
         @click="selectTab(tab)"
-        @keydown.enter.space="selectTab(tab)"
+        @keydown.enter.space="handleKeyDown(tab, $event)"
       >
         <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
           {{ tab }}
@@ -48,6 +48,14 @@
   function selectTab(tab: string): void {
     selectedTab.value = tab
     emits('tab', tab)
+  }
+
+  function handleKeyDown(tab: string, event: Event): void {
+    const tabEl = event.target as HTMLElement
+    if (tabEl.classList.contains('p-tab__disabled')) {
+      return
+    }
+    selectTab(tab)
   }
 
   onMounted(() => {
