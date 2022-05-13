@@ -1,22 +1,21 @@
 <template>
   <section>
-    <section class="p-tabs">
-      <ul class="p-tabs__ul" role="tablist" aria-label="Tab">
-        <p-tab
-          v-for="(tab, index) in tabs"
-          :id="kebabCase(tab)"
-          :key="tab"
-          :active="selectedTab === tab"
-          :area-controls="`${kebabCase(tab)}-content`"
-          @click="selectTab(tab)"
-          @keydown.enter.space="handleKeydown"
-        >
-          <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
-            {{ tab }}
-          </slot>
-        </p-tab>
-      </ul>
-    </section>
+    <ul class="p-tab" role="tablist" aria-label="Tab">
+      <p-tab
+        v-for="(tab, index) in tabs"
+        :id="kebabCase(tab)"
+        :key="tab"
+        :active="selectedTab === tab"
+        :area-controls="`${kebabCase(tab)}-content`"
+        @click="selectTab(tab)"
+        @keydown.enter.space="selectTab(tab)"
+      >
+        <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
+          {{ tab }}
+        </slot>
+      </p-tab>
+    </ul>
+
     <template v-for="tab in tabs" :key="tab">
       <section
         v-if="selectedTab === tab"
@@ -51,18 +50,6 @@
     emits('tab', tab)
   }
 
-  function handleKeydown(event: Event): void {
-    const tab = event.target as HTMLElement
-
-    if (tab.classList.contains('p-tab__disabled')) {
-      return
-    }
-
-    if (tab.textContent) {
-      selectedTab.value = tab.textContent
-    }
-  }
-
   onMounted(() => {
     const [firstTab] = props.tabs
     selectedTab.value = firstTab
@@ -70,18 +57,16 @@
 </script>
 
 <style>
-.p-tabs { @apply
-  border-b
-  border-slate-200
-}
-
 .p-tabs__content { @apply
   mt-5
 }
 
-.p-tabs__ul { @apply
-  cursor-pointer
+.p-tab { @apply
+  border-b
+border-gray-200
   flex
   items-center
+  -mb-px
+  cursor-pointer
 }
 </style>

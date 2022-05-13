@@ -28,6 +28,7 @@
   flex
   items-center
 }
+
 .p-tab__active { @apply
   border-b-2
   border-prefect-600
@@ -36,6 +37,7 @@
 
 .p-tab__li:not(.p-tab__active) { @apply
   border-b-2
+  border-transparent
   hover:border-gray-400
   text-gray-500
   hover:text-gray-600
