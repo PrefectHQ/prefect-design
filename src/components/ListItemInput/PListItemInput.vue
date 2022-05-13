@@ -2,7 +2,7 @@
   <p-list-item class="list-item-input" v-on="{ mouseenter, mouseleave }">
     <div class="list-item-input__control" :class="classes.control">
       <label class="list-item-input__checkbox">
-        <p-checkbox v-model="model" :value="value" />
+        <p-checkbox v-model="model" v-bind="{ value, disabled }" />
       </label>
     </div>
 
@@ -20,6 +20,7 @@
   const props = defineProps<{
     selected: unknown[],
     value: unknown,
+    disabled?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -45,11 +46,15 @@
   }))
 
   function mouseenter(): void {
-    hover.value = true
+    if (!props.disabled) {
+      hover.value = true
+    }
   }
 
   function mouseleave(): void {
-    hover.value = false
+    if (!props.disabled) {
+      hover.value = false
+    }
   }
 </script>
 
