@@ -17,27 +17,39 @@
   import PCheckbox from '../Checkbox'
   import PListItem from '../ListItem'
 
+  type Selected = boolean | unknown[] | undefined
+
   const props = defineProps<{
-    selected: unknown[] | null | undefined,
+    selected: Selected | null,
     value: unknown,
     disabled?: boolean,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:selected', value: unknown[] | undefined): void,
+    (event: 'update:selected', value: Selected): void,
   }>()
 
   const model = computed({
     get() {
       return props.selected ?? undefined
     },
-    set(value: unknown[] | undefined) {
+    set(value: Selected) {
       emit('update:selected', value)
     },
   })
 
   const hover = ref(false)
-  const show = computed(() => hover.value || props.selected?.includes(props.value))
+  const show = computed(() => {
+    if (hover.value) {
+      return true
+    }
+
+    if (typeof model.value === 'object') {
+      return model.value.includes(props.value)
+    }
+
+    return model
+  })
 
   const classes = computed(() => ({
     control: {
