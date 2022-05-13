@@ -9,7 +9,7 @@
         :disabled="tab.disabled"
         :area-controls="`${kebabCase(tab.label)}-content`"
         @click="selectTab(tab)"
-        @keydown.enter.space="handleKeyDown(tab)"
+        @keydown.enter.space.prevent="handleKeyDown(tab)"
       >
         <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="scope(tab, index)">
           {{ tab.label }}
