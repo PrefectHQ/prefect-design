@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
   defineProps<{
-    href: string,
+    href?: string,
     title?: string,
     icon?: string,
   }>()

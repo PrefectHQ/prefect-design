@@ -43,6 +43,11 @@
   sm:flex-col
 }
 
+.p-global-sidebar__nav-links > * {
+  @apply
+  w-6
+}
+
 .p-global-sidebar__profile {
   @apply
   cursor-pointer
