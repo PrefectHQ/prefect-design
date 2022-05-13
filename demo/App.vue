@@ -5,9 +5,13 @@
       <SidebarsSection />
     </div>
     <div>
-      <nav class="max-w-7xl mx-auto px-4 pt-10 sm:px-6 lg:px-8 underline">
-        <router-link to="/components">
+      <nav class="max-w-7xl mx-auto px-4 pt-10 sm:px-6 lg:px-8 flex">
+        <router-link to="components" class="hover:underline focus:font-bold">
           Components
+        </router-link>
+
+        <router-link to="layouts" class="ml-2 hover:underline focus:font-bold">
+          Layouts
         </router-link>
       </nav>
       <router-view class="max-w-7xl mx-auto sm:px-6 lg:px-8" />

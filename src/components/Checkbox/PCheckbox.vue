@@ -2,9 +2,11 @@
   <div class="p-checkbox" :class="classes">
     <label class="p-checkbox__label">
       <slot name="label">
-        <div class="p-checkbox__label-text">
-          {{ label }}
-        </div>
+        <template v-if="label">
+          <div class="p-checkbox__label-text">
+            {{ label }}
+          </div>
+        </template>
       </slot>
       <input
         v-model="value"
@@ -30,8 +32,7 @@
 <script lang="ts" setup>
   import { State } from '@/types/state'
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type ModelValue = boolean | any[] | undefined
+  type ModelValue = boolean | unknown[] | undefined
 
   const props = defineProps<{
     modelValue: ModelValue | null,
