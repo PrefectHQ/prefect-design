@@ -1,42 +1,44 @@
 <template>
-  <section
-    class="p-tabs"
-  >
-    <p-tab
-      v-for="(tab, index) in tabs"
-      :key="tab"
-      :active="selectedTab === tab"
-      @click="selectTab(tab)"
-      @keydown.enter.space="handleKeydown"
-    >
-      <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
-        {{ tab }}
-      </slot>
-    </p-tab>
-  </section>
-
-
-  <template v-for="tab in tabs" :key="tab">
-    <section
-      v-if="selectedTab === tab"
-      :id="`_${kebabCase(tab)}-heading-panel`"
-      class="p-tabs__content"
-      role="tabpanel"
-      :aria-labelledby="`_${kebabCase(tab)}-heading`"
-    >
-      <slot :name="kebabCase(tab)" />
+  <section>
+    <section class="p-tabs">
+      <ul class="p-tabs__ul" role="tablist" aria-label="Tab">
+        <p-tab
+          v-for="(tab, index) in tabs"
+          :id="kebabCase(tab)"
+          :key="tab"
+          :active="selectedTab === tab"
+          :area-controls="`${kebabCase(tab)}-content`"
+          @click="selectTab(tab)"
+          @keydown.enter.space="handleKeydown"
+        >
+          <slot :name="`${kebabCase(tab)}-heading`" v-bind="{ tab, index }">
+            {{ tab }}
+          </slot>
+        </p-tab>
+      </ul>
     </section>
-  </template>
+    <template v-for="tab in tabs" :key="tab">
+      <section
+        v-if="selectedTab === tab"
+        :id="`${kebabCase(tab)}-content`"
+        class="p-tabs__content"
+        role="tabpanel"
+        :aria-labelledby="`${kebabCase(tab)}`"
+      >
+        <slot :name="kebabCase(tab)" />
+      </section>
+    </template>
+  </section>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { PTab } from '@/components/Tab'
   import { kebabCase } from '@/utilities/strings'
 
   const selectedTab = ref()
 
-  defineProps<{
+  const props = defineProps<{
     tabs: string[],
   }>()
 
@@ -51,30 +53,35 @@
 
   function handleKeydown(event: Event): void {
     const tab = event.target as HTMLElement
-    if (tab.parentElement?.classList.contains('p-tab__disabled')) {
+
+    if (tab.classList.contains('p-tab__disabled')) {
       return
     }
 
     if (tab.textContent) {
       selectedTab.value = tab.textContent
     }
-
-    tab.focus()
   }
+
+  onMounted(() => {
+    const [firstTab] = props.tabs
+    selectedTab.value = firstTab
+  })
 </script>
 
 <style>
 .p-tabs { @apply
-  flex
   border-b
   border-slate-200
 }
 
-.p-tabs .p-tab { @apply
-  border-transparent
-}
-
 .p-tabs__content { @apply
   mt-5
+}
+
+.p-tabs__ul { @apply
+  cursor-pointer
+  flex
+  items-center
 }
 </style>
