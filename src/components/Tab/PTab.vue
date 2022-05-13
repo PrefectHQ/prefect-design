@@ -1,5 +1,5 @@
 <template>
-  <li class="p-tab__li" :class="classes" tabindex="0">
+  <li class="p-tab" :class="classes" tabindex="0">
     <slot />
   </li>
 </template>
@@ -19,7 +19,7 @@
 </script>
 
 <style>
-.p-tab__li { @apply
+.p-tab { @apply
   px-10
   py-4
   text-center
@@ -35,7 +35,7 @@
   text-prefect-600
 }
 
-.p-tab__li:not(.p-tab__active) { @apply
+.p-tab:not(.p-tab__active) { @apply
   border-b-2
   border-transparent
   hover:border-gray-400

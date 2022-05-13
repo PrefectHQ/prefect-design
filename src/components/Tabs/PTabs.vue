@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ul class="p-tab" role="tablist" aria-label="Tab">
+    <ul class="p-tabs__ul" role="tablist" aria-label="Tab">
       <p-tab
         v-for="(tab, index) in tabs"
         :id="kebabCase(tab)"
@@ -69,7 +69,7 @@
   mt-5
 }
 
-.p-tab { @apply
+.p-tabs__ul { @apply
   border-b
   border-gray-200
   flex
