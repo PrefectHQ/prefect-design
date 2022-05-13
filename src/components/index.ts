@@ -64,3 +64,26 @@ export const installs = [
   PListItem.install,
   PListItemInput.install,
 ]
+
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    PBreadCrumbs: typeof PBreadCrumbs,
+    PButton: typeof PButton,
+    PCheckbox: typeof PCheckbox,
+    PCode: typeof PCode,
+    PForm: typeof PForm,
+    PIcon: typeof PIcon,
+    PIconText: typeof PIconText,
+    PLabel: typeof PLabel,
+    PListItem: typeof PListItem,
+    PListItemInput: typeof PListItemInput,
+    PModal: typeof PModal,
+    PNumberInput: typeof PNumberInput,
+    PTag: typeof PTag,
+    PTagWrapper: typeof PTagWrapper,
+    PTextarea: typeof PTextarea,
+    PTextInput: typeof PTextInput,
+    PToast: typeof PToast,
+    PToggle: typeof PToggle,
+  }
+}

@@ -8,5 +8,6 @@
 
 <script lang="ts" setup>
   import Section from '../components/Section.vue'
-  const icons = ['Agent', 'AwaitingRetry', 'Cancelled']
+  import { Icon } from '@/types/icon'
+  const icons: Icon[] = ['Agent', 'AwaitingRetry', 'Cancelled']
 </script>
