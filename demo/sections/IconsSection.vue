@@ -28,9 +28,10 @@
   import * as prefectIcons from '@/components/Icon/icons'
 
   import { showToast } from '@/plugins/Toast'
+  import { HeroIcon, PrefectIcon } from '@/types'
 
-  const prefectIconKeys = Object.keys(prefectIcons)
-  const heroIconKeys = Object.keys(heroIcons)
+  const prefectIconKeys = Object.keys(prefectIcons) as PrefectIcon[]
+  const heroIconKeys = Object.keys(heroIcons) as HeroIcon[]
 
   async function copy(icon: string): Promise<void> {
     await navigator.clipboard.writeText(`<p-icon icon="${icon}" />`)
