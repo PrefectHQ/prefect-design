@@ -1,33 +1,23 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-export const routes: RouteRecordRaw[] = [
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+
+
+const routeRecords: RouteRecordRaw[] = [
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('../App.vue'),
-  },
-  {
-    path: '/flows',
-    name: 'Flows',
-    component: () => import('../App.vue'),
-  },
-  {
-    path: '/edit',
-    name: 'Edit',
-    component: () => import('../App.vue'),
-  },
-  {
-    path: '/leave',
-    name: 'Leave',
-    component: () => import('../App.vue'),
+    name: 'components',
+    path: '/components',
+    component: () => import('../pages/ComponentsPage.vue'),
   },
   {
     path: '/',
-    component: () => import('../App.vue'),
+    redirect: 'components',
   },
 ]
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routeRecords,
 })
+
+
+export default router
