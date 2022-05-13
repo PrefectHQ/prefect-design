@@ -9,6 +9,11 @@ const routeRecords: RouteRecordRaw[] = [
     component: () => import('../pages/ComponentsPage.vue'),
   },
   {
+    name: 'layouts',
+    path: '/layouts',
+    component: () => import('../pages/LayoutsPage.vue'),
+  },
+  {
     path: '/',
     redirect: 'components',
   },

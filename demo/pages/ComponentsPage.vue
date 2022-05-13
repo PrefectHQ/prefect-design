@@ -37,6 +37,8 @@
           <IconTextSection />
 
           <TabSection />
+
+          <ListItemsSection />
         </div>
       </main>
     </div>
@@ -50,6 +52,7 @@
   import FormsSection from '../sections/FormsSection.vue'
   import IconsSection from '../sections/IconsSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
+  import ListItemsSection from '../sections/ListItemsSection.vue'
   import ModalsSection from '../sections/ModalsSection.vue'
   import PopOverSection from '../sections/PopOverSection.vue'
   import TablesSection from '../sections/TablesSection.vue'
