@@ -32,8 +32,7 @@
 <script lang="ts" setup>
   import { State } from '@/types/state'
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  type ModelValue = boolean | any[] | undefined
+  type ModelValue = boolean | unknown[] | undefined
 
   const props = defineProps<{
     modelValue: ModelValue | null,

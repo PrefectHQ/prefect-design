@@ -6,6 +6,8 @@ import { default as PForm } from './Form'
 import { default as PIcon } from './Icon'
 import { default as PIconText } from './IconText'
 import { default as PLabel } from './Label'
+import { default as PListItem } from './ListItem'
+import { default as PListItemInput } from './ListItemInput'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTag } from './Tag'
@@ -31,7 +33,9 @@ export {
   PToggle,
   PTag,
   PIconText,
-  PTagWrapper
+  PTagWrapper,
+  PListItem,
+  PListItemInput
 }
 
 export const installs = [
@@ -51,4 +55,6 @@ export const installs = [
   PTag.install,
   PIconText.install,
   PTagWrapper.install,
+  PListItem.install,
+  PListItemInput.install,
 ]
