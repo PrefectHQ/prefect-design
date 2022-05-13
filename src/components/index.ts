@@ -10,6 +10,8 @@ import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
+import { default as PTab } from './Tab'
+import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
 import { default as PTagWrapper } from './TagWrapper'
 import { default as PTextarea } from './Textarea'
@@ -32,6 +34,8 @@ export {
   PToast,
   PToggle,
   PTag,
+  PTab,
+  PTabs,
   PIconText,
   PTagWrapper,
   PListItem,
@@ -55,6 +59,8 @@ export const installs = [
   PTag.install,
   PIconText.install,
   PTagWrapper.install,
+  PTab.install,
+  PTabs.install,
   PListItem.install,
   PListItemInput.install,
 ]
