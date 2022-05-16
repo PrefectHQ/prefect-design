@@ -1,26 +1,33 @@
 <template>
-  <div class="p-context-nav-item">
-    <a
-      class="p-context-nav-item__link"
-      :href="href"
-      :class="{ 'p-context-nav-item--active': isActive }"
-    >
-      <template v-if="icon">
-        <p-icon :icon="icon" class="p-context-nav-item__icon" />
-      </template>
-      <span>{{ title }}</span>
-    </a>
-  </div>
+  <router-link
+    v-slot="{ href, navigate, isExactActive }"
+    :to="to"
+    custom
+  >
+    <div class="p-context-nav-item">
+      <a
+        class="p-context-nav-item__link"
+        :href="href"
+        :class="{ 'p-context-nav-item--active': isExactActive }"
+        @click="navigate"
+      >
+        <template v-if="icon">
+          <p-icon :icon="icon" class="p-context-nav-item__icon" />
+        </template>
+        <span>{{ title }}</span>
+      </a>
+    </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
+  import { RouteLocationRaw } from 'vue-router'
   import { Icon } from '@/types/icon'
 
   defineProps<{
-    href: string,
+    to: string | RouteLocationRaw,
     title?: string,
     icon?: Icon,
-    isActive: boolean,
   }>()
 </script>
 

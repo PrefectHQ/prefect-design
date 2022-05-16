@@ -8,24 +8,12 @@
     </template>
 
     <template #upper-links>
-      <router-link
-        v-slot="{ href, navigate, isExactActive }"
-        to="/components"
-        custom
-      >
-        <p-context-nav-item :is-active="isExactActive" :href="href" title="Components" icon="HomeIcon" @click="navigate" />
-      </router-link>
-      <router-link
-        v-slot="{ href, navigate, isExactActive }"
-        to="/layouts"
-        custom
-      >
-        <p-context-nav-item :is-active="isExactActive" :href="href" title="Layouts" icon="Flow" @click="navigate" />
-      </router-link>
+      <p-context-nav-item title="Components" icon="PuzzleIcon" to="/components" />
+      <p-context-nav-item title="Layouts" icon="TemplateIcon" to="/layouts" />
     </template>
 
     <template #bottom-links>
-      <p-button inset class="my-3" @click="toggleGlobalSidebar">
+      <p-button inset class="my-3 justify-center" @click="toggleGlobalSidebar">
         Show Global Sidebar
       </p-button>
     </template>
