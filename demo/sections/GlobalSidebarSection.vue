@@ -2,11 +2,11 @@
   <p-global-sidebar>
     <template #upper-links>
       <p-icon icon="PrefectGradient" class="w-6" />
-      <p-global-nav-item href="#" icon="CollectionIcon" />
+      <p-global-nav-item to="#" icon="CollectionIcon" />
     </template>
 
     <template #bottom-links>
-      <p-global-nav-item href="#" icon="QuestionMarkCircleIcon" />
+      <p-global-nav-item to="#" icon="QuestionMarkCircleIcon" />
     </template>
 
     <template #profile-button>
