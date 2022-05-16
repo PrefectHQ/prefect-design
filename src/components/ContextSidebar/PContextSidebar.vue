@@ -1,12 +1,10 @@
 <template>
   <div class="p-context-sidebar">
-    <div>
-      <slot name="header" />
-      <div class="p-context-sidebar__nav-items">
-        <slot name="upper-links" />
-      </div>
-    </div>
+    <slot name="header" />
     <div class="p-context-sidebar__nav-items">
+      <slot name="upper-links" />
+    </div>
+    <div class="p-context-sidebar__nav-items p-context-sidebar__nav-items--bottom">
       <slot name="bottom-links" />
     </div>
   </div>
@@ -19,7 +17,6 @@
   text-slate-300
   fixed
   w-screen
-  justify-between
   px-3
   z-10
   sm:flex
@@ -34,5 +31,10 @@
   flex
   flex-col
   sm:gap-1
+}
+
+.p-context-sidebar__nav-items--bottom {
+  @apply
+  mt-auto
 }
 </style>
