@@ -39,6 +39,8 @@
           <TabSection />
 
           <ListItemsSection />
+
+          <ThreeDotMenuSection />
         </div>
       </main>
     </div>
@@ -58,6 +60,7 @@
   import TablesSection from '../sections/TablesSection.vue'
   import TabSection from '../sections/TabSection.vue'
   import TagsSection from '../sections/TagsSection.vue'
+  import ThreeDotMenuSection from '../sections/ThreeDotMenuSection.vue'
   import ToastsSection from '../sections/ToastsSection.vue'
   import TogglesSection from '../sections/TogglesSection.vue'
   import TypographySection from '../sections/TypographySection.vue'
