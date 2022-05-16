@@ -1,0 +1,43 @@
+<template>
+  <div class="p-context-sidebar">
+    <slot name="header" />
+    <div class="p-context-sidebar__nav-items">
+      <slot name="upper-links" />
+    </div>
+    <div class="p-context-sidebar__nav-items p-context-sidebar__nav-items--bottom">
+      <slot name="bottom-links" />
+    </div>
+  </div>
+</template>
+
+<style>
+.p-context-sidebar {
+  @apply
+  bg-slate-700
+  text-slate-300
+  sticky
+  top-0
+  w-screen
+  pl-3
+  pr-7
+  z-10
+  sm:flex
+  sm:h-screen
+  sm:w-64
+  sm:flex-col
+  sm:py-5
+  sm:px-3
+}
+
+.p-context-sidebar__nav-items {
+  @apply
+  flex
+  flex-col
+  sm:gap-1
+}
+
+.p-context-sidebar__nav-items--bottom {
+  @apply
+  mt-auto
+}
+</style>
