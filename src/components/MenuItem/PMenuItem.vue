@@ -22,8 +22,6 @@
 
 <style>
 .p-menu-item { @apply
-  border-b-2
-  border-gray-100
   p-2
   font-normal
   text-gray-900

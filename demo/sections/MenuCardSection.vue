@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Section heading="Overflow Menu & Overflow Menu Items">
     <p-menu-card>
       <p-menu-item label="Share" icon="Prefect">
         <template #after>
@@ -10,10 +10,11 @@
       <p-menu-item label="Copy ID" />
       <p-menu-item label="Settings" />
     </p-menu-card>
-  </div>
+  </Section>
 </template>
 
 <script lang="ts" setup>
+  import Section from '../components/Section.vue'
   import PMenuCard from '@/components/MenuCard/PMenuCard.vue'
   import PMenuItem from '@/components/MenuItem/PMenuItem.vue'
 </script>
