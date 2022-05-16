@@ -1,7 +1,7 @@
 <template>
   <p-global-sidebar>
     <template #upper-links>
-      <p-icon icon="PrefectGradient" />
+      <p-icon icon="PrefectGradient" class="w-6" />
       <p-global-nav-item href="#" icon="CollectionIcon" @click="toggleContextSidebar" />
     </template>
 
