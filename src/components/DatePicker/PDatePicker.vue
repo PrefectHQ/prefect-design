@@ -42,7 +42,7 @@
           <p-button
             class="p-date-picker__date"
             :class="classes.date(date)"
-            :flat="!isSameDay(date, selectedDate)"
+            :flat="!isSameDayAsSelectedDate(date)"
             :disabled="!!mode"
             size="xs"
             @click="updateSelectedDate(date)"
@@ -53,14 +53,21 @@
       </p-calendar>
 
       <div class="p-date-picker__bottom-bar">
-        <template v-if="showTime">
+        <template v-if="showTime && selectedDate">
           <p-button class="p-date-picker__time-button" size="sm" flat @click="setMode('time')">
             {{ time }}
           </p-button>
         </template>
-        <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
-          {{ showTime ? 'Now' : 'Today' }}
-        </p-button>
+        <div class="p-date-picker__actions">
+          <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
+            {{ showTime ? 'Now' : 'Today' }}
+          </p-button>
+          <template v-if="clearable">
+            <p-button class="p-date-picker__clear-button" size="sm" flat :disabled="selectedDate === null" @click="selectedDate = null">
+              Clear
+            </p-button>
+          </template>
+        </div>
       </div>
 
       <template v-if="modePickerComponent">
@@ -86,6 +93,7 @@
   const props = defineProps<{
     modelValue: Date | null | undefined,
     showTime?: boolean,
+    clearable?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -94,9 +102,9 @@
 
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? new Date(startOfDay(new Date()))
+      return props.modelValue ?? null
     },
-    set(value: Date) {
+    set(value: Date | null) {
       emits('update:modelValue', value)
     },
   })
@@ -115,15 +123,21 @@
     }
   })
 
-  const viewingDate = ref(startOfDay(selectedDate.value))
+  const viewingDate = ref(startOfDay(selectedDate.value ?? new Date()))
 
-  watch(selectedDate, (value) => viewingDate.value = startOfDay(value))
+  watch(selectedDate, () => viewingDate.value = startOfDay(selectedDate.value ?? new Date()))
 
   const viewingMonth = computed(() => format(viewingDate.value, 'MMMM'))
   const viewingYear = computed(() => format(viewingDate.value, 'yyyy'))
-  const time = computed(() => format(selectedDate.value, 'h:mm a'))
+  const time = computed(() => selectedDate.value ? format(selectedDate.value, 'h:mm a') : '')
 
-  const todayDisabled = computed(() => props.showTime ? isSameMinute(selectedDate.value, new Date()) : isSameDay(selectedDate.value, new Date()))
+  const todayDisabled = computed(() => {
+    if (!selectedDate.value) {
+      return false
+    }
+
+    return props.showTime ? isSameMinute(selectedDate.value, new Date()) : isSameDay(selectedDate.value, new Date())
+  })
 
   const classes = computed(() => ({
     picker: {
@@ -131,10 +145,14 @@
     },
     date: (date: Date) => ({
       'p-date-picker__date--today': isSameDay(date, new Date()),
-      'p-date-picker__date--selected': isSameDay(date, selectedDate.value),
+      'p-date-picker__date--selected': isSameDayAsSelectedDate(date),
       'p-date-picker__date--out-of-month': !isSameMonth(date, viewingDate.value),
     }),
   }))
+
+  function isSameDayAsSelectedDate(date: Date): boolean {
+    return !!selectedDate.value && isSameDay(date, selectedDate.value)
+  }
 
   function checkCloseOverlay(): void {
     if (mode.value !== 'time') {
@@ -147,7 +165,7 @@
   }
 
   function updateSelectedDate(date: Date): void {
-    selectedDate.value = set(selectedDate.value, {
+    selectedDate.value = set(selectedDate.value ?? new Date(), {
       year: date.getFullYear(),
       month: date.getMonth(),
       date: date.getDate(),
@@ -248,7 +266,7 @@
   justify-between
 }
 
-.p-date-picker__today-button:only-child {
+.p-date-picker__actions:only-child {
   margin-left: auto;
 }
 </style>
