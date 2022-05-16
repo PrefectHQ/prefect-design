@@ -36,7 +36,7 @@
   const selectedYear = computed(() => selectedDate.value.getFullYear())
 
   const viewingYear = ref(selectedYear.value)
-  const viewingCount = 80
+  const viewingCount = 20
   const yearElements = ref<HTMLElement[]>([])
   const topElement = ref<HTMLElement>()
   const bottomElement = ref<HTMLElement>()
@@ -80,13 +80,14 @@
     }
   }
 
-  function scrollToYear(year: number): void {
+  function scrollToYear(year: number): HTMLElement | undefined {
     const element = yearElements.value.find(node => node.dataset.year === year.toString())
 
     if (element) {
       element.scrollIntoView({ block: 'center' })
-      nextTick(() => element.parentElement?.focus())
     }
+
+    return element
   }
 
   let observer: IntersectionObserver | null = null
@@ -94,11 +95,15 @@
   onMounted(() => {
     observer = new IntersectionObserver(handleIntersection)
 
-    scrollToYear(selectedYear.value)
+    const element = scrollToYear(selectedYear.value)
 
     if (topElement.value && bottomElement.value) {
       observer.observe(topElement.value)
       observer.observe(bottomElement.value)
+    }
+
+    if (element) {
+      element.parentElement?.focus()
     }
   })
 
@@ -111,8 +116,8 @@
 }
 
 .p-year-picker-years { @apply
-  grid
-  grid-cols-4
+  flex
+  flex-col
   justify-center
   gap-2
 }
