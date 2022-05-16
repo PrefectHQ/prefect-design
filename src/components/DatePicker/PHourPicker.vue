@@ -5,7 +5,7 @@
         size="sm"
         :flat="hours !== option.toString()"
         class="p-hour-picker__hour"
-        @click="setHours(option)"
+        @click="updateSelectedDate(option)"
       >
         <span ref="hourElements" :data-hour="option">{{ option }}</span>
       </p-button>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format } from 'date-fns'
+  import { format, setHours } from 'date-fns'
   import { computed } from 'vue'
   import PButton from '@/components/Button'
   import { useScrollIntoViewOnMounted } from '@/compositions/useScrollIntoViewOnMounted'
@@ -41,17 +41,14 @@
   const hours = computed(() => format(selectedDate.value, 'h'))
   const meridiem = computed(() => format(selectedDate.value, 'a'))
 
-  function setHours(hours: number): void {
-    const value = new Date(selectedDate.value)
+  function updateSelectedDate(hours: number): void {
     const selectedHours = hours % 12
 
     if (meridiem.value === 'AM') {
-      value.setHours(selectedHours)
+      selectedDate.value = setHours(selectedDate.value, selectedHours)
     } else {
-      value.setHours(selectedHours + 12)
+      selectedDate.value = setHours(selectedDate.value, selectedHours + 12)
     }
-
-    selectedDate.value = value
   }
 </script>
 

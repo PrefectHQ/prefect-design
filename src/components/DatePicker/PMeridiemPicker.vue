@@ -5,7 +5,7 @@
         size="sm"
         :flat="meridiem !== option"
         class="p-meridiem-picker__meridiem"
-        @click="setMeridiem(option)"
+        @click="updateSelectedDate(option)"
       >
         <span ref="meridiemElements" :data-meridiem="option">{{ option }}</span>
       </p-button>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format } from 'date-fns'
+  import { format, setHours } from 'date-fns'
   import { computed } from 'vue'
   import PButton from '@/components/Button'
   import { useScrollIntoViewOnMounted } from '@/compositions/useScrollIntoViewOnMounted'
@@ -40,19 +40,17 @@
   const meridiemOptions = ['AM', 'PM'] as const
   const meridiem = computed(() => format(selectedDate.value, 'a'))
 
-  function setMeridiem(meridiem: typeof meridiemOptions[number]): void {
-    const value = new Date(selectedDate.value)
-    const currentMeridiem = format(value, 'a')
+  function updateSelectedDate(meridiem: typeof meridiemOptions[number]): void {
+    const currentMeridiem = format(selectedDate.value, 'a')
+    const currentHours = selectedDate.value.getHours()
 
     if (meridiem === 'AM' && currentMeridiem !== 'AM') {
-      value.setHours(value.getHours() - 12)
+      selectedDate.value = setHours(selectedDate.value, currentHours - 12)
     }
 
     if (meridiem === 'PM' && currentMeridiem !== 'PM') {
-      value.setHours(value.getHours() + 12)
+      selectedDate.value = setHours(selectedDate.value, currentHours + 12)
     }
-
-    selectedDate.value = value
   }
 </script>
 

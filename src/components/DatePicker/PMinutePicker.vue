@@ -5,7 +5,7 @@
         size="sm"
         :flat="minutes !== padMinutes(option)"
         class="p-minute-picker__minute"
-        @click="setMinutes(option)"
+        @click="updateSelectedDate(option)"
       >
         <span ref="minuteElements" :data-minute="padMinutes(option)">{{ padMinutes(option) }}</span>
       </p-button>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format } from 'date-fns'
+  import { format, setMinutes } from 'date-fns'
   import { computed } from 'vue'
   import PButton from '@/components/Button'
   import { useScrollIntoViewOnMounted } from '@/compositions/useScrollIntoViewOnMounted'
@@ -40,12 +40,8 @@
   const minuteOptions = [...new Array(60).keys()]
   const minutes = computed(() => format(selectedDate.value, 'mm'))
 
-  function setMinutes(minutes: number): void {
-    const value = new Date(selectedDate.value)
-
-    value.setMinutes(minutes)
-
-    selectedDate.value = value
+  function updateSelectedDate(minutes: number): void {
+    selectedDate.value = setMinutes(selectedDate.value, minutes)
   }
 
   function padMinutes(minutes: number): string {

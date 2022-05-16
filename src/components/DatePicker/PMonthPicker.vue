@@ -52,9 +52,7 @@
   }
 
   function updateSelectedDate(month: number): void {
-    const value = setMonth(new Date(selectedDate.value), month)
-
-    selectedDate.value = value
+    selectedDate.value = setMonth(selectedDate.value, month)
   }
 
   onMounted(() => {

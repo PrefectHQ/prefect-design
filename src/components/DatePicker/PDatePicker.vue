@@ -15,7 +15,7 @@
         size="sm"
         flat
         icon="ChevronLeftIcon"
-        @click="handlePreviousClick"
+        @click="viewingDate = addMonths(viewingDate, -1)"
       />
       <div class="p-date-picker__title">
         <p-button class="p-date-picker__title-month" flat @click="setMode('month')">
@@ -31,7 +31,7 @@
         size="sm"
         flat
         icon="ChevronRightIcon"
-        @click="handleNextClick"
+        @click="viewingDate = addMonths(viewingDate, 1)"
       />
     </div>
 
@@ -53,7 +53,7 @@
 
       <template v-if="modePickerComponent">
         <div class="p-date-picker__overlay">
-          <component :is="modePickerComponent" v-model="selectedDate" @update:model-value="mode = null" />
+          <component :is="modePickerComponent" v-model="selectedDate" />
         </div>
       </template>
 
@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
@@ -151,22 +151,6 @@
     },
   }))
 
-  function handlePreviousClick(): void {
-    const value = new Date(viewingDate.value)
-
-    value.setMonth(value.getMonth() - 1)
-
-    viewingDate.value = value
-  }
-
-  function handleNextClick(): void {
-    const value = new Date(viewingDate.value)
-
-    value.setMonth(value.getMonth() + 1)
-
-    viewingDate.value = value
-  }
-
   function closeOverlay(): void {
     mode.value = null
   }
@@ -221,7 +205,6 @@
 }
 
 .p-date-picker__title-year { @apply
-  text-prefect-600
   text-lg
   py-0.5
   px-1
