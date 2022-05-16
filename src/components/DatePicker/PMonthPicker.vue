@@ -6,7 +6,7 @@
           size="xs"
           class="p-month-picker__month-button"
           :flat="!isSelected(option.value)"
-          @click="selectedDate = option.value"
+          @click="updateSelectedDate(option.value)"
         >
           <span ref="monthElements" :data-month="option.value">
             {{ option.label }}
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { startOfDay, format, isSameMonth } from 'date-fns'
+  import { startOfDay, format, eachMonthOfInterval, startOfYear, endOfYear, setMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
 
@@ -42,19 +42,19 @@
   })
 
   const selectedMonth = computed(() => selectedDate.value.getMonth())
-  const monthOptions = [...new Array(12).keys()].map(index => {
-    const value = new Date(selectedDate.value)
+  const monthOptions = eachMonthOfInterval({ start:startOfYear(new Date()), end: endOfYear(new Date()) }).map(x => ({
+    value: x.getMonth(),
+    label: format(x, 'MMMM'),
+  }))
 
-    value.setMonth(index)
+  function isSelected(month: number): boolean {
+    return selectedDate.value.getMonth() === month
+  }
 
-    return {
-      value,
-      label: format(value, 'MMMM'),
-    }
-  })
+  function updateSelectedDate(month: number): void {
+    const value = setMonth(new Date(selectedDate.value), month)
 
-  function isSelected(value: Date): boolean {
-    return isSameMonth(selectedDate.value, value)
+    selectedDate.value = value
   }
 
   onMounted(() => {
