@@ -14,6 +14,8 @@ import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
+import { default as POverflowMenu } from './OverflowMenu'
+import { default as POverflowMenuItem } from './OverflowMenuItem'
 import { default as PTab } from './Tab'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
@@ -47,7 +49,9 @@ export {
   PIconText,
   PTagWrapper,
   PListItem,
-  PListItemInput
+  PListItemInput,
+  POverflowMenu,
+  POverflowMenuItem
 }
 
 export const installs = [
@@ -75,6 +79,8 @@ export const installs = [
   PTabs.install,
   PListItem.install,
   PListItemInput.install,
+  POverflowMenu.install,
+  POverflowMenuItem.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -103,5 +109,7 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTab: typeof PTab,
     PTabs: typeof PTabs,
+    POverflowMenu: typeof POverflowMenu,
+    POverflowMenuItem: typeof POverflowMenuItem,
   }
 }
