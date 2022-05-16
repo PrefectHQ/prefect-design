@@ -22,6 +22,7 @@ import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
 import { default as PToast } from './Toast'
 import { default as PToggle } from './Toggle'
+import { default as PWellKeyValue } from './WellKeyValue'
 
 export {
   PBreadCrumbs,
@@ -47,7 +48,8 @@ export {
   PIconText,
   PTagWrapper,
   PListItem,
-  PListItemInput
+  PListItemInput,
+  PWellKeyValue
 }
 
 export const installs = [
@@ -75,6 +77,7 @@ export const installs = [
   PTabs.install,
   PListItem.install,
   PListItemInput.install,
+  PWellKeyValue.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -103,5 +106,6 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTab: typeof PTab,
     PTabs: typeof PTabs,
+    PWellKeyValue: typeof PWellKeyValue,
   }
 }

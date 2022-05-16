@@ -16,6 +16,8 @@
 
           <BreadCrumbsSection />
 
+          <WellKeyValueSection />
+
           <ButtonsSection />
 
           <FormsSection />
@@ -61,4 +63,5 @@
   import ToastsSection from '../sections/ToastsSection.vue'
   import TogglesSection from '../sections/TogglesSection.vue'
   import TypographySection from '../sections/TypographySection.vue'
+  import WellKeyValueSection from '../sections/WellKeyValueSection.vue'
 </script>
