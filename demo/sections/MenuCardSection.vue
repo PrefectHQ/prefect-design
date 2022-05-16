@@ -1,7 +1,7 @@
 <template>
   <Section heading="Overflow Menu & Overflow Menu Items">
     <p-menu-card>
-      <p-menu-item label="Share" icon="Prefect">
+      <p-menu-item label="Share">
         <template #after>
           <span class="text-prefect-500">3 INVITES</span>
         </template>
