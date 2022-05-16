@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { startOfDay, format, eachDayOfInterval, startOfWeek, endOfWeek } from 'date-fns'
+  import { format, eachDayOfInterval, startOfWeek, endOfWeek, setYear, setMonth, endOfMonth, startOfMonth } from 'date-fns'
   import { computed } from 'vue'
 
   const props = defineProps<{
@@ -30,53 +30,15 @@
 
   const days = eachDayOfInterval({ start:startOfWeek(new Date()), end: endOfWeek(new Date()) }).map(x => format(x, 'EEEEEE'))
 
-  const selectedMonth = computed(() => {
-    const value = startOfDay(new Date())
-
-    value.setMonth(props.month)
-    value.setFullYear(props.year)
-
-    return value
-  })
-
-  const startOfMonth = computed(() => {
-    const value = new Date(selectedMonth.value)
-
-    value.setDate(1)
-
-    return value
-  })
-
-  const endOfMonth = computed(() => {
-    const value = new Date(selectedMonth.value)
-
-    value.setDate(0)
-    value.setMonth(value.getMonth() + 1)
-
-    return value
-  })
-
-  const startOfRange = computed(() => {
-    const start = new Date(startOfMonth.value)
-
-    while (start.getDay() > 0) {
-      start.setDate(start.getDate() - 1)
-    }
-
-    return start
-  })
+  const selectedDate = computed(() => setMonth(setYear(new Date(), props.year), props.month))
 
   const dates = computed(() => {
-    const value: Date[] = []
-    const endTime = endOfMonth.value.getTime()
-    const date = new Date(startOfRange.value)
+    const monthStart = startOfMonth(selectedDate.value)
+    const start = startOfWeek(monthStart)
+    const monthEnd = endOfMonth(selectedDate.value)
+    const end = endOfWeek(monthEnd)
 
-    while (date.getTime() < endTime || date.getDay() > 0) {
-      value.push(new Date(date))
-      date.setDate(date.getDate() + 1)
-    }
-
-    return value
+    return eachDayOfInterval({ start, end })
   })
 </script>
 
