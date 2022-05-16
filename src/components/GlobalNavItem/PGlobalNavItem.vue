@@ -1,7 +1,5 @@
 <template>
-  <router-link
-    :to="to"
-  >
+  <router-link :to="to">
     <template v-if="icon">
       <p-icon :icon="icon" class="p-global-nav-item__icon" />
     </template>
