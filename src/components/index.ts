@@ -8,6 +8,8 @@ import { default as PIconText } from './IconText'
 import { default as PLabel } from './Label'
 import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
+import { default as PMenuCard } from './MenuCard'
+import { default as PMenuItem } from './MenuItem'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
 import { default as PTab } from './Tab'
@@ -39,7 +41,9 @@ export {
   PIconText,
   PTagWrapper,
   PListItem,
-  PListItemInput
+  PListItemInput,
+  PMenuCard,
+  PMenuItem
 }
 
 export const installs = [
@@ -63,6 +67,8 @@ export const installs = [
   PTabs.install,
   PListItem.install,
   PListItemInput.install,
+  PMenuCard.install,
+  PMenuItem.install,
 ]
 
 declare module '@vue/runtime-core' {
