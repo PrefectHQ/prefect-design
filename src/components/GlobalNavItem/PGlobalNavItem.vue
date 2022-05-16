@@ -1,15 +1,19 @@
 <template>
   <a :href="href">
-    <p-icon :icon="icon" class="p-global-nav-item__icon" />
+    <template v-if="icon">
+      <p-icon :icon="icon" class="p-global-nav-item__icon" />
+    </template>
     <span>{{ title }}</span>
   </a>
 </template>
 
 <script lang="ts" setup>
+  import { Icon } from '@/types/icon'
+
   defineProps<{
     href?: string,
     title?: string,
-    icon?: string,
+    icon?: Icon,
   }>()
 </script>
 

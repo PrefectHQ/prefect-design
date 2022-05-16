@@ -5,17 +5,21 @@
       :href="href"
       :class="{ 'p-context-nav-item--active': isActive }"
     >
-      <p-icon :icon="icon" class="p-context-nav-item__icon" />
+      <template v-if="icon">
+        <p-icon :icon="icon" class="p-context-nav-item__icon" />
+      </template>
       <span>{{ title }}</span>
     </a>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { Icon } from '@/types/icon'
+
   defineProps<{
     href: string,
     title?: string,
-    icon?: string,
+    icon?: Icon,
     isActive: boolean,
   }>()
 </script>
