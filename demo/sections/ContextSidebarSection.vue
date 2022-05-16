@@ -1,44 +1,48 @@
 <template>
   <p-context-sidebar>
     <template #header>
-      <div class="flex flex-col my-3 sm:mt-0">
-        <span class="font-normal text-sm mx-3">Acme Technologies</span>
-        <span class="font-bold text-base mx-3">DS Team Q1 collection</span>
+      <div class="flex flex-col py-3 sm:pt-0">
+        <span class="font-normal text-sm mx-3">Prefect Design</span>
+        <span class="font-bold text-base mx-3">UI Team Demo Collection</span>
       </div>
     </template>
 
     <template #upper-links>
       <router-link
         v-slot="{ href, navigate, isExactActive }"
-        to="/dashboard"
+        to="/components"
         custom
       >
-        <p-context-nav-item :is-active="isExactActive" :href="href" title="Dashboard" icon="HomeIcon" @click="navigate" />
+        <p-context-nav-item :is-active="isExactActive" :href="href" title="Components" icon="HomeIcon" @click="navigate" />
       </router-link>
       <router-link
         v-slot="{ href, navigate, isExactActive }"
-        to="/flows"
+        to="/layouts"
         custom
       >
-        <p-context-nav-item :is-active="isExactActive" :href="href" title="Flows" icon="Flow" @click="navigate" />
+        <p-context-nav-item :is-active="isExactActive" :href="href" title="Layouts" icon="Flow" @click="navigate" />
       </router-link>
     </template>
 
     <template #bottom-links>
-      <router-link
-        v-slot="{ href, navigate, isExactActive }"
-        to="/edit"
-        custom
-      >
-        <p-context-nav-item :is-active="isExactActive" :href="href" title="Settings" icon="CogIcon" @click="navigate" />
-      </router-link>
-      <router-link
-        v-slot="{ href, navigate, isExactActive }"
-        to="/leave"
-        custom
-      >
-        <p-context-nav-item :is-active="isExactActive" :href="href" title="Leave Workspace" icon="LogoutIcon" @click="navigate" />
-      </router-link>
+      <p-button inset class="my-3" @click="toggleGlobalSidebar">
+        Show Global Sidebar
+      </p-button>
     </template>
   </p-context-sidebar>
 </template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+
+  const emit = defineEmits<{
+    (event: 'update:value', value: boolean): void,
+  }>()
+
+  const showGlobalSidebar = ref(false)
+
+  const toggleGlobalSidebar = (): void => {
+    showGlobalSidebar.value = !showGlobalSidebar.value
+    emit('update:value', showGlobalSidebar.value)
+  }
+</script>

@@ -1,9 +1,12 @@
 <template>
-  <transition name="slide">
-    <ContextSidebarSection v-if="showContextSidebar" class="sm:ml-16 sm:mt-0 mt-16" />
-  </transition>
+  <ContextSidebarSection @update:value="toggleGlobalSidebar" />
 
-  <GlobalSidebarSection @update:value="toggleContextSidebar" />
+
+  <teleport to="body">
+    <transition name="slide">
+      <GlobalSidebarSection v-if="showGlobalSidebar" class="bottom-0 ml-auto" />
+    </transition>
+  </teleport>
 </template>
 
 <script lang="ts" setup>
@@ -11,10 +14,10 @@
   import ContextSidebarSection from './ContextSidebarSection.vue'
   import GlobalSidebarSection from './GlobalSidebarSection.vue'
 
-  const showContextSidebar = ref(false)
+  const showGlobalSidebar = ref(false)
 
-  const toggleContextSidebar = (value: boolean): void => {
-    showContextSidebar.value = value
+  const toggleGlobalSidebar = (value: boolean): void => {
+    showGlobalSidebar.value = value
   }
 </script>
 
@@ -29,8 +32,8 @@
 .slide-enter-from,
 .slide-leave-to {
   @apply
-  -translate-y-full
-  sm:-translate-x-full
-  sm:-translate-y-0
+  translate-y-full
+  sm:translate-x-full
+  sm:translate-y-0
  }
 </style>

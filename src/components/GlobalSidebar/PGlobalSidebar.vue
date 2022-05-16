@@ -18,7 +18,7 @@
 .p-global-sidebar {
   @apply
   bg-slate-800
-  fixed
+  sticky
   h-16
   w-screen
   flex

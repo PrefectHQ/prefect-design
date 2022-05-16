@@ -15,15 +15,18 @@
   @apply
   bg-slate-700
   text-slate-300
-  fixed
+  sticky
+  top-0
   w-screen
-  px-3
+  pl-3
+  pr-7
   z-10
   sm:flex
   sm:h-screen
   sm:w-64
   sm:flex-col
   sm:py-5
+  sm:px-3
 }
 
 .p-context-sidebar__nav-items {
