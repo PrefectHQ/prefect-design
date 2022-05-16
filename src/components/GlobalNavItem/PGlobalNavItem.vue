@@ -1,15 +1,11 @@
 <template>
   <router-link
-    v-slot="{ href, navigate }"
     :to="to"
-    custom
   >
-    <a :href="href" @click="navigate">
-      <template v-if="icon">
-        <p-icon :icon="icon" class="p-global-nav-item__icon" />
-      </template>
-      <span>{{ title }}</span>
-    </a>
+    <template v-if="icon">
+      <p-icon :icon="icon" class="p-global-nav-item__icon" />
+    </template>
+    <span>{{ title }}</span>
   </router-link>
 </template>
 
