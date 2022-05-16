@@ -40,7 +40,7 @@
 
           <ListItemsSection />
 
-          <ThreeDotMenuSection />
+          <IconButtonMenuSection />
         </div>
       </main>
     </div>
@@ -52,6 +52,7 @@
   import ButtonsSection from '../sections/ButtonsSection.vue'
   import CodeSection from '../sections/CodeSection.vue'
   import FormsSection from '../sections/FormsSection.vue'
+  import IconButtonMenuSection from '../sections/IconButtonMenuSection.vue'
   import IconsSection from '../sections/IconsSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
   import ListItemsSection from '../sections/ListItemsSection.vue'
@@ -60,7 +61,6 @@
   import TablesSection from '../sections/TablesSection.vue'
   import TabSection from '../sections/TabSection.vue'
   import TagsSection from '../sections/TagsSection.vue'
-  import ThreeDotMenuSection from '../sections/ThreeDotMenuSection.vue'
   import ToastsSection from '../sections/ToastsSection.vue'
   import TogglesSection from '../sections/TogglesSection.vue'
   import TypographySection from '../sections/TypographySection.vue'

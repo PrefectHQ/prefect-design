@@ -1,5 +1,5 @@
 <template>
-  <p-pop-over class="p-three-dot-menu" :class="classes" :style="styles" :placement="[bottomRight, topRight]" auto-close>
+  <p-pop-over class="p-icon-button-menu" :class="classes" :style="styles" :placement="[bottomRight, topRight]" auto-close>
     <template #target="{ toggle }">
       <p-button :icon="icon" v-bind="attrs" inset @click="toggle" />
     </template>
@@ -13,7 +13,7 @@
   import { defineComponent, withDefaults } from 'vue'
 
   export default defineComponent({
-    name: 'PThreeDotMenu',
+    name: 'PIconButtonMenu',
     expose: [],
     inheritAttrs: false,
   })
@@ -35,7 +35,7 @@
 </script>
 
 <style>
-.p-three-dot-menu{ @apply
+.p-icon-button-menu { @apply
   inline-block
 }
 </style>
