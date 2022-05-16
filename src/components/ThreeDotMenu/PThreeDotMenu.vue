@@ -1,5 +1,5 @@
 <template>
-  <p-pop-over class="p-three-dot-menu" :class="classes" :style="styles" auto-close>
+  <p-pop-over class="p-three-dot-menu" :class="classes" :style="styles" :placement="[bottomRight, topRight]" auto-close>
     <template #target="{ toggle }">
       <p-button :icon="icon" v-bind="attrs" inset @click="toggle" />
     </template>
@@ -23,6 +23,7 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { Icon } from '@/types/icon'
+  import { topRight, bottomRight } from '@/utilities/position'
 
   withDefaults(defineProps<{
     icon?: Icon,
@@ -34,5 +35,7 @@
 </script>
 
 <style>
-
+.p-three-dot-menu{ @apply
+  inline-block
+}
 </style>
