@@ -83,6 +83,10 @@ declare module '@vue/runtime-core' {
     PButton: typeof PButton,
     PCheckbox: typeof PCheckbox,
     PCode: typeof PCode,
+    PContextNavItem: typeof PContextNavItem,
+    PContextSidebar: typeof PContextSidebar,
+    PGlobalNavItem: typeof PGlobalNavItem,
+    PGlobalSidebar: typeof PGlobalSidebar,
     PForm: typeof PForm,
     PIcon: typeof PIcon,
     PIconText: typeof PIconText,
@@ -97,5 +101,7 @@ declare module '@vue/runtime-core' {
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
+    PTab: typeof PTab,
+    PTabs: typeof PTabs,
   }
 }
