@@ -1,22 +1,13 @@
 <template>
   <router-link
-    v-slot="{ href, navigate, isExactActive }"
+    exact-active-class="p-context-nav-item--active"
+    class="p-context-nav-item"
     :to="to"
-    custom
   >
-    <div class="p-context-nav-item">
-      <a
-        class="p-context-nav-item__link"
-        :href="href"
-        :class="{ 'p-context-nav-item--active': isExactActive }"
-        @click="navigate"
-      >
-        <template v-if="icon">
-          <p-icon :icon="icon" class="p-context-nav-item__icon" />
-        </template>
-        <span>{{ title }}</span>
-      </a>
-    </div>
+    <template v-if="icon">
+      <p-icon :icon="icon" class="p-context-nav-item__icon" />
+    </template>
+    <span>{{ title }}</span>
   </router-link>
 </template>
 
@@ -34,34 +25,21 @@
 <style>
 .p-context-nav-item {
   @apply
-  -mx-3
-  py-2
-  px-2
-  border-b
-  border-slate-600
-  first:border-t
-  sm:first:pt-1
-  sm:border-0
-  sm:py-0
-}
-
-.p-context-nav-item__link {
-  @apply
   flex
+  py-2.5
+  px-3
+  rounded-md
   items-center
+  transition
+  duration-200
+  ease-linear
   gap-3
   text-sm
   leading-5
   font-medium
-  py-2.5
-  px-2
-  rounded-md
   hover:bg-slate-600
   active:bg-slate-800
   focus:bg-white/25
-  transition
-  duration-200
-  ease-linear
 }
 
 .p-context-nav-item__icon{
