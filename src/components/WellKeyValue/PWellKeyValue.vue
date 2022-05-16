@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-key-value">
     <div class="p-well-key-value__key">
       {{ wellKey }}
       <slot name="well-key" />
