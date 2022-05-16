@@ -18,7 +18,7 @@
 <script lang="ts" setup>
   import { Icon } from '@/types/icon'
   defineProps<{
-    label: string,
+    label?: string,
     icon?: Icon,
   }>()
 </script>
