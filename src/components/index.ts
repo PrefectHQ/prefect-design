@@ -12,10 +12,10 @@ import { default as PIconText } from './IconText'
 import { default as PLabel } from './Label'
 import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
-import { default as PMenuCard } from './MenuCard'
-import { default as PMenuItem } from './MenuItem'
 import { default as PModal } from './Modal'
 import { default as PNumberInput } from './NumberInput'
+import { default as POverflowMenu } from './OverflowMenu'
+import { default as POverflowMenuItem } from './OverflowMenuItem'
 import { default as PTab } from './Tab'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
@@ -50,8 +50,8 @@ export {
   PTagWrapper,
   PListItem,
   PListItemInput,
-  PMenuCard,
-  PMenuItem
+  POverflowMenu,
+  POverflowMenuItem
 }
 
 export const installs = [
@@ -79,8 +79,8 @@ export const installs = [
   PTabs.install,
   PListItem.install,
   PListItemInput.install,
-  PMenuCard.install,
-  PMenuItem.install,
+  POverflowMenu.install,
+  POverflowMenuItem.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -109,5 +109,7 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTab: typeof PTab,
     PTabs: typeof PTabs,
+    POverflowMenu: typeof POverflowMenu,
+    POverflowMenuItem: typeof POverflowMenuItem,
   }
 }

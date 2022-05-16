@@ -13,6 +13,7 @@
   bg-white
   border-2
   border-gray-200
+
   divide-y-2
   divide-gray-100
 }
