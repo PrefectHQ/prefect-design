@@ -41,7 +41,6 @@
     },
   })
 
-  const selectedMonth = computed(() => selectedDate.value.getMonth())
   const monthOptions = eachMonthOfInterval({ start:startOfYear(new Date()), end: endOfYear(new Date()) }).map(x => ({
     value: x.getMonth(),
     label: format(x, 'MMMM'),
@@ -56,7 +55,8 @@
   }
 
   onMounted(() => {
-    const element = monthElements.value.find(node => node.dataset.month === selectedMonth.value.toString())
+    const selectedMonth = selectedDate.value.getMonth()
+    const element = monthElements.value.find(node => node.dataset.month === selectedMonth.toString())
 
     if (element) {
       nextTick(() => element.parentElement?.focus())

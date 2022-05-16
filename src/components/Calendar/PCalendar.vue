@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, eachDayOfInterval, startOfWeek, endOfWeek, setYear, setMonth, endOfMonth, startOfMonth } from 'date-fns'
+  import { format, eachDayOfInterval, startOfWeek, endOfWeek, endOfMonth, startOfMonth, set } from 'date-fns'
   import { computed } from 'vue'
 
   const props = defineProps<{
@@ -30,7 +30,7 @@
 
   const days = eachDayOfInterval({ start:startOfWeek(new Date()), end: endOfWeek(new Date()) }).map(x => format(x, 'EEEEEE'))
 
-  const selectedDate = computed(() => setMonth(setYear(new Date(), props.year), props.month))
+  const selectedDate = computed(() => set(new Date(), { year: props.year, month: props.month }))
 
   const dates = computed(() => {
     const monthStart = startOfMonth(selectedDate.value)
