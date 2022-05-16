@@ -1,22 +1,24 @@
 <template>
-  <div class="p-date-picker">
+  <div class="p-date-picker" :class="classes.picker">
     <div class="p-date-picker__top-bar">
-      <p-button
-        class="p-date-picker__close-icon"
-        :class="classes.close"
-        size="sm"
-        flat
-        icon="XIcon"
-        @click="closeOverlay"
-      />
-      <p-button
-        class="p-date-picker__previous-icon"
-        :class="classes.previous"
-        size="sm"
-        flat
-        icon="ChevronLeftIcon"
-        @click="viewingDate = addMonths(viewingDate, -1)"
-      />
+      <template v-if="mode">
+        <p-button
+          class="p-date-picker__previous-icon"
+          flat
+          icon="XIcon"
+          size="sm"
+          @click="closeOverlay"
+        />
+      </template>
+      <template v-else>
+        <p-button
+          class="p-date-picker__close-icon"
+          flat
+          icon="ChevronLeftIcon"
+          size="sm"
+          @click="viewingDate = addMonths(viewingDate, -1)"
+        />
+      </template>
       <div class="p-date-picker__title">
         <p-button class="p-date-picker__title-month" flat @click="setMode('month')">
           {{ viewingMonth }}
@@ -27,10 +29,9 @@
       </div>
       <p-button
         class="p-date-picker__next-icon"
-        :class="classes.next"
-        size="sm"
         flat
         icon="ChevronRightIcon"
+        size="sm"
         @click="viewingDate = addMonths(viewingDate, 1)"
       />
     </div>
@@ -42,43 +43,37 @@
             class="p-date-picker__date"
             :class="classes.date(date)"
             :flat="!isSameDay(date, selectedDate)"
-            size="xs"
             :disabled="!!mode"
-            @click="handleDateClick(date)"
+            size="xs"
+            @click="updateSelectedDate(date)"
           >
             {{ date.getDate() }}
           </p-button>
         </template>
       </p-calendar>
 
-      <template v-if="modePickerComponent">
-        <div class="p-date-picker__overlay">
-          <component :is="modePickerComponent" v-model="selectedDate" />
-        </div>
-      </template>
-
-      <div class="p-date-picker__bottom-bar" :class="classes.bottom">
+      <div class="p-date-picker__bottom-bar">
         <template v-if="showTime">
           <p-button class="p-date-picker__time-button" size="sm" flat @click="setMode('time')">
             {{ time }}
           </p-button>
         </template>
-        <p-button
-          class="p-date-picker__today-button"
-          size="sm"
-          flat
-          :disabled="todayDisabled"
-          @click="handleTodayClick"
-        >
+        <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
           {{ showTime ? 'Now' : 'Today' }}
         </p-button>
       </div>
+
+      <template v-if="modePickerComponent">
+        <div class="p-date-picker__overlay">
+          <component :is="modePickerComponent" v-model="selectedDate" @update:model-value="checkCloseOverlay" />
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
@@ -107,7 +102,6 @@
   })
 
   const mode = ref<Mode>(null)
-
   const modePickerComponent = computed(() => {
     switch (mode.value) {
       case 'year':
@@ -132,37 +126,32 @@
   const todayDisabled = computed(() => props.showTime ? isSameMinute(selectedDate.value, new Date()) : isSameDay(selectedDate.value, new Date()))
 
   const classes = computed(() => ({
+    picker: {
+      'p-date-picker__next-icon--overlay-open': !!mode.value,
+    },
     date: (date: Date) => ({
       'p-date-picker__date--today': isSameDay(date, new Date()),
       'p-date-picker__date--selected': isSameDay(date, selectedDate.value),
       'p-date-picker__date--out-of-month': !isSameMonth(date, viewingDate.value),
     }),
-    close: {
-      'p-date-picker__close-icon--hidden': !mode.value,
-    },
-    previous: {
-      'p-date-picker__previous-icon--hidden': !!mode.value,
-    },
-    next: {
-      'p-date-picker__next-icon--hidden': !!mode.value,
-    },
-    bottom: {
-      'p-date-picker__bottom-bar--hidden': !!mode.value,
-    },
   }))
+
+  function checkCloseOverlay(): void {
+    if (mode.value !== 'time') {
+      closeOverlay()
+    }
+  }
 
   function closeOverlay(): void {
     mode.value = null
   }
 
-  function handleDateClick(date: Date): void {
-    const value = new Date(selectedDate.value)
-
-    value.setFullYear(date.getFullYear())
-    value.setMonth(date.getMonth())
-    value.setDate(date.getDate())
-
-    selectedDate.value = value
+  function updateSelectedDate(date: Date): void {
+    selectedDate.value = set(selectedDate.value, {
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      date: date.getDate(),
+    })
   }
 
   function handleTodayClick(): void {
@@ -216,12 +205,8 @@
   p-1
 }
 
-.p-date-picker__previous-icon--hidden,
-.p-date-picker__close-icon--hidden { @apply
-  hidden
-}
-
-.p-date-picker__next-icon--hidden { @apply
+.p-date-picker__next-icon--overlay-open .p-date-picker__next-icon,
+.p-date-picker__next-icon--overlay-open .p-date-picker__bottom-bar { @apply
   invisible
 }
 
@@ -261,10 +246,6 @@
 .p-date-picker__bottom-bar { @apply
   flex
   justify-between
-}
-
-.p-date-picker__bottom-bar--hidden { @apply
-  invisible
 }
 
 .p-date-picker__today-button:only-child {
