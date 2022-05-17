@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
   import { RouteLocationRaw } from 'vue-router'
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
 
   defineProps<{
