@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts">
+  import { format } from 'date-fns'
   import { defineComponent, computed } from 'vue'
 
   export default defineComponent({
@@ -26,7 +27,7 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
-  import { useAdjustedDate, useBrowserDate } from '@/compositions/UseAdjustedDates'
+  import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -44,25 +45,15 @@
     get() {
       const adjustedValue = useAdjustedDate(internalValue)
 
-      return adjustedValue.value ? getStringValue(adjustedValue.value) : null
+      return adjustedValue.value ? format(adjustedValue.value, 'yyyy-MM-dd') : null
     },
     set(value: string | null) {
-      emits('update:modelValue', value ? useBrowserDate(new Date(value)) : null)
+      emits('update:modelValue', value ? useUnadjustedDate(new Date(value)) : null)
     },
   })
 
-  const stringMin = computed(() => props.min ? getStringValue(useAdjustedDate(props.min)) : undefined)
-  const stringMax = computed(() => props.max ? getStringValue(useAdjustedDate(props.max)) : undefined)
-
-  function getStringValue(date: Date): string {
-    const parts = [
-      String(date.getUTCFullYear()).padStart(4, '0'),
-      String(date.getUTCMonth() + 1).padStart(2, '0'),
-      String(date.getUTCDate()).padStart(2, '0'),
-    ]
-
-    return parts.join('-')
-  }
+  const stringMin = computed(() => props.min ? format(useAdjustedDate(props.min), 'yyyy-MM-dd') : undefined)
+  const stringMax = computed(() => props.max ? format(useAdjustedDate(props.max), 'yyyy-MM-dd') : undefined)
 </script>
 
 <style>
