@@ -45,7 +45,6 @@
   }
 
   .p-empty-state__icon { @apply
-    mx-auto
     text-gray-400
     flex
     items-center
