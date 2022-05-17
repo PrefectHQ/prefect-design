@@ -26,7 +26,7 @@
 
   <script lang="ts" setup>
   import Section from '../components/Section.vue'
-  import { PEmptyState } from '@/components'
-  </script>
+  import { PEmptyState, PButton, PIcon } from '@/components'
+</script>
 
 
