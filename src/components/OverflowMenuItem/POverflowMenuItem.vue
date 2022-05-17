@@ -25,14 +25,14 @@
 
 <style>
 .p-menu-item { @apply
-  p-2
+  p-3
   font-normal
   text-gray-900
-  p-4
   text-sm
   flex
   items-center
   w-full
+  hover:bg-gray-100
 }
 
 .p-menu-item__icon { @apply

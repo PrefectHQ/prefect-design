@@ -3,14 +3,14 @@
     <slot name="target" v-bind="{ open, close, toggle }" />
   </div>
   <teleport v-if="visible" :to="to">
-    <div ref="content" :style="styles">
+    <div ref="content" class="p-pop-over-content" :style="styles">
       <slot v-bind="{ close }" />
     </div>
   </teleport>
 </template>
 
 <script lang="ts">
-  import { defineComponent, withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
+  import { defineComponent, withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted, defineExpose } from 'vue'
 
   export default defineComponent({
     name: 'PPopOver',
@@ -36,6 +36,12 @@
   const emit = defineEmits<{
     (event: 'open', value: boolean): void,
   }>()
+
+  defineExpose({
+    open,
+    close,
+    toggle,
+  })
 
   const attrs = useAttrs()
 
@@ -78,3 +84,9 @@
 
   watch(visible, value => emit('open', value))
 </script>
+
+<style>
+.p-pop-over-content {
+  z-index: var(--p-pop-over-content-z-index, 100)
+}
+</style>
