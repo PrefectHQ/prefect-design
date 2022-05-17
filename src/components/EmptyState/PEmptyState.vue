@@ -13,8 +13,8 @@
     <p class="p-empty-state__description">
       <slot name="description" />
     </p>
-    <div class="p-empty-state__action">
-      <slot name="action" />
+    <div class="p-empty-state__actions">
+      <slot name="actions" />
     </div>
   </div>
 </template>
@@ -55,7 +55,7 @@
     mt-2
   }
 
-  .p-empty-state__action { @apply
+  .p-empty-state__actions { @apply
     mt-6
   }
   </style>
