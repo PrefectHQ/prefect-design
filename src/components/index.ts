@@ -9,6 +9,7 @@ import { default as PGlobalNavItem } from './GlobalNavItem'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PIcon } from './Icon'
 import { default as PIconText } from './IconText'
+import { default as PKeyValue } from './KeyValue'
 import { default as PLabel } from './Label'
 import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
@@ -24,7 +25,6 @@ import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
 import { default as PToast } from './Toast'
 import { default as PToggle } from './Toggle'
-import { default as PWellKeyValue } from './WellKeyValue'
 
 export {
   PBreadCrumbs,
@@ -51,7 +51,7 @@ export {
   PTagWrapper,
   PListItem,
   PListItemInput,
-  PWellKeyValue,
+  PKeyValue,
   POverflowMenu,
   POverflowMenuItem
 }
@@ -81,7 +81,7 @@ export const installs = [
   PTabs.install,
   PListItem.install,
   PListItemInput.install,
-  PWellKeyValue.install,
+  PKeyValue.install,
   POverflowMenu.install,
   POverflowMenuItem.install,
 ]
@@ -112,7 +112,7 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTab: typeof PTab,
     PTabs: typeof PTabs,
-    PWellKeyValue: typeof PWellKeyValue,
+    PKeyValue: typeof PKeyValue,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
   }

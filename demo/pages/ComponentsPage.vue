@@ -16,7 +16,7 @@
 
           <BreadCrumbsSection />
 
-          <WellKeyValueSection />
+          <KeyValueSection />
 
           <ButtonsSection />
 
@@ -56,6 +56,7 @@
   import FormsSection from '../sections/FormsSection.vue'
   import IconsSection from '../sections/IconsSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
+  import KeyValueSection from '../sections/KeyValueSection.vue'
   import ListItemsSection from '../sections/ListItemsSection.vue'
   import ModalsSection from '../sections/ModalsSection.vue'
   import OverflowMenuSection from '../sections/OverflowMenuSection.vue'
@@ -66,5 +67,4 @@
   import ToastsSection from '../sections/ToastsSection.vue'
   import TogglesSection from '../sections/TogglesSection.vue'
   import TypographySection from '../sections/TypographySection.vue'
-  import WellKeyValueSection from '../sections/WellKeyValueSection.vue'
 </script>

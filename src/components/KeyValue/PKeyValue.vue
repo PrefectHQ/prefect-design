@@ -1,25 +1,27 @@
 <template>
   <div class="p-key-value">
-    <div class="p-key-value__key">
-      {{ wellKey }}
-      <slot name="well-key" />
+    <div class="p-key-value__label">
+      <slot name="label">
+        {{ label }}
+      </slot>
     </div>
     <div class="p-key-value__value">
-      {{ wellValue }}
-      <slot name="well-value" />
+      <slot name="value">
+        {{ value }}
+      </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
   defineProps<{
-    wellKey?: string,
-    wellValue?: string,
+    label?: string,
+    value?: string,
   }>()
 </script>
 
 <style>
-.p-key-value__key {
+.p-key-value__label {
   @apply
   text-xs
   leading-4

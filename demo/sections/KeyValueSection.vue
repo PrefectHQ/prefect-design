@@ -1,17 +1,17 @@
 <template>
   <Section heading="Well Key/Value">
-    <p-well-key-value well-key="Flow Run ID" well-value="3fa85f64" />
+    <p-key-value label="Flow Run ID" value="3fa85f64" />
     <br>
-    <p-well-key-value>
-      <template #well-key>
+    <p-key-value>
+      <template #label>
         <div class="text-pink-400 uppercase">
           Created
         </div>
       </template>
-      <template #well-value>
+      <template #value>
         {{ new Date().toISOString().slice(0, 10) }}
       </template>
-    </p-well-key-value>
+    </p-key-value>
   </Section>
 </template>
 
