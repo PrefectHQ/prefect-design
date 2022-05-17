@@ -1,19 +1,17 @@
 <template>
   <div class="p-year-picker">
     <div ref="topElement" class="p-year-picker__observer" data-target="top" />
-    <div class="p-year-picker-years">
-      <template v-for="(year, index) in years" :key="year">
-        <button type="button" :tabindex="index" class="p-year-picker__year" :class="classes.year(year)" @click="setYear(year)">
-          <span ref="yearElements" :data-year="year">{{ year }}</span>
-        </button>
-      </template>
-    </div>
+    <template v-for="(year, index) in years" :key="year">
+      <button type="button" class="p-year-picker__year" :tabindex="index" :class="classes.year(year)" @click="updateSelectedDate(year)">
+        <span ref="yearElements" :data-year="year">{{ year }}</span>
+      </button>
+    </template>
     <div ref="bottomElement" class="p-year-picker__observer" data-target="bottom" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { startOfDay } from 'date-fns'
+  import { setYear, startOfDay } from 'date-fns'
   import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
 
   const props = defineProps<{
@@ -59,12 +57,8 @@
     }),
   }))
 
-  function setYear(year: number): void {
-    const value = new Date(selectedDate.value)
-
-    value.setFullYear(year)
-
-    selectedDate.value = value
+  function updateSelectedDate(year: number): void {
+    selectedDate.value = setYear(selectedDate.value, year)
   }
 
   function handleIntersection([entry]: IntersectionObserverEntry[]): void {
@@ -112,18 +106,18 @@
 
 <style>
 .p-year-picker { @apply
-  h-full
-}
-
-.p-year-picker-years { @apply
   flex
   flex-col
-  justify-center
   gap-2
+  snap-y
+  px-4
+  py-3
+  overflow-y-auto
 }
 
 .p-year-picker__year { @apply
   text-center
+  snap-center
   py-1
   px-2
   text-sm
@@ -140,5 +134,10 @@
   text-white
   bg-prefect-600
   hover:bg-prefect-800
+}
+
+.p-year-picker__observer { @apply
+  snap-center
+  p-1
 }
 </style>

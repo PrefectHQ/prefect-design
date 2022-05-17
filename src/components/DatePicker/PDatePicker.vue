@@ -81,7 +81,7 @@
 
 <script lang="ts" setup>
   import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set } from 'date-fns'
-  import { computed, ref, watch } from 'vue'
+  import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
@@ -123,9 +123,9 @@
     }
   })
 
-  const viewingDate = ref(startOfDay(selectedDate.value ?? new Date()))
+  const viewingDate = ref(new Date())
 
-  watch(selectedDate, () => viewingDate.value = startOfDay(selectedDate.value ?? new Date()))
+  watchEffect(() => viewingDate.value = startOfDay(selectedDate.value ?? new Date()))
 
   const viewingMonth = computed(() => format(viewingDate.value, 'MMMM'))
   const viewingYear = computed(() => format(viewingDate.value, 'yyyy'))
@@ -235,16 +235,13 @@
 
 .p-date-picker__overlay { @apply
   absolute
+  left-0
   top-0
+  right-0
   bottom-0
-  w-full
   flex
   justify-center
-  items-center
   bg-white/[.95]
-  px-4
-  py-3
-  overflow-y-auto
 }
 
 .p-date-picker__date { @apply
