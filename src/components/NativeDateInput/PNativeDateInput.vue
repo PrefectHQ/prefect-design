@@ -55,8 +55,8 @@
     },
   })
 
-  const stringMin = computed(() => props.min ? format(useAdjustedDate(props.min), 'yyyy-MM-dd') : undefined)
-  const stringMax = computed(() => props.max ? format(useAdjustedDate(props.max), 'yyyy-MM-dd') : undefined)
+  const stringMin = computed(() => props.min ? format(props.min, 'yyyy-MM-dd') : undefined)
+  const stringMax = computed(() => props.max ? format(props.max, 'yyyy-MM-dd') : undefined)
 </script>
 
 <style>
