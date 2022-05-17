@@ -8,6 +8,9 @@
       <p-button inset>
         inset
       </p-button>
+      <p-button flat>
+        flat
+      </p-button>
     </div>
 
     <div class="flex flex-wrap items-start gap-2 mb-4">
@@ -22,18 +25,24 @@
       <p-button inset icon="BeakerIcon">
         icon with text
       </p-button>
+
+      <p-button flat icon="BeakerIcon">
+        icon with text
+      </p-button>
     </div>
 
     <div class="flex flex-wrap items-start gap-2 mb-4">
       <p-button icon="BeakerIcon" />
       <p-button secondary icon="BeakerIcon" />
       <p-button inset icon="BeakerIcon" />
+      <p-button flat icon="BeakerIcon" />
     </div>
 
     <div class="flex flex-wrap items-start gap-2 mb-4">
       <p-button rounded icon="BeakerIcon" />
       <p-button secondary rounded icon="BeakerIcon" />
       <p-button inset rounded icon="BeakerIcon" />
+      <p-button flat rounded icon="BeakerIcon" />
     </div>
 
     <div class="flex flex-wrap items-start gap-2 mb-4">
@@ -69,7 +78,8 @@
       <p-button disabled secondary icon="BeakerIcon">
         disabled secondary with icon
       </p-button>
-      <p-button disabled inset rounded icon="BeakerIcon" />
+      <p-button disabled inset icon="BeakerIcon" />
+      <p-button disabled flat icon="BeakerIcon" />
     </div>
   </Section>
 </template>

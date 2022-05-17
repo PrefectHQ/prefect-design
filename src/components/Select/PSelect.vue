@@ -176,7 +176,7 @@
       const index = internalValue.value.indexOf(newValue)
 
       if (index > -1) {
-        internalValue.value.splice(index, 1)
+        internalValue.value = [...internalValue.value.slice(0, index), ...internalValue.value.slice(index + 1)]
       } else {
         internalValue.value = [...internalValue.value, newValue]
       }
