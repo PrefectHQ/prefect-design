@@ -34,7 +34,8 @@
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
   function setChildIsVisible(child: HTMLElement): boolean {
-    const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
+    const containerWidth = container.value?.offsetWidth ?? 0
+
     const overflowTagWidth = overflowTag.value.children[0].clientWidth ?? 55
 
     if (child.classList.contains('p-tag-wrapper__tag--hidden')) {
