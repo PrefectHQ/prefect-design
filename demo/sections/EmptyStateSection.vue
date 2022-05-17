@@ -1,5 +1,5 @@
 <template>
-  <Section heading="Empty States">
+  <Section heading="Empty State">
     <p-empty-state>
       <template #icon>
         <p-icon icon="ViewGridIcon" class="w-14 h-14" />
