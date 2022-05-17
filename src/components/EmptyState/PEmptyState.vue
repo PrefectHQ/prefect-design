@@ -28,7 +28,8 @@
     bg-white
     rounded-lg
     shadow-sm
-    p-32
+    p-20
+    max-h-96
   }
 
   .p-empty-state__icon { @apply
