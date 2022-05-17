@@ -1,10 +1,10 @@
 <template>
   <div class="p-key-value">
-    <div class="p-well-key-value__key">
+    <div class="p-key-value__key">
       {{ wellKey }}
       <slot name="well-key" />
     </div>
-    <div class="p-well-key-value__value">
+    <div class="p-key-value__value">
       {{ wellValue }}
       <slot name="well-value" />
     </div>
@@ -19,7 +19,7 @@
 </script>
 
 <style>
-.p-well-key-value__key {
+.p-key-value__key {
   @apply
   text-xs
   leading-4
@@ -27,7 +27,7 @@
   text-slate-400
 }
 
-.p-well-key-value__value {
+.p-key-value__value {
   @apply
   text-xs
   leading-4
