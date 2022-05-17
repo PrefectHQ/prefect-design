@@ -110,8 +110,8 @@ export function useMostVisiblePositionStyles(
 
 function getPositionVisibility(content: Element, container: Element, position: Position): number {
   const rect = getDomRectForPosition(content, container, position)
-  const visibleWidth = Math.min(rect.right, window.scrollX + window.innerWidth) - Math.max(rect.left, 0)
-  const visibleHeight = Math.min(rect.bottom, window.scrollY + window.innerHeight) - Math.max(rect.top, 0)
+  const visibleWidth = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0)
+  const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)
   const visibleArea = visibleWidth * visibleHeight
   const totalArea = rect.width * rect.height
 

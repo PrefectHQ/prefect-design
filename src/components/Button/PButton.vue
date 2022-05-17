@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="p-button" :class="classes" :disabled="disabled">
+  <button ref="el" type="button" class="p-button" :class="classes" :disabled="disabled">
     <div v-if="icon" class="p-button__icon">
       <p-icon :icon="icon" />
     </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots, PropType } from 'vue'
+  import { computed, useSlots, PropType, ref, defineExpose } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
@@ -32,6 +32,11 @@
   })
 
   const slots = useSlots()
+  const el = ref<HTMLButtonElement>()
+
+  defineExpose({
+    el,
+  })
 
   const classes = computed(() => ({
     'p-button--primary': buttonClass.value === 'primary',

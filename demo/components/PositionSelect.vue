@@ -6,7 +6,7 @@
   import { computed } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { PositionMethod } from '@/types/position'
-  import { left, right, bottom, top } from '@/utilities/position'
+  import { left, right, bottom, top, topRight, bottomRight, topLeft, bottomLeft } from '@/utilities/position'
 
   const props = defineProps<{
     // using any because vue's type warnings for props is dumb...
@@ -23,6 +23,10 @@
     ['right', right],
     ['bottom', bottom],
     ['top', top],
+    ['top right', topRight],
+    ['bottom right', bottomRight],
+    ['top left', topLeft],
+    ['bottom left', bottomLeft],
   ])
 
   const functionToKey = new Map([
@@ -30,6 +34,10 @@
     [right, 'right'],
     [bottom, 'bottom'],
     [top, 'top'],
+    [topRight, 'top right'],
+    [bottomRight, 'bottom right'],
+    [topLeft, 'top left'],
+    [bottomLeft, 'bottom left'],
   ])
 
   const options = Array.from(keyToFunction.keys())
