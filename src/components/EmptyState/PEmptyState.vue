@@ -13,7 +13,7 @@
     <p class="p-empty-state__description">
       <slot name="description" />
     </p>
-    <div class="mt-6">
+    <div class="p-empty-state__action">
       <slot name="action" />
     </div>
   </div>
