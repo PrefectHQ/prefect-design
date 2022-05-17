@@ -2,9 +2,9 @@
   <Section heading="Empty States">
     <p-empty-state>
       <template #icon>
-        <p-icon icon="ViewGridIcon" class="w-10 h-10 text-gray-400" />
-        <p-icon icon="DotsHorizontalIcon" class="w-10 h-10 text-gray-400" />
-        <p-icon icon="UserIcon" class="w-10 h-10 text-gray-400" />
+        <p-icon icon="ViewGridIcon" class="w-11 h-11" />
+        <p-icon icon="DotsHorizontalIcon" class="w-11 h-11" />
+        <p-icon icon="UserIcon" class="w-11 h-11" />
       </template>
 
       <template #heading>

@@ -1,18 +1,19 @@
 <template>
-  <div class="p-empty-state">
-    <div class="p-empty-state__icon">
+  <div
+    class="p-empty-state"
+  >
+    <div class="p-empty-state__icon ">
       <slot name="icon" />
     </div>
 
-    <div class="p-empty-state__heading">
+    <h3 class="p-empty-state__heading">
       <slot name="heading" />
-    </div>
+    </h3>
 
-    <div class="p-empty-state__description">
+    <p class="p-empty-state__description">
       <slot name="description" />
-    </div>
-
-    <div>
+    </p>
+    <div class="mt-6">
       <slot name="action" />
     </div>
   </div>
@@ -21,27 +22,25 @@
 
   <style>
   .p-empty-state { @apply
+    text-center
     border-2
     border-gray-300
     bg-white
     rounded-lg
     shadow-sm
     p-32
-    flex
-    flex-col
-    justify-center
-    text-center
-    gap-y-5
   }
 
   .p-empty-state__icon { @apply
+    mx-auto
+    text-gray-400
     flex
     items-center
     justify-center
-    gap-x-5
   }
 
   .p-empty-state__heading { @apply
+    mt-9
     text-gray-900
     text-2xl
     font-bold
@@ -51,5 +50,10 @@
     text-gray-500
     text-base
     font-normal
+    mt-2
+  }
+
+  .p-empty-state__action { @apply
+    mt-6
   }
   </style>
