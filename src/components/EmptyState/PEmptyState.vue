@@ -37,6 +37,7 @@
     flex
     items-center
     justify-center
+    gap-x-4
   }
 
   .p-empty-state__heading { @apply
