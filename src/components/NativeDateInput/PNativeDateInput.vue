@@ -1,5 +1,5 @@
 <template>
-  <div class="p-date-input">
+  <div class="p-date-input" :class="classes" :style="styles">
     <span class="p-date-input__icon">
       <p-icon icon="CalendarIcon" />
     </span>
@@ -9,7 +9,7 @@
       class="p-date-input__control"
       :min="stringMin"
       :max="stringMax"
-      v-bind="$attrs"
+      v-bind="attrs"
     >
   </div>
 </template>
@@ -27,6 +27,7 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
+  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
 
   const props = defineProps<{
@@ -38,6 +39,8 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
   }>()
+
+  const { classes, styles, attrs } = useAttrsStylesAndClasses()
 
   const internalValue = computed(() => props.modelValue ?? null)
 
