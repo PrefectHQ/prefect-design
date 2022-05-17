@@ -29,7 +29,6 @@
     rounded-lg
     shadow-sm
     p-20
-    max-h-96
   }
 
   .p-empty-state__icon { @apply
