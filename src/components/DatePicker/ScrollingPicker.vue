@@ -1,11 +1,11 @@
 <template>
   <div class="scrolling-picker">
     <div ref="topElement" class="scrolling-picker__observer" data-target="top" />
-    <template v-for="(option, index) in selectOptions" :key="option.value">
+    <template v-for="option in selectOptions" :key="option.value">
       <button
         type="button"
         class="scrolling-picker__option"
-        :tabindex="index"
+        :tabindex="1"
         :class="classes.option(option)"
         @click="internalValue = option.value"
       >
@@ -23,6 +23,7 @@
   const props = defineProps<{
     modelValue: string | number | null | undefined,
     options: (string | number | SelectOption)[],
+    preventFocus?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -93,7 +94,7 @@
       observer.observe(bottomElement.value)
     }
 
-    if (element) {
+    if (element && !props.preventFocus) {
       element.parentElement?.focus()
     }
   })
