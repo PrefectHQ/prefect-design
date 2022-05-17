@@ -9,6 +9,7 @@ import { default as PGlobalNavItem } from './GlobalNavItem'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PIcon } from './Icon'
 import { default as PIconText } from './IconText'
+import { default as PKeyValue } from './KeyValue'
 import { default as PLabel } from './Label'
 import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
@@ -50,6 +51,7 @@ export {
   PTagWrapper,
   PListItem,
   PListItemInput,
+  PKeyValue,
   POverflowMenu,
   POverflowMenuItem
 }
@@ -79,6 +81,7 @@ export const installs = [
   PTabs.install,
   PListItem.install,
   PListItemInput.install,
+  PKeyValue.install,
   POverflowMenu.install,
   POverflowMenuItem.install,
 ]
@@ -109,6 +112,7 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTab: typeof PTab,
     PTabs: typeof PTabs,
+    PKeyValue: typeof PKeyValue,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
   }
