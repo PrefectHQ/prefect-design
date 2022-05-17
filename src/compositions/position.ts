@@ -27,7 +27,7 @@ export function usePosition(
     observeTemplateRefs(observer, [target, content, container])
   })
 
-  useOnUnmountedIfComponentIsDetected(observer.disconnect)
+  useOnUnmountedIfComponentIsDetected(() => observer.disconnect())
 
   return {
     target,
@@ -81,7 +81,7 @@ export function useMostVisiblePosition(
     observeTemplateRefs(observer, [target, content, container])
   })
 
-  useOnUnmountedIfComponentIsDetected(observer.disconnect)
+  useOnUnmountedIfComponentIsDetected(() => observer.disconnect())
 
   return {
     target,
