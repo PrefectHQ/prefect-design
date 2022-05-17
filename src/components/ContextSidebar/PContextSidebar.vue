@@ -18,26 +18,25 @@
   sticky
   top-0
   w-screen
-  pl-3
-  pr-7
+  px-3
+  py-2
   z-10
   sm:flex
   sm:h-screen
   sm:w-64
   sm:flex-col
-  sm:py-5
-  sm:px-3
 }
 
 .p-context-sidebar__nav-items {
   @apply
   flex
   flex-col
-  sm:gap-1
+  gap-1
 }
 
 .p-context-sidebar__nav-items--bottom {
   @apply
-  mt-auto
+  sm:mt-auto
+  mt-1
 }
 </style>
