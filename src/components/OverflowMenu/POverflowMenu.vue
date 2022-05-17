@@ -1,11 +1,11 @@
 <template>
-  <div class="p-menu-card">
+  <div class="p-overflow-menu">
     <slot />
   </div>
 </template>
 
 <style>
-.p-menu-card { @apply
+.p-overflow-menu { @apply
   w-auto
   inline-block
   rounded-md

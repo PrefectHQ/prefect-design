@@ -43,6 +43,8 @@
           <ListItemsSection />
 
           <OverflowMenuSection />
+
+          <IconButtonMenuSection />
         </div>
       </main>
     </div>
@@ -54,6 +56,7 @@
   import ButtonsSection from '../sections/ButtonsSection.vue'
   import CodeSection from '../sections/CodeSection.vue'
   import FormsSection from '../sections/FormsSection.vue'
+  import IconButtonMenuSection from '../sections/IconButtonMenuSection.vue'
   import IconsSection from '../sections/IconsSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
   import KeyValueSection from '../sections/KeyValueSection.vue'

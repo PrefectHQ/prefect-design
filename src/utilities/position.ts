@@ -39,3 +39,43 @@ export const left: PositionMethod = function(target: DOMRect, content: DOMRect, 
     left,
   }
 }
+
+export const topRight: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
+  const top = target.top - container.top - content.height
+  const left = target.right - container.left - content.width
+
+  return {
+    top,
+    left,
+  }
+}
+
+export const bottomRight: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
+  const top = target.top - container.top + target.height
+  const left = target.right - container.left - content.width
+
+  return {
+    top,
+    left,
+  }
+}
+
+export const topLeft: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
+  const top = target.top - container.top - content.height
+  const left = target.right - container.left - target.width
+
+  return {
+    top,
+    left,
+  }
+}
+
+export const bottomLeft: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
+  const top = target.top - container.top + target.height
+  const left = target.right - container.left - target.width
+
+  return {
+    top,
+    left,
+  }
+}
