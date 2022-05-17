@@ -43,6 +43,8 @@
           <ListItemsSection />
 
           <OverflowMenuSection />
+
+          <EmptyStateSection />
         </div>
       </main>
     </div>
@@ -53,6 +55,7 @@
   import BreadCrumbsSection from '../sections/BreadCrumbsSection.vue'
   import ButtonsSection from '../sections/ButtonsSection.vue'
   import CodeSection from '../sections/CodeSection.vue'
+  import EmptyStateSection from '../sections/EmptyStateSection.vue'
   import FormsSection from '../sections/FormsSection.vue'
   import IconsSection from '../sections/IconsSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
