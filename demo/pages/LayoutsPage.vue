@@ -30,10 +30,3 @@
   import SidebarLayoutSection from '../sections/SidebarLayoutSection.vue'
   import WellLayoutSection from '../sections/WellLayoutSection.vue'
 </script>
-
-
-  <style>
-  .layout-resizable-section { @apply
-  h-[400px];
-  }
-  </style>
