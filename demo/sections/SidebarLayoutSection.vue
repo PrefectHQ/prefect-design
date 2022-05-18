@@ -1,15 +1,18 @@
 <template>
-  <resizable-section>
-    <div class="layout">
-      <p-global-sidebar class="layout__nav-1" />
-      <p-context-sidebar class="layout__nav-2" />
-      <div class="layout__content" />
-    </div>
-  </resizable-section>
+  <Section heading="Sidebar Layout">
+    <resizable-section class="h-[400px]">
+      <div class="layout">
+        <p-global-sidebar class="layout__nav-1" />
+        <p-context-sidebar class="layout__nav-2" />
+        <div class="layout__content" />
+      </div>
+    </resizable-section>
+  </Section>
 </template>
 
 <script lang="ts" setup>
   import ResizableSection from '../components/ResizableSection.vue'
+  import Section from '../components/Section.vue'
 </script>
 
 

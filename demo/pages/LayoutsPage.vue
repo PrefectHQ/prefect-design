@@ -3,18 +3,20 @@
     <div class="py-10 px-10">
       <header>
         <div>
-          <h1 class="text-3xl font-bold leading-tight text-gray-900 mb-10">
+          <h1 class="text-3xl font-bold leading-tight text-gray-900">
             Layouts
           </h1>
         </div>
       </header>
       <main>
-        <div class="flex flex-col gap-14">
-          <sidebar-layout-section class="layout-resizable-section" />
+        <div class="">
+          <sidebar-layout-section />
 
-          <default-layout-section class="layout-resizable-section" />
+          <default-layout-section />
 
-          <well-layout-section class="layout-resizable-section" />
+          <well-layout-section />
+
+          <full-layout-section />
         </div>
       </main>
     </div>
@@ -24,6 +26,7 @@
 
 <script lang="ts" setup>
   import DefaultLayoutSection from '../sections/DefaultLayoutSection.vue'
+  import FullLayoutSection from '../sections/FullLayoutSection.vue'
   import SidebarLayoutSection from '../sections/SidebarLayoutSection.vue'
   import WellLayoutSection from '../sections/WellLayoutSection.vue'
 </script>
