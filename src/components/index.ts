@@ -4,6 +4,7 @@ import { default as PCheckbox } from './Checkbox'
 import { default as PCode } from './Code'
 import { default as PContextNavItem } from './ContextNavItem'
 import { default as PContextSidebar } from './ContextSidebar'
+import { default as PEmptyState } from './EmptyState'
 import { default as PForm } from './Form'
 import { default as PGlobalNavItem } from './GlobalNavItem'
 import { default as PGlobalSidebar } from './GlobalSidebar'
@@ -53,7 +54,8 @@ export {
   PListItemInput,
   PKeyValue,
   POverflowMenu,
-  POverflowMenuItem
+  POverflowMenuItem,
+  PEmptyState
 }
 
 export const installs = [
@@ -84,6 +86,7 @@ export const installs = [
   PKeyValue.install,
   POverflowMenu.install,
   POverflowMenuItem.install,
+  PEmptyState.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -115,5 +118,6 @@ declare module '@vue/runtime-core' {
     PKeyValue: typeof PKeyValue,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
+    PEmptyState: typeof PEmptyState,
   }
 }

@@ -82,9 +82,10 @@
     doc.close()
 
 
-    const styles = document.getElementsByTagName('style')
-    for (const style of styles) {
-      const styleElement = style.cloneNode(true)
+    const styles = Array.from(document.getElementsByTagName('style'))
+    const links = Array.from(document.getElementsByTagName('link'))
+    for (const el of styles.concat(links)) {
+      const styleElement = el.cloneNode(true)
       doc.head.appendChild(styleElement)
     }
 
@@ -93,7 +94,7 @@
 
 <style>
 .resizable-section { @apply
-  min-h-[200px] w-full flex relative rounded-lg overflow-hidden ring-1 ring-gray-900 ring-opacity-5;
+  min-h-[100px] w-full flex relative rounded-lg overflow-hidden ring-1 ring-gray-900 ring-opacity-5;
 }
 
 .resizable-section__content { @apply
