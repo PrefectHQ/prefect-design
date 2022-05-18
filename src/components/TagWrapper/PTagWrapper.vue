@@ -1,10 +1,10 @@
 <template>
   <div ref="container" class="p-tag-wrapper">
-    <div class="p-tag-wrapper__tag-container">
+    <div class="p-tag-wrapper__tag-container" :class="classes.tagContainer">
       <slot>
         <template v-for="tag in tags">
           <slot name="tag" :tag="tag">
-            <p-tag>
+            <p-tag class="p-tag-wrapper__tag" :class="classes.tag">
               {{ tag }}
             </p-tag>
           </slot>
@@ -27,12 +27,22 @@
   import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
   import { PTag } from '@/components/Tag'
 
-  defineProps<{
+  const props = defineProps<{
     tags?: string[],
+    justify?: 'left' | 'center' | 'right',
   }>()
   const container: Ref<HTMLDivElement | undefined> = ref()
   const overflowChildren = ref(1)
   const overflowTag = ref()
+
+  const classes = computed(() => {
+    return {
+      tag: [`p-tag-wrapper__tag--${props.justify ?? 'left'}`],
+      tagContainer:
+        [`p-tag-wrapper__tag-container--${props.justify ?? 'left'}`],
+
+    }
+  })
 
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
@@ -108,12 +118,24 @@
   whitespace-nowrap;
 }
 
-.p-tag-wrapper__tag--hidden {
-  display: none !important;
+.p-tag-wrapper__tag--hidden { @apply
+  !hidden;
 }
 
 .p-tag-wrapper__tag--invisible {
   visibility: hidden !important;
+}
+
+.p-tag-wrapper__tag--right { @apply
+  ml-1;
+}
+
+.p-tag-wrapper__tag--center { @apply
+  mx-[0.125rem];
+}
+
+.p-tag-wrapper__tag--left { @apply
+  mr-1;
 }
 
 .p-tag-wrapper__tag-overflow {
@@ -126,5 +148,17 @@
   top-0
   w-full
   h-full;
+}
+
+.p-tag-wrapper__tag-container--right { @apply
+  text-right
+}
+
+.p-tag-wrapper__tag-container--center { @apply
+  text-center
+}
+
+.p-tag-wrapper__tag-container--left { @apply
+  text-left
 }
 </style>
