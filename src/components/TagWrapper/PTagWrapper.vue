@@ -61,10 +61,10 @@
       ) as HTMLElement[]
 
     const containerBoundingBox = container.value!.getBoundingClientRect()
-    const overflowTagWidth = overflowTag.value.offsetWidth ?? 55
 
     let overflowed = false
-    let overflowLen = children.length
+
+    overflowChildren.value = children.length
     let tagsWidth = 0
     let largestChildHeight = overflowTag.value.offsetHeight
 
@@ -77,7 +77,7 @@
         child.classList.remove('p-tag-wrapper__tag--invisible')
       } else {
         const boundingBox = child.getBoundingClientRect()
-        overflowed = tagsWidth + boundingBox.width  >= containerBoundingBox.width - overflowTagWidth
+        overflowed = tagsWidth + boundingBox.width  >= containerBoundingBox.width - (overflowTag.value.offsetWidth ?? 55)
 
         if (overflowed) {
           child.classList.add('p-tag-wrapper__tag--hidden')
@@ -88,12 +88,10 @@
 
           tagsWidth = tagsWidth + boundingBox.width
           largestChildHeight = Math.max(largestChildHeight, boundingBox.height)
-          overflowLen--
+          overflowChildren.value--
         }
       }
     }
-
-    overflowChildren.value = overflowLen
 
     if (container.value) {
       container.value.style.height = `${largestChildHeight}px`
