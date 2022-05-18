@@ -14,7 +14,7 @@
       <ResizableSection>
         <div class="bg-slate-200 absolute h-full left-[50px] right-[50px]" />
         <div class="bg-white px-[50px]">
-          <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="center" />
+          <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="left" />
 
           <p-tag-wrapper class="h-[48px]" :tags="numberArr">
             <template #tag="{ tag }">
