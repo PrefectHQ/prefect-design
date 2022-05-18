@@ -14,7 +14,7 @@
       </slot>
 
 
-      <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag">
+      <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag" :title="hiddenText">
         <slot name="overflow-tags" :overflowed-children="overflowChildren">
           <p-tag>
             +{{ overflowChildren }}
@@ -37,6 +37,7 @@
   const ready = ref(false)
   const overflowChildren = ref(0)
   const overflowTag: Ref<HTMLDivElement | undefined> =  ref()
+  const hiddenText = ref('')
 
   const classes = computed(() => {
     return {
@@ -64,6 +65,7 @@
       ) as HTMLElement[]
 
     const containerBoundingBox = container.value!.getBoundingClientRect()
+    const hiddenChildTexts = []
 
     let overflowed = false
 
@@ -81,6 +83,7 @@
       if (overflowed) {
         child.classList.add(hiddenClass)
         child.classList.remove(invisibleClass)
+        hiddenChildTexts.push(child.innerText)
       } else {
         const boundingBox = child.getBoundingClientRect()
         overflowed = tagsWidth + boundingBox.width >= containerBoundingBox.width
@@ -88,6 +91,7 @@
         if (overflowed) {
           child.classList.add(hiddenClass)
           child.classList.remove(invisibleClass)
+          hiddenChildTexts.push(child.innerText)
         } else {
           child.classList.remove(invisibleClass)
           child.classList.remove(hiddenClass)
@@ -105,22 +109,24 @@
       let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
       let totalWidth = tagsWidth + overflowBoundingBox.width
       if (totalWidth > containerBoundingBox.width) {
-        console.log(totalWidth, containerBoundingBox.width)
         const visibleChildren = children.filter(child => !child.classList.contains(hiddenClass)).reverse()
-        console.log(visibleChildren)
-        for (const child of visibleChildren) {
-          overflowChildren.value++
-          child.classList.add(hiddenClass)
 
+        reverse: for (const child of visibleChildren) {
+          overflowChildren.value++
           const boundingBox = child.getBoundingClientRect()
           tagsWidth -= boundingBox.width
           overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
-          totalWidth = tagsWidth + overflowBoundingBox.width
 
-          const overflow = totalWidth - boundingBox.width > containerBoundingBox.width
+          totalWidth = tagsWidth + overflowBoundingBox.width
+          const overflow = totalWidth > containerBoundingBox.width
+
+          child.classList.add(hiddenClass)
+          hiddenChildTexts.unshift(child.innerText)
 
           if (overflow) {
-            break
+            continue reverse
+          } else {
+            break reverse
           }
         }
       }
@@ -129,6 +135,8 @@
     if (container.value) {
       container.value.style.height = `${largestChildHeight}px`
     }
+
+    hiddenText.value = hiddenChildTexts.join(', ')
 
     ready.value = true
   }
