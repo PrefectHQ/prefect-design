@@ -4,14 +4,19 @@
     :model-value="selectedYear"
     :options="years"
     @update:model-value="updateSelectedDate"
-    @scroll-top="handleScrollTop"
-    @scroll-bottom="handleScrollBottom"
-  />
+  >
+    <template #before>
+      <div ref="topElement" class="scrolling-picker__observer" data-target="top" />
+    </template>
+    <template #after>
+      <div ref="bottomElement" class="scrolling-picker__observer" data-target="bottom" />
+    </template>
+  </scrolling-picker>
 </template>
 
 <script lang="ts" setup>
   import { setYear, startOfDay } from 'date-fns'
-  import { computed, ref, nextTick } from 'vue'
+  import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
@@ -32,6 +37,8 @@
     },
   })
 
+  const topElement = ref<HTMLElement>()
+  const bottomElement = ref<HTMLElement>()
   const selectedYear = computed(() => selectedDate.value.getFullYear())
 
   const viewingYear = ref(selectedYear.value)
@@ -54,12 +61,29 @@
     selectedDate.value = setYear(selectedDate.value, value as number)
   }
 
-  function handleScrollTop(): void {
-    viewingYear.value = viewingYear.value - viewingCount
-    nextTick(() => scrollingPicker.value!.scrollToOption(viewingYear.value))
+  function handleIntersection([entry]: IntersectionObserverEntry[]): void {
+    if (entry.isIntersecting) {
+      const target = entry.target as HTMLElement
+
+      if (target.dataset.target === 'top') {
+        viewingYear.value = viewingYear.value - viewingCount
+        nextTick(() => scrollingPicker.value!.scrollToOption(viewingYear.value))
+      } else {
+        viewingYear.value = viewingYear.value + viewingCount
+      }
+    }
   }
 
-  function handleScrollBottom(): void {
-    viewingYear.value = viewingYear.value + viewingCount
-  }
+  let observer: IntersectionObserver | null = null
+
+  onMounted(() => {
+    observer = new IntersectionObserver(handleIntersection)
+
+    if (topElement.value && bottomElement.value) {
+      observer.observe(topElement.value)
+      observer.observe(bottomElement.value)
+    }
+  })
+
+  onUnmounted(() => observer?.disconnect())
 </script>

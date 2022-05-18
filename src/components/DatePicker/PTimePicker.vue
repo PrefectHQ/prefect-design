@@ -1,8 +1,29 @@
 <template>
   <div class="p-time-picker">
-    <scrolling-picker v-model="selectedHours" :options="hourOptions" class="p-time-picker__hours" />
-    <scrolling-picker v-model="selectedMinutes" :options="minuteOptions" class="p-time-picker__minutes" prevent-focus />
-    <scrolling-picker v-model="selectedMeridiem" :options="['AM', 'PM']" class="p-time-picker__meridiem" prevent-focus />
+    <scrolling-picker v-model="selectedHours" :options="hourOptions" class="p-time-picker__hours">
+      <template #before>
+        <div class="p-time-picker--gap" />
+      </template>
+      <template #after>
+        <div class="p-time-picker--gap" />
+      </template>
+    </scrolling-picker>
+    <scrolling-picker v-model="selectedMinutes" :options="minuteOptions" class="p-time-picker__minutes" prevent-focus>
+      <template #before>
+        <div class="p-time-picker--gap" />
+      </template>
+      <template #after>
+        <div class="p-time-picker--gap" />
+      </template>
+    </scrolling-picker>
+    <scrolling-picker v-model="selectedMeridiem" :options="['AM', 'PM']" class="p-time-picker__meridiem" prevent-focus>
+      <template #before>
+        <div class="p-time-picker--gap" />
+      </template>
+      <template #after>
+        <div class="p-time-picker--gap" />
+      </template>
+    </scrolling-picker>
   </div>
 </template>
 
@@ -76,6 +97,11 @@
 </script>
 
 <style>
+:root {
+  --row-height: 28px;
+  --gap-height: 0.5rem;
+}
+
 .p-time-picker { @apply
   flex
   flex-auto
@@ -88,5 +114,13 @@
 .p-time-picker__minutes,
 .p-time-picker__meridiem { @apply
   h-full
+}
+
+.p-time-picker {
+  height: calc((var(--row-height) + var(--gap-height)) * 7);
+}
+
+.p-time-picker--gap {
+  min-height: calc(var(--row-height) * 3 + var(--gap-height));
 }
 </style>

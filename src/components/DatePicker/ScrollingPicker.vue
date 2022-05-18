@@ -1,23 +1,23 @@
 <template>
   <div class="scrolling-picker">
-    <div ref="topElement" class="scrolling-picker__observer" data-target="top" />
+    <slot name="before" />
     <template v-for="option in selectOptions" :key="option.value">
       <button
         type="button"
         class="scrolling-picker__option"
         :tabindex="1"
         :class="classes.option(option)"
-        @click="internalValue = option.value"
+        @click="handleOptionClick(option)"
       >
         <span ref="optionElements" :data-target="option.value">{{ option.label }}</span>
       </button>
     </template>
-    <div ref="bottomElement" class="scrolling-picker__observer" data-target="bottom" />
+    <slot name="after" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, onUnmounted, ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
@@ -28,7 +28,6 @@
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue): void,
-    (event: 'scroll-top' | 'scroll-bottom'): void,
   }>()
 
   defineExpose({ scrollToOption })
@@ -51,8 +50,6 @@
   }))
 
   const optionElements = ref<HTMLElement[]>([])
-  const topElement = ref<HTMLElement>()
-  const bottomElement = ref<HTMLElement>()
 
   const classes = computed(() => ({
     option:(option: SelectOption) => ({
@@ -60,16 +57,9 @@
     }),
   }))
 
-  function handleIntersection([entry]: IntersectionObserverEntry[]): void {
-    if (entry.isIntersecting) {
-      const target = entry.target as HTMLElement
-
-      if (target.dataset.target === 'top') {
-        emits('scroll-top')
-      } else {
-        emits('scroll-bottom')
-      }
-    }
+  function handleOptionClick(option: SelectOption): void {
+    internalValue.value = option.value
+    scrollToOption(option.value)
   }
 
   function scrollToOption(value: SelectModelValue): HTMLElement | undefined {
@@ -82,24 +72,13 @@
     return element
   }
 
-  let observer: IntersectionObserver | null = null
-
   onMounted(() => {
-    observer = new IntersectionObserver(handleIntersection)
-
     const element = scrollToOption(internalValue.value)
-
-    if (topElement.value && bottomElement.value) {
-      observer.observe(topElement.value)
-      observer.observe(bottomElement.value)
-    }
 
     if (element && !props.preventFocus) {
       element.parentElement?.focus()
     }
   })
-
-  onUnmounted(() => observer?.disconnect())
 </script>
 
 <style>
