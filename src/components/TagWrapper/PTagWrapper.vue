@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
+  import { computed, ref, Ref, onMounted, onUnmounted, nextTick } from 'vue'
   import { PTag } from '@/components/Tag'
 
   const props = defineProps<{
@@ -57,7 +57,7 @@
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
 
-  const calculateOverflow = (entries: ResizeObserverEntry[]): void => {
+  const calculateOverflow = async (entries: ResizeObserverEntry[]): Promise<void> => {
     const children = Array.from(
       entries[0]?.target?.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
       .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'),
@@ -99,30 +99,29 @@
       }
     }
 
+    await nextTick()
+
     if (overflowChildren.value > 0) {
       let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
       let totalWidth = tagsWidth + overflowBoundingBox.width
       if (totalWidth > containerBoundingBox.width) {
+        console.log(totalWidth, containerBoundingBox.width)
         const visibleChildren = children.filter(child => !child.classList.contains(hiddenClass)).reverse()
-
+        console.log(visibleChildren)
         for (const child of visibleChildren) {
+          overflowChildren.value++
+          child.classList.add(hiddenClass)
+
           const boundingBox = child.getBoundingClientRect()
+          tagsWidth -= boundingBox.width
+          overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
+          totalWidth = tagsWidth + overflowBoundingBox.width
+
           const overflow = totalWidth - boundingBox.width > containerBoundingBox.width
 
           if (overflow) {
-            child.classList.add(hiddenClass)
-            tagsWidth -= boundingBox.width
-            overflowChildren.value++
-            overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
-            totalWidth = tagsWidth + overflowBoundingBox.width
-          } else {
             break
           }
-        }
-        const child = children.reverse().find(child => !child.classList.contains(hiddenClass))
-        if (child) {
-          child.classList.add(hiddenClass)
-          overflowChildren.value++
         }
       }
     }
