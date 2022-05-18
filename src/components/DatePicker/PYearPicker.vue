@@ -52,7 +52,7 @@
     const minYear = viewingYear.value - viewingCount
     const maxYear = viewingYear.value + viewingCount
 
-    for (let year=minYear; year<maxYear; year++) {
+    for (let year=minYear > 0 ? minYear : 0; year<maxYear; year++) {
       const dateValue = setYear(selectedDate.value, year)
 
       values.push({
@@ -77,6 +77,10 @@
     return true
   }
 
+  function viewingYearWouldHaveNegativeNumbers(year: number): boolean {
+    return year - viewingCount < 0
+  }
+
   function updateSelectedDate(year: SelectModelValue): void {
     const value = setYear(selectedDate.value, year as number)
 
@@ -94,6 +98,10 @@
       const target = entry.target as HTMLElement
 
       if (target.dataset.target === 'top') {
+        if (viewingYearWouldHaveNegativeNumbers(viewingYear.value - viewingCount)) {
+          viewingYear.value = viewingCount
+          return
+        }
         viewingYear.value = viewingYear.value - viewingCount
         nextTick(() => scrollingPicker.value!.scrollToOption(viewingYear.value))
       } else {
