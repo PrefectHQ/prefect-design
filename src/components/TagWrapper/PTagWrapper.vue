@@ -40,7 +40,10 @@
 
   const classes = computed(() => {
     return {
-      overflowTag: { 'p-tag-wrapper__tag--hidden': !hasOverflowChildren.value },
+      overflowTag: [
+        `p-tag-wrapper__tag--${props.justify ?? 'left'}`,
+        { 'p-tag-wrapper__tag--hidden': !hasOverflowChildren.value },
+      ],
       tag: [`p-tag-wrapper__tag--${props.justify ?? 'left'}`],
       tagContainer:
         [
@@ -68,27 +71,40 @@
     let tagsWidth = 0
     let largestChildHeight = overflowTag.value.offsetHeight
 
+    const invisibleClass = 'p-tag-wrapper__tag--invisible'
+    const hiddenClass = 'p-tag-wrapper__tag--hidden'
+
     for (const child of children) {
-      child.classList.add('p-tag-wrapper__tag--invisible')
-      child.classList.remove('p-tag-wrapper__tag--hidden')
+      child.classList.add(invisibleClass)
+      child.classList.remove(hiddenClass)
 
       if (overflowed) {
-        child.classList.add('p-tag-wrapper__tag--hidden')
-        child.classList.remove('p-tag-wrapper__tag--invisible')
+        child.classList.add(hiddenClass)
+        child.classList.remove(invisibleClass)
       } else {
         const boundingBox = child.getBoundingClientRect()
-        overflowed = tagsWidth + boundingBox.width  >= containerBoundingBox.width - (overflowTag.value.offsetWidth ?? 55)
+        overflowed = tagsWidth + boundingBox.width >= containerBoundingBox.width
 
         if (overflowed) {
-          child.classList.add('p-tag-wrapper__tag--hidden')
-          child.classList.remove('p-tag-wrapper__tag--invisible')
+          child.classList.add(hiddenClass)
+          child.classList.remove(invisibleClass)
         } else {
-          child.classList.remove('p-tag-wrapper__tag--invisible')
-          child.classList.remove('p-tag-wrapper__tag--hidden')
+          child.classList.remove(invisibleClass)
+          child.classList.remove(hiddenClass)
 
-          tagsWidth = tagsWidth + boundingBox.width
+          tagsWidth += boundingBox.width
           largestChildHeight = Math.max(largestChildHeight, boundingBox.height)
           overflowChildren.value--
+        }
+      }
+    }
+
+    if (overflowChildren.value > 0) {
+      if (tagsWidth + overflowTag.value.offsetWidth > containerBoundingBox.width) {
+        const child = children.reverse().find(child => !child.classList.contains(hiddenClass))
+        if (child) {
+          child.classList.add(hiddenClass)
+          overflowChildren.value++
         }
       }
     }
