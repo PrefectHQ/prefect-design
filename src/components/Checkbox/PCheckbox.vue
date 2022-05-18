@@ -30,26 +30,25 @@
 </script>
 
 <script lang="ts" setup>
+  import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
 
-  type ModelValue = boolean | unknown[] | undefined
-
   const props = defineProps<{
-    modelValue: ModelValue | null,
+    modelValue: CheckboxModel | null,
     label?: string,
     state?: State,
     disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: ModelValue): void,
+    (event: 'update:modelValue', value: CheckboxModel): void,
   }>()
 
   const value = computed({
     get() {
       return props.modelValue ?? undefined
     },
-    set(value: ModelValue) {
+    set(value: CheckboxModel) {
       emits('update:modelValue', value)
     },
   })
