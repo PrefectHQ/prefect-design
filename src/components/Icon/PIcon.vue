@@ -4,13 +4,15 @@
 
 
 <script lang="ts" setup>
-  import * as heroIcons from '@heroicons/vue/solid'
+  import * as outlinedHeroIcons from '@heroicons/vue/outline'
+  import * as solidHeroIcons from '@heroicons/vue/solid'
   import { computed } from 'vue'
   import * as prefectIcons from './icons'
   import { Icon, PrefectIcon } from '@/types/icon'
 
   const props = defineProps<{
     icon: Icon,
+    solid?: boolean,
   }>()
 
   const component = computed(() => {
@@ -19,8 +21,13 @@
       return prefectIcons[props.icon]
     }
 
+    if (props.solid) {
+      // eslint-disable-next-line import/namespace
+      return solidHeroIcons[props.icon]
+    }
+
     // eslint-disable-next-line import/namespace
-    return heroIcons[props.icon]
+    return outlinedHeroIcons[props.icon]
   })
 
   function isPrefectIcon(value: Icon): value is PrefectIcon {

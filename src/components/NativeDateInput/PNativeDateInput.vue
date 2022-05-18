@@ -1,5 +1,5 @@
 <template>
-  <div class="p-date-input">
+  <div class="p-date-input" :class="classes" :style="styles">
     <span class="p-date-input__icon">
       <p-icon icon="CalendarIcon" />
     </span>
@@ -9,12 +9,13 @@
       class="p-date-input__control"
       :min="stringMin"
       :max="stringMax"
-      v-bind="$attrs"
+      v-bind="attrs"
     >
   </div>
 </template>
 
 <script lang="ts">
+  import { format, parseISO } from 'date-fns'
   import { defineComponent, computed } from 'vue'
 
   export default defineComponent({
@@ -26,7 +27,8 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
-  import { useAdjustedDate, useBrowserDate } from '@/compositions/UseAdjustedDates'
+  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
+  import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -38,31 +40,23 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
+  const { classes, styles, attrs } = useAttrsStylesAndClasses()
+
   const internalValue = computed(() => props.modelValue ?? null)
 
   const stringValue = computed({
     get() {
       const adjustedValue = useAdjustedDate(internalValue)
 
-      return adjustedValue.value ? getStringValue(adjustedValue.value) : null
+      return adjustedValue.value ? format(adjustedValue.value, 'yyyy-MM-dd') : null
     },
     set(value: string | null) {
-      emits('update:modelValue', value ? useBrowserDate(new Date(value)) : null)
+      emits('update:modelValue', value ? useUnadjustedDate(parseISO(value)) : null)
     },
   })
 
-  const stringMin = computed(() => props.min ? getStringValue(useAdjustedDate(props.min)) : undefined)
-  const stringMax = computed(() => props.max ? getStringValue(useAdjustedDate(props.max)) : undefined)
-
-  function getStringValue(date: Date): string {
-    const parts = [
-      String(date.getUTCFullYear()).padStart(4, '0'),
-      String(date.getUTCMonth() + 1).padStart(2, '0'),
-      String(date.getUTCDate()).padStart(2, '0'),
-    ]
-
-    return parts.join('-')
-  }
+  const stringMin = computed(() => props.min ? format(props.min, 'yyyy-MM-dd') : undefined)
+  const stringMax = computed(() => props.max ? format(props.max, 'yyyy-MM-dd') : undefined)
 </script>
 
 <style>

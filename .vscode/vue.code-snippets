@@ -1,17 +1,25 @@
 {
-    "vue-compoent": {
+    "component": {
         "scope": "vue",
-        "prefix": "vuecomp",
+        "prefix": "vue",
         "body": [
             "<template>",
-            "  $1",
+            "  <div class=\"${TM_FILENAME_BASE/(^[A-Z][a-z]*|[a-z])([A-Z])?/${1:/downcase}${2:+-}${2:/downcase}/g}\">",
+            "",
+            "  </div>",
             "</template>",
             "",
-            "<script lang=\"ts\" setup></script>",
+            "<script lang=\"ts\" setup>",
+            "  defineProps<{",
+            "    ${1}",
+            "  }>()",
+            "</script>",
             "",
-            "<style></style>"
+            "<style>",
+            "",
+            "</style>"
         ],
-        "description": "Create an empty Vue component"
+        "description": "Typescript Setup Component"
     },
     "template": {
         "scope": "vue",
@@ -41,13 +49,15 @@
     },
     "script setup": {
         "scope": "vue",
-        "prefix": "script setup",
+        "prefix": "script",
         "body": [
-            "<script lang=\"ts\" setup>",
-            "defineProps<{ $1 }>();",
-            "</script>"
+          "<script lang=\"ts\" setup>",
+          "  defineProps<{",
+          "    $1",
+          "  }>()",
+          "</script>"
         ],
-        "description": "Create <script setup> + <script> blocks"
+        "description": "Typescript setup"
     },
     "style": {
         "scope": "vue",
