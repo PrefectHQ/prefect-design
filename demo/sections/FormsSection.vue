@@ -152,8 +152,8 @@
   const exampleCombobox2 = ref('')
   const exampleMultiSelect = ref<string[]>([])
   const exampleDate = ref<Date | null>(new Date())
-  const minDate = ref<Date | null>(new Date(2022, 4, 18, 4, 20))
-  const maxDate = ref<Date | null>(new Date(2022, 4, 18, 16, 20))
+  const minDate = ref<Date | null>(null)
+  const maxDate = ref<Date | null>(null)
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State

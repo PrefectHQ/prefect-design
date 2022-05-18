@@ -45,7 +45,7 @@
             class="p-date-picker__date"
             :class="classes.date(date)"
             :flat="!isSameDayAsSelectedDate(date)"
-            :disabled="!!mode || !isDateInRange(date)"
+            :disabled="!!mode || !isDateInRange(date, 'day')"
             size="xs"
             @click="updateSelectedDate(date)"
           >
@@ -61,7 +61,7 @@
           </p-button>
         </template>
         <div class="p-date-picker__actions">
-          <template v-if="isDateInRange(new Date())">
+          <template v-if="isDateInRange(new Date(), 'day')">
             <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
               {{ showTime ? 'Now' : 'Today' }}
             </p-button>
@@ -90,13 +90,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, isBefore, isAfter, startOfMonth, endOfMonth, endOfDay } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
+  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
 
   type Mode = 'year' | 'month' | 'time' | null
 
@@ -112,14 +113,7 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const selectedDate = computed({
-    get() {
-      return props.modelValue ?? null
-    },
-    set(value: Date | null) {
-      emits('update:modelValue', value)
-    },
-  })
+  const { selectedDate, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits)
 
   const mode = ref<Mode>(null)
   const modePickerComponent = computed(() => {
@@ -152,21 +146,13 @@
   })
 
   const previousDisabled = computed(() => {
-    if (!props.min) {
-      return false
-    }
-
     const previousMonth = addMonths(viewingDate.value, -1)
-    return isBefore(endOfMonth(previousMonth), props.min)
+    return isBeforeMin(endOfMonth(previousMonth))
   })
 
   const nextDisabled = computed(() => {
-    if (!props.max) {
-      return false
-    }
-
     const nextMonth = addMonths(viewingDate.value, 1)
-    return isAfter(startOfMonth(nextMonth), props.max)
+    return isAfterMax(startOfMonth(nextMonth))
   })
 
   const classes = computed(() => ({
@@ -182,22 +168,6 @@
 
   function isSameDayAsSelectedDate(date: Date): boolean {
     return !!selectedDate.value && isSameDay(date, selectedDate.value)
-  }
-
-  function isDateInRange(date: Date): boolean {
-    if (props.min && props.max) {
-      return isAfter(endOfDay(date), props.min) && isBefore(startOfDay(date), props.max)
-    }
-
-    if (props.min) {
-      return isAfter(date, startOfDay(props.min))
-    }
-
-    if (props.max) {
-      return isBefore(date, endOfDay(props.max))
-    }
-
-    return true
   }
 
   function checkCloseOverlay(): void {

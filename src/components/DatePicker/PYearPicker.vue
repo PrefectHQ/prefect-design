@@ -15,9 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { endOfYear, isAfter, isBefore, setYear, startOfDay, startOfYear } from 'date-fns'
+  import { setYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
+  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
@@ -30,14 +31,7 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const selectedDate = computed({
-    get() {
-      return props.modelValue ?? startOfDay(new Date())
-    },
-    set(value: Date) {
-      emits('update:modelValue', value)
-    },
-  })
+  const { selectedDate, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
 
   const topElement = ref<HTMLElement>()
   const bottomElement = ref<HTMLElement>()
@@ -58,39 +52,19 @@
       values.push({
         label: year.toString(),
         value: year,
-        disabled: !isDateInRange(dateValue),
+        disabled: !isDateInRange(dateValue, 'year'),
       })
     }
 
     return values
   })
 
-  function isDateInRange(date: Date): boolean {
-    if (props.min && isBefore(endOfYear(date), props.min)) {
-      return false
-    }
-
-    if (props.max && isAfter(startOfYear(date), props.max)) {
-      return false
-    }
-
-    return true
-  }
-
   function viewingYearWouldHaveNegativeNumbers(year: number): boolean {
     return year - viewingCount < 0
   }
 
   function updateSelectedDate(year: SelectModelValue): void {
-    const value = setYear(selectedDate.value, year as number)
-
-    if (props.min && isBefore(value, props.min)) {
-      selectedDate.value = props.min
-    } else if (props.max && isAfter(value, props.max)) {
-      selectedDate.value = props.max
-    } else {
-      selectedDate.value = value
-    }
+    selectedDate.value = setYear(selectedDate.value, year as number)
   }
 
   function handleIntersection([entry]: IntersectionObserverEntry[]): void {

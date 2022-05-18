@@ -28,9 +28,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { endOfDay, format, Interval, isAfter, isBefore, isSameMinute, set, setHours, setMinutes, startOfDay, startOfHour } from 'date-fns'
+  import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
+  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { SelectModelValue } from '@/types/selectOption'
 
   const props = defineProps<{
@@ -43,29 +44,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const selectedDate = computed({
-    get() {
-      return props.modelValue ?? startOfDay(new Date())
-    },
-    set(value: Date) {
-      emits('update:modelValue', value)
-    },
-  })
+  const { selectedDate, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
 
   const selectedHours = computed({
     get() {
       return parseInt(format(selectedDate.value, 'h'))
     },
     set(hours: SelectModelValue) {
-      const value = applyHours(selectedDate.value, hours as number)
-
-      if (props.min && isBefore(value, props.min)) {
-        selectedDate.value = props.min
-      } else if (props.max && isAfter(value, props.max)) {
-        selectedDate.value = props.max
-      } else {
-        selectedDate.value = value
-      }
+      selectedDate.value = applyHours(selectedDate.value, hours as number)
     },
   })
 
@@ -83,15 +69,7 @@
       return format(selectedDate.value, 'a')
     },
     set(meridiem: SelectModelValue) {
-      const value = applyMeridiem(selectedDate.value, meridiem as 'AM' | 'PM')
-
-      if (props.min && isBefore(value, props.min)) {
-        selectedDate.value = props.min
-      } else if (props.max && isAfter(value, props.max)) {
-        selectedDate.value = props.max
-      } else {
-        selectedDate.value = value
-      }
+      selectedDate.value = applyMeridiem(selectedDate.value, meridiem as 'AM' | 'PM')
     },
   })
 
@@ -121,38 +99,18 @@
     return date
   }
 
-  function isDateInRange(date: Date): boolean {
-    if (props.min && (isBefore(date, props.min) && !isSameMinute(date, props.min))) {
-      return false
-    }
-
-    if (props.max && (isAfter(date, props.max) && !isSameMinute(date, props.max))) {
-      return false
-    }
-
-    return true
-  }
-
-  function isDateRangeOverlappingRange(interval: Interval): boolean {
-    if (props.min && isBefore(interval.end, props.min) && !isSameMinute(interval.end, props.min)) {
-      return false
-    }
-
-    if (props.max && isAfter(interval.start, props.max) && !isSameMinute(interval.start, props.max)) {
-      return false
-    }
-
-    return true
+  function isDateRangeOverlappingRange(interval: { start: Date, end: Date }): boolean {
+    return !isBeforeMin(interval.end) && !isAfterMax(interval.start)
   }
 
   const hourOptions = computed(() => [...new Array(12).keys()].map(hour => {
     hour += 1
-    const dateValue = startOfHour(applyHours(selectedDate.value, hour))
+    const dateValue = applyHours(selectedDate.value, hour)
 
     return {
       label: format(dateValue, 'h'),
       value: hour,
-      disabled: !isDateInRange(dateValue),
+      disabled: !isDateInRange(dateValue, 'hour'),
     }
   }))
 
