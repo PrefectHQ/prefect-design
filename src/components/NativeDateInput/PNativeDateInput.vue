@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { format } from 'date-fns'
+  import { format, parseISO } from 'date-fns'
   import { defineComponent, computed } from 'vue'
 
   export default defineComponent({
@@ -51,7 +51,7 @@
       return adjustedValue.value ? format(adjustedValue.value, 'yyyy-MM-dd') : null
     },
     set(value: string | null) {
-      emits('update:modelValue', value ? useUnadjustedDate(new Date(value)) : null)
+      emits('update:modelValue', value ? useUnadjustedDate(parseISO(value)) : null)
     },
   })
 
