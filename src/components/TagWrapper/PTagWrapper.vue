@@ -1,21 +1,24 @@
 <template>
   <div ref="container" class="p-tag-wrapper">
-    <slot>
-      <template v-for="tag in tags">
-        <slot name="tag" :tag="tag">
+    <div class="p-tag-wrapper__tag-container">
+      <slot>
+        <template v-for="tag in tags">
+          <slot name="tag" :tag="tag">
+            <p-tag>
+              {{ tag }}
+            </p-tag>
+          </slot>
+        </template>
+      </slot>
+
+
+      <div v-show="hasOverflowChildren" ref="overflowTag" class="p-tag-wrapper__tag-overflow">
+        <slot name="overflow-tags" :overflowed-children="overflowChildren">
           <p-tag>
-            {{ tag }}
+            +{{ overflowChildren }}
           </p-tag>
         </slot>
-      </template>
-    </slot>
-
-    <div ref="overflowTag" class="p-tag-wrapper__tag-overflow">
-      <slot name="overflow-tags" :overflowed-children="overflowChildren">
-        <p-tag v-show="hasOverflowChildren">
-          +{{ overflowChildren }}
-        </p-tag>
-      </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -28,14 +31,15 @@
     tags?: string[],
   }>()
   const container: Ref<HTMLDivElement | undefined> = ref()
-  const overflowChildren = ref(0)
+  const overflowChildren = ref(1)
   const overflowTag = ref()
 
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
   function setChildIsVisible(child: HTMLElement): boolean {
-    const containerWidth = container.value?.parentElement?.offsetWidth ?? 0
-    const overflowTagWidth = overflowTag.value.children[0].clientWidth ?? 55
+    const containerWidth = container.value?.offsetWidth ?? 0
+
+    const overflowTagWidth = overflowTag.value.offsetWidth ?? 55
 
     if (child.classList.contains('p-tag-wrapper__tag--hidden')) {
       child.classList.add('p-tag-wrapper__tag--invisible')
@@ -56,10 +60,16 @@
   }
 
   function updateOverflownChildren(entries: ResizeObserverEntry[]): void {
-    overflowChildren.value = entries.reduce((sum, entry) => {
-      const children = Array.from(entry.target.children) as HTMLElement[]
-      return sum + getChildOverflow(children)
+    const children = Array.from(entries[0]?.target?.querySelector('.p-tag-wrapper__tag-container')?.children ?? []) as HTMLElement[]
+    let largestChildHeight = 0
+    overflowChildren.value = children.reduce((sum, entry) => {
+      largestChildHeight = Math.max(largestChildHeight, entry.offsetHeight)
+      return sum + getChildOverflow([entry])
     }, 0)
+
+    if (container.value) {
+      container.value.style.height = `${largestChildHeight}px`
+    }
   }
 
   function getChildOverflow(children: HTMLElement[]): number {
@@ -92,10 +102,10 @@
 
 
 <style>
-.p-tag-wrapper {
-  position:relative;
-  display: block;
-  white-space: nowrap;
+.p-tag-wrapper { @apply
+  relative
+  block
+  whitespace-nowrap;
 }
 
 .p-tag-wrapper__tag--hidden {
@@ -108,5 +118,13 @@
 
 .p-tag-wrapper__tag-overflow {
   display: inline-block;
+}
+
+.p-tag-wrapper__tag-container { @apply
+  absolute
+  left-0
+  top-0
+  w-full
+  h-full;
 }
 </style>

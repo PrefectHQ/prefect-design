@@ -10,35 +10,72 @@
         {{ item.name }}
       </p-tag>
     </SubSection>
-    <SubSection heading="Wrapper">
-      <div class="resizable-container">
-        <p-tag-wrapper :tags="numberArr" />
+    <SubSection heading="Block Wrapper (with padding)">
+      <ResizableSection>
+        <div class="bg-slate-200 absolute h-full left-[50px] right-[50px]" />
+        <div class="bg-white px-[50px]">
+          <p-tag-wrapper class="h-[48px]" :tags="numberArr" />
 
-        <p-tag-wrapper :tags="numberArr">
-          <template #tag="{ tag }">
-            <p-tag icon="Prefect">
-              {{ tag }}
+          <p-tag-wrapper class="h-[48px]" :tags="numberArr">
+            <template #tag="{ tag }">
+              <p-tag icon="Prefect">
+                {{ tag }}
+              </p-tag>
+            </template>
+
+            <template #overflow-tags="{ overflowedChildren }">
+              <div class="text-prefect-600">
+                +{{ overflowedChildren }}
+              </div>
+            </template>
+          </p-tag-wrapper>
+
+          <p-tag-wrapper class="h-[48px]">
+            <p-tag v-for="i in 20" :key="i">
+              Tag {{ i }}
             </p-tag>
-          </template>
+          </p-tag-wrapper>
+        </div>
+      </ResizableSection>
+    </SubSection>
 
-          <template #overflow-tags="{ overflowedChildren }">
-            <div class="text-prefect-600">
-              +{{ overflowedChildren }}
-            </div>
-          </template>
-        </p-tag-wrapper>
+    <SubSection heading="Flexed Wrapper">
+      <ResizableSection>
+        <div class="w-screen flex align-middle justify-items-stretch">
+          <div class="w-full h-[200px] bg-rose-500">
+            <p-tag-wrapper :tags="numberArr" />
+          </div>
+          <div class="w-full h-[200px] bg-slate-500">
+            <p-tag-wrapper :tags="numberArr">
+              <template #tag="{ tag }">
+                <p-tag icon="Prefect">
+                  {{ tag }}
+                </p-tag>
+              </template>
 
-        <p-tag-wrapper>
-          <p-tag v-for="i in 20" :key="i">
-            Tag {{ i }}
-          </p-tag>
-        </p-tag-wrapper>
-      </div>
+              <template #overflow-tags="{ overflowedChildren }">
+                <div class="text-prefect-600">
+                  +{{ overflowedChildren }}
+                </div>
+              </template>
+            </p-tag-wrapper>
+          </div>
+
+          <div class="w-full h-[200px] bg-amber-500">
+            <p-tag-wrapper>
+              <p-tag v-for="i in 20" :key="i">
+                Tag {{ i }}
+              </p-tag>
+            </p-tag-wrapper>
+          </div>
+        </div>
+      </ResizableSection>
     </SubSection>
   </Section>
 </template>
 
 <script lang="ts" setup>
+  import ResizableSection from '../components/ResizableSection.vue'
   import Section from '../components/Section.vue'
   import SubSection from '../components/SubSection.vue'
   import PTag from '@/components/Tag/PTag.vue'
@@ -99,13 +136,6 @@
 
 .tag--scheduled {
   background-color: var(--scheduled)
-}
-
-.resizable-container {
-  min-width: 75px;
-  max-width: 50%;
-  resize: horizontal;
-  overflow: hidden;
 }
 </style>
 
