@@ -1,6 +1,6 @@
 <template>
   <resizable-section>
-    <p-default-layout class="bg-slate-100">
+    <p-well-layout class="bg-slate-100">
       <template #header>
         <div class="bg-slate-300 h-full p-4">
           Header
@@ -8,14 +8,19 @@
       </template>
       <template #content>
         <div class="bg-slate-300 h-full p-4">
-          <p> Content</p>
-          <p> Content</p>
-          <p> Content</p>
-          <p> Content</p>
-          <p> Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
         </div>
       </template>
-    </p-default-layout>
+
+      <template #well>
+        <div class="bg-slate-300 h-full p-4">
+          Well
+        </div>
+      </template>
+    </p-well-layout>
   </resizable-section>
 </template>
 

@@ -13,6 +13,8 @@
           <sidebar-layout-section class="layout-resizable-section" />
 
           <default-layout-section class="layout-resizable-section" />
+
+          <well-layout-section class="layout-resizable-section" />
         </div>
       </main>
     </div>
@@ -23,6 +25,7 @@
 <script lang="ts" setup>
   import DefaultLayoutSection from '../sections/DefaultLayoutSection.vue'
   import SidebarLayoutSection from '../sections/SidebarLayoutSection.vue'
+  import WellLayoutSection from '../sections/WellLayoutSection.vue'
 </script>
 
 

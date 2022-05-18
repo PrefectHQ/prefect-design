@@ -39,7 +39,7 @@
   }
 
   .layout__content {
-  @apply min-h-[400px] bg-slate-300;
+  @apply min-h-[400px] bg-slate-100;
   grid-area: content;
   }
 
