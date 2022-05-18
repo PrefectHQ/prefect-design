@@ -1,6 +1,6 @@
 <template>
   <div ref="container" class="p-tag-wrapper">
-    <div class="p-tag-wrapper__tag-container">
+    <div class="p-tag-wrapper__tag-container" :class="classes.tagContainer">
       <slot>
         <template v-for="tag in tags">
           <slot name="tag" :tag="tag">
@@ -27,12 +27,21 @@
   import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
   import { PTag } from '@/components/Tag'
 
-  defineProps<{
+  const props = defineProps<{
     tags?: string[],
+    justify?: 'left' | 'center' | 'right',
   }>()
   const container: Ref<HTMLDivElement | undefined> = ref()
   const overflowChildren = ref(1)
   const overflowTag = ref()
+
+  const classes = computed(() => {
+    return {
+      tagContainer:
+        [`p-tag-wrapper__tag-container--${props.justify ?? 'left'}`],
+
+    }
+  })
 
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
@@ -126,5 +135,17 @@
   top-0
   w-full
   h-full;
+}
+
+.p-tag-wrapper__tag-container--right { @apply
+  text-right
+}
+
+.p-tag-wrapper__tag-container--center { @apply
+  text-center
+}
+
+.p-tag-wrapper__tag-container--left { @apply
+  text-left
 }
 </style>

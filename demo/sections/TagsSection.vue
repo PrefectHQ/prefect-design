@@ -16,7 +16,7 @@
         <div class="bg-white px-[50px]">
           <p-tag-wrapper class="h-[48px]" :tags="numberArr" />
 
-          <p-tag-wrapper class="h-[48px]" :tags="numberArr">
+          <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="center">
             <template #tag="{ tag }">
               <p-tag icon="Prefect">
                 {{ tag }}
@@ -30,7 +30,7 @@
             </template>
           </p-tag-wrapper>
 
-          <p-tag-wrapper class="h-[48px]">
+          <p-tag-wrapper class="h-[48px]" justify="right">
             <p-tag v-for="i in 20" :key="i">
               Tag {{ i }}
             </p-tag>
