@@ -102,6 +102,7 @@
   type Mode = 'year' | 'month' | 'time' | null
 
   const props = defineProps<{
+    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
     showTime?: boolean,
     clearable?: boolean,

@@ -25,8 +25,11 @@
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
 
   const props = defineProps<{
+    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
+    // eslint-disable-next-line vue/no-unused-properties
     min?: Date | null | undefined,
+    // eslint-disable-next-line vue/no-unused-properties
     max?: Date | null | undefined,
   }>()
 
