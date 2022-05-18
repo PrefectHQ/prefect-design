@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, Ref, onMounted, onUnmounted, nextTick } from 'vue'
+  import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
   import { PTag } from '@/components/Tag'
 
   const props = defineProps<{
