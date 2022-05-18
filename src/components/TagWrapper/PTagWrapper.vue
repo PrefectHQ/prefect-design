@@ -104,8 +104,6 @@
       }
     }
 
-    await nextTick()
-
     if (overflowChildren.value > 0) {
       let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
       let totalWidth = tagsWidth + overflowBoundingBox.width
