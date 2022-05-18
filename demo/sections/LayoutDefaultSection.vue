@@ -1,7 +1,7 @@
 <template>
   <Section heading="Default Layout">
     <resizable-section class="h-[400px]">
-      <p-default-layout class="bg-slate-100">
+      <p-layout-default class="bg-slate-100">
         <template #header>
           <div class="bg-slate-300 h-full p-4">
             Header
@@ -16,7 +16,7 @@
             <p> Content</p>
           </div>
         </template>
-      </p-default-layout>
+      </p-layout-default>
     </resizable-section>
   </Section>
 </template>

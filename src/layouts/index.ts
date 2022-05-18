@@ -1,15 +1,15 @@
-import { default as PDefaultLayout } from './PDefaultLayout'
-import { default as PFullLayout } from './PFullLayout'
-import { default as PWellLayout } from './PWellLayout'
+import { default as PLayoutDefault } from './PLayoutDefault'
+import { default as PLayoutFull } from './PLayoutFull'
+import { default as PLayoutWell } from './PLayoutWell'
 
 export {
-  PDefaultLayout,
-  PWellLayout,
-  PFullLayout
+  PLayoutDefault,
+  PLayoutWell,
+  PLayoutFull
 }
 
 export const layouts = [
-  PDefaultLayout.install,
-  PWellLayout.install,
-  PFullLayout.install,
+  PLayoutDefault.install,
+  PLayoutWell.install,
+  PLayoutFull.install,
 ]

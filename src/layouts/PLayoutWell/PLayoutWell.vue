@@ -1,19 +1,19 @@
 <template>
-  <div class="p-well-layout">
-    <div class="p-well-layout__header">
+  <div class="p-layout-well">
+    <div class="p-layout-well__header">
       <slot name="header" />
     </div>
-    <div class="p-well-layout__content">
+    <div class="p-layout-well__content">
       <slot name="content" />
     </div>
-    <div class="p-well-layout__well">
+    <div class="p-layout-well__well">
       <slot name="well" />
     </div>
   </div>
 </template>
 
 <style>
-.p-well-layout {
+.p-layout-well {
   @apply
   p-8
   grid
@@ -24,18 +24,18 @@
   w-full
 }
 
-.p-well-layout__header {
+.p-layout-well__header {
   @apply
   col-span-3
 }
 
-.p-well-layout__content {
+.p-layout-well__content {
   @apply
   sm:col-span-2
   col-span-3
 }
 
-.p-well-layout__well {
+.p-layout-well__well {
   @apply
   w-full
   hidden

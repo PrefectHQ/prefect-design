@@ -10,13 +10,13 @@
       </header>
       <main>
         <div class="">
-          <sidebar-layout-section />
+          <layout-sidebar-section />
 
-          <default-layout-section />
+          <layout-default-section />
 
-          <well-layout-section />
+          <layout-well-section />
 
-          <full-layout-section />
+          <layout-full-section />
         </div>
       </main>
     </div>
@@ -25,8 +25,8 @@
 
 
 <script lang="ts" setup>
-  import DefaultLayoutSection from '../sections/DefaultLayoutSection.vue'
-  import FullLayoutSection from '../sections/FullLayoutSection.vue'
-  import SidebarLayoutSection from '../sections/SidebarLayoutSection.vue'
-  import WellLayoutSection from '../sections/WellLayoutSection.vue'
+  import LayoutDefaultSection from '../sections/LayoutDefaultSection.vue'
+  import LayoutFullSection from '../sections/LayoutFullSection.vue'
+  import LayoutSidebarSection from '../sections/LayoutSidebarSection.vue'
+  import LayoutWellSection from '../sections/LayoutWellSection.vue'
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <div class="p-full-layout">
-    <div class="p-full-layout__header">
-      <slot name="header" class="p-full-layout__header" />
+  <div class="p-layout-full">
+    <div class="p-layout-full__header">
+      <slot name="header" class="p-layout-full__header" />
     </div>
 
     <slot name="content" />
@@ -9,12 +9,12 @@
 </template>
 
 <style>
-.p-full-layout {
+.p-layout-full {
    @apply
   w-screen
   h-screen
 }
-.p-full-layout__header {
+.p-layout-full__header {
   @apply
   absolute
   top-8

@@ -1,7 +1,7 @@
 <template>
   <Section heading="Well Layout">
     <resizable-section class="h-[400px]">
-      <p-well-layout class="bg-slate-100">
+      <p-layout-well class="bg-slate-100">
         <template #header>
           <div class="bg-slate-300 h-full p-4">
             Header
@@ -21,7 +21,7 @@
             Well
           </div>
         </template>
-      </p-well-layout>
+      </p-layout-well>
     </resizable-section>
   </Section>
 </template>
