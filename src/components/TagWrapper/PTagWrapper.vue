@@ -4,7 +4,7 @@
       <slot>
         <template v-for="tag in tags">
           <slot name="tag" :tag="tag">
-            <p-tag>
+            <p-tag class="p-tag-wrapper__tag" :class="classes.tag">
               {{ tag }}
             </p-tag>
           </slot>
@@ -37,6 +37,7 @@
 
   const classes = computed(() => {
     return {
+      tag: [`p-tag-wrapper__tag--${props.justify ?? 'left'}`],
       tagContainer:
         [`p-tag-wrapper__tag-container--${props.justify ?? 'left'}`],
 
@@ -117,12 +118,24 @@
   whitespace-nowrap;
 }
 
-.p-tag-wrapper__tag--hidden {
-  display: none !important;
+.p-tag-wrapper__tag--hidden { @apply
+  !hidden;
 }
 
 .p-tag-wrapper__tag--invisible {
   visibility: hidden !important;
+}
+
+.p-tag-wrapper__tag--right { @apply
+  ml-1;
+}
+
+.p-tag-wrapper__tag--center { @apply
+  mx-[0.125rem];
+}
+
+.p-tag-wrapper__tag--left { @apply
+  mr-1;
 }
 
 .p-tag-wrapper__tag-overflow {
