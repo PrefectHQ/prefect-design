@@ -70,8 +70,9 @@
     let overflowed = false
 
     overflowChildren.value = children.length
+    let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
     let tagsWidth = 0
-    let largestChildHeight = overflowTag.value?.offsetHeight ?? 0
+    let largestChildHeight = overflowBoundingBox.height
 
     const invisibleClass = 'p-tag-wrapper__tag--invisible'
     const hiddenClass = 'p-tag-wrapper__tag--hidden'
