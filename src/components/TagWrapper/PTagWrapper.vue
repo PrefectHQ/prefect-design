@@ -36,7 +36,7 @@
   const container: Ref<HTMLDivElement | undefined> = ref()
   const ready = ref(false)
   const overflowChildren = ref(0)
-  const overflowTag = ref()
+  const overflowTag: Ref<HTMLDivElement | undefined> =  ref()
 
   const classes = computed(() => {
     return {
@@ -69,7 +69,7 @@
 
     overflowChildren.value = children.length
     let tagsWidth = 0
-    let largestChildHeight = overflowTag.value.offsetHeight
+    let largestChildHeight = overflowTag.value?.offsetHeight ?? 0
 
     const invisibleClass = 'p-tag-wrapper__tag--invisible'
     const hiddenClass = 'p-tag-wrapper__tag--hidden'
@@ -100,7 +100,25 @@
     }
 
     if (overflowChildren.value > 0) {
-      if (tagsWidth + overflowTag.value.offsetWidth > containerBoundingBox.width) {
+      let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
+      let totalWidth = tagsWidth + overflowBoundingBox.width
+      if (totalWidth > containerBoundingBox.width) {
+        const visibleChildren = children.filter(child => !child.classList.contains(hiddenClass)).reverse()
+
+        for (const child of visibleChildren) {
+          const boundingBox = child.getBoundingClientRect()
+          const overflow = totalWidth - boundingBox.width > containerBoundingBox.width
+
+          if (overflow) {
+            child.classList.add(hiddenClass)
+            tagsWidth -= boundingBox.width
+            overflowChildren.value++
+            overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
+            totalWidth = tagsWidth + overflowBoundingBox.width
+          } else {
+            break
+          }
+        }
         const child = children.reverse().find(child => !child.classList.contains(hiddenClass))
         if (child) {
           child.classList.add(hiddenClass)
