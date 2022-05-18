@@ -16,6 +16,7 @@
           flat
           icon="ChevronLeftIcon"
           size="sm"
+          :disabled="previousDisabled"
           @click="viewingDate = addMonths(viewingDate, -1)"
         />
       </template>
@@ -32,6 +33,7 @@
         flat
         icon="ChevronRightIcon"
         size="sm"
+        :disabled="nextDisabled"
         @click="viewingDate = addMonths(viewingDate, 1)"
       />
     </div>
@@ -43,7 +45,7 @@
             class="p-date-picker__date"
             :class="classes.date(date)"
             :flat="!isSameDayAsSelectedDate(date)"
-            :disabled="!!mode"
+            :disabled="!!mode || !isDateInRange(date)"
             size="xs"
             @click="updateSelectedDate(date)"
           >
@@ -59,9 +61,11 @@
           </p-button>
         </template>
         <div class="p-date-picker__actions">
-          <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
-            {{ showTime ? 'Now' : 'Today' }}
-          </p-button>
+          <template v-if="isDateInRange(new Date())">
+            <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
+              {{ showTime ? 'Now' : 'Today' }}
+            </p-button>
+          </template>
           <template v-if="clearable">
             <p-button class="p-date-picker__clear-button" size="sm" flat :disabled="selectedDate === null" @click="selectedDate = null">
               Clear
@@ -72,7 +76,13 @@
 
       <template v-if="modePickerComponent">
         <div class="p-date-picker__overlay">
-          <component :is="modePickerComponent" v-model="selectedDate" @update:model-value="checkCloseOverlay" />
+          <component
+            :is="modePickerComponent"
+            v-model="selectedDate"
+            :min="min"
+            :max="max"
+            @update:model-value="checkCloseOverlay"
+          />
         </div>
       </template>
     </div>
@@ -80,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, isBefore, isAfter, startOfMonth, endOfMonth, endOfDay } from 'date-fns'
   import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
@@ -94,6 +104,8 @@
     modelValue: Date | null | undefined,
     showTime?: boolean,
     clearable?: boolean,
+    min?: Date | null | undefined,
+    max?: Date | null | undefined,
   }>()
 
   const emits = defineEmits<{
@@ -139,6 +151,24 @@
     return props.showTime ? isSameMinute(selectedDate.value, new Date()) : isSameDay(selectedDate.value, new Date())
   })
 
+  const previousDisabled = computed(() => {
+    if (!props.min) {
+      return false
+    }
+
+    const previousMonth = addMonths(viewingDate.value, -1)
+    return isBefore(endOfMonth(previousMonth), props.min)
+  })
+
+  const nextDisabled = computed(() => {
+    if (!props.max) {
+      return false
+    }
+
+    const nextMonth = addMonths(viewingDate.value, 1)
+    return isAfter(startOfMonth(nextMonth), props.max)
+  })
+
   const classes = computed(() => ({
     picker: {
       'p-date-picker__next-icon--overlay-open': !!mode.value,
@@ -152,6 +182,22 @@
 
   function isSameDayAsSelectedDate(date: Date): boolean {
     return !!selectedDate.value && isSameDay(date, selectedDate.value)
+  }
+
+  function isDateInRange(date: Date): boolean {
+    if (props.min && props.max) {
+      return isAfter(endOfDay(date), props.min) && isBefore(startOfDay(date), props.max)
+    }
+
+    if (props.min) {
+      return isAfter(date, startOfDay(props.min))
+    }
+
+    if (props.max) {
+      return isBefore(date, endOfDay(props.max))
+    }
+
+    return true
   }
 
   function checkCloseOverlay(): void {
@@ -253,7 +299,7 @@
   text-prefect-600
 }
 
-.p-date-picker__date--out-of-month { @apply
+.p-date-picker__date--out-of-month:not(.p-button--disabled) { @apply
   text-gray-300
   hover:text-gray-400
 }

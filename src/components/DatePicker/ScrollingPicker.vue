@@ -6,6 +6,7 @@
         type="button"
         class="scrolling-picker__option"
         :tabindex="1"
+        :disabled="option.disabled"
         :class="classes.option(option)"
         @click="handleOptionClick(option)"
       >
@@ -17,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue'
+  import { computed, onMounted, ref, watchEffect } from 'vue'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
@@ -54,12 +55,12 @@
   const classes = computed(() => ({
     option:(option: SelectOption) => ({
       'scrolling-picker__option--selected': option.value === internalValue.value,
+      'scrolling-picker__option--disabled': option.disabled,
     }),
   }))
 
   function handleOptionClick(option: SelectOption): void {
     internalValue.value = option.value
-    scrollToOption(option.value)
   }
 
   function scrollToOption(value: SelectModelValue): HTMLElement | undefined {
@@ -71,6 +72,10 @@
 
     return element
   }
+
+  watchEffect(() => {
+    scrollToOption(internalValue.value)
+  })
 
   onMounted(() => {
     const element = scrollToOption(internalValue.value)
@@ -98,17 +103,28 @@
   text-sm
   cursor-pointer
   rounded
-  hover:bg-gray-100
   focus:ring-prefect-600
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
 }
 
+.scrolling-picker__option:not(.scrolling-picker__option--disabled) { @apply
+  hover:bg-gray-100
+}
+
 .scrolling-picker__option--selected { @apply
   text-white
   bg-prefect-600
+}
+
+.scrolling-picker__option--selected:not(.scrolling-picker__option--disabled) { @apply
   hover:bg-prefect-800
+}
+
+.scrolling-picker__option--disabled { @apply
+  cursor-not-allowed
+  opacity-50
 }
 
 .scrolling-picker__observer { @apply

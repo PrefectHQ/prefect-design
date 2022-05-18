@@ -15,13 +15,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { setYear, startOfDay } from 'date-fns'
+  import { endOfYear, isAfter, isBefore, setYear, startOfDay, startOfYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
+    min?: Date | null | undefined,
+    max?: Date | null | undefined,
   }>()
 
   const emits = defineEmits<{
@@ -51,14 +53,40 @@
     const maxYear = viewingYear.value + viewingCount
 
     for (let year=minYear; year<maxYear; year++) {
-      values.push({ label: year.toString(), value: year })
+      const dateValue = setYear(selectedDate.value, year)
+
+      values.push({
+        label: year.toString(),
+        value: year,
+        disabled: !isDateInRange(dateValue),
+      })
     }
 
     return values
   })
 
-  function updateSelectedDate(value: SelectModelValue): void {
-    selectedDate.value = setYear(selectedDate.value, value as number)
+  function isDateInRange(date: Date): boolean {
+    if (props.min && isBefore(endOfYear(date), props.min)) {
+      return false
+    }
+
+    if (props.max && isAfter(startOfYear(date), props.max)) {
+      return false
+    }
+
+    return true
+  }
+
+  function updateSelectedDate(year: SelectModelValue): void {
+    const value = setYear(selectedDate.value, year as number)
+
+    if (props.min && isBefore(value, props.min)) {
+      selectedDate.value = props.min
+    } else if (props.max && isAfter(value, props.max)) {
+      selectedDate.value = props.max
+    } else {
+      selectedDate.value = value
+    }
   }
 
   function handleIntersection([entry]: IntersectionObserverEntry[]): void {
