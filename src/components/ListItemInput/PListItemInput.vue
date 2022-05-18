@@ -84,6 +84,7 @@
   flex-grow
   py-3
   px-4
+  min-w-0
 }
 
 .list-item-input__control { @apply
