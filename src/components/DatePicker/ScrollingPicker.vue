@@ -1,5 +1,5 @@
 <template>
-  <div class="scrolling-picker">
+  <div ref="containerElement" class="scrolling-picker">
     <slot name="before" />
     <template v-for="option in selectOptions" :key="option.value">
       <button
@@ -50,6 +50,7 @@
     return { label: option.toLocaleString(), value: option }
   }))
 
+  const containerElement = ref<HTMLDivElement>()
   const optionElements = ref<HTMLElement[]>([])
 
   const classes = computed(() => ({
@@ -66,8 +67,11 @@
   function scrollToOption(value: SelectModelValue): HTMLElement | undefined {
     const element = optionElements.value.find(node => node.dataset.target === value?.toString())
 
-    if (element) {
-      element.scrollIntoView({ block: 'center' })
+    if (element && containerElement.value) {
+      const buttonElement = element.parentNode as HTMLButtonElement
+      const scrollTop = buttonElement.offsetTop - containerElement.value.clientHeight / 2 + buttonElement.clientHeight / 2
+
+      containerElement.value.scrollTop = scrollTop
     }
 
     return element
