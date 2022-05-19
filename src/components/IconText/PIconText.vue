@@ -25,7 +25,7 @@
   text-slate-400
   w-4
   h-5
-  mr-2
+  mr-1
 }
 
 .p-text__label { @apply

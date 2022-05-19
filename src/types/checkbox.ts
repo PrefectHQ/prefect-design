@@ -1,0 +1,1 @@
+export type CheckboxModel = boolean | unknown[] | undefined
