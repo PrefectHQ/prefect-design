@@ -82,9 +82,25 @@
         <p-select v-model="exampleMultiSelect" :options="exampleOptions" multiple />
       </p-label>
 
-      <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)">
+      <p-label label="Date Input" :message="JSON.stringify(exampleDate)">
         <p-native-date-input v-model="exampleDate" />
       </p-label>
+
+      <p-date-picker v-model="exampleDate" :show-time="showTimeInExampleDate" :clearable="isClearableDate" :min="minDate" :max="maxDate" />
+      <div class="flex justify-start gap-4">
+        <p-checkbox v-model="showTimeInExampleDate" label="Show Time" />
+
+        <p-checkbox v-model="isClearableDate" label="Clearable" />
+      </div>
+      <div class="flex gap-4 w-1/2">
+        <p-label label="Min Value" :message="minDate ? format(minDate, 'MMM do, yyyy h:mm a') : ''">
+          <p-native-date-input v-model="minDate" />
+        </p-label>
+
+        <p-label label="Max Value" :message="maxDate ? format(maxDate, 'MMM do, yyyy h:mm a') : ''">
+          <p-native-date-input v-model="maxDate" />
+        </p-label>
+      </div>
     </p-form>
   </Section>
 </template>
@@ -92,10 +108,12 @@
 <script lang="ts" setup>
   import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
+  import { format } from 'date-fns'
   import { computed, ref } from 'vue'
   import Section from '../components/Section.vue'
   import PCheckbox from '@/components/Checkbox'
   import PCombobox from '@/components/Combobox'
+  import PDatePicker from '@/components/DatePicker'
   import PForm from '@/components/Form'
   import PLabel from '@/components/Label'
   import PNativeDateInput from '@/components/NativeDateInput'
@@ -134,10 +152,15 @@
   const exampleCombobox2 = ref('')
   const exampleMultiSelect = ref<string[]>([])
   const exampleDate = ref<Date | null>(new Date())
+  const minDate = ref<Date | null>(null)
+  const maxDate = ref<Date | null>(null)
 
   const exampleState = computed(() => {
     return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
   })
+
+  const showTimeInExampleDate = ref(true)
+  const isClearableDate = ref(false)
 </script>
 
 <style>
