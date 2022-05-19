@@ -11,9 +11,8 @@
     <template #upper-links>
       <div class="flex flex-col gap-1">
         <p-context-nav-item title="Components" icon="PuzzleIcon" to="/components" />
-        <hr class="border-none sm:h-0 sm:my-0 h-[1px] bg-slate-600 my-1 -mx-3">
+        <p-context-nav-item title="Icons" icon="AdjustmentsIcon" to="/icons" />
         <p-context-nav-item title="Layouts" icon="TemplateIcon" to="/layouts" />
-        <hr class="border-none sm:h-0 sm:my-0 h-[1px] bg-slate-600 my-1 -mx-3">
       </div>
     </template>
 

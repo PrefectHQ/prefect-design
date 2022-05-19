@@ -1,66 +1,51 @@
 <template>
-  <div class="min-h-full">
-    <div class="py-10">
-      <header>
-        <div>
-          <h1 class="text-3xl font-bold leading-tight text-gray-900">
-            Components
-          </h1>
-        </div>
-      </header>
-      <main>
-        <div>
-          <PopOverSection />
+  <Page heading="Components">
+    <PopOverSection />
 
-          <TypographySection />
+    <TypographySection />
 
-          <BreadCrumbsSection />
+    <BreadCrumbsSection />
 
-          <KeyValueSection />
+    <KeyValueSection />
 
-          <ButtonsSection />
+    <ButtonsSection />
 
-          <FormsSection />
+    <FormsSection />
 
-          <TogglesSection />
+    <TogglesSection />
 
-          <TagsSection />
+    <TagsSection />
 
-          <ToastsSection />
+    <ToastsSection />
 
-          <ModalsSection />
+    <ModalsSection />
 
-          <IconsSection />
+    <CodeSection />
 
-          <CodeSection />
+    <TablesSection />
 
-          <TablesSection />
+    <IconTextSection />
 
-          <IconTextSection />
+    <TabSection />
 
-          <TabSection />
+    <ListItemsSection />
 
-          <ListItemsSection />
+    <OverflowMenuSection />
 
-          <OverflowMenuSection />
+    <EmptyStateSection />
 
-          <EmptyStateSection />
-
-          <IconButtonMenuSection />
-        </div>
-      </main>
-    </div>
-  </div>
+    <IconButtonMenuSection />
+  </Page>
 </template>
 
 <script lang="ts" setup>
+  import Page from '../components/Page.vue'
   import BreadCrumbsSection from '../sections/BreadCrumbsSection.vue'
   import ButtonsSection from '../sections/ButtonsSection.vue'
   import CodeSection from '../sections/CodeSection.vue'
   import EmptyStateSection from '../sections/EmptyStateSection.vue'
   import FormsSection from '../sections/FormsSection.vue'
   import IconButtonMenuSection from '../sections/IconButtonMenuSection.vue'
-  import IconsSection from '../sections/IconsSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
   import KeyValueSection from '../sections/KeyValueSection.vue'
   import ListItemsSection from '../sections/ListItemsSection.vue'
