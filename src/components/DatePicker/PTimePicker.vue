@@ -153,7 +153,7 @@
 </script>
 
 <style>
-:root {
+.p-time-picker {
   --row-height: 28px;
   --gap-height: 0.5rem;
 }

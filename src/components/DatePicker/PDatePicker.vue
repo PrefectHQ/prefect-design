@@ -1,7 +1,7 @@
 <template>
   <div class="p-date-picker" :class="classes.picker">
     <div class="p-date-picker__top-bar">
-      <template v-if="mode">
+      <template v-if="overlay">
         <p-button
           class="p-date-picker__previous-icon"
           flat
@@ -21,10 +21,10 @@
         />
       </template>
       <div class="p-date-picker__title">
-        <p-button class="p-date-picker__title-month" flat @click="setMode('month')">
+        <p-button class="p-date-picker__title-month" flat @click="setOverlay('month')">
           {{ viewingMonth }}
         </p-button>
-        <p-button class="p-date-picker__title-year" flat @click="setMode('year')">
+        <p-button class="p-date-picker__title-year" flat @click="setOverlay('year')">
           {{ viewingYear }}
         </p-button>
       </div>
@@ -45,7 +45,7 @@
             class="p-date-picker__date"
             :class="classes.date(date)"
             :flat="!isSameDayAsSelectedDate(date)"
-            :disabled="!!mode || !isDateInRange(date, 'day')"
+            :disabled="!!overlay || !isDateInRange(date, 'day')"
             size="xs"
             @click="updateSelectedDate(date)"
           >
@@ -56,7 +56,7 @@
 
       <div class="p-date-picker__bottom-bar">
         <template v-if="showTime && selectedDate">
-          <p-button class="p-date-picker__time-button" size="sm" flat @click="setMode('time')">
+          <p-button class="p-date-picker__time-button" size="sm" flat @click="setOverlay('time')">
             {{ time }}
           </p-button>
         </template>
@@ -74,14 +74,14 @@
         </div>
       </div>
 
-      <template v-if="modePickerComponent">
+      <template v-if="overlayComponent">
         <div class="p-date-picker__overlay">
           <component
-            :is="modePickerComponent"
+            :is="overlayComponent"
             v-model="selectedDate"
             :min="min"
             :max="max"
-            @update:model-value="checkCloseOverlay"
+            @update:model-value="closeOverlayIfOverlayIsNotTime"
           />
         </div>
       </template>
@@ -99,7 +99,7 @@
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
 
-  type Mode = 'year' | 'month' | 'time' | null
+  type Overlay = 'year' | 'month' | 'time' | null
 
   const props = defineProps<{
     // eslint-disable-next-line vue/no-unused-properties
@@ -116,9 +116,9 @@
 
   const { selectedDate, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits)
 
-  const mode = ref<Mode>(null)
-  const modePickerComponent = computed(() => {
-    switch (mode.value) {
+  const overlay = ref<Overlay>(null)
+  const overlayComponent = computed(() => {
+    switch (overlay.value) {
       case 'year':
         return PYearPicker
       case 'month':
@@ -158,7 +158,7 @@
 
   const classes = computed(() => ({
     picker: {
-      'p-date-picker__next-icon--overlay-open': !!mode.value,
+      'p-date-picker__next-icon--overlay-open': !!overlay.value,
     },
     date: (date: Date) => ({
       'p-date-picker__date--today': isSameDay(date, new Date()),
@@ -171,14 +171,14 @@
     return !!selectedDate.value && isSameDay(date, selectedDate.value)
   }
 
-  function checkCloseOverlay(): void {
-    if (mode.value !== 'time') {
+  function closeOverlayIfOverlayIsNotTime(): void {
+    if (overlay.value !== 'time') {
       closeOverlay()
     }
   }
 
   function closeOverlay(): void {
-    mode.value = null
+    overlay.value = null
   }
 
   function updateSelectedDate(date: Date): void {
@@ -193,11 +193,11 @@
     selectedDate.value = props.showTime ? new Date() : startOfDay(new Date())
   }
 
-  function setMode(value: Mode): void {
-    if (mode.value === value) {
+  function setOverlay(value: Overlay): void {
+    if (overlay.value === value) {
       closeOverlay()
     } else {
-      mode.value = value
+      overlay.value = value
     }
   }
 </script>

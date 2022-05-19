@@ -21,7 +21,7 @@ type Precision = 'minute' | 'hour' | 'day' | 'month' | 'year'
 function useDateModelValueWithRange(props: DateProps, emits: DateEmits): DateRangeMethods & {
   selectedDate: WritableComputedRef<Date | null>,
 }
-function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultValue: Date): DateRangeMethods &{
+function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultValue: Date): DateRangeMethods & {
   selectedDate: WritableComputedRef<Date>,
 }
 function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultValue?: Date): DateRangeMethods &{
