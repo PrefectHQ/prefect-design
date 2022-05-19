@@ -15,8 +15,9 @@
 </template>
 
 <script lang="ts" setup>
+  import { useIntersectionObserver } from '@prefecthq/vue-compositions'
   import { setYear } from 'date-fns'
-  import { computed, ref, nextTick, onMounted, onUnmounted } from 'vue'
+  import { computed, ref, nextTick, onMounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
@@ -87,16 +88,10 @@
     }
   }
 
-  let observer: IntersectionObserver | null = null
+  const observer = useIntersectionObserver(handleIntersection, {})
 
   onMounted(() => {
-    observer = new IntersectionObserver(handleIntersection)
-
-    if (topElement.value && bottomElement.value) {
-      observer.observe(topElement.value)
-      observer.observe(bottomElement.value)
-    }
+    observer.observe(topElement)
+    observer.observe(bottomElement)
   })
-
-  onUnmounted(() => observer?.disconnect())
 </script>
