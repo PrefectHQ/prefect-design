@@ -1,7 +1,7 @@
 <template>
   <span class="p-select-option" role="option" :class="classes">
     <template v-if="multiple">
-      <p-checkbox :model-value="selected" />
+      <p-checkbox :model-value="selected" :disabled="disabled" />
     </template>
     <template v-else-if="selected">
       <span class="p-select-option__check">
@@ -24,11 +24,13 @@
     selected: boolean,
     highlighted: boolean,
     multiple?: boolean,
+    disabled?: boolean,
   }>()
 
   const classes = computed(() => ({
     'p-select-option--selected': props.selected,
     'p-select-option--highlighted': props.highlighted,
+    'p-select-option--disabled': props.disabled,
   }))
 </script>
 
@@ -44,6 +46,7 @@
   font-normal
   text-sm
   flex
+  gap-1
   items-center
 }
 
@@ -75,5 +78,13 @@
 .p-select-option__check svg { @apply
   w-4
   h-4
+}
+
+.p-select-option--disabled { @apply
+  opacity-50
+}
+
+.p-select-option--disabled .p-checkbox { @apply
+  opacity-100
 }
 </style>

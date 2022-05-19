@@ -6,7 +6,7 @@
 
     <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="$attrs">
       <template v-for="(option, index) in selectOptions" :key="index">
-        <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue">
+        <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
           {{ option.label }}
         </option>
       </template>

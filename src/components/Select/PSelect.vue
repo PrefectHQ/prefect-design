@@ -47,6 +47,7 @@
               <p-select-option
                 :label="option.label"
                 :multiple="multiple"
+                :disabled="option.disabled"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               >
@@ -192,7 +193,7 @@
   function trySettingValueToHighlighted(): boolean {
     const highlighted = getHighlighted()
 
-    if (!highlighted) {
+    if (!highlighted || highlighted.disabled) {
       return false
     }
 
@@ -266,6 +267,10 @@
   }
 
   function handleOptionClick(option: SelectOption): void {
+    if (option.disabled) {
+      return
+    }
+
     setValue(option.value)
 
     if (!props.multiple) {
