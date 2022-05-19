@@ -49,5 +49,5 @@ export function formatDateTimeRelative(date: Date | string): string {
     return `${formatted} ago`
   }
 
-  return formatted
+  return `in ${formatted}`
 }
