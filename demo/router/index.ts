@@ -14,6 +14,11 @@ const routeRecords: RouteRecordRaw[] = [
     component: () => import('../pages/LayoutsPage.vue'),
   },
   {
+    name: 'icons',
+    path: '/icons',
+    component: () => import('../pages/IconsPage.vue'),
+  },
+  {
     path: '/',
     redirect: 'components',
   },
