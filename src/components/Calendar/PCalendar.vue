@@ -28,7 +28,7 @@
     year: number,
   }>()
 
-  const days = eachDayOfInterval({ start:startOfWeek(new Date()), end: endOfWeek(new Date()) }).map(x => format(x, 'EEEEEE'))
+  const days = eachDayOfInterval({ start: startOfWeek(new Date()), end: endOfWeek(new Date()) }).map(x => format(x, 'EEEEEE'))
 
   const selectedDate = computed(() => set(new Date(), { year: props.year, month: props.month }))
 
