@@ -202,6 +202,20 @@
     return true
   }
 
+  function getFirstNonDisabledIndex(): number {
+    return selectOptions.value.findIndex(x => !x.disabled)
+  }
+
+  function getLastNonDisabledIndex(): number {
+    for (let i=selectOptions.value.length - 1; i >= 0; i--) {
+      if (!selectOptions.value[i].disabled) {
+        return i
+      }
+    }
+
+    return -1
+  }
+
   function tryMovingHighlightedIndex(change: number): boolean {
     const maxIndex = selectOptions.value.length
     const newIndex = highlightedIndex.value + change
@@ -211,17 +225,39 @@
     }
 
     if (newIndex < 0) {
-      highlightedIndex.value = 0
+      const firstNonDisabled = getFirstNonDisabledIndex()
+
+      if (firstNonDisabled === -1) {
+        return false
+      }
+
+      highlightedIndex.value = firstNonDisabled
     } else if (newIndex >= maxIndex) {
-      highlightedIndex.value = maxIndex -1
+      const lastNonDisabled = getLastNonDisabledIndex()
+
+      if (lastNonDisabled === -1) {
+        return false
+      }
+
+      highlightedIndex.value = lastNonDisabled
     } else {
       highlightedIndex.value = newIndex
+
+      if (selectOptions.value[newIndex].disabled) {
+        return tryMovingHighlightedIndex(change)
+      }
     }
 
+    scrollToOption(highlightedIndex.value)
+
+    return true
+  }
+
+  function scrollToOption(index: number): HTMLElement {
     const element = optionElements.value[highlightedIndex.value]
     element.scrollIntoView({ block: 'nearest' })
 
-    return true
+    return element
   }
 
   function handleKeydown(event: KeyboardEvent): void {
