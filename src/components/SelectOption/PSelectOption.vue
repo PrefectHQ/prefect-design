@@ -46,7 +46,7 @@
   font-normal
   text-sm
   flex
-  gap-1
+  gap-2
   items-center
 }
 
