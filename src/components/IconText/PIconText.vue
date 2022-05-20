@@ -18,18 +18,18 @@
 <style>
 .p-text { @apply
   flex
-  items-center
+  items-start
 }
 
 .p-text__icon { @apply
   text-slate-400
   w-4
-  h-5
+  flex-shrink-0
+  h-4
   mr-1
 }
 
 .p-text__label { @apply
-  text-slate-500
   text-xs
   leading-4
   font-normal
