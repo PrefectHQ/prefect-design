@@ -1,12 +1,12 @@
 <template>
-  <div class="p-date-input" :class="classes" :style="styles">
-    <span class="p-date-input__icon">
+  <div class="p-native-date-input" :class="classes" :style="styles">
+    <span class="p-native-date-input__icon">
       <p-icon icon="CalendarIcon" />
     </span>
     <input
       v-model="stringValue"
       type="date"
-      class="p-date-input__control"
+      class="p-native-date-input__control"
       :min="stringMin"
       :max="stringMax"
       v-bind="attrs"
@@ -28,7 +28,6 @@
 <script lang="ts" setup>
   import PIcon from '@/components/Icon'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -46,12 +45,10 @@
 
   const stringValue = computed({
     get() {
-      const adjustedValue = useAdjustedDate(internalValue)
-
-      return adjustedValue.value ? format(adjustedValue.value, 'yyyy-MM-dd') : null
+      return internalValue.value ? format(internalValue.value, 'yyyy-MM-dd') : null
     },
     set(value: string | null) {
-      emits('update:modelValue', value ? useUnadjustedDate(parseISO(value)) : null)
+      emits('update:modelValue', value ? parseISO(value) : null)
     },
   })
 
@@ -60,7 +57,7 @@
 </script>
 
 <style>
-.p-date-input { @apply
+.p-native-date-input { @apply
   relative
   border
   border-gray-300
@@ -74,7 +71,7 @@
   bg-none
 }
 
-.p-date-input__icon { @apply
+.p-native-date-input__icon { @apply
   absolute
   inset-y-0
   right-0
@@ -84,22 +81,21 @@
   pointer-events-none
 }
 
-.p-date-input__icon svg { @apply
+.p-native-date-input__icon svg { @apply
   w-4
   h-4
 }
 
-.p-date-input { @apply
+.p-native-date-input { @apply
   w-full
 }
 
-.p-date-input .p-date-input__control::-webkit-inner-spin-button,
-.p-date-input .p-date-input__control::-webkit-calendar-picker-indicator {
-    background: none;
-    -webkit-appearance: none;
+.p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
+  background: none;
+  -webkit-appearance: none;
 }
 
-.p-date-input .p-date-input__control { @apply
+.p-native-date-input .p-native-date-input__control { @apply
   block
   h-10
   w-full

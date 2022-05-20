@@ -3,7 +3,7 @@
     <div class="p-date-picker__top-bar">
       <template v-if="overlay">
         <p-button
-          class="p-date-picker__previous-icon"
+          class="p-date-picker__close-icon"
           flat
           icon="XIcon"
           size="sm"
@@ -12,7 +12,7 @@
       </template>
       <template v-else>
         <p-button
-          class="p-date-picker__close-icon"
+          class="p-date-picker__previous-icon"
           flat
           icon="ChevronLeftIcon"
           size="sm"

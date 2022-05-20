@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted, defineExpose } from 'vue'
+  import { defineComponent, withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
 
   export default defineComponent({
     name: 'PPopOver',
