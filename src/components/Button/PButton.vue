@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots, PropType, ref, defineExpose } from 'vue'
+  import { computed, useSlots, PropType, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
