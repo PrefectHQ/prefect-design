@@ -15,14 +15,10 @@
 
 <script setup lang="ts">
   import { computed } from 'vue'
-
-  type Crumb = {
-    text: string,
-    to?: string,
-  }
+  import type { Crumb, BreadCrumbs } from '@/types'
 
   const props = defineProps<{
-    crumbs: Crumb[],
+    crumbs: BreadCrumbs,
   }>()
 
   const classes = computed(() => ({

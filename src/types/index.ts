@@ -1,3 +1,4 @@
+export * from './breadcrumbs'
 export * from './checkbox'
 export * from './icon'
 export * from './keyEvent'
