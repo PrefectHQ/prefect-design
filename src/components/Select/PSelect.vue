@@ -47,6 +47,7 @@
               <p-select-option
                 :label="option.label"
                 :multiple="multiple"
+                :disabled="option.disabled"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               >
@@ -192,13 +193,27 @@
   function trySettingValueToHighlighted(): boolean {
     const highlighted = getHighlighted()
 
-    if (!highlighted) {
+    if (!highlighted || highlighted.disabled) {
       return false
     }
 
     setValue(highlighted.value)
 
     return true
+  }
+
+  function getFirstNonDisabledIndex(): number {
+    return selectOptions.value.findIndex(x => !x.disabled)
+  }
+
+  function getLastNonDisabledIndex(): number {
+    for (let i=selectOptions.value.length - 1; i >= 0; i--) {
+      if (!selectOptions.value[i].disabled) {
+        return i
+      }
+    }
+
+    return -1
   }
 
   function tryMovingHighlightedIndex(change: number): boolean {
@@ -210,17 +225,39 @@
     }
 
     if (newIndex < 0) {
-      highlightedIndex.value = 0
+      const firstNonDisabled = getFirstNonDisabledIndex()
+
+      if (firstNonDisabled === -1) {
+        return false
+      }
+
+      highlightedIndex.value = firstNonDisabled
     } else if (newIndex >= maxIndex) {
-      highlightedIndex.value = maxIndex -1
+      const lastNonDisabled = getLastNonDisabledIndex()
+
+      if (lastNonDisabled === -1) {
+        return false
+      }
+
+      highlightedIndex.value = lastNonDisabled
     } else {
       highlightedIndex.value = newIndex
+
+      if (selectOptions.value[newIndex].disabled) {
+        return tryMovingHighlightedIndex(change)
+      }
     }
 
+    scrollToOption(highlightedIndex.value)
+
+    return true
+  }
+
+  function scrollToOption(index: number): HTMLElement {
     const element = optionElements.value[highlightedIndex.value]
     element.scrollIntoView({ block: 'nearest' })
 
-    return true
+    return element
   }
 
   function handleKeydown(event: KeyboardEvent): void {
@@ -266,6 +303,10 @@
   }
 
   function handleOptionClick(option: SelectOption): void {
+    if (option.disabled) {
+      return
+    }
+
     setValue(option.value)
 
     if (!props.multiple) {

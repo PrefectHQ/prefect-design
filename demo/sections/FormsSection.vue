@@ -139,7 +139,7 @@
   const exampleOptions = [
     { label: 'Tim Cook', value: 'Apple' },
     { label: 'Satya Nadella', value: 'Microsoft' },
-    { label: 'Jeffrey Bezos', value: 'Amazon' },
+    { label: 'Jeffrey Bezos', value: 'Amazon', disabled: true },
     { label: 'Sundar Pichai', value: 'Google' },
     { label: 'Elon Musk', value: 'Space-X' },
     { label: 'Mark Lizardking', value: 'Facebook' },
