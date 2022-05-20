@@ -5,7 +5,7 @@
     </template>
     <template v-else-if="selected">
       <span class="p-select-option__check">
-        <CheckIcon />
+        <p-icon icon="CheckIcon" />
       </span>
     </template>
     <span class="p-select-option__text">
@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-  import CheckIcon from '@heroicons/vue/solid/CheckIcon'
   import { computed } from 'vue'
   import PCheckbox from '@/components/Checkbox'
+  import PIcon from '@/components/Icon'
 
   const props = defineProps<{
     label: string,
