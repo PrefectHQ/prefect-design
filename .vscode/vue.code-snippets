@@ -5,21 +5,56 @@
         "body": [
             "<template>",
             "  <div class=\"${TM_FILENAME_BASE/(^[A-Z][a-z]*|[a-z])([A-Z])?/${1:/downcase}${2:+-}${2:/downcase}/g}\">",
+                "",
+                "  </div>",
+                "</template>",
+                "",
+                "<script lang=\"ts\" setup>",
+                "  defineProps<{",
+                "    ${1}",
+                "  }>()",
+                "</script>",
+                "",
+                "<style>",
+                "",
+                "</style>"
+            ],
+        "description": "Typescript Setup Component"
+    },
+    "vue-demo-section": {
+        "scope": "vue",
+        "prefix": "vue",
+        "body": [
+            "<template>",
+            "  <Section heading=\"${1}\">",
             "",
-            "  </div>",
+            "  </Section>",
             "</template>",
             "",
             "<script lang=\"ts\" setup>",
-            "  defineProps<{",
-            "    ${1}",
-            "  }>()",
-            "</script>",
-            "",
-            "<style>",
-            "",
-            "</style>"
+            "  import Section from '../components/Section.vue'",
+            "</script>"
         ],
-        "description": "Typescript Setup Component"
+        "description": "vue-demo"
+    },
+    "vue-demo-section-sub-section": {
+        "scope": "vue",
+        "prefix": "vue",
+        "body": [
+          "<template>",
+          "  <Section heading=\"${1}\">",
+          "    <SubSection heading=\"${2}\">",
+          "",
+          "    </SubSection>",
+          "  </Section>",
+          "</template>",
+          "",
+          "<script lang=\"ts\" setup>",
+          "  import Section from '../components/Section.vue'",
+          "  import SubSection from '../components/SubSection.vue'",
+          "</script>"
+        ],
+        "description": "vue-demo"
     },
     "template": {
         "scope": "vue",

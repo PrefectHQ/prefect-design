@@ -58,7 +58,7 @@
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
 
-  const calculateOverflow = async (entries: ResizeObserverEntry[]): Promise<void> => {
+  const calculateOverflow = (entries: ResizeObserverEntry[]): void => {
     const children = Array.from(
       entries[0]?.target?.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
       .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'),
