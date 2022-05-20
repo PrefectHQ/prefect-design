@@ -14,25 +14,25 @@
     />
 
     <div class="p-select__custom">
-      <slot
-        :selected-option="selectedOption"
-        :display-value="displayValue"
-        :is-open="open"
-        :open="openSelect"
-        :close="closeSelect"
+      <button
+        type="button"
+        class="p-select__custom-button"
+        aria-hidden="true"
+        tabindex="-1"
+        @click="openSelect"
       >
-        <button
-          type="button"
-          class="p-select__custom-button"
-          aria-hidden="true"
-          tabindex="-1"
-          @click="openSelect"
+        <slot
+          :selected-option="selectedOption"
+          :display-value="displayValue"
+          :is-open="open"
+          :open="openSelect"
+          :close="closeSelect"
         >
           <span class="p-select__selected-value">
             {{ displayValue }}
           </span>
-        </button>
-      </slot>
+        </slot>
+      </button>
     </div>
 
     <template v-if="open">
