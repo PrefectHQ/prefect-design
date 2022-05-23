@@ -20,8 +20,8 @@
             <p-table-row>
               <template v-for="column in columns" :key="column">
                 <p-table-data>
-                  <slot :name="kebabCase(column.property)" :value="row[column.property]" v-bind="{ column, row }">
-                    {{ row[column.property] }}
+                  <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
+                    {{ getValue(row, column) }}
                   </slot>
                 </p-table-data>
               </template>
@@ -87,6 +87,14 @@
 
   function convertStringsToTableColumns(columns: string[]): TableColumn[] {
     return columns.map(property => ({ label: property, property }))
+  }
+
+  function getValue(row: Record<string, unknown>, column: TableColumn): unknown {
+    if (column.property) {
+      return row[column.property]
+    }
+
+    return ''
   }
 </script>
 
