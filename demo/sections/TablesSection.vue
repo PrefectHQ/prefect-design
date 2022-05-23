@@ -5,7 +5,11 @@
     </SubSection>
 
     <SubSection heading="Using Columns">
-      <p-table :data="data" :columns="columns" />
+      <p-table :data="data" :columns="columns">
+        <template #action>
+          No Actions
+        </template>
+      </p-table>
     </SubSection>
 
     <SubSection heading="Custom">
@@ -97,6 +101,10 @@
     {
       property: 'email',
       label: 'Email',
+    },
+    {
+      label: 'Action',
+      width: '100px',
     },
   ]
 </script>
