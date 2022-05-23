@@ -4,18 +4,16 @@
       <slot name="header" class="p-layout-full__header" />
     </div>
 
-    <slot name="content" />
+    <slot />
   </div>
 </template>
 
 <style>
-.p-layout-full {
-   @apply
+.p-layout-full { @apply
   w-screen
   h-screen
 }
-.p-layout-full__header {
-  @apply
+.p-layout-full__header { @apply
   absolute
   top-8
   left-8

@@ -7,15 +7,13 @@
             Header
           </div>
         </template>
-        <template #content>
-          <div class="bg-slate-300 h-full p-4">
-            <p> Content</p>
-            <p> Content</p>
-            <p> Content</p>
-            <p> Content</p>
-            <p> Content</p>
-          </div>
-        </template>
+        <div class="bg-slate-300 h-full p-4">
+          <p> Content</p>
+          <p> Content</p>
+          <p> Content</p>
+          <p> Content</p>
+          <p> Content</p>
+        </div>
       </p-layout-default>
     </resizable-section>
   </Section>

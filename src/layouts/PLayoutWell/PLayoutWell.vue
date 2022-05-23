@@ -4,7 +4,7 @@
       <slot name="header" />
     </div>
     <div class="p-layout-well__content">
-      <slot name="content" />
+      <slot />
     </div>
     <div class="p-layout-well__well">
       <slot name="well" />
@@ -18,7 +18,7 @@
   p-8
   grid
   grid-cols-[1fr_1fr_250px]
-  grid-rows-[repeat(2,_auto)]
+  grid-rows-[max-content_1fr]
   gap-8
   h-full
   w-full

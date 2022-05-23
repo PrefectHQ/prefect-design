@@ -8,16 +8,14 @@
             <p>Header</p>
           </div>
         </template>
-        <template #content>
-          <div>
-            <p>Content</p>
-            <p>Content</p>
-            <p>Content</p>
-            <p>Content</p>
-            <p>Content</p>
-            <p>Content</p>
-          </div>
-        </template>
+        <div>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+          <p>Content</p>
+        </div>
       </p-layout-full>
     </resizable-section>
   </Section>

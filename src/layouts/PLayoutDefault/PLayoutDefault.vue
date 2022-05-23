@@ -4,7 +4,7 @@
       <slot name="header" class="p-layout-default__header" />
     </div>
     <div class="p-layout-default__content">
-      <slot name="content" />
+      <slot />
     </div>
   </div>
 </template>
@@ -14,8 +14,7 @@
   @apply
   p-8
   grid
-  grid-cols-1
-  grid-rows-[repeat(2,_auto)]
+  grid-rows-[max-content_1fr]
   gap-8
   h-full
   w-full
