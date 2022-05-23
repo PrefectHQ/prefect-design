@@ -5,19 +5,15 @@
         <span class="font-normal text-sm mx-3">Prefect Design</span>
         <span class="font-bold text-base mx-3">UI Team Demo Collection</span>
       </div>
-      <hr class="border-none h-[1px] bg-slate-600 my-2 -mx-3">
     </template>
 
-    <template #upper-links>
-      <div class="flex flex-col gap-1">
-        <p-context-nav-item title="Components" icon="PuzzleIcon" to="/components" />
-        <p-context-nav-item title="Icons" icon="AdjustmentsIcon" to="/icons" />
-        <p-context-nav-item title="Layouts" icon="TemplateIcon" to="/layouts" />
-      </div>
-    </template>
+    <p-context-nav-item title="Components" icon="PuzzleIcon" to="/components" />
+    <p-context-nav-item title="Icons" icon="AdjustmentsIcon" to="/icons" />
+    <p-context-divider />
+    <p-context-nav-item title="Layouts" icon="TemplateIcon" to="/layouts" />
 
-    <template #bottom-links>
-      <p-button inset class="my-3 justify-center" @click="toggleGlobalSidebar">
+    <template #footer>
+      <p-button inset class="justify-center" @click="toggleGlobalSidebar">
         Show Global Sidebar
       </p-button>
     </template>

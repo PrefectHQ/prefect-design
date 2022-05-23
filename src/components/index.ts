@@ -4,6 +4,7 @@ import { default as PCalendar } from './Calendar'
 import { default as PCheckbox } from './Checkbox'
 import { default as PCode } from './Code'
 import { default as PCombobox } from './Combobox'
+import { default as PContextDivider } from './ContextDivider'
 import { default as PContextNavItem } from './ContextNavItem'
 import { default as PContextSidebar } from './ContextSidebar'
 import { default as PDateInput } from './DateInput'
@@ -42,6 +43,7 @@ export {
   PCheckbox,
   PCode,
   PCombobox,
+  PContextDivider,
   PContextNavItem,
   PContextSidebar,
   PDateInput,
@@ -81,6 +83,7 @@ export const installs = [
   PCheckbox.install,
   PCode.install,
   PCombobox.install,
+  PContextDivider.install,
   PContextNavItem.install,
   PContextSidebar.install,
   PDateInput.install,

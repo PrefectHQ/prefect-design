@@ -24,8 +24,7 @@
 </script>
 
 <style>
-.p-context-nav-item {
-  @apply
+.p-context-nav-item { @apply
   flex
   py-2.5
   px-3
@@ -43,14 +42,12 @@
   focus:bg-white/25
 }
 
-.p-context-nav-item__icon{
-  @apply
+.p-context-nav-item__icon { @apply
   h-6
   w-6
 }
 
-.p-context-nav-item--active {
-  @apply
+.p-context-nav-item--active { @apply
   bg-white/25
 }
 </style>
