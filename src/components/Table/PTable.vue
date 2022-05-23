@@ -46,12 +46,12 @@
   import PTableHead from './PTableHead.vue'
   import PTableHeader from './PTableHeader.vue'
   import PTableRow from './PTableRow.vue'
-  import { TableColumn } from '@/types/tables'
+  import { TableColumn, TableData } from '@/types/tables'
   import { isStrings } from '@/utilities/arrays'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    data: Record<string, unknown>[],
+    data: TableData[],
     columns?: TableColumn[],
   }>()
 

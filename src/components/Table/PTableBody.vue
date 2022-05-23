@@ -22,18 +22,18 @@
   import { withDefaults } from 'vue'
   import PTableData from './PTableData.vue'
   import PTableRow from './PTableRow.vue'
-  import { TableColumn } from '@/types/tables'
+  import { TableColumn, TableData } from '@/types/tables'
   import { kebabCase } from '@/utilities/strings'
 
   withDefaults(defineProps<{
-    data?: Record<string, unknown>[],
+    data?: TableData[],
     columns?: TableColumn[],
   }>(), {
     data: () => [],
     columns: () => [],
   })
 
-  function getValue(row: Record<string, unknown>, column: TableColumn): unknown {
+  function getValue(row: TableData, column: TableColumn): unknown {
     if (column.property) {
       return row[column.property]
     }
