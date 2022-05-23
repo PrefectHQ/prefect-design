@@ -74,12 +74,12 @@
         <p-combobox v-model="exampleCombobox" allow-deselect :options="exampleOptions" />
       </p-label>
 
-      <p-label label="Plain text combobox that allows unknown value" :message="JSON.stringify(exampleCombobox2)">
-        <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['cool', 'story', 'bro']" />
+      <p-label label="Plain text combobox that allows unknown value and multiple" :message="JSON.stringify(exampleCombobox2)">
+        <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" />
       </p-label>
 
       <p-label label="Multi select" :message="JSON.stringify(exampleMultiSelect)">
-        <p-select v-model="exampleMultiSelect" :options="exampleOptions" multiple />
+        <p-select v-model="exampleMultiSelect" :options="exampleOptions" />
       </p-label>
 
       <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)">
@@ -151,7 +151,7 @@
     ...exampleOptions,
   ]
   const exampleCombobox = ref('Space-X')
-  const exampleCombobox2 = ref('')
+  const exampleCombobox2 = ref([])
   const exampleMultiSelect = ref<string[]>([])
   const exampleDate = ref<Date | null>(new Date())
   const minDate = ref<Date | null>(null)

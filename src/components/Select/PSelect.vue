@@ -1,97 +1,99 @@
 <template>
-  <div
-    ref="selectElement"
+  <p-pop-over
+    ref="popOver"
+    :placement="[bottomLeft, topLeft]"
     class="p-select"
     :class="classes"
+    auto-close
     @keydown="handleKeydown"
   >
-    <p-native-select
-      v-model="internalValue"
-      size="1"
-      class="p-select__native"
-      :multiple="multiple"
-      :options="selectOptions"
-    />
+    <template #target>
+      <p-native-select
+        v-model="internalValue"
+        size="1"
+        class="p-select__native"
+        :multiple="multiple"
+        :options="selectOptions"
+      />
 
-    <div class="p-select__custom">
-      <button
-        type="button"
-        class="p-select__custom-button"
-        aria-hidden="true"
-        tabindex="-1"
-        @click="openSelect"
-      >
-        <slot
-          :selected-option="selectedOption"
-          :selected-options="selectedOptions"
-          :is-open="open"
-          :open="openSelect"
-          :close="closeSelect"
+      <div class="p-select__custom">
+        <button
+          type="button"
+          class="p-select__custom-button"
+          aria-hidden="true"
+          tabindex="-1"
+          @click="openSelect"
         >
-          <template v-if="multiple">
-            <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
-              <template #tag="{ tag }">
-                <PTag dismissible @dismiss="dismissTag(tag)">
-                  {{ tag }}
-                </PTag>
-              </template>
+          <slot
+            :selected-option="selectedOption"
+            :selected-options="selectedOptions"
+            :is-open="popOver?.visible"
+            :open="openSelect"
+            :close="closeSelect"
+          >
+            <template v-if="multiple">
+              <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
+                <template #tag="{ tag }">
+                  <PTag dismissible @dismiss="dismissTag(tag)">
+                    {{ tag }}
+                  </PTag>
+                </template>
 
-              <template #overflow-tags="{ overflowedChildren }">
-                <span class="p-select__tag-wrapper--overflow">
-                  +{{ overflowedChildren }}
-                </span>
-              </template>
-            </PTagWrapper>
-          </template>
-          <template v-else>
-            <span class="p-select__selected-value">
-              {{ selectedOption?.label }}
-            </span>
-          </template>
-        </slot>
-      </button>
-    </div>
+                <template #overflow-tags="{ overflowedChildren }">
+                  <span class="p-select__tag-wrapper--overflow">
+                    +{{ overflowedChildren }}
+                  </span>
+                </template>
+              </PTagWrapper>
+            </template>
+            <template v-else>
+              <span class="p-select__selected-value">
+                {{ selectedOption?.label }}
+              </span>
+            </template>
+          </slot>
+        </button>
+      </div>
+    </template>
 
-    <template v-if="open">
-      <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
-        <template v-if="selectOptions.length">
-          <template v-for="(option, index) in selectOptions" :key="index">
-            <li
-              ref="optionElements"
-              @mouseenter="highlightedIndex = index"
-              @click="handleOptionClick(option)"
+    <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
+      <template v-if="selectOptions.length">
+        <template v-for="(option, index) in selectOptions" :key="index">
+          <li
+            ref="optionElements"
+            @mouseenter="highlightedIndex = index"
+            @click="handleOptionClick(option)"
+          >
+            <p-select-option
+              :label="option.label"
+              :multiple="multiple"
+              :disabled="option.disabled"
+              :selected="isSelected(option)"
+              :highlighted="highlightedIndex === index"
             >
-              <p-select-option
-                :label="option.label"
-                :multiple="multiple"
-                :disabled="option.disabled"
+              <slot
+                name="option"
+                :option="option"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
-              >
-                <slot
-                  name="option"
-                  :option="option"
-                  :selected="isSelected(option)"
-                  :highlighted="highlightedIndex === index"
-                />
-              </p-select-option>
-            </li>
-          </template>
+              />
+            </p-select-option>
+          </li>
         </template>
-        <template v-else>
-          <div class="p-select__options--empty">
-            <slot name="options-empty">
-              No options
-            </slot>
-          </div>
-        </template>
-      </ul>
-    </template>
-  </div>
+      </template>
+      <template v-else>
+        <div class="p-select__options--empty">
+          <slot name="options-empty">
+            No options
+          </slot>
+        </div>
+      </template>
+    </ul>
+  </p-pop-over>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onUnmounted, ref } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
 
   export default defineComponent({
     name: 'PSelect',
@@ -102,10 +104,12 @@
 
 <script lang="ts" setup>
   import PNativeSelect from '@/components/NativeSelect'
+  import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectOption from '@/components/SelectOption'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { topLeft, bottomLeft } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
@@ -117,10 +121,9 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const selectElement = ref<HTMLElement>()
   const optionElements = ref<HTMLElement[]>([])
+  const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref<number>(-1)
-  const open = ref(false)
 
   const internalValue = computed({
     get() {
@@ -170,7 +173,7 @@
   }))
 
   const classes = computed(() => ({
-    'p-select--open': open.value,
+    'p-select--open': popOver.value?.visible,
   }))
 
   function isSelected(option: SelectOption): boolean {
@@ -182,20 +185,14 @@
   }
 
   function openSelect(): void {
-    if (!open.value) {
-      open.value = true
-      emits('open')
-      setTimeout(() => addListeners())
-    }
+    emits('open')
+    popOver.value!.open()
   }
 
   function closeSelect(): void {
-    if (open.value) {
-      open.value = false
-      highlightedIndex.value = -1
-      emits('close')
-      removeListeners()
-    }
+    highlightedIndex.value = -1
+    emits('close')
+    popOver.value!.close()
   }
 
   function setValue(newValue: SelectModelValue): void {
@@ -246,7 +243,7 @@
     const maxIndex = selectOptions.value.length
     const newIndex = highlightedIndex.value + change
 
-    if (!maxIndex || !open.value) {
+    if (!maxIndex || !popOver.value?.visible) {
       return false
     }
 
@@ -298,13 +295,13 @@
         closeSelect()
         break
       case keys.upArrow:
-        if (open.value) {
+        if (popOver.value?.visible) {
           tryMovingHighlightedIndex(-1)
         }
         event.preventDefault()
         break
       case keys.downArrow:
-        if (open.value) {
+        if (popOver.value?.visible) {
           tryMovingHighlightedIndex(1)
         } else {
           openSelect()
@@ -312,8 +309,10 @@
         event.preventDefault()
         break
       case keys.space:
-        if (!open.value) {
+        if (!popOver.value?.visible) {
           openSelect()
+        } else {
+          trySettingValueToHighlighted()
         }
         event.preventDefault()
         break
@@ -345,27 +344,6 @@
       closeSelect()
     }
   }
-
-  function handleDocumentClick(event: MouseEvent): void {
-    const focusIsWithinSelect = selectElement.value?.contains(event.target as Node)
-    if (!focusIsWithinSelect && open.value) {
-      closeSelect()
-    }
-  }
-
-  function addListeners(): void {
-    document.addEventListener('click', handleDocumentClick)
-    window.addEventListener('resize', closeSelect)
-  }
-
-  function removeListeners(): void {
-    document.removeEventListener('click', handleDocumentClick)
-    window.removeEventListener('resize', closeSelect)
-  }
-
-  onUnmounted(() => {
-    removeListeners()
-  })
 </script>
 
 <style>
@@ -425,15 +403,9 @@
 }
 
 .p-select__options { @apply
-  absolute
-  hidden
-  z-[3]
-  mt-1
-  left-0
-  w-full
+  my-1
   bg-white
   shadow-lg
-  max-h-60
   rounded-md
   py-1
   ring-1
