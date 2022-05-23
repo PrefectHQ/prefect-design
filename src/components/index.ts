@@ -1,10 +1,14 @@
 import { default as PBreadCrumbs } from './BreadCrumbs'
 import { default as PButton } from './Button'
+import { default as PCalendar } from './Calendar'
 import { default as PCheckbox } from './Checkbox'
 import { default as PCode } from './Code'
+import { default as PCombobox } from './Combobox'
 import { default as PContextDivider } from './ContextDivider'
 import { default as PContextNavItem } from './ContextNavItem'
 import { default as PContextSidebar } from './ContextSidebar'
+import { default as PDateInput } from './DateInput'
+import { default as PDatePicker } from './DatePicker'
 import { default as PEmptyState } from './EmptyState'
 import { default as PForm } from './Form'
 import { default as PGlobalNavItem } from './GlobalNavItem'
@@ -16,9 +20,13 @@ import { default as PLabel } from './Label'
 import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
 import { default as PModal } from './Modal'
+import { default as PNativeDateInput } from './NativeDateInput'
+import { default as PNativeSelect } from './NativeSelect'
 import { default as PNumberInput } from './NumberInput'
 import { default as POverflowMenu } from './OverflowMenu'
 import { default as POverflowMenuItem } from './OverflowMenuItem'
+import { default as PSelect } from './Select'
+import { default as PSelectOption } from './SelectOption'
 import { default as PTab } from './Tab'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
@@ -31,11 +39,15 @@ import { default as PToggle } from './Toggle'
 export {
   PBreadCrumbs,
   PButton,
+  PCalendar,
   PCheckbox,
   PCode,
+  PCombobox,
   PContextDivider,
   PContextNavItem,
   PContextSidebar,
+  PDateInput,
+  PDatePicker,
   PEmptyState,
   PForm,
   PGlobalNavItem,
@@ -47,9 +59,13 @@ export {
   PListItem,
   PListItemInput,
   PModal,
+  PNativeDateInput,
+  PNativeSelect,
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
+  PSelect,
+  PSelectOption,
   PTab,
   PTabs,
   PTag,
@@ -63,11 +79,15 @@ export {
 export const installs = [
   PBreadCrumbs.install,
   PButton.install,
+  PCalendar.install,
   PCheckbox.install,
   PCode.install,
+  PCombobox.install,
   PContextDivider.install,
   PContextNavItem.install,
   PContextSidebar.install,
+  PDateInput.install,
+  PDatePicker.install,
   PEmptyState.install,
   PForm.install,
   PGlobalNavItem.install,
@@ -79,9 +99,13 @@ export const installs = [
   PListItem.install,
   PListItemInput.install,
   PModal.install,
+  PNativeDateInput.install,
+  PNativeSelect.install,
   PNumberInput.install,
   POverflowMenu.install,
   POverflowMenuItem.install,
+  PSelect.install,
+  PSelectOption.install,
   PTab.install,
   PTabs.install,
   PTag.install,
@@ -96,32 +120,39 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
+    PCalendar: typeof PCalendar,
     PCheckbox: typeof PCheckbox,
     PCode: typeof PCode,
+    PCombobox: typeof PCombobox,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
-    PContextDivider: typeof PContextDivider,
+    PDateInput: typeof PDateInput,
+    PDatePicker: typeof PDatePicker,
+    PEmptyState: typeof PEmptyState,
+    PForm: typeof PForm,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
-    PForm: typeof PForm,
     PIcon: typeof PIcon,
     PIconText: typeof PIconText,
+    PKeyValue: typeof PKeyValue,
     PLabel: typeof PLabel,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
     PModal: typeof PModal,
+    PNativeDateInput: typeof PNativeDateInput,
+    PNativeSelect: typeof PNativeSelect,
     PNumberInput: typeof PNumberInput,
+    POverflowMenu: typeof POverflowMenu,
+    POverflowMenuItem: typeof POverflowMenuItem,
+    PSelect: typeof PSelect,
+    PSelectOption: typeof PSelectOption,
+    PTab: typeof PTab,
+    PTabs: typeof PTabs,
     PTag: typeof PTag,
     PTagWrapper: typeof PTagWrapper,
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
-    PTab: typeof PTab,
-    PTabs: typeof PTabs,
-    PKeyValue: typeof PKeyValue,
-    POverflowMenu: typeof POverflowMenu,
-    POverflowMenuItem: typeof POverflowMenuItem,
-    PEmptyState: typeof PEmptyState,
   }
 }
