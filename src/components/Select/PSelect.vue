@@ -93,7 +93,6 @@
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
-    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -114,6 +113,8 @@
       emits('update:modelValue', value)
     },
   })
+
+  const multiple = computed(() => Array.isArray(props.modelValue))
 
   const selectedOption = computed(() => {
     if (Array.isArray(internalValue.value)) {
@@ -309,7 +310,7 @@
 
     setValue(option.value)
 
-    if (!props.multiple) {
+    if (!multiple.value) {
       closeSelect()
     }
   }

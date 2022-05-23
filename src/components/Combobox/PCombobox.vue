@@ -2,7 +2,6 @@
   <div class="p-combobox" @keydown="handleComboboxKeydown">
     <p-select
       v-model="internalValue"
-      :multiple="multiple"
       :options="filteredSelectOptions"
       @close="resetTypedValue"
     >
@@ -44,7 +43,6 @@
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     allowUnknownValue?: boolean,
-    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -59,6 +57,8 @@
       emits('update:modelValue', value)
     },
   })
+
+  const multiple = computed(() => Array.isArray(props.modelValue))
 
   const selectOptions = computed<SelectOption[]>(() => props.options
     .map(option => {
@@ -110,8 +110,12 @@
     const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta', 'Tab']
 
     if (!keysToIgnore.includes(event.key)) {
-      textInput.value?.focus()
+      focusOnTextInput()
     }
+  }
+
+  function focusOnTextInput(): void {
+    textInput.value?.focus()
   }
 
   function handleTextInputKeydown(event: KeyboardEvent, isOpen: boolean, open: () => void): void {
@@ -149,15 +153,12 @@
 .p-combobox__text-input { @apply
   cursor-default
   border-none
-  ring-0
-  w-full
+  !ring-0
   h-full
-  pr-8
+  w-full
+  p-0
   rounded-md
-}
-
-.p-combobox__text-input::placeholder { @apply
-  text-current
+  focus:w-full
 }
 
 .p-combobox__text-input--unknown-value { @apply

@@ -31,12 +31,13 @@
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
-    multiple?: boolean,
   }>()
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
+
+  const multiple = computed(() => Array.isArray(props.modelValue))
 
   const internalValue = computed({
     get() {
@@ -56,7 +57,7 @@
   }))
 
   const classes = computed(() => ({
-    'p-native-select__control--multiple': props.multiple,
+    'p-native-select__control--multiple': multiple.value,
   }))
 </script>
 
