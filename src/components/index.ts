@@ -28,6 +28,7 @@ import { default as POverflowMenuItem } from './OverflowMenuItem'
 import { default as PSelect } from './Select'
 import { default as PSelectOption } from './SelectOption'
 import { default as PTab } from './Tab'
+import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow } from './Table'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
 import { default as PTagWrapper } from './TagWrapper'
@@ -73,7 +74,14 @@ export {
   PTextarea,
   PTextInput,
   PToast,
-  PToggle
+  PToggle,
+  PTable,
+  PTableBody,
+  PTableData,
+  PTableFoot,
+  PTableHead,
+  PTableHeader,
+  PTableRow
 }
 
 export const installs = [
@@ -114,6 +122,12 @@ export const installs = [
   PTextInput.install,
   PToast.install,
   PToggle.install,
+  PTableBody.install,
+  PTableData.install,
+  PTableFoot.install,
+  PTableHead.install,
+  PTableHeader.install,
+  PTableRow.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -154,5 +168,11 @@ declare module '@vue/runtime-core' {
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
+    PTableBody: typeof PTableBody,
+    PTableData: typeof PTableData,
+    PTableFoot: typeof PTableFoot,
+    PTableHead: typeof PTableHead,
+    PTableHeader: typeof PTableHeader,
+    PTableRow: typeof PTableRow,
   }
 }
