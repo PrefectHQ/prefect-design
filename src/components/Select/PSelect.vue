@@ -5,6 +5,7 @@
     class="p-select"
     :class="classes"
     auto-close
+    @open="handleOpenChange"
     @keydown="handleKeydown"
   >
     <template #target>
@@ -32,23 +33,28 @@
             :close="closeSelect"
           >
             <template v-if="multiple">
-              <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
-                <template #tag="{ tag }">
-                  <PTag dismissible @dismiss="dismissTag(tag)">
-                    {{ tag }}
-                  </PTag>
-                </template>
+              <template v-if="selectedOptions.length">
+                <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
+                  <template #tag="{ tag }">
+                    <PTag dismissible @dismiss="dismissTag(tag)">
+                      {{ tag }}
+                    </PTag>
+                  </template>
 
-                <template #overflow-tags="{ overflowedChildren }">
-                  <span class="p-select__tag-wrapper--overflow">
-                    +{{ overflowedChildren }}
-                  </span>
-                </template>
-              </PTagWrapper>
+                  <template #overflow-tags="{ overflowedChildren }">
+                    <span class="p-select__tag-wrapper--overflow">
+                      +{{ overflowedChildren }}
+                    </span>
+                  </template>
+                </PTagWrapper>
+              </template>
+              <template v-else>
+                {{ emptyMessage }}
+              </template>
             </template>
             <template v-else>
               <span class="p-select__selected-value">
-                {{ selectedOption?.label }}
+                {{ selectedOption?.label ?? emptyMessage }}
               </span>
             </template>
           </slot>
@@ -57,6 +63,7 @@
     </template>
 
     <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
+      <slot name="pre-options" />
       <template v-if="selectOptions.length">
         <template v-for="(option, index) in selectOptions" :key="index">
           <li
@@ -64,20 +71,20 @@
             @mouseenter="highlightedIndex = index"
             @click="handleOptionClick(option)"
           >
-            <p-select-option
-              :label="option.label"
-              :multiple="multiple"
-              :disabled="option.disabled"
+            <slot
+              name="option"
+              :option="option"
               :selected="isSelected(option)"
               :highlighted="highlightedIndex === index"
             >
-              <slot
-                name="option"
-                :option="option"
+              <p-select-option
+                :label="option.label"
+                :multiple="multiple"
+                :disabled="option.disabled"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               />
-            </p-select-option>
+            </slot>
           </li>
         </template>
       </template>
@@ -88,6 +95,7 @@
           </slot>
         </div>
       </template>
+      <slot name="post-options" />
     </ul>
   </p-pop-over>
 </template>
@@ -114,6 +122,7 @@
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
+    emptyMessage?: string,
   }>()
 
   const emits = defineEmits<{
@@ -173,8 +182,10 @@
   }))
 
   const classes = computed(() => ({
-    'p-select--open': popOver.value?.visible,
+    'p-select--open': isOpen.value,
   }))
+
+  const isOpen = computed(() => popOver.value?.visible ?? false)
 
   function isSelected(option: SelectOption): boolean {
     if (Array.isArray(internalValue.value)) {
@@ -185,13 +196,10 @@
   }
 
   function openSelect(): void {
-    emits('open')
     popOver.value!.open()
   }
 
   function closeSelect(): void {
-    highlightedIndex.value = -1
-    emits('close')
     popOver.value!.close()
   }
 
@@ -243,7 +251,7 @@
     const maxIndex = selectOptions.value.length
     const newIndex = highlightedIndex.value + change
 
-    if (!maxIndex || !popOver.value?.visible) {
+    if (!maxIndex || !isOpen.value) {
       return false
     }
 
@@ -283,6 +291,15 @@
     return element
   }
 
+  function handleOpenChange(open: boolean): void {
+    if (open) {
+      emits('open')
+    } else {
+      highlightedIndex.value = -1
+      emits('close')
+    }
+  }
+
   function handleKeydown(event: KeyboardEvent): void {
     if (isAlphaNumeric(event.key)) {
       openSelect()
@@ -295,13 +312,13 @@
         closeSelect()
         break
       case keys.upArrow:
-        if (popOver.value?.visible) {
+        if (isOpen.value) {
           tryMovingHighlightedIndex(-1)
         }
         event.preventDefault()
         break
       case keys.downArrow:
-        if (popOver.value?.visible) {
+        if (isOpen.value) {
           tryMovingHighlightedIndex(1)
         } else {
           openSelect()
@@ -309,7 +326,7 @@
         event.preventDefault()
         break
       case keys.space:
-        if (!popOver.value?.visible) {
+        if (!isOpen.value) {
           openSelect()
         } else {
           trySettingValueToHighlighted()
