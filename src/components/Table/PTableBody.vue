@@ -5,9 +5,9 @@
         <p-table-row>
           <slot name="row" v-bind="{ row, index }">
             <template v-for="column in columns" :key="column">
-              <slot :name="kebabCase(column.property)" :value="row[column.property]" v-bind="{ column, row }">
+              <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
                 <p-table-data>
-                  {{ row[column.property] }}
+                  {{ getValue(row, column) }}
                 </p-table-data>
               </slot>
             </template>
@@ -32,6 +32,14 @@
     data: () => [],
     columns: () => [],
   })
+
+  function getValue(row: Record<string, unknown>, column: TableColumn): unknown {
+    if (column.property) {
+      return row[column.property]
+    }
+
+    return ''
+  }
 </script>
 
 <style>
