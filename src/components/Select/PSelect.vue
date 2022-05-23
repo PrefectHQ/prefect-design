@@ -23,14 +23,31 @@
       >
         <slot
           :selected-option="selectedOption"
-          :display-value="displayValue"
+          :selected-options="selectedOptions"
           :is-open="open"
           :open="openSelect"
           :close="closeSelect"
         >
-          <span class="p-select__selected-value">
-            {{ displayValue }}
-          </span>
+          <template v-if="multiple">
+            <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
+              <template #tag="{ tag }">
+                <PTag dismissible @dismiss="dismissTag(tag)">
+                  {{ tag }}
+                </PTag>
+              </template>
+
+              <template #overflow-tags="{ overflowedChildren }">
+                <span class="p-select__tag-wrapper--overflow">
+                  +{{ overflowedChildren }}
+                </span>
+              </template>
+            </PTagWrapper>
+          </template>
+          <template v-else>
+            <span class="p-select__selected-value">
+              {{ selectedOption?.label }}
+            </span>
+          </template>
         </slot>
       </button>
     </div>
@@ -86,9 +103,9 @@
 <script lang="ts" setup>
   import PNativeSelect from '@/components/NativeSelect'
   import PSelectOption from '@/components/SelectOption'
+  import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
-  import { toPluralString } from '@/utilities/strings'
 
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
@@ -114,14 +131,34 @@
     },
   })
 
+  const valueAsArray = computed(() => {
+    if (!internalValue.value) {
+      return []
+    }
+
+    if (Array.isArray(internalValue.value)) {
+      return internalValue.value.map(option => option? option.toString() : '')
+    }
+
+    return [internalValue.value.toString()]
+  })
+
   const multiple = computed(() => Array.isArray(props.modelValue))
 
   const selectedOption = computed(() => {
-    if (Array.isArray(internalValue.value)) {
-      return selectOptions.value.filter(isSelected)
+    if (multiple.value) {
+      return null
     }
 
     return selectOptions.value.find(x => x.value === internalValue.value)
+  })
+
+  const selectedOptions = computed(() => {
+    if (multiple.value) {
+      return selectOptions.value.filter(isSelected)
+    }
+
+    return []
   })
 
   const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
@@ -131,18 +168,6 @@
 
     return { label: option.toLocaleString(), value: option }
   }))
-
-  const displayValue = computed(() => {
-    if (Array.isArray(selectedOption.value)) {
-      if (!selectedOption.value.length) {
-        return null
-      }
-
-      return `${selectedOption.value.length} ${toPluralString('Item', selectedOption.value.length)}`
-    }
-
-    return selectedOption.value?.label ?? null
-  })
 
   const classes = computed(() => ({
     'p-select--open': open.value,
@@ -301,6 +326,12 @@
       default:
         break
     }
+  }
+
+  function dismissTag(tag: SelectModelValue): void {
+    const value = valueAsArray.value.filter(x => x !== tag)
+
+    internalValue.value = value
   }
 
   function handleOptionClick(option: SelectOption): void {
