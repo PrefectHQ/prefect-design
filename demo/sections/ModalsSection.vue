@@ -20,11 +20,11 @@
       <template #title>
         <h3>Modal title</h3>
       </template>
-      <template #content>
-        <p class="text-sm text-gray-500">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-      </template>
+
+      <p class="text-sm text-gray-500">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
+      </p>
+
       <template #actions>
         <p-button class="w-full inline-flex justify-center sm:w-auto sm:text-sm" @click="showModal = false">
           Submit
