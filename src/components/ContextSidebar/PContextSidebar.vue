@@ -1,12 +1,18 @@
 <template>
   <div class="p-context-sidebar">
-    <slot name="header" />
-    <div class="p-context-sidebar__nav-items">
-      <slot name="upper-links" />
+    <template v-if="$slots.header">
+      <div class="p-context-sidebar__header">
+        <slot name="header" />
+      </div>
+    </template>
+    <div class="p-context-sidebar__body">
+      <slot />
     </div>
-    <div class="p-context-sidebar__nav-items p-context-sidebar__nav-items--bottom">
-      <slot name="bottom-links" />
-    </div>
+    <template v-if="$slots.footer">
+      <div class="p-context-sidebar__footer">
+        <slot name="footer" />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -18,8 +24,6 @@
   sticky
   top-0
   w-screen
-  px-3
-  py-2
   z-10
   sm:flex
   sm:h-screen
@@ -27,16 +31,27 @@
   sm:flex-col
 }
 
-.p-context-sidebar__nav-items {
-  @apply
-  flex
-  flex-col
+.p-context-sidebar__header,
+.p-context-sidebar__body,
+.p-context-sidebar__footer { @apply
+  p-3
+}
+
+.p-context-sidebar__header { @apply
+  border-b-2
+  border-slate-600
+}
+
+.p-context-sidebar__body,
+.p-context-sidebar__footer { @apply
+  grid
   gap-1
 }
 
-.p-context-sidebar__nav-items--bottom {
+.p-context-sidebar__footer {
   @apply
   sm:mt-auto
-  mt-1
+  border-t-2
+  border-slate-600
 }
 </style>
