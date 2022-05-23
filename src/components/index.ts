@@ -14,6 +14,7 @@ import { default as PForm } from './Form'
 import { default as PGlobalNavItem } from './GlobalNavItem'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PIcon } from './Icon'
+import { default as PIconButtonMenu } from './IconButtonMenu'
 import { default as PIconText } from './IconText'
 import { default as PKeyValue } from './KeyValue'
 import { default as PLabel } from './Label'
@@ -53,6 +54,7 @@ export {
   PGlobalNavItem,
   PGlobalSidebar,
   PIcon,
+  PIconButtonMenu,
   PIconText,
   PKeyValue,
   PLabel,
@@ -93,6 +95,7 @@ export const installs = [
   PGlobalNavItem.install,
   PGlobalSidebar.install,
   PIcon.install,
+  PIconButtonMenu.install,
   PIconText.install,
   PKeyValue.install,
   PLabel.install,
@@ -132,6 +135,7 @@ declare module '@vue/runtime-core' {
     PForm: typeof PForm,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
+    PIconButtonMenu: typeof PIconButtonMenu,
     PIcon: typeof PIcon,
     PIconText: typeof PIconText,
     PKeyValue: typeof PKeyValue,
