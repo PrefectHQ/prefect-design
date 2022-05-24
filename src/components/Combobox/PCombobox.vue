@@ -30,13 +30,13 @@
       <template #option="{ option }">
         {{ option.unknown ? `"${option.label}"` : option.label }}
       </template>
-      <template #default="{ selectedOption, selectedOptions, isOpen, open, close }">
+      <template #default="{ selectedOption, isOpen, open, close, unselectOption }">
         <slot
           :selected-option="selectedOption"
-          :selected-options="selectedOptions"
           :is-open="isOpen"
           :open="open"
           :close="close"
+          :unselect-option="unselectOption"
         />
       </template>
       <template #options-empty>

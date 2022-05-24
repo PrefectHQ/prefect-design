@@ -37,8 +37,6 @@
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
-  const multiple = computed(() => Array.isArray(props.modelValue))
-
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
@@ -47,6 +45,8 @@
       emits('update:modelValue', value)
     },
   })
+
+  const multiple = computed(() => Array.isArray(internalValue.value))
 
   const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
     if (isSelectOption(option)) {

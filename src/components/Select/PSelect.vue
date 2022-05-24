@@ -25,39 +25,54 @@
           tabindex="-1"
           @click="openSelect"
         >
-          <slot
-            :selected-option="selectedOption"
-            :selected-options="selectedOptions"
-            :is-open="popOver?.visible"
-            :open="openSelect"
-            :close="closeSelect"
-          >
-            <template v-if="multiple">
-              <template v-if="selectedOptions.length">
-                <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
-                  <template #tag="{ tag }">
-                    <PTag dismissible @dismiss="dismissTag(tag)">
+          <template v-if="multiple">
+            <template v-if="valueAsArray.length">
+              <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
+                <template #tag="{ tag }">
+                  <slot
+                    name="default"
+                    :selected-option="getSelectOption(tag)"
+                    :is-open="popOver?.visible"
+                    :open="openSelect"
+                    :close="closeSelect"
+                    :unselect-option="() => unselectOptionValue(tag)"
+                  >
+                    <PTag dismissible @dismiss="unselectOptionValue(tag)">
                       {{ tag }}
                     </PTag>
-                  </template>
+                  </slot>
+                </template>
 
-                  <template #overflow-tags="{ overflowedChildren }">
-                    <span class="p-select__tag-wrapper--overflow">
-                      +{{ overflowedChildren }}
-                    </span>
-                  </template>
-                </PTagWrapper>
+                <template #overflow-tags="{ overflowedChildren }">
+                  <span class="p-select__tag-wrapper--overflow">
+                    +{{ overflowedChildren }}
+                  </span>
+                </template>
+              </PTagWrapper>
+            </template>
+            <template v-else>
+              {{ emptyMessage }}
+            </template>
+          </template>
+          <template v-else>
+            <span class="p-select__selected-value">
+              <template v-if="selectedOption">
+                <slot
+                  name="default"
+                  :selected-option="selectedOption"
+                  :is-open="popOver?.visible"
+                  :open="openSelect"
+                  :close="closeSelect"
+                  :unselect-option="() => internalValue = null"
+                >
+                  {{ selectedOption.label }}
+                </slot>
               </template>
               <template v-else>
                 {{ emptyMessage }}
               </template>
-            </template>
-            <template v-else>
-              <span class="p-select__selected-value">
-                {{ selectedOption?.label ?? emptyMessage }}
-              </span>
-            </template>
-          </slot>
+            </span>
+          </template>
         </button>
       </div>
     </template>
@@ -114,6 +129,7 @@
   import PNativeSelect from '@/components/NativeSelect'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectOption from '@/components/SelectOption'
+  import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
@@ -157,7 +173,7 @@
     return [internalValue.value.toString()]
   })
 
-  const multiple = computed(() => Array.isArray(props.modelValue))
+  const multiple = computed(() => Array.isArray(internalValue.value))
 
   const selectedOption = computed(() => {
     if (multiple.value) {
@@ -165,14 +181,6 @@
     }
 
     return selectOptions.value.find(x => x.value === internalValue.value)
-  })
-
-  const selectedOptions = computed(() => {
-    if (multiple.value) {
-      return selectOptions.value.filter(isSelected)
-    }
-
-    return []
   })
 
   const selectOptions = computed<SelectOption[]>(() => {
@@ -194,6 +202,10 @@
   }))
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
+
+  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
+    return selectOptions.value.find(x => x.value === value)
+  }
 
   function isSelected(option: SelectOption): boolean {
     if (Array.isArray(internalValue.value)) {
@@ -359,7 +371,7 @@
     }
   }
 
-  function dismissTag(tag: SelectModelValue): void {
+  function unselectOptionValue(tag: SelectModelValue): void {
     const value = valueAsArray.value.filter(x => x !== tag)
 
     internalValue.value = value
@@ -430,8 +442,9 @@
 }
 
 .p-select__selected-value { @apply
-  block
   truncate
+  flex
+  items-center
 }
 
 .p-select__options { @apply
