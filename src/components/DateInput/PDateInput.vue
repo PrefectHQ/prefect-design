@@ -139,7 +139,7 @@
 
 .p-date-input__date-picker { @apply
   bg-white
-  mt-1
+  my-1
 }
 
 @media (hover: hover) {
