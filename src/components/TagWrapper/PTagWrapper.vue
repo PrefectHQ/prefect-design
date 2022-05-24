@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, Ref, onMounted, onUnmounted } from 'vue'
+  import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import { PTag } from '@/components/Tag'
 
   const props = defineProps<{
@@ -58,9 +58,9 @@
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
 
-  const calculateOverflow = (entries: ResizeObserverEntry[]): void => {
+  const calculateOverflow = (): void => {
     const children = Array.from(
-      entries[0]?.target?.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
+      container.value!.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
       .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'),
       ) as HTMLElement[]
 
@@ -131,7 +131,7 @@
       }
     }
 
-    if (container.value) {
+    if (container.value && largestChildHeight) {
       container.value.style.height = `${largestChildHeight}px`
     }
 
@@ -155,6 +155,10 @@
   onUnmounted(() => {
     resizeObserver?.disconnect()
   })
+
+  watch(() => props.tags,  () => {
+    nextTick(() => calculateOverflow())
+  })
 </script>
 
 
@@ -162,7 +166,8 @@
 .p-tag-wrapper { @apply
   relative
   block
-  whitespace-nowrap;
+  whitespace-nowrap
+  align-middle
 }
 
 .p-tag-wrapper__tag--hidden { @apply
@@ -174,7 +179,8 @@
 }
 
 .p-tag-wrapper__tag { @apply
-  inline-block;
+  inline-flex
+  items-center
 }
 
 .p-tag-wrapper__tag--right { @apply
