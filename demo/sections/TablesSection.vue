@@ -6,6 +6,9 @@
 
     <SubSection heading="Using Columns">
       <p-table :data="data" :columns="columns">
+        <template #action-heading>
+          My Actions
+        </template>
         <template #action>
           No Actions
         </template>
