@@ -58,7 +58,8 @@
 }
 
 .p-select-option__text { @apply
-  block
+  flex
+  items-center
   truncate
 }
 
