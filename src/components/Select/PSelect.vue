@@ -14,7 +14,7 @@
         size="1"
         class="p-select__native"
         :multiple="multiple"
-        :options="selectOptions"
+        :options="filteredSelectOptions"
       />
 
       <div class="p-select__custom">
@@ -62,29 +62,29 @@
       </div>
     </template>
 
-    <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1">
+    <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1" @keydown="handleKeydown">
       <slot name="pre-options" />
       <template v-if="selectOptions.length">
-        <template v-for="(option, index) in selectOptions" :key="index">
+        <template v-for="(option, index) in filteredSelectOptions" :key="index">
           <li
             ref="optionElements"
             @mouseenter="highlightedIndex = index"
-            @click="handleOptionClick(option)"
+            @click.stop="handleOptionClick(option)"
           >
-            <slot
-              name="option"
-              :option="option"
+            <p-select-option
+              :label="option.label"
+              :multiple="multiple"
+              :disabled="option.disabled"
               :selected="isSelected(option)"
               :highlighted="highlightedIndex === index"
             >
-              <p-select-option
-                :label="option.label"
-                :multiple="multiple"
-                :disabled="option.disabled"
+              <slot
+                name="option"
+                :option="option"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
               />
-            </slot>
+            </p-select-option>
           </li>
         </template>
       </template>
@@ -123,6 +123,7 @@
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     emptyMessage?: string,
+    filterOptions?: (option: SelectOption) => boolean,
   }>()
 
   const emits = defineEmits<{
@@ -130,7 +131,8 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const optionElements = ref<HTMLElement[]>([])
+
+  const optionElements = ref<HTMLLIElement[]>([])
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref<number>(-1)
 
@@ -173,13 +175,19 @@
     return []
   })
 
-  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
-    if (isSelectOption(option)) {
-      return option
-    }
+  const selectOptions = computed<SelectOption[]>(() => {
+    return props.options.map(option => {
+      if (isSelectOption(option)) {
+        return option
+      }
 
-    return { label: option.toLocaleString(), value: option }
-  }))
+      return { label: option.toLocaleString(), value: option }
+    })
+  })
+
+  const filteredSelectOptions = computed(() => {
+    return selectOptions.value.filter(option => !props.filterOptions || props.filterOptions(option))
+  })
 
   const classes = computed(() => ({
     'p-select--open': isOpen.value,
@@ -196,11 +204,15 @@
   }
 
   function openSelect(): void {
-    popOver.value!.open()
+    if (!isOpen.value) {
+      popOver.value!.open()
+    }
   }
 
   function closeSelect(): void {
-    popOver.value!.close()
+    if (isOpen.value) {
+      popOver.value!.close()
+    }
   }
 
   function setValue(newValue: SelectModelValue): void {
@@ -218,7 +230,7 @@
   }
 
   function getHighlighted(): SelectOption | undefined {
-    return selectOptions.value[highlightedIndex.value]
+    return filteredSelectOptions.value[highlightedIndex.value]
   }
 
   function trySettingValueToHighlighted(): boolean {
@@ -234,12 +246,12 @@
   }
 
   function getFirstNonDisabledIndex(): number {
-    return selectOptions.value.findIndex(x => !x.disabled)
+    return filteredSelectOptions.value.findIndex(x => !x.disabled)
   }
 
   function getLastNonDisabledIndex(): number {
-    for (let i=selectOptions.value.length - 1; i >= 0; i--) {
-      if (!selectOptions.value[i].disabled) {
+    for (let i = filteredSelectOptions.value.length - 1; i >= 0; i--) {
+      if (!filteredSelectOptions.value[i].disabled) {
         return i
       }
     }
@@ -248,7 +260,7 @@
   }
 
   function tryMovingHighlightedIndex(change: number): boolean {
-    const maxIndex = selectOptions.value.length
+    const maxIndex = filteredSelectOptions.value.length
     const newIndex = highlightedIndex.value + change
 
     if (!maxIndex || !isOpen.value) {
@@ -274,7 +286,7 @@
     } else {
       highlightedIndex.value = newIndex
 
-      if (selectOptions.value[newIndex].disabled) {
+      if (filteredSelectOptions.value[newIndex].disabled) {
         return tryMovingHighlightedIndex(change)
       }
     }
@@ -284,11 +296,14 @@
     return true
   }
 
-  function scrollToOption(index: number): HTMLElement {
-    const element = optionElements.value[highlightedIndex.value]
-    element.scrollIntoView({ block: 'nearest' })
+  function getOptionElement(index: number): HTMLLIElement | undefined {
+    return optionElements.value[index]
+  }
 
-    return element
+  function scrollToOption(index: number): void {
+    const element = getOptionElement(index)
+
+    element?.scrollIntoView({ block: 'nearest' })
   }
 
   function handleOpenChange(open: boolean): void {
