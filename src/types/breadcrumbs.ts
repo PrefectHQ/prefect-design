@@ -1,6 +1,8 @@
+import { RouteLocationRaw } from 'vue-router'
+
 export type Crumb = {
   text: string,
-  to?: string,
+  to?: () => RouteLocationRaw | RouteLocationRaw | string,
 }
 
 export type BreadCrumbs = Crumb[]
