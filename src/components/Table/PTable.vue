@@ -7,7 +7,7 @@
             <p-table-row>
               <template v-for="column in columns" :key="column">
                 <p-table-header :style="getColumnStyle(column)">
-                  <slot :name="`${column}-heading`" v-bind="{ column }">
+                  <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
                   </slot>
                 </p-table-header>

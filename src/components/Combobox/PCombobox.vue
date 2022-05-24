@@ -2,32 +2,55 @@
   <div class="p-combobox" @keydown="handleComboboxKeydown">
     <p-select
       v-model="internalValue"
-      :multiple="multiple"
-      :options="filteredSelectOptions"
+      :options="selectOptions"
+      :empty-message="emptyMessage"
+      :filter-options="filterOptions"
+      @update:model-value="resetTypedValue"
       @close="resetTypedValue"
+      @open="focusOnTextInput"
     >
-      <template #default="{ isOpen, open, displayValue }">
-        <input
-          ref="textInput"
-          :value="typedValue ?? displayValue ?? internalValue"
-          type="text"
-          class="p-combobox__text-input"
-          :class="classes"
-          role="combobox"
-          tabindex="-1"
-          aria-controls="options"
-          aria-expanded="false"
-          @click="open"
-          @input="handleInput($event as InputEvent)"
-          @keydown="handleTextInputKeydown($event, isOpen, open)"
-        >
+      <template #pre-options>
+        <div class="p-combobox__search-option">
+          <input
+            ref="textInput"
+            v-model="typedValue"
+            type="search"
+            placeholder="Search"
+            class="p-combobox__text-input"
+            :class="classes.input"
+            role="combobox"
+            tabindex="-1"
+            aria-controls="options"
+            aria-expanded="false"
+            @keydown="handleTextInputKeydown"
+            @focus="handleFocus"
+          >
+        </div>
+      </template>
+      <template #option="{ option }">
+        {{ option.unknown ? `"${option.label}"` : option.label }}
+      </template>
+      <template #default="{ selectedOption, isOpen, open, close, unselectOption }">
+        <slot
+          :selected-option="selectedOption"
+          :is-open="isOpen"
+          :open="open"
+          :close="close"
+          :unselect-option="unselectOption"
+        />
+      </template>
+      <template #options-empty>
+        <slot name="options-empty" />
+      </template>
+      <template #post-options>
+        <slot name="post-options" />
       </template>
     </p-select>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
+  import { defineComponent, computed, ref, nextTick } from 'vue'
 
   export default defineComponent({
     name: 'PCombobox',
@@ -38,13 +61,16 @@
 
 <script lang="ts" setup>
   import PSelect from '@/components/Select'
+  import { keys } from '@/types/keyEvent'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+
+  type ComboboxSelectOption = SelectOption & { unknown?: boolean }
 
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     allowUnknownValue?: boolean,
-    multiple?: boolean,
+    emptyMessage?: string,
   }>()
 
   const emits = defineEmits<{
@@ -60,125 +86,119 @@
     },
   })
 
-  const selectOptions = computed<SelectOption[]>(() => props.options
-    .map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
+  const valueAsArray = computed(() => {
+    if (!internalValue.value) {
+      return []
+    }
 
-      return { label: option.toLocaleString(), value: option }
-    }))
+    if (Array.isArray(internalValue.value)) {
+      return internalValue.value.map(option => option? option.toString() : '')
+    }
 
-  const filteredSelectOptions = computed<SelectOption[]>(() => {
-    const options = selectOptions.value.filter(option => checkOptionLabelStartsWithValue(option.label, typedValue.value))
+    return [internalValue.value.toString()]
+  })
 
-    if (typedValue.value && props.allowUnknownValue && !checkOptionExistsForLabel(typedValue.value)) {
-      options.push({ label:`"${typedValue.value}"`, value: typedValue.value })
+  const selectOptions = computed(() => {
+    const options: ComboboxSelectOption[] = props.options
+      .map(option => {
+        if (isSelectOption(option)) {
+          return option
+        }
+
+        return { label: option.toLocaleString(), value: option }
+      })
+
+    if (internalValue.value && props.allowUnknownValue) {
+      const unknownValues = valueAsArray.value
+        .filter(value => !optionsIncludeValue(options, value))
+        .map(value => ({ label:`${value}`, value, unknown: true }))
+
+      options.push(...unknownValues)
+    }
+
+    if (typedValue.value && props.allowUnknownValue && !optionsIncludeValue(options, typedValue.value)) {
+      options.push({ label:`${typedValue.value}`, value: typedValue.value, unknown: true })
     }
 
     return options
   })
 
+  const filteredSelectOptions = computed(() => selectOptions.value.filter(option => optionStartsWith(option, typedValue.value)))
+  function filterOptions(option: SelectOption): boolean {
+    return filteredSelectOptions.value.includes(option)
+  }
+
   const classes = computed(() => ({
-    'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
+    input: {
+      'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
+    },
   }))
 
   const typedValue = ref<string | null>(null)
   const textInput = ref<HTMLInputElement>()
 
-  function checkOptionLabelStartsWithValue(label: string, value: string | null): boolean {
+  function optionStartsWith(option: SelectOption, target: string | null): boolean {
+    if (typeof target !== 'string') {
+      return true
+    }
+
+    return option.label.toLowerCase().startsWith(target.toLowerCase())
+  }
+
+  function optionsIncludeValue(options: SelectOption[], value: string | null): boolean {
     if (!value) {
       return true
     }
 
-    return label.toLowerCase().startsWith(value.toLowerCase())
-  }
-
-  function checkOptionExistsForLabel(label: string): boolean  {
-    return selectOptions.value.find(option => option.label === label) !== undefined
+    return !!options.find(option => option.value === value)
   }
 
   function resetTypedValue(): void {
     typedValue.value = null
   }
 
-  function allowSpaceToBeEnteredInTextBox(event: KeyboardEvent): void {
-    event.stopPropagation()
-  }
-
   function handleComboboxKeydown(event: KeyboardEvent): void {
-    const keysToIgnore = ['Shift', 'CapsLock', 'Control', 'Meta', 'Tab']
+    const keysToIgnore: string[] = [keys.shift, keys.capsLock, keys.ctrl, keys.windowKey, keys.tab]
 
     if (!keysToIgnore.includes(event.key)) {
-      textInput.value?.focus()
+      focusOnTextInput()
     }
   }
 
-  function handleTextInputKeydown(event: KeyboardEvent, isOpen: boolean, open: () => void): void {
-    if (event.code === 'Space') {
-      if (!isOpen) {
-        open()
-      }
+  function focusOnTextInput(): void {
+    nextTick(() => textInput.value?.focus())
+  }
+
+  function handleTextInputKeydown(event: KeyboardEvent): void {
+    if (event.key === keys.space) {
       allowSpaceToBeEnteredInTextBox(event)
     }
   }
 
-  function handleInput(event: InputEvent): void {
-    const target = event.target as HTMLInputElement
+  function allowSpaceToBeEnteredInTextBox(event: KeyboardEvent): void {
+    event.stopPropagation()
+  }
 
-    typedValue.value = target.value
+  function handleFocus(): void {
+    textInput.value?.select()
   }
 </script>
 
 <style>
-.p-combobox { @apply
-  relative
-}
-
-.p-combobox__selected-value { @apply
-  block
-  truncate
-}
-
-.p-combobox__icon { @apply
-  w-4
-  h-4
-  mr-2
+.p-combobox__search-option { @apply
+  m-1
 }
 
 .p-combobox__text-input { @apply
   cursor-default
   border-none
-  ring-0
-  w-full
   h-full
-  pr-8
+  w-full
   rounded-md
-}
-
-.p-combobox__text-input::placeholder { @apply
-  text-current
+  focus:w-full
 }
 
 .p-combobox__text-input--unknown-value { @apply
   text-gray-400
-}
-
-.p-combobox__options { @apply
-  absolute
-  z-[3]
-  mt-1
-  left-0
-  w-full
-  bg-white
-  shadow-lg
-  max-h-60
-  rounded-md
-  py-1
-  ring-1
-  ring-black
-  ring-opacity-5
-  overflow-auto
-  focus:outline-none
 }
 </style>

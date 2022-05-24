@@ -37,15 +37,17 @@
     (event: 'open', value: boolean): void,
   }>()
 
+  const visible = ref(false)
+
   defineExpose({
     open,
     close,
     toggle,
+    visible,
   })
 
   const attrs = useAttrs()
 
-  const visible = ref(false)
   const container = ref(document.querySelector(props.to) ?? undefined)
   const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
   const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })

@@ -41,8 +41,7 @@
   select-none
   relative
   py-2
-  pl-3
-  pr-9
+  px-3
   font-normal
   text-sm
   flex
@@ -59,7 +58,8 @@
 }
 
 .p-select-option__text { @apply
-  block
+  flex
+  items-center
   truncate
 }
 
