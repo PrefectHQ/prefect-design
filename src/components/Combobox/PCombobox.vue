@@ -30,6 +30,21 @@
       <template #option="{ option }">
         {{ option.unknown ? `"${option.label}"` : option.label }}
       </template>
+      <template #default="{ selectedOption, selectedOptions, isOpen, open, close }">
+        <slot
+          :selected-option="selectedOption"
+          :selected-options="selectedOptions"
+          :is-open="isOpen"
+          :open="open"
+          :close="close"
+        />
+      </template>
+      <template #options-empty>
+        <slot name="options-empty" />
+      </template>
+      <template #post-options>
+        <slot name="post-options" />
+      </template>
     </p-select>
   </div>
 </template>
