@@ -4,9 +4,11 @@
       <p-icon :icon="icon" />
     </div>
 
-    <span class="p-tag__label">
-      <slot>{{ label }}</slot>
-    </span>
+    <slot>{{ label }}</slot>
+
+    <div v-if="dismissible" class="p-tag__dismiss" @click.stop="emits('dismiss')">
+      <p-icon icon="XIcon" />
+    </div>
   </span>
 </template>
 
@@ -17,6 +19,11 @@
   defineProps<{
     icon?: Icon,
     label?: string,
+    dismissible?: boolean,
+  }>()
+
+  const emits = defineEmits<{
+    (event: 'dismiss'): void,
   }>()
 </script>
 
@@ -32,8 +39,17 @@
   py-0.5
   text-sm
 }
+
 .p-tag__icon { @apply
   w-4
   h-4
+}
+
+.p-tag__dismiss { @apply
+  w-4
+  h-4
+  hover:text-black
+  hover:cursor-pointer
+  text-gray-500
 }
 </style>
