@@ -204,7 +204,9 @@
   left-0
   top-0
   w-full
-  h-full;
+  h-full
+  flex
+  items-center
 }
 
 .p-tag-wrapper__tag-container--invisible {
