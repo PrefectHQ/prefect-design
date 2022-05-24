@@ -77,31 +77,33 @@
       </div>
     </template>
 
-    <ul class="p-select__options" role="listbox" @mouseleave="highlightedIndex = -1" @keydown="handleKeydown">
+    <div class="p-select__options-container" role="listbox" @mouseleave="highlightedIndex = -1" @keydown="handleKeydown">
       <slot name="pre-options" />
       <template v-if="selectOptions.length">
-        <template v-for="(option, index) in filteredSelectOptions" :key="index">
-          <li
-            ref="optionElements"
-            @mouseenter="highlightedIndex = index"
-            @click.stop="handleOptionClick(option)"
-          >
-            <p-select-option
-              :label="option.label"
-              :multiple="multiple"
-              :disabled="option.disabled"
-              :selected="isSelected(option)"
-              :highlighted="highlightedIndex === index"
+        <ul class="p-select__options">
+          <template v-for="(option, index) in filteredSelectOptions" :key="index">
+            <li
+              ref="optionElements"
+              @mouseenter="highlightedIndex = index"
+              @click.stop="handleOptionClick(option)"
             >
-              <slot
-                name="option"
-                :option="option"
+              <p-select-option
+                :label="option.label"
+                :multiple="multiple"
+                :disabled="option.disabled"
                 :selected="isSelected(option)"
                 :highlighted="highlightedIndex === index"
-              />
-            </p-select-option>
-          </li>
-        </template>
+              >
+                <slot
+                  name="option"
+                  :option="option"
+                  :selected="isSelected(option)"
+                  :highlighted="highlightedIndex === index"
+                />
+              </p-select-option>
+            </li>
+          </template>
+        </ul>
       </template>
       <template v-else>
         <div class="p-select__options--empty">
@@ -111,7 +113,7 @@
         </div>
       </template>
       <slot name="post-options" />
-    </ul>
+    </div>
   </p-pop-over>
 </template>
 
@@ -447,7 +449,7 @@
   items-center
 }
 
-.p-select__options { @apply
+.p-select__options-container { @apply
   my-1
   bg-white
   shadow-lg
@@ -456,8 +458,12 @@
   ring-1
   ring-black
   ring-opacity-5
-  overflow-auto
   focus:outline-none
+}
+
+.p-select__options { @apply
+  max-h-64
+  overflow-y-auto
 }
 
 .p-select__options--empty { @apply
