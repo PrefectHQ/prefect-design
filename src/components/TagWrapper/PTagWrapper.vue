@@ -60,7 +60,7 @@
 
   const calculateOverflow = (): void => {
     const children = Array.from(
-      container.value!.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
+      container.value?.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
       .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'),
       ) as HTMLElement[]
 
