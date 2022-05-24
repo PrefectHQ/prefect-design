@@ -17,7 +17,7 @@
         :options="filteredSelectOptions"
       />
 
-      <div class="p-select__custom">
+      <div ref="targetElement" class="p-select__custom">
         <button
           type="button"
           class="p-select__custom-button"
@@ -77,7 +77,13 @@
       </div>
     </template>
 
-    <div class="p-select__options-container" role="listbox" @mouseleave="highlightedIndex = -1" @keydown="handleKeydown">
+    <div
+      class="p-select__options-container"
+      :style="styles"
+      role="listbox"
+      @mouseleave="highlightedIndex = -1"
+      @keydown="handleKeydown"
+    >
       <slot name="pre-options" />
       <template v-if="selectOptions.length">
         <ul class="p-select__options">
@@ -118,6 +124,7 @@
 </template>
 
 <script lang="ts">
+  import { useElementWidth } from '@prefecthq/vue-compositions'
   import { defineComponent, computed, ref } from 'vue'
 
   export default defineComponent({
@@ -149,10 +156,11 @@
     (event: 'open' | 'close'): void,
   }>()
 
-
   const optionElements = ref<HTMLLIElement[]>([])
+  const targetElement = ref<HTMLElement | undefined>()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref<number>(-1)
+  const targetElementWidth = useElementWidth(targetElement)
 
   const internalValue = computed({
     get() {
@@ -201,6 +209,10 @@
 
   const classes = computed(() => ({
     'p-select--open': isOpen.value,
+  }))
+
+  const styles = computed(() => ({
+    minWidth: `${targetElementWidth.value}px`,
   }))
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
