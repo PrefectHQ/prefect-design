@@ -14,6 +14,7 @@ import { default as PForm } from './Form'
 import { default as PGlobalNavItem } from './GlobalNavItem'
 import { default as PGlobalSidebar } from './GlobalSidebar'
 import { default as PIcon } from './Icon'
+import { default as PIconButtonMenu } from './IconButtonMenu'
 import { default as PIconText } from './IconText'
 import { default as PKeyValue } from './KeyValue'
 import { default as PLabel } from './Label'
@@ -28,6 +29,7 @@ import { default as POverflowMenuItem } from './OverflowMenuItem'
 import { default as PSelect } from './Select'
 import { default as PSelectOption } from './SelectOption'
 import { default as PTab } from './Tab'
+import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow } from './Table'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
 import { default as PTagWrapper } from './TagWrapper'
@@ -53,6 +55,7 @@ export {
   PGlobalNavItem,
   PGlobalSidebar,
   PIcon,
+  PIconButtonMenu,
   PIconText,
   PKeyValue,
   PLabel,
@@ -73,7 +76,14 @@ export {
   PTextarea,
   PTextInput,
   PToast,
-  PToggle
+  PToggle,
+  PTable,
+  PTableBody,
+  PTableData,
+  PTableFoot,
+  PTableHead,
+  PTableHeader,
+  PTableRow
 }
 
 export const installs = [
@@ -93,6 +103,7 @@ export const installs = [
   PGlobalNavItem.install,
   PGlobalSidebar.install,
   PIcon.install,
+  PIconButtonMenu.install,
   PIconText.install,
   PKeyValue.install,
   PLabel.install,
@@ -114,6 +125,12 @@ export const installs = [
   PTextInput.install,
   PToast.install,
   PToggle.install,
+  PTableBody.install,
+  PTableData.install,
+  PTableFoot.install,
+  PTableHead.install,
+  PTableHeader.install,
+  PTableRow.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -132,6 +149,7 @@ declare module '@vue/runtime-core' {
     PForm: typeof PForm,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
+    PIconButtonMenu: typeof PIconButtonMenu,
     PIcon: typeof PIcon,
     PIconText: typeof PIconText,
     PKeyValue: typeof PKeyValue,
@@ -154,5 +172,11 @@ declare module '@vue/runtime-core' {
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
+    PTableBody: typeof PTableBody,
+    PTableData: typeof PTableData,
+    PTableFoot: typeof PTableFoot,
+    PTableHead: typeof PTableHead,
+    PTableHeader: typeof PTableHeader,
+    PTableRow: typeof PTableRow,
   }
 }
