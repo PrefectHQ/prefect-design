@@ -322,6 +322,7 @@
 
   function handleOpenChange(open: boolean): void {
     if (open) {
+      highlightedIndex.value = getFirstNonDisabledIndex()
       emits('open')
     } else {
       highlightedIndex.value = -1
