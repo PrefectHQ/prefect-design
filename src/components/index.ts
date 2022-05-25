@@ -32,6 +32,8 @@ import { default as PTab } from './Tab'
 import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow } from './Table'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
+import { default as PTagsInlineInput } from './TagsInlineInput'
+import { default as PTagsInput } from './TagsInput'
 import { default as PTagWrapper } from './TagWrapper'
 import { default as PTextarea } from './Textarea'
 import { default as PTextInput } from './TextInput'
@@ -72,6 +74,8 @@ export {
   PTab,
   PTabs,
   PTag,
+  PTagsInlineInput,
+  PTagsInput,
   PTagWrapper,
   PTextarea,
   PTextInput,
@@ -120,6 +124,8 @@ export const installs = [
   PTab.install,
   PTabs.install,
   PTag.install,
+  PTagsInlineInput.install,
+  PTagsInput.install,
   PTagWrapper.install,
   PTextarea.install,
   PTextInput.install,
@@ -167,6 +173,8 @@ declare module '@vue/runtime-core' {
     PTab: typeof PTab,
     PTabs: typeof PTabs,
     PTag: typeof PTag,
+    PTagsInlineInput: typeof PTagsInlineInput,
+    PTagsInput: typeof PTagsInput,
     PTagWrapper: typeof PTagWrapper,
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,

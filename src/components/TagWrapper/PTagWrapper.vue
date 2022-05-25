@@ -158,7 +158,7 @@
 
   watch(() => props.tags,  () => {
     nextTick(() => calculateOverflow())
-  })
+  }, { deep: true })
 </script>
 
 

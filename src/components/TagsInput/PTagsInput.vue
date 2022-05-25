@@ -1,0 +1,84 @@
+<template>
+  <p-combobox v-if="inline" v-model="internalValue" allow-unknown-value :options="[]" :placeholder="placeholder">
+    <template #options-empty>
+      <span />
+    </template>
+  </p-combobox>
+  <div v-else class="p-tags-input">
+    <slot :tags="internalValue" :remove-tag="removeTag">
+      <div class="p-tags-input__tags">
+        <template v-for="tag in internalValue" :key="tag">
+          <slot name="tag" :tag="tag" :remove-tag="removeTag">
+            <PTag dismissible @dismiss="removeTag(tag)">
+              {{ tag }}
+            </PTag>
+          </slot>
+        </template>
+      </div>
+    </slot>
+    <PTextInput v-model="newTag" @keydown="handleKeydown" />
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { computed, ref, withDefaults } from 'vue'
+  import PTag from '@/components/Tag/PTag.vue'
+  import PTextInput from '@/components/TextInput'
+  import { keys } from '@/types'
+
+  const props = withDefaults(defineProps<{
+    tags: string[] | null | undefined,
+    placeholder?: string,
+    inline?: boolean,
+  }>(), {
+    placeholder: 'Add Tag',
+  })
+
+  const emits = defineEmits<{
+    (event: 'update:tags', value: string[]): void,
+  }>()
+
+  const internalValue = computed({
+    get() {
+      return props.tags ?? []
+    },
+    set(value: string[]) {
+      emits('update:tags', value)
+    },
+  })
+
+  const newTag = ref<string | null>(null)
+
+  function removeTag(tag: string): void {
+    const value = internalValue.value.filter(x => x !== tag)
+
+    internalValue.value = value
+  }
+
+  function handleKeydown(event: KeyboardEvent): void {
+    if (event.key === keys.enter) {
+      submitNewTag()
+    }
+  }
+
+  function validateNewTag(tag: string | null): tag is string  {
+    return !!newTag.value?.length && !internalValue.value.includes(newTag.value)
+  }
+
+  function submitNewTag(): void {
+    if (validateNewTag(newTag.value)) {
+      internalValue.value.push(newTag.value)
+    }
+
+    newTag.value = null
+  }
+</script>
+
+<style>
+.p-tags-input__tags { @apply
+  flex
+  flex-wrap
+  gap-1
+  mb-2
+}
+</style>

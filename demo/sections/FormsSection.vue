@@ -103,6 +103,14 @@
           </p-label>
         </div>
       </p-label>
+
+      <p-label label="Tags Input (inline)" :message="JSON.stringify(exampleTagsValue)">
+        <PTagsInlineInput v-model:tags="exampleTagsValue" />
+      </p-label>
+
+      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)">
+        <PTagsInput v-model:tags="exampleTagsValue" />
+      </p-label>
     </p-form>
   </Section>
 </template>
@@ -122,6 +130,8 @@
   import PNativeSelect from '@/components/NativeSelect'
   import PNumberInput from '@/components/NumberInput'
   import PSelect from '@/components/Select'
+  import PTagsInlineInput from '@/components/TagsInlineInput'
+  import PTagsInput from '@/components/TagsInput'
   import PTextarea from '@/components/Textarea'
   import PTextInput from '@/components/TextInput'
   import { State } from '@/types/state'
@@ -163,6 +173,8 @@
 
   const showTimeInExampleDate = ref(true)
   const isClearableDate = ref(false)
+
+  const exampleTagsValue = ref<string[]>([])
 </script>
 
 <style>
