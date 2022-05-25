@@ -25,7 +25,7 @@
     to?: RouteLocationRaw,
   }>()
 
-  const externalLink  = computed<string>(() => {
+  const externalLink = computed<string>(() => {
     if (typeof props.to === 'string' && props.to.startsWith('http')) {
       return props.to
     }
