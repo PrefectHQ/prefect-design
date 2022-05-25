@@ -1,5 +1,5 @@
 <template>
-  <p-pop-over
+  <PPopOver
     ref="popOver"
     :placement="[bottomLeft, topLeft]"
     class="p-select"
@@ -9,7 +9,7 @@
     @keydown="handleKeydown"
   >
     <template #target>
-      <p-native-select
+      <PNativeSelect
         v-model="internalValue"
         size="1"
         class="p-select__native"
@@ -77,50 +77,33 @@
       </div>
     </template>
 
-    <div
-      class="p-select__options-container"
+    <PSelectOptions
+      v-model:highlightedIndex="highlightedIndex"
+      :model-value="internalValue"
+      :options="filteredSelectOptions"
       :style="styles"
-      role="listbox"
-      @mouseleave="highlightedIndex = -1"
       @keydown="handleKeydown"
+      @update:model-value="setValue"
     >
-      <slot name="pre-options" />
-      <template v-if="filteredSelectOptions.length">
-        <ul class="p-select__options">
-          <template v-for="(option, index) in filteredSelectOptions" :key="index">
-            <li
-              ref="optionElements"
-              @mouseenter="highlightedIndex = index"
-              @click.stop="handleOptionClick(option)"
-            >
-              <p-select-option
-                :label="option.label"
-                :multiple="multiple"
-                :disabled="option.disabled"
-                :selected="isSelected(option)"
-                :highlighted="highlightedIndex === index"
-              >
-                <slot
-                  name="option"
-                  :option="option"
-                  :selected="isSelected(option)"
-                  :highlighted="highlightedIndex === index"
-                />
-              </p-select-option>
-            </li>
-          </template>
-        </ul>
+      <template #pre-options>
+        <slot name="pre-options" />
       </template>
-      <template v-else>
-        <div class="p-select__options--empty">
-          <slot name="options-empty">
-            No options
-          </slot>
-        </div>
+      <template #option="{ option, selected, highlighted }">
+        <slot
+          name="option"
+          :option="option"
+          :selected="selected"
+          :highlighted="highlighted"
+        />
       </template>
-      <slot name="post-options" />
-    </div>
-  </p-pop-over>
+      <template #options-empty>
+        <slot name="options-empty" />
+      </template>
+      <template #post-options>
+        <slot name="post-options" />
+      </template>
+    </PSelectOptions>
+  </PPopOver>
 </template>
 
 <script lang="ts">
@@ -137,7 +120,7 @@
 <script lang="ts" setup>
   import PNativeSelect from '@/components/NativeSelect'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import PSelectOption from '@/components/SelectOption'
+  import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
@@ -156,10 +139,9 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const optionElements = ref<HTMLLIElement[]>([])
   const targetElement = ref<HTMLElement | undefined>()
   const popOver = ref<typeof PPopOver>()
-  const highlightedIndex = ref<number>(-1)
+  const highlightedIndex = ref(0)
   const targetElementWidth = useElementWidth(targetElement)
 
   const internalValue = computed({
@@ -221,14 +203,6 @@
     return selectOptions.value.find(x => x.value === value)
   }
 
-  function isSelected(option: SelectOption): boolean {
-    if (Array.isArray(internalValue.value)) {
-      return internalValue.value.includes(option.value)
-    }
-
-    return option.value === internalValue.value
-  }
-
   function openSelect(): void {
     if (!isOpen.value) {
       popOver.value!.open()
@@ -253,6 +227,10 @@
     } else {
       internalValue.value = newValue
     }
+
+    if (!multiple.value) {
+      closeSelect()
+    }
   }
 
   function getHighlighted(): SelectOption | undefined {
@@ -271,74 +249,19 @@
     return true
   }
 
-  function getFirstNonDisabledIndex(): number {
-    return filteredSelectOptions.value.findIndex(x => !x.disabled)
-  }
-
-  function getLastNonDisabledIndex(): number {
-    for (let i = filteredSelectOptions.value.length - 1; i >= 0; i--) {
-      if (!filteredSelectOptions.value[i].disabled) {
-        return i
-      }
-    }
-
-    return -1
-  }
-
-  function tryMovingHighlightedIndex(change: number): boolean {
-    const maxIndex = filteredSelectOptions.value.length
-    const newIndex = highlightedIndex.value + change
-
-    if (!maxIndex || !isOpen.value) {
-      return false
-    }
-
-    if (newIndex < 0) {
-      const firstNonDisabled = getFirstNonDisabledIndex()
-
-      if (firstNonDisabled === -1) {
-        return false
-      }
-
-      highlightedIndex.value = firstNonDisabled
-    } else if (newIndex >= maxIndex) {
-      const lastNonDisabled = getLastNonDisabledIndex()
-
-      if (lastNonDisabled === -1) {
-        return false
-      }
-
-      highlightedIndex.value = lastNonDisabled
-    } else {
-      highlightedIndex.value = newIndex
-
-      if (filteredSelectOptions.value[newIndex].disabled) {
-        return tryMovingHighlightedIndex(change)
-      }
-    }
-
-    scrollToOption(highlightedIndex.value)
-
-    return true
-  }
-
-  function getOptionElement(index: number): HTMLLIElement | undefined {
-    return optionElements.value[index]
-  }
-
-  function scrollToOption(index: number): void {
-    const element = getOptionElement(index)
-
-    element?.scrollIntoView({ block: 'nearest' })
+  function getButtonElement(): HTMLButtonElement | undefined {
+    return targetElement.value?.children[0] as HTMLButtonElement | undefined
   }
 
   function handleOpenChange(open: boolean): void {
     if (open) {
-      highlightedIndex.value = getFirstNonDisabledIndex()
       emits('open')
     } else {
-      highlightedIndex.value = -1
       emits('close')
+      const button = getButtonElement()
+      if (button) {
+        button.focus()
+      }
     }
   }
 
@@ -354,16 +277,18 @@
         closeSelect()
         break
       case keys.upArrow:
-        if (isOpen.value) {
-          tryMovingHighlightedIndex(-1)
+        if (!isOpen.value) {
+          openSelect()
+        } else if (highlightedIndex.value > 0) {
+          highlightedIndex.value -= 1
         }
         event.preventDefault()
         break
       case keys.downArrow:
-        if (isOpen.value) {
-          tryMovingHighlightedIndex(1)
-        } else {
+        if (!isOpen.value) {
           openSelect()
+        } else if (highlightedIndex.value < filteredSelectOptions.value.length - 1) {
+          highlightedIndex.value += 1
         }
         event.preventDefault()
         break
@@ -376,9 +301,7 @@
         event.preventDefault()
         break
       case keys.enter:
-        if (trySettingValueToHighlighted()) {
-          closeSelect()
-        }
+        trySettingValueToHighlighted()
         event.preventDefault()
         break
       default:
@@ -390,18 +313,6 @@
     const value = valueAsArray.value.filter(x => x !== tag)
 
     internalValue.value = value
-  }
-
-  function handleOptionClick(option: SelectOption): void {
-    if (option.disabled) {
-      return
-    }
-
-    setValue(option.value)
-
-    if (!multiple.value) {
-      closeSelect()
-    }
   }
 </script>
 
@@ -462,36 +373,8 @@
   items-center
 }
 
-.p-select__options-container { @apply
-  my-1
-  bg-white
-  shadow-lg
-  rounded-md
-  py-1
-  ring-1
-  ring-black
-  ring-opacity-5
-  focus:outline-none
-}
-
-.p-select__options { @apply
-  max-h-64
-  overflow-y-auto
-}
-
-.p-select__options--empty { @apply
-  px-4
-  py-2
-  italic
-  text-sm
-}
-
 @media (hover: hover) {
   .p-select__custom { @apply
-    block
-  }
-
-  .p-select__options { @apply
     block
   }
 }
