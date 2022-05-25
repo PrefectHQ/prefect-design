@@ -38,7 +38,7 @@
                     :unselect-option="() => unselectOptionValue(tag)"
                   >
                     <PTag dismissible @dismiss="unselectOptionValue(tag)">
-                      {{ tag }}
+                      {{ getSelectOption(tag)?.label }}
                     </PTag>
                   </slot>
                 </template>
@@ -85,7 +85,7 @@
       @keydown="handleKeydown"
     >
       <slot name="pre-options" />
-      <template v-if="selectOptions.length">
+      <template v-if="filteredSelectOptions.length">
         <ul class="p-select__options">
           <template v-for="(option, index) in filteredSelectOptions" :key="index">
             <li
