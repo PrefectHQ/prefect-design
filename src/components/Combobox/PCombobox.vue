@@ -40,7 +40,16 @@
         />
       </template>
       <template #options-empty>
-        <slot name="options-empty" />
+        <slot name="options-empty">
+          <template v-if="typedValue">
+            <div class="p-combobox__options-empty">
+              <span>No matches for "{{ typedValue }}"</span>
+              <p-button secondary size="sm" @click.stop="typedValue = null">
+                See All Options
+              </p-button>
+            </div>
+          </template>
+        </slot>
       </template>
       <template #post-options>
         <slot name="post-options" />
@@ -191,14 +200,21 @@
 
 .p-combobox__text-input { @apply
   cursor-default
-  border-none
   h-full
   w-full
   rounded-md
-  focus:w-full
+  border-gray-300
+  focus:border-gray-300
+  focus:ring-0
 }
 
 .p-combobox__text-input--unknown-value { @apply
   text-gray-400
+}
+
+.p-combobox__options-empty { @apply
+  flex
+  justify-between
+  items-center
 }
 </style>
