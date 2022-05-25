@@ -18,6 +18,7 @@ import { default as PIconButtonMenu } from './IconButtonMenu'
 import { default as PIconText } from './IconText'
 import { default as PKeyValue } from './KeyValue'
 import { default as PLabel } from './Label'
+import { default as PLink } from './Link'
 import { default as PListItem } from './ListItem'
 import { default as PListItemInput } from './ListItemInput'
 import { default as PModal } from './Modal'
@@ -59,6 +60,7 @@ export {
   PIconText,
   PKeyValue,
   PLabel,
+  PLink,
   PListItem,
   PListItemInput,
   PModal,
@@ -107,6 +109,7 @@ export const installs = [
   PIconText.install,
   PKeyValue.install,
   PLabel.install,
+  PLink.install,
   PListItem.install,
   PListItemInput.install,
   PModal.install,
@@ -154,6 +157,7 @@ declare module '@vue/runtime-core' {
     PIconText: typeof PIconText,
     PKeyValue: typeof PKeyValue,
     PLabel: typeof PLabel,
+    PLink: typeof PLink,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
     PModal: typeof PModal,
