@@ -1,16 +1,15 @@
 <template>
-  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link link1">
+  <a v-if="isExternalLink(to)" :href="to" target="_blank" class="p-link">
     <slot /><p-icon class="p-link__external-icon" icon="ExternalLinkIcon" />
   </a>
 
-  <!-- This is necessary because the router-link component throws an unrecoverable error if no to prop is provided -->
-  <a v-else-if="!to" class="p-link link2">
+  <a v-else-if="isUndefined(to)" class="p-link">
     <slot />
   </a>
 
   <router-link
     v-else
-    class="p-link link3"
+    class="p-link"
     :to="to"
   >
     <slot />
@@ -18,19 +17,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
 
   const props = defineProps<{
     to?: RouteLocationRaw,
   }>()
 
-  const externalLink  = computed<string>(() => {
-    if (typeof props.to === 'string' && props.to.startsWith('http')) {
-      return props.to
-    }
-    return ''
-  })
+  function isExternalLink(to: RouteLocationRaw | undefined): to is string {
+    return typeof to === 'string' && to.startsWith('http')
+  }
+
+  function isUndefined(to: RouteLocationRaw | undefined): to is undefined {
+    return typeof to === 'undefined'
+  }
 </script>
 
 <style>
