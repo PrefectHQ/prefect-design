@@ -38,7 +38,7 @@
                     :unselect-option="() => unselectOptionValue(tag)"
                   >
                     <PTag dismissible @dismiss="unselectOptionValue(tag)">
-                      {{ tag }}
+                      {{ getSelectOption(tag)?.label }}
                     </PTag>
                   </slot>
                 </template>
