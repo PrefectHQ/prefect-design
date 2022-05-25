@@ -2,7 +2,14 @@
   <BaseInput class="p-number-input">
     <slot v-for="(_, name) in $slots" :name="name" />
     <template #control="{ attrs }">
-      <input v-model.number="value" type="number" class="p-number-input__control" v-bind="attrs" @keypress="preventNonNumericalInput">
+      <input
+        v-model="internalValue"
+        type="number"
+        class="p-number-input__control"
+        v-bind="attrs"
+        @keydown="preventNonNumericalInput"
+        @paste="preventNonNumericalPaste"
+      >
     </template>
   </BaseInput>
 </template>
@@ -10,6 +17,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import BaseInput from '@/components/BaseInput'
+  import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{
     modelValue: number | null | undefined,
@@ -19,7 +27,7 @@
     (event: 'update:modelValue', value: number | null): void,
   }>()
 
-  const value = computed({
+  const internalValue = computed({
     get() {
       return props.modelValue ?? ''
     },
@@ -37,8 +45,16 @@
   })
 
   function preventNonNumericalInput(event: KeyboardEvent): void {
-    const acceptableKeys = /\d|\./
-    if (!acceptableKeys.test(event.key)) {
+    if (event.key === keys.e || event.key === keys.E) {
+      event.preventDefault()
+    }
+  }
+
+  function preventNonNumericalPaste(event: ClipboardEvent): void {
+    const invalidCharacters = /[^0-9.]/g
+    const value = event.clipboardData?.getData('text')
+
+    if (value && invalidCharacters.test(value)) {
       event.preventDefault()
     }
   }
