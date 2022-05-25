@@ -1,16 +1,16 @@
 <template>
-  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link link1">
+  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link">
     <slot /><p-icon class="p-link__external-icon" icon="ExternalLinkIcon" />
   </a>
 
   <!-- This is necessary because the router-link component throws an unrecoverable error if no to prop is provided -->
-  <a v-else-if="!to" class="p-link link2">
+  <a v-else-if="!to" class="p-link">
     <slot />
   </a>
 
   <router-link
     v-else
-    class="p-link link3"
+    class="p-link"
     :to="to"
   >
     <slot />
