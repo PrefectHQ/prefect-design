@@ -16,6 +16,8 @@
 
     <TagsSection />
 
+    <LinksSection />
+
     <ToastsSection />
 
     <ModalsSection />
@@ -48,6 +50,7 @@
   import IconButtonMenuSection from '../sections/IconButtonMenuSection.vue'
   import IconTextSection from '../sections/IconTextSection.vue'
   import KeyValueSection from '../sections/KeyValueSection.vue'
+  import LinksSection from '../sections/LinksSection.vue'
   import ListItemsSection from '../sections/ListItemsSection.vue'
   import ModalsSection from '../sections/ModalsSection.vue'
   import OverflowMenuSection from '../sections/OverflowMenuSection.vue'
