@@ -16,7 +16,7 @@
       Multiline content with code row
     </div>
     <p-code multiline class="mt-4">
-      <div v-for="(row, i) in cliRows" :key="i" class="code-row">
+      <div v-for="(row, index) in cliRows" :key="index" class="code-row">
         <div class="code-row__leading">
           {{ row.leading }}
         </div>
@@ -50,8 +50,8 @@
     </div>
 
     <p-code multiline class="mt-4 max-h-96">
-      <div v-for="(row, i) in logRows" :key="i" class="code-row">
-        <div class="code-row__leading" style="width: 75px;">
+      <div v-for="(row, index) in logRows" :key="index" class="code-row">
+        <div class="code-row__leading">
           <p-tag :class="logTypeClasses[row.type]">
             {{ row.type }}
           </p-tag>
@@ -102,8 +102,11 @@ def my_flow():
   }
 
 
-  const logTypes = ['INFO', 'DEBUG', 'ERROR']
-  const logTypeClasses = {
+  const logTypes = ['INFO', 'DEBUG', 'ERROR'] as const
+  type LogType = typeof logTypes[number]
+  type LogRow = { type: LogType, content: string, timestamp: string }
+
+  const logTypeClasses: Record<LogType, string> = {
     INFO: '!bg-blue-500 !text-white',
     DEBUG: '!bg-slate-500 !text-white',
     ERROR: '!bg-red-500 !text-white',
@@ -126,11 +129,11 @@ optional/parameter: The name of the parameter you want to do with the`,
 
   const timestampStart = new Date().getTime()
 
-  const logRows = Array.from({ length: 200 }).map((_, i) =>  {
+  const logRows: LogRow[] = [...new Array(200).keys()].map(index =>  {
     return {
       type: logTypes[logTypes.length * Math.random() | 0],
       content:  logContent[logContent.length * Math.random() | 0],
-      timestamp: new Date(timestampStart + i * (Math.random() * 6000)).toLocaleTimeString(),
+      timestamp: new Date(timestampStart + index * (Math.random() * 6000)).toLocaleTimeString(),
     }
   })
 </script>
@@ -142,7 +145,8 @@ optional/parameter: The name of the parameter you want to do with the`,
 }
 
 .code-row__leading {
-  @apply select-none;
+  @apply select-none
+  w-[75px]
 }
 
 .code-row__content {

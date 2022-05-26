@@ -85,22 +85,17 @@
       @keydown="handleKeydown"
       @update:model-value="setValue"
     >
-      <template #pre-options>
-        <slot name="pre-options" />
+      <template #pre-options="scope">
+        <slot name="pre-options" v-bind="scope" />
       </template>
-      <template #option="{ option, selected, highlighted }">
-        <slot
-          name="option"
-          :option="option"
-          :selected="selected"
-          :highlighted="highlighted"
-        />
+      <template #option="scope">
+        <slot name="option" v-bind="scope" />
       </template>
-      <template #options-empty>
-        <slot name="options-empty" />
+      <template #options-empty="scope">
+        <slot name="options-empty" v-bind="scope" />
       </template>
-      <template #post-options>
-        <slot name="post-options" />
+      <template #post-options="scope">
+        <slot name="post-options" v-bind="scope" />
       </template>
     </PSelectOptions>
   </PPopOver>

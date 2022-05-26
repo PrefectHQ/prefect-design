@@ -1,6 +1,8 @@
 <template>
   <BaseInput class="p-number-input">
-    <slot v-for="(_, name) in $slots" :name="name" />
+    <template v-for="(index, name) in $slots" #[name]="scope">
+      <slot :name="name" v-bind="scope" />
+    </template>
     <template #control="{ attrs }">
       <input
         v-model="internalValue"

@@ -1,7 +1,7 @@
 <template>
   <BaseInput class="p-text-input">
-    <template v-for="(index, name) in $slots" #[name]="data">
-      <slot :name="name" v-bind="data" />
+    <template v-for="(index, name) in $slots" #[name]="scope">
+      <slot :name="name" v-bind="scope" />
     </template>
     <template #control="{ attrs }">
       <input v-model="value" type="text" class="p-text-input__control" v-bind="attrs">
