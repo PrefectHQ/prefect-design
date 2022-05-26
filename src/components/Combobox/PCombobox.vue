@@ -1,6 +1,6 @@
 <template>
   <div class="p-combobox" @keydown="handleComboboxKeydown">
-    <p-select
+    <PSelect
       v-model="internalValue"
       :options="selectOptions"
       :empty-message="emptyMessage"
@@ -50,7 +50,7 @@
       <template #post-options="scope">
         <slot name="post-options" v-bind="scope" />
       </template>
-    </p-select>
+    </PSelect>
   </div>
 </template>
 

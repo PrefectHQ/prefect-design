@@ -1,5 +1,5 @@
 <template>
-  <p-combobox v-model="internalValue" allow-unknown-value :options="[]" :placeholder="placeholder">
+  <PCombobox v-model="internalValue" allow-unknown-value :options="[]" :placeholder="placeholder">
     <template #option="{ option }">
       <slot name="tag" :tag="option.value">
         {{ option.label }}
@@ -8,11 +8,12 @@
     <template #options-empty>
       <span />
     </template>
-  </p-combobox>
+  </PCombobox>
 </template>
 
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
+  import PCombobox from '@/components/Combobox/PCombobox.vue'
 
   const props = withDefaults(defineProps<{
     tags: string[] | null | undefined,
