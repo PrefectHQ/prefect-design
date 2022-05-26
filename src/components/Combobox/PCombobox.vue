@@ -27,22 +27,13 @@
           >
         </div>
       </template>
-      <template #option="{ option }">
-        <slot name="option" :option="option">
+      <template #option="{ option, ...scope }">
+        <slot name="option" :option="option" v-bind="scope">
           {{ option.unknown ? `"${option.label}"` : option.label }}
         </slot>
       </template>
-      <template #default="{ selectedOption, isOpen, open, close, unselectOption }">
-        <slot
-          :selected-option="selectedOption"
-          :is-open="isOpen"
-          :open="open"
-          :close="close"
-          :unselect-option="unselectOption"
-        />
-      </template>
-      <template #options-empty>
-        <slot name="options-empty">
+      <template #options-empty="scope">
+        <slot name="options-empty" v-bind="scope">
           <template v-if="typedValue">
             <div class="p-combobox__options-empty">
               <span>No matches for "{{ typedValue }}"</span>
@@ -53,8 +44,11 @@
           </template>
         </slot>
       </template>
-      <template #post-options>
-        <slot name="post-options" />
+      <template #default="scope">
+        <slot v-bind="scope" />
+      </template>
+      <template #post-options="scope">
+        <slot name="post-options" v-bind="scope" />
       </template>
     </p-select>
   </div>
@@ -222,6 +216,8 @@
   flex
   justify-between
   items-center
+  text-gray-700
+  text-sm
   italic
   p-2
 }
