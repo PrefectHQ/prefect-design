@@ -15,7 +15,6 @@ export function useAdjustedDate(value: Date | null | ComputedRef<Date> | Compute
   if (isRef(value)) {
     return computed(() => removeAdjustmentFromDate(value.value))
   }
-  console.log('test', utcOffsetMinutes.value)
 
   return removeAdjustmentFromDate(value)
 }
