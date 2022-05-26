@@ -1,5 +1,5 @@
 <template>
-  <p-pop-over
+  <PPopOver
     ref="popOver"
     :placement="[bottomRight, topRight]"
     class="p-date-input"
@@ -9,9 +9,11 @@
   >
     <template #target="{ toggle }">
       <div class="p-date-input__target">
-        <p-native-date-input
+        <PNativeDateInput
           v-model="adjustedSelectedDate"
           class="p-date-input__native"
+          :min="min"
+          :max="max"
           v-bind="attrs"
           @keydown="handleTargetKeydown"
         />
@@ -22,7 +24,7 @@
       </div>
     </template>
 
-    <p-date-picker
+    <PDatePicker
       v-model="adjustedSelectedDate"
       class="p-date-input__date-picker"
       :show-time="showTime"
@@ -33,7 +35,7 @@
       @click.stop
       @keydown="handleContentKeydown"
     />
-  </p-pop-over>
+  </PPopOver>
 </template>
 
 <script lang="ts">
@@ -52,12 +54,11 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { keys } from '@/types'
+  import { keepDateInRange } from '@/utilities/dates'
   import { bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
     showTime?: boolean,
     clearable?: boolean,
@@ -71,9 +72,17 @@
   }>()
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()
-  const { selectedDate } = useDateModelValueWithRange(props, emits)
   const toggleButtonElement = ref<HTMLSpanElement>()
   const popOver = ref<typeof PPopOver>()
+
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? null
+    },
+    set(value: Date | null) {
+      emits('update:modelValue', keepDateInRange(value, { min: props.min, max: props.max }))
+    },
+  })
 
   const adjustedSelectedDate = computed({
     get() {

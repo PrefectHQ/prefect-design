@@ -1,7 +1,7 @@
 <template>
   <div class="p-native-date-input" :class="classes" :style="styles">
     <span class="p-native-date-input__icon">
-      <p-icon icon="CalendarIcon" />
+      <PIcon icon="CalendarIcon" />
     </span>
     <input
       v-model="stringValue"
@@ -31,8 +31,8 @@
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
-    min?: Date,
-    max?: Date,
+    min?: Date | null,
+    max?: Date | null,
   }>()
 
   const emits = defineEmits<{

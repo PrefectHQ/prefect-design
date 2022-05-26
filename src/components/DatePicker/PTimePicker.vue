@@ -31,15 +31,12 @@
   import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { SelectModelValue } from '@/types/selectOption'
+  import { isAfterMax, isBeforeMin, isDateInRange, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     min?: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     max?: Date | null | undefined,
   }>()
 
@@ -47,7 +44,16 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { selectedDate, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
+  const range = computed(() => ({ min: props.min, max: props.max }))
+
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? new Date()
+    },
+    set(value: Date) {
+      emits('update:modelValue', keepDateInRange(value, range.value))
+    },
+  })
 
   const selectedHours = computed({
     get() {
@@ -103,7 +109,7 @@
   }
 
   function isDateRangeOverlappingRange(interval: { start: Date, end: Date }): boolean {
-    return !isBeforeMin(interval.end) && !isAfterMax(interval.start)
+    return !isBeforeMin(interval.end, range.value) && !isAfterMax(interval.start, range.value)
   }
 
   const hourOptions = computed(() => [...new Array(12).keys()].map(hour => {
@@ -113,7 +119,7 @@
     return {
       label: format(dateValue, 'h'),
       value: hour,
-      disabled: !isDateInRange(dateValue, 'hour'),
+      disabled: !isDateInRange(dateValue, range.value, 'hour'),
     }
   }))
 
@@ -123,7 +129,7 @@
     return {
       label: format(dateValue, 'mm'),
       value: minute,
-      disabled: !isDateInRange(dateValue),
+      disabled: !isDateInRange(dateValue, range.value),
     }
   }))
 

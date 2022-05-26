@@ -1,6 +1,12 @@
-import { parse, format, differenceInSeconds } from 'date-fns'
+import { parse, format, differenceInSeconds, isAfter, isBefore, isSameDay, isSameHour, isSameMinute, isSameMonth, isSameYear } from 'date-fns'
 import { useAdjustedDate } from '@/compositions/useAdjustedDate'
 import { secondsToApproximateString } from '@/utilities/seconds'
+
+export type DateRange = {
+  min?: Date | null | undefined,
+  max?: Date | null | undefined,
+}
+export type Precision = 'minute' | 'hour' | 'day' | 'month' | 'year'
 
 const dateTimeNumericFormat = 'yyyy/MM/dd hh:mm:ss a'
 const timeNumericFormat = 'hh:mm:ss a'
@@ -50,4 +56,51 @@ export function formatDateTimeRelative(date: Date | string): string {
   }
 
   return `in ${formatted}`
+}
+
+export function keepDateInRange(date: Date | null, range: DateRange): Date | null {
+  if (date && range.min && isBefore(date, range.min)) {
+    return range.min
+  }
+
+  if (date && range.max && isAfter(date, range.max)) {
+    return range.max
+  }
+
+  return date
+}
+
+export function isMatchingPrecision(dateLeft: Date, dateRight: Date, precision: Precision): boolean {
+  switch (precision) {
+    case 'minute':
+      return isSameMinute(dateLeft, dateRight)
+    case 'hour':
+      return isSameHour(dateLeft, dateRight)
+    case 'day':
+      return isSameDay(dateLeft, dateRight)
+    case 'month':
+      return isSameMonth(dateLeft, dateRight)
+    case 'year':
+      return isSameYear(dateLeft, dateRight)
+  }
+}
+
+export function isAfterMin(date: Date, range: DateRange, precision: Precision = 'minute'): boolean {
+  return !range.min || isAfter(date, range.min) || isMatchingPrecision(date, range.min, precision)
+}
+
+export function isBeforeMin(date: Date, range: DateRange): boolean {
+  return !isAfterMin(date, range)
+}
+
+export function isBeforeMax(date: Date, range: DateRange, precision: Precision = 'minute'): boolean {
+  return !range.max || isBefore(date, range.max) || isMatchingPrecision(date, range.max, precision)
+}
+
+export function isAfterMax(date: Date, range: DateRange): boolean {
+  return !isBeforeMax(date, range)
+}
+
+export function isDateInRange(date: Date, range: DateRange, precision: Precision = 'minute'): boolean {
+  return isAfterMin(date, range, precision) && isBeforeMax(date, range, precision)
 }
