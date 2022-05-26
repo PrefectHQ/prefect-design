@@ -28,18 +28,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { endOfDay, format, isAfter, isBefore, set, setHours, setMinutes, startOfDay } from 'date-fns'
+  import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { SelectModelValue } from '@/types/selectOption'
 
   const props = defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     min?: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     max?: Date | null | undefined,
   }>()
 
@@ -47,22 +44,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
+  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? new Date()
     },
     set(value: Date) {
-      if (props.min && isBefore(value, props.min)) {
-        return emits('update:modelValue', props.min)
-      }
-
-      if (props.max && isAfter(value, props.max)) {
-        return emits('update:modelValue', props.max)
-      }
-
-      emits('update:modelValue', value)
+      emits('update:modelValue', keepDateInRange(value))
     },
   })
 

@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth, isBefore, isAfter } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
@@ -102,7 +102,6 @@
   type Overlay = 'year' | 'month' | 'time' | null
 
   const props = defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
     showTime?: boolean,
     clearable?: boolean,
@@ -114,22 +113,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits)
+  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? null
     },
     set(value: Date | null) {
-      if (value && props.min && isBefore(value, props.min)) {
-        return emits('update:modelValue', props.min)
-      }
-
-      if (value && props.max && isAfter(value, props.max)) {
-        return emits('update:modelValue', props.max)
-      }
-
-      emits('update:modelValue', value)
+      emits('update:modelValue', keepDateInRange(value))
     },
   })
 

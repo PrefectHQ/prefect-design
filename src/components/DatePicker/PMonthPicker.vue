@@ -19,17 +19,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth, isBefore, isAfter } from 'date-fns'
+  import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
 
   const props = defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     min?: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     max?: Date | null | undefined,
   }>()
 
@@ -39,22 +36,14 @@
 
   const monthElements = ref<HTMLElement[]>([])
 
-  const { isBeforeMin, isAfterMax } = useDateModelValueWithRange(props, emits, new Date())
+  const { keepDateInRange, isBeforeMin, isAfterMax } = useDateModelValueWithRange({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? new Date()
     },
     set(value: Date) {
-      if (props.min && isBefore(value, props.min)) {
-        return emits('update:modelValue', props.min)
-      }
-
-      if (props.max && isAfter(value, props.max)) {
-        return emits('update:modelValue', props.max)
-      }
-
-      emits('update:modelValue', value)
+      emits('update:modelValue', keepDateInRange(value))
     },
   })
 

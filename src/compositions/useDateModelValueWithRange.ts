@@ -1,15 +1,12 @@
 /* eslint-disable no-redeclare */
-import { computed } from '@vue/reactivity'
 import { isAfter, isBefore, isSameDay, isSameHour, isSameMinute, isSameMonth, isSameYear } from 'date-fns'
-import { WritableComputedRef } from 'vue'
 
-type DateProps = Readonly<{
-  modelValue: Date | null | undefined,
+type DateRange = {
   min?: Date | null | undefined,
   max?: Date | null | undefined,
-}>
-type DateEmits = (event: 'update:modelValue', value: Date | null) => void
+}
 type DateRangeMethods = {
+  keepDateInRange: (date: Date | null) => Date | null,
   isAfterMin: (date: Date, precision?: Precision) => boolean,
   isBeforeMin: (date: Date, precision?: Precision) => boolean,
   isBeforeMax: (date: Date, precision?: Precision) => boolean,
@@ -18,31 +15,18 @@ type DateRangeMethods = {
 }
 type Precision = 'minute' | 'hour' | 'day' | 'month' | 'year'
 
-function useDateModelValueWithRange(props: DateProps, emits: DateEmits): DateRangeMethods & {
-  selectedDate: WritableComputedRef<Date | null>,
-}
-function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultValue: Date): DateRangeMethods & {
-  selectedDate: WritableComputedRef<Date>,
-}
-function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultValue?: Date): DateRangeMethods &{
-  selectedDate: WritableComputedRef<Date | null> | WritableComputedRef<Date>,
-} {
-  const selectedDate = computed({
-    get() {
-      return props.modelValue ?? defaultValue ?? null
-    },
-    set(value: Date | null) {
-      if (value && props.min && isBefore(value, props.min)) {
-        return emits('update:modelValue', props.min)
-      }
+function useDateModelValueWithRange(range: DateRange): DateRangeMethods {
+  function keepDateInRange(date: Date | null): Date | null {
+    if (date && range.min && isBefore(date, range.min)) {
+      return range.min
+    }
 
-      if (value && props.max && isAfter(value, props.max)) {
-        return emits('update:modelValue', props.max)
-      }
+    if (date && range.max && isAfter(date, range.max)) {
+      return range.max
+    }
 
-      emits('update:modelValue', value)
-    },
-  })
+    return date
+  }
 
   function isMatchingPrecision(dateLeft: Date, dateRight: Date, precision: Precision): boolean {
     switch (precision) {
@@ -60,7 +44,7 @@ function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultV
   }
 
   function isAfterMin(date: Date, precision: Precision = 'minute'): boolean {
-    return !props.min || isAfter(date, props.min) || isMatchingPrecision(date, props.min, precision)
+    return !range.min || isAfter(date, range.min) || isMatchingPrecision(date, range.min, precision)
   }
 
   function isBeforeMin(date: Date): boolean {
@@ -68,7 +52,7 @@ function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultV
   }
 
   function isBeforeMax(date: Date, precision: Precision = 'minute'): boolean {
-    return !props.max || isBefore(date, props.max) || isMatchingPrecision(date, props.max, precision)
+    return !range.max || isBefore(date, range.max) || isMatchingPrecision(date, range.max, precision)
   }
 
   function isAfterMax(date: Date): boolean {
@@ -79,7 +63,7 @@ function useDateModelValueWithRange(props: DateProps, emits: DateEmits, defaultV
     return isAfterMin(date, precision) && isBeforeMax(date, precision)
   }
 
-  return { selectedDate, isAfterMin, isBeforeMin, isBeforeMax, isAfterMax, isDateInRange }
+  return { keepDateInRange, isAfterMin, isBeforeMin, isBeforeMax, isAfterMax, isDateInRange }
 }
 
 export { useDateModelValueWithRange }

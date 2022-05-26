@@ -16,18 +16,15 @@
 
 <script lang="ts" setup>
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
-  import { isAfter, isBefore, setYear } from 'date-fns'
+  import { setYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    // eslint-disable-next-line vue/no-unused-properties
     modelValue: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     min?: Date | null | undefined,
-    // eslint-disable-next-line vue/no-unused-properties
     max?: Date | null | undefined,
   }>()
 
@@ -35,22 +32,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { isDateInRange } = useDateModelValueWithRange(props, emits)
+  const { keepDateInRange, isDateInRange } = useDateModelValueWithRange({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? new Date()
     },
     set(value: Date) {
-      if (props.min && isBefore(value, props.min)) {
-        return emits('update:modelValue', props.min)
-      }
-
-      if (props.max && isAfter(value, props.max)) {
-        return emits('update:modelValue', props.max)
-      }
-
-      emits('update:modelValue', value)
+      emits('update:modelValue', keepDateInRange(value))
     },
   })
 
