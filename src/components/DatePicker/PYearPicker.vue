@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
-  import { setYear } from 'date-fns'
+  import { isAfter, isBefore, setYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
@@ -35,7 +35,24 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { selectedDate, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
+  const { isDateInRange } = useDateModelValueWithRange(props, emits)
+
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? new Date()
+    },
+    set(value: Date) {
+      if (props.min && isBefore(value, props.min)) {
+        return emits('update:modelValue', props.min)
+      }
+
+      if (props.max && isAfter(value, props.max)) {
+        return emits('update:modelValue', props.max)
+      }
+
+      emits('update:modelValue', value)
+    },
+  })
 
   const topElement = ref<HTMLElement>()
   const bottomElement = ref<HTMLElement>()

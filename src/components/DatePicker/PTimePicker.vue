@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
+  import { endOfDay, format, isAfter, isBefore, set, setHours, setMinutes, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
@@ -47,7 +47,24 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { selectedDate, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
+  const { isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits, new Date())
+
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? new Date()
+    },
+    set(value: Date) {
+      if (props.min && isBefore(value, props.min)) {
+        return emits('update:modelValue', props.min)
+      }
+
+      if (props.max && isAfter(value, props.max)) {
+        return emits('update:modelValue', props.max)
+      }
+
+      emits('update:modelValue', value)
+    },
+  })
 
   const selectedHours = computed({
     get() {

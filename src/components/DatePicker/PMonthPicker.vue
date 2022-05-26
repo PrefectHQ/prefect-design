@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth } from 'date-fns'
-  import { nextTick, onMounted, ref } from 'vue'
+  import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth, isBefore, isAfter } from 'date-fns'
+  import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
   import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
 
@@ -39,7 +39,24 @@
 
   const monthElements = ref<HTMLElement[]>([])
 
-  const { selectedDate, isBeforeMin, isAfterMax } = useDateModelValueWithRange(props, emits, new Date())
+  const { isBeforeMin, isAfterMax } = useDateModelValueWithRange(props, emits, new Date())
+
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? new Date()
+    },
+    set(value: Date) {
+      if (props.min && isBefore(value, props.min)) {
+        return emits('update:modelValue', props.min)
+      }
+
+      if (props.max && isAfter(value, props.max)) {
+        return emits('update:modelValue', props.max)
+      }
+
+      emits('update:modelValue', value)
+    },
+  })
 
   const monthOptions = eachMonthOfInterval({ start:startOfYear(new Date()), end: endOfYear(new Date()) }).map(x => ({
     value: x.getMonth(),

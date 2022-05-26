@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth, isBefore, isAfter } from 'date-fns'
   import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button'
   import PCalendar from '@/components/Calendar'
@@ -114,7 +114,24 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { selectedDate, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits)
+  const { isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange(props, emits)
+
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? null
+    },
+    set(value: Date | null) {
+      if (value && props.min && isBefore(value, props.min)) {
+        return emits('update:modelValue', props.min)
+      }
+
+      if (value && props.max && isAfter(value, props.max)) {
+        return emits('update:modelValue', props.max)
+      }
+
+      emits('update:modelValue', value)
+    },
+  })
 
   const overlay = ref<Overlay>(null)
   const overlayComponent = computed(() => {

@@ -52,9 +52,9 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
   import { keys } from '@/types'
   import { bottomRight, topRight } from '@/utilities/position'
+  import { isAfter, isBefore } from 'date-fns'
 
   const props = defineProps<{
     // eslint-disable-next-line vue/no-unused-properties
@@ -71,12 +71,29 @@
   }>()
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()
-  const { selectedDate } = useDateModelValueWithRange(props, emits)
   const toggleButtonElement = ref<HTMLSpanElement>()
   const popOver = ref<typeof PPopOver>()
 
+  const selectedDate = computed({
+    get() {
+      return props.modelValue ?? null
+    },
+    set(value: Date | null) {
+      if (value && props.min && isBefore(value, props.min)) {
+        return emits('update:modelValue', props.min)
+      }
+
+      if (value && props.max && isAfter(value, props.max)) {
+        return emits('update:modelValue', props.max)
+      }
+
+      emits('update:modelValue', value)
+    },
+  })
+
   const adjustedSelectedDate = computed({
     get() {
+      console.log('adjustedSelectedDate', selectedDate.value)
       return selectedDate.value ? useAdjustedDate(selectedDate.value) : null
     },
     set(value: Date | null) {
