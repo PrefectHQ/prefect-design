@@ -97,7 +97,7 @@
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
+  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
 
   type Overlay = 'year' | 'month' | 'time' | null
 
@@ -113,7 +113,7 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange({ min: props.min, max: props.max })
+  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateRangeMethods({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {

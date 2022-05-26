@@ -1,4 +1,3 @@
-/* eslint-disable no-redeclare */
 import { isAfter, isBefore, isSameDay, isSameHour, isSameMinute, isSameMonth, isSameYear } from 'date-fns'
 
 type DateRange = {
@@ -15,7 +14,7 @@ type DateRangeMethods = {
 }
 type Precision = 'minute' | 'hour' | 'day' | 'month' | 'year'
 
-function useDateModelValueWithRange(range: DateRange): DateRangeMethods {
+function useDateRangeMethods(range: DateRange): DateRangeMethods {
   function keepDateInRange(date: Date | null): Date | null {
     if (date && range.min && isBefore(date, range.min)) {
       return range.min
@@ -66,5 +65,5 @@ function useDateModelValueWithRange(range: DateRange): DateRangeMethods {
   return { keepDateInRange, isAfterMin, isBeforeMin, isBeforeMax, isAfterMax, isDateInRange }
 }
 
-export { useDateModelValueWithRange }
+export { useDateRangeMethods }
 export type { Precision }

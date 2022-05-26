@@ -22,7 +22,7 @@
   import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
+  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -36,7 +36,7 @@
 
   const monthElements = ref<HTMLElement[]>([])
 
-  const { keepDateInRange, isBeforeMin, isAfterMax } = useDateModelValueWithRange({ min: props.min, max: props.max })
+  const { keepDateInRange, isBeforeMin, isAfterMax } = useDateRangeMethods({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {

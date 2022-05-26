@@ -52,7 +52,7 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
+  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
   import { keys } from '@/types'
   import { bottomRight, topRight } from '@/utilities/position'
 
@@ -70,7 +70,7 @@
   }>()
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()
-  const { keepDateInRange } = useDateModelValueWithRange({ min:props.min, max: props.max })
+  const { keepDateInRange } = useDateRangeMethods({ min:props.min, max: props.max })
   const toggleButtonElement = ref<HTMLSpanElement>()
   const popOver = ref<typeof PPopOver>()
 

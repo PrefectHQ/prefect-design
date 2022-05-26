@@ -31,7 +31,7 @@
   import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
-  import { useDateModelValueWithRange } from '@/compositions/useDateModelValueWithRange'
+  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
   import { SelectModelValue } from '@/types/selectOption'
 
   const props = defineProps<{
@@ -44,7 +44,7 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateModelValueWithRange({ min: props.min, max: props.max })
+  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateRangeMethods({ min: props.min, max: props.max })
 
   const selectedDate = computed({
     get() {
