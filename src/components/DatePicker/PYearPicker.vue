@@ -19,8 +19,8 @@
   import { setYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
-  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { isDateInRange, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -32,14 +32,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { keepDateInRange, isDateInRange } = useDateRangeMethods({ min: props.min, max: props.max })
+  const range = computed(() => ({ min: props.min, max: props.max }))
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? new Date()
     },
     set(value: Date) {
-      emits('update:modelValue', keepDateInRange(value))
+      emits('update:modelValue', keepDateInRange(value, range.value))
     },
   })
 
@@ -62,7 +62,7 @@
       values.push({
         label: year.toString(),
         value: year,
-        disabled: !isDateInRange(dateValue, 'year'),
+        disabled: !isDateInRange(dateValue, range.value, 'year'),
       })
     }
 

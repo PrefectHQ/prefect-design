@@ -31,8 +31,8 @@
   import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
-  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
   import { SelectModelValue } from '@/types/selectOption'
+  import { isAfterMax, isBeforeMin, isDateInRange, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -44,14 +44,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateRangeMethods({ min: props.min, max: props.max })
+  const range = computed(() => ({ min: props.min, max: props.max }))
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? new Date()
     },
     set(value: Date) {
-      emits('update:modelValue', keepDateInRange(value))
+      emits('update:modelValue', keepDateInRange(value, range.value))
     },
   })
 
@@ -109,7 +109,7 @@
   }
 
   function isDateRangeOverlappingRange(interval: { start: Date, end: Date }): boolean {
-    return !isBeforeMin(interval.end) && !isAfterMax(interval.start)
+    return !isBeforeMin(interval.end, range.value) && !isAfterMax(interval.start, range.value)
   }
 
   const hourOptions = computed(() => [...new Array(12).keys()].map(hour => {
@@ -119,7 +119,7 @@
     return {
       label: format(dateValue, 'h'),
       value: hour,
-      disabled: !isDateInRange(dateValue, 'hour'),
+      disabled: !isDateInRange(dateValue, range.value, 'hour'),
     }
   }))
 
@@ -129,7 +129,7 @@
     return {
       label: format(dateValue, 'mm'),
       value: minute,
-      disabled: !isDateInRange(dateValue),
+      disabled: !isDateInRange(dateValue, range.value),
     }
   }))
 

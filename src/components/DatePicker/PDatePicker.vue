@@ -45,7 +45,7 @@
             class="p-date-picker__date"
             :class="classes.date(date)"
             :flat="!isSameDayAsSelectedDate(date)"
-            :disabled="!!overlay || !isDateInRange(date, 'day')"
+            :disabled="!!overlay || !isDateInRange(date, range, 'day')"
             size="xs"
             @click="updateSelectedDate(date)"
           >
@@ -61,7 +61,7 @@
           </p-button>
         </template>
         <div class="p-date-picker__actions">
-          <template v-if="isDateInRange(new Date(), 'day')">
+          <template v-if="isDateInRange(new Date(), range, 'day')">
             <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
               {{ showTime ? 'Now' : 'Today' }}
             </p-button>
@@ -97,7 +97,7 @@
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
-  import { useDateRangeMethods } from '@/compositions/useDateRangeMethods'
+  import { isAfterMax, isBeforeMin, keepDateInRange, isDateInRange } from '@/utilities/dates'
 
   type Overlay = 'year' | 'month' | 'time' | null
 
@@ -113,14 +113,14 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { keepDateInRange, isBeforeMin, isAfterMax, isDateInRange } = useDateRangeMethods({ min: props.min, max: props.max })
+  const range = computed(() => ({ min: props.min, max: props.max }))
 
   const selectedDate = computed({
     get() {
       return props.modelValue ?? null
     },
     set(value: Date | null) {
-      emits('update:modelValue', keepDateInRange(value))
+      emits('update:modelValue', keepDateInRange(value, range.value))
     },
   })
 
@@ -156,12 +156,12 @@
 
   const previousDisabled = computed(() => {
     const previousMonth = addMonths(viewingDate.value, -1)
-    return isBeforeMin(endOfMonth(previousMonth))
+    return isBeforeMin(endOfMonth(previousMonth), range.value)
   })
 
   const nextDisabled = computed(() => {
     const nextMonth = addMonths(viewingDate.value, 1)
-    return isAfterMax(startOfMonth(nextMonth))
+    return isAfterMax(startOfMonth(nextMonth), range.value)
   })
 
   const classes = computed(() => ({
