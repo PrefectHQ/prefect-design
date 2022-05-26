@@ -14,7 +14,3 @@
     heading: string,
   }>()
 </script>
-
-<style>
-
-</style>
