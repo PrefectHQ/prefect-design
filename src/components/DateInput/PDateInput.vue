@@ -85,7 +85,6 @@
 
   const adjustedSelectedDate = computed({
     get() {
-      console.log('adjustedSelectedDate', selectedDate.value)
       return selectedDate.value ? useAdjustedDate(selectedDate.value) : null
     },
     set(value: Date | null) {
