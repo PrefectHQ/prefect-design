@@ -1,35 +1,23 @@
 <template>
-  <p-combobox v-if="inline" v-model="internalValue" allow-unknown-value :options="[]" :placeholder="placeholder">
+  <PCombobox v-model="internalValue" class="p-tags-input" allow-unknown-value :options="[]" :placeholder="placeholder">
+    <template #option="{ option }">
+      <slot name="tag" :tag="option.value">
+        <span class="p-tags-input__tag">{{ option.label }}</span>
+      </slot>
+    </template>
     <template #options-empty>
       <span />
     </template>
-  </p-combobox>
-  <div v-else class="p-tags-input">
-    <slot :tags="internalValue" :remove-tag="removeTag">
-      <div class="p-tags-input__tags">
-        <template v-for="tag in internalValue" :key="tag">
-          <slot name="tag" :tag="tag" :remove-tag="removeTag">
-            <PTag dismissible @dismiss="removeTag(tag)">
-              {{ tag }}
-            </PTag>
-          </slot>
-        </template>
-      </div>
-    </slot>
-    <PTextInput v-model="newTag" @keydown="handleKeydown" />
-  </div>
+  </PCombobox>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, withDefaults } from 'vue'
-  import PTag from '@/components/Tag/PTag.vue'
-  import PTextInput from '@/components/TextInput'
-  import { keys } from '@/types'
+  import { computed, withDefaults } from 'vue'
+  import PCombobox from '@/components/Combobox/PCombobox.vue'
 
   const props = withDefaults(defineProps<{
     tags: string[] | null | undefined,
     placeholder?: string,
-    inline?: boolean,
   }>(), {
     placeholder: 'Add Tag',
   })
@@ -46,39 +34,4 @@
       emits('update:tags', value)
     },
   })
-
-  const newTag = ref<string | null>(null)
-
-  function removeTag(tag: string): void {
-    const value = internalValue.value.filter(x => x !== tag)
-
-    internalValue.value = value
-  }
-
-  function handleKeydown(event: KeyboardEvent): void {
-    if (event.key === keys.enter) {
-      submitNewTag()
-    }
-  }
-
-  function validateNewTag(tag: string | null): tag is string  {
-    return !!newTag.value?.length && !internalValue.value.includes(newTag.value)
-  }
-
-  function submitNewTag(): void {
-    if (validateNewTag(newTag.value)) {
-      internalValue.value.push(newTag.value)
-    }
-
-    newTag.value = null
-  }
 </script>
-
-<style>
-.p-tags-input__tags { @apply
-  flex
-  flex-wrap
-  gap-1
-  mb-2
-}
-</style>

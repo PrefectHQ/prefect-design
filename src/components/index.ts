@@ -33,7 +33,7 @@ import { default as PTab } from './Tab'
 import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow } from './Table'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
-import { default as PTagsInlineInput } from './TagsInlineInput'
+import { default as PTagsArea } from './TagsArea'
 import { default as PTagsInput } from './TagsInput'
 import { default as PTagWrapper } from './TagWrapper'
 import { default as PTextarea } from './Textarea'
@@ -74,22 +74,22 @@ export {
   PSelect,
   PSelectOption,
   PTab,
-  PTabs,
-  PTag,
-  PTagsInlineInput,
-  PTagsInput,
-  PTagWrapper,
-  PTextarea,
-  PTextInput,
-  PToast,
-  PToggle,
   PTable,
   PTableBody,
   PTableData,
   PTableFoot,
   PTableHead,
   PTableHeader,
-  PTableRow
+  PTableRow,
+  PTabs,
+  PTag,
+  PTagsArea,
+  PTagsInput,
+  PTagWrapper,
+  PTextarea,
+  PTextInput,
+  PToast,
+  PToggle
 }
 
 export const installs = [
@@ -125,21 +125,21 @@ export const installs = [
   PSelect.install,
   PSelectOption.install,
   PTab.install,
-  PTabs.install,
-  PTag.install,
-  PTagsInlineInput.install,
-  PTagsInput.install,
-  PTagWrapper.install,
-  PTextarea.install,
-  PTextInput.install,
-  PToast.install,
-  PToggle.install,
   PTableBody.install,
   PTableData.install,
   PTableFoot.install,
   PTableHead.install,
   PTableHeader.install,
   PTableRow.install,
+  PTabs.install,
+  PTag.install,
+  PTagsArea.install,
+  PTagsInput.install,
+  PTagWrapper.install,
+  PTextarea.install,
+  PTextInput.install,
+  PToast.install,
+  PToggle.install,
 ]
 
 declare module '@vue/runtime-core' {
@@ -158,8 +158,8 @@ declare module '@vue/runtime-core' {
     PForm: typeof PForm,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
-    PIconButtonMenu: typeof PIconButtonMenu,
     PIcon: typeof PIcon,
+    PIconButtonMenu: typeof PIconButtonMenu,
     PIconText: typeof PIconText,
     PKeyValue: typeof PKeyValue,
     PLabel: typeof PLabel,
@@ -175,20 +175,20 @@ declare module '@vue/runtime-core' {
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
     PTab: typeof PTab,
-    PTabs: typeof PTabs,
-    PTag: typeof PTag,
-    PTagsInlineInput: typeof PTagsInlineInput,
-    PTagsInput: typeof PTagsInput,
-    PTagWrapper: typeof PTagWrapper,
-    PTextarea: typeof PTextarea,
-    PTextInput: typeof PTextInput,
-    PToast: typeof PToast,
-    PToggle: typeof PToggle,
     PTableBody: typeof PTableBody,
     PTableData: typeof PTableData,
     PTableFoot: typeof PTableFoot,
     PTableHead: typeof PTableHead,
     PTableHeader: typeof PTableHeader,
     PTableRow: typeof PTableRow,
+    PTabs: typeof PTabs,
+    PTag: typeof PTag,
+    PTagsArea: typeof PTagsArea,
+    PTagsInput: typeof PTagsInput,
+    PTagWrapper: typeof PTagWrapper,
+    PTextarea: typeof PTextarea,
+    PTextInput: typeof PTextInput,
+    PToast: typeof PToast,
+    PToggle: typeof PToggle,
   }
 }
