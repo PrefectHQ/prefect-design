@@ -1,5 +1,5 @@
 <template>
-  <p-pop-over
+  <PPopOver
     ref="popOver"
     :placement="[bottomRight, topRight]"
     class="p-date-input"
@@ -9,9 +9,11 @@
   >
     <template #target="{ toggle }">
       <div class="p-date-input__target">
-        <p-native-date-input
+        <PNativeDateInput
           v-model="adjustedSelectedDate"
           class="p-date-input__native"
+          :min="min"
+          :max="max"
           v-bind="attrs"
           @keydown="handleTargetKeydown"
         />
@@ -22,7 +24,7 @@
       </div>
     </template>
 
-    <p-date-picker
+    <PDatePicker
       v-model="adjustedSelectedDate"
       class="p-date-input__date-picker"
       :show-time="showTime"
@@ -33,7 +35,7 @@
       @click.stop
       @keydown="handleContentKeydown"
     />
-  </p-pop-over>
+  </PPopOver>
 </template>
 
 <script lang="ts">
