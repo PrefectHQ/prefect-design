@@ -15,7 +15,7 @@
             ref="textInput"
             v-model="typedValue"
             type="search"
-            placeholder="Search"
+            :placeholder="placeholder"
             class="p-combobox__text-input"
             :class="classes.input"
             role="combobox"
@@ -28,7 +28,9 @@
         </div>
       </template>
       <template #option="{ option }">
-        {{ option.unknown ? `"${option.label}"` : option.label }}
+        <slot name="option" :option="option">
+          {{ option.unknown ? `"${option.label}"` : option.label }}
+        </slot>
       </template>
       <template #default="{ selectedOption, isOpen, open, close, unselectOption }">
         <slot
@@ -59,7 +61,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, nextTick } from 'vue'
+  import { defineComponent, computed, ref, nextTick, withDefaults } from 'vue'
 
   export default defineComponent({
     name: 'PCombobox',
@@ -75,12 +77,16 @@
 
   type ComboboxSelectOption = SelectOption & { unknown?: boolean }
 
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,
-  }>()
+    placeholder?: string,
+  }>(), {
+    emptyMessage: undefined,
+    placeholder: 'Search',
+  })
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
@@ -195,7 +201,7 @@
 
 <style>
 .p-combobox__search-option { @apply
-  m-1
+  p-1
 }
 
 .p-combobox__text-input { @apply
@@ -216,5 +222,7 @@
   flex
   justify-between
   items-center
+  italic
+  p-2
 }
 </style>
