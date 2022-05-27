@@ -8,14 +8,12 @@
             <p>Header</p>
           </div>
         </template>
-        <div>
-          <p>Content</p>
-          <p>Content</p>
-          <p>Content</p>
-          <p>Content</p>
-          <p>Content</p>
-          <p>Content</p>
-        </div>
+
+        <div class="bg-indigo-500 box" />
+        <div class="bg-violet-500 box" />
+        <div class="bg-lime-500 box" />
+        <div class="bg-amber-500 box" />
+        <div class="bg-rose-500 box" />
       </p-layout-full>
     </resizable-section>
   </Section>
@@ -25,3 +23,11 @@
   import ResizableSection from '../components/ResizableSection.vue'
   import Section from '../components/Section.vue'
 </script>
+
+<style>
+.box {
+  @apply
+  w-full
+  h-12;
+}
+</style>
