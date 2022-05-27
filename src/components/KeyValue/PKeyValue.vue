@@ -5,7 +5,7 @@
         {{ label }}
       </slot>
     </div>
-    <div v-if="value || slots.value" class="p-key-value__value">
+    <div v-if="isDefined(value) || slots.value" class="p-key-value__value">
       <slot name="value">
         {{ value }}
       </slot>
@@ -27,6 +27,10 @@
     label?: string,
     value?: unknown,
   }>()
+
+  const isDefined = (val: unknown): boolean => {
+    return typeof val !== 'undefined'
+  }
 </script>
 
 <style>
