@@ -5,18 +5,27 @@
         {{ label }}
       </slot>
     </div>
-    <div class="p-key-value__value">
+    <div v-if="value || slots.value" class="p-key-value__value">
       <slot name="value">
         {{ value }}
+      </slot>
+    </div>
+    <div v-else class="p-key-value__empty">
+      <slot name="empty">
+        None
       </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { useSlots } from 'vue'
+
+  const slots = useSlots()
+
   defineProps<{
     label?: string,
-    value?: string | number,
+    value?: unknown,
   }>()
 </script>
 
@@ -34,5 +43,13 @@
   text-xs
   leading-4
   font-normal
+}
+
+.p-key-value__empty {
+  @apply
+  text-xs
+  leading-4
+  font-normal
+  text-slate-400
 }
 </style>

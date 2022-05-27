@@ -1,7 +1,9 @@
 <template>
-  <Section heading="Well Key/Value">
+  <Section heading="Key/Value Display">
     <p-key-value label="Flow Run ID" value="3fa85f64" />
+
     <br>
+
     <p-key-value>
       <template #label>
         <div class="text-pink-400 uppercase">
@@ -12,6 +14,10 @@
         {{ new Date().toISOString().slice(0, 10) }}
       </template>
     </p-key-value>
+
+    <br>
+
+    <p-key-value label="This should say 'None' below" />
   </Section>
 </template>
 
