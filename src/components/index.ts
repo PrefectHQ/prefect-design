@@ -9,6 +9,7 @@ import { default as PContextNavItem } from './ContextNavItem'
 import { default as PContextSidebar } from './ContextSidebar'
 import { default as PDateInput } from './DateInput'
 import { default as PDatePicker } from './DatePicker'
+import { default as PDivider } from './Divider'
 import { default as PEmptyState } from './EmptyState'
 import { default as PForm } from './Form'
 import { default as PGlobalNavItem } from './GlobalNavItem'
@@ -53,6 +54,7 @@ export {
   PContextSidebar,
   PDateInput,
   PDatePicker,
+  PDivider,
   PEmptyState,
   PForm,
   PGlobalNavItem,
@@ -104,6 +106,7 @@ export const installs = [
   PContextSidebar.install,
   PDateInput.install,
   PDatePicker.install,
+  PDivider.install,
   PEmptyState.install,
   PForm.install,
   PGlobalNavItem.install,
@@ -126,10 +129,16 @@ export const installs = [
   PSelectOption.install,
   PTab.install,
   PTableBody.install,
+  PTableBody.install,
+  PTableData.install,
   PTableData.install,
   PTableFoot.install,
+  PTableFoot.install,
+  PTableHead.install,
   PTableHead.install,
   PTableHeader.install,
+  PTableHeader.install,
+  PTableRow.install,
   PTableRow.install,
   PTabs.install,
   PTag.install,
@@ -154,6 +163,7 @@ declare module '@vue/runtime-core' {
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
+    PDivider: typeof PDivider,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,
     PGlobalNavItem: typeof PGlobalNavItem,
