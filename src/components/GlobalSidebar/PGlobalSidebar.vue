@@ -27,10 +27,10 @@
   justify-between
   px-5
   z-10
-  sm:h-screen
-  sm:w-16
-  sm:flex-col
-  sm:py-5
+  lg:h-screen
+  lg:w-16
+  lg:flex-col
+  lg:py-5
 }
 
 .p-global-sidebar__nav-links {
@@ -39,8 +39,8 @@
   items-center
   gap-4
   flex-row
-  sm:gap-5
-  sm:flex-col
+  lg:gap-5
+  lg:flex-col
 }
 
 .p-global-sidebar__profile {
@@ -51,6 +51,6 @@
   rounded-full
   hidden
   overflow-hidden
-  sm:block
+  lg:block
 }
 </style>

@@ -31,7 +31,7 @@
 
 .p-layout-well__content {
   @apply
-  sm:col-span-2
+  xl:col-span-2
   col-span-3
   grid
   gap-4
@@ -41,6 +41,6 @@
   @apply
   w-full
   hidden
-  sm:block
+  xl:block
 }
 </style>
