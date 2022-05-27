@@ -23,7 +23,7 @@
 
     <p-key-value label="This uses an empty slot">
       <template #empty>
-        <span class="key-value-section__turtles">Ninja turtles</span>
+        None - <span class="key-value-section__turtles">Ninja turtles</span>
       </template>
     </p-key-value>
   </Section>
