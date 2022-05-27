@@ -15,8 +15,14 @@
   p-8
   grid
   grid-rows-[max-content_1fr]
-  gap-8
+  gap-4
   h-full
   w-full
+}
+
+.p-layout-default__content {
+  @apply
+  grid
+  gap-4
 }
 </style>
