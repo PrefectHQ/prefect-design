@@ -50,7 +50,7 @@
   @apply min-h-screen w-screen layout--mobile grid;
   }
 
-  @screen sm {
+  @screen lg {
     .layout {
     @apply layout--desktop;
     }
