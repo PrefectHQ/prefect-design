@@ -1,6 +1,6 @@
 <template>
   <label class="p-label">
-    <div class="p-label__text">
+    <div v-if="slots.label" class="p-label__text">
       <slot name="label">
         <span>
           {{ label }}
@@ -8,7 +8,7 @@
       </slot>
     </div>
     <slot />
-    <div class="p-label__message">
+    <div v-if="slots.message" class="p-label__message">
       <slot name="message">
         <span>
           {{ message }}
@@ -19,6 +19,10 @@
 </template>
 
 <script lang="ts" setup>
+  import { useSlots } from 'vue'
+
+  const slots = useSlots()
+
   defineProps<{
     label?: string,
     message?: string,
