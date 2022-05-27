@@ -19,7 +19,7 @@
   grid
   grid-cols-[1fr_1fr_250px]
   grid-rows-[max-content_1fr]
-  gap-8
+  gap-4
   h-full
   w-full
 }
@@ -33,6 +33,8 @@
   @apply
   sm:col-span-2
   col-span-3
+  grid
+  gap-4
 }
 
 .p-layout-well__well {
