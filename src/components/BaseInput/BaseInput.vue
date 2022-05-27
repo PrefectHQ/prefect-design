@@ -63,7 +63,7 @@
   const classes = computed(() => ({
     ...attrClasses.value,
     'base-input--disabled': props.disabled,
-    'base-input--failed': !!props.state?.failed,
+    'base-input--failed': props.state?.valid === false && props.state.validated,
   }))
 </script>
 

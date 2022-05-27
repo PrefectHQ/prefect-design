@@ -168,7 +168,7 @@
   const maxDate = ref<Date | null>(null)
 
   const exampleState = computed(() => {
-    return { valid: true, failed: !exampleText.value.length, passed: !!exampleText.value.length } as State
+    return { valid: !exampleText.value.length, validated: true } as State
   })
 
   const showTimeInExampleDate = ref(true)
