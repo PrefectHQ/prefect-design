@@ -30,26 +30,21 @@
 </script>
 
 <style>
-.p-key-value__label {
+.p-key-value {
   @apply
   text-xs
   leading-4
+  font-normal
+}
+
+.p-key-value__label {
+  @apply
   font-semibold
   text-slate-400
 }
 
-.p-key-value__value {
-  @apply
-  text-xs
-  leading-4
-  font-normal
-}
-
 .p-key-value__empty {
   @apply
-  text-xs
-  leading-4
-  font-normal
   text-slate-400
 }
 </style>
