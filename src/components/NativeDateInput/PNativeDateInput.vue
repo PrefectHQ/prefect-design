@@ -1,33 +1,29 @@
 <template>
-  <div class="p-native-date-input" :class="classes" :style="styles">
-    <span class="p-native-date-input__icon">
-      <PIcon icon="CalendarIcon" />
-    </span>
-    <input
-      v-model="stringValue"
-      type="date"
-      class="p-native-date-input__control"
-      :min="stringMin"
-      :max="stringMax"
-      v-bind="attrs"
-    >
-  </div>
+  <BaseInput class="p-native-date-input">
+    <template v-for="(index, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
+    <template #control="{ attrs }">
+      <span class="p-native-date-input__icon">
+        <PIcon icon="CalendarIcon" />
+      </span>
+      <input
+        v-model="stringValue"
+        type="date"
+        class="p-native-date-input__control"
+        :min="stringMin"
+        :max="stringMax"
+        v-bind="attrs"
+      >
+    </template>
+  </BaseInput>
 </template>
 
-<script lang="ts">
-  import { format, parseISO } from 'date-fns'
-  import { defineComponent, computed } from 'vue'
-
-  export default defineComponent({
-    name: 'PNativeDateInput',
-    expose: [],
-    inheritAttrs: false,
-  })
-</script>
-
 <script lang="ts" setup>
+  import { format, parseISO } from 'date-fns'
+  import { computed } from 'vue'
+  import BaseInput from '@/components/BaseInput'
   import PIcon from '@/components/Icon'
-  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -38,8 +34,6 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
   }>()
-
-  const { classes, styles, attrs } = useAttrsStylesAndClasses()
 
   const internalValue = computed(() => props.modelValue ?? null)
 
@@ -59,14 +53,6 @@
 <style>
 .p-native-date-input { @apply
   relative
-  border
-  border-gray-300
-  focus-within:outline-none
-  focus-within:ring-1
-  focus-within:ring-prefect-500
-  focus-within:border-prefect-500
-  focus-within:border-prefect-500
-  rounded-md
   appearance-none
   bg-none
 }
