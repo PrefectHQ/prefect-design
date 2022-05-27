@@ -1,6 +1,6 @@
 <template>
   <label class="p-label">
-    <div v-if="slots.label || label" class="p-label__text">
+    <div v-if="slots.label || isDefined(label)" class="p-label__text">
       <slot name="label">
         <span>
           {{ label }}
@@ -8,7 +8,7 @@
       </slot>
     </div>
     <slot />
-    <div v-if="slots.message || message" class="p-label__message">
+    <div v-if="slots.message || isDefined(message)" class="p-label__message">
       <slot name="message">
         <span>
           {{ message }}
@@ -27,6 +27,10 @@
     label?: string,
     message?: string,
   }>()
+
+  function isDefined(value: string | undefined): boolean {
+    return typeof value === 'string' && value.length > 0
+  }
 </script>
 
 <style>
