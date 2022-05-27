@@ -88,11 +88,16 @@
   focus:ring-2
   focus:ring-offset-2
   font-medium
-  gap-1
   inline-flex
   items-center
   rounded-md
   shadow-sm
+}
+
+.p-button__content { @apply
+  gap-1
+  inline-flex
+  items-center
 }
 
 .p-button--primary { @apply

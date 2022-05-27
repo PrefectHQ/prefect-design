@@ -81,9 +81,17 @@
       <p-button disabled inset icon="BeakerIcon" />
       <p-button disabled flat icon="BeakerIcon" />
     </div>
+
+    <p-button :loading="buttonLoading" icon="BeakerIcon">
+      Loading Button
+    </p-button>
+    <p-checkbox v-model="buttonLoading" label="show loading" />
   </Section>
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue'
   import Section from '../components/Section.vue'
+
+  const buttonLoading = ref(false)
 </script>
