@@ -55,7 +55,7 @@
 
   const classes = computed(() => ({
     'p-checkbox--disabled': props.disabled,
-    'p-checkbox--failed': !!props.state?.failed,
+    'p-checkbox--failed': props.state?.valid === false && props.state.validated,
   }))
 </script>
 
