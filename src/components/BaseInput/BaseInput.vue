@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, useAttrs, StyleValue } from 'vue'
+  import { defineComponent, computed } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -23,9 +23,8 @@
 </script>
 
 <script lang="ts" setup>
+  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { State } from '@/types/state'
-
-  type ClassValue = string | string[] | Record<string, boolean>
 
   const props = defineProps<{
     state?: State,
@@ -34,31 +33,7 @@
     disabled?: boolean,
   }>()
 
-  const attrClasses = computed(() => {
-    const value = useAttrs().class as ClassValue
-
-    if (Array.isArray(value)) {
-      return value.reduce((reduced, key) => ({
-        [key]: true,
-      }), {})
-    }
-
-    if (typeof value === 'string') {
-      return { [value]: true }
-    }
-
-    return value
-  })
-
-  const attrStyles = computed(() => useAttrs().style as StyleValue)
-
-  const attrs = computed(() => {
-    const { class:_class, style:_style, ...attrs } = useAttrs()
-
-    return { ...attrs, disabled: props.disabled }
-  })
-
-  const styles = computed(() => [attrStyles.value])
+  const { classes:attrClasses, styles, attrs } = useAttrsStylesAndClasses()
 
   const classes = computed(() => ({
     ...attrClasses.value,
