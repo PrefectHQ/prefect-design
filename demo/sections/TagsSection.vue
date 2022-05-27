@@ -5,6 +5,9 @@
         {{ index }}
       </p-tag>
     </SubSection>
+    <SubSection heading="Tags component">
+      <p-tags :tags="numberArr" />
+    </SubSection>
     <SubSection heading="Custom">
       <p-tag v-for="item in classes" :key="item.name" :class="item.className" class="tag" icon="TagIcon">
         {{ item.name }}
@@ -79,6 +82,7 @@
   import Section from '../components/Section.vue'
   import SubSection from '../components/SubSection.vue'
   import PTag from '@/components/Tag/PTag.vue'
+  import PTags from '@/components/Tags/PTags.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
 
   const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']

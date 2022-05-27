@@ -34,6 +34,7 @@ import { default as PTab } from './Tab'
 import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow } from './Table'
 import { default as PTabs } from './Tabs'
 import { default as PTag } from './Tag'
+import { default as PTags } from './Tags'
 import { default as PTagsArea } from './TagsArea'
 import { default as PTagsInput } from './TagsInput'
 import { default as PTagWrapper } from './TagWrapper'
@@ -85,6 +86,7 @@ export {
   PTableRow,
   PTabs,
   PTag,
+  PTags,
   PTagsArea,
   PTagsInput,
   PTagWrapper,
@@ -129,19 +131,14 @@ export const installs = [
   PSelectOption.install,
   PTab.install,
   PTableBody.install,
-  PTableBody.install,
-  PTableData.install,
   PTableData.install,
   PTableFoot.install,
-  PTableFoot.install,
-  PTableHead.install,
   PTableHead.install,
   PTableHeader.install,
-  PTableHeader.install,
-  PTableRow.install,
   PTableRow.install,
   PTabs.install,
   PTag.install,
+  PTags.install,
   PTagsArea.install,
   PTagsInput.install,
   PTagWrapper.install,
@@ -193,6 +190,7 @@ declare module '@vue/runtime-core' {
     PTableRow: typeof PTableRow,
     PTabs: typeof PTabs,
     PTag: typeof PTag,
+    PTags: typeof PTags,
     PTagsArea: typeof PTagsArea,
     PTagsInput: typeof PTagsInput,
     PTagWrapper: typeof PTagWrapper,
