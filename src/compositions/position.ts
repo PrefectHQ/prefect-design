@@ -145,7 +145,7 @@ function useOnMountedIfComponentIsDetected(callback: () => void): void {
 
 function useOnUnmountedIfComponentIsDetected(callback: () => void): void {
   if (getCurrentInstance()) {
-    // onUnmounted(callback)
+    onUnmounted(callback)
   }
 }
 
