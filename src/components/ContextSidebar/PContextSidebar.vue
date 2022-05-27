@@ -17,18 +17,17 @@
 </template>
 
 <style>
-.p-context-sidebar {
-  @apply
+.p-context-sidebar { @apply
   bg-slate-700
   text-slate-300
   sticky
   top-0
   w-screen
   z-10
-  sm:flex
-  sm:h-screen
-  sm:w-64
-  sm:flex-col
+  lg:flex
+  lg:h-screen
+  lg:w-64
+  lg:flex-col
 }
 
 .p-context-sidebar__header,
@@ -48,9 +47,8 @@
   gap-1
 }
 
-.p-context-sidebar__footer {
-  @apply
-  sm:mt-auto
+.p-context-sidebar__footer { @apply
+  lg:mt-auto
   border-t-2
   border-slate-600
 }
