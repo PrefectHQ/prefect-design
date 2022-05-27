@@ -5,34 +5,50 @@
         {{ label }}
       </slot>
     </div>
-    <div class="p-key-value__value">
+    <div v-if="isDefined(value) || slots.value" class="p-key-value__value">
       <slot name="value">
         {{ value }}
+      </slot>
+    </div>
+    <div v-else class="p-key-value__empty">
+      <slot name="empty">
+        None
       </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import { useSlots } from 'vue'
+
+  const slots = useSlots()
+
   defineProps<{
     label?: string,
-    value?: string | number,
+    value?: unknown,
   }>()
+
+  const isDefined = (val: unknown): boolean => {
+    return typeof val !== 'undefined' && val !== null && val !== ''
+  }
 </script>
 
 <style>
-.p-key-value__label {
-  @apply
-  text-xs
-  leading-4
-  font-semibold
-  text-slate-400
-}
-
-.p-key-value__value {
+.p-key-value {
   @apply
   text-xs
   leading-4
   font-normal
+}
+
+.p-key-value__label {
+  @apply
+  font-semibold
+  text-slate-400
+}
+
+.p-key-value__empty {
+  @apply
+  text-slate-400
 }
 </style>
