@@ -29,7 +29,7 @@
   }>()
 
   const isDefined = (val: unknown): boolean => {
-    return typeof val !== 'undefined'
+    return typeof val !== 'undefined' && val !== null && val !== ''
   }
 </script>
 
