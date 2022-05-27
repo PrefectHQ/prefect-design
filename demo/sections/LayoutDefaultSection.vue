@@ -8,11 +8,11 @@
           </div>
         </template>
 
-        <div class="bg-indigo-500 box" />
-        <div class="bg-violet-500 box" />
-        <div class="bg-lime-500 box" />
-        <div class="bg-amber-500 box" />
-        <div class="bg-rose-500 box" />
+        <div class="bg-indigo-500 layout-default-section__box" />
+        <div class="bg-violet-500 layout-default-section__box" />
+        <div class="bg-lime-500 layout-default-section__box" />
+        <div class="bg-amber-500 layout-default-section__box" />
+        <div class="bg-rose-500 layout-default-section__box" />
       </p-layout-default>
     </resizable-section>
   </Section>
@@ -24,7 +24,7 @@
 </script>
 
 <style>
-.box {
+.layout-default-section__box {
   @apply
   w-full
   h-12;

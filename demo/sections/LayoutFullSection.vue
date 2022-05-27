@@ -5,15 +5,14 @@
         <template #header>
           <div class="bg-slate-300 p-2">
             <p>Header</p>
-            <p>Header</p>
           </div>
         </template>
 
-        <div class="bg-indigo-500 box" />
-        <div class="bg-violet-500 box" />
-        <div class="bg-lime-500 box" />
-        <div class="bg-amber-500 box" />
-        <div class="bg-rose-500 box" />
+        <div class="bg-indigo-500 layout-full-section__box" />
+        <div class="bg-violet-500 layout-full-section__box" />
+        <div class="bg-lime-500 layout-full-section__box" />
+        <div class="bg-amber-500 layout-full-section__box" />
+        <div class="bg-rose-500 layout-full-section__box" />
       </p-layout-full>
     </resizable-section>
   </Section>
@@ -25,7 +24,7 @@
 </script>
 
 <style>
-.box {
+.layout-full-section__box {
   @apply
   w-full
   h-12;
