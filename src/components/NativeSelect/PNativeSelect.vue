@@ -1,30 +1,27 @@
 <template>
-  <div class="p-native-select">
-    <span class="p-native-select__icon">
-      <p-icon icon="SelectorIcon" />
-    </span>
+  <BaseInput class="p-native-select">
+    <template v-for="(index, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
+    <template #control="{ attrs }">
+      <span class="p-native-select__icon">
+        <p-icon icon="SelectorIcon" />
+      </span>
 
-    <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="$attrs">
-      <template v-for="(option, index) in selectOptions" :key="index">
-        <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
-          {{ option.label }}
-        </option>
-      </template>
-    </select>
-  </div>
+      <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="attrs">
+        <template v-for="(option, index) in selectOptions" :key="index">
+          <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
+            {{ option.label }}
+          </option>
+        </template>
+      </select>
+    </template>
+  </BaseInput>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed } from 'vue'
-
-  export default defineComponent({
-    name: 'PNativeSelect',
-    expose: [],
-    inheritAttrs: false,
-  })
-</script>
-
 <script lang="ts" setup>
+  import { computed } from 'vue'
+  import BaseInput from '@/components/BaseInput'
   import PIcon from '@/components/Icon'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
@@ -89,13 +86,9 @@
   pr-10
   text-base
   py-2
-  border
-  border-gray-300
-  focus:outline-none
-  focus:ring-1
-  focus:ring-prefect-500
-  focus:border-prefect-500
   rounded-md
+  border-0
+  focus:ring-0
   appearance-none
   bg-none
 }
