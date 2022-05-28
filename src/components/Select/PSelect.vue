@@ -10,7 +10,7 @@
     <template #target>
       <template v-if="media.hover">
         <PSelectButton
-          ref="targetElement"
+          ref="buttonElement"
           v-model="internalValue"
           class="p-select__custom"
           :class="classes.control"
@@ -95,9 +95,9 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const targetElement = ref<typeof PSelectButton>()
-  const buttonElement = computed(() => targetElement.value?.buttonElement)
-  const buttonElementWidth = useElementWidth(buttonElement)
+  const buttonElement = ref<typeof PSelectButton>()
+  const targetElement = computed(() => buttonElement.value?.wrapper)
+  const targetElementWidth = useElementWidth(targetElement)
   const { classes:attrClasses, styles:attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)
@@ -137,7 +137,7 @@
 
   const styles = computed(() => ({
     option:{
-      minWidth: `${buttonElementWidth.value}px`,
+      minWidth: `${targetElementWidth.value}px`,
     },
     control: attrStyles,
   }))
@@ -193,7 +193,7 @@
       emits('open')
     } else {
       emits('close')
-      buttonElement.value?.focus()
+      buttonElement.value?.el.focus()
     }
   }
 
