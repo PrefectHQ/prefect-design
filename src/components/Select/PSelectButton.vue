@@ -1,5 +1,5 @@
 <template>
-  <BaseInput>
+  <BaseInput ref="wrapperElement">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -9,7 +9,6 @@
         type="button"
         class="p-select-button"
         aria-hidden="true"
-        tabindex="-1"
         v-bind="attrs"
       >
         <template v-if="multiple && valueAsArray.length">
@@ -51,6 +50,11 @@
         </template>
       </button>
     </template>
+    <template #append>
+      <span class="p-select-button__icon">
+        <PIcon icon="SelectorIcon" />
+      </span>
+    </template>
   </BaseInput>
 </template>
 
@@ -71,9 +75,12 @@
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
+  const wrapperElement = ref<typeof BaseInput>()
+  const wrapper = computed(() => wrapperElement.value?.el)
   const buttonElement = ref<HTMLButtonElement>()
+  const el = computed(() => buttonElement.value)
 
-  defineExpose({ buttonElement })
+  defineExpose({ el, wrapper })
 
   const internalValue = computed({
     get() {
@@ -126,8 +133,10 @@
   py-2
   text-left
   cursor-default
+  outline-none
   border-none
   ring-0
+  focus:ring-0
 }
 
 .p-select-button__value { @apply
@@ -138,5 +147,17 @@
 
 .p-select-button__value:empty:before {
   content: "\200b";
+}
+
+.p-select-button__icon { @apply
+  pr-2
+  flex
+  items-center
+  pointer-events-none
+}
+
+.p-select-button__icon svg { @apply
+  w-4
+  h-4
 }
 </style>
