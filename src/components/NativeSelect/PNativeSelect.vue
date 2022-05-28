@@ -4,10 +4,6 @@
       <slot :name="name" v-bind="data" />
     </template>
     <template #control="{ attrs }">
-      <span class="p-native-select__icon">
-        <p-icon icon="SelectorIcon" />
-      </span>
-
       <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="attrs">
         <template v-for="(option, index) in selectOptions" :key="index">
           <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
@@ -15,6 +11,11 @@
           </option>
         </template>
       </select>
+    </template>
+    <template #append>
+      <span class="p-native-select__icon">
+        <PIcon icon="SelectorIcon" />
+      </span>
     </template>
   </BaseInput>
 </template>
@@ -64,11 +65,7 @@
 }
 
 .p-native-select__icon { @apply
-  absolute
-  inset-y-0
-  right-0
   pr-2
-  z-[2]
   flex
   items-center
   pointer-events-none
