@@ -74,6 +74,7 @@
   flex
   items-center
   focus-within:ring-1
+  bg-white
   focus-within:border-prefect-600
   focus-within:ring-prefect-600
   border-gray-300
