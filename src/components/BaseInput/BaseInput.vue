@@ -1,5 +1,5 @@
 <template>
-  <div class="base-input" :class="classes" :style="styles">
+  <div ref="el" class="base-input" :class="classes" :style="styles">
     <div v-if="prepend" class="base-input__prepend">
       {{ prepend }}
     </div>
@@ -9,11 +9,14 @@
       {{ append }}
     </div>
     <slot name="append" />
+    <div v-if="failed" class="base-input__failed-icon">
+      <PIcon icon="ExclamationCircleIcon" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -23,6 +26,7 @@
 </script>
 
 <script lang="ts" setup>
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { State } from '@/types/state'
 
@@ -34,11 +38,15 @@
   }>()
 
   const { classes:attrClasses, styles, attrs } = useAttrsStylesAndClasses()
+  const failed = computed(() => props.state?.valid === false && props.state.validated)
+  const el = ref<HTMLDivElement>()
+
+  defineExpose({ el })
 
   const classes = computed(() => ({
     ...attrClasses.value,
     'base-input--disabled': props.disabled,
-    'base-input--failed': props.state?.valid === false && props.state.validated,
+    'base-input--failed': failed.value,
   }))
 </script>
 
@@ -86,5 +94,12 @@
   border-red-600
   focus-within:border-red-600
   focus-within:ring-red-600
+}
+
+.base-input__failed-icon { @apply
+  text-red-600
+  w-5
+  h-5
+  mr-2
 }
 </style>
