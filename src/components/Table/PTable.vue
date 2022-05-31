@@ -27,7 +27,7 @@
               </template>
             </p-table-row>
           </template>
-          <template v-if="slots['empty-state-message'] || slots['empty-state-actions'] && data.length === 0">
+          <template v-if="slots['empty-state'] && data.length === 0">
             <p-table-row>
               <td :colspan="columns.length">
                 <slot name="empty-state" />

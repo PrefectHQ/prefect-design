@@ -52,10 +52,14 @@
 
     <SubSection heading="Empty State">
       <p-table :data="[]" :columns="columns">
-        <template #empty-state-actions>
-          <p-button secondary size="sm">
-            Show all
-          </p-button>
+        <template #empty-state>
+          <p-empty-results>
+            <template #actions>
+              <p-button secondary size="sm">
+                Show all
+              </p-button>
+            </template>
+          </p-empty-results>
         </template>
       </p-table>
     </SubSection>
