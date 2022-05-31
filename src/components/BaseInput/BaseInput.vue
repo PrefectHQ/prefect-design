@@ -1,4 +1,4 @@
-useAttrsStylesClassesAndListeners<template>
+<template>
   <div ref="el" class="base-input" :class="classes" :style="styles" v-bind="listeners">
     <div v-if="prepend" class="base-input__prepend">
       {{ prepend }}
