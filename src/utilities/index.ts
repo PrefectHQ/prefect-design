@@ -1,5 +1,6 @@
 export * as positions from './position'
 export * from './arrays'
+export * from './attributes'
 export * from './dates'
 export * from './media'
 export * from './reactivity'

@@ -63,6 +63,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
   import { keys } from '@/types'
+  import { convertToClassValueObject } from '@/utilities/attributes'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
   import { bottomRight, topRight } from '@/utilities/position'
@@ -107,7 +108,7 @@
 
   const classes = computed(() => ({
     control: {
-      ...attrClasses,
+      ...convertToClassValueObject(attrClasses.value),
       'p-date-input--open': isOpen.value,
     },
   }))

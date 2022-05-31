@@ -29,6 +29,7 @@
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
+  import { convertToClassValueObject } from '@/utilities/attributes'
 
   const props = defineProps<{
     state?: State,
@@ -44,7 +45,7 @@
   defineExpose({ el })
 
   const classes = computed(() => ({
-    ...attrClasses.value,
+    ...convertToClassValueObject(attrClasses.value),
     'base-input--disabled': props.disabled,
     'base-input--failed': failed.value,
   }))

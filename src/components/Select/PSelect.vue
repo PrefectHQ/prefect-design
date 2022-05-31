@@ -81,6 +81,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { convertToClassValueObject } from '@/utilities/attributes'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft } from '@/utilities/position'
 
@@ -130,7 +131,7 @@
 
   const classes = computed(() => ({
     control: {
-      ...attrClasses,
+      ...convertToClassValueObject(attrClasses.value),
       'p-select--open': isOpen.value,
     },
   }))
