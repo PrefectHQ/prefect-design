@@ -85,30 +85,22 @@ export function isMatchingPrecision(dateLeft: Date, dateRight: Date, precision: 
   }
 }
 
-export function isBeforeMin(date: Date, range: DateRange): boolean {
-  return isDateBefore(date, range.min)
-}
-
-export function isAfterMax(date: Date, range: DateRange): boolean {
-  return isDateAfter(date, range.max)
-}
-
 export function isDateInRange(date: Date, range: DateRange, precision: Precision = 'minute'): boolean {
-  return isDateAfterOrEqual(date, range.min, precision) && isDateBeforeOrEqual(date, range.max, precision)
+  return (!range.min || isDateAfterOrEqual(date, range.min, precision)) && (!range.max || isDateBeforeOrEqual(date, range.max, precision))
 }
 
-export function isDateBefore(date: Date, target: Date | null | undefined): boolean {
-  return !target || isBefore(date, target)
+export function isDateBefore(date: Date, target: Date): boolean {
+  return isBefore(date, target)
 }
 
-export function isDateBeforeOrEqual(date: Date, target: Date | null | undefined, precision: Precision = 'minute'): boolean {
-  return !target || isBefore(date, target) || isMatchingPrecision(date, target, precision)
+export function isDateBeforeOrEqual(date: Date, target: Date, precision: Precision = 'minute'): boolean {
+  return isBefore(date, target) || isMatchingPrecision(date, target, precision)
 }
 
-export function isDateAfter(date: Date, target: Date | null | undefined): boolean {
-  return !target || isAfter(date, target)
+export function isDateAfter(date: Date, target: Date): boolean {
+  return isAfter(date, target)
 }
 
-export function isDateAfterOrEqual(date: Date, target: Date | null | undefined, precision: Precision = 'minute'): boolean {
-  return !target || isAfter(date, target) || isMatchingPrecision(date, target, precision)
+export function isDateAfterOrEqual(date: Date, target: Date, precision: Precision = 'minute'): boolean {
+  return isAfter(date, target) || isMatchingPrecision(date, target, precision)
 }

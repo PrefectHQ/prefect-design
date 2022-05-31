@@ -73,7 +73,7 @@
   items-center
 }
 
-.p-native-date-input__icon svg { @apply
+.p-native-date-input__icon .p-icon { @apply
   w-4
   h-4
 }

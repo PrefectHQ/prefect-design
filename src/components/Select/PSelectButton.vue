@@ -156,7 +156,7 @@
   pointer-events-none
 }
 
-.p-select-button__icon svg { @apply
+.p-select-button__icon .p-icon { @apply
   w-4
   h-4
 }

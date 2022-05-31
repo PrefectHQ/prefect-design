@@ -97,7 +97,7 @@
   import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
   import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
   import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
-  import { isAfterMax, isBeforeMin, keepDateInRange, isDateInRange } from '@/utilities/dates'
+  import { keepDateInRange, isDateInRange, isDateBefore, isDateAfter } from '@/utilities/dates'
 
   type Overlay = 'year' | 'month' | 'time' | null
 
@@ -156,12 +156,12 @@
 
   const previousDisabled = computed(() => {
     const previousMonth = addMonths(viewingDate.value, -1)
-    return isBeforeMin(endOfMonth(previousMonth), range.value)
+    return !!range.value.min && isDateBefore(endOfMonth(previousMonth), range.value.min)
   })
 
   const nextDisabled = computed(() => {
     const nextMonth = addMonths(viewingDate.value, 1)
-    return isAfterMax(startOfMonth(nextMonth), range.value)
+    return !!range.value.max && isDateAfter(startOfMonth(nextMonth), range.value.max)
   })
 
   const classes = computed(() => ({

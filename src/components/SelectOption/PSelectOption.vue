@@ -75,7 +75,7 @@
   pr-1
 }
 
-.p-select-option__check svg { @apply
+.p-select-option__check .p-icon { @apply
   w-4
   h-4
 }

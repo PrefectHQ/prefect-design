@@ -71,7 +71,7 @@
   pointer-events-none
 }
 
-.p-native-select__icon svg { @apply
+.p-native-select__icon .p-icon { @apply
   w-4
   h-4
 }

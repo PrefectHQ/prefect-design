@@ -70,7 +70,7 @@
   pointer-events-none
 }
 
-.p-date-button__icon svg { @apply
+.p-date-button__icon .p-icon { @apply
   w-4
   h-4
 }

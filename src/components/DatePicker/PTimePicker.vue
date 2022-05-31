@@ -32,7 +32,7 @@
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { SelectModelValue } from '@/types/selectOption'
-  import { isAfterMax, isBeforeMin, isDateInRange, keepDateInRange } from '@/utilities/dates'
+  import { isDateAfter, isDateBefore, isDateInRange, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -109,7 +109,7 @@
   }
 
   function isDateRangeOverlappingRange(interval: { start: Date, end: Date }): boolean {
-    return !isBeforeMin(interval.end, range.value) && !isAfterMax(interval.start, range.value)
+    return (!range.value.min || !isDateBefore(interval.end, range.value.min)) && (!range.value.max || !isDateAfter(interval.start, range.value.max))
   }
 
   const hourOptions = computed(() => [...new Array(12).keys()].map(hour => {
