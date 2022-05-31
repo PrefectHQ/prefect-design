@@ -1,5 +1,5 @@
 <template>
-  <component :is="component" />
+  <component :is="component" class="p-icon" />
 </template>
 
 
@@ -36,3 +36,10 @@
     return icons.includes(value)
   }
 </script>
+
+<style>
+.p-icon { @apply
+  w-5
+  h-5
+}
+</style>
