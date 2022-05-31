@@ -28,7 +28,7 @@
 
     <SubSection heading="Composition - Dynamic">
       <div class="flex items-center gap-2">
-        <position-select v-model:position="positions" multiple />
+        <position-select v-model:position="positions" />
         <p-toggle v-model="showDynamic">
           <template #append>
             Show
@@ -53,7 +53,7 @@
 
 
     <SubSection heading="Component">
-      <position-select v-model:position="componentPositions" multiple />
+      <position-select v-model:position="componentPositions" />
       <p-pop-over :placement="componentPositions" class="inline-block" auto-close>
         <template #target="{ toggle }">
           <p-button class="mt-2" @click="toggle">
