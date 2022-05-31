@@ -13,6 +13,15 @@
         :max="stringMax"
         v-bind="attrs"
       >
+      <input
+        ref="inputElement"
+        v-model="stringValue"
+        type="date"
+        class="p-native-date-input__control p-native-date-input__control--placeholder"
+        :min="stringMin"
+        :max="stringMax"
+        v-bind="attrs"
+      >
     </template>
 
     <template #append>
@@ -67,10 +76,11 @@
 }
 
 .p-native-date-input__icon { @apply
-  inset-y-0
   pr-3
   flex
   items-center
+  z-10
+  pointer-events-none
 }
 
 .p-native-date-input__icon .p-icon { @apply
@@ -78,20 +88,29 @@
   h-4
 }
 
-.p-native-date-input { @apply
-  w-full
-}
-
-.p-native-date-input .p-native-date-input__control { @apply
-  block
-  h-10
+.p-native-date-input__control { @apply
+  absolute
+  top-0
+  bottom-0
+  left-0
+  right-0
   w-full
   rounded-md
   border-0
   focus:ring-0
 }
 
+.p-native-date-input__control--placeholder { @apply
+  relative
+  invisible
+  w-full
+}
+
 .p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
+  background: none;
+}
+
+.p-native-date-input .p-native-date-input__control--placeholder::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }

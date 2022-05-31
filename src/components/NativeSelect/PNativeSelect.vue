@@ -11,6 +11,13 @@
           </option>
         </template>
       </select>
+      <select v-model="internalValue" class="p-native-select__control p-native-select__control--placeholder" :class="classes" :multiple="multiple" v-bind="attrs">
+        <template v-for="(option, index) in selectOptions" :key="index">
+          <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
+            {{ option.label }}
+          </option>
+        </template>
+      </select>
     </template>
     <template #append>
       <span class="p-native-select__icon">
@@ -68,6 +75,7 @@
   pr-2
   flex
   items-center
+  z-10
   pointer-events-none
 }
 
@@ -77,8 +85,11 @@
 }
 
 .p-native-select__control { @apply
-  block
-  w-full
+  absolute
+  left-0
+  right-0
+  top-0
+  bottom-0
   pl-3
   pr-10
   text-base
@@ -92,5 +103,11 @@
 
 .p-native-select__control--multiple { @apply
   h-10
+}
+
+.p-native-select__control--placeholder { @apply
+  relative
+  invisible
+  w-full
 }
 </style>
