@@ -11,14 +11,30 @@
         </template>
       </div>
     </slot>
-    <PTextInput v-model="newTag" @keydown="handleKeydown" />
+    <BaseInput v-bind="$attrs">
+      <template v-for="(index, name) in $slots" #[name]="data">
+        <slot :name="name" v-bind="data" />
+      </template>
+      <template #control="{ attrs }">
+        <input v-model="newTag" type="text" class="p-tags-area__input" v-bind="attrs" @keydown="handleKeydown">
+      </template>
+    </BaseInput>
   </div>
 </template>
 
+<script lang="ts">
+  import { defineComponent, computed, ref } from 'vue'
+
+  export default defineComponent({
+    name: 'PTagsArea',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import BaseInput from '@/components/BaseInput/BaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
-  import PTextInput from '@/components/TextInput'
   import { keys } from '@/types'
 
   const props = defineProps<{
@@ -71,5 +87,14 @@
   flex-wrap
   gap-1
   mb-2
+}
+
+.p-tags-area__input { @apply
+  w-full
+  rounded-md
+  outline-none
+  border-none
+  ring-0
+  focus:ring-0
 }
 </style>

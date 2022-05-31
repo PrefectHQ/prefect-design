@@ -35,3 +35,9 @@
     },
   })
 </script>
+
+<style>
+.p-tags-input .p-select-button__icon { @apply
+  hidden
+}
+</style>
