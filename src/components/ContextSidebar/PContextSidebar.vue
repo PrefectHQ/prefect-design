@@ -48,7 +48,7 @@
 }
 
 .p-context-sidebar__footer { @apply
-  lg:mt-auto
+  mt-auto
   border-t-2
   border-slate-600
 }
