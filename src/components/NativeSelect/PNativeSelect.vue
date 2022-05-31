@@ -1,30 +1,35 @@
 <template>
-  <div class="p-native-select">
-    <span class="p-native-select__icon">
-      <p-icon icon="SelectorIcon" />
-    </span>
-
-    <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="$attrs">
-      <template v-for="(option, index) in selectOptions" :key="index">
-        <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
-          {{ option.label }}
-        </option>
-      </template>
-    </select>
-  </div>
+  <BaseInput class="p-native-select">
+    <template v-for="(index, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
+    <template #control="{ attrs }">
+      <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="attrs">
+        <template v-for="(option, index) in selectOptions" :key="index">
+          <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
+            {{ option.label }}
+          </option>
+        </template>
+      </select>
+      <select v-model="internalValue" class="p-native-select__control p-native-select__control--placeholder" :class="classes" :multiple="multiple" v-bind="attrs">
+        <template v-for="(option, index) in selectOptions" :key="index">
+          <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
+            {{ option.label }}
+          </option>
+        </template>
+      </select>
+    </template>
+    <template #append>
+      <span class="p-native-select__icon">
+        <PIcon icon="SelectorIcon" />
+      </span>
+    </template>
+  </BaseInput>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed } from 'vue'
-
-  export default defineComponent({
-    name: 'PNativeSelect',
-    expose: [],
-    inheritAttrs: false,
-  })
-</script>
-
 <script lang="ts" setup>
+  import { computed } from 'vue'
+  import BaseInput from '@/components/BaseInput'
   import PIcon from '@/components/Icon'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
@@ -67,13 +72,10 @@
 }
 
 .p-native-select__icon { @apply
-  absolute
-  inset-y-0
-  right-0
   pr-2
-  z-[2]
   flex
   items-center
+  z-10
   pointer-events-none
 }
 
@@ -83,24 +85,29 @@
 }
 
 .p-native-select__control { @apply
-  block
-  w-full
+  absolute
+  left-0
+  right-0
+  top-0
+  bottom-0
   pl-3
   pr-10
   text-base
   py-2
-  border
-  border-gray-300
-  focus:outline-none
-  focus:ring-1
-  focus:ring-prefect-500
-  focus:border-prefect-500
   rounded-md
+  border-0
+  focus:ring-0
   appearance-none
   bg-none
 }
 
 .p-native-select__control--multiple { @apply
   h-10
+}
+
+.p-native-select__control--placeholder { @apply
+  relative
+  invisible
+  w-full
 }
 </style>
