@@ -43,6 +43,7 @@
   w-full
   h-full
   py-2
+  px-3
   text-left
   text-base
   cursor-default
