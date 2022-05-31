@@ -46,10 +46,13 @@
 }
 
 .p-tag__dismiss { @apply
-  w-4
-  h-4
   hover:text-black
   hover:cursor-pointer
   text-gray-500
+}
+
+.p-tag__dismiss .p-icon { @apply
+  w-4
+  h-4
 }
 </style>
