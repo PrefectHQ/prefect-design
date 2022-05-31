@@ -22,7 +22,7 @@
   import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button'
-  import { isAfterMax, isBeforeMin, keepDateInRange } from '@/utilities/dates'
+  import { isDateAfter, isDateBefore, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -59,7 +59,7 @@
   function isDisabled(month: number): boolean {
     const value = setMonth(selectedDate.value, month)
 
-    return isBeforeMin(endOfMonth(value), range.value) || isAfterMax(startOfMonth(value), range.value)
+    return !!range.value.min && isDateBefore(endOfMonth(value), range.value.min) || !!range.value.max && isDateAfter(startOfMonth(value), range.value.max)
   }
 
   function updateSelectedDate(month: number): void {

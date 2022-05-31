@@ -1,9 +1,9 @@
 <template>
   <button ref="el" type="button" class="p-button" :class="classes" :disabled="disabled || loading">
     <div class="p-button__content">
-      <div v-if="icon" class="p-button__icon">
-        <p-icon :icon="icon" />
-      </div>
+      <template v-if="icon">
+        <p-icon :icon="icon" class="p-button__icon" />
+      </template>
       <slot />
     </div>
     <template v-if="loading">
