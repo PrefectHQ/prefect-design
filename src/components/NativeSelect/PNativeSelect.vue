@@ -90,8 +90,6 @@
   right-0
   top-0
   bottom-0
-  pl-3
-  pr-10
   text-base
   py-2
   rounded-md

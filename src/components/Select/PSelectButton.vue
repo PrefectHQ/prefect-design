@@ -128,8 +128,6 @@
 .p-select-button__control { @apply
   w-full
   h-full
-  pl-3
-  pr-10
   py-2
   text-left
   text-base
