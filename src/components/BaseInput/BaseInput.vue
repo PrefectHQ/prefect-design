@@ -1,5 +1,5 @@
 <template>
-  <div class="base-input" :class="classes" :style="styles">
+  <div ref="el" class="base-input" :class="classes" :style="styles" v-bind="listeners">
     <div v-if="prepend" class="base-input__prepend">
       {{ prepend }}
     </div>
@@ -9,11 +9,14 @@
       {{ append }}
     </div>
     <slot name="append" />
+    <div v-if="failed" class="base-input__failed-icon">
+      <PIcon icon="ExclamationCircleIcon" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, useAttrs, StyleValue } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
 
   export default defineComponent({
     name: 'BaseInput',
@@ -23,9 +26,10 @@
 </script>
 
 <script lang="ts" setup>
+  import PIcon from '@/components/Icon/PIcon.vue'
+  import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
-
-  type ClassValue = string | string[] | Record<string, boolean>
+  import { convertToClassValueObject } from '@/utilities/attributes'
 
   const props = defineProps<{
     state?: State,
@@ -34,36 +38,16 @@
     disabled?: boolean,
   }>()
 
-  const attrClasses = computed(() => {
-    const value = useAttrs().class as ClassValue
+  const { classes:attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
+  const failed = computed(() => props.state?.valid === false && props.state.validated)
+  const el = ref<HTMLDivElement>()
 
-    if (Array.isArray(value)) {
-      return value.reduce((reduced, key) => ({
-        [key]: true,
-      }), {})
-    }
-
-    if (typeof value === 'string') {
-      return { [value]: true }
-    }
-
-    return value
-  })
-
-  const attrStyles = computed(() => useAttrs().style as StyleValue)
-
-  const attrs = computed(() => {
-    const { class:_class, style:_style, ...attrs } = useAttrs()
-
-    return { ...attrs, disabled: props.disabled }
-  })
-
-  const styles = computed(() => [attrStyles.value])
+  defineExpose({ el })
 
   const classes = computed(() => ({
-    ...attrClasses.value,
+    ...convertToClassValueObject(attrClasses.value),
     'base-input--disabled': props.disabled,
-    'base-input--failed': props.state?.valid === false && props.state.validated,
+    'base-input--failed': failed.value,
   }))
 </script>
 
@@ -112,5 +96,12 @@
   border-red-600
   focus-within:border-red-600
   focus-within:ring-red-600
+}
+
+.base-input__failed-icon { @apply
+  text-red-600
+  w-5
+  h-5
+  mr-2
 }
 </style>

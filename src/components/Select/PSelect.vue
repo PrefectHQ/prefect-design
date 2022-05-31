@@ -3,85 +3,46 @@
     ref="popOver"
     :placement="[bottomLeft, topLeft]"
     class="p-select"
-    :class="classes"
     auto-close
     @open="handleOpenChange"
     @keydown="handleKeydown"
   >
     <template #target>
-      <PNativeSelect
-        v-model="internalValue"
-        size="1"
-        class="p-select__native"
-        :multiple="multiple"
-        :options="filteredSelectOptions"
-      />
-
-      <div ref="targetElement" class="p-select__custom">
-        <button
-          type="button"
-          class="p-select__custom-button"
-          aria-hidden="true"
-          tabindex="-1"
+      <template v-if="media.hover">
+        <PSelectButton
+          ref="buttonElement"
+          v-model="internalValue"
+          class="p-select__custom"
+          :class="classes.control"
+          :style="styles.control"
+          v-bind="attrs"
+          :options="selectOptions"
           @click="openSelect"
         >
-          <template v-if="multiple">
-            <template v-if="valueAsArray.length">
-              <PTagWrapper class="p-select__tag-wrapper" :tags="valueAsArray">
-                <template #tag="{ tag }">
-                  <slot
-                    name="default"
-                    :selected-option="getSelectOption(tag)"
-                    :is-open="popOver?.visible"
-                    :open="openSelect"
-                    :close="closeSelect"
-                    :unselect-option="() => unselectOptionValue(tag)"
-                  >
-                    <PTag dismissible @dismiss="unselectOptionValue(tag)">
-                      {{ getSelectOption(tag)?.label }}
-                    </PTag>
-                  </slot>
-                </template>
+          <template #default="scope">
+            <slot v-bind="scope" :is-open="isOpen" :open="openSelect" :close="closeSelect" />
+          </template>
+        </PSelectButton>
+      </template>
 
-                <template #overflow-tags="{ overflowedChildren }">
-                  <span class="p-select__tag-wrapper--overflow">
-                    +{{ overflowedChildren }}
-                  </span>
-                </template>
-              </PTagWrapper>
-            </template>
-            <template v-else>
-              {{ emptyMessage }}
-            </template>
-          </template>
-          <template v-else>
-            <span class="p-select__selected-value">
-              <template v-if="selectedOption">
-                <slot
-                  name="default"
-                  :selected-option="selectedOption"
-                  :is-open="popOver?.visible"
-                  :open="openSelect"
-                  :close="closeSelect"
-                  :unselect-option="() => internalValue = null"
-                >
-                  {{ selectedOption.label }}
-                </slot>
-              </template>
-              <template v-else>
-                {{ emptyMessage }}
-              </template>
-            </span>
-          </template>
-        </button>
-      </div>
+      <template v-else>
+        <PNativeSelect
+          v-model="internalValue"
+          size="1"
+          class="p-select__native"
+          :class="classes.control"
+          :style="styles.control"
+          v-bind="attrs"
+          :options="filteredSelectOptions"
+        />
+      </template>
     </template>
 
     <PSelectOptions
       v-model:highlightedIndex="highlightedIndex"
       :model-value="internalValue"
       :options="filteredSelectOptions"
-      :style="styles"
+      :style="styles.option"
       @keydown="handleKeydown"
       @update:model-value="setValue"
     >
@@ -115,17 +76,18 @@
 <script lang="ts" setup>
   import PNativeSelect from '@/components/NativeSelect'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
+  import PSelectButton from '@/components/Select/PSelectButton.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
-  import PTag from '@/components/Tag/PTag.vue'
-  import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
+  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { convertToClassValueObject } from '@/utilities/attributes'
+  import { media } from '@/utilities/media'
   import { topLeft, bottomLeft } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
     options: (string | number | SelectOption)[],
-    emptyMessage?: string,
     filterOptions?: (option: SelectOption) => boolean,
   }>()
 
@@ -134,10 +96,12 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const targetElement = ref<HTMLElement | undefined>()
+  const buttonElement = ref<typeof PSelectButton>()
+  const targetElement = computed(() => buttonElement.value?.wrapper)
+  const targetElementWidth = useElementWidth(targetElement)
+  const { classes:attrClasses, styles:attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)
-  const targetElementWidth = useElementWidth(targetElement)
 
   const internalValue = computed({
     get() {
@@ -148,27 +112,8 @@
     },
   })
 
-  const valueAsArray = computed(() => {
-    if (!internalValue.value) {
-      return []
-    }
-
-    if (Array.isArray(internalValue.value)) {
-      return internalValue.value.map(option => option? option.toString() : '')
-    }
-
-    return [internalValue.value.toString()]
-  })
-
   const multiple = computed(() => Array.isArray(internalValue.value))
-
-  const selectedOption = computed(() => {
-    if (multiple.value) {
-      return null
-    }
-
-    return selectOptions.value.find(x => x.value === internalValue.value)
-  })
+  const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const selectOptions = computed<SelectOption[]>(() => {
     return props.options.map(option => {
@@ -185,18 +130,18 @@
   })
 
   const classes = computed(() => ({
-    'p-select--open': isOpen.value,
+    control: {
+      ...convertToClassValueObject(attrClasses.value),
+      'p-select--open': isOpen.value,
+    },
   }))
 
   const styles = computed(() => ({
-    minWidth: `${targetElementWidth.value}px`,
+    option:{
+      minWidth: `${targetElementWidth.value}px`,
+    },
+    control: attrStyles,
   }))
-
-  const isOpen = computed(() => popOver.value?.visible ?? false)
-
-  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
-    return selectOptions.value.find(x => x.value === value)
-  }
 
   function openSelect(): void {
     if (!isOpen.value) {
@@ -244,19 +189,12 @@
     return true
   }
 
-  function getButtonElement(): HTMLButtonElement | undefined {
-    return targetElement.value?.children[0] as HTMLButtonElement | undefined
-  }
-
   function handleOpenChange(open: boolean): void {
     if (open) {
       emits('open')
     } else {
       emits('close')
-      const button = getButtonElement()
-      if (button) {
-        button.focus()
-      }
+      buttonElement.value?.el.focus()
     }
   }
 
@@ -303,12 +241,6 @@
         break
     }
   }
-
-  function unselectOptionValue(tag: SelectModelValue): void {
-    const value = valueAsArray.value.filter(x => x !== tag)
-
-    internalValue.value = value
-  }
 </script>
 
 <style>
@@ -316,12 +248,6 @@
   relative
   text-base
   rounded-md
-  border
-  border-gray-300
-  focus-within:outline-none
-  focus-within:ring-1
-  focus-within:ring-prefect-500
-  focus-within:border-prefect-500
 }
 
 .p-select--open { @apply
@@ -331,46 +257,9 @@
   border-prefect-500
 }
 
-.p-select__native { @apply
-  rounded-md
-  cursor-default
-  border-none
-  ring-0
-}
-
 .p-select__custom { @apply
   bg-white
-  absolute
-  hidden
-  top-0
-  left-0
   w-full
-  h-full
   rounded-md
-}
-
-.p-select__custom-button { @apply
-  w-full
-  h-full
-  shadow-sm
-  pl-3
-  pr-10
-  py-2
-  text-left
-  cursor-default
-  border-none
-  ring-0
-}
-
-.p-select__selected-value { @apply
-  truncate
-  flex
-  items-center
-}
-
-@media (hover: hover) {
-  .p-select__custom { @apply
-    block
-  }
 }
 </style>

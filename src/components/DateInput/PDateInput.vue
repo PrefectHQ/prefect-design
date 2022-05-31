@@ -3,25 +3,33 @@
     ref="popOver"
     :placement="[bottomRight, topRight]"
     class="p-date-input"
-    :class="classes"
-    :style="styles"
     auto-close
+    @open="handleOpenChange"
+    @keydown="handleKeydown"
   >
-    <template #target="{ toggle }">
-      <div class="p-date-input__target">
+    <template #target>
+      <template v-if="media.hover">
+        <PDateButton
+          ref="buttonElement"
+          :date="adjustedSelectedDate"
+          :class="classes"
+          :style="styles"
+          v-bind="attrs"
+          @click="openPicker"
+        />
+      </template>
+      <template v-else>
         <PNativeDateInput
           v-model="adjustedSelectedDate"
           class="p-date-input__native"
           :min="min"
           :max="max"
+          :class="classes"
+          :style="styles"
           v-bind="attrs"
           @keydown="handleTargetKeydown"
         />
-
-        <span ref="toggleButtonElement" class="p-date-input__icon" @click="toggle">
-          <p-icon icon="CalendarIcon" />
-        </span>
-      </div>
+      </template>
     </template>
 
     <PDatePicker
@@ -31,9 +39,8 @@
       :clearable="clearable"
       :min="min"
       :max="max"
-      v-bind="attrs"
       @click.stop
-      @keydown="handleContentKeydown"
+      @keydown="closeOnEscape"
     />
   </PPopOver>
 </template>
@@ -49,13 +56,16 @@
 </script>
 
 <script lang="ts" setup>
+  import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDatePicker from '@/components/DatePicker'
   import PNativeDateInput from '@/components/NativeDateInput'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
   import { keys } from '@/types'
+  import { convertToClassValueObject } from '@/utilities/attributes'
   import { keepDateInRange } from '@/utilities/dates'
+  import { media } from '@/utilities/media'
   import { bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -71,9 +81,10 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const { classes, styles, attrs } = useAttrsStylesAndClasses()
-  const toggleButtonElement = ref<HTMLSpanElement>()
+  const { classes:attrClasses, styles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
+  const buttonElement = ref<typeof PDateButton>()
+  const targetElement = computed(() => buttonElement.value?.el)
 
   const selectedDate = computed({
     get() {
@@ -93,24 +104,39 @@
     },
   })
 
-  function isUsingNativeMode(): boolean {
-    const style = window.getComputedStyle(toggleButtonElement.value!)
+  const isOpen = computed(() => popOver.value?.visible ?? false)
 
-    return style.display === 'none'
+  const classes = computed(() => ({
+    control: {
+      ...convertToClassValueObject(attrClasses.value),
+      'p-date-input--open': isOpen.value,
+    },
+  }))
+
+  function openPicker(): void {
+    if (!isOpen.value) {
+      popOver.value!.open()
+    }
+  }
+
+  function closePicker(): void {
+    if (isOpen.value) {
+      popOver.value!.close()
+    }
   }
 
   function handleTargetKeydown(event: KeyboardEvent): void {
-    if (isUsingNativeMode()) {
+    if (!media.hover) {
       return
     }
 
     switch (event.key) {
       case keys.space:
-        popOver.value!.open()
+        openPicker()
         event.preventDefault()
         break
       case keys.escape:
-        popOver.value!.close()
+        closePicker()
         event.preventDefault()
         break
       default:
@@ -118,47 +144,51 @@
     }
   }
 
-  function handleContentKeydown(event: KeyboardEvent): void {
-    if (event.key === keys.escape && !isUsingNativeMode()) {
-      popOver.value!.close()
+  function closeOnEscape(event: KeyboardEvent): void {
+    if (media.hover && event.key === keys.escape) {
+      closePicker()
       event.preventDefault()
+    }
+  }
+
+  function handleOpenChange(open: boolean): void {
+    if (open) {
+      emits('open')
+    } else {
+      emits('close')
+      targetElement.value?.focus()
+    }
+  }
+
+  function handleKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case keys.escape:
+      case keys.tab:
+        closePicker()
+        break
+      case keys.space:
+        if (!isOpen.value) {
+          openPicker()
+        }
+        event.preventDefault()
+        break
+      default:
+        break
     }
   }
 </script>
 
 <style>
-.p-date-input__target { @apply
-  relative
-}
-
-.p-date-input__icon { @apply
-  absolute
-  hidden
-  inset-y-0
-  right-0
-  pr-3
-  z-10
-  items-center
-}
-
-.p-date-input__icon .p-icon { @apply
-  w-4
-  h-4
-}
-
 .p-date-input__date-picker { @apply
   bg-white
   my-1
+  shadow-lg
 }
 
-@media (hover: hover) {
-  .p-date-input__icon { @apply
-    flex
-  }
-
-  .p-date-input__native .p-native-date-input__icon,
-  .p-date-input__native input[type="date"]::-webkit-calendar-picker-indicator { @apply
-    hidden
-  }
+.p-date-input--open { @apply
+  outline-none
+  ring-1
+  ring-prefect-500
+  border-prefect-500
 }
 </style>

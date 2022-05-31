@@ -1,3 +1,4 @@
+export * from './attributes'
 export * from './breadcrumbs'
 export * from './checkbox'
 export * from './icon'

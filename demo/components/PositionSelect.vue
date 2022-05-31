@@ -1,5 +1,7 @@
 <template>
-  <p-select v-model="selected" :options="options" />
+  <div class="position-select">
+    <p-select v-model="selected" :options="options" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -63,3 +65,9 @@
     },
   })
 </script>
+
+<style>
+.position-select {
+  flex-grow:1;
+}
+</style>

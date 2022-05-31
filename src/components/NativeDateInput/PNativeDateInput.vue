@@ -1,33 +1,42 @@
 <template>
-  <div class="p-native-date-input" :class="classes" :style="styles">
-    <span class="p-native-date-input__icon">
-      <PIcon icon="CalendarIcon" />
-    </span>
-    <input
-      v-model="stringValue"
-      type="date"
-      class="p-native-date-input__control"
-      :min="stringMin"
-      :max="stringMax"
-      v-bind="attrs"
-    >
-  </div>
+  <BaseInput class="p-native-date-input">
+    <template v-for="(index, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
+    <template #control="{ attrs }">
+      <input
+        ref="inputElement"
+        v-model="stringValue"
+        type="date"
+        class="p-native-date-input__control"
+        :min="stringMin"
+        :max="stringMax"
+        v-bind="attrs"
+      >
+      <input
+        ref="inputElement"
+        v-model="stringValue"
+        type="date"
+        class="p-native-date-input__control p-native-date-input__control--placeholder"
+        :min="stringMin"
+        :max="stringMax"
+        v-bind="attrs"
+      >
+    </template>
+
+    <template #append>
+      <div class="p-native-date-input__icon">
+        <PIcon icon="CalendarIcon" />
+      </div>
+    </template>
+  </BaseInput>
 </template>
 
-<script lang="ts">
-  import { format, parseISO } from 'date-fns'
-  import { defineComponent, computed } from 'vue'
-
-  export default defineComponent({
-    name: 'PNativeDateInput',
-    expose: [],
-    inheritAttrs: false,
-  })
-</script>
-
 <script lang="ts" setup>
+  import { format, parseISO } from 'date-fns'
+  import { computed, ref } from 'vue'
+  import BaseInput from '@/components/BaseInput'
   import PIcon from '@/components/Icon'
-  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -39,9 +48,11 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const { classes, styles, attrs } = useAttrsStylesAndClasses()
-
   const internalValue = computed(() => props.modelValue ?? null)
+  const inputElement = ref<HTMLInputElement>()
+  const el = computed(() => inputElement.value)
+
+  defineExpose({ inputElement, el })
 
   const stringValue = computed({
     get() {
@@ -59,25 +70,15 @@
 <style>
 .p-native-date-input { @apply
   relative
-  border
-  border-gray-300
-  focus-within:outline-none
-  focus-within:ring-1
-  focus-within:ring-prefect-500
-  focus-within:border-prefect-500
-  focus-within:border-prefect-500
-  rounded-md
   appearance-none
   bg-none
 }
 
 .p-native-date-input__icon { @apply
-  absolute
-  inset-y-0
-  right-0
   pr-3
   flex
   items-center
+  z-10
   pointer-events-none
 }
 
@@ -86,21 +87,30 @@
   h-4
 }
 
-.p-native-date-input { @apply
+.p-native-date-input__control { @apply
+  absolute
+  top-0
+  bottom-0
+  left-0
+  right-0
+  w-full
+  rounded-md
+  border-0
+  focus:ring-0
+}
+
+.p-native-date-input__control--placeholder { @apply
+  relative
+  invisible
   w-full
 }
 
 .p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
   background: none;
-  -webkit-appearance: none;
 }
 
-.p-native-date-input .p-native-date-input__control { @apply
-  block
-  h-10
-  w-full
-  rounded-md
-  border-0
-  focus:ring-0
+.p-native-date-input .p-native-date-input__control--placeholder::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
 }
 </style>
