@@ -19,7 +19,7 @@
           :style="styles"
           v-bind="attrs"
           @keydown="handleTargetKeydown"
-          @calendar-click="showPicker"
+          @calendar-click="togglePicker"
         />
       </template>
       <template v-else>
@@ -29,7 +29,7 @@
           :class="classes"
           :style="styles"
           v-bind="attrs"
-          @click="showPicker"
+          @click="togglePicker"
         />
       </template>
     </template>
@@ -151,14 +151,6 @@
     }
   }
 
-  function showPicker(): void {
-    if (media.hover) {
-      togglePicker()
-    } else {
-      nativeInputElement.value?.inputElement.showPicker()
-    }
-  }
-
   function closeOnEscape(event: KeyboardEvent): void {
     if (media.hover && event.key === keys.escape) {
       closePicker()
@@ -205,5 +197,16 @@
   ring-1
   ring-prefect-500
   border-prefect-500
+}
+
+@media(hover: hover){
+  .p-date-input .p-native-date-input__icon { @apply
+    pointer-events-auto
+  }
+
+  .p-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
 }
 </style>
