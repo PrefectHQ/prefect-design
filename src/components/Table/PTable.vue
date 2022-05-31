@@ -33,6 +33,15 @@
             <slot name="footer" />
           </p-table-foot>
         </template>
+        <template v-else-if="slots['empty-state']">
+          <p-table-foot>
+            <tr>
+              <td :colspan="columns.length">
+                <slot name="empty-state" />
+              </td>
+            </tr>
+          </p-table-foot>
+        </template>
       </slot>
     </table>
   </div>

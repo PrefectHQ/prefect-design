@@ -49,6 +49,19 @@
         </p-table-body>
       </p-table>
     </SubSection>
+
+    <SubSection heading="Empty State">
+      <p-table :data="[]" :columns="columns">
+        <template #empty-state>
+          <div class="no-search-results">
+            <span>No results found</span>
+            <p-button secondary size="sm">
+              Show all
+            </p-button>
+          </div>
+        </template>
+      </p-table>
+    </SubSection>
   </Section>
 </template>
 
@@ -111,3 +124,16 @@
     },
   ]
 </script>
+
+<style>
+.no-search-results { @apply
+  flex
+  flex-col
+  justify-center
+  items-center
+  text-sm
+  text-gray-500
+  gap-1
+  p-4
+}
+</style>
