@@ -223,6 +223,10 @@
   opacity-50
 }
 
+.p-button--loading { @apply
+  cursor-wait
+}
+
 .p-button--loading .p-button__content { @apply
   invisible
 }
