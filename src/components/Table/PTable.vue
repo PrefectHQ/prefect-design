@@ -27,6 +27,13 @@
               </template>
             </p-table-row>
           </template>
+          <template v-if="slots['empty-state'] && data.length === 0">
+            <p-table-row>
+              <td :colspan="columns.length">
+                <slot name="empty-state" />
+              </td>
+            </p-table-row>
+          </template>
         </p-table-body>
         <template v-if="slots.footer">
           <p-table-foot>

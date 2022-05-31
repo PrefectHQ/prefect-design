@@ -1,7 +1,7 @@
 <template>
-  <thead class="p-table-foot">
+  <tfoot class="p-table-foot">
     <slot />
-  </thead>
+  </tfoot>
 </template>
 
 <style>
