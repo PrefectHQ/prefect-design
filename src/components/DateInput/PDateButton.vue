@@ -51,16 +51,7 @@
   border-none
   ring-0
   focus:ring-0
-}
-
-.p-date-button__value { @apply
   truncate
-  flex
-  items-center
-}
-
-.p-date-button__value:empty:before {
-  content: "\200b";
 }
 
 .p-date-button__icon { @apply

@@ -137,12 +137,7 @@
   border-none
   ring-0
   focus:ring-0
-}
-
-.p-select-button__value { @apply
   truncate
-  flex
-  items-center
 }
 
 .p-select-button__value:empty:before {
