@@ -25,7 +25,7 @@
     </template>
 
     <template #append>
-      <div class="p-native-date-input__icon" @click="emits('calendar-click')">
+      <div class="p-native-date-input__icon">
         <PIcon icon="CalendarIcon" />
       </div>
     </template>
@@ -46,7 +46,6 @@
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
-    (event: 'calendar-click'): void,
   }>()
 
   const internalValue = computed(() => props.modelValue ?? null)

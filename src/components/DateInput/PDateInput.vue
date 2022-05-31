@@ -8,9 +8,18 @@
     @keydown="handleKeydown"
   >
     <template #target>
-      <template v-if="browser.chrome || !media.hover">
+      <template v-if="media.hover">
+        <PDateButton
+          ref="buttonElement"
+          :date="adjustedSelectedDate"
+          :class="classes"
+          :style="styles"
+          v-bind="attrs"
+          @click="openPicker"
+        />
+      </template>
+      <template v-else>
         <PNativeDateInput
-          ref="nativeInputElement"
           v-model="adjustedSelectedDate"
           class="p-date-input__native"
           :min="min"
@@ -19,17 +28,6 @@
           :style="styles"
           v-bind="attrs"
           @keydown="handleTargetKeydown"
-          @calendar-click="togglePicker"
-        />
-      </template>
-      <template v-else>
-        <PDateButton
-          ref="buttonElement"
-          :date="adjustedSelectedDate"
-          :class="classes"
-          :style="styles"
-          v-bind="attrs"
-          @click="togglePicker"
         />
       </template>
     </template>
@@ -65,7 +63,6 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
   import { keys } from '@/types'
-  import { browser } from '@/utilities/browser'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
   import { bottomRight, topRight } from '@/utilities/position'
@@ -85,9 +82,8 @@
 
   const { classes:attrClasses, styles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const nativeInputElement = ref<typeof PNativeDateInput>()
   const buttonElement = ref<typeof PDateButton>()
-  const targetElement = computed(() => browser.value.chrome ? nativeInputElement.value?.el : buttonElement.value?.el)
+  const targetElement = computed(() => buttonElement.value?.el)
 
   const selectedDate = computed({
     get() {
@@ -126,10 +122,6 @@
     if (isOpen.value) {
       popOver.value!.close()
     }
-  }
-
-  function togglePicker(): void {
-    popOver.value!.toggle()
   }
 
   function handleTargetKeydown(event: KeyboardEvent): void {
@@ -197,16 +189,5 @@
   ring-1
   ring-prefect-500
   border-prefect-500
-}
-
-@media(hover: hover){
-  .p-date-input .p-native-date-input__icon { @apply
-    pointer-events-auto
-  }
-
-  .p-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-  }
 }
 </style>

@@ -132,6 +132,7 @@
   pr-10
   py-2
   text-left
+  text-base
   cursor-default
   outline-none
   border-none
