@@ -19,6 +19,7 @@
   @apply
   bg-slate-800
   sticky
+  top-0
   h-16
   w-screen
   flex
