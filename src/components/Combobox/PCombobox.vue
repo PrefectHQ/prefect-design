@@ -1,70 +1,60 @@
 <template>
-  <div class="p-combobox" @keydown="handleComboboxKeydown">
-    <PSelect
-      v-model="internalValue"
-      :options="selectOptions"
-      :empty-message="emptyMessage"
-      :filter-options="filterOptions"
-      @update:model-value="resetTypedValue"
-      @close="resetTypedValue"
-      @open="focusOnTextInput"
-    >
-      <template #pre-options>
-        <div class="p-combobox__search-option">
-          <input
-            ref="textInput"
-            v-model="typedValue"
-            type="search"
-            :placeholder="placeholder"
-            class="p-combobox__text-input"
-            :class="classes.input"
-            role="combobox"
-            tabindex="-1"
-            aria-controls="options"
-            aria-expanded="false"
-            @keydown="handleTextInputKeydown"
-            @focus="handleFocus"
-          >
-        </div>
-      </template>
-      <template #option="{ option, ...scope }">
-        <slot name="option" :option="option" v-bind="scope">
-          {{ option.unknown ? `"${option.label}"` : option.label }}
-        </slot>
-      </template>
-      <template #options-empty="scope">
-        <slot name="options-empty" v-bind="scope">
-          <template v-if="typedValue">
-            <div class="p-combobox__options-empty">
-              <span>No matches for "{{ typedValue }}"</span>
-              <p-button secondary size="sm" @click.stop="typedValue = null">
-                See All Options
-              </p-button>
-            </div>
-          </template>
-        </slot>
-      </template>
-      <template #default="scope">
-        <slot v-bind="scope" />
-      </template>
-      <template #post-options="scope">
-        <slot name="post-options" v-bind="scope" />
-      </template>
-    </PSelect>
-  </div>
+  <PSelect
+    v-model="internalValue"
+    :options="selectOptions"
+    :empty-message="emptyMessage"
+    :filter-options="filterOptions"
+    @update:model-value="resetTypedValue"
+    @close="resetTypedValue"
+    @open="focusOnTextInput"
+    @keydown="handleComboboxKeydown"
+  >
+    <template #pre-options>
+      <div class="p-combobox__search-option">
+        <input
+          ref="textInput"
+          v-model="typedValue"
+          type="search"
+          :placeholder="placeholder"
+          class="p-combobox__text-input"
+          :class="classes.input"
+          role="combobox"
+          tabindex="-1"
+          aria-controls="options"
+          aria-expanded="false"
+          @keydown="handleTextInputKeydown"
+          @focus="handleFocus"
+        >
+      </div>
+    </template>
+    <template #option="{ option, ...scope }">
+      <slot name="option" :option="option" v-bind="scope">
+        {{ option.unknown ? `"${option.label}"` : option.label }}
+      </slot>
+    </template>
+    <template #options-empty="scope">
+      <slot name="options-empty" v-bind="scope">
+        <template v-if="typedValue">
+          <div class="p-combobox__options-empty">
+            <span>No matches for "{{ typedValue }}"</span>
+            <p-button secondary size="sm" @click.stop="typedValue = null">
+              See All Options
+            </p-button>
+          </div>
+        </template>
+      </slot>
+    </template>
+    <template #default="scope">
+      <slot v-bind="scope" />
+    </template>
+    <template #post-options="scope">
+      <slot name="post-options" v-bind="scope" />
+    </template>
+  </PSelect>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed, ref, nextTick, withDefaults } from 'vue'
-
-  export default defineComponent({
-    name: 'PCombobox',
-    expose: [],
-    inheritAttrs: false,
-  })
-</script>
-
 <script lang="ts" setup>
+  import { computed, ref, nextTick, withDefaults } from 'vue'
   import PSelect from '@/components/Select'
   import { keys } from '@/types/keyEvent'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
