@@ -7,6 +7,14 @@ export type UseAttrsAndStyles = {
   styles: Ref<StyleValue[]>,
   attrs: Ref<AttrsValue>,
 }
+export type UseAttrsStylesAndListeners = UseAttrsAndStyles & {
+  listeners: Ref<AttrsValue>,
+}
+
+const listenerRegexp = /^on[^a-z]/
+export function isListener(key: string): boolean {
+  return listenerRegexp.test(key)
+}
 
 export function useAttrsStylesAndClasses(): UseAttrsAndStyles {
   const classes: Ref<Record<string, boolean>> = ref({})
@@ -57,4 +65,22 @@ export function useAttrsStylesAndClasses(): UseAttrsAndStyles {
     styles,
     attrs,
   }
+}
+
+export function useAttrsStylesClassesAndListeners(): UseAttrsStylesAndListeners {
+  const { attrs, styles, classes } = useAttrsStylesAndClasses()
+  const nonListenerAttrs: Ref<AttrsValue> = ref({})
+  const listeners: Ref<AttrsValue> = ref({})
+
+  watchEffect(() => {
+    for (const attr in attrs.value) {
+      if (isListener(attr)) {
+        listeners.value[attr] = (attrs.value as unknown as Record<string, unknown>)[attr]
+      } else {
+        nonListenerAttrs.value[attr] = (attrs.value as unknown as Record<string, unknown>)[attr]
+      }
+    }
+  })
+
+  return { attrs: nonListenerAttrs, listeners, styles, classes }
 }

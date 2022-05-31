@@ -1,5 +1,5 @@
-<template>
-  <div ref="el" class="base-input" :class="classes" :style="styles">
+useAttrsStylesClassesAndListeners<template>
+  <div ref="el" class="base-input" :class="classes" :style="styles" v-bind="listeners">
     <div v-if="prepend" class="base-input__prepend">
       {{ prepend }}
     </div>
@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
+  import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
 
   const props = defineProps<{
@@ -37,7 +37,7 @@
     disabled?: boolean,
   }>()
 
-  const { classes:attrClasses, styles, attrs } = useAttrsStylesAndClasses()
+  const { classes:attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
   const failed = computed(() => props.state?.valid === false && props.state.validated)
   const el = ref<HTMLDivElement>()
 
