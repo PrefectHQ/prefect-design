@@ -14,7 +14,7 @@
   @apply
   p-8
   grid
-  grid-rows-[max-content_1fr]
+  grid-rows-[max-content_max-content]
   gap-4
   h-full
   w-full
