@@ -1,5 +1,5 @@
 <template>
-  <BaseInput ref="wrapperElement">
+  <BaseInput ref="wrapperElement" class="p-select-button">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -7,7 +7,7 @@
       <button
         ref="buttonElement"
         type="button"
-        class="p-select-button"
+        class="p-select-button__control"
         aria-hidden="true"
         v-bind="attrs"
       >
@@ -125,7 +125,7 @@
 </script>
 
 <style>
-.p-select-button { @apply
+.p-select-button__control { @apply
   w-full
   h-full
   pl-3
@@ -153,7 +153,6 @@
   pr-2
   flex
   items-center
-  pointer-events-none
 }
 
 .p-select-button__icon .p-icon { @apply
