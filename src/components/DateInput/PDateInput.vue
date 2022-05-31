@@ -141,7 +141,7 @@
   items-center
 }
 
-.p-date-input__icon svg { @apply
+.p-date-input__icon .p-icon { @apply
   w-4
   h-4
 }
