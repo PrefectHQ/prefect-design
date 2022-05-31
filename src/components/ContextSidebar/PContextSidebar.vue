@@ -20,14 +20,18 @@
 .p-context-sidebar { @apply
   bg-slate-700
   text-slate-300
-  sticky
-  top-0
+  fixed
+  lg:sticky
+  top-16
+  lg:top-0
+  bottom-0
+  lg:bottom-auto
   w-screen
   z-10
-  lg:flex
+  flex
+  flex-col
   lg:h-screen
   lg:w-64
-  lg:flex-col
 }
 
 .p-context-sidebar__header,
@@ -48,7 +52,7 @@
 }
 
 .p-context-sidebar__footer { @apply
-  lg:mt-auto
+  mt-auto
   border-t-2
   border-slate-600
 }
