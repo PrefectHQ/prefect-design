@@ -27,19 +27,24 @@
               </template>
             </p-table-row>
           </template>
+          <template v-if="slots['empty-state-message'] || slots['empty-state-actions'] && data.length === 0">
+            <p-table-row>
+              <td :colspan="columns.length">
+                <PEmptyResults>
+                  <template #message>
+                    <slot name="empty-state-message" />
+                  </template>
+                  <template #actions>
+                    <slot name="empty-state-actions" />
+                  </template>
+                </PEmptyResults>
+              </td>
+            </p-table-row>
+          </template>
         </p-table-body>
         <template v-if="slots.footer">
           <p-table-foot>
             <slot name="footer" />
-          </p-table-foot>
-        </template>
-        <template v-else-if="slots['empty-state']">
-          <p-table-foot>
-            <tr>
-              <td :colspan="columns.length">
-                <slot name="empty-state" />
-              </td>
-            </tr>
           </p-table-foot>
         </template>
       </slot>
@@ -55,6 +60,7 @@
   import PTableHead from './PTableHead.vue'
   import PTableHeader from './PTableHeader.vue'
   import PTableRow from './PTableRow.vue'
+  import PEmptyResults from '@/components/EmptyResults/PEmptyResults.vue'
   import { TableColumn, TableData } from '@/types/tables'
   import { isStrings } from '@/utilities/arrays'
   import { kebabCase } from '@/utilities/strings'
