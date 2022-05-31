@@ -10,7 +10,7 @@ import { default as PContextSidebar } from './ContextSidebar'
 import { default as PDateInput } from './DateInput'
 import { default as PDatePicker } from './DatePicker'
 import { default as PDivider } from './Divider'
-import { default as PPEmptyResults } from './EmptyResults'
+import { default as PEmptyResults } from './EmptyResults'
 import { default as PEmptyState } from './EmptyState'
 import { default as PForm } from './Form'
 import { default as PGlobalNavItem } from './GlobalNavItem'
@@ -75,7 +75,7 @@ export {
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
-  PPEmptyResults,
+  PEmptyResults,
   PSelect,
   PSelectOption,
   PTab,
@@ -129,7 +129,7 @@ export const installs = [
   PNumberInput.install,
   POverflowMenu.install,
   POverflowMenuItem.install,
-  PPEmptyResults.install,
+  PEmptyResults.install,
   PSelect.install,
   PSelectOption.install,
   PTab.install,
@@ -183,7 +183,7 @@ declare module '@vue/runtime-core' {
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
-    PPEmptyResults: typeof PPEmptyResults,
+    PEmptyResults: typeof PEmptyResults,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
     PTab: typeof PTab,
