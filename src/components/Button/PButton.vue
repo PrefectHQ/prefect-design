@@ -1,9 +1,16 @@
 <template>
-  <button ref="el" type="button" class="p-button" :class="classes" :disabled="disabled">
-    <template v-if="icon">
-      <p-icon :icon="icon" class="p-button__icon" />
+  <button ref="el" type="button" class="p-button" :class="classes" :disabled="disabled || loading">
+    <div class="p-button__content">
+      <template v-if="icon">
+        <p-icon :icon="icon" class="p-button__icon" />
+      </template>
+      <slot />
+    </div>
+    <template v-if="loading">
+      <div class="p-button__loading-icon">
+        <p-icon icon="RefreshIcon" />
+      </div>
     </template>
-    <slot />
   </button>
 </template>
 
@@ -21,6 +28,7 @@
     flat: Boolean,
     rounded: Boolean,
     disabled: Boolean,
+    loading: Boolean,
     size: {
       type: String as PropType<Size>,
       default: 'md',
@@ -50,7 +58,8 @@
     'p-button-md': props.size === 'md',
     'p-button-lg': props.size === 'lg',
     'p-button-xl': props.size === 'xl',
-    'p-button--disabled': props.disabled,
+    'p-button--disabled': props.disabled || props.loading,
+    'p-button--loading': props.loading,
   }))
 
   const buttonClass = computed<ButtonClass>(() => {
@@ -72,17 +81,23 @@
 
 <style>
 .p-button { @apply
+  relative
   border
   border-transparent
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
   font-medium
-  gap-1
   inline-flex
   items-center
   rounded-md
   shadow-sm
+}
+
+.p-button__content { @apply
+  gap-1
+  inline-flex
+  items-center
 }
 
 .p-button--primary { @apply
@@ -134,6 +149,7 @@
   px-2
   py-1
 }
+.p-button-xs .p-button__loading-icon,
 .p-button-xs .p-button__icon { @apply
   h-3
   w-3
@@ -147,6 +163,7 @@
   px-3
   py-1
 }
+.p-button-sm .p-button__loading-icon,
 .p-button-sm .p-button__icon { @apply
   h-3.5
   w-3.5
@@ -160,6 +177,7 @@
   px-4
   py-2
 }
+.p-button-md .p-button__loading-icon,
 .p-button-md .p-button__icon { @apply
   h-4
   w-4
@@ -173,6 +191,7 @@
   px-5
   py-2
 }
+.p-button-lg .p-button__loading-icon,
 .p-button-lg .p-button__icon { @apply
   h-5
   w-5
@@ -186,6 +205,7 @@
   px-6
   py-3
 }
+.p-button-xl .p-button__loading-icon,
 .p-button-xl .p-button__icon { @apply
   h-6
   w-6
@@ -201,5 +221,20 @@
 .p-button--disabled { @apply
   cursor-not-allowed
   opacity-50
+}
+
+.p-button--loading .p-button__content { @apply
+  invisible
+}
+
+.p-button__loading-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.p-button__loading-icon svg { @apply
+  animate-spin
 }
 </style>

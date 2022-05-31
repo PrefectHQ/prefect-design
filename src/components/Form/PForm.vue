@@ -10,20 +10,24 @@
     <slot />
     <div class="p-form__footer">
       <slot name="footer">
-        <p-button inset @click="emits('cancel')">
+        <PButton inset @click="emits('cancel')">
           Cancel
-        </p-button>
-        <p-button type="submit">
+        </PButton>
+        <PButton type="submit" :disabled="disabled" :loading="loading">
           Submit
-        </p-button>
+        </PButton>
       </slot>
     </div>
   </form>
 </template>
 
 <script lang="ts" setup>
+  import PButton from '@/components/Button/PButton.vue'
+
   defineProps<{
     heading?: string,
+    disabled?: boolean,
+    loading?: boolean,
   }>()
 
   const emits = defineEmits<{
