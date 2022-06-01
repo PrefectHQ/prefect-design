@@ -37,6 +37,7 @@
 }
 
 .p-textarea__control { @apply
+  bg-transparent
   block
   w-full
   rounded-md

@@ -88,6 +88,7 @@
 }
 
 .p-native-date-input__control { @apply
+  bg-transparent
   absolute
   top-0
   bottom-0

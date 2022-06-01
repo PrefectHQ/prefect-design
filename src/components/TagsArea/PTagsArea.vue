@@ -90,6 +90,7 @@
 }
 
 .p-tags-area__input { @apply
+  bg-transparent
   w-full
   rounded-md
   outline-none

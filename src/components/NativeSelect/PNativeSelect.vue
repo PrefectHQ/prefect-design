@@ -85,6 +85,7 @@
 }
 
 .p-native-select__control { @apply
+  bg-transparent
   absolute
   left-0
   right-0
