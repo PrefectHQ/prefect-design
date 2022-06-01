@@ -23,31 +23,29 @@
           leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
           <div class="p-modal__card">
-            <slot name="header">
+            <slot name="header" :close="closeModal">
               <div class="p-modal__header">
                 <div class="p-modal__header-group">
-                  <div v-if="slots.icon" class="p-modal__icon">
-                    <slot name="icon" />
-                  </div>
-                  <slot name="title">
+                  <template v-if="icon">
+                    <p-icon :icon="icon" class="p-modal__icon" />
+                  </template>
+                  <slot name="title" :close="closeModal">
                     <span>{{ title }}</span>
                   </slot>
                 </div>
-                <p-button class="p-modal__x-btn" size="lg" icon="XIcon" flat @click="internalValue = false" />
+                <p-button class="p-modal__x-btn" size="lg" icon="XIcon" flat @click="closeModal" />
               </div>
-              <p-divider />
+              <p-divider v-if="title || slots.title" />
             </slot>
             <div class="p-modal__body">
-              <div class="p-modal__text-container">
-                <slot />
-              </div>
+              <slot :close="closeModal" />
             </div>
 
-            <slot name="footer">
+            <slot name="footer" :close="closeModal">
               <p-divider />
               <div class="p-modal__footer">
-                <slot name="actions" :close="() => internalValue = false" />
-                <p-button inset class="p-modal__close-btn" @click="internalValue = false">
+                <slot name="actions" :close="closeModal" />
+                <p-button inset class="p-modal__close-btn" @click="closeModal">
                   Cancel
                 </p-button>
               </div>
@@ -62,10 +60,12 @@
 <script setup lang="ts">
   import { TransitionChild, TransitionRoot } from '@headlessui/vue'
   import { computed, useSlots, watchEffect } from 'vue'
+  import { Icon } from '@/types/icon'
 
   const props = defineProps<{
     showModal: boolean,
     title?: string,
+    icon?: Icon,
   }>()
 
   const emits = defineEmits<{
@@ -82,6 +82,10 @@
       emits('update:showModal', value)
     },
   })
+
+  function closeModal(): void {
+    internalValue.value = false
+  }
 
   watchEffect(() => {
     document.body.classList.toggle('p-modal__stop-bg-scroll', props.showModal)
@@ -172,13 +176,6 @@
   justify-center
 }
 
-.p-modal__text-container { @apply
-  flex
-  flex-col
-  text-center
-  sm:text-left
-}
-
 .p-modal__footer { @apply
   flex
   flex-col
@@ -201,6 +198,7 @@
 }
 
 .p-modal__x-btn { @apply
+  text-gray-400
   !p-1
 }
 
