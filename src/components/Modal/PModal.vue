@@ -23,20 +23,29 @@
           leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
           <div class="p-modal__card">
-            <div class="p-modal__body">
-              <slot name="icon" class="p-modal__icon" />
-
-              <div class="p-modal__text-container">
-                <slot name="title" class="p-modal__title" />
-                <slot name="content" />
+            <div class="p-modal__header" :class="classes">
+              <div class="p-modal__tile-icon-group">
+                <template v-if="icon">
+                  <p-icon :icon="icon" class="p-modal__icon" />
+                </template>
+                <slot name="title" :close="closeModal">
+                  <span class="p-modal__title">{{ title }}</span>
+                </slot>
               </div>
+              <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
+            </div>
+
+            <div class="p-modal__body">
+              <slot :close="closeModal" />
             </div>
 
             <div class="p-modal__footer">
-              <slot name="actions" :close-modal="closeModal" />
-              <p-button inset class="p-modal__close-btn" @click="closeModal">
-                Cancel
-              </p-button>
+              <slot name="actions" :close="closeModal" />
+              <slot name="cancel" :close="closeModal">
+                <p-button inset class="p-modal__close-button" @click="closeModal">
+                  Cancel
+                </p-button>
+              </slot>
             </div>
           </div>
         </TransitionChild>
@@ -47,18 +56,36 @@
 
 <script setup lang="ts">
   import { TransitionChild, TransitionRoot } from '@headlessui/vue'
-  import { watchEffect } from 'vue'
+  import { computed, useSlots, watchEffect } from 'vue'
+  import { Icon } from '@/types/icon'
 
   const props = defineProps<{
     showModal: boolean,
+    title?: string,
+    icon?: Icon,
   }>()
 
-  const emit = defineEmits<{
+  const emits = defineEmits<{
     (event: 'update:showModal', value: boolean): void,
   }>()
 
-  const closeModal = (): void => {
-    emit('update:showModal', false)
+  const internalValue = computed({
+    get() {
+      return props.showModal
+    },
+    set(value: boolean) {
+      emits('update:showModal', value)
+    },
+  })
+
+  const slots = useSlots()
+
+  const classes = computed(() => ({
+    'p-modal__header--no-title': props.title === undefined && slots.title === undefined,
+  }))
+
+  function closeModal(): void {
+    internalValue.value = false
   }
 
   watchEffect(() => {
@@ -67,120 +94,95 @@
 </script>
 
 <style>
-.p-modal {
-  @apply
-   fixed
-   z-10
-   inset-0
-   overflow-y-auto
+.p-modal { @apply
+  fixed
+  z-10
+  inset-0
+  overflow-y-auto
 }
 
-.p-modal__container {
-  @apply
-   flex
-   justify-center
-   items-center
-   min-h-screen
-   pt-4
-   px-4
-   pb-20
+.p-modal__container { @apply
+  flex
+  justify-center
+  items-center
+  min-h-screen
+  pt-4
+  px-4
+  pb-20
 }
 
-.p-modal__background {
-  @apply
-   fixed
-   inset-0
-   bg-gray-500
-   bg-opacity-75
-   transition-opacity
+.p-modal__background { @apply
+  fixed
+  inset-0
+  bg-gray-500
+  bg-opacity-75
+  transition-opacity
 }
 
-.p-modal__browser-center-trick {
-  @apply
-   hidden
-   sm:inline-block
-   sm:align-middle
-   sm:h-screen
+.p-modal__card { @apply
+  relative
+  inline-block
+  bg-white
+  rounded-lg
+  shadow-xl
+  transition-all
+  sm:max-w-lg
+  sm:w-full
 }
 
-.p-modal__card {
-  @apply
-   relative
-   inline-block
-   align-bottom
-   bg-white
-   rounded-lg
-   text-left
-   overflow-hidden
-   shadow-xl
-   transition-all
-   sm:my-8
-   sm:align-middle
-   sm:max-w-lg
-   sm:w-full
+.p-modal__header { @apply
+  flex
+  justify-between
+  items-center
+  px-5
+  py-3
+  border-b
+  text-lg
+  leading-6
+  font-medium
+  text-gray-900
 }
 
-.p-modal__body {
-  @apply
+.p-modal__header--no-title { @apply
+  border-none
+}
+
+.p-modal__tile-icon-group { @apply
+  flex
+  items-center
+  gap-2
+}
+
+.p-modal__body { @apply
   flex
   flex-col
   gap-3
-  bg-white
-  p-4
-  pt-5
-  sm:p-6
-  sm:pb-4
+  p-5
+  sm:py-6
   sm:gap-4
+}
+
+.p-modal__footer { @apply
+  flex
+  flex-col
+  gap-3
+  px-5
+  py-3
+  border-t
+  sm:justify-end
   sm:flex-row
 }
 
-.p-modal__icon {
-  @apply
-   flex-shrink-0
-   flex
-   items-center
-   justify-center
-}
-
-.p-modal__text-container {
-  @apply
-  flex
-  flex-col
-  gap-2
-   text-center
-   sm:text-left
-}
-
-.p-modal__title {
-  @apply
-   text-lg
-   leading-6
-   font-medium
-   text-gray-900
-}
-
-.p-modal__footer {
-  @apply
-  flex
-  flex-col
-  gap-3
-   bg-gray-50
-   px-4
-   py-3
-   sm:pr-6
-   sm:justify-end
-   sm:flex-row
-}
-
-.p-modal__close-btn {
-  @apply
-  inline-flex
-  justify-center
+.p-modal__close-button { @apply
   sm:order-first
 }
 
-.p-modal__stop-bg-scroll {
-  @apply
+.p-modal__x-button { @apply
+  text-gray-400
+  !p-1
+}
+
+.p-modal__stop-bg-scroll { @apply
   overflow-hidden
 }
 </style>
