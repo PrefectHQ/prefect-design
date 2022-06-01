@@ -25,9 +25,11 @@
           <div class="p-modal__card">
             <div class="p-modal__header" :class="classes">
               <div class="p-modal__tile-icon-group">
-                <template v-if="icon">
-                  <p-icon :icon="icon" class="p-modal__icon" />
-                </template>
+                <slot name="icon" :close="closeModal">
+                  <template v-if="icon">
+                    <p-icon :icon="icon" class="p-modal__icon" />
+                  </template>
+                </slot>
                 <slot name="title" :close="closeModal">
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
