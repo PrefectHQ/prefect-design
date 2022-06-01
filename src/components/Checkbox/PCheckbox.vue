@@ -73,11 +73,6 @@
   opacity-50
 }
 
-.p-checkbox--failed { @apply
-  border-red-600
-  focus:ring-red-600
-}
-
 .p-checkbox__control { @apply
   focus:ring-prefect-600
   h-4
@@ -100,7 +95,15 @@
   order-last
 }
 
+.p-checkbox--failed .p-checkbox__control { @apply
+  border-red-600
+  focus-within:border-red-600
+  focus-within:ring-red-600
+}
+
 .p-checkbox--pending .p-checkbox__control { @apply
-  bg-prefect-200
+  border-prefect-300
+  focus-within:border-prefect-300
+  focus-within:ring-prefect-300
 }
 </style>

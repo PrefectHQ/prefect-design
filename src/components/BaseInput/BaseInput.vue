@@ -110,11 +110,13 @@
 }
 
 .base-input--pending { @apply
-  bg-prefect-100
+  border-prefect-300
+  focus-within:border-prefect-300
+  focus-within:ring-prefect-300
 }
 
 .base-input__pending-icon { @apply
-  text-prefect-400
+  text-prefect-300
   w-5
   h-5
   mr-2
