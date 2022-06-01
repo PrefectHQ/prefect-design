@@ -9,6 +9,9 @@
 
       <p-label label="Stateful text">
         <p-text-input v-model="exampleText" :disabled="disabled" :state="exampleState" placeholder="failed" />
+        <p-checkbox v-model="exampleState.valid" label="valid" />
+        <p-checkbox v-model="exampleState.validated" label="validated" />
+        <p-checkbox v-model="exampleState.pending" label="pending" />
       </p-label>
 
       <p-label label="Slots for prepend & append">
@@ -119,7 +122,7 @@
   import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { format } from 'date-fns'
-  import { computed, ref } from 'vue'
+  import { computed, reactive, ref } from 'vue'
   import Section from '../components/Section.vue'
   import PCheckbox from '@/components/Checkbox'
   import PCombobox from '@/components/Combobox'
@@ -167,8 +170,12 @@
   const minDate = ref<Date | null>(null)
   const maxDate = ref<Date | null>(null)
 
-  const exampleState = computed(() => {
-    return { valid: !exampleText.value.length, validated: true } as State
+  const exampleState = reactive<State>({
+    valid: true,
+    validated: false,
+    pending: false,
+    dirty: false,
+    touched: false,
   })
 
   const showTimeInExampleDate = ref(true)

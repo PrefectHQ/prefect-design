@@ -53,9 +53,12 @@
     },
   })
 
+  const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
+
   const classes = computed(() => ({
     'p-checkbox--disabled': props.disabled,
-    'p-checkbox--failed': props.state?.valid === false && props.state.validated,
+    'p-checkbox--failed': failed.value,
+    'p-checkbox--pending': props.state?.pending,
   }))
 </script>
 
@@ -95,5 +98,9 @@
 
 .p-checkbox__label .p-checkbox__label-text { @apply
   order-last
+}
+
+.p-checkbox--pending .p-checkbox__control { @apply
+  bg-prefect-200
 }
 </style>
