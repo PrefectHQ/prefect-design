@@ -24,30 +24,31 @@
         >
           <div class="p-modal__card">
             <slot name="header" :close="closeModal">
-              <div class="p-modal__header">
-                <div class="p-modal__header-group">
+              <div class="p-modal__header" :class="classes">
+                <div class="p-modal__tile-icon-group">
                   <template v-if="icon">
                     <p-icon :icon="icon" class="p-modal__icon" />
                   </template>
                   <slot name="title" :close="closeModal">
-                    <span>{{ title }}</span>
+                    <span class="p-modal__title">{{ title }}</span>
                   </slot>
                 </div>
-                <p-button class="p-modal__x-btn" size="lg" icon="XIcon" flat @click="closeModal" />
+                <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
               </div>
-              <p-divider v-if="title || slots.title" />
             </slot>
+
             <div class="p-modal__body">
               <slot :close="closeModal" />
             </div>
 
             <slot name="footer" :close="closeModal">
-              <p-divider />
               <div class="p-modal__footer">
                 <slot name="actions" :close="closeModal" />
-                <p-button inset class="p-modal__close-btn" @click="closeModal">
-                  Cancel
-                </p-button>
+                <slot name="cancel" :close="closeModal">
+                  <p-button inset class="p-modal__close-button" @click="closeModal">
+                    Cancel
+                  </p-button>
+                </slot>
               </div>
             </slot>
           </div>
@@ -72,8 +73,6 @@
     (event: 'update:showModal', value: boolean): void,
   }>()
 
-  const slots = useSlots()
-
   const internalValue = computed({
     get() {
       return props.showModal
@@ -82,6 +81,12 @@
       emits('update:showModal', value)
     },
   })
+
+  const slots = useSlots()
+
+  const classes = computed(() => ({
+    'p-modal__header--no-title': props.title === undefined && slots.title === undefined,
+  }))
 
   function closeModal(): void {
     internalValue.value = false
@@ -118,25 +123,13 @@
   transition-opacity
 }
 
-.p-modal__browser-center-trick { @apply
-  hidden
-  sm:inline-block
-  sm:align-middle
-  sm:h-screen
-}
-
 .p-modal__card { @apply
   relative
   inline-block
-  align-bottom
   bg-white
   rounded-lg
-  text-left
-  overflow-hidden
   shadow-xl
   transition-all
-  sm:my-8
-  sm:align-middle
   sm:max-w-lg
   sm:w-full
 }
@@ -145,16 +138,22 @@
   flex
   justify-between
   items-center
-  px-4
-  pt-3
+  px-5
+  py-3
+  border-b
   text-lg
   leading-6
   font-medium
   text-gray-900
 }
 
-.p-modal__header-group { @apply
+.p-modal__header--no-title { @apply
+  border-none
+}
+
+.p-modal__tile-icon-group { @apply
   flex
+  items-center
   gap-2
 }
 
@@ -162,42 +161,27 @@
   flex
   flex-col
   gap-3
-  bg-white
-  p-4
-  sm:p-6
+  p-5
+  sm:py-6
   sm:gap-4
-  sm:flex-row
-}
-
-.p-modal__icon { @apply
-  flex-shrink-0
-  flex
-  items-center
-  justify-center
 }
 
 .p-modal__footer { @apply
   flex
   flex-col
   gap-3
-  bg-gray-50
-  px-4
-  pb-3
-  sm:pr-6
+  px-5
+  py-3
+  border-t
   sm:justify-end
   sm:flex-row
 }
 
-.p-modal__footer .p-button { @apply
-  inline-flex
-  justify-center
-}
-
-.p-modal__close-btn { @apply
+.p-modal__close-button { @apply
   sm:order-first
 }
 
-.p-modal__x-btn { @apply
+.p-modal__x-button { @apply
   text-gray-400
   !p-1
 }

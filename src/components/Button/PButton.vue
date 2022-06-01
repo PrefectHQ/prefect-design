@@ -97,6 +97,8 @@
 .p-button__content { @apply
   gap-1
   inline-flex
+  w-full
+  justify-center
   items-center
 }
 
