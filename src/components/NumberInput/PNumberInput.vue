@@ -64,7 +64,7 @@
 
 <style>
 .p-number-input__control {
-  cursor: inherit;
+  cursor: text;
 }
 
 .p-number-input__control { @apply
