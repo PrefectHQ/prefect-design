@@ -68,6 +68,7 @@
 }
 
 .p-number-input__control { @apply
+  bg-transparent
   block
   w-full
   rounded-md

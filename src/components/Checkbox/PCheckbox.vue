@@ -53,9 +53,12 @@
     },
   })
 
+  const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
+
   const classes = computed(() => ({
     'p-checkbox--disabled': props.disabled,
-    'p-checkbox--failed': props.state?.valid === false && props.state.validated,
+    'p-checkbox--failed': failed.value,
+    'p-checkbox--pending': props.state?.pending,
   }))
 </script>
 
@@ -68,11 +71,6 @@
 :disabled .p-checkbox { @apply
   cursor-not-allowed
   opacity-50
-}
-
-.p-checkbox--failed { @apply
-  border-red-600
-  focus:ring-red-600
 }
 
 .p-checkbox__control { @apply
@@ -95,5 +93,17 @@
 
 .p-checkbox__label .p-checkbox__label-text { @apply
   order-last
+}
+
+.p-checkbox--failed .p-checkbox__control { @apply
+  border-red-600
+  focus-within:border-red-600
+  focus-within:ring-red-600
+}
+
+.p-checkbox--pending .p-checkbox__control { @apply
+  border-prefect-300
+  focus-within:border-prefect-300
+  focus-within:ring-prefect-300
 }
 </style>

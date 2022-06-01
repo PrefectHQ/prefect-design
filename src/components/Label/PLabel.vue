@@ -30,8 +30,10 @@
     state?: State,
   }>()
 
+  const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
+
   const classes = computed(() => ({
-    'p-label__message--failed': props.state?.valid === false && props.state.validated,
+    'p-label__message--failed': failed.value,
   }))
 
   function isDefined(value: string | undefined): boolean {

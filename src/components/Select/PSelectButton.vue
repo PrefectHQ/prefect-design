@@ -126,6 +126,7 @@
 
 <style>
 .p-select-button__control { @apply
+  bg-transparent
   w-full
   h-full
   py-2

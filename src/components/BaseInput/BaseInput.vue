@@ -12,6 +12,9 @@
     <div v-if="failed" class="base-input__failed-icon">
       <PIcon icon="ExclamationCircleIcon" />
     </div>
+    <div v-if="state?.pending" class="base-input__pending-icon">
+      <PIcon icon="RefreshIcon" />
+    </div>
   </div>
 </template>
 
@@ -39,7 +42,7 @@
   }>()
 
   const { classes:attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
-  const failed = computed(() => props.state?.valid === false && props.state.validated)
+  const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
   const el = ref<HTMLDivElement>()
 
   defineExpose({ el })
@@ -48,6 +51,7 @@
     ...convertToClassValueObject(attrClasses.value),
     'base-input--disabled': props.disabled,
     'base-input--failed': failed.value,
+    'base-input--pending': props.state?.pending,
   }))
 </script>
 
@@ -103,5 +107,19 @@
   w-5
   h-5
   mr-2
+}
+
+.base-input--pending { @apply
+  border-prefect-300
+  focus-within:border-prefect-300
+  focus-within:ring-prefect-300
+}
+
+.base-input__pending-icon { @apply
+  text-prefect-300
+  w-5
+  h-5
+  mr-2
+  animate-spin
 }
 </style>

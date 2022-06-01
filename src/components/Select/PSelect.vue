@@ -258,7 +258,6 @@
 }
 
 .p-select__custom { @apply
-  bg-white
   w-full
   rounded-md
 }
