@@ -23,34 +23,30 @@
           leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
           <div class="p-modal__card">
-            <slot name="header" :close="closeModal">
-              <div class="p-modal__header" :class="classes">
-                <div class="p-modal__tile-icon-group">
-                  <template v-if="icon">
-                    <p-icon :icon="icon" class="p-modal__icon" />
-                  </template>
-                  <slot name="title" :close="closeModal">
-                    <span class="p-modal__title">{{ title }}</span>
-                  </slot>
-                </div>
-                <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
+            <div class="p-modal__header" :class="classes">
+              <div class="p-modal__tile-icon-group">
+                <template v-if="icon">
+                  <p-icon :icon="icon" class="p-modal__icon" />
+                </template>
+                <slot name="title" :close="closeModal">
+                  <span class="p-modal__title">{{ title }}</span>
+                </slot>
               </div>
-            </slot>
+              <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
+            </div>
 
             <div class="p-modal__body">
               <slot :close="closeModal" />
             </div>
 
-            <slot name="footer" :close="closeModal">
-              <div class="p-modal__footer">
-                <slot name="actions" :close="closeModal" />
-                <slot name="cancel" :close="closeModal">
-                  <p-button inset class="p-modal__close-button" @click="closeModal">
-                    Cancel
-                  </p-button>
-                </slot>
-              </div>
-            </slot>
+            <div class="p-modal__footer">
+              <slot name="actions" :close="closeModal" />
+              <slot name="cancel" :close="closeModal">
+                <p-button inset class="p-modal__close-button" @click="closeModal">
+                  Cancel
+                </p-button>
+              </slot>
+            </div>
           </div>
         </TransitionChild>
       </div>
