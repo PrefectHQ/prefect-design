@@ -3,19 +3,12 @@
     <p-checkbox v-model="disabled" label="Disable All Fields" />
 
     <p-form heading="Header Text">
-      <p-label label="Plain text">
-        <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" />
+      <p-label label="Plain text" :state="exampleState">
+        <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" :state="exampleState" />
       </p-label>
 
-      <p-label label="Stateful text">
-        <p-text-input v-model="exampleText" :disabled="disabled" :state="exampleState" placeholder="failed" />
-        <p-checkbox v-model="exampleState.valid" label="valid" />
-        <p-checkbox v-model="exampleState.validated" label="validated" />
-        <p-checkbox v-model="exampleState.pending" label="pending" />
-      </p-label>
-
-      <p-label label="Slots for prepend & append">
-        <p-text-input v-model="exampleUrl" :disabled="disabled" class="form__url">
+      <p-label label="Slots for prepend & append" :state="exampleState">
+        <p-text-input v-model="exampleUrl" :disabled="disabled" class="form__url" :state="exampleState">
           <template #prepend>
             <span class="pl-2">https://</span>
           </template>
@@ -27,16 +20,16 @@
         </p-text-input>
       </p-label>
 
-      <p-label label="Numbers only">
-        <p-number-input v-model="exampleNumber" :disabled="disabled" :min="0" :max="20" />
+      <p-label label="Numbers only" :state="exampleState">
+        <p-number-input v-model="exampleNumber" :disabled="disabled" :min="0" :max="20" :state="exampleState" />
       </p-label>
 
-      <p-label label="Props for prepend & append" message="With some helpful text">
-        <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" />
+      <p-label label="Props for prepend & append" message="With some helpful text" :state="exampleState">
+        <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" :state="exampleState" />
       </p-label>
 
-      <p-label label="Search">
-        <p-text-input v-model="exampleSearch" :disabled="disabled" type="search" placeholder="search...">
+      <p-label label="Search" :state="exampleState">
+        <p-text-input v-model="exampleSearch" :disabled="disabled" type="search" placeholder="search..." :state="exampleState">
           <template #prepend>
             <span class="h-5 w-5 text-gray-500 ml-2">
               <SearchIcon />
@@ -45,11 +38,11 @@
         </p-text-input>
       </p-label>
 
-      <p-label label="Text area">
-        <p-textarea v-model="exampleTextarea" :disabled="disabled" editor="textarea" />
+      <p-label label="Text area" :state="exampleState">
+        <p-textarea v-model="exampleTextarea" :disabled="disabled" editor="textarea" :state="exampleState" />
       </p-label>
 
-      <p-checkbox v-model="exampleBoolean" :disabled="disabled">
+      <p-checkbox v-model="exampleBoolean" :disabled="disabled" :state="exampleState">
         <template #label>
           <span class="order-last">
             <span v-if="typeof exampleBoolean === 'boolean'">{{ exampleBoolean }}</span>
@@ -58,39 +51,46 @@
         </template>
       </p-checkbox>
 
-      <p-label label="Cartoons" :message="JSON.stringify(exampleCheckboxArray)">
+      <p-label label="Cartoons" :message="JSON.stringify(exampleCheckboxArray)" :state="exampleState">
         <fieldset :disabled="disabled">
-          <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Tom" label="Tom" />
-          <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Jerry" label="Jerry" />
+          <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Tom" label="Tom" :state="exampleState" />
+          <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Jerry" label="Jerry" :state="exampleState" />
         </fieldset>
       </p-label>
 
-      <p-label label="Native select" :message="JSON.stringify(exampleNativeSelect)">
-        <p-native-select v-model="exampleNativeSelect" :options="exampleOptionsWithEmpty" />
+      <p-label label="Native select" :message="JSON.stringify(exampleNativeSelect)" :state="exampleState">
+        <p-native-select v-model="exampleNativeSelect" :options="exampleOptionsWithEmpty" :state="exampleState" />
       </p-label>
 
-      <p-label label="Hybrid select" :message="JSON.stringify(exampleSelect)">
-        <p-select v-model="exampleSelect" allow-deselect :options="exampleOptionsWithEmpty" />
+      <p-label label="Hybrid select" :message="JSON.stringify(exampleSelect)" :state="exampleState">
+        <p-select v-model="exampleSelect" allow-deselect :options="exampleOptionsWithEmpty" :state="exampleState" />
       </p-label>
 
-      <p-label label="Combobox select" :message="JSON.stringify(exampleCombobox)">
-        <p-combobox v-model="exampleCombobox" allow-deselect :options="exampleOptions" />
+      <p-label label="Combobox select" :message="JSON.stringify(exampleCombobox)" :state="exampleState">
+        <p-combobox v-model="exampleCombobox" allow-deselect :options="exampleOptions" :state="exampleState" />
       </p-label>
 
-      <p-label label="Plain text combobox that allows unknown value and multiple" :message="JSON.stringify(exampleCombobox2)">
-        <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" />
+      <p-label label="Plain text combobox that allows unknown value and multiple" :message="JSON.stringify(exampleCombobox2)" :state="exampleState">
+        <p-combobox v-model="exampleCombobox2" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
       </p-label>
 
-      <p-label label="Multi select" :message="JSON.stringify(exampleMultiSelect)">
-        <p-select v-model="exampleMultiSelect" :options="exampleOptions" />
+      <p-label label="Multi select" :message="JSON.stringify(exampleMultiSelect)" :state="exampleState">
+        <p-select v-model="exampleMultiSelect" :options="exampleOptions" :state="exampleState" />
       </p-label>
 
-      <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)">
-        <p-native-date-input v-model="exampleDate" />
+      <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)" :state="exampleState">
+        <p-native-date-input v-model="exampleDate" :state="exampleState" />
       </p-label>
 
-      <p-label label="Hybrid Date Input" :message="JSON.stringify(exampleDate)">
-        <p-date-input v-model="exampleDate" :show-time="showTimeInExampleDate" :clearable="isClearableDate" :min="minDate" :max="maxDate" />
+      <p-label label="Hybrid Date Input" :message="JSON.stringify(exampleDate)" :state="exampleState">
+        <p-date-input
+          v-model="exampleDate"
+          :show-time="showTimeInExampleDate"
+          :clearable="isClearableDate"
+          :min="minDate"
+          :max="maxDate"
+          :state="exampleState"
+        />
         <div class="flex justify-start gap-4">
           <p-checkbox v-model="showTimeInExampleDate" label="Show Time" />
 
@@ -98,21 +98,27 @@
         </div>
         <div class="flex gap-4 w-1/2">
           <p-label label="Min Value" :message="minDate ? format(minDate, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="minDate" />
+            <p-native-date-input v-model="minDate" :state="exampleState" />
           </p-label>
 
           <p-label label="Max Value" :message="maxDate ? format(maxDate, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="maxDate" />
+            <p-native-date-input v-model="maxDate" :state="exampleState" />
           </p-label>
         </div>
       </p-label>
 
-      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)">
-        <PTagsInput v-model:tags="exampleTagsValue" />
+      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState">
+        <PTagsInput v-model:tags="exampleTagsValue" :state="exampleState" />
       </p-label>
 
-      <p-label label="Tags Area" :message="JSON.stringify(exampleTagsValue)">
-        <PTagsArea v-model:tags="exampleTagsValue" />
+      <p-label label="Tags Area" :message="JSON.stringify(exampleTagsValue)" :state="exampleState">
+        <PTagsArea v-model:tags="exampleTagsValue" :state="exampleState" />
+      </p-label>
+
+      <p-label label="Validation State">
+        <p-checkbox v-model="exampleState.valid" label="valid" />
+        <p-checkbox v-model="exampleState.validated" label="validated" />
+        <p-checkbox v-model="exampleState.pending" label="pending" />
       </p-label>
     </p-form>
   </Section>
