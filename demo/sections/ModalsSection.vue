@@ -4,17 +4,9 @@
       Open Modal
     </p-button>
 
-
-    <p-modal
-      v-model:showModal="showModal"
-    >
+    <p-modal v-model:showModal="showModal">
       <template #icon>
-        <div>
-          <p-icon
-            icon="CakeIcon"
-            class="mx-auto h-12 w-12 sm:mx-0 sm:h-10 sm:w-10"
-          />
-        </div>
+        <p-icon icon="CakeIcon" />
       </template>
 
       <template #title>
@@ -26,7 +18,7 @@
       </p>
 
       <template #actions>
-        <p-button class="w-full inline-flex justify-center sm:w-auto sm:text-sm" @click="showModal = false">
+        <p-button @click="showModal = false">
           Submit
         </p-button>
       </template>
