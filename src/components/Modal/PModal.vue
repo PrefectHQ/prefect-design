@@ -1,64 +1,75 @@
 <template>
-  <TransitionRoot as="div" :show="showModal">
-    <div class="p-modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-      <div class="p-modal__container">
-        <TransitionChild
-          as="template"
-          enter="ease-out duration-300"
-          enter-from="opacity-0"
-          enter-to="opacity-100"
-          leave="ease-in duration-200"
-          leave-from="opacity-100"
-          leave-to="opacity-0"
-        >
-          <div class="p-modal__background" aria-hidden="true" />
-        </TransitionChild>
-        <TransitionChild
-          as="template"
-          enter="ease-out duration-300"
-          enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          enter-to="opacity-100 translate-y-0 sm:scale-100"
-          leave="ease-in duration-200"
-          leave-from="opacity-100 translate-y-0 sm:scale-100"
-          leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-        >
-          <div class="p-modal__card">
-            <div class="p-modal__header" :class="classes">
-              <div class="p-modal__tile-icon-group">
-                <slot name="icon" :close="closeModal">
-                  <template v-if="icon">
-                    <p-icon :icon="icon" class="p-modal__icon" />
-                  </template>
-                </slot>
-                <slot name="title" :close="closeModal">
-                  <span class="p-modal__title">{{ title }}</span>
+  <teleport to="body">
+    <TransitionRoot as="div" :show="showModal" v-bind="$attrs">
+      <div class="p-modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="p-modal__container">
+          <TransitionChild
+            as="template"
+            enter="ease-out duration-300"
+            enter-from="opacity-0"
+            enter-to="opacity-100"
+            leave="ease-in duration-200"
+            leave-from="opacity-100"
+            leave-to="opacity-0"
+          >
+            <div class="p-modal__background" aria-hidden="true" />
+          </TransitionChild>
+          <TransitionChild
+            as="template"
+            enter="ease-out duration-300"
+            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enter-to="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leave-from="opacity-100 translate-y-0 sm:scale-100"
+            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div class="p-modal__card">
+              <div class="p-modal__header" :class="classes">
+                <div class="p-modal__tile-icon-group">
+                  <slot name="icon" :close="closeModal">
+                    <template v-if="icon">
+                      <p-icon :icon="icon" class="p-modal__icon" />
+                    </template>
+                  </slot>
+                  <slot name="title" :close="closeModal">
+                    <span class="p-modal__title">{{ title }}</span>
+                  </slot>
+                </div>
+                <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
+              </div>
+
+              <div class="p-modal__body">
+                <slot :close="closeModal" />
+              </div>
+
+              <div class="p-modal__footer">
+                <slot name="actions" :close="closeModal" />
+                <slot name="cancel" :close="closeModal">
+                  <p-button inset class="p-modal__close-button" @click="closeModal">
+                    Cancel
+                  </p-button>
                 </slot>
               </div>
-              <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
             </div>
-
-            <div class="p-modal__body">
-              <slot :close="closeModal" />
-            </div>
-
-            <div class="p-modal__footer">
-              <slot name="actions" :close="closeModal" />
-              <slot name="cancel" :close="closeModal">
-                <p-button inset class="p-modal__close-button" @click="closeModal">
-                  Cancel
-                </p-button>
-              </slot>
-            </div>
-          </div>
-        </TransitionChild>
+          </TransitionChild>
+        </div>
       </div>
-    </div>
-  </TransitionRoot>
+    </TransitionRoot>
+  </teleport>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
   import { TransitionChild, TransitionRoot } from '@headlessui/vue'
-  import { computed, useSlots, watchEffect } from 'vue'
+  import { defineComponent, computed, useSlots, watchEffect } from 'vue'
+
+  export default defineComponent({
+    name: 'PModal',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
+<script setup lang="ts">
   import { Icon } from '@/types/icon'
 
   const props = defineProps<{
