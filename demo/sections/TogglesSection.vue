@@ -43,10 +43,6 @@
       return toggleFourApiValue.value
     },
     set(val: boolean) {
-      if (toggleFourLoading.value) {
-        return
-      }
-
       toggleFourLoading.value = true
 
       setTimeout(() => {
