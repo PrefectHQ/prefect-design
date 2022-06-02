@@ -33,7 +33,7 @@
 
 <style>
 .p-textarea__control {
-  cursor: inherit;
+  cursor: text;
 }
 
 .p-textarea__control { @apply

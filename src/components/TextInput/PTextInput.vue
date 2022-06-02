@@ -33,7 +33,7 @@
 
 <style>
 .p-text-input__control {
-  cursor: inherit;
+  cursor: text;
 }
 
 .p-text-input__control { @apply
