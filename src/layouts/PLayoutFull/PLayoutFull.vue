@@ -10,9 +10,11 @@
 
 <style>
 .p-layout-full { @apply
-  w-screen
-  h-screen
+  relative
+  w-full
+  h-full
 }
+
 .p-layout-full__header { @apply
   absolute
   top-8
