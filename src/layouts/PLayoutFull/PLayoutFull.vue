@@ -11,6 +11,8 @@
 <style>
 .p-layout-full { @apply
   relative
+  w-full
+  h-full
 }
 
 .p-layout-full__header { @apply
