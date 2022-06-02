@@ -1,6 +1,7 @@
 import '@/styles/index.css'
 
 export * from '@/components'
+export * from '@/compositions'
 export * from '@/layouts'
 export * from '@/plugins'
 export * from '@/types'
