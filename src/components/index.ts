@@ -29,6 +29,7 @@ import { default as PNativeSelect } from './NativeSelect'
 import { default as PNumberInput } from './NumberInput'
 import { default as POverflowMenu } from './OverflowMenu'
 import { default as POverflowMenuItem } from './OverflowMenuItem'
+import { default as PPopOver } from './PopOver'
 import { default as PSelect } from './Select'
 import { default as PSelectOption } from './SelectOption'
 import { default as PTab } from './Tab'
@@ -57,6 +58,7 @@ export {
   PDateInput,
   PDatePicker,
   PDivider,
+  PEmptyResults,
   PEmptyState,
   PForm,
   PGlobalNavItem,
@@ -75,7 +77,7 @@ export {
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
-  PEmptyResults,
+  PPopOver,
   PSelect,
   PSelectOption,
   PTab,
@@ -111,6 +113,7 @@ export const installs = [
   PDateInput.install,
   PDatePicker.install,
   PDivider.install,
+  PEmptyResults.install,
   PEmptyState.install,
   PForm.install,
   PGlobalNavItem.install,
@@ -129,7 +132,7 @@ export const installs = [
   PNumberInput.install,
   POverflowMenu.install,
   POverflowMenuItem.install,
-  PEmptyResults.install,
+  PPopOver.install,
   PSelect.install,
   PSelectOption.install,
   PTab.install,
@@ -165,6 +168,7 @@ declare module '@vue/runtime-core' {
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
     PDivider: typeof PDivider,
+    PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,
     PGlobalNavItem: typeof PGlobalNavItem,
@@ -183,7 +187,7 @@ declare module '@vue/runtime-core' {
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
-    PEmptyResults: typeof PEmptyResults,
+    PPopOver: typeof PPopOver,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
     PTab: typeof PTab,
