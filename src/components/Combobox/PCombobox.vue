@@ -189,7 +189,6 @@
 }
 
 .p-combobox__text-input { @apply
-  cursor-default
   h-full
   w-full
   rounded-md
