@@ -4,7 +4,7 @@
       {{ prepend }}
     </div>
     <slot name="prepend" />
-    <slot name="control" :attrs="attrs" />
+    <slot name="control" :attrs="attrsWithDisabled" />
     <div v-if="append" class="base-input__append">
       {{ append }}
     </div>
@@ -52,6 +52,11 @@
     'base-input--disabled': props.disabled,
     'base-input--failed': failed.value,
     'base-input--pending': props.state?.pending,
+  }))
+
+  const attrsWithDisabled = computed(() => ({
+    ...attrs,
+    disabled: props.disabled,
   }))
 </script>
 
