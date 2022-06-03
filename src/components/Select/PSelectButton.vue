@@ -1,5 +1,5 @@
 <template>
-  <BaseInput ref="wrapperElement" class="p-select-button">
+  <BaseInput ref="wrapperElement" class="p-select-button" v-bind="$attrs">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -58,8 +58,17 @@
   </BaseInput>
 </template>
 
+<script lang="ts">
+  import { defineComponent, computed, ref } from 'vue'
+
+  export default defineComponent({
+    name: 'PSelectButton',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
   import BaseInput from '@/components/BaseInput/BaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'

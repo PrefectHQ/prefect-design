@@ -1,5 +1,5 @@
 <template>
-  <BaseInput class="p-native-select">
+  <BaseInput class="p-native-select" v-bind="$attrs">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -27,8 +27,17 @@
   </BaseInput>
 </template>
 
+<script lang="ts">
+  import { defineComponent, computed } from 'vue'
+
+  export default defineComponent({
+    name: 'PNativeSelect',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { computed } from 'vue'
   import BaseInput from '@/components/BaseInput/BaseInput.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'

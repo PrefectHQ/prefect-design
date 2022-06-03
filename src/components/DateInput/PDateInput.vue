@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, ref } from 'vue'
+  import { Component, computed, defineComponent, ref } from 'vue'
 
   export default defineComponent({
     name: 'PDateInput',

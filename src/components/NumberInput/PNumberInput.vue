@@ -1,5 +1,5 @@
 <template>
-  <BaseInput class="p-number-input">
+  <BaseInput class="p-number-input" v-bind="$attrs">
     <template v-for="(index, name) in $slots" #[name]="scope">
       <slot :name="name" v-bind="scope" />
     </template>
@@ -16,8 +16,17 @@
   </BaseInput>
 </template>
 
+<script lang="ts">
+  import { defineComponent, computed } from 'vue'
+
+  export default defineComponent({
+    name: 'PNumberInput',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { computed } from 'vue'
   import BaseInput from '@/components/BaseInput/BaseInput.vue'
   import { keys } from '@/types/keyEvent'
 

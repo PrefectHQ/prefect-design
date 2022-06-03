@@ -1,5 +1,5 @@
 <template>
-  <BaseInput class="p-textarea">
+  <BaseInput class="p-textarea" v-bind="$attrs">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -9,8 +9,17 @@
   </BaseInput>
 </template>
 
+<script lang="ts">
+  import { defineComponent, computed } from 'vue'
+
+  export default defineComponent({
+    name: 'PTextarea',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
 <script lang="ts" setup>
-  import { computed } from 'vue'
   import BaseInput from '@/components/BaseInput/BaseInput.vue'
 
   const props = defineProps<{

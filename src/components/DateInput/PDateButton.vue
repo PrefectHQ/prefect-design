@@ -1,5 +1,5 @@
 <template>
-  <BaseInput :disabled="disabled">
+  <BaseInput :disabled="disabled" v-bind="$attrs">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -23,9 +23,18 @@
   </BaseInput>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
   import { format } from 'date-fns'
-  import { computed, ref } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
+
+  export default defineComponent({
+    name: 'PDateButton',
+    expose: [],
+    inheritAttrs: false,
+  })
+</script>
+
+<script lang="ts" setup>
   import BaseInput from '@/components/BaseInput/BaseInput.vue'
 
   const props = defineProps<{
