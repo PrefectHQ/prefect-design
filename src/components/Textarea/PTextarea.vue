@@ -32,8 +32,12 @@
 </script>
 
 <style>
-.p-textarea__control {
-  cursor: text;
+.p-textarea__control { @apply
+  cursor-text
+}
+
+.p-textarea__control:disabled { @apply
+  cursor-not-allowed
 }
 
 .p-textarea__control { @apply

@@ -37,7 +37,6 @@
 <style>
 .p-select-option { @apply
   text-gray-900
-  cursor-default
   select-none
   relative
   py-2
