@@ -83,14 +83,16 @@
       </p-label>
 
       <p-label label="Hybrid Date Input" :message="JSON.stringify(exampleDate)" :state="exampleState">
-        <p-date-input
+        <!--
+          <p-date-input
           v-model="exampleDate"
           :show-time="showTimeInExampleDate"
           :clearable="isClearableDate"
           :min="minDate"
           :max="maxDate"
           :state="exampleState"
-        />
+          />
+        -->
         <div class="flex justify-start gap-4">
           <p-checkbox v-model="showTimeInExampleDate" label="Show Time" />
 
