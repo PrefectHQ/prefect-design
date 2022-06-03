@@ -1,3 +1,3 @@
 import BaseInput from './BaseInput.vue'
 
-export { ,install }
+export { BaseInput, install }
