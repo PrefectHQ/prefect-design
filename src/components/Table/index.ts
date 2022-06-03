@@ -7,7 +7,7 @@ import PTableHead from './PTableHead.vue'
 import PTableHeader from './PTableHeader.vue'
 import PTableRow from './PTableRow.vue'
 
-const installPTable = (app: App): void => {
+const install = (app: App): void => {
   app.component('PTable', PTable)
   app.component('PTableHead', PTableHead)
   app.component('PTableBody', PTableBody)
@@ -25,5 +25,5 @@ export {
   PTableHead,
   PTableHeader,
   PTableRow,
-  installPTable
+  install
 }
