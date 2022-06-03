@@ -14,6 +14,7 @@
           :date="adjustedSelectedDate"
           :class="classes"
           :style="styles"
+          :disabled="disabled"
           v-bind="attrs"
           @click="openPicker"
         />
@@ -26,6 +27,7 @@
           :max="max"
           :class="classes"
           :style="styles"
+          :disabled="disabled"
           v-bind="attrs"
           @keydown="handleTargetKeydown"
         />
@@ -72,6 +74,7 @@
     modelValue: Date | null | undefined,
     showTime?: boolean,
     clearable?: boolean,
+    disabled?: boolean,
     min?: Date | null | undefined,
     max?: Date | null | undefined,
   }>()
@@ -114,7 +117,7 @@
   }))
 
   function openPicker(): void {
-    if (!isOpen.value) {
+    if (!isOpen.value && !props.disabled) {
       popOver.value!.open()
     }
   }

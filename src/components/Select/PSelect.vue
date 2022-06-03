@@ -17,7 +17,7 @@
           :style="styles.control"
           v-bind="attrs"
           :options="selectOptions"
-          @click="openSelect"
+          @click="toggleSelect"
         >
           <template #default="scope">
             <slot v-bind="scope" :is-open="isOpen" :open="openSelect" :close="closeSelect" />
@@ -152,6 +152,14 @@
   function closeSelect(): void {
     if (isOpen.value) {
       popOver.value!.close()
+    }
+  }
+
+  function toggleSelect(): void {
+    if (isOpen.value) {
+      closeSelect()
+    } else {
+      openSelect()
     }
   }
 

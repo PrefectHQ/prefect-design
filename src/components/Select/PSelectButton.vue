@@ -141,8 +141,13 @@
   truncate
 }
 
-.p-select-button__value:empty:before {
-  content: "\200b";
+.p-select-button__value { @apply
+  min-h-[1.5rem]
+  flex
+  justify-start
+  items-stretch
+  w-full
+  h-full
 }
 
 .p-select-button__icon { @apply
