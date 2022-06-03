@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PCalendar from './PCalendar.vue'
 
-PCalendar.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PCalendar', PCalendar)
 }
 
-export default PCalendar
+export { PCalendar, install }

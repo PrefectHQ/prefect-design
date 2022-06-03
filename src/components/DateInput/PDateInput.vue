@@ -59,8 +59,8 @@
 
 <script lang="ts" setup>
   import PDateButton from '@/components/DateInput/PDateButton.vue'
-  import PDatePicker from '@/components/DatePicker'
-  import PNativeDateInput from '@/components/NativeDateInput'
+  import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
+  import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'

@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PListItem from './PListItem.vue'
 
-PListItem.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PListItem', PListItem)
 }
 
-export default PListItem
+export { PListItem, install }

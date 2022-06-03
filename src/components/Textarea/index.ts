@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PTextarea from './PTextarea.vue'
 
-PTextarea.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PTextarea', PTextarea)
 }
 
-export default PTextarea
+export { PTextarea, install }

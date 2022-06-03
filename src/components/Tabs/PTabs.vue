@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
   import { ref, onMounted, computed } from 'vue'
-  import { PTab } from '@/components/Tab'
+  import PTab from '@/components/Tab/PTab.vue'
   import { Tab, areTabs } from '@/types/tabs'
   import { kebabCase } from '@/utilities/strings'
 

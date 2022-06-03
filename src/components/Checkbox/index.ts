@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PCheckbox from './PCheckbox.vue'
 
-PCheckbox.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PCheckbox', PCheckbox)
 }
 
-export default PCheckbox
+export { PCheckbox, install }

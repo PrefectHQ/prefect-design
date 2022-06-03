@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PLink from './PLink.vue'
 
-PLink.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PLink', PLink)
 }
 
-export default PLink
+export { PLink, install }

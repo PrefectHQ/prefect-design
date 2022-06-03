@@ -60,7 +60,7 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import BaseInput from '@/components/BaseInput/BaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'

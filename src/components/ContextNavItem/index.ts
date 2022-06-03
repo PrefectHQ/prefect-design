@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PContextNavItem from './PContextNavItem.vue'
 
-PContextNavItem.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PContextNavItem', PContextNavItem)
 }
 
-export default PContextNavItem
+export { PContextNavItem, install }

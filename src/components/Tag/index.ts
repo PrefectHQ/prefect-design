@@ -1,10 +1,8 @@
 import { App } from 'vue'
 import PTag from './PTag.vue'
 
-
-PTag.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PTag', PTag)
 }
 
-export { PTag }
-export default PTag
+export { PTag, install }

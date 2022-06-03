@@ -16,8 +16,8 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import PCheckbox from '@/components/Checkbox'
-  import PIcon from '@/components/Icon'
+  import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
 
   const props = defineProps<{
     label: string,

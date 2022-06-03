@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PContextDivider from './PContextDivider.vue'
 
-PContextDivider.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PContextDivider', PContextDivider)
 }
 
-export default PContextDivider
+export { PContextDivider, install }

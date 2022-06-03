@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PIcon from './PIcon.vue'
 
-PIcon.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PIcon', PIcon)
 }
 
-export default PIcon
+export { PIcon, install }

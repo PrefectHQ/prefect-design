@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PDivider from './PDivider.vue'
 
-PDivider.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PDivider', PDivider)
 }
 
-export default PDivider
+export { PDivider, install }

@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PLayoutDefault from './PLayoutDefault.vue'
 
-PLayoutDefault.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PLayoutDefault', PLayoutDefault)
 }
 
-export default PLayoutDefault
+export { PLayoutDefault, install }

@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PKeyValue from './PKeyValue.vue'
 
-PKeyValue.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PKeyValue', PKeyValue)
 }
 
-export default PKeyValue
+export { PKeyValue, install }

@@ -14,8 +14,8 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
-  import PCheckbox from '../Checkbox'
-  import PListItem from '../ListItem'
+  import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
+  import PListItem from '@/components/ListItem/PListItem.vue'
 
   type Selected = boolean | unknown[] | undefined
 

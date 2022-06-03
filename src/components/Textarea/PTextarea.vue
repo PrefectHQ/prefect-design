@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import BaseInput from '@/components/BaseInput/BaseInput.vue'
 
   const props = defineProps<{
     modelValue: string | null | undefined,

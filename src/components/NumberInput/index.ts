@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PNumberInput from './PNumberInput.vue'
 
-PNumberInput.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PNumberInput', PNumberInput)
 }
 
-export default PNumberInput
+export { PNumberInput, install }

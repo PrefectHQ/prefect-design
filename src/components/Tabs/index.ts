@@ -1,10 +1,8 @@
 import { App } from 'vue'
 import PTabs from './PTabs.vue'
 
-
-PTabs.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PTabs', PTabs)
 }
 
-export { PTabs }
-export default PTabs
+export { PTabs, install }

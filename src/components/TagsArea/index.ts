@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PTagsArea from './PTagsArea.vue'
 
-PTagsArea.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PTagsArea', PTagsArea)
 }
 
-export default PTagsArea
+export { PTagsArea, install }

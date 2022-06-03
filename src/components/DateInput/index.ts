@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PDateInput from './PDateInput.vue'
 
-PDateInput.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PDateInput', PDateInput)
 }
 
-export default PDateInput
+export { PDateInput, install }

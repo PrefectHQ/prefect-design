@@ -1,6 +1,6 @@
-import { default as PLayoutDefault } from './PLayoutDefault'
-import { default as PLayoutFull } from './PLayoutFull'
-import { default as PLayoutWell } from './PLayoutWell'
+import { PLayoutDefault, install as installPLayoutDefault } from './PLayoutDefault'
+import { PLayoutFull, install as installPLayoutFull } from './PLayoutFull'
+import { PLayoutWell, install as installPLayoutWell } from './PLayoutWell'
 
 export {
   PLayoutDefault,
@@ -9,7 +9,7 @@ export {
 }
 
 export const layouts = [
-  PLayoutDefault.install,
-  PLayoutWell.install,
-  PLayoutFull.install,
+  installPLayoutDefault,
+  installPLayoutWell,
+  installPLayoutFull,
 ]
