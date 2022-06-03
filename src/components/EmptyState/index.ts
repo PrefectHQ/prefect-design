@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PEmptyState from './PEmptyState.vue'
 
-PEmptyState.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PEmptyState', PEmptyState)
 }
 
-export default PEmptyState
+export { PEmptyState, install }

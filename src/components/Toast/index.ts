@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PToast from './PToast.vue'
 
-PToast.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PToast', PToast)
 }
 
-export default PToast
+export { PToast, install }

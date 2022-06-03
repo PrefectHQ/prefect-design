@@ -2,8 +2,8 @@
 import { App } from 'vue'
 import PModal from './PModal.vue'
 
-PModal.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PModal', PModal)
 }
 
-export default PModal
+export { PModal, install }

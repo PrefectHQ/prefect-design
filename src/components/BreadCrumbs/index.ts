@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PBreadCrumbs from './PBreadCrumbs.vue'
 
-PBreadCrumbs.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PBreadCrumbs', PBreadCrumbs)
 }
 
-export default PBreadCrumbs
+export { PBreadCrumbs, install }

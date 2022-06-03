@@ -1,7 +1,7 @@
 import { App } from 'vue'
 import PLayoutWell from './PLayoutWell.vue'
 
-PLayoutWell.install = (app: App) => {
+const install = (app: App):void => {
   app.component('PLayoutWell', PLayoutWell)
 }
 

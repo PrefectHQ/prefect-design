@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PSelect from './PSelect.vue'
 
-PSelect.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PSelect', PSelect)
 }
 
-export default PSelect
+export { PSelect, install }

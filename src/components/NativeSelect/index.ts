@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PNativeSelect from './PNativeSelect.vue'
 
-PNativeSelect.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PNativeSelect', PNativeSelect)
 }
 
-export default PNativeSelect
+export { PNativeSelect, install }

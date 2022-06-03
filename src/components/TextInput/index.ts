@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PTextInput from './PTextInput.vue'
 
-PTextInput.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PTextInput', PTextInput)
 }
 
-export default PTextInput
+export { PTextInput, install }

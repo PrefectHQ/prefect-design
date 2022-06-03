@@ -7,31 +7,13 @@ import PTableHead from './PTableHead.vue'
 import PTableHeader from './PTableHeader.vue'
 import PTableRow from './PTableRow.vue'
 
-PTable.install = (app: App) => {
+const installPTable = (app: App): void => {
   app.component('PTable', PTable)
-}
-
-PTableHead.install = (app: App) => {
   app.component('PTableHead', PTableHead)
-}
-
-PTableBody.install = (app: App) => {
   app.component('PTableBody', PTableBody)
-}
-
-PTableHeader.install = (app: App) => {
   app.component('PTableHeader', PTableHeader)
-}
-
-PTableRow.install = (app: App) => {
   app.component('PTableRow', PTableRow)
-}
-
-PTableData.install = (app: App) => {
   app.component('PTableData', PTableData)
-}
-
-PTableFoot.install = (app: App) => {
   app.component('PTableFoot', PTableFoot)
 }
 
@@ -42,7 +24,6 @@ export {
   PTableFoot,
   PTableHead,
   PTableHeader,
-  PTableRow
+  PTableRow,
+  installPTable
 }
-
-export default PTable

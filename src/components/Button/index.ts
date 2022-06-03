@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PButton from './PButton.vue'
 
-PButton.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PButton', PButton)
 }
 
-export default PButton
+export { PButton, install }

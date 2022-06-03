@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PCombobox from './PCombobox.vue'
 
-PCombobox.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PCombobox', PCombobox)
 }
 
-export default PCombobox
+export { PCombobox, install }
