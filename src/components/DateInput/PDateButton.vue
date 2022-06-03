@@ -26,7 +26,7 @@
 <script lang="ts" setup>
   import { format } from 'date-fns'
   import { computed, ref } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import BaseInput from '@/components/BaseInput/BaseInput.vue'
 
   const props = defineProps<{
     date: Date | null | undefined,

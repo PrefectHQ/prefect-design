@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
   import PButton from '@/components/Button/PButton.vue'
-  import POverflowMenu from '@/components/OverflowMenu'
+  import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { Icon } from '@/types/icon'

@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import BaseInput from '@/components/BaseInput/BaseInput.vue'
   import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{

@@ -35,8 +35,8 @@
 <script lang="ts" setup>
   import { format, parseISO } from 'date-fns'
   import { computed, ref } from 'vue'
-  import BaseInput from '@/components/BaseInput'
-  import PIcon from '@/components/Icon'
+  import BaseInput from '@/components/BaseInput/BaseInput.vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,

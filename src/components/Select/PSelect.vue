@@ -74,7 +74,7 @@
 </script>
 
 <script lang="ts" setup>
-  import PNativeSelect from '@/components/NativeSelect'
+  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
