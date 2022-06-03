@@ -96,5 +96,4 @@ const ToastPlugin: Required<Plugin> = {
 }
 
 export type { Toast, ToastType, ToastOptions, ToastPluginOptions }
-export { queue, showToast, hideToast }
-export default ToastPlugin
+export { ToastPlugin, queue, showToast, hideToast }
