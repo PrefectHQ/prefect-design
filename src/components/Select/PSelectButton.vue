@@ -150,10 +150,6 @@
   h-full
 }
 
-.p-select-button__value:empty:before {
-  content: "\200b";
-}
-
 .p-select-button__icon { @apply
   pr-2
   flex
