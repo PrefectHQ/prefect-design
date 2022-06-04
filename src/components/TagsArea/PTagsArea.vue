@@ -11,14 +11,14 @@
         </template>
       </div>
     </slot>
-    <BaseInput v-bind="$attrs">
+    <PBaseInput v-bind="$attrs">
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="data" />
       </template>
       <template #control="{ attrs }">
         <input v-model="newTag" type="text" class="p-tags-area__input" v-bind="attrs" @keydown="handleKeydown">
       </template>
-    </BaseInput>
+    </PBaseInput>
   </div>
 </template>
 
@@ -33,7 +33,7 @@
 </script>
 
 <script lang="ts" setup>
-  import BaseInput from '@/components/BaseInput/BaseInput.vue'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import { keys } from '@/types'
 

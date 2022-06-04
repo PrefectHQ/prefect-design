@@ -1,5 +1,5 @@
 <template>
-  <BaseInput class="p-date-button">
+  <PBaseInput class="p-date-button">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -21,13 +21,13 @@
         <PIcon icon="CalendarIcon" />
       </span>
     </template>
-  </BaseInput>
+  </PBaseInput>
 </template>
 
 <script lang="ts" setup>
   import { format } from 'date-fns'
   import { computed, ref } from 'vue'
-  import BaseInput from '@/components/BaseInput/BaseInput.vue'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
     date: Date | null | undefined,

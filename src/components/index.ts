@@ -1,3 +1,4 @@
+import { PBaseInput, install as installPBaseInput } from './BaseInput'
 import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
 import { PButton, install as installPButton } from './Button'
 import { PCalendar, install as installPCalendar } from './Calendar'
@@ -46,6 +47,7 @@ import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 
 export {
+  PBaseInput,
   PBreadCrumbs,
   PButton,
   PCalendar,
@@ -101,6 +103,7 @@ export {
 }
 
 export const installs = [
+  installPBaseInput,
   installPBreadCrumbs,
   installPButton,
   installPCalendar,
@@ -151,6 +154,7 @@ export const installs = [
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
     PCalendar: typeof PCalendar,

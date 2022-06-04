@@ -1,5 +1,5 @@
 <template>
-  <BaseInput class="p-number-input">
+  <PBaseInput class="p-number-input">
     <template v-for="(index, name) in $slots" #[name]="scope">
       <slot :name="name" v-bind="scope" />
     </template>
@@ -13,12 +13,12 @@
         @paste="preventNonNumericalPaste"
       >
     </template>
-  </BaseInput>
+  </PBaseInput>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import BaseInput from '@/components/BaseInput/BaseInput.vue'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{
