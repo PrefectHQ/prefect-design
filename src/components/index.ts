@@ -1,6 +1,7 @@
 import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
 import { PButton, install as installPButton } from './Button'
 import { PCalendar, install as installPCalendar } from './Calendar'
+import { PCard, install as installPCard } from './Card'
 import { PCheckbox, install as installPCheckbox } from './Checkbox'
 import { PCode, install as installPCode } from './Code'
 import { PCombobox, install as installPCombobox } from './Combobox'
@@ -49,6 +50,7 @@ export {
   PBreadCrumbs,
   PButton,
   PCalendar,
+  PCard,
   PCheckbox,
   PCode,
   PCombobox,
@@ -104,6 +106,7 @@ export const installs = [
   installPBreadCrumbs,
   installPButton,
   installPCalendar,
+  installPCard,
   installPCheckbox,
   installPCode,
   installPCombobox,
@@ -154,6 +157,7 @@ declare module '@vue/runtime-core' {
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
     PCalendar: typeof PCalendar,
+    PCard: typeof PCard,
     PCheckbox: typeof PCheckbox,
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,

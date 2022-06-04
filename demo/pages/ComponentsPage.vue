@@ -39,6 +39,8 @@
     <IconButtonMenuSection />
 
     <DividerSection />
+
+    <CardSection />
   </Page>
 </template>
 
@@ -46,6 +48,7 @@
   import Page from '../components/Page.vue'
   import BreadCrumbsSection from '../sections/BreadCrumbsSection.vue'
   import ButtonsSection from '../sections/ButtonsSection.vue'
+  import CardSection from '../sections/CardSection.vue'
   import CodeSection from '../sections/CodeSection.vue'
   import DividerSection from '../sections/DividerSection.vue'
   import EmptyStateSection from '../sections/EmptyStateSection.vue'
