@@ -5,7 +5,7 @@
 </template>
 
 <style>
-.card {
+.p-card {
     @apply
   bg-white
   border
