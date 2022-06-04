@@ -100,6 +100,10 @@
   focus:ring-0
 }
 
+.p-native-date-input__control:disabled { @apply
+  cursor-not-allowed
+}
+
 .p-native-date-input__control--placeholder { @apply
   relative
   invisible

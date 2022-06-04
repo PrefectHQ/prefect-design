@@ -32,8 +32,12 @@
 </script>
 
 <style>
-.p-text-input__control {
-  cursor: text;
+.p-text-input__control { @apply
+  cursor-text
+}
+
+.p-text-input__control:disabled { @apply
+  cursor-not-allowed
 }
 
 .p-text-input__control { @apply

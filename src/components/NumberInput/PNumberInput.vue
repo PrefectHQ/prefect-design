@@ -63,8 +63,12 @@
 </script>
 
 <style>
-.p-number-input__control {
-  cursor: text;
+.p-number-input__control { @apply
+  cursor-text
+}
+
+.p-number-input__control:disabled { @apply
+  cursor-not-allowed
 }
 
 .p-number-input__control { @apply

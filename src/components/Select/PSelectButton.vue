@@ -141,6 +141,10 @@
   truncate
 }
 
+.p-select-button__control:disabled { @apply
+  cursor-not-allowed
+}
+
 .p-select-button__value { @apply
   min-h-[1.5rem]
   flex

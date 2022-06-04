@@ -100,6 +100,10 @@
   bg-none
 }
 
+.p-native-select__control:disabled { @apply
+  cursor-not-allowed
+}
+
 .p-native-select__control--multiple { @apply
   h-10
 }

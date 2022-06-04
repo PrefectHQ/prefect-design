@@ -98,4 +98,8 @@
   ring-0
   focus:ring-0
 }
+
+.p-tags-area__input:disabled { @apply
+  cursor-not-allowed
+}
 </style>
