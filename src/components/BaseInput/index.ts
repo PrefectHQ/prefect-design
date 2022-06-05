@@ -1,3 +1,8 @@
-import BaseInput from './BaseInput.vue'
+import { App } from 'vue'
+import PBaseInput from './PBaseInput.vue'
 
-export { BaseInput }
+const install = (app: App): void => {
+  app.component('PBaseInput', PBaseInput)
+}
+
+export { PBaseInput, install }
