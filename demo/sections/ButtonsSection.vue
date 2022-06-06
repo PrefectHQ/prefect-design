@@ -1,7 +1,7 @@
 <template>
   <Section heading="Buttons">
-    <PContent>
-      <PContent secondary flex>
+    <p-content>
+      <p-content secondary class="flex">
         <p-button>something</p-button>
         <p-button secondary>
           secondary
@@ -12,9 +12,9 @@
         <p-button flat>
           flat
         </p-button>
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex>
+      <p-content secondary class="flex">
         <p-button icon="BeakerIcon">
           icon with text
         </p-button>
@@ -30,23 +30,23 @@
         <p-button flat icon="BeakerIcon">
           icon with text
         </p-button>
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex>
+      <p-content secondary class="flex">
         <p-button icon="BeakerIcon" />
         <p-button secondary icon="BeakerIcon" />
         <p-button inset icon="BeakerIcon" />
         <p-button flat icon="BeakerIcon" />
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex>
+      <p-content secondary class="flex">
         <p-button rounded icon="BeakerIcon" />
         <p-button secondary rounded icon="BeakerIcon" />
         <p-button inset rounded icon="BeakerIcon" />
         <p-button flat rounded icon="BeakerIcon" />
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex class="items-start">
+      <p-content secondary class="flex items-start">
         <p-button size="xs">
           size xs
         </p-button>
@@ -62,17 +62,17 @@
         <p-button size="xl">
           size xl
         </p-button>
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex class="items-start">
+      <p-content secondary class="flex items-start">
         <p-button size="xs" rounded icon="BeakerIcon" />
         <p-button size="sm" rounded icon="BeakerIcon" />
         <p-button size="md" rounded icon="BeakerIcon" />
         <p-button size="lg" rounded icon="BeakerIcon" />
         <p-button size="xl" rounded icon="BeakerIcon" />
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex>
+      <p-content secondary class="flex">
         <p-button disabled>
           disabled
         </p-button>
@@ -81,23 +81,22 @@
         </p-button>
         <p-button disabled inset icon="BeakerIcon" />
         <p-button disabled flat icon="BeakerIcon" />
-      </PContent>
+      </p-content>
 
-      <PContent secondary flex>
+      <p-content secondary class="flex">
         <p-button :loading="buttonLoading" icon="BeakerIcon">
           Loading Button
         </p-button>
-      </PContent>
+      </p-content>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
-    </PContent>
+    </p-content>
   </Section>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
-  import PContent from '@/components/Content/PContent.vue'
 
   const buttonLoading = ref(false)
 </script>
