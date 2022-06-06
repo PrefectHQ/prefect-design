@@ -54,18 +54,18 @@
 <style>
 .p-key-value {
   @apply
-  text-xs
-  leading-4
+  w-full
+  text-sm
   flex
   flex-col
-  gap-y-1
-  font-normal
+  gap-y-2
+  leading-6
 }
 
 .p-key-value__label {
   @apply
   font-semibold
-  text-slate-800
+  cursor-default
 }
 
 .p-key-value__empty {
@@ -75,22 +75,16 @@
 
 .p-key-value--alt {
   @apply
-  w-full
-  text-sm
+  text-xs
+  leading-4
   flex
   flex-col
-  gap-y-2
-  leading-6
+  gap-y-1
+  font-normal
 }
 
 .p-key-value__label--alt {
   @apply
-  text-inherit
-  cursor-default
-}
-
-.p-key-value__value--alt, .p-key-value__empty--alt {
-  @apply
-  font-normal
+  text-slate-800
 }
 </style>
