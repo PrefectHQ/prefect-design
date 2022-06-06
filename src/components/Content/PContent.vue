@@ -8,10 +8,12 @@
   import { computed } from 'vue'
 
   const props = defineProps<{
+    flex?: boolean,
     secondary?: boolean,
   }>()
 
   const classes = computed(() => ({
+    'p-content--flex': props.flex,
     'p-content--secondary': props.secondary,
   }))
 </script>
@@ -19,10 +21,14 @@
 <style>
 .p-content { @apply
   grid
-  grid-4
+  gap-4
 }
 
-.p-content--secondary{ @apply
-  grid-2
+.p-content--flex { @apply
+  flex
+}
+
+.p-content--secondary { @apply
+  gap-2
 }
 </style>
