@@ -1,91 +1,96 @@
 <template>
   <Section heading="Buttons">
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button>something</p-button>
-      <p-button secondary>
-        secondary
-      </p-button>
-      <p-button inset>
-        inset
-      </p-button>
-      <p-button flat>
-        flat
-      </p-button>
-    </div>
+    <p-content>
+      <p-content secondary class="flex">
+        <p-button>something</p-button>
+        <p-button secondary>
+          secondary
+        </p-button>
+        <p-button inset>
+          inset
+        </p-button>
+        <p-button flat>
+          flat
+        </p-button>
+      </p-content>
 
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button icon="BeakerIcon">
-        icon with text
-      </p-button>
+      <p-content secondary class="flex">
+        <p-button icon="BeakerIcon">
+          icon with text
+        </p-button>
 
-      <p-button secondary icon="BeakerIcon">
-        icon with text
-      </p-button>
+        <p-button secondary icon="BeakerIcon">
+          icon with text
+        </p-button>
 
-      <p-button inset icon="BeakerIcon">
-        icon with text
-      </p-button>
+        <p-button inset icon="BeakerIcon">
+          icon with text
+        </p-button>
 
-      <p-button flat icon="BeakerIcon">
-        icon with text
-      </p-button>
-    </div>
+        <p-button flat icon="BeakerIcon">
+          icon with text
+        </p-button>
+      </p-content>
 
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button icon="BeakerIcon" />
-      <p-button secondary icon="BeakerIcon" />
-      <p-button inset icon="BeakerIcon" />
-      <p-button flat icon="BeakerIcon" />
-    </div>
+      <p-content secondary class="flex">
+        <p-button icon="BeakerIcon" />
+        <p-button secondary icon="BeakerIcon" />
+        <p-button inset icon="BeakerIcon" />
+        <p-button flat icon="BeakerIcon" />
+      </p-content>
 
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button rounded icon="BeakerIcon" />
-      <p-button secondary rounded icon="BeakerIcon" />
-      <p-button inset rounded icon="BeakerIcon" />
-      <p-button flat rounded icon="BeakerIcon" />
-    </div>
+      <p-content secondary class="flex">
+        <p-button rounded icon="BeakerIcon" />
+        <p-button secondary rounded icon="BeakerIcon" />
+        <p-button inset rounded icon="BeakerIcon" />
+        <p-button flat rounded icon="BeakerIcon" />
+      </p-content>
 
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button size="xs">
-        size xs
-      </p-button>
-      <p-button size="sm">
-        size sm
-      </p-button>
-      <p-button size="md">
-        size md
-      </p-button>
-      <p-button size="lg">
-        size lg
-      </p-button>
-      <p-button size="xl">
-        size xl
-      </p-button>
-    </div>
+      <p-content secondary class="flex items-start">
+        <p-button size="xs">
+          size xs
+        </p-button>
+        <p-button size="sm">
+          size sm
+        </p-button>
+        <p-button size="md">
+          size md
+        </p-button>
+        <p-button size="lg">
+          size lg
+        </p-button>
+        <p-button size="xl">
+          size xl
+        </p-button>
+      </p-content>
 
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button size="xs" rounded icon="BeakerIcon" />
-      <p-button size="sm" rounded icon="BeakerIcon" />
-      <p-button size="md" rounded icon="BeakerIcon" />
-      <p-button size="lg" rounded icon="BeakerIcon" />
-      <p-button size="xl" rounded icon="BeakerIcon" />
-    </div>
+      <p-content secondary class="flex items-start">
+        <p-button size="xs" rounded icon="BeakerIcon" />
+        <p-button size="sm" rounded icon="BeakerIcon" />
+        <p-button size="md" rounded icon="BeakerIcon" />
+        <p-button size="lg" rounded icon="BeakerIcon" />
+        <p-button size="xl" rounded icon="BeakerIcon" />
+      </p-content>
 
-    <div class="flex flex-wrap items-start gap-2 mb-4">
-      <p-button disabled>
-        disabled
-      </p-button>
-      <p-button disabled secondary icon="BeakerIcon">
-        disabled secondary with icon
-      </p-button>
-      <p-button disabled inset icon="BeakerIcon" />
-      <p-button disabled flat icon="BeakerIcon" />
-    </div>
+      <p-content secondary class="flex">
+        <p-button disabled>
+          disabled
+        </p-button>
+        <p-button disabled secondary icon="BeakerIcon">
+          disabled secondary with icon
+        </p-button>
+        <p-button disabled inset icon="BeakerIcon" />
+        <p-button disabled flat icon="BeakerIcon" />
+      </p-content>
 
-    <p-button :loading="buttonLoading" icon="BeakerIcon">
-      Loading Button
-    </p-button>
-    <p-checkbox v-model="buttonLoading" label="show loading" />
+      <p-content secondary class="flex">
+        <p-button :loading="buttonLoading" icon="BeakerIcon">
+          Loading Button
+        </p-button>
+      </p-content>
+
+      <p-checkbox v-model="buttonLoading" label="show loading" />
+    </p-content>
   </Section>
 </template>
 
