@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PContextSidebar from './PContextSidebar.vue'
 
-PContextSidebar.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PContextSidebar', PContextSidebar)
 }
 
-export default PContextSidebar
+export { PContextSidebar, install }

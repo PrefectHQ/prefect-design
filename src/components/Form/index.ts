@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PForm from './PForm.vue'
 
-PForm.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PForm', PForm)
 }
 
-export default PForm
+export { PForm, install }

@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PListItemInput from './PListItemInput.vue'
 
-PListItemInput.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PListItemInput', PListItemInput)
 }
 
-export default PListItemInput
+export { PListItemInput, install }

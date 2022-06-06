@@ -1,12 +1,8 @@
 import { App } from 'vue'
 import PCode from './PCode.vue'
 
-PCode.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PCode', PCode)
 }
 
-export default PCode
-
-export {
-  PCode
-}
+export { PCode, install }

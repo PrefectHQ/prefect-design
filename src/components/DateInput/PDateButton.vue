@@ -1,5 +1,5 @@
 <template>
-  <BaseInput :disabled="disabled">
+  <PBaseInput class="p-date-button">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -7,12 +7,13 @@
       <button
         ref="buttonElement"
         type="button"
-        class="p-date-button"
-        :class="classes"
+        class="p-date-button__control"
         aria-hidden="true"
         v-bind="attrs"
       >
-        {{ displayValue }}
+        <span class="p-date-button__value">
+          {{ displayValue }}
+        </span>
       </button>
     </template>
     <template #append>
@@ -20,26 +21,21 @@
         <PIcon icon="CalendarIcon" />
       </span>
     </template>
-  </BaseInput>
+  </PBaseInput>
 </template>
 
 <script lang="ts" setup>
   import { format } from 'date-fns'
   import { computed, ref } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
     date: Date | null | undefined,
-    disabled?: boolean,
   }>()
 
   const buttonElement = ref<HTMLButtonElement>()
   const el = computed(() => buttonElement.value)
   const displayValue = computed(() => {
-    if (props.disabled) {
-      return ''
-    }
-
     if (props.date) {
       return format(props.date, 'MM/dd/yyyy')
     }
@@ -47,15 +43,11 @@
     return 'mm/dd/yyyy'
   })
 
-  const classes = computed(() => ({
-    'p-date-button--disabled': props.disabled,
-  }))
-
   defineExpose({ el })
 </script>
 
 <style>
-.p-date-button { @apply
+.p-date-button__control { @apply
   w-full
   h-full
   py-2
@@ -70,12 +62,17 @@
   truncate
 }
 
-.p-date-button--disabled { @apply
+.p-date-button__control:disabled { @apply
   cursor-not-allowed
 }
 
-.p-date-button:empty:before {
-  content: "\200b";
+.p-date-button__value { @apply
+  min-h-[1.5rem]
+  flex
+  justify-start
+  items-stretch
+  w-full
+  h-full
 }
 
 .p-date-button__icon { @apply

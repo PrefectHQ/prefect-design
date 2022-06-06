@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PGlobalSidebar from './PGlobalSidebar.vue'
 
-PGlobalSidebar.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PGlobalSidebar', PGlobalSidebar)
 }
 
-export default PGlobalSidebar
+export { PGlobalSidebar, install }

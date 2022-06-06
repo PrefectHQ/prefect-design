@@ -15,6 +15,7 @@
           class="p-select__custom"
           :class="classes.control"
           :style="styles.control"
+          :disabled="disabled"
           v-bind="attrs"
           :options="selectOptions"
           @click="toggleSelect"
@@ -32,6 +33,7 @@
           class="p-select__native"
           :class="classes.control"
           :style="styles.control"
+          :disabled="disabled"
           v-bind="attrs"
           :options="filteredSelectOptions"
         />
@@ -74,7 +76,7 @@
 </script>
 
 <script lang="ts" setup>
-  import PNativeSelect from '@/components/NativeSelect'
+  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
@@ -87,6 +89,7 @@
 
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
+    disabled?: boolean,
     options: (string | number | SelectOption)[],
     filterOptions?: (option: SelectOption) => boolean,
   }>()
@@ -144,7 +147,7 @@
   }))
 
   function openSelect(): void {
-    if (!isOpen.value) {
+    if (!isOpen.value && !props.disabled) {
       popOver.value!.open()
     }
   }

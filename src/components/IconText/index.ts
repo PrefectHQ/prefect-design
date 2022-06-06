@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PIconText from './PIconText.vue'
 
-PIconText.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PIconText', PIconText)
 }
 
-export default PIconText
+export { PIconText, install }

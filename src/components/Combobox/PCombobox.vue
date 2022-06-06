@@ -55,7 +55,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, nextTick, withDefaults } from 'vue'
-  import PSelect from '@/components/Select'
+  import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 

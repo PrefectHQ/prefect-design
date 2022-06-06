@@ -82,6 +82,10 @@
   rounded
 }
 
+.p-checkbox__control:disabled { @apply
+  cursor-not-allowed
+}
+
 .p-checkbox__label { @apply
   text-sm
   font-medium

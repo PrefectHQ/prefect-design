@@ -21,7 +21,7 @@
 <script lang="ts" setup>
   import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
-  import PButton from '@/components/Button'
+  import PButton from '@/components/Button/PButton.vue'
   import { isDateAfter, isDateBefore, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{

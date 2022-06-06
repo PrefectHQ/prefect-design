@@ -1,17 +1,17 @@
 <template>
-  <BaseInput class="p-text-input">
+  <PBaseInput class="p-text-input">
     <template v-for="(index, name) in $slots" #[name]="scope">
       <slot :name="name" v-bind="scope" />
     </template>
     <template #control="{ attrs }">
       <input v-model="value" type="text" class="p-text-input__control" v-bind="attrs">
     </template>
-  </BaseInput>
+  </PBaseInput>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
     modelValue: string | null | undefined,
@@ -32,8 +32,12 @@
 </script>
 
 <style>
-.p-text-input__control {
-  cursor: text;
+.p-text-input__control { @apply
+  cursor-text
+}
+
+.p-text-input__control:disabled { @apply
+  cursor-not-allowed
 }
 
 .p-text-input__control { @apply

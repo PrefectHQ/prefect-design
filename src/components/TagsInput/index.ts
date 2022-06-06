@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PTagsInput from './PTagsInput.vue'
 
-PTagsInput.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PTagsInput', PTagsInput)
 }
 
-export default PTagsInput
+export { PTagsInput, install }

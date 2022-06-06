@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PGlobalNavItem from './PGlobalNavItem.vue'
 
-PGlobalNavItem.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PGlobalNavItem', PGlobalNavItem)
 }
 
-export default PGlobalNavItem
+export { PGlobalNavItem, install }

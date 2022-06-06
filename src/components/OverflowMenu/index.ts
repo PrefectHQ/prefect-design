@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import POverflowMenu from './POverflowMenu.vue'
 
-POverflowMenu.install = (app: App) => {
+const install = (app: App): void => {
   app.component('POverflowMenu', POverflowMenu)
 }
 
-export default POverflowMenu
+export { POverflowMenu, install }

@@ -1,5 +1,5 @@
 <template>
-  <BaseInput class="p-native-select">
+  <PBaseInput class="p-native-select">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -24,13 +24,13 @@
         <PIcon icon="SelectorIcon" />
       </span>
     </template>
-  </BaseInput>
+  </PBaseInput>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import BaseInput from '@/components/BaseInput'
-  import PIcon from '@/components/Icon'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
@@ -98,6 +98,10 @@
   focus:ring-0
   appearance-none
   bg-none
+}
+
+.p-native-select__control:disabled { @apply
+  cursor-not-allowed
 }
 
 .p-native-select__control--multiple { @apply

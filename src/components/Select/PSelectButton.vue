@@ -1,5 +1,5 @@
 <template>
-  <BaseInput ref="wrapperElement" class="p-select-button">
+  <PBaseInput ref="wrapperElement" class="p-select-button">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -55,12 +55,12 @@
         <PIcon icon="SelectorIcon" />
       </span>
     </template>
-  </BaseInput>
+  </PBaseInput>
 </template>
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
-  import BaseInput from '@/components/BaseInput'
+  import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
@@ -75,7 +75,7 @@
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
-  const wrapperElement = ref<typeof BaseInput>()
+  const wrapperElement = ref<typeof PBaseInput>()
   const wrapper = computed(() => wrapperElement.value?.el)
   const buttonElement = ref<HTMLButtonElement>()
   const el = computed(() => buttonElement.value)
@@ -139,6 +139,10 @@
   ring-0
   focus:ring-0
   truncate
+}
+
+.p-select-button__control:disabled { @apply
+  cursor-not-allowed
 }
 
 .p-select-button__value { @apply

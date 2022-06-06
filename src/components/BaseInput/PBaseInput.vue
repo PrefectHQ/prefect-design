@@ -1,18 +1,18 @@
 <template>
-  <div ref="el" class="base-input" :class="classes" :style="styles" v-bind="listeners">
-    <div v-if="prepend" class="base-input__prepend">
+  <div ref="el" class="p-base-input" :class="classes" :style="styles" v-bind="listeners">
+    <div v-if="prepend" class="p-base-input__prepend">
       {{ prepend }}
     </div>
     <slot name="prepend" />
-    <slot name="control" :attrs="attrs" />
-    <div v-if="append" class="base-input__append">
+    <slot name="control" :attrs="attrsWithDisabled" />
+    <div v-if="append" class="p-base-input__append">
       {{ append }}
     </div>
     <slot name="append" />
-    <div v-if="failed" class="base-input__failed-icon">
+    <div v-if="failed" class="p-base-input__failed-icon">
       <PIcon icon="ExclamationCircleIcon" />
     </div>
-    <div v-if="state?.pending" class="base-input__pending-icon">
+    <div v-if="state?.pending" class="p-base-input__pending-icon">
       <PIcon icon="RefreshIcon" />
     </div>
   </div>
@@ -49,14 +49,19 @@
 
   const classes = computed(() => ({
     ...convertToClassValueObject(attrClasses.value),
-    'base-input--disabled': props.disabled,
-    'base-input--failed': failed.value,
-    'base-input--pending': props.state?.pending,
+    'p-base-input--disabled': props.disabled,
+    'p-base-input--failed': failed.value,
+    'p-base-input--pending': props.state?.pending,
+  }))
+
+  const attrsWithDisabled = computed(() => ({
+    ...attrs,
+    disabled: props.disabled,
   }))
 </script>
 
 <style>
-.base-input { @apply
+.p-base-input { @apply
   w-full
   border
   flex
@@ -70,14 +75,14 @@
   rounded-md
 }
 
-.base-input--disabled,
-:disabled .base-input { @apply
+.p-base-input--disabled,
+:disabled .p-base-input { @apply
   cursor-not-allowed
   opacity-50
 }
 
-.base-input__prepend,
-.base-input__append { @apply
+.p-base-input__prepend,
+.p-base-input__append { @apply
   px-2
   flex
   flex-col
@@ -88,34 +93,34 @@
   border-gray-300
 }
 
-.base-input__prepend { @apply
+.p-base-input__prepend { @apply
   border-r
 }
 
-.base-input__append { @apply
+.p-base-input__append { @apply
   border-l
 }
 
-.base-input--failed { @apply
+.p-base-input--failed { @apply
   border-red-600
   focus-within:border-red-600
   focus-within:ring-red-600
 }
 
-.base-input__failed-icon { @apply
+.p-base-input__failed-icon { @apply
   text-red-600
   w-5
   h-5
   mr-2
 }
 
-.base-input--pending { @apply
+.p-base-input--pending { @apply
   border-prefect-300
   focus-within:border-prefect-300
   focus-within:ring-prefect-300
 }
 
-.base-input__pending-icon { @apply
+.p-base-input__pending-icon { @apply
   text-prefect-300
   w-5
   h-5

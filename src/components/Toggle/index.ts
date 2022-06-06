@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PToggle from './PToggle.vue'
 
-PToggle.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PToggle', PToggle)
 }
 
-export default PToggle
+export { PToggle, install }

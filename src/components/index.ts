@@ -1,57 +1,63 @@
-import { default as PBreadCrumbs } from './BreadCrumbs'
-import { default as PButton } from './Button'
-import { default as PCalendar } from './Calendar'
-import { default as PCheckbox } from './Checkbox'
-import { default as PCode } from './Code'
-import { default as PCombobox } from './Combobox'
-import { default as PContextDivider } from './ContextDivider'
-import { default as PContextNavItem } from './ContextNavItem'
-import { default as PContextSidebar } from './ContextSidebar'
-import { default as PDateInput } from './DateInput'
-import { default as PDatePicker } from './DatePicker'
-import { default as PDivider } from './Divider'
-import { default as PEmptyResults } from './EmptyResults'
-import { default as PEmptyState } from './EmptyState'
-import { default as PForm } from './Form'
-import { default as PGlobalNavItem } from './GlobalNavItem'
-import { default as PGlobalSidebar } from './GlobalSidebar'
-import { default as PIcon } from './Icon'
-import { default as PIconButtonMenu } from './IconButtonMenu'
-import { default as PIconText } from './IconText'
-import { default as PKeyValue } from './KeyValue'
-import { default as PLabel } from './Label'
-import { default as PLink } from './Link'
-import { default as PListItem } from './ListItem'
-import { default as PListItemInput } from './ListItemInput'
-import { default as PModal } from './Modal'
-import { default as PNativeDateInput } from './NativeDateInput'
-import { default as PNativeSelect } from './NativeSelect'
-import { default as PNumberInput } from './NumberInput'
-import { default as POverflowMenu } from './OverflowMenu'
-import { default as POverflowMenuItem } from './OverflowMenuItem'
-import { default as PPopOver } from './PopOver'
-import { default as PSelect } from './Select'
-import { default as PSelectOption } from './SelectOption'
-import { default as PTab } from './Tab'
-import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow } from './Table'
-import { default as PTabs } from './Tabs'
-import { default as PTag } from './Tag'
-import { default as PTags } from './Tags'
-import { default as PTagsArea } from './TagsArea'
-import { default as PTagsInput } from './TagsInput'
-import { default as PTagWrapper } from './TagWrapper'
-import { default as PTextarea } from './Textarea'
-import { default as PTextInput } from './TextInput'
-import { default as PToast } from './Toast'
-import { default as PToggle } from './Toggle'
+import { PBaseInput, install as installPBaseInput } from './BaseInput'
+import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
+import { PButton, install as installPButton } from './Button'
+import { PCalendar, install as installPCalendar } from './Calendar'
+import { PCard, install as installPCard } from './Card'
+import { PCheckbox, install as installPCheckbox } from './Checkbox'
+import { PCode, install as installPCode } from './Code'
+import { PCombobox, install as installPCombobox } from './Combobox'
+import { PContent, install as installPContent } from './Content'
+import { PContextDivider, install as installPContextDivider } from './ContextDivider'
+import { PContextNavItem, install as installPContextNavItem } from './ContextNavItem'
+import { PContextSidebar, install as installPContextSidebar } from './ContextSidebar'
+import { PDateInput, install as installPDateInput } from './DateInput'
+import { PDatePicker, install as installPDatePicker } from './DatePicker'
+import { PDivider, install as installPDivider } from './Divider'
+import { PEmptyResults, install as installPEmptyResults } from './EmptyResults'
+import { PEmptyState, install as installPEmptyState } from './EmptyState'
+import { PForm, install as installPForm } from './Form'
+import { PGlobalNavItem, install as installPGlobalNavItem } from './GlobalNavItem'
+import { PGlobalSidebar, install as installPGlobalSidebar } from './GlobalSidebar'
+import { PIcon, install as installPIcon } from './Icon'
+import { PIconButtonMenu, install as installPIconButtonMenu } from './IconButtonMenu'
+import { PIconText, install as installPIconText } from './IconText'
+import { PKeyValue, install as installPKeyValue } from './KeyValue'
+import { PLabel, install as installPLabel } from './Label'
+import { PLink, install as installPLink } from './Link'
+import { PListItem, install as installPListItem } from './ListItem'
+import { PListItemInput, install as installPListItemInput } from './ListItemInput'
+import { PModal, install as installPModal } from './Modal'
+import { PNativeDateInput, install as installPNativeDateInput } from './NativeDateInput'
+import { PNativeSelect, install as installPNativeSelect } from './NativeSelect'
+import { PNumberInput, install as installPNumberInput } from './NumberInput'
+import { POverflowMenu, install as installPOverflowMenu } from './OverflowMenu'
+import { POverflowMenuItem, install as installPOverflowMenuItem } from './OverflowMenuItem'
+import { PPopOver, install as installPPopOver } from './PopOver'
+import { PSelect, install as installPSelect } from './Select'
+import { PSelectOption, install as installPSelectOption } from './SelectOption'
+import { PTab, install as installPTab } from './Tab'
+import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow, install as installPTable } from './Table'
+import { PTabs, install as installPTabs } from './Tabs'
+import { PTag, install as installPTag } from './Tag'
+import { PTags, install as installPTags } from './Tags'
+import { PTagsArea, install as installPTagsArea } from './TagsArea'
+import { PTagsInput, install as installPTagsInput } from './TagsInput'
+import { PTagWrapper, install as installPTagWrapper } from './TagWrapper'
+import { PTextarea, install as installPTextarea } from './Textarea'
+import { PTextInput, install as installPTextInput } from './TextInput'
+import { PToast, install as installPToast } from './Toast'
+import { PToggle, install as installPToggle } from './Toggle'
 
 export {
+  PBaseInput,
   PBreadCrumbs,
   PButton,
   PCalendar,
+  PCard,
   PCheckbox,
   PCode,
   PCombobox,
+  PContent,
   PContextDivider,
   PContextNavItem,
   PContextSidebar,
@@ -101,68 +107,68 @@ export {
 }
 
 export const installs = [
-  PBreadCrumbs.install,
-  PButton.install,
-  PCalendar.install,
-  PCheckbox.install,
-  PCode.install,
-  PCombobox.install,
-  PContextDivider.install,
-  PContextNavItem.install,
-  PContextSidebar.install,
-  PDateInput.install,
-  PDatePicker.install,
-  PDivider.install,
-  PEmptyResults.install,
-  PEmptyState.install,
-  PForm.install,
-  PGlobalNavItem.install,
-  PGlobalSidebar.install,
-  PIcon.install,
-  PIconButtonMenu.install,
-  PIconText.install,
-  PKeyValue.install,
-  PLabel.install,
-  PLink.install,
-  PListItem.install,
-  PListItemInput.install,
-  PModal.install,
-  PNativeDateInput.install,
-  PNativeSelect.install,
-  PNumberInput.install,
-  POverflowMenu.install,
-  POverflowMenuItem.install,
-  PPopOver.install,
-  PSelect.install,
-  PSelectOption.install,
-  PTab.install,
-  PTable.install,
-  PTableBody.install,
-  PTableData.install,
-  PTableFoot.install,
-  PTableHead.install,
-  PTableHeader.install,
-  PTableRow.install,
-  PTabs.install,
-  PTag.install,
-  PTags.install,
-  PTagsArea.install,
-  PTagsInput.install,
-  PTagWrapper.install,
-  PTextarea.install,
-  PTextInput.install,
-  PToast.install,
-  PToggle.install,
+  installPBaseInput,
+  installPBreadCrumbs,
+  installPButton,
+  installPCalendar,
+  installPCard,
+  installPCheckbox,
+  installPCode,
+  installPCombobox,
+  installPContent,
+  installPContextDivider,
+  installPContextNavItem,
+  installPContextSidebar,
+  installPDateInput,
+  installPDatePicker,
+  installPDivider,
+  installPEmptyResults,
+  installPEmptyState,
+  installPForm,
+  installPGlobalNavItem,
+  installPGlobalSidebar,
+  installPIcon,
+  installPIconButtonMenu,
+  installPIconText,
+  installPKeyValue,
+  installPLabel,
+  installPLink,
+  installPListItem,
+  installPListItemInput,
+  installPModal,
+  installPNativeDateInput,
+  installPNativeSelect,
+  installPNumberInput,
+  installPOverflowMenu,
+  installPOverflowMenuItem,
+  installPPopOver,
+  installPSelect,
+  installPSelectOption,
+  installPTab,
+  installPTable,
+  installPTabs,
+  installPTag,
+  installPTags,
+  installPTagsArea,
+  installPTagsInput,
+  installPTagWrapper,
+  installPTextarea,
+  installPTextInput,
+  installPToast,
+  installPToggle,
 ]
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
     PCalendar: typeof PCalendar,
+    PCard: typeof PCard,
     PCheckbox: typeof PCheckbox,
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,
+    PContent: typeof PContent,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,

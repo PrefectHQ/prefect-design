@@ -1,8 +1,8 @@
 import { App } from 'vue'
 import PNativeDateInput from './PNativeDateInput.vue'
 
-PNativeDateInput.install = (app: App) => {
+const install = (app: App): void => {
   app.component('PNativeDateInput', PNativeDateInput)
 }
 
-export default PNativeDateInput
+export { PNativeDateInput, install }
