@@ -27,7 +27,7 @@
 
   <style>
   .p-empty-state { @apply
-    border-2
+    border
     border-gray-300
     bg-white
     rounded-lg
