@@ -1,0 +1,28 @@
+<template>
+  <div class="p-content" :class="classes">
+    <slot />
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { computed } from 'vue'
+
+  const props = defineProps<{
+    secondary?: boolean,
+  }>()
+
+  const classes = computed(() => ({
+    'p-content--secondary': props.secondary,
+  }))
+</script>
+
+<style>
+.p-content { @apply
+  grid
+  grid-4
+}
+
+.p-content--secondary{ @apply
+  grid-2
+}
+</style>

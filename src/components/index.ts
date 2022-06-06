@@ -6,6 +6,7 @@ import { PCard, install as installPCard } from './Card'
 import { PCheckbox, install as installPCheckbox } from './Checkbox'
 import { PCode, install as installPCode } from './Code'
 import { PCombobox, install as installPCombobox } from './Combobox'
+import { PContent, install as installPContent } from './Content'
 import { PContextDivider, install as installPContextDivider } from './ContextDivider'
 import { PContextNavItem, install as installPContextNavItem } from './ContextNavItem'
 import { PContextSidebar, install as installPContextSidebar } from './ContextSidebar'
@@ -56,6 +57,7 @@ export {
   PCheckbox,
   PCode,
   PCombobox,
+  PContent,
   PContextDivider,
   PContextNavItem,
   PContextSidebar,
@@ -113,6 +115,7 @@ export const installs = [
   installPCheckbox,
   installPCode,
   installPCombobox,
+  installPContent,
   installPContextDivider,
   installPContextNavItem,
   installPContextSidebar,
@@ -165,6 +168,7 @@ declare module '@vue/runtime-core' {
     PCheckbox: typeof PCheckbox,
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,
+    PContent: typeof PContent,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
