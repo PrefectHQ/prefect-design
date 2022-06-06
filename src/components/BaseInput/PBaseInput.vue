@@ -56,7 +56,7 @@
 
   const attrsWithDisabled = computed(() => ({
     ...attrs.value,
-    disabled: true,
+    disabled: props.disabled,
   }))
 </script>
 
