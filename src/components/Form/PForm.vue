@@ -1,12 +1,14 @@
 <template>
   <form class="p-form" @submit.prevent="emits('submit', $event)">
-    <div class="p-form__header">
-      <slot name="heading">
-        <span>
-          {{ heading }}
-        </span>
-      </slot>
-    </div>
+    <template v-if="slots.heading || heading">
+      <div class="p-form__header">
+        <slot name="heading">
+          <span>
+            {{ heading }}
+          </span>
+        </slot>
+      </div>
+    </template>
     <slot />
     <div class="p-form__footer">
       <slot name="footer">
@@ -22,6 +24,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { useSlots } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
 
   defineProps<{
@@ -34,6 +37,8 @@
     (event: 'cancel'): void,
     (event: 'submit', value: Event): void,
   }>()
+
+  const slots = useSlots()
 </script>
 
 <style>
