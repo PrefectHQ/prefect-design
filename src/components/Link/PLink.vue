@@ -37,6 +37,7 @@
 .p-link { @apply
   text-primary
   font-semibold
+  cursor-pointer
 }
 
 .p-link__external-icon { @apply
