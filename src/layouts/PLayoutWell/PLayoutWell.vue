@@ -35,6 +35,7 @@
   col-span-3
   grid
   gap-4
+  grid-cols-[minmax(0,1fr)]
 }
 
 .p-layout-well__well {

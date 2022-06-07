@@ -23,6 +23,7 @@
 .p-layout-default__content {
   @apply
   grid
+  grid-cols-[minmax(0,1fr)]
   gap-4
 }
 </style>
