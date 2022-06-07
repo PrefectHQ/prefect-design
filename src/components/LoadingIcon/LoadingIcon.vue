@@ -16,7 +16,7 @@
   w-4
   h-4
   border-2
-  border-primary
+  border-current
   border-r-transparent
   border-b-transparent
   border-l-transparent

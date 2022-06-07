@@ -106,6 +106,7 @@
 .p-toggle__switch-loader {
   @apply
   absolute
+  text-prefect-500
   w-full
   h-full
 }
