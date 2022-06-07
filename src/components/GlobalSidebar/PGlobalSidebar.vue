@@ -6,10 +6,6 @@
 
     <div class="p-global-sidebar__nav-links">
       <slot name="bottom-links" />
-
-      <div class="p-global-sidebar__profile">
-        <slot name="profile-button" />
-      </div>
     </div>
   </div>
 </template>
@@ -42,16 +38,5 @@
   flex-row
   lg:gap-5
   lg:flex-col
-}
-
-.p-global-sidebar__profile {
-  @apply
-  cursor-pointer
-  h-10
-  w-10
-  rounded-full
-  hidden
-  overflow-hidden
-  lg:block
 }
 </style>
