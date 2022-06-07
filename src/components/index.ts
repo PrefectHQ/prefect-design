@@ -26,6 +26,7 @@ import { PLabel, install as installPLabel } from './Label'
 import { PLink, install as installPLink } from './Link'
 import { PListItem, install as installPListItem } from './ListItem'
 import { PListItemInput, install as installPListItemInput } from './ListItemInput'
+import { PLoadingIcon, install as installPLoadingIcon } from './LoadingIcon'
 import { PModal, install as installPModal } from './Modal'
 import { PNativeDateInput, install as installPNativeDateInput } from './NativeDateInput'
 import { PNativeSelect, install as installPNativeSelect } from './NativeSelect'
@@ -77,6 +78,7 @@ export {
   PLink,
   PListItem,
   PListItemInput,
+  PLoadingIcon,
   PModal,
   PNativeDateInput,
   PNativeSelect,
@@ -135,6 +137,7 @@ export const installs = [
   installPLink,
   installPListItem,
   installPListItemInput,
+  installPLoadingIcon,
   installPModal,
   installPNativeDateInput,
   installPNativeSelect,
@@ -187,6 +190,7 @@ declare module '@vue/runtime-core' {
     PLink: typeof PLink,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
+    PLoadingIcon: typeof PLoadingIcon,
     PModal: typeof PModal,
     PNativeDateInput: typeof PNativeDateInput,
     PNativeSelect: typeof PNativeSelect,

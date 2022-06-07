@@ -7,15 +7,14 @@
       <slot />
     </div>
     <template v-if="loading">
-      <div class="p-button__loading-icon">
-        <p-icon icon="RefreshIcon" />
-      </div>
+      <PLoadingIcon class="p-button__loading-icon" />
     </template>
   </button>
 </template>
 
 <script lang="ts" setup>
   import { computed, useSlots, PropType, ref } from 'vue'
+  import { PLoadingIcon } from '@/components'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
@@ -151,7 +150,7 @@
   px-2
   py-1
 }
-.p-button-xs .p-button__loading-icon,
+
 .p-button-xs .p-button__icon { @apply
   h-3
   w-3
@@ -165,7 +164,7 @@
   px-3
   py-1
 }
-.p-button-sm .p-button__loading-icon,
+
 .p-button-sm .p-button__icon { @apply
   h-3.5
   w-3.5
@@ -179,7 +178,7 @@
   px-4
   py-2
 }
-.p-button-md .p-button__loading-icon,
+
 .p-button-md .p-button__icon { @apply
   h-4
   w-4
@@ -193,7 +192,7 @@
   px-5
   py-2
 }
-.p-button-lg .p-button__loading-icon,
+
 .p-button-lg .p-button__icon { @apply
   h-5
   w-5
@@ -207,7 +206,7 @@
   px-6
   py-3
 }
-.p-button-xl .p-button__loading-icon,
+
 .p-button-xl .p-button__icon { @apply
   h-6
   w-6
@@ -231,16 +230,5 @@
 
 .p-button--loading .p-button__content { @apply
   invisible
-}
-
-.p-button__loading-icon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.p-button__loading-icon svg { @apply
-  animate-spin
 }
 </style>

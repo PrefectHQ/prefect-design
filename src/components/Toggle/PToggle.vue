@@ -2,13 +2,7 @@
   <SwitchGroup as="div" class="p-toggle">
     <Switch v-model="value" class="p-toggle__switch" :class="classes.toggle" :disabled="disabled || loading">
       <span aria-hidden="true" class="p-toggle__switch-aria" :class="classes.translate">
-        <div v-if="loading" class="p-toggle__switch-loader">
-          <div />
-          <div />
-          <div />
-          <div />
-
-        </div>
+        <PLoadingIcon v-if="loading" class="p-toggle__switch-loader" />
       </span>
     </Switch>
     <SwitchLabel v-if="$slots.append" as="span" class="ml-3">
@@ -20,6 +14,7 @@
 <script lang="ts" setup>
   import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
   import { computed } from 'vue'
+  import { PLoadingIcon } from '@/components'
 
   const props = defineProps<{
     modelValue: boolean,
@@ -111,46 +106,8 @@
 .p-toggle__switch-loader {
   @apply
   absolute
+  text-prefect-500
   w-full
   h-full
-}
-
-.p-toggle__switch-loader div {
-  animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-
-  @apply
-  absolute
-  w-4
-  h-4
-  border-2
-  border-primary
-  border-r-transparent
-  border-b-transparent
-  border-l-transparent
-  rounded-[50%]
-  top-[50%]
-  left-[50%]
-}
-
-
-.p-toggle__switch-loader div:nth-child(1) {
-  animation-delay: -450ms;
-}
-
-.p-toggle__switch-loader div:nth-child(2) {
-  animation-delay: -300ms;
-}
-
-.p-toggle__switch-loader div:nth-child(3) {
-  animation-delay: -150ms;
-}
-
-@keyframes loading {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
 }
 </style>
