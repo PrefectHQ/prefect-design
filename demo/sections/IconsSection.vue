@@ -31,8 +31,6 @@
   import { HeroIcon, PrefectIcon } from '@/types'
 
   const prefectIconKeys = Object.keys(prefectIcons) as PrefectIcon[]
-
-  console.log({ prefectIconKeys })
   const heroIconKeys = Object.keys(heroIcons) as HeroIcon[]
 
   async function copy(icon: string): Promise<void> {
