@@ -1,8 +1,6 @@
 <template>
   <div class="p-text">
-    <slot name="icon">
-      <p-icon v-if="icon" :icon="icon" class="p-text__icon" />
-    </slot>
+    <p-icon :icon="icon" class="p-text__icon" />
     <div class="p-text__label">
       <slot>
         {{ text }}
@@ -15,7 +13,7 @@
   import { Icon } from '@/types/icon'
 
   defineProps<{
-    icon?: Icon,
+    icon: Icon,
     text?: string,
   }>()
 </script>
