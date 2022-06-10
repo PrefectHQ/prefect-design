@@ -1,8 +1,6 @@
 <template>
   <Section heading="Icon Text">
-    <p-icon-text v-for="icon in icons" :key="icon" :icon="icon" class="mt-2">
-      <span>{{ icon }}</span>
-    </p-icon-text>
+    <p-icon-text v-for="icon in icons" :key="icon" :icon="icon" :text="icon" class="mt-2" />
   </Section>
 </template>
 

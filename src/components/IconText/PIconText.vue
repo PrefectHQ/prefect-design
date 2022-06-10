@@ -1,8 +1,12 @@
 <template>
   <div class="p-text">
-    <p-icon :icon="icon" class="p-text__icon" />
+    <slot name="icon">
+      <p-icon v-if="icon" :icon="icon" class="p-text__icon" />
+    </slot>
     <div class="p-text__label">
-      <slot />
+      <slot>
+        {{ text }}
+      </slot>
     </div>
   </div>
 </template>
@@ -11,7 +15,8 @@
   import { Icon } from '@/types/icon'
 
   defineProps<{
-    icon: Icon,
+    icon?: Icon,
+    text?: string,
   }>()
 </script>
 
@@ -19,6 +24,7 @@
 .p-text { @apply
   flex
   items-start
+  gap-1
 }
 
 .p-text__icon { @apply
@@ -26,7 +32,6 @@
   w-4
   flex-shrink-0
   h-4
-  mr-1
 }
 
 .p-text__label { @apply
