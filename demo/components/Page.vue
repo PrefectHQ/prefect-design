@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <header>
+    <header class="mb-5">
       <div>
         <h1 class="text-3xl font-bold leading-tight text-gray-900">
           {{ heading }}

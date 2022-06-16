@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-full px-4 py-8 sm:px-0">
+  <div class="max-w-full px-4 mb-8 sm:px-0">
     <p class="text-2xl mb-3">
       {{ heading }}
     </p>

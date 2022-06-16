@@ -8,6 +8,7 @@
     </template>
 
     <p-context-nav-item title="Components" icon="PuzzleIcon" to="/components" />
+    <p-context-nav-item title="Tables" icon="TableIcon" to="/tables" />
     <p-context-nav-item title="Icons" icon="AdjustmentsIcon" to="/icons" />
     <p-context-divider />
     <p-context-nav-item title="Layouts" icon="TemplateIcon" to="/layouts" />

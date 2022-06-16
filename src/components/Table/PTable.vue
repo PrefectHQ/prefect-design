@@ -5,7 +5,7 @@
         <p-table-head>
           <slot name="header">
             <p-table-row>
-              <template v-for="column in columns" :key="column">
+              <template v-for="column in visibleColumns" :key="column">
                 <p-table-header :style="getColumnStyle(column)">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
@@ -18,7 +18,7 @@
         <p-table-body>
           <template v-for="(row, index) in data" :key="index">
             <p-table-row>
-              <template v-for="column in columns" :key="column">
+              <template v-for="column in visibleColumns" :key="column">
                 <p-table-data>
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
                     {{ getValue(row, column) }}
@@ -29,7 +29,7 @@
           </template>
           <template v-if="slots['empty-state'] && data.length === 0">
             <p-table-row>
-              <td :colspan="columns.length">
+              <td :colspan="visibleColumns.length">
                 <slot name="empty-state" />
               </td>
             </p-table-row>
@@ -81,6 +81,8 @@
 
     return []
   })
+
+  const visibleColumns = computed<TableColumn[]>(() => columns.value.filter(column => column.visible ?? true))
 
   function getColumnStyle(column: TableColumn): StyleValue {
     if (column.width === undefined) {
