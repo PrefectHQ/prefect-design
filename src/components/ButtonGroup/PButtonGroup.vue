@@ -2,7 +2,7 @@
   <div class="p-button-group__container">
     <p-button
       class="p-button-group p-button-group__left"
-      :inset="activeLeft"
+      :inset="secondaryLeft"
       :size="size"
       :icon="leftIcon"
       :disabled="disabled"
@@ -12,7 +12,7 @@
     </p-button>
     <p-button
       class="p-button-group p-button-group__right"
-      :inset="activeRight"
+      :inset="secondaryRight"
       :size="size"
       :icon="rightIcon"
       :disabled="disabled"
@@ -40,22 +40,22 @@
     rightIcon: undefined,
   })
 
-  const activeRight = ref<boolean>(true)
-  const activeLeft = ref<boolean>(false)
+  const secondaryRight = ref<boolean>(true)
+  const secondaryLeft = ref<boolean>(false)
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: string): void,
   }>()
 
   const clickLeft = (): void => {
-    activeRight.value = true
-    activeLeft.value = false
+    secondaryRight.value = true
+    secondaryLeft.value = false
     emit('update:modelValue', props.leftValue)
   }
 
   const clickRight = (): void => {
-    activeRight.value = false
-    activeLeft.value = true
+    secondaryRight.value = false
+    secondaryLeft.value = true
     emit('update:modelValue', props.rightValue)
   }
 
