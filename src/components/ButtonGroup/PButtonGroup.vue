@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, withDefaults } from 'vue'
+  import { onMounted, ref, withDefaults } from 'vue'
   import { Icon, Size } from '@/types'
 
   const props = withDefaults(defineProps<{
@@ -58,6 +58,10 @@
     activeLeft.value = true
     emit('update:modelValue', props.rightValue)
   }
+
+  onMounted(() => {
+    emit('update:modelValue', props.leftValue)
+  })
 </script>
 
 <style>
