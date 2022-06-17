@@ -1,6 +1,7 @@
 import { PBaseInput, install as installPBaseInput } from './BaseInput'
 import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
 import { PButton, install as installPButton } from './Button'
+import { PCardButton, install as installPCardButton } from './CardButton'
 import { PCalendar, install as installPCalendar } from './Calendar'
 import { PCard, install as installPCard } from './Card'
 import { PCheckbox, install as installPCheckbox } from './Checkbox'
@@ -53,6 +54,7 @@ export {
   PBaseInput,
   PBreadCrumbs,
   PButton,
+  PCardButton,
   PCalendar,
   PCard,
   PCheckbox,
@@ -112,6 +114,7 @@ export const installs = [
   installPBaseInput,
   installPBreadCrumbs,
   installPButton,
+  installPCardButton,
   installPCalendar,
   installPCard,
   installPCheckbox,
@@ -166,6 +169,7 @@ declare module '@vue/runtime-core' {
     PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
+    PCardButton: typeof PCardButton,
     PCalendar: typeof PCalendar,
     PCard: typeof PCard,
     PCheckbox: typeof PCheckbox,
