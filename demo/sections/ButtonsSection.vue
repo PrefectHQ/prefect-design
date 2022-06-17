@@ -90,6 +90,13 @@
       </p-content>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
+
+      <p-button-group
+        left-value="Email"
+        right-value="Slack"
+        left-icon="BeakerIcon"
+        @update:model-value="test"
+      />
     </p-content>
   </Section>
 </template>
@@ -99,4 +106,8 @@
   import Section from '../components/Section.vue'
 
   const buttonLoading = ref(false)
+
+  const test = (value: string): void => {
+    console.log(value)
+  }
 </script>
