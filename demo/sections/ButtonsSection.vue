@@ -92,6 +92,7 @@
       <p-checkbox v-model="buttonLoading" label="show loading" />
 
       <p-button-group v-model="preselectedItem" :options="buttonGroup" @update:model-value="selectButton" />
+      <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" @update:model-value="selectButton" />
     </p-content>
   </Section>
 </template>
@@ -119,8 +120,9 @@
       value: 'slack',
     },
     {
-      label: 'Github',
+      label: 'GitHub',
       value: 'github',
+      disabled: true,
     },
     {
       label: 'Twitter',
@@ -133,6 +135,7 @@
     {
       label: 'Instagram',
       value: 'instagram',
+      disabled: true,
     },
   ]
 </script>

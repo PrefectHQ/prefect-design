@@ -3,7 +3,8 @@
     <template v-for="button in options" :key="button.label">
       <p-button
         v-model="internalValue"
-        :disabled="disabled"
+        :disabled="button.disabled"
+        :size="size"
         inset
         class="p-button-group__button"
         :class="{ 'p-button-group__active': button.value === modelValue }"
@@ -16,14 +17,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted } from 'vue'
-  import { SelectModelValue, SelectOption } from '@/types'
+  import { computed, onMounted, withDefaults } from 'vue'
+  import { SelectModelValue, SelectOption, Size } from '@/types'
 
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     options: SelectOption[],
     modelValue: string | number | null | undefined,
-    disabled?: boolean,
-  }>()
+    size?: Size,
+  }>(), {
+    size: 'md',
+  })
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue): void,
