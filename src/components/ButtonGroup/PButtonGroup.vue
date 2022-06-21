@@ -2,7 +2,6 @@
   <div class="p-button-group">
     <template v-for="button in buttonGroup" :key="button.label">
       <p-button
-        :id="button.value"
         inset
         class="p-button-group__button"
         autofocus
