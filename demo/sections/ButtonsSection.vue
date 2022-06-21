@@ -91,12 +91,7 @@
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
 
-      <p-button-group
-        left-value="Email"
-        right-value="Slack"
-        left-icon="BeakerIcon"
-        @update:model-value="test"
-      />
+      <p-button-group :button-group="buttonGroup" @update:model-value="selectButton" />
     </p-content>
   </Section>
 </template>
@@ -104,10 +99,38 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
+  import { SelectModelValue } from '@/types'
 
   const buttonLoading = ref(false)
 
-  const test = (value: string): void => {
+  const selectButton = (value: SelectModelValue): void => {
     console.log(value)
   }
+
+  const buttonGroup = [
+    {
+      label: 'Email',
+      value: 'email',
+    },
+    {
+      label: 'Slack',
+      value: 'slack',
+    },
+    {
+      label: 'Github',
+      value: 'github',
+    },
+    {
+      label: 'Twitter',
+      value: 'twitter',
+    },
+    {
+      label: 'Facebook',
+      value: 'facebook',
+    },
+    {
+      label: 'Instagram',
+      value: 'instagram',
+    },
+  ]
 </script>

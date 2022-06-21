@@ -1,87 +1,79 @@
 <template>
-  <div class="p-button-group__container">
-    <p-button
-      class="p-button-group p-button-group__left"
-      :inset="!activeLeft"
-      :size="size"
-      :icon="leftIcon"
-      :disabled="disabled"
-      @click="clickLeft"
-    >
-      {{ leftValue }}
-    </p-button>
-    <p-button
-      class="p-button-group p-button-group__right"
-      :inset="!activeRight"
-      :size="size"
-      :icon="rightIcon"
-      :disabled="disabled"
-      @click="clickRight"
-    >
-      {{ rightValue }}
-    </p-button>
+  <div class="p-button-group">
+    <template v-for="button in buttonGroup" :key="button.label">
+      <p-button
+        :id="button.value"
+        inset
+        class="p-button-group__button"
+        autofocus
+        :class="{ 'p-button-group__active': button.value === isFocused }"
+        @click="onSelect(button.value)"
+        @focus="onFocus(button.value)"
+      >
+        {{ button.label }}
+      </p-button>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, withDefaults } from 'vue'
-  import { Icon, Size } from '@/types'
+  import { onMounted, ref } from 'vue'
+  import { SelectModelValue, SelectOption } from '@/types'
 
-  const props = withDefaults(defineProps<{
-    leftValue: string,
-    rightValue: string,
-    size?: Size,
-    leftIcon?: Icon,
-    rightIcon?: Icon,
-    disabled?: boolean,
-  }>(), {
-    size: 'md',
-    leftIcon: undefined,
-    rightIcon: undefined,
-  })
-
-  const activeRight = ref<boolean>(false)
-  const activeLeft = ref<boolean>(true)
-
-  const emit = defineEmits<{
-    (event: 'update:modelValue', value: string): void,
+  const props = defineProps<{
+    buttonGroup: SelectOption[],
   }>()
 
-  const clickLeft = (): void => {
-    activeLeft.value = true
-    activeRight.value = false
-    emit('update:modelValue', props.leftValue)
+  const emit = defineEmits<{
+    (event: 'update:modelValue', value: SelectModelValue): void,
+  }>()
+
+  const isFocused = ref()
+  const onFocus = (value: SelectModelValue): void => {
+    isFocused.value = value
   }
 
-  const clickRight = (): void => {
-    activeRight.value = true
-    activeLeft.value = false
-    emit('update:modelValue', props.rightValue)
+  const onSelect = (value: SelectModelValue): void => {
+    emit('update:modelValue', value)
   }
 
   onMounted(() => {
-    emit('update:modelValue', props.leftValue)
+    emit('update:modelValue', props.buttonGroup[0].value)
   })
 </script>
 
 <style>
-  .p-button-group__container {
-    @apply
-    inline-flex
-  }
+.p-button-group {
+  @apply
+  inline-flex
+}
 
-  .p-button-group {
-    @apply
-    focus:z-10
-  }
+.p-button-group__active {
+   @apply
+  text-white
+  bg-prefect-600
+  hover:!bg-prefect-700
+}
 
-  .p-button-group__left {
-    @apply
-    rounded-r-none
-  }
+.p-button-group__button {
+  @apply
+  focus:z-10
+  focus:ring-prefect-600
 
-  .p-button-group__right {
-    @apply
-    rounded-l-none
-  }
+}
+
+.p-button-group__button:not(:first-child):not(:last-child) {
+  @apply
+  rounded-none
+}
+
+.p-button-group__button:first-child {
+  @apply
+  rounded-r-none
+}
+
+.p-button-group__button:last-child {
+  @apply
+  rounded-l-none
+}
 </style>
