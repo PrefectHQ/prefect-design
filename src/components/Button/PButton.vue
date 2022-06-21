@@ -86,6 +86,7 @@
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
+  focus:z-10
   font-medium
   inline-flex
   items-center

@@ -90,6 +90,9 @@
       </p-content>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
+
+      <p-button-group v-model="preselectedItem" :options="buttonGroup" @update:model-value="selectButton" />
+      <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" @update:model-value="selectButton" />
     </p-content>
   </Section>
 </template>
@@ -97,6 +100,44 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
+  import { ButtonGroupOption, SelectModelValue } from '@/types'
 
   const buttonLoading = ref(false)
+
+  const selectButton = (value: SelectModelValue): void => {
+    console.log(value)
+  }
+
+  const preselectedItem = ref('email')
+
+  const buttonGroup: ButtonGroupOption[] = [
+    {
+      label: 'Email',
+      value: 'email',
+      icon: 'MailIcon',
+    },
+    {
+      label: 'Slack',
+      value: 'slack',
+      icon: 'Slack',
+    },
+    {
+      label: 'GitHub',
+      value: 'github',
+      disabled: true,
+    },
+    {
+      label: 'Twitter',
+      value: 'twitter',
+    },
+    {
+      label: 'Facebook',
+      value: 'facebook',
+    },
+    {
+      label: 'Instagram',
+      value: 'instagram',
+      disabled: true,
+    },
+  ]
 </script>

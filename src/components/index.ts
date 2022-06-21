@@ -1,6 +1,7 @@
 import { PBaseInput, install as installPBaseInput } from './BaseInput'
 import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
 import { PButton, install as installPButton } from './Button'
+import { PButtonGroup, install as installPButtonGroup } from './ButtonGroup'
 import { PCalendar, install as installPCalendar } from './Calendar'
 import { PCard, install as installPCard } from './Card'
 import { PCheckbox, install as installPCheckbox } from './Checkbox'
@@ -65,6 +66,7 @@ export {
   PDateInput,
   PDatePicker,
   PDivider,
+  PButtonGroup,
   PEmptyResults,
   PEmptyState,
   PForm,
@@ -124,6 +126,7 @@ export const installs = [
   installPDateInput,
   installPDatePicker,
   installPDivider,
+  installPButtonGroup,
   installPEmptyResults,
   installPEmptyState,
   installPForm,
@@ -177,6 +180,7 @@ declare module '@vue/runtime-core' {
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
     PDivider: typeof PDivider,
+    PButtonGroup: typeof PButtonGroup,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,

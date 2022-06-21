@@ -1,5 +1,6 @@
 export * from './attributes'
 export * from './breadcrumbs'
+export * from './buttonGroupOption'
 export * from './checkbox'
 export * from './icon'
 export * from './keyEvent'
