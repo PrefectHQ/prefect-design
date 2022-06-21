@@ -1,13 +1,13 @@
 <template>
   <div class="p-button-group">
-    <template v-for="button in buttonGroup" :key="button.label">
+    <template v-for="button in options" :key="button.label">
       <p-button
+        v-model="internalValue"
+        :disabled="disabled"
         inset
         class="p-button-group__button"
-        autofocus
-        :class="{ 'p-button-group__active': button.value === isFocused }"
-        @click="onSelect(button.value)"
-        @focus="onFocus(button.value)"
+        :class="{ 'p-button-group__active': button.value === modelValue }"
+        @click="select(button.value)"
       >
         {{ button.label }}
       </p-button>
@@ -16,28 +16,34 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue'
+  import { computed, onMounted } from 'vue'
   import { SelectModelValue, SelectOption } from '@/types'
 
   const props = defineProps<{
-    buttonGroup: SelectOption[],
+    options: SelectOption[],
+    modelValue: string | number | null | undefined,
+    disabled?: boolean,
   }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue): void,
   }>()
 
-  const isFocused = ref()
-  const onFocus = (value: SelectModelValue): void => {
-    isFocused.value = value
-  }
+  const internalValue = computed({
+    get() {
+      return props.modelValue ?? null
+    },
+    set(value: SelectModelValue) {
+      emit('update:modelValue', value)
+    },
+  })
 
-  const onSelect = (value: SelectModelValue): void => {
-    emit('update:modelValue', value)
+  const select = (value: SelectModelValue): void => {
+    internalValue.value = value
   }
 
   onMounted(() => {
-    emit('update:modelValue', props.buttonGroup[0].value)
+    console.log(props.modelValue)
   })
 </script>
 

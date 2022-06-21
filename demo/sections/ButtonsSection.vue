@@ -91,7 +91,7 @@
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
 
-      <p-button-group :button-group="buttonGroup" @update:model-value="selectButton" />
+      <p-button-group v-model="preselectedItem" :options="buttonGroup" @update:model-value="selectButton" />
     </p-content>
   </Section>
 </template>
@@ -106,6 +106,8 @@
   const selectButton = (value: SelectModelValue): void => {
     console.log(value)
   }
+
+  const preselectedItem = ref('email')
 
   const buttonGroup = [
     {
