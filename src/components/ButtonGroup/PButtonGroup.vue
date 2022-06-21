@@ -51,11 +51,6 @@
   inline-flex
 }
 
-.p-button-group__button {
-  @apply
-  focus:z-10
-}
-
 .p-button-group__button:not(:first-child):not(:last-child) {
   @apply
   rounded-none
