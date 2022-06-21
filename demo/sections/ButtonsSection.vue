@@ -100,7 +100,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import Section from '../components/Section.vue'
-  import { SelectModelValue } from '@/types'
+  import { ButtonGroupOption, SelectModelValue } from '@/types'
 
   const buttonLoading = ref(false)
 
@@ -110,7 +110,7 @@
 
   const preselectedItem = ref('email')
 
-  const buttonGroup = [
+  const buttonGroup: ButtonGroupOption[] = [
     {
       label: 'Email',
       value: 'email',

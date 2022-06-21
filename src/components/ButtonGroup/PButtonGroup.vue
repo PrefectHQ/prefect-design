@@ -4,9 +4,8 @@
       <p-button
         :disabled="button.disabled"
         :size="size"
-        inset
+        :inset="button.value !== modelValue"
         class="p-button-group__button"
-        :class="{ 'p-button-group__active': button.value === modelValue }"
         :icon="button.icon"
         @click="select(button.value)"
       >
@@ -17,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, withDefaults } from 'vue'
+  import { computed, withDefaults } from 'vue'
   import { SelectModelValue, ButtonGroupOption, Size } from '@/types'
 
   const props = withDefaults(defineProps<{
@@ -52,17 +51,9 @@
   inline-flex
 }
 
-.p-button-group__active {
-   @apply
-  text-white
-  bg-prefect-600
-  hover:!bg-prefect-700
-}
-
 .p-button-group__button {
   @apply
   focus:z-10
-  focus:ring-prefect-600
 }
 
 .p-button-group__button:not(:first-child):not(:last-child) {
