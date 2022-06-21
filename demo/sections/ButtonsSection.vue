@@ -114,10 +114,12 @@
     {
       label: 'Email',
       value: 'email',
+      icon: 'MailIcon',
     },
     {
       label: 'Slack',
       value: 'slack',
+      icon: 'Slack',
     },
     {
       label: 'GitHub',

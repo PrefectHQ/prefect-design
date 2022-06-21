@@ -2,12 +2,12 @@
   <div class="p-button-group">
     <template v-for="button in options" :key="button.label">
       <p-button
-        v-model="internalValue"
         :disabled="button.disabled"
         :size="size"
         inset
         class="p-button-group__button"
         :class="{ 'p-button-group__active': button.value === modelValue }"
+        :icon="button.icon"
         @click="select(button.value)"
       >
         {{ button.label }}
@@ -18,10 +18,10 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, withDefaults } from 'vue'
-  import { SelectModelValue, SelectOption, Size } from '@/types'
+  import { SelectModelValue, ButtonGroupOption, Size } from '@/types'
 
   const props = withDefaults(defineProps<{
-    options: SelectOption[],
+    options: ButtonGroupOption[],
     modelValue: string | number | null | undefined,
     size?: Size,
   }>(), {
@@ -44,10 +44,6 @@
   const select = (value: SelectModelValue): void => {
     internalValue.value = value
   }
-
-  onMounted(() => {
-    console.log(props.modelValue)
-  })
 </script>
 
 <style>
