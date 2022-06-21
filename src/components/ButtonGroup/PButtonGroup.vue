@@ -58,7 +58,6 @@
   @apply
   focus:z-10
   focus:ring-prefect-600
-
 }
 
 .p-button-group__button:not(:first-child):not(:last-child) {
