@@ -58,7 +58,7 @@
   text-sm
   flex
   flex-col
-  gap-y-2
+  gap-y-1
   leading-6
 }
 
