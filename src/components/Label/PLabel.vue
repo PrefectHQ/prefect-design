@@ -1,12 +1,24 @@
 <template>
   <label class="p-label">
-    <div v-if="slots.label || isDefined(label)" class="p-label__text">
-      <slot name="label">
-        <span>
-          {{ label }}
-        </span>
-      </slot>
-    </div>
+    <template v-if="slots.label || isDefined(label) || slots.description || isDefined(description)">
+      <div class="p-label__header">
+
+        <div v-if="slots.label || isDefined(label)" class="p-label__text">
+          <slot name="label">
+            <span>
+              {{ label }}
+            </span>
+          </slot>
+        </div>
+        <div v-if="slots.description || isDefined(description)" class="p-label__description">
+          <slot name="description">
+            <span>
+              {{ description }}
+            </span>
+          </slot>
+        </div>
+      </div>
+    </template>
     <slot />
     <div v-if="slots.message || isDefined(message)" class="p-label__message" :class="classes">
       <slot name="message">
@@ -28,6 +40,7 @@
     label?: string,
     message?: string,
     state?: State,
+    description?: string,
   }>()
 
   const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
@@ -50,6 +63,18 @@
   flex
   flex-col
   gap-y-1
+}
+
+.p-label__header { @apply
+  flex
+  flex-col
+  gap-y-[0.125rem]
+}
+
+.p-label__description { @apply
+  text-sm
+  text-gray-500
+  font-normal
 }
 
 .p-label__message { @apply

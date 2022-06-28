@@ -1,7 +1,7 @@
 <template>
   <Section heading="Forms">
     <p-form heading="Header Text">
-      <p-label label="Plain text" :state="exampleState">
+      <p-label label="Plain text" :state="exampleState" description="Plain text description">
         <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" :state="exampleState" />
       </p-label>
 
