@@ -11,21 +11,13 @@
     </template>
     <slot />
     <div class="p-form__footer">
-      <slot name="footer">
-        <PButton inset @click="emits('cancel')">
-          Cancel
-        </PButton>
-        <PButton type="submit" :disabled="disabled" :loading="loading">
-          Submit
-        </PButton>
-      </slot>
+      <slot name="footer" :disabled="disabled" :loading="loading" />
     </div>
   </form>
 </template>
 
 <script lang="ts" setup>
   import { useSlots } from 'vue'
-  import PButton from '@/components/Button/PButton.vue'
 
   defineProps<{
     heading?: string,
