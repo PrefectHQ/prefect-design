@@ -11,7 +11,7 @@
     </template>
     <slot />
     <div class="p-form__footer">
-      <slot name="footer" :disabled="disabled" :loading="loading" />
+      <slot name="footer" />
     </div>
   </form>
 </template>
@@ -21,8 +21,6 @@
 
   defineProps<{
     heading?: string,
-    disabled?: boolean,
-    loading?: boolean,
   }>()
 
   const emits = defineEmits<{
