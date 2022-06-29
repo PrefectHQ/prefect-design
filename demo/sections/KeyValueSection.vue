@@ -44,6 +44,13 @@
       </p-key-value>
 
 
+      <p-key-value label="Super Long Word">
+        <template #value>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit aspernatur error someSuperLongWordInTheMiddleOfAnOtherWiseNormalSentenceThatShouldWrapWhenItCannotFitOnScreenAnymoreButItHasToBeReallyLongToEnsureThatItAlwaysHasToOverlapPleaseDontTryMakingYourBrowserSoLargeThatThisFitsAllInOneLineBecauseITriedReallyHardNotToMakeThatPossibleAndItWillHurtMyFeelingsIfItIsPossible ipsa ullam dolore incidunt, rerum consequuntur dicta facilis excepturi eius maxime quis autem tempora expedita perspiciatis rem obcaecati. Atque.
+        </template>
+      </p-key-value>
+
+
       <p-divider />
 
       <p-key-value label="Leader" value="Leonardo" />
