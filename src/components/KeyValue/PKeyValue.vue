@@ -68,6 +68,10 @@
   cursor-default
 }
 
+.p-key-value__value {
+  overflow-wrap: anywhere;
+}
+
 .p-key-value__empty {
   @apply
   text-slate-400
