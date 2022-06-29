@@ -26,7 +26,6 @@
   }>()
 
   const emits = defineEmits<{
-    (event: 'cancel'): void,
     (event: 'submit', value: Event): void,
   }>()
 
