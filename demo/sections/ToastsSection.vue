@@ -1,14 +1,17 @@
 <template>
   <Section heading="Toasts">
     <div class="flex gap-3">
-      <p-button @click="addToast">
+      <p-button @click="defaultToast">
         Toast
       </p-button>
-      <p-button @click="addSuccessToast">
+      <p-button @click="successToast">
         Success Toast
       </p-button>
-      <p-button @click="addErrorToast">
+      <p-button @click="errorToast">
         Error Toast
+      </p-button>
+      <p-button @click="noTimeoutToast">
+        Doesn't automatically dismiss Toast
       </p-button>
     </div>
   </Section>
@@ -18,13 +21,16 @@
   import Section from '../components/Section.vue'
   import { showToast } from '@/plugins/Toast'
 
-  const addToast = (): void => {
-    showToast('This is default message', 'default', { dismissible:false })
+  const defaultToast = (): void => {
+    showToast('This is default message', 'default')
   }
-  const addSuccessToast = (): void => {
-    showToast('This is success!', 'success', { autoDismiss: false })
+  const successToast = (): void => {
+    showToast('This is success!', 'success')
   }
-  const addErrorToast = (): void => {
+  const errorToast = (): void => {
     showToast('Something went wrong..', 'error')
+  }
+  const noTimeoutToast = (): void => {
+    showToast('Waiting for you to dismiss', 'default', { timeout:false, dismissible: false })
   }
 </script>

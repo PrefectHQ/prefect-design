@@ -7,7 +7,7 @@
           {{ message }}
         </p>
       </div>
-      <div v-if="dismissible" class="p-toast__close">
+      <div v-if="dismissible || timeout === false" class="p-toast__close">
         <button type="button" class="p-toast__close-btn" @click="removeToast">
           <span class="sr-only">Close</span>
           <p-icon class="" icon="XIcon" aria-hidden="true" />
@@ -26,7 +26,7 @@
   const props = defineProps<{
     message: string,
     dismissible: boolean,
-    timeout: number | null,
+    timeout: number | false,
     type: ToastType,
   }>()
 

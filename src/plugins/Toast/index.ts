@@ -8,14 +8,13 @@ type Toast = {
   message: string,
   type: ToastType,
   dismissible: boolean,
-  timeout: number | null,
+  timeout: number | false,
   dismiss: () => void,
 }
 
 type ToastOptions = {
-  autoDismiss?: boolean,
   dismissible?: boolean,
-  timeout?: number,
+  timeout?: number | false,
 }
 
 type ToastPluginOptions = {
@@ -73,7 +72,6 @@ function showToast(message: string, type: ToastType = 'default', options?: Toast
   const id = getToastId()
 
   const defaultOptions: Required<ToastOptions> = {
-    autoDismiss: true,
     dismissible: true,
     timeout: 5000,
   }
@@ -85,11 +83,6 @@ function showToast(message: string, type: ToastType = 'default', options?: Toast
     type,
     dismiss: () => hideToast(id),
     ...options,
-  }
-
-  if (options?.autoDismiss === false) {
-    toast.timeout = null
-    toast.dismissible = true
   }
 
   queue.unshift(toast)
