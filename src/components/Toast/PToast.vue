@@ -26,7 +26,7 @@
   const props = defineProps<{
     message: string,
     dismissible: boolean,
-    timeout: number,
+    timeout: number | null,
     type: ToastType,
   }>()
 
@@ -56,12 +56,14 @@
     emit('close')
   }
 
-  const setToastTimeout = (): void => {
-    setTimeout(removeToast, props.timeout)
+  const trySetTimeout = (): void => {
+    if (props.timeout) {
+      setTimeout(removeToast, props.timeout)
+    }
   }
 
   onMounted(() => {
-    setToastTimeout()
+    trySetTimeout()
   })
 </script>
 

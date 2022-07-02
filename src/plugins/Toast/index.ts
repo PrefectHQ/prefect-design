@@ -3,16 +3,19 @@ import ToastContainer from '@/components/Toast/ToastContainer.vue'
 
 type ToastType = 'default' | 'success' | 'error'
 
-type Toast = ToastOptions & {
+type Toast = {
   id: number,
   message: string,
-  type?: ToastType,
+  type: ToastType,
+  dismissible: boolean,
+  timeout: number | null,
   dismiss: () => void,
 }
 
 type ToastOptions = {
-  timeout?: number,
+  autoDismiss?: boolean,
   dismissible?: boolean,
+  timeout?: number,
 }
 
 type ToastPluginOptions = {
@@ -69,7 +72,11 @@ function getMountElement(mountPoint: Element | string | undefined): Element {
 function showToast(message: string, type: ToastType = 'default', options?: ToastOptions): Toast {
   const id = getToastId()
 
-  const defaultOptions: ToastOptions = { dismissible: true, timeout: 5000 }
+  const defaultOptions: Required<ToastOptions> = {
+    autoDismiss: true,
+    dismissible: true,
+    timeout: 5000,
+  }
 
   const toast: Toast = {
     ...defaultOptions,
@@ -78,6 +85,11 @@ function showToast(message: string, type: ToastType = 'default', options?: Toast
     type,
     dismiss: () => hideToast(id),
     ...options,
+  }
+
+  if (options?.autoDismiss === false) {
+    toast.timeout = null
+    toast.dismissible = true
   }
 
   queue.unshift(toast)

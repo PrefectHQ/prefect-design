@@ -19,10 +19,10 @@
   import { showToast } from '@/plugins/Toast'
 
   const addToast = (): void => {
-    showToast('This is default message', undefined, false)
+    showToast('This is default message', 'default', { dismissible:false })
   }
   const addSuccessToast = (): void => {
-    showToast('This is success!', 'success', undefined, 3000)
+    showToast('This is success!', 'success', { autoDismiss: false })
   }
   const addErrorToast = (): void => {
     showToast('Something went wrong..', 'error')
