@@ -7,7 +7,7 @@
           {{ message }}
         </p>
       </div>
-      <div v-if="dismissable" class="p-toast__close">
+      <div v-if="dismissible || timeout === false" class="p-toast__close">
         <button type="button" class="p-toast__close-btn" @click="removeToast">
           <span class="sr-only">Close</span>
           <p-icon class="" icon="XIcon" aria-hidden="true" />
@@ -18,21 +18,17 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, onMounted, withDefaults } from 'vue'
+  import { computed, onMounted } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { ToastType } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
-  const props = withDefaults(defineProps<{
+  const props = defineProps<{
     message: string,
-    dismissable?: boolean,
-    timeout?: number,
-    type?: ToastType,
-  }>(), {
-    message: '',
-    timeout: 5000,
-    type: 'default',
-  })
+    dismissible: boolean,
+    timeout: number | false,
+    type: ToastType,
+  }>()
 
 
   const iconMap: Record<string, string> = {
@@ -60,12 +56,14 @@
     emit('close')
   }
 
-  const setToastTimeout = (): void => {
-    setTimeout(removeToast, props.timeout)
+  const trySetTimeout = (): void => {
+    if (props.timeout) {
+      setTimeout(removeToast, props.timeout)
+    }
   }
 
   onMounted(() => {
-    setToastTimeout()
+    trySetTimeout()
   })
 </script>
 

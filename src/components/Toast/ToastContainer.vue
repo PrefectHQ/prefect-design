@@ -1,8 +1,8 @@
 <template>
   <div aria-live="assertive" class="p-toast-container">
     <transition-group name="toast">
-      <div v-for="toast in queue" :key="toast.id" class="p-toast-container__toast">
-        <p-toast v-bind="toast" @close="toast.dismiss" />
+      <div v-for="{ id, message, dismissible, timeout, type, dismiss } in queue" :key="id" class="p-toast-container__toast">
+        <p-toast v-bind="{ message, dismissible, timeout, type }" @close="dismiss" />
       </div>
     </transition-group>
   </div>
