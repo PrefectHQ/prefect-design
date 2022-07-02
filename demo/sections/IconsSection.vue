@@ -36,7 +36,6 @@
   async function copy(icon: string): Promise<void> {
     await navigator.clipboard.writeText(`<p-icon icon="${icon}" />`)
 
-    // eslint-disable-next-line no-alert
-    showToast(`Copied ${icon} to clipboard!`, 'success', undefined, 3000)
+    showToast(`Copied "${icon}"`, 'success')
   }
 </script>
