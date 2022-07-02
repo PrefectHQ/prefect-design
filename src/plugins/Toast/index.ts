@@ -5,14 +5,14 @@ type ToastType = 'default' | 'success' | 'error'
 
 type Toast = ToastOptions & {
   id: number,
+  message: string,
+  type?: ToastType,
   dismiss: () => void,
 }
 
 type ToastOptions = {
-  message: string,
-  type?: ToastType,
   timeout?: number,
-  dismissable?: boolean,
+  dismissible?: boolean,
 }
 
 type ToastPluginOptions = {
@@ -66,16 +66,16 @@ function getMountElement(mountPoint: Element | string | undefined): Element {
   return mountPoint
 }
 
-// eslint-disable-next-line max-params
-function showToast(optionsOrMessage: ToastOptions | string, type: ToastType = 'default', dismissable: boolean = true, timeout: number = 5000): Toast {
+function showToast(message: string, type: ToastType = 'default', options?: ToastOptions): Toast {
   const id = getToastId()
 
-  const options = typeof optionsOrMessage === 'string'
-    ? { message: optionsOrMessage, type, dismissable, timeout }
-    : optionsOrMessage
+  const defaultOptions: ToastOptions = { dismissible: true, timeout: 5000 }
 
   const toast: Toast = {
+    ...defaultOptions,
     id,
+    message,
+    type,
     dismiss: () => hideToast(id),
     ...options,
   }
