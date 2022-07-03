@@ -1,5 +1,8 @@
 <template>
   <PCombobox v-model="internalValue" class="p-tags-input" allow-unknown-value :options="[]" :placeholder="placeholder">
+    <template v-for="(index, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
     <template #option="{ option }">
       <slot name="tag" :tag="option.value">
         <span class="p-tags-input__tag">{{ option.label }}</span>
