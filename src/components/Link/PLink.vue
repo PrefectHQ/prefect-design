@@ -1,5 +1,5 @@
 <template>
-  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link p-link--external">
+  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link">
     <slot />
     <p-icon class="p-link__external-icon" icon="ExternalLinkIcon" />
   </a>
@@ -36,21 +36,16 @@
 
 <style>
 .p-link { @apply
-  relative
   text-primary
   font-semibold
   cursor-pointer
   whitespace-nowrap
 }
 
-.p-link--external { @apply
-  mr-3
-}
-
 .p-link__external-icon { @apply
-  absolute
+  inline
+  relative
   -top-2
-  -right-2
   w-3
   h-3
 }
