@@ -131,6 +131,7 @@ export const keys = {
   'closeBracket': ']',
   'singleQuote': '\'',
 } as const
+export type Key = typeof keys[keyof typeof keys]
 
 export const alphaKeys = [
   keys.a,

@@ -16,7 +16,14 @@
         <slot :name="name" v-bind="data" />
       </template>
       <template #control="{ attrs }">
-        <input v-model="newTag" type="text" class="p-tags-area__input" v-bind="attrs" @keydown="handleKeydown">
+        <input
+          v-model="newTag"
+          type="text"
+          class="p-tags-area__input"
+          v-bind="attrs"
+          @keydown="handleKeydown"
+          @blur="handleBlur"
+        >
       </template>
     </PBaseInput>
   </div>
@@ -35,7 +42,7 @@
 <script lang="ts" setup>
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
-  import { keys } from '@/types'
+  import { Key, keys } from '@/types/keyEvent'
 
   const props = defineProps<{
     tags: string[] | null | undefined,
@@ -63,9 +70,16 @@
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    if (event.key === keys.enter) {
+    const submitKeys: Key[] = [keys.enter, keys.comma, keys.space]
+
+    if (submitKeys.includes(event.key as Key)) {
       submitNewTag()
+      event.preventDefault()
     }
+  }
+
+  function handleBlur(): void {
+    submitNewTag()
   }
 
   function validateNewTag(tag: string | null): tag is string  {
