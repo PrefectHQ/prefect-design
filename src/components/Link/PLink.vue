@@ -1,6 +1,7 @@
 <template>
-  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link">
-    <slot /><p-icon class="p-link__external-icon" icon="ExternalLinkIcon" />
+  <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link p-link--external">
+    <slot />
+    <p-icon class="p-link__external-icon" icon="ExternalLinkIcon" />
   </a>
 
   <!-- This is necessary because the router-link component throws an unrecoverable error if no to prop is provided -->
@@ -35,16 +36,22 @@
 
 <style>
 .p-link { @apply
+  relative
   text-primary
   font-semibold
   cursor-pointer
   whitespace-nowrap
 }
 
+.p-link--external { @apply
+  mr-3
+}
+
 .p-link__external-icon { @apply
+  absolute
+  -top-2
+  -right-2
   w-3
   h-3
-  align-super
-  inline
 }
 </style>
