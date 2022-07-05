@@ -21,7 +21,7 @@
 <style>
 .p-text { @apply
   flex
-  items-center
+  items-start
   gap-1
 }
 
