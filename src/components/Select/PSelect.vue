@@ -1,7 +1,7 @@
 <template>
   <PPopOver
     ref="popOver"
-    :placement="[bottomLeft, topLeft]"
+    :placement="[bottomLeft, topLeft, bottomRight, topRight]"
     class="p-select"
     auto-close
     @open="handleOpenChange"
@@ -65,17 +65,16 @@
 </template>
 
 <script lang="ts">
-  import { useElementWidth } from '@prefecthq/vue-compositions'
-  import { defineComponent, computed, ref } from 'vue'
-
-  export default defineComponent({
+  export default {
     name: 'PSelect',
     expose: [],
     inheritAttrs: false,
-  })
+  }
 </script>
 
 <script lang="ts" setup>
+  import { useElementWidth } from '@prefecthq/vue-compositions'
+  import { computed, ref } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
@@ -85,7 +84,7 @@
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
   import { convertToClassValueObject } from '@/utilities/attributes'
   import { media } from '@/utilities/media'
-  import { topLeft, bottomLeft } from '@/utilities/position'
+  import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
