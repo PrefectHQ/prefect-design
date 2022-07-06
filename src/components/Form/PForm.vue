@@ -10,9 +10,11 @@
       </div>
     </template>
     <slot />
-    <div class="p-form__footer">
-      <slot name="footer" />
-    </div>
+    <template v-if="slots.footer">
+      <div class="p-form__footer">
+        <slot name="footer" />
+      </div>
+    </template>
   </form>
 </template>
 
