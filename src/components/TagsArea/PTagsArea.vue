@@ -45,19 +45,19 @@
   import { Key, keys } from '@/types/keyEvent'
 
   const props = defineProps<{
-    tags: string[] | null | undefined,
+    modelValue: string[] | null | undefined,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:tags', value: string[]): void,
+    (event: 'update:modelValue', value: string[]): void,
   }>()
 
   const internalValue = computed({
     get() {
-      return props.tags ?? []
+      return props.modelValue ?? []
     },
     set(value: string[]) {
-      emits('update:tags', value)
+      emits('update:modelValue', value)
     },
   })
 
@@ -88,7 +88,7 @@
 
   function submitNewTag(): void {
     if (validateNewTag(newTag.value)) {
-      internalValue.value.push(newTag.value)
+      internalValue.value = [...internalValue.value, newTag.value]
     }
 
     newTag.value = null
