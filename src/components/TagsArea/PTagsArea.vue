@@ -88,7 +88,7 @@
 
   function submitNewTag(): void {
     if (validateNewTag(newTag.value)) {
-      internalValue.value.push(newTag.value)
+      internalValue.value = [...internalValue.value, newTag.value]
     }
 
     newTag.value = null
