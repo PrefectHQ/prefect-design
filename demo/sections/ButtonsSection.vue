@@ -12,6 +12,9 @@
         <p-button flat>
           flat
         </p-button>
+        <p-button danger>
+          danger
+        </p-button>
       </p-content>
 
       <p-content secondary class="flex">
@@ -30,6 +33,10 @@
         <p-button flat icon="BeakerIcon">
           icon with text
         </p-button>
+
+        <p-button danger icon="BeakerIcon">
+          icon with text
+        </p-button>
       </p-content>
 
       <p-content secondary class="flex">
@@ -37,6 +44,7 @@
         <p-button secondary icon="BeakerIcon" />
         <p-button inset icon="BeakerIcon" />
         <p-button flat icon="BeakerIcon" />
+        <p-button danger icon="BeakerIcon" />
       </p-content>
 
       <p-content secondary class="flex">
@@ -44,6 +52,7 @@
         <p-button secondary rounded icon="BeakerIcon" />
         <p-button inset rounded icon="BeakerIcon" />
         <p-button flat rounded icon="BeakerIcon" />
+        <p-button danger rounded icon="BeakerIcon" />
       </p-content>
 
       <p-content secondary class="flex items-start">
@@ -81,6 +90,7 @@
         </p-button>
         <p-button disabled inset icon="BeakerIcon" />
         <p-button disabled flat icon="BeakerIcon" />
+        <p-button disabled danger icon="BeakerIcon" />
       </p-content>
 
       <p-content secondary class="flex">
