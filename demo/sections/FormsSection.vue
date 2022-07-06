@@ -107,11 +107,11 @@
       </p-label>
 
       <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState">
-        <PTagsInput v-model:tags="exampleTagsValue" :disabled="disabled" :state="exampleState" />
+        <PTagsInput v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
       </p-label>
 
       <p-label label="Tags Area" :message="JSON.stringify(exampleTagsValue)" :state="exampleState">
-        <PTagsArea v-model:tags="exampleTagsValue" :disabled="disabled" :state="exampleState" />
+        <PTagsArea v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
       </p-label>
 
       <p-label label="Validation State">

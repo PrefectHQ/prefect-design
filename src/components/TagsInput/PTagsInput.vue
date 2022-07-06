@@ -19,22 +19,22 @@
   import PCombobox from '@/components/Combobox/PCombobox.vue'
 
   const props = withDefaults(defineProps<{
-    tags: string[] | null | undefined,
+    modelValue: string[] | null | undefined,
     placeholder?: string,
   }>(), {
     placeholder: 'Add Tag',
   })
 
   const emits = defineEmits<{
-    (event: 'update:tags', value: string[]): void,
+    (event: 'update:modelValue', value: string[]): void,
   }>()
 
   const internalValue = computed({
     get() {
-      return props.tags ?? []
+      return props.modelValue ?? []
     },
     set(value: string[]) {
-      emits('update:tags', value)
+      emits('update:modelValue', value)
     },
   })
 </script>
