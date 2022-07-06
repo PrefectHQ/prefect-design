@@ -19,12 +19,13 @@
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
 
-  type ButtonClass = 'primary' | 'secondary' | 'inset' | 'flat'
+  type ButtonClass = 'primary' | 'secondary' | 'inset' | 'flat' | 'danger'
 
   const props = defineProps({
     secondary: Boolean,
     inset: Boolean,
     flat: Boolean,
+    danger: Boolean,
     rounded: Boolean,
     disabled: Boolean,
     loading: Boolean,
@@ -50,6 +51,7 @@
     'p-button--secondary': buttonClass.value === 'secondary',
     'p-button--inset': buttonClass.value === 'inset',
     'p-button--flat': buttonClass.value === 'flat',
+    'p-button--danger': buttonClass.value === 'danger',
     'p-button--rounded': props.rounded,
     'p-button--equal-padding': props.icon && !slots.default,
     'p-button-xs': props.size === 'xs',
@@ -62,6 +64,10 @@
   }))
 
   const buttonClass = computed<ButtonClass>(() => {
+    if (props.danger) {
+      return 'danger'
+    }
+
     if (props.flat) {
       return 'flat'
     }
@@ -144,6 +150,15 @@
 }
 .p-button--flat:not(.p-button--disabled) { @apply
   hover:bg-gray-100
+}
+
+.p-button--danger { @apply
+  text-white
+  bg-red-500
+  focus:ring-red-600
+}
+.p-button--danger:not(.p-button--disabled) { @apply
+  hover:bg-red-700
 }
 
 .p-button-xs { @apply
