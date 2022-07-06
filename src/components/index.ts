@@ -34,6 +34,7 @@ import { PNativeSelect, install as installPNativeSelect } from './NativeSelect'
 import { PNumberInput, install as installPNumberInput } from './NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from './OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from './OverflowMenuItem'
+import { PPageHeading, install as installPPageHeading } from './PageHeading'
 import { PPopOver, install as installPPopOver } from './PopOver'
 import { PSelect, install as installPSelect } from './Select'
 import { PSelectOption, install as installPSelectOption } from './SelectOption'
@@ -87,6 +88,7 @@ export {
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
+  PPageHeading,
   PPopOver,
   PSelect,
   PSelectOption,
@@ -147,6 +149,7 @@ export const installs = [
   installPNumberInput,
   installPOverflowMenu,
   installPOverflowMenuItem,
+  installPPageHeading,
   installPPopOver,
   installPSelect,
   installPSelectOption,
@@ -201,6 +204,7 @@ declare module '@vue/runtime-core' {
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
+    PPageHeading: typeof PPageHeading,
     PPopOver: typeof PPopOver,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
