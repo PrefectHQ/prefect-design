@@ -1,14 +1,14 @@
 <template>
-  <header class="page-heading">
-    <div class="page-heading__leading">
-      <div class="page-heading__crumbs">
+  <header class="p-page-heading">
+    <div class="p-page-heading__leading">
+      <div class="p-page-heading__crumbs">
         <PBreadCrumbs :class="classes" :crumbs="crumbs" />
         <slot name="after-crumbs" />
       </div>
       <slot />
     </div>
 
-    <div class="page-heading__trailing">
+    <div class="p-page-heading__trailing">
       <slot name="actions" />
     </div>
   </header>
@@ -32,16 +32,16 @@
   })
 
   const classes = computed(() => ({
-    'page-heading__crumbs--xs': props.size === 'xs',
-    'page-heading__crumbs--sm': props.size === 'sm',
-    'page-heading__crumbs--md': props.size === 'md',
-    'page-heading__crumbs--lg': props.size === 'lg',
-    'page-heading__crumbs--xl': props.size === 'xl',
+    'p-page-heading__crumbs--xs': props.size === 'xs',
+    'p-page-heading__crumbs--sm': props.size === 'sm',
+    'p-page-heading__crumbs--md': props.size === 'md',
+    'p-page-heading__crumbs--lg': props.size === 'lg',
+    'p-page-heading__crumbs--xl': props.size === 'xl',
   }))
 </script>
 
 <style>
-.page-heading { @apply
+.p-page-heading { @apply
   grid
   gap-2
   grid-cols-1
@@ -50,14 +50,14 @@
   md:min-h-[42px]
 }
 
-.page-heading__crumbs { @apply
+.p-page-heading__crumbs { @apply
   flex
   items-center
   justify-start
   gap-2
 }
 
-.page-heading__trailing { @apply
+.p-page-heading__trailing { @apply
   flex
   items-center
   gap-2
@@ -65,23 +65,23 @@
   md:justify-end
 }
 
-.page-heading__crumbs--xs { @apply
+.p-page-heading__crumbs--xs { @apply
   text-xs
 }
 
-.page-heading__crumbs--sm { @apply
+.p-page-heading__crumbs--sm { @apply
   text-sm
 }
 
-.page-heading__crumbs--md { @apply
+.p-page-heading__crumbs--md { @apply
   text-base
 }
 
-.page-heading__crumbs--lg { @apply
+.p-page-heading__crumbs--lg { @apply
   text-lg
 }
 
-.page-heading__crumbs--xl { @apply
+.p-page-heading__crumbs--xl { @apply
   text-xl
 }
 </style>
