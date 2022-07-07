@@ -20,6 +20,9 @@
           :options="selectOptions"
           @click="toggleSelect"
         >
+          <template v-for="(index, name) in $slots" #[name]="data">
+            <slot :name="name" v-bind="data" />
+          </template>
           <template #default="scope">
             <slot v-bind="scope" :is-open="isOpen" :open="openSelect" :close="closeSelect" />
           </template>
