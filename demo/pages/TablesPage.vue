@@ -5,7 +5,7 @@
     </SubSection>
 
     <SubSection heading="Using Columns">
-      <p-table v-bind="{ data, columns, rowClassMethod, columnClassMethod }">
+      <p-table v-bind="{ data, columns, rowClasses, columnClasses }">
         <template #action-heading>
           My Actions
         </template>
@@ -129,14 +129,14 @@
     },
   ])
 
-  function rowClassMethod(row: TableData, index: number): ClassValue {
+  function rowClasses(row: TableData, index: number): ClassValue {
     return {
       'custom-row-class': row.id == 2,
       'custom-row-class--index': index === 3,
     }
   }
 
-  function columnClassMethod(column: TableColumn, index: number): ClassValue {
+  function columnClasses(column: TableColumn, index: number): ClassValue {
     return {
       'custom-column-class': column.label === 'Last Name',
       'custom-column-class--index': index === 3,

@@ -62,8 +62,8 @@
   const props = defineProps<{
     data: TableData[],
     columns?: TableColumn[],
-    rowClassMethod?: RowClassMethod,
-    columnClassMethod?: ColumnClassMethod,
+    rowClasses?: RowClassMethod,
+    columnClasses?: ColumnClassMethod,
   }>()
 
   const slots = useSlots()
@@ -111,7 +111,7 @@
   }
 
   function getRowClasses(row: TableData, index: number): ClassValue {
-    const custom = asArray(props.rowClassMethod?.(row, index))
+    const custom = asArray(props.rowClasses?.(row, index))
 
     return [
       ...custom,
@@ -126,7 +126,7 @@
 
   // eslint-disable-next-line max-params
   function getColumnClasses(column: TableColumn, index: number, row: TableData, rowIndex: number): ClassValue {
-    const custom = asArray(props.columnClassMethod?.(column, index, row, rowIndex))
+    const custom = asArray(props.columnClasses?.(column, index, row, rowIndex))
 
     console.log({ custom })
 
