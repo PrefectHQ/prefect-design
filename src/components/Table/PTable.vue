@@ -16,10 +16,10 @@
           </slot>
         </p-table-head>
         <p-table-body>
-          <template v-for="(row, index) in data" :key="index">
-            <p-table-row>
-              <template v-for="column in visibleColumns" :key="column">
-                <p-table-data>
+          <template v-for="(row, rowIndex) in data" :key="rowIndex">
+            <p-table-row :class="getRowClasses(row, rowIndex)">
+              <template v-for="(column, columnIndex) in visibleColumns" :key="column">
+                <p-table-data :class="getColumnClasses(column, columnIndex, row, rowIndex)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
                     {{ getValue(row, column) }}
                   </slot>
@@ -53,13 +53,17 @@
   import PTableHead from './PTableHead.vue'
   import PTableHeader from './PTableHeader.vue'
   import PTableRow from './PTableRow.vue'
-  import { TableColumn, TableData } from '@/types/tables'
-  import { isStrings } from '@/utilities/arrays'
+  import { ClassValue } from '@/types/attributes'
+  import { ColumnClassMethod, RowClassMethod, TableColumn, TableData } from '@/types/tables'
+  import { isEven, isOdd } from '@/utilities'
+  import { asArray, isStrings } from '@/utilities/arrays'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
     data: TableData[],
     columns?: TableColumn[],
+    rowClassMethod?: RowClassMethod,
+    columnClassMethod?: ColumnClassMethod,
   }>()
 
   const slots = useSlots()
@@ -98,12 +102,43 @@
     return columns.map(property => ({ label: property, property }))
   }
 
-  function getValue(row: Record<string, unknown>, column: TableColumn): unknown {
+  function getValue(row: TableData, column: TableColumn): unknown {
     if (column.property) {
       return row[column.property]
     }
 
     return ''
+  }
+
+  function getRowClasses(row: TableData, index: number): ClassValue {
+    const custom = asArray(props.rowClassMethod?.(row, index))
+
+    return [
+      ...custom,
+      {
+        'p-table-row--first': index === 0,
+        'p-table-row--even': isEven(index),
+        'p-table-row--odd': isOdd(index),
+        'p-table-row--last': index === props.data.length - 1,
+      },
+    ]
+  }
+
+  // eslint-disable-next-line max-params
+  function getColumnClasses(column: TableColumn, index: number, row: TableData, rowIndex: number): ClassValue {
+    const custom = asArray(props.columnClassMethod?.(column, index, row, rowIndex))
+
+    console.log({ custom })
+
+    return [
+      ...custom,
+      {
+        'p-table-column--first': index === 0,
+        'p-table-column--even': isEven(index),
+        'p-table-column--odd': isOdd(index),
+        'p-table-column--last': index === columns.value.length - 1,
+      },
+    ]
   }
 </script>
 

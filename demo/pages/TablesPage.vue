@@ -5,7 +5,7 @@
     </SubSection>
 
     <SubSection heading="Using Columns">
-      <p-table :data="data" :columns="columns">
+      <p-table v-bind="{ data, columns, rowClassMethod, columnClassMethod }">
         <template #action-heading>
           My Actions
         </template>
@@ -75,7 +75,8 @@
   import PTableData from '@/components/Table/PTableData.vue'
   import PTableHead from '@/components/Table/PTableHead.vue'
   import PTableHeader from '@/components/Table/PTableHeader.vue'
-  import { TableColumn } from '@/types/tables'
+  import { ClassValue } from '@/types/attributes'
+  import { TableColumn, TableData } from '@/types/tables'
   import { media } from '@/utilities'
 
   const data = [
@@ -127,4 +128,36 @@
       width: '100px',
     },
   ])
+
+  function rowClassMethod(row: TableData, index: number): ClassValue {
+    return {
+      'custom-row-class': row.id == 2,
+      'custom-row-class--index': index === 3,
+    }
+  }
+
+  function columnClassMethod(column: TableColumn, index: number): ClassValue {
+    return {
+      'custom-column-class': column.label === 'Last Name',
+      'custom-column-class--index': index === 3,
+    }
+  }
 </script>
+
+<style>
+.custom-row-class { @apply
+  bg-slate-300
+}
+
+.custom-row-class--index { @apply
+  bg-gray-100
+}
+
+.custom-column-class { @apply
+  bg-gray-200
+}
+
+.custom-column-class--index { @apply
+  bg-slate-300
+}
+</style>
