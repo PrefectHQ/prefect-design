@@ -10,8 +10,8 @@ export function reduceToRecord<S, T>(array: S[], key: (item: S) => string, value
   }, {})
 }
 
-export function reduceToMap<S, T>(array: S[], key: (item: S) => string, value: (item: S) => T): Map<string, T> {
-  return array.reduce<Map<string, T>>((reduced, item) => {
+export function reduceToMap<S, K, V>(array: S[], key: (item: S) => K, value: (item: S) => V): Map<K, V> {
+  return array.reduce<Map<K, V>>((reduced, item) => {
     reduced.set(key(item), value(item))
 
     return reduced
