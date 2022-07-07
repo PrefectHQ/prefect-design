@@ -85,7 +85,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
-  import { convertToClassValueObject } from '@/utilities/attributes'
+  import { asArray } from '@/utilities'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
@@ -104,7 +104,7 @@
   const buttonElement = ref<typeof PSelectButton>()
   const targetElement = computed(() => buttonElement.value?.wrapper)
   const targetElementWidth = useElementWidth(targetElement)
-  const { classes:attrClasses, styles:attrStyles, attrs } = useAttrsStylesAndClasses()
+  const { classes: attrClasses, styles:attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)
 
@@ -135,10 +135,12 @@
   })
 
   const classes = computed(() => ({
-    control: {
-      ...convertToClassValueObject(attrClasses.value),
-      'p-select--open': isOpen.value,
-    },
+    control: [
+      ...asArray(attrClasses.value),
+      {
+        'p-select--open': isOpen.value,
+      },
+    ],
   }))
 
   const styles = computed(() => ({
