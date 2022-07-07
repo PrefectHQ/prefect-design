@@ -19,7 +19,7 @@
           <template v-for="(row, rowIndex) in data" :key="rowIndex">
             <p-table-row :class="getRowClasses(row, rowIndex)">
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
-                <p-table-data :class="getColumnClasses(column, columnIndex, row, rowIndex)">
+                <p-table-data :class="getColumnClasses(column, getValue(row, column), columnIndex, row, rowIndex)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
                     {{ getValue(row, column) }}
                   </slot>
@@ -125,8 +125,8 @@
   }
 
   // eslint-disable-next-line max-params
-  function getColumnClasses(column: TableColumn, index: number, row: TableData, rowIndex: number): ClassValue {
-    const custom = asArray(props.columnClasses?.(column, index, row, rowIndex))
+  function getColumnClasses(column: TableColumn, value: unknown, index: number, row: TableData, rowIndex: number): ClassValue {
+    const custom = asArray(props.columnClasses?.(column, value, index, row, rowIndex))
 
     console.log({ custom })
 

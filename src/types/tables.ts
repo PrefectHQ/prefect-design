@@ -9,4 +9,4 @@ export type TableColumn<T = TableData> = {
 } & { width?: string, visible?: boolean }
 
 export type RowClassesMethod = (row: TableData, index: number) => ClassValue
-export type ColumnClassesMethod = (column: TableColumn, index: number, row: TableData, rowIndex: number) => ClassValue
+export type ColumnClassesMethod = (column: TableColumn, value: unknown, index: number, row: TableData, rowIndex: number) => ClassValue

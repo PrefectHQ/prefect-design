@@ -136,7 +136,7 @@
     }
   }
 
-  function columnClasses(column: TableColumn, index: number): ClassValue {
+  function columnClasses(column: TableColumn, value: unknown, index: number): ClassValue {
     return {
       'custom-column-class': column.label === 'Last Name',
       'custom-column-class--index': index === 3,
