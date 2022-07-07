@@ -8,5 +8,5 @@ export type TableColumn<T = TableData> = {
   property?: keyof T,
 } & { width?: string, visible?: boolean }
 
-export type RowClassMethod = (row: TableData, index: number) => ClassValue
-export type ColumnClassMethod = (column: TableColumn, index: number, row: TableData, rowIndex: number) => ClassValue
+export type RowClassesMethod = (row: TableData, index: number) => ClassValue
+export type ColumnClassesMethod = (column: TableColumn, index: number, row: TableData, rowIndex: number) => ClassValue

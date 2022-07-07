@@ -54,7 +54,7 @@
   import PTableHeader from './PTableHeader.vue'
   import PTableRow from './PTableRow.vue'
   import { ClassValue } from '@/types/attributes'
-  import { ColumnClassMethod, RowClassMethod, TableColumn, TableData } from '@/types/tables'
+  import { ColumnClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
   import { isEven, isOdd } from '@/utilities'
   import { asArray, isStrings } from '@/utilities/arrays'
   import { kebabCase } from '@/utilities/strings'
@@ -62,8 +62,8 @@
   const props = defineProps<{
     data: TableData[],
     columns?: TableColumn[],
-    rowClasses?: RowClassMethod,
-    columnClasses?: ColumnClassMethod,
+    rowClasses?: RowClassesMethod,
+    columnClasses?: ColumnClassesMethod,
   }>()
 
   const slots = useSlots()
