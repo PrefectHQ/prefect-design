@@ -48,7 +48,7 @@
   defineExpose({ el })
 
   const classes = computed(() => [
-    ...asArray(attrClasses),
+    ...asArray(attrClasses.value),
     {
       'p-base-input--disabled': props.disabled,
       'p-base-input--failed': failed.value,
