@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps: 
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Check Package Version
         uses: EndBug/version-check@v2.1.0
@@ -34,7 +34,9 @@ jobs:
     environment: 'prod'
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Read .nvmrc
         run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
@@ -46,6 +48,18 @@ jobs:
       
       - name: Install dependencies
         run: npm ci install
+
+      - name: Generate Changelog
+        run: npm run changelog
+      
+      - name: Commit Changelog
+        run: |
+          git pull
+          git config --global user.name 'Marvin'
+          git config --global user.email 'marvin@prefect.io'
+          git add CHANGELOG.md
+          git commit -am "Generate CHANGELOG.md"
+          git push
       
       - name: Build package
         run: npm run build
@@ -64,3 +78,5 @@ jobs:
         with:
           tag_name: ${{ steps.publish.outputs.version }}
           release_name: Release ${{ steps.publish.outputs.version }}
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/PrefectHQ/prefect-design/blob/main/CHANGELOG.md) for details.
