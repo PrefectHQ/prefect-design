@@ -3,6 +3,8 @@
     ref="popOver"
     :placement="[bottomLeft, topLeft, bottomRight, topRight]"
     class="p-select"
+    :class="attrClasses"
+    :styles="attrStyles"
     auto-close
     @open="handleOpenChange"
     @keydown="handleKeydown"
@@ -14,7 +16,6 @@
           v-model="internalValue"
           class="p-select__custom"
           :class="classes.control"
-          :style="styles.control"
           :disabled="disabled"
           v-bind="attrs"
           :options="selectOptions"
@@ -35,7 +36,6 @@
           size="1"
           class="p-select__native"
           :class="classes.control"
-          :style="styles.control"
           :disabled="disabled"
           v-bind="attrs"
           :options="filteredSelectOptions"
@@ -85,7 +85,6 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
-  import { asArray } from '@/utilities'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
@@ -104,7 +103,7 @@
   const buttonElement = ref<typeof PSelectButton>()
   const targetElement = computed(() => buttonElement.value?.wrapper)
   const targetElementWidth = useElementWidth(targetElement)
-  const { classes: attrClasses, styles:attrStyles, attrs } = useAttrsStylesAndClasses()
+  const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)
 
@@ -135,19 +134,15 @@
   })
 
   const classes = computed(() => ({
-    control: [
-      ...asArray(attrClasses.value),
-      {
-        'p-select--open': isOpen.value,
-      },
-    ],
+    control: {
+      'p-select--open': isOpen.value,
+    },
   }))
 
   const styles = computed(() => ({
-    option:{
+    option: {
       minWidth: `${targetElementWidth.value}px`,
     },
-    control: attrStyles,
   }))
 
   function openSelect(): void {
