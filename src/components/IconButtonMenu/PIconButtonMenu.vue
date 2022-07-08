@@ -4,7 +4,7 @@
     class="p-icon-button-menu"
     :class="classes"
     :style="styles"
-    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
+    :placement="[bottomRight, topRight]"
     auto-close
   >
     <template #target="{ toggle }">
@@ -19,21 +19,22 @@
 </template>
 
 <script lang="ts">
-  export default {
+  import { defineComponent, ref, withDefaults } from 'vue'
+
+  export default defineComponent({
     name: 'PIconButtonMenu',
     expose: [],
     inheritAttrs: false,
-  }
+  })
 </script>
 
 <script lang="ts" setup>
-  import { ref, withDefaults } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { Icon } from '@/types/icon'
-  import { topRight, bottomRight, bottomLeft, topLeft } from '@/utilities/position'
+  import { topRight, bottomRight } from '@/utilities/position'
 
   withDefaults(defineProps<{
     icon?: Icon,
