@@ -32,7 +32,7 @@
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
-  import { convertToClassValueObject } from '@/utilities/attributes'
+  import { asArray } from '@/utilities'
 
   const props = defineProps<{
     state?: State,
@@ -41,18 +41,20 @@
     disabled?: boolean,
   }>()
 
-  const { classes:attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
+  const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
   const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
   const el = ref<HTMLDivElement>()
 
   defineExpose({ el })
 
-  const classes = computed(() => ({
-    ...convertToClassValueObject(attrClasses.value),
-    'p-base-input--disabled': props.disabled,
-    'p-base-input--failed': failed.value,
-    'p-base-input--pending': props.state?.pending,
-  }))
+  const classes = computed(() => [
+    ...asArray(attrClasses.value),
+    {
+      'p-base-input--disabled': props.disabled,
+      'p-base-input--failed': failed.value,
+      'p-base-input--pending': props.state?.pending,
+    },
+  ])
 
   const attrsWithDisabled = computed(() => ({
     ...attrs.value,

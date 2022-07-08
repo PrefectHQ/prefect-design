@@ -65,7 +65,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
   import { keys } from '@/types'
-  import { convertToClassValueObject } from '@/utilities/attributes'
+  import { asArray } from '@/utilities'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
   import { bottomRight, topRight } from '@/utilities/position'
@@ -84,7 +84,7 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const { classes:attrClasses, styles, attrs } = useAttrsStylesAndClasses()
+  const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const buttonElement = ref<typeof PDateButton>()
   const targetElement = computed(() => buttonElement.value?.el)
@@ -110,10 +110,12 @@
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const classes = computed(() => ({
-    control: {
-      ...convertToClassValueObject(attrClasses.value),
-      'p-date-input--open': isOpen.value,
-    },
+    control: [
+      ...asArray(attrClasses.value),
+      {
+        'p-date-input--open': isOpen.value,
+      },
+    ],
   }))
 
   function openPicker(): void {

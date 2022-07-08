@@ -7,6 +7,7 @@ export function reduceToRecord<S, K extends string | number | symbol, V>(array: 
     reduced[key(item)] = value(item)
 
     return reduced
+  // eslint-disable-next-line @typescript-eslint/prefer-reduce-type-parameter
   }, {} as Record<K, V>)
 }
 
@@ -16,4 +17,8 @@ export function reduceToMap<S, K, V>(array: S[], key: (item: S) => K, value: (it
 
     return reduced
   }, new Map())
+}
+
+export function asArray<T>(value: T | T[]): T[] {
+  return Array.isArray(value) ? value : [value]
 }
