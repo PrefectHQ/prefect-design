@@ -81,29 +81,31 @@
       </p-label>
 
       <p-label label="Hybrid Date Input" :message="JSON.stringify(exampleDate)" :state="exampleState">
-        <p-date-input
-          v-model="exampleDate"
-          :show-time="showTimeInExampleDate"
-          :clearable="isClearableDate"
-          :disabled="disabled"
-          :min="minDate"
-          :max="maxDate"
-          :state="exampleState"
-        />
-        <div class="flex justify-start gap-4">
-          <p-checkbox v-model="showTimeInExampleDate" :disabled="disabled" label="Show Time" />
+        <p-content>
+          <p-date-input
+            v-model="exampleDate"
+            :show-time="showTimeInExampleDate"
+            :clearable="isClearableDate"
+            :disabled="disabled"
+            :min="minDate"
+            :max="maxDate"
+            :state="exampleState"
+          />
+          <div class="flex justify-start gap-4">
+            <p-checkbox v-model="showTimeInExampleDate" :disabled="disabled" label="Show Time" />
 
-          <p-checkbox v-model="isClearableDate" :disabled="disabled" label="Clearable" />
-        </div>
-        <div class="flex gap-4 w-1/2">
-          <p-label label="Min Value" :message="minDate ? format(minDate, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="minDate" :disabled="disabled" :state="exampleState" />
-          </p-label>
+            <p-checkbox v-model="isClearableDate" :disabled="disabled" label="Clearable" />
+          </div>
+          <div class="flex gap-4 w-1/2">
+            <p-label label="Min Value" :message="minDate ? format(minDate, 'MMM do, yyyy h:mm a') : ''">
+              <p-native-date-input v-model="minDate" :disabled="disabled" :state="exampleState" />
+            </p-label>
 
-          <p-label label="Max Value" :message="maxDate ? format(maxDate, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="maxDate" :disabled="disabled" :state="exampleState" />
-          </p-label>
-        </div>
+            <p-label label="Max Value" :message="maxDate ? format(maxDate, 'MMM do, yyyy h:mm a') : ''">
+              <p-native-date-input v-model="maxDate" :disabled="disabled" :state="exampleState" />
+            </p-label>
+          </div>
+        </p-content>
       </p-label>
 
       <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState">
@@ -114,7 +116,7 @@
         <PTagsArea v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
       </p-label>
 
-      <p-label label="Validation State">
+      <p-label is="div" label="Validation State">
         <p-checkbox v-model="exampleState.valid" label="valid" />
         <p-checkbox v-model="exampleState.validated" label="validated" />
         <p-checkbox v-model="exampleState.pending" label="pending" />

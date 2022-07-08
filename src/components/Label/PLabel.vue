@@ -1,8 +1,7 @@
 <template>
-  <label class="p-label">
+  <component :is="is" class="p-label">
     <template v-if="slots.label || isDefined(label) || slots.description || isDefined(description)">
       <div class="p-label__header">
-
         <div v-if="slots.label || isDefined(label)" class="p-label__text">
           <slot name="label">
             <span>
@@ -19,7 +18,9 @@
         </div>
       </div>
     </template>
-    <slot />
+    <div class="p-label__body">
+      <slot />
+    </div>
     <div v-if="slots.message || isDefined(message)" class="p-label__message" :class="classes">
       <slot name="message">
         <span>
@@ -27,23 +28,30 @@
         </span>
       </slot>
     </div>
-  </label>
+  </component>
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots } from 'vue'
+  import { computed, useSlots, withDefaults } from 'vue'
   import { State } from '@/types/state'
 
-  const slots = useSlots()
-
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     label?: string,
     message?: string,
     state?: State,
     description?: string,
-  }>()
+    is?: string,
+  }>(), {
+    label: undefined,
+    message: undefined,
+    state: undefined,
+    description: undefined,
+    is: 'label',
+  })
 
-  const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
+  const slots = useSlots()
+
+  const failed = computed(() => !props.state.valid && props.state.validated && !props.state.pending)
 
   const classes = computed(() => ({
     'p-label__message--failed': failed.value,

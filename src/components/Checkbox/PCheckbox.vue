@@ -65,6 +65,7 @@
 <style>
 .p-checkbox { @apply
   my-1
+  flex
 }
 
 .p-checkbox--disabled,
@@ -93,6 +94,7 @@
   flex
   gap-x-2
   items-center
+  cursor-pointer
 }
 
 .p-checkbox__label .p-checkbox__label-text { @apply
