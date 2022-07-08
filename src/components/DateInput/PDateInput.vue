@@ -1,7 +1,7 @@
 <template>
   <PPopOver
     ref="popOver"
-    :placement="[bottomRight, topRight]"
+    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
     class="p-date-input"
     auto-close
     @open="handleOpenChange"
@@ -48,16 +48,15 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, ref } from 'vue'
-
-  export default defineComponent({
+  export default {
     name: 'PDateInput',
     expose: [],
     inheritAttrs: false,
-  })
+  }
 </script>
 
 <script lang="ts" setup>
+  import { computed, ref } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
   import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
@@ -68,7 +67,7 @@
   import { asArray } from '@/utilities'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
-  import { bottomRight, topRight } from '@/utilities/position'
+  import { bottomRight, topRight, bottomLeft, topLeft } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
