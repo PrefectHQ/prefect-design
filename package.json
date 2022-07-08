@@ -17,7 +17,8 @@
     "build": "vue-tsc && tsc-alias && vite build",
     "build:demo": "vite build --mode=demo",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint:fix": "eslint src --fix",
+    "changelog": "auto-changelog --package --commit-limit 0"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.es.js",
@@ -37,6 +38,7 @@
     "@types/node": "^17.0.31",
     "@types/tailwindcss": "^3.0.10",
     "@vitejs/plugin-vue": "^2.3.1",
+    "auto-changelog": "^2.4.0",
     "autoprefixer": "^10.4.6",
     "eslint": "^8.6.0",
     "postcss": "^8.4.13",
