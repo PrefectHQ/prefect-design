@@ -128,7 +128,6 @@
   function getColumnClasses(column: TableColumn, value: unknown, index: number, row: TableData, rowIndex: number): ClassValue {
     const custom = asArray(props.columnClasses?.(column, value, index, row, rowIndex))
 
-    console.log({ custom })
 
     return [
       ...custom,
