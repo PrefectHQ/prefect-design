@@ -104,7 +104,6 @@
 
     if (props.options[props.highlightedIndex].disabled) {
       const newIndex = indexValue.value + difference
-      console.log(newIndex)
       if (newIndex > 0 && newIndex < props.options.length) {
         indexValue.value += difference
       }
