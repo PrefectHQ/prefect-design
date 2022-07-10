@@ -103,7 +103,10 @@
     const difference = value - previous
 
     if (props.options[props.highlightedIndex].disabled) {
-      indexValue.value += difference
+      const newIndex = indexValue.value + difference
+      if (newIndex > 0 && newIndex < props.options.length) {
+        indexValue.value += difference
+      }
     } else {
       scrollToOption(value)
     }
