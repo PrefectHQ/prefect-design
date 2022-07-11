@@ -1,11 +1,11 @@
-import { App, createApp, reactive, Plugin, ComponentPublicInstance, markRaw } from 'vue'
+import { App, createApp, reactive, Plugin, Component, markRaw } from 'vue'
 import ToastContainer from '@/components/Toast/ToastContainer.vue'
 
 type ToastType = 'default' | 'success' | 'error'
 
 type Toast = {
   id: number,
-  message: string | ComponentPublicInstance,
+  message: string | Component,
   type: ToastType,
   dismissible: boolean,
   timeout: number | false,
@@ -68,7 +68,7 @@ function getMountElement(mountPoint: Element | string | undefined): Element {
   return mountPoint
 }
 
-function showToast(message: string | ComponentPublicInstance, type: ToastType = 'default', options?: ToastOptions): Toast {
+function showToast(message: string | Component, type: ToastType = 'default', options?: ToastOptions): Toast {
   const id = getToastId()
 
   const defaultOptions: Required<ToastOptions> = {

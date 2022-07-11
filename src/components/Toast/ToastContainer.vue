@@ -16,11 +16,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ComponentPublicInstance } from 'vue'
+  import { Component } from 'vue'
   import PToast from './PToast.vue'
   import { queue } from '@/plugins/Toast'
 
-  function isStringMessage(message: string | ComponentPublicInstance): message is string {
+  function isStringMessage(message: string | Component): message is string {
     return typeof message === 'string'
   }
 </script>
