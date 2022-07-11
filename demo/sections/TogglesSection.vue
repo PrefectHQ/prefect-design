@@ -23,6 +23,21 @@
         <span class="text-sm font-medium text-gray-900">Async state</span>
       </template>
     </p-toggle>
+
+    <p-toggle v-model="toggleFive" class="py-2">
+      <template #prepend>
+        <span class="text-sm font-medium text-gray-900">prepended</span>
+      </template>
+    </p-toggle>
+
+    <p-toggle v-model="toggleSix" class="py-2">
+      <template #append>
+        <span class="text-sm font-medium text-gray-900">appended</span>
+      </template>
+      <template #prepend>
+        <span class="text-sm font-medium text-gray-900">prepended</span>
+      </template>
+    </p-toggle>
   </Section>
 </template>
 
@@ -34,6 +49,8 @@
   const toggleOne = ref(false)
   const toggleTwo = ref(false)
   const toggleThree = ref(false)
+  const toggleFive = ref(true)
+  const toggleSix = ref(true)
 
   const toggleFourApiValue = ref(false)
   const toggleFourLoading = ref(false)
