@@ -1,6 +1,6 @@
 <template>
   <SwitchGroup as="div" class="p-toggle">
-    <SwitchLabel v-if="$slots.prepend" as="span" class="mr-3">
+    <SwitchLabel v-if="$slots.prepend" as="span">
       <slot name="prepend" />
     </SwitchLabel>
     <Switch v-model="value" class="p-toggle__switch" :class="classes.toggle" :disabled="disabled || loading">
@@ -8,7 +8,7 @@
         <PLoadingIcon v-if="loading" class="p-toggle__switch-loader" />
       </span>
     </Switch>
-    <SwitchLabel v-if="$slots.append" as="span" class="ml-3">
+    <SwitchLabel v-if="$slots.append" as="span">
       <slot name="append" />
     </SwitchLabel>
   </SwitchGroup>
@@ -56,6 +56,7 @@
 .p-toggle { @apply
   flex
   items-center
+  gap-3
 }
 
 .p-toggle__switch { @apply
