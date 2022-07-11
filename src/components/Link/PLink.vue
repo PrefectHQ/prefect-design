@@ -1,7 +1,7 @@
 <template>
   <a v-if="externalLink" :href="externalLink" target="_blank" class="p-link">
     <slot />
-    <p-icon class="p-link__external-icon" icon="ExternalLinkIcon" />
+    <PIcon class="p-link__external-icon" icon="ExternalLinkIcon" />
   </a>
 
   <!-- This is necessary because the router-link component throws an unrecoverable error if no to prop is provided -->
@@ -9,18 +9,19 @@
     <slot />
   </a>
 
-  <router-link
+  <RouterLink
     v-else
     class="p-link"
     :to="to"
   >
     <slot />
-  </router-link>
+  </RouterLink>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { RouteLocationRaw } from 'vue-router'
+  import { RouterLink, RouteLocationRaw } from 'vue-router'
+  import PIcon from '@/components/Icon/PIcon.vue'
 
   const props = defineProps<{
     to?: RouteLocationRaw,

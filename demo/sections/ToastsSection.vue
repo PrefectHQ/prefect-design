@@ -13,12 +13,16 @@
       <p-button @click="noTimeoutToast">
         Doesn't automatically dismiss Toast
       </p-button>
+      <p-button @click="componentToast">
+        Uses component message
+      </p-button>
     </div>
   </Section>
 </template>
 
 <script lang="ts" setup>
   import Section from '../components/Section.vue'
+  import ToastMessage from '../components/ToastMessage.vue'
   import { showToast } from '@/plugins/Toast'
 
   const defaultToast = (): void => {
@@ -32,5 +36,8 @@
   }
   const noTimeoutToast = (): void => {
     showToast('Waiting for you to dismiss', 'default', { timeout:false, dismissible: false })
+  }
+  const componentToast = (): void => {
+    showToast(ToastMessage)
   }
 </script>

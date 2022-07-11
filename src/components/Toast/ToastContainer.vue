@@ -2,15 +2,27 @@
   <div aria-live="assertive" class="p-toast-container">
     <transition-group name="toast">
       <div v-for="{ id, message, dismissible, timeout, type, dismiss } in queue" :key="id" class="p-toast-container__toast">
-        <p-toast v-bind="{ message, dismissible, timeout, type }" @close="dismiss" />
+        <p-toast v-bind="{ dismissible, timeout, type }" @close="dismiss">
+          <template v-if="isStringMessage(message)">
+            {{ message }}
+          </template>
+          <template v-else>
+            <component :is="message" />
+          </template>
+        </p-toast>
       </div>
     </transition-group>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { Component as ComponentType } from 'vue'
   import PToast from './PToast.vue'
   import { queue } from '@/plugins/Toast'
+
+  function isStringMessage(message: string | ComponentType): message is string {
+    return typeof message === 'string'
+  }
 </script>
 
 <style>

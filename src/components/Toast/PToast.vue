@@ -4,7 +4,9 @@
       <div class="p-toast__info">
         <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
         <p class="p-toast__message">
-          {{ message }}
+          <slot>
+            {{ message }}
+          </slot>
         </p>
       </div>
       <div v-if="dismissible || timeout === false" class="p-toast__close">
@@ -24,7 +26,7 @@
   import { Icon } from '@/types/icon'
 
   const props = defineProps<{
-    message: string,
+    message?: string,
     dismissible: boolean,
     timeout: number | false,
     type: ToastType,
