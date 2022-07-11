@@ -1,5 +1,8 @@
 <template>
   <SwitchGroup as="div" class="p-toggle">
+    <SwitchLabel v-if="$slots.prepend" as="span" class="mr-3">
+      <slot name="prepend" />
+    </SwitchLabel>
     <Switch v-model="value" class="p-toggle__switch" :class="classes.toggle" :disabled="disabled || loading">
       <span aria-hidden="true" class="p-toggle__switch-aria" :class="classes.translate">
         <PLoadingIcon v-if="loading" class="p-toggle__switch-loader" />
