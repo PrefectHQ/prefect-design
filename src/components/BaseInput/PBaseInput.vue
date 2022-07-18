@@ -19,16 +19,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
-
-  export default defineComponent({
+  export default {
     name: 'BaseInput',
     expose: [],
     inheritAttrs: false,
-  })
+  }
 </script>
 
 <script lang="ts" setup>
+  import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
