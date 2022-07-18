@@ -69,23 +69,21 @@
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    const submitKeys: Key[] = [keys.enter, keys.comma, keys.space]
-
-    if (submitKeys.includes(event.key as Key)) {
-      submitNewTag()
+    if (event.key === keys.enter && validateNewTag(newTag.value)) {
+      trySubmitNewTag()
       event.preventDefault()
     }
   }
 
   function handleBlur(): void {
-    submitNewTag()
+    trySubmitNewTag()
   }
 
   function validateNewTag(tag: string | null): tag is string  {
     return !!newTag.value?.length && !internalValue.value.includes(newTag.value)
   }
 
-  function submitNewTag(): void {
+  function trySubmitNewTag(): void {
     if (validateNewTag(newTag.value)) {
       internalValue.value = [...internalValue.value, newTag.value]
     }
