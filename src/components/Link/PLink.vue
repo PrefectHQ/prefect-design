@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { RouterLink, RouteLocationRaw } from 'vue-router'
+  import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
 
   const props = defineProps<{
