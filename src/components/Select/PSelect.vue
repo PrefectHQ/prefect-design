@@ -244,8 +244,10 @@
         event.preventDefault()
         break
       case keys.enter:
-        trySettingValueToHighlighted()
-        event.preventDefault()
+        if (isOpen.value) {
+          trySettingValueToHighlighted()
+          event.preventDefault()
+        }
         break
       default:
         break
