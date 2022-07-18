@@ -30,16 +30,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
-
-  export default defineComponent({
+  export default {
     name: 'PTagsArea',
     expose: [],
     inheritAttrs: false,
-  })
+  }
 </script>
 
 <script lang="ts" setup>
+  import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import { Key, keys } from '@/types/keyEvent'

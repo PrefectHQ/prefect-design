@@ -71,13 +71,11 @@
         "prefix": "script",
         "body": [
             "<script lang=\"ts\">",
-            "import { defineComponent } from 'vue';",
-            "",
-            "export default defineComponent({",
+            "export default {",
             "  name: '$1',",
             "  expose: [],",
             "  $2",
-            "});",
+            "};",
             "</script>"
         ],
         "description": "Create <script> block"

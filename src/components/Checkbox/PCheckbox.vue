@@ -20,16 +20,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
-
-  export default defineComponent({
+  export default {
     name: 'PCheckbox',
     expose: [],
     inheritAttrs: false,
-  })
+  }
 </script>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
 

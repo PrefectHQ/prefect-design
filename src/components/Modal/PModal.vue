@@ -59,17 +59,16 @@
 </template>
 
 <script lang="ts">
-  import { TransitionChild, TransitionRoot } from '@headlessui/vue'
-  import { defineComponent, computed, useSlots, watchEffect } from 'vue'
-
-  export default defineComponent({
+  export default {
     name: 'PModal',
     expose: [],
     inheritAttrs: false,
-  })
+  }
 </script>
 
 <script setup lang="ts">
+  import { TransitionChild, TransitionRoot } from '@headlessui/vue'
+  import { computed, useSlots, watchEffect } from 'vue'
   import { Icon } from '@/types/icon'
 
   const props = defineProps<{
