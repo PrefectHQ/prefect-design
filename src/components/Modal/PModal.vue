@@ -77,7 +77,7 @@
 <script setup lang="ts">
   import { TransitionChild, TransitionRoot } from '@headlessui/vue'
   import { nextTick, computed, ref, useSlots, watch } from 'vue'
-  import { useFocusableRef } from '@/compositions/useFocusableRef'
+  import { useFocusableElements } from '@/compositions/useFocusableElements'
   import { keys } from '@/types'
   import { Icon } from '@/types/icon'
 
@@ -119,7 +119,7 @@
   }
 
   function findFirstFocusable(): HTMLElement | undefined {
-    const focusable = useFocusableRef(modalBody)
+    const focusable = useFocusableElements(modalBody)
 
     return focusable.value.length ? focusable.value[0] : modalRoot.value
   }

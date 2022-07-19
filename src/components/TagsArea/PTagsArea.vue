@@ -69,8 +69,7 @@
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    if (event.key === keys.enter && validateNewTag(newTag.value)) {
-      trySubmitNewTag()
+    if (event.key === keys.enter && trySubmitNewTag()) {
       event.preventDefault()
     }
   }
@@ -83,12 +82,15 @@
     return !!newTag.value?.length && !internalValue.value.includes(newTag.value)
   }
 
-  function trySubmitNewTag(): void {
-    if (validateNewTag(newTag.value)) {
-      internalValue.value = [...internalValue.value, newTag.value]
+  function trySubmitNewTag(): boolean {
+    if (!validateNewTag(newTag.value)) {
+      return false
     }
 
+    internalValue.value = [...internalValue.value, newTag.value]
     newTag.value = null
+
+    return true
   }
 </script>
 
