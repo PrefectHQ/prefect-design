@@ -41,7 +41,7 @@
   import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
-  import { Key, keys } from '@/types/keyEvent'
+  import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{
     modelValue: string[] | null | undefined,
