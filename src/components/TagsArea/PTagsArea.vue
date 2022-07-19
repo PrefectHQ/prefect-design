@@ -41,7 +41,7 @@
   import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
-  import { Key, keys } from '@/types/keyEvent'
+  import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{
     modelValue: string[] | null | undefined,
@@ -69,28 +69,28 @@
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    const submitKeys: Key[] = [keys.enter, keys.comma, keys.space]
-
-    if (submitKeys.includes(event.key as Key)) {
-      submitNewTag()
+    if (event.key === keys.enter && trySubmitNewTag()) {
       event.preventDefault()
     }
   }
 
   function handleBlur(): void {
-    submitNewTag()
+    trySubmitNewTag()
   }
 
   function validateNewTag(tag: string | null): tag is string  {
     return !!newTag.value?.length && !internalValue.value.includes(newTag.value)
   }
 
-  function submitNewTag(): void {
-    if (validateNewTag(newTag.value)) {
-      internalValue.value = [...internalValue.value, newTag.value]
+  function trySubmitNewTag(): boolean {
+    if (!validateNewTag(newTag.value)) {
+      return false
     }
 
+    internalValue.value = [...internalValue.value, newTag.value]
     newTag.value = null
+
+    return true
   }
 </script>
 

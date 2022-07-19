@@ -1,7 +1,15 @@
 <template>
   <teleport to="body">
     <TransitionRoot as="div" :show="showModal" v-bind="$attrs">
-      <div class="p-modal" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div
+        ref="modalRoot"
+        class="p-modal"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+        tabindex="0"
+        @keydown="handleKeydown"
+      >
         <div class="p-modal__container">
           <TransitionChild
             as="template"
@@ -38,7 +46,7 @@
                 <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
               </div>
 
-              <div class="p-modal__body">
+              <div ref="modalBody" class="p-modal__body">
                 <slot :close="closeModal" />
               </div>
 
@@ -68,7 +76,9 @@
 
 <script setup lang="ts">
   import { TransitionChild, TransitionRoot } from '@headlessui/vue'
-  import { computed, useSlots, watchEffect } from 'vue'
+  import { nextTick, computed, ref, useSlots, watch } from 'vue'
+  import { useFocusableElements } from '@/compositions/useFocusableElements'
+  import { keys } from '@/types'
   import { Icon } from '@/types/icon'
 
   const props = defineProps<{
@@ -90,6 +100,8 @@
     },
   })
 
+  const modalRoot = ref<HTMLDivElement>()
+  const modalBody = ref<HTMLDivElement>()
   const slots = useSlots()
 
   const classes = computed(() => ({
@@ -100,9 +112,31 @@
     internalValue.value = false
   }
 
-  watchEffect(() => {
-    document.body.classList.toggle('p-modal__stop-bg-scroll', props.showModal)
-  })
+  function handleKeydown(event: KeyboardEvent): void {
+    if (event.key === keys.escape) {
+      closeModal()
+    }
+  }
+
+  function findFirstFocusable(): HTMLElement | undefined {
+    const focusable = useFocusableElements(modalBody)
+
+    return focusable.value.length ? focusable.value[0] : modalRoot.value
+  }
+
+  function focusOnFirstFocusable(): void {
+    const firstFocusable = findFirstFocusable()
+
+    firstFocusable?.focus()
+  }
+
+  watch(() => props.showModal, value => {
+    if (value) {
+      nextTick(focusOnFirstFocusable)
+    }
+
+    document.body.classList.toggle('p-modal__stop-bg-scroll', value)
+  }, { immediate: true })
 </script>
 
 <style>
