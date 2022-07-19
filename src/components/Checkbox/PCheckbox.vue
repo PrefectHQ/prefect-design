@@ -67,12 +67,6 @@
   flex
 }
 
-.p-checkbox--disabled,
-:disabled .p-checkbox { @apply
-  cursor-not-allowed
-  opacity-50
-}
-
 .p-checkbox__control { @apply
   focus:ring-prefect-600
   h-4
@@ -80,10 +74,6 @@
   text-prefect-600
   border-gray-300
   rounded
-}
-
-.p-checkbox__control:disabled { @apply
-  cursor-not-allowed
 }
 
 .p-checkbox__label { @apply
@@ -110,5 +100,16 @@
   border-prefect-300
   focus-within:border-prefect-300
   focus-within:ring-prefect-300
+}
+
+.p-checkbox--disabled .p-checkbox__control {
+  @apply opacity-50
+}
+
+.p-checkbox--disabled,
+.p-checkbox__control:disabled,
+.p-checkbox--disabled .p-checkbox__control,
+.p-checkbox--disabled .p-checkbox__label {
+  @apply cursor-not-allowed
 }
 </style>
