@@ -84,8 +84,8 @@
 .p-toast__card { @apply
   max-w-sm
   w-full
-bg-slate-700
-text-slate-100
+  bg-slate-700
+  text-slate-100
   shadow-lg
   rounded-lg
   pointer-events-auto
@@ -115,7 +115,7 @@ text-slate-100
 
 .p-toast__message { @apply
   text-sm
-text-slate-300
+  text-slate-300
 }
 
 .p-toast__close { @apply
