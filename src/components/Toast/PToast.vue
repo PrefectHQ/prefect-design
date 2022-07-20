@@ -84,7 +84,8 @@
 .p-toast__card { @apply
   max-w-sm
   w-full
-  bg-white
+  bg-slate-700
+  text-slate-50
   shadow-lg
   rounded-lg
   pointer-events-auto
@@ -113,8 +114,8 @@
 }
 
 .p-toast__message { @apply
-   text-sm
-   text-gray-500
+  text-sm
+  text-slate-100
 }
 
 .p-toast__close { @apply
@@ -124,11 +125,11 @@
 }
 
 .p-toast__close-btn { @apply
-  bg-white
+  bg-slate-600
   rounded-md
   inline-flex
-  text-gray-400
-  hover:text-gray-500
+  text-slate-300
+  hover:text-slate-50
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
