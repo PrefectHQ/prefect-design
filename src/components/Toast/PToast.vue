@@ -85,7 +85,7 @@
   max-w-sm
   w-full
   bg-slate-700
-  text-slate-100
+  text-slate-50
   shadow-lg
   rounded-lg
   pointer-events-auto
@@ -115,7 +115,7 @@
 
 .p-toast__message { @apply
   text-sm
-  text-slate-300
+  text-slate-100
 }
 
 .p-toast__close { @apply
