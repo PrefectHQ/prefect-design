@@ -46,7 +46,7 @@
 .p-link__external-icon { @apply
   inline
   relative
-  -top-2
+  -top-[0.4em]
   w-3
   h-3
 }
