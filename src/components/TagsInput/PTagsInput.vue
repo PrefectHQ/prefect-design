@@ -22,7 +22,7 @@
     modelValue: string[] | null | undefined,
     placeholder?: string,
   }>(), {
-    placeholder: 'Add Tag',
+    placeholder: 'Add tag',
   })
 
   const emits = defineEmits<{
