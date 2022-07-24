@@ -1,43 +1,54 @@
 <template>
-  <section class="p-tabs">
-    <ul class="p-tabs__tabs" role="tablist" aria-label="Tab">
-      <p-tab
-        v-for="(tab, index) in innerTabs"
-        :id="kebabCase(tab.label)"
-        :key="tab.label"
-        :active="selectedTab === tab.label"
-        :disabled="tab.disabled"
-        :area-controls="`${kebabCase(tab.label)}-content`"
-        @click="selectTab(tab)"
-        @keydown.enter.space.prevent="handleKeyDown(tab)"
-      >
-        <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="scope(tab, index)">
-          {{ tab.label }}
-        </slot>
-      </p-tab>
-    </ul>
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+    <p-select id="tabs" v-model="selectedTab" :options="options" name="tabs" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+      <option v-for="tab in innerTabs" :key="kebabCase(tab.label)" :selected="selectedTab === tab.label">
+        {{ tab.label }}
+      </option>
+    </p-select>
+  </div>
+  <div class="hidden sm:block">
+    <section class="p-tabs">
+      <ul class="p-tabs__tabs" role="tablist" aria-label="Tab">
+        <p-tab
+          v-for="(tab, index) in innerTabs"
+          :id="kebabCase(tab.label)"
+          :key="tab.label"
+          :active="selectedTab === tab.label"
+          :disabled="tab.disabled"
+          :area-controls="`${kebabCase(tab.label)}-content`"
+          @click="selectTab(tab)"
+          @keydown.enter.space.prevent="handleKeyDown(tab)"
+        >
+          <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="scope(tab, index)">
+            {{ tab.label }}
+          </slot>
+        </p-tab>
+      </ul>
 
-    <template v-for="tab in innerTabs" :key="tab">
-      <section
-        v-if="selectedTab === tab.label"
-        :id="`${kebabCase(tab.label)}-content`"
-        class="p-tabs__content"
-        role="tabpanel"
-        :aria-labelledby="`${kebabCase(tab.label)}`"
-      >
-        <slot :name="kebabCase(tab.label)" />
-      </section>
-    </template>
-  </section>
+      <template v-for="tab in innerTabs" :key="tab">
+        <section
+          v-if="selectedTab === tab.label"
+          :id="`${kebabCase(tab.label)}-content`"
+          class="p-tabs__content"
+          role="tabpanel"
+          :aria-labelledby="`${kebabCase(tab.label)}`"
+        >
+          <slot :name="kebabCase(tab.label)" />
+        </section>
+      </template>
+    </section>
+  </div>
 </template>
 
 <script lang="ts" setup>
   import { ref, onMounted, computed } from 'vue'
+  import PSelect from '@/components/Select/PSelect.vue'
   import PTab from '@/components/Tab/PTab.vue'
   import { Tab, areTabs } from '@/types/tabs'
   import { kebabCase } from '@/utilities/strings'
 
-  const selectedTab = ref()
 
   const props = defineProps<{
     tabs: string[] | Tab[],
@@ -54,6 +65,10 @@
 
     return props.tabs.map(label => ({ label }))
   })
+
+  const selectedTab = ref(innerTabs.value[0].label)
+  const options = computed(()=> innerTabs.value.map(tab=> tab.label))
+
 
   function selectTab(tab: Tab): void {
     const value = areTabs(props.tabs) ? tab : tab.label
