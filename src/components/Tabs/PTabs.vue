@@ -20,7 +20,7 @@
       </p-select>
     </div>
     <div class="p-tabs--not-mobile">
-      <ul class="p-tabs__tabs" role="tablist" aria-label="Tab">
+      <ul class="p-tabs--not-mobile__tabs" role="tablist" aria-label="Tab">
         <p-tab
           v-for="(tab, index) in innerTabs"
           :id="kebabCase(tab.label)"
@@ -44,7 +44,7 @@
       <section
         v-if="selectedTab === tab.label"
         :id="`${kebabCase(tab.label)}-content`"
-        class="p-tabs__content"
+        class="p-tabs--not-mobile__content"
         role="tabpanel"
         :aria-labelledby="`${kebabCase(tab.label)}`"
       >
@@ -136,7 +136,7 @@ focus:border-indigo-500
 .p-tabs--not-mobile {
   @apply hidden sm:block;
 }
-.p-tabs__tabs {
+.p-tabs--not-mobile__tabs {
   @apply
   border-b
   border-gray-200
@@ -146,7 +146,7 @@ focus:border-indigo-500
   cursor-pointer;
 }
 
-.p-tabs__content {
+.p-tabs--not-mobile__content {
   @apply mt-5;
 }
 </style>
