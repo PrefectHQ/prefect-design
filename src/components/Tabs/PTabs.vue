@@ -1,24 +1,6 @@
 <template>
   <section class="p-tabs">
-    <div class="p-tabs--mobile">
-      <label for="tabs" class="p-tabs--mobile__label">Select a tab</label>
-      <p-select
-        id="tabs"
-        v-model="selectedTab"
-        :options="options"
-        name="tabs"
-        class="p-tabs--mobile__select"
-      >
-        <option
-          v-for="tab in innerTabs"
-          :key="kebabCase(tab.label)"
-          :selected="selectedTab === tab.label"
-        >
-          {{ tab.label }}
-        </option>
-      </p-select>
-    </div>
-    <div class="p-tabs--not-mobile">
+    <div v-if="media.sm" class="p-tabs--not-mobile">
       <ul class="p-tabs--not-mobile__tabs" role="tablist" aria-label="Tab">
         <p-tab
           v-for="(tab, index) in innerTabs"
@@ -39,6 +21,24 @@
         </p-tab>
       </ul>
     </div>
+    <div v-else class="p-tabs--mobile">
+      <label for="tabs" class="p-tabs--mobile__label">Select a tab</label>
+      <p-select
+        id="tabs"
+        v-model="selectedTab"
+        :options="options"
+        name="tabs"
+        class="p-tabs--mobile__select"
+      >
+        <option
+          v-for="tab in innerTabs"
+          :key="kebabCase(tab.label)"
+          :selected="selectedTab === tab.label"
+        >
+          {{ tab.label }}
+        </option>
+      </p-select>
+    </div>
     <template v-for="tab in innerTabs" :key="tab">
       <section
         v-if="selectedTab === tab.label"
@@ -58,7 +58,9 @@
   import PSelect from '@/components/Select/PSelect.vue'
   import PTab from '@/components/Tab/PTab.vue'
   import { Tab, areTabs } from '@/types/tabs'
+  import { media } from '@/utilities/media'
   import { kebabCase } from '@/utilities/strings'
+
 
   const props = defineProps<{
     tabs: string[] | Tab[],
@@ -109,10 +111,6 @@
 </script>
 
 <style>
-.p-tabs--mobile {
-  @apply sm:hidden;
-}
-
 .p-tabs--mobile__label {
   @apply sr-only;
 }
@@ -132,9 +130,6 @@ focus:border-indigo-500
   rounded-md;
 }
 
-.p-tabs--not-mobile {
-  @apply hidden sm:block;
-}
 .p-tabs--not-mobile__tabs {
   @apply
   border-b
