@@ -2,7 +2,6 @@
   <section class="p-tabs">
     <div class="p-tabs--mobile">
       <label for="tabs" class="p-tabs--mobile__label">Select a tab</label>
-      <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
       <p-select
         id="tabs"
         v-model="selectedTab"
