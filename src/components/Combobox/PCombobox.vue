@@ -129,7 +129,7 @@
     return options
   })
 
-  const filteredSelectOptions = computed(() => selectOptions.value.filter(option => optionStartsWith(option, typedValue.value)))
+  const filteredSelectOptions = computed(() => selectOptionsWithUnknown.value.filter(option => optionStartsWith(option, typedValue.value)))
   function filterOptions(option: SelectOption): boolean {
     return filteredSelectOptions.value.includes(option)
   }
