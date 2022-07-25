@@ -16,4 +16,8 @@
   divide-y-2
   divide-gray-100
 }
+
+.p-overflow-menu > a { @apply
+  block
+}
 </style>
