@@ -28,7 +28,6 @@
         v-model="selectedTab"
         :options="options"
         name="tabs"
-        class="p-tabs--mobile__select"
       >
         <option
           v-for="tab in innerTabs"
@@ -43,7 +42,7 @@
       <section
         v-if="selectedTab === tab.label"
         :id="`${kebabCase(tab.label)}-content`"
-        class="p-tabs--not-mobile__content"
+        class="p-tabs__content"
         role="tabpanel"
         :aria-labelledby="`${kebabCase(tab.label)}`"
       >
@@ -115,20 +114,6 @@
   @apply sr-only;
 }
 
-.p-tabs--mobile__select {
-  @apply
-  block
-  w-full
-  pl-3
-  pr-10
-  py-2 text-base
-border-gray-300
-  focus:outline-none
-focus:ring-indigo-500
-focus:border-indigo-500
-  sm:text-sm
-  rounded-md;
-}
 
 .p-tabs--not-mobile__tabs {
   @apply
@@ -140,7 +125,7 @@ focus:border-indigo-500
   cursor-pointer;
 }
 
-.p-tabs--not-mobile__content {
+.p-tabs__content {
   @apply mt-5;
 }
 </style>
