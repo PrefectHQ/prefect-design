@@ -1,7 +1,7 @@
 <template>
   <PSelect
     v-model="internalValue"
-    :options="selectOptions"
+    :options="selectOptionsWithUnknown"
     :empty-message="emptyMessage"
     :filter-options="filterOptions"
     @update:model-value="resetTypedValue"
@@ -29,21 +29,23 @@
     </template>
     <template #option="{ option, ...scope }">
       <slot name="option" :option="option" v-bind="scope">
-        {{ option.unknown ? `"${option.label}"` : option.label }}
+        {{ optionLabel(option) }}
       </slot>
     </template>
+
     <template #options-empty="scope">
-      <slot name="options-empty" v-bind="scope">
-        <template v-if="typedValue">
-          <div class="p-combobox__options-empty">
+      <div class="p-combobox__options-empty">
+        <slot name="options-empty" v-bind="scope">
+          <template v-if="typedValue">
             <span>No matches for "{{ typedValue }}"</span>
             <p-button secondary size="sm" @click.stop="typedValue = null">
               See All Options
             </p-button>
-          </div>
-        </template>
-      </slot>
+          </template>
+        </slot>
+      </div>
     </template>
+
     <template #default="scope">
       <slot v-bind="scope" />
     </template>
@@ -58,8 +60,6 @@
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
-
-  type ComboboxSelectOption = SelectOption & { unknown?: boolean }
 
   const props = withDefaults(defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
@@ -98,7 +98,7 @@
   })
 
   const selectOptions = computed(() => {
-    const options: ComboboxSelectOption[] = props.options
+    return props.options
       .map(option => {
         if (isSelectOption(option)) {
           return option
@@ -106,17 +106,24 @@
 
         return { label: option.toLocaleString(), value: option }
       })
+  })
 
+  const unknownValues = computed(() => {
+    return valueAsArray.value
+      .filter(value => !optionsIncludeValue(selectOptions.value, value))
+  })
+
+  const selectOptionsWithUnknown = computed(() => {
+    const options = [...selectOptions.value]
     if (internalValue.value && props.allowUnknownValue) {
-      const unknownValues = valueAsArray.value
-        .filter(value => !optionsIncludeValue(options, value))
-        .map(value => ({ label:`${value}`, value, unknown: true }))
+      const unknownSelectOptions = unknownValues.value
+        .map(value => ({ label:`${value}`, value }))
 
-      options.push(...unknownValues)
+      options.push(...unknownSelectOptions)
     }
 
     if (typedValue.value && props.allowUnknownValue && !optionsIncludeValue(options, typedValue.value)) {
-      options.push({ label:`${typedValue.value}`, value: typedValue.value, unknown: true })
+      options.push({ label:`${typedValue.value}`, value: typedValue.value })
     }
 
     return options
@@ -135,6 +142,10 @@
 
   const typedValue = ref<string | null>(null)
   const textInput = ref<HTMLInputElement>()
+
+  function optionLabel(option: SelectOption): string {
+    return option.value && unknownValues.value.includes(option.value.toString()) ? `"${option.label}"` : option.label
+  }
 
   function optionStartsWith(option: SelectOption, target: string | null): boolean {
     if (typeof target !== 'string') {
