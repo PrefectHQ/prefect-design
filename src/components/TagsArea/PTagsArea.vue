@@ -3,11 +3,13 @@
     <slot :tags="internalValue" :remove-tag="removeTag">
       <div class="p-tags-area__tags">
         <template v-for="tag in internalValue" :key="tag">
-          <slot name="tag" :tag="tag" :remove-tag="removeTag">
-            <PTag dismissible @dismiss="removeTag(tag)">
-              {{ tag }}
-            </PTag>
-          </slot>
+          <div class="p-tags-area__tag" @click="editTag(tag)">
+            <slot name="tag" :tag="tag" :remove-tag="removeTag">
+              <PTag dismissible @dismiss="removeTag(tag)">
+                {{ tag }}
+              </PTag>
+            </slot>
+          </div>
         </template>
       </div>
     </slot>
@@ -68,6 +70,11 @@
     internalValue.value = value
   }
 
+  function editTag(tag: string): void {
+    newTag.value = tag
+    removeTag(tag)
+  }
+
   function handleKeydown(event: KeyboardEvent): void {
     if (event.key === keys.enter && trySubmitNewTag()) {
       event.preventDefault()
@@ -95,6 +102,10 @@
 </script>
 
 <style>
+.p-tags-area__tag { @apply
+  cursor-pointer
+}
+
 .p-tags-area__tags { @apply
   flex
   flex-wrap
