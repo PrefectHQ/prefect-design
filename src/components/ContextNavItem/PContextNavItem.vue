@@ -1,6 +1,6 @@
 <template>
   <router-link
-    exact-active-class="p-context-nav-item--active"
+    active-class="p-context-nav-item--active"
     class="p-context-nav-item"
     :to="to"
   >
