@@ -1,8 +1,14 @@
 <template>
   <Section heading="Forms">
     <p-form heading="Header Text">
-      <p-label label="Plain text" :state="exampleState" description="Plain text description">
-        <p-text-input v-model="exampleText" :disabled="disabled" :append="exampleText" :state="exampleState" />
+      <p-label label="Plain text" for="plain-text" :state="exampleState" description="Using `for` and `id` attrs">
+        <p-text-input id="plain-text" v-model="exampleText" :disabled="disabled" :append="exampleText" :state="exampleState" />
+      </p-label>
+
+      <p-label label="Plain text" :state="exampleState" description="Using `id` slot scope">
+        <template #default="{ id }">
+          <p-text-input :id="id" v-model="exampleText" :disabled="disabled" :append="exampleText" :state="exampleState" />
+        </template>
       </p-label>
 
       <p-label label="Slots for prepend & append" :state="exampleState">
