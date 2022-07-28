@@ -1,14 +1,16 @@
 <template>
-  <component :is="is" class="p-label">
+  <div class="p-label">
     <template v-if="slots.label || isDefined(label) || slots.description || isDefined(description)">
       <div class="p-label__header">
-        <div v-if="slots.label || isDefined(label)" class="p-label__text">
-          <slot name="label">
-            <span>
-              {{ label }}
-            </span>
-          </slot>
-        </div>
+        <template v-if="slots.label || isDefined(label)">
+          <label :for="id" class="p-label__label">
+            <slot name="label">
+              <span>
+                {{ label }}
+              </span>
+            </slot>
+          </label>
+        </template>
         <div v-if="slots.description || isDefined(description)" class="p-label__description">
           <slot name="description">
             <span>
@@ -19,7 +21,7 @@
       </div>
     </template>
     <div class="p-label__body">
-      <slot />
+      <slot :id="id" />
     </div>
     <div v-if="slots.message || isDefined(message)" class="p-label__message" :class="classes">
       <slot name="message">
@@ -28,30 +30,26 @@
         </span>
       </slot>
     </div>
-  </component>
+  </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots, withDefaults } from 'vue'
+  import { computed, useSlots } from 'vue'
   import { State } from '@/types/state'
 
-  const props = withDefaults(defineProps<{
+  const props = defineProps<{
     label?: string,
     message?: string,
     state?: State,
     description?: string,
-    is?: string,
-  }>(), {
-    label: undefined,
-    message: undefined,
-    state: undefined,
-    description: undefined,
-    is: 'label',
-  })
+    for?: string,
+  }>()
 
   const slots = useSlots()
 
-  const failed = computed(() => !props.state.valid && props.state.validated && !props.state.pending)
+  const failed = computed(() => props.state && !props.state.valid && props.state.validated && !props.state.pending)
+
+  const id = computed(() => props.for ?? crypto.randomUUID())
 
   const classes = computed(() => ({
     'p-label__message--failed': failed.value,
@@ -76,6 +74,7 @@
 .p-label__header { @apply
   flex
   flex-col
+  items-start
   gap-y-[0.125rem]
 }
 
