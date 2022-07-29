@@ -26,7 +26,7 @@
   const props = withDefaults(defineProps<{
     placement?: PositionMethod | PositionMethod[],
     autoClose?: boolean,
-    to?: string,
+    to?: string | Element,
   }>(), {
     placement: () => [right, bottom, top, left],
     to: 'body',
@@ -47,7 +47,13 @@
 
   const attrs = useAttrs()
 
-  const container = ref(document.querySelector(props.to) ?? undefined)
+  const container = computed(() => {
+    if (typeof props.to === 'string') {
+      return document.querySelector(props.to) ?? undefined
+    }
+
+    return props.to
+  })
   const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
   const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
 
