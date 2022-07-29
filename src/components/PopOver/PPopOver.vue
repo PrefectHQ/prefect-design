@@ -47,7 +47,13 @@
 
   const attrs = useAttrs()
 
-  const container = ref(getContainer())
+  const container = computed(() => {
+    if (typeof props.to === 'string') {
+      return document.querySelector(props.to) ?? undefined
+    }
+
+    return props.to
+  })
   const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
   const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
 
@@ -62,14 +68,6 @@
     document.removeEventListener('click', eventHandler)
     document.removeEventListener('focusin', eventHandler)
   })
-
-  function getContainer(): Element | undefined {
-    if (typeof props.to === 'string') {
-      return document.querySelector(props.to) ?? undefined
-    }
-
-    return props.to
-  }
 
   function eventHandler(event: MouseEvent | FocusEvent): void {
     if (target.value?.contains(event.target as Node) || content.value?.contains(event.target as Node)) {
