@@ -58,10 +58,12 @@
   "dependencies": {
     "@headlessui/vue": "^1.6.0",
     "@heroicons/vue": "^1.0.6",
-    "@prefecthq/vue-compositions": "0.1.26",
+    "@prefecthq/vue-compositions": "0.1.41",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
-    "date-fns": "2.28.0"
+    "@types/lodash.debounce": "4.0.7",
+    "date-fns": "2.28.0",
+    "lodash.debounce": "4.0.8"
   }
 }
