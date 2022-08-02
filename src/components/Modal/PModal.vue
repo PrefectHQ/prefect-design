@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <TransitionRoot as="div" :show="showModal" v-bind="$attrs">
+    <TransitionRoot as="div" :show="showModal">
       <div
         ref="modalRoot"
         class="p-modal"
@@ -31,7 +31,7 @@
             leave-from="opacity-100 translate-y-0 sm:scale-100"
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div class="p-modal__card">
+            <div class="p-modal__card" v-bind="$attrs">
               <div class="p-modal__header" :class="classes">
                 <div class="p-modal__tile-icon-group">
                   <slot name="icon" :close="closeModal">
@@ -167,13 +167,14 @@
 
 .p-modal__card { @apply
   relative
-  inline-block
+  inline-flex
+  flex-col
   bg-white
   rounded-lg
   shadow-xl
   transition-all
-  sm:max-w-lg
-  sm:w-full
+  w-full
+  sm:w-[32rem]
 }
 
 .p-modal__header { @apply
@@ -204,6 +205,7 @@
   flex-col
   gap-3
   p-5
+  grow
   sm:py-6
   sm:gap-4
 }
