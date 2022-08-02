@@ -1,5 +1,5 @@
 <template>
-  <div class="p-toast__card">
+  <div class="p-toast__card" @mouseenter="stopTimeout" @mouseleave="startTimeout">
     <div class="p-toast__card-container">
       <div class="p-toast__info">
         <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, onMounted } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { ToastType } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
@@ -32,6 +32,7 @@
     type: ToastType,
   }>()
 
+  const timer = ref<ReturnType<typeof setTimeout>>()
 
   const iconMap: Record<string, string> = {
     default: 'InformationCircleIcon',
@@ -40,11 +41,11 @@
   }
   const icon = computed(() => iconMap[props.type] as Icon)
 
-
   const colorClasses = [
     { className: 'p-toast__icon--success', name: 'success'  },
     { className: 'p-toast__icon--error', name: 'error'  },
   ]
+
   const color = computed(() => {
     return colorClasses.find(color => color.name == props.type)?.className
   })
@@ -58,14 +59,18 @@
     emit('close')
   }
 
-  const trySetTimeout = (): void => {
+  const stopTimeout = (): void => {
+    clearTimeout(timer.value)
+  }
+
+  const startTimeout = (): void => {
     if (props.timeout) {
-      setTimeout(removeToast, props.timeout)
+      timer.value = setTimeout(removeToast, props.timeout)
     }
   }
 
   onMounted(() => {
-    trySetTimeout()
+    startTimeout()
   })
 </script>
 
