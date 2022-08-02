@@ -1,5 +1,11 @@
 <template>
-  <div class="p-toast__card" @mouseenter="stopTimeout" @mouseleave="startTimeout">
+  <div
+    class="p-toast__card"
+    @mouseenter="stopTimeout"
+    @mouseleave="startTimeout"
+    @focusin.capture="stopTimeout"
+    @focusout.capture="startTimeout"
+  >
     <div class="p-toast__card-container">
       <div class="p-toast__info">
         <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
