@@ -70,19 +70,20 @@
 
   @apply
   opacity-100
-  translate-y-0
+  translate-x-0
 }
 
 .toast-leave-active ~ .p-toast-container__toast { @apply
-  translate-y-0
+  translate-x-0
   transition-transform
   duration-700
 }
 
 .toast-leave-to { @apply
   opacity-0
-  translate-y-full
+  translate-x-full
 }
+
 .toast-leave-to ~ .p-toast-container__toast { @apply
   translate-y-full
 }
