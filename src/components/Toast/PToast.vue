@@ -43,6 +43,8 @@
   }>()
 
   const timer = ref<ReturnType<typeof setTimeout>>()
+  const animationDuration = ref(props.timeout ? `${props.timeout/1000}s` : '10s')
+  const animationPlayState = ref('running')
 
   const iconMap: Record<string, string> = {
     default: 'InformationCircleIcon',
@@ -60,7 +62,6 @@
     return colorClasses.find(color => color.name == props.type)?.className
   })
 
-
   const emit = defineEmits<{
     (event: 'close'): void,
   }>()
@@ -70,16 +71,16 @@
   }
 
   const stopTimeout = (): void => {
+    animationPlayState.value = 'paused'
     clearTimeout(timer.value)
   }
 
   const startTimeout = (): void => {
     if (props.timeout) {
+      animationPlayState.value = 'running'
       timer.value = setTimeout(removeToast, props.timeout)
     }
   }
-
-  const animationDuration = computed(() => props.timeout ? `${props.timeout/1000}s` : '10s')
 
   onMounted(() => {
     startTimeout()
@@ -170,7 +171,7 @@
 
 .p-toast__svg-circle {  @apply
   stroke-[8px]
-  stroke-slate-300
+ stroke-emerald-500
   fill-transparent;
 
   stroke-dasharray: 290px;
@@ -178,6 +179,12 @@
   stroke-linecap: round;
   animation: countdown linear forwards;
   animation-duration: v-bind(animationDuration);
+  animation-play-state: v-bind(animationPlayState)
+}
+
+/* Hack to restart main animation  */
+.p-toast__svg-circle:hover {
+  animation: nonexistent;
 }
 
 @keyframes countdown {
