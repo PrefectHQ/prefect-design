@@ -188,14 +188,15 @@
 }
 
 @keyframes countdown {
-  from {
+  from { @apply
+    stroke-emerald-500;
 
     stroke-dashoffset: 0px;
-    @apply stroke-emerald-500
   }
-  to {
+  to { @apply
+    stroke-rose-500;
+
     stroke-dashoffset: 290px;
-     @apply stroke-rose-500
   }
 }
 </style>
