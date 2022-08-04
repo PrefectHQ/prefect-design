@@ -171,7 +171,7 @@
 
 .p-toast__svg-circle {  @apply
   stroke-[8px]
- stroke-emerald-500
+  stroke-emerald-500
   fill-transparent;
 
   stroke-dasharray: 290px;
