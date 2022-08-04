@@ -183,7 +183,7 @@
 }
 
 /* Hack to restart main animation  */
-.p-toast__svg-circle:hover {
+.p-toast__card:hover .p-toast__svg-circle {
   animation: nonexistent;
 }
 
