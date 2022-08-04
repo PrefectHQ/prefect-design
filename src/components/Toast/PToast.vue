@@ -18,7 +18,11 @@
       <div v-if="dismissible || timeout === false" class="p-toast__close">
         <button type="button" class="p-toast__close-btn" @click="removeToast">
           <span class="sr-only">Close</span>
-          <p-icon class="" icon="XIcon" aria-hidden="true" />
+          <p-icon class="p-toast__close-icon" icon="XIcon" aria-hidden="true" />
+
+          <svg v-if="dismissible" class="p-toast__svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="p-toast__svg-circle" />
+          </svg>
         </button>
       </div>
     </div>
@@ -39,6 +43,8 @@
   }>()
 
   const timer = ref<ReturnType<typeof setTimeout>>()
+  const animationDuration = ref(props.timeout ? `${props.timeout/1000}s` : '5s')
+  const animationPlayState = ref('running')
 
   const iconMap: Record<string, string> = {
     default: 'InformationCircleIcon',
@@ -56,7 +62,6 @@
     return colorClasses.find(color => color.name == props.type)?.className
   })
 
-
   const emit = defineEmits<{
     (event: 'close'): void,
   }>()
@@ -66,11 +71,13 @@
   }
 
   const stopTimeout = (): void => {
+    animationPlayState.value = 'paused'
     clearTimeout(timer.value)
   }
 
   const startTimeout = (): void => {
     if (props.timeout) {
+      animationPlayState.value = 'running'
       timer.value = setTimeout(removeToast, props.timeout)
     }
   }
@@ -137,8 +144,11 @@
 
 .p-toast__close-btn { @apply
   bg-slate-600
-  rounded-md
+  relative
+  rounded-full
   inline-flex
+  justify-center
+  items-center
   text-slate-300
   hover:text-slate-50
   focus:outline-none
@@ -147,5 +157,46 @@
   focus:ring-indigo-500
   h-5
   w-5
+}
+
+.p-toast__close-icon { @apply
+  w-4
+  h-4
+}
+
+.p-toast__svg { @apply
+  absolute
+  -rotate-90
+}
+
+.p-toast__svg-circle {  @apply
+  stroke-[8px]
+  stroke-emerald-500
+  fill-transparent;
+
+  stroke-dasharray: 290px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  animation: countdown linear forwards;
+  animation-duration: v-bind(animationDuration);
+  animation-play-state: v-bind(animationPlayState)
+}
+
+/* Hack to restart main animation  */
+.p-toast__card:hover .p-toast__svg-circle {
+  animation: nonexistent;
+}
+
+@keyframes countdown {
+  from { @apply
+    stroke-emerald-500;
+
+    stroke-dashoffset: 0px;
+  }
+  to { @apply
+    stroke-rose-500;
+
+    stroke-dashoffset: 290px;
+  }
 }
 </style>
