@@ -43,7 +43,7 @@
   }>()
 
   const timer = ref<ReturnType<typeof setTimeout>>()
-  const animationDuration = ref(props.timeout ? `${props.timeout/1000}s` : '10s')
+  const animationDuration = ref(props.timeout ? `${props.timeout/1000}s` : '5s')
   const animationPlayState = ref('running')
 
   const iconMap: Record<string, string> = {
