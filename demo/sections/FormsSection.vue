@@ -83,7 +83,13 @@
       </p-label>
 
       <p-label label="Native Date Input" :message="JSON.stringify(exampleDate)" :state="exampleState">
-        <p-native-date-input v-model="exampleDate" :disabled="disabled" :state="exampleState" />
+        <p-native-date-input
+          v-model="exampleDate"
+          :min="minDate"
+          :max="maxDate"
+          :disabled="disabled"
+          :state="exampleState"
+        />
       </p-label>
 
       <p-label label="Hybrid Date Input" :message="JSON.stringify(exampleDate)" :state="exampleState">
@@ -180,7 +186,7 @@
   const exampleCombobox = ref('Space-X')
   const exampleCombobox2 = ref([])
   const exampleMultiSelect = ref<string[]>([])
-  const exampleDate = ref<Date | null>(new Date())
+  const exampleDate = ref<Date | null>()
   const minDate = ref<Date | null>(null)
   const maxDate = ref<Date | null>(null)
 
