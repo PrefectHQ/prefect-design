@@ -190,7 +190,7 @@
   }
 
   function updateSelectedDate(date: Date): void {
-    selectedDate.value = set(selectedDate.value ?? new Date(), {
+    selectedDate.value = set(selectedDate.value ?? startOfDay(new Date()), {
       year: date.getFullYear(),
       month: date.getMonth(),
       date: date.getDate(),
