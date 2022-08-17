@@ -1,15 +1,16 @@
 <template>
-  <nav class="p-bread-crumb">
-    <div v-for="(crumb, index) in crumbs" :key="index">
-      <div :class="classes.separator(index)">
+  <nav class="p-bread-crumbs">
+    <template v-for="(crumb, index) in crumbs" :key="index">
+      <div class="p-bread-crumbs__crumb">
         <component
           :is="crumb.to ? 'router-link' : 'span'"
+          :class="classes.link(crumb)"
           :to="crumb.to"
         >
-          <span :class="classes.link(crumb)">{{ crumb.text }}</span>
+          {{ crumb.text }}
         </component>
       </div>
-    </div>
+    </template>
   </nav>
 </template>
 
@@ -17,14 +18,11 @@
   import { computed } from 'vue'
   import type { Crumb, BreadCrumbs } from '@/types'
 
-  const props = defineProps<{
+  defineProps<{
     crumbs: BreadCrumbs,
   }>()
 
   const classes = computed(() => ({
-    separator:(index: number) => ({
-      'p-bread-crumbs__crumb--separate': index < props.crumbs.length - 1,
-    }),
     link:(crumb: Crumb) => ({
       'p-bread-crumb__crumb--link': !!crumb.to,
     }),
@@ -32,34 +30,30 @@
 </script>
 
 <style>
-.p-bread-crumb {
-  @apply
+.p-bread-crumbs { @apply
   flex
-  flex-wrap
+  flex-nowrap
   font-bold
   text-xl
   text-slate-700
 }
 
-.p-bread-crumbs__icon {
-  @apply
-  h-6
-  w-6
-  mr-2
+.p-bread-crumbs__crumb { @apply
+  whitespace-nowrap
+  overflow-hidden
+  text-ellipsis
 }
 
-.p-bread-crumb__crumb--link {
-  @apply
+.p-bread-crumbs__crumb:not(:first-child) { @apply
+  before:content-['\00a0\/\00a0']
+  before:text-slate-400
+  before:font-normal
+}
+
+.p-bread-crumb__crumb--link { @apply
   text-prefect-500
   cursor-pointer
   hover:underline
   active:text-prefect-700
-}
-
-.p-bread-crumbs__crumb--separate {
-  @apply
-  after:content-['\00a0\/\00a0']
-  after:text-slate-400
-  after:font-normal
 }
 </style>
