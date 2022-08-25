@@ -13,7 +13,7 @@
       <PIcon icon="ExclamationCircleIcon" />
     </div>
     <div v-if="state?.pending" class="p-base-input__pending-icon">
-      <PIcon icon="RefreshIcon" />
+      <PLoadingIcon />
     </div>
   </div>
 </template>
@@ -29,6 +29,7 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import PLoadingIcon from '@/components/LoadingIcon/LoadingIcon.vue'
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
   import { asArray } from '@/utilities'
@@ -122,10 +123,10 @@
 }
 
 .p-base-input__pending-icon { @apply
+  relative
   text-prefect-300
   w-5
   h-5
   mr-2
-  animate-spin
 }
 </style>
