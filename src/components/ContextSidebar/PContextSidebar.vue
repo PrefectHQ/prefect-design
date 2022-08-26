@@ -38,6 +38,7 @@
 .p-context-sidebar__body,
 .p-context-sidebar__footer { @apply
   p-3
+  overflow-y-auto
 }
 
 .p-context-sidebar__header { @apply
