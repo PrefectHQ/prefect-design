@@ -74,12 +74,13 @@
   text-prefect-600
   border-gray-300
   rounded
+  transition-colors
+  ring-offset-2
+  focus-within:ring-2
 }
 
 .p-checkbox__label { @apply
   text-sm
-  font-medium
-  text-gray-700
   flex
   gap-x-2
   items-center
@@ -91,14 +92,16 @@
 }
 
 .p-checkbox--failed .p-checkbox__control { @apply
-  border-red-600
-  focus-within:border-red-600
+  ring-1
+  ring-red-600
+  focus-within:ring-2
   focus-within:ring-red-600
 }
 
 .p-checkbox--pending .p-checkbox__control { @apply
-  border-prefect-300
-  focus-within:border-prefect-300
+  ring-1
+  ring-prefect-300
+  focus-within:ring-2
   focus-within:ring-prefect-300
 }
 

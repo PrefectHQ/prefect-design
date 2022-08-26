@@ -12,8 +12,6 @@
 
     <FormsSection />
 
-    <TogglesSection />
-
     <TagsSection />
 
     <LinksSection />
@@ -62,6 +60,5 @@
   import TabSection from '../sections/TabSection.vue'
   import TagsSection from '../sections/TagsSection.vue'
   import ToastsSection from '../sections/ToastsSection.vue'
-  import TogglesSection from '../sections/TogglesSection.vue'
   import TypographySection from '../sections/TypographySection.vue'
 </script>

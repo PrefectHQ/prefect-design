@@ -1,68 +1,50 @@
 <template>
   <teleport to="body">
-    <TransitionRoot as="div" :show="showModal" v-bind="$attrs">
+    <Transition name="modal">
       <div
+        v-if="showModal"
         ref="modalRoot"
         class="p-modal"
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"
         tabindex="0"
+        v-bind="$attrs"
         @keydown="handleKeydown"
       >
         <div class="p-modal__container">
-          <TransitionChild
-            as="template"
-            enter="ease-out duration-300"
-            enter-from="opacity-0"
-            enter-to="opacity-100"
-            leave="ease-in duration-200"
-            leave-from="opacity-100"
-            leave-to="opacity-0"
-          >
-            <div class="p-modal__background" aria-hidden="true" />
-          </TransitionChild>
-          <TransitionChild
-            as="template"
-            enter="ease-out duration-300"
-            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enter-to="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leave-from="opacity-100 translate-y-0 sm:scale-100"
-            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
-            <div class="p-modal__card">
-              <div class="p-modal__header" :class="classes">
-                <div class="p-modal__tile-icon-group">
-                  <slot name="icon" :close="closeModal">
-                    <template v-if="icon">
-                      <p-icon :icon="icon" class="p-modal__icon" />
-                    </template>
-                  </slot>
-                  <slot name="title" :close="closeModal">
-                    <span class="p-modal__title">{{ title }}</span>
-                  </slot>
-                </div>
-                <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
-              </div>
-
-              <div ref="modalBody" class="p-modal__body">
-                <slot :close="closeModal" />
-              </div>
-
-              <div class="p-modal__footer">
-                <slot name="actions" :close="closeModal" />
-                <slot name="cancel" :close="closeModal">
-                  <p-button inset class="p-modal__close-button" @click="closeModal">
-                    Cancel
-                  </p-button>
+          <div class="p-modal__background" aria-hidden="true" />
+          <div class="p-modal__card">
+            <div class="p-modal__header" :class="classes.header">
+              <div class="p-modal__tile-icon-group">
+                <slot name="icon" :close="closeModal">
+                  <template v-if="icon">
+                    <p-icon :icon="icon" class="p-modal__icon" />
+                  </template>
+                </slot>
+                <slot name="title" :close="closeModal">
+                  <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
+              <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
             </div>
-          </TransitionChild>
+
+            <div ref="modalBody" class="p-modal__body">
+              <slot :close="closeModal" />
+            </div>
+
+            <div class="p-modal__footer">
+              <slot name="actions" :close="closeModal" />
+              <slot name="cancel" :close="closeModal">
+                <p-button inset class="p-modal__close-button" @click="closeModal">
+                  Cancel
+                </p-button>
+              </slot>
+            </div>
+          </div>
         </div>
       </div>
-    </TransitionRoot>
+    </Transition>
   </teleport>
 </template>
 
@@ -75,7 +57,6 @@
 </script>
 
 <script setup lang="ts">
-  import { TransitionChild, TransitionRoot } from '@headlessui/vue'
   import { nextTick, computed, ref, useSlots, watch } from 'vue'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
   import { keys } from '@/types'
@@ -105,7 +86,9 @@
   const slots = useSlots()
 
   const classes = computed(() => ({
-    'p-modal__header--no-title': props.title === undefined && slots.title === undefined,
+    header: {
+      'p-modal__header--no-title': props.title === undefined && slots.title === undefined,
+    },
   }))
 
   function closeModal(): void {
@@ -230,5 +213,28 @@
 
 .p-modal__stop-bg-scroll { @apply
   overflow-hidden
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s ease-out;
+}
+
+.modal-enter-active .p-modal__card,
+.modal-leave-active .p-modal__card {
+  transition: all 0.3s ease-out;
+}
+
+.modal-enter-from,
+.modal-leave-to { @apply
+  opacity-0
+}
+
+.modal-enter-from .p-modal__card,
+.modal-leave-to .p-modal__card { @apply
+  opacity-0
+  translate-y-4
+  sm:translate-y-0
+  sm:scale-95
 }
 </style>

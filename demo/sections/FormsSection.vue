@@ -46,15 +46,6 @@
         <p-textarea v-model="exampleTextarea" :disabled="disabled" editor="textarea" :state="exampleState" />
       </p-label>
 
-      <p-checkbox v-model="exampleBoolean" :disabled="disabled" :state="exampleState">
-        <template #label>
-          <span class="order-last">
-            <span v-if="typeof exampleBoolean === 'boolean'">{{ exampleBoolean }}</span>
-            <em v-else>undefined</em>
-          </span>
-        </template>
-      </p-checkbox>
-
       <p-label label="Cartoons" :message="JSON.stringify(exampleCheckboxArray)" :state="exampleState">
         <fieldset :disabled="disabled">
           <p-checkbox v-model="exampleCheckboxArray" editor="checkbox" value="Tom" label="Tom" :state="exampleState" />
@@ -128,6 +119,31 @@
         <PTagsArea v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
       </p-label>
 
+      <p-label label="Checkbox">
+        <p-checkbox v-model="exampleBoolean" :disabled="disabled" :state="exampleState">
+          <template #label>
+            <span class="order-last">
+              <span v-if="typeof exampleBoolean === 'boolean'">{{ exampleBoolean }}</span>
+              <em v-else>null</em>
+            </span>
+          </template>
+        </p-checkbox>
+      </p-label>
+
+      <p-label label="Toggle">
+        <div class="flex flex-col gap-2">
+          <p-toggle v-model="exampleBoolean" :disabled="disabled" :state="exampleState" :append="exampleBoolean?.toString() ?? 'null'" />
+          <p-toggle
+            v-model="exampleAnimalBoolean"
+            class="color-toggle"
+            :disabled="disabled"
+            :state="exampleState"
+            prepend="green"
+            append="blue"
+          />
+        </div>
+      </p-label>
+
       <p-label is="div" label="Validation State">
         <p-checkbox v-model="exampleState.valid" label="valid" />
         <p-checkbox v-model="exampleState.validated" label="validated" />
@@ -167,7 +183,8 @@
   const exampleNumber = ref(null)
   const exampleSearch = ref('')
   const exampleTextarea = ref('')
-  const exampleBoolean = ref<boolean>(false)
+  const exampleBoolean = ref<boolean | null>(null)
+  const exampleAnimalBoolean = ref(false)
   const exampleCheckboxArray = ref<string[]>([])
   const exampleNativeSelect = ref(null)
   const exampleSelect = ref(null)
@@ -207,5 +224,10 @@
 <style>
   .form__url .p-text-input__control {
     padding-left: 0;
+  }
+
+  .color-toggle .p-toggle__control:not(.p-toggle__control--checked) { @apply
+    bg-green-600
+    border-green-600
   }
 </style>
