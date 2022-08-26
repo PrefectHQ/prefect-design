@@ -1,55 +1,39 @@
 <template>
   <fieldset class="p-toggle" :disabled="disabled">
-    <button v-if="prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
-      {{ prepend }}
-    </button>
-    <slot name="prepend" />
+    <slot name="prepend">
+      <button v-if="prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
+        {{ prepend }}
+      </button>
+    </slot>
 
-    <template v-if="media.hover">
-      <label class="p-toggle__control" :class="classes.control">
-        <input
-          v-show="false"
-          v-model="internalValue"
-          type="checkbox"
-        >
-        <div class="p-toggle__slider" aria-hidden="true">
-          <template v-if="state?.pending">
-            <PLoadingIcon />
-          </template>
-        </div>
-      </label>
-    </template>
-    <template v-else>
-      <PCheckbox
+    <label class="p-toggle__control" :class="classes.control">
+      <input
+        v-show="false"
         v-model="internalValue"
-        :state="state"
-        v-bind="$attrs"
-      />
-    </template>
+        type="checkbox"
+      >
+      <div class="p-toggle__slider" aria-hidden="true">
+        <template v-if="state?.pending">
+          <PLoadingIcon />
+        </template>
+      </div>
+    </label>
 
-    <button v-if="append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
-      {{ append }}
-    </button>
-    <slot name="append" />
+    <slot name="append">
+      <button v-if="append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
+        {{ append }}
+      </button>
+    </slot>
   </fieldset>
 </template>
-
-<script lang="ts">
-  export default {
-    name: 'PToggle',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
 
 <script lang="ts" setup>
   import { computed, useSlots } from 'vue'
   import { PLoadingIcon } from '@/components/LoadingIcon'
   import { State } from '@/types/state'
-  import { media } from '@/utilities/media'
 
   const props = defineProps<{
-    modelValue?: boolean | null,
+    modelValue: boolean | null | undefined,
     disabled?: boolean,
     state?: State,
     prepend?: string,
