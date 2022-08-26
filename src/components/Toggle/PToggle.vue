@@ -1,10 +1,10 @@
 <template>
   <fieldset class="p-toggle" :disabled="disabled">
-    <slot name="prepend">
-      <button v-if="prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
+    <button v-if="prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
+      <slot name="prepend">
         {{ prepend }}
-      </button>
-    </slot>
+      </slot>
+    </button>
 
     <label class="p-toggle__control" :class="classes.control">
       <input
@@ -19,11 +19,11 @@
       </div>
     </label>
 
-    <slot name="append">
-      <button v-if="append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
+    <button v-if="append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
+      <slot name="append">
         {{ append }}
-      </button>
-    </slot>
+      </slot>
+    </button>
   </fieldset>
 </template>
 
