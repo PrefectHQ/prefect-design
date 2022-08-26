@@ -1,3 +1,4 @@
+import { PAutoHeightTransition, install as installPAutoHeightTransition } from './AutoHeightTransition'
 import { PBaseInput, install as installPBaseInput } from './BaseInput'
 import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
 import { PButton, install as installPButton } from './Button'
@@ -8,6 +9,7 @@ import { PCheckbox, install as installPCheckbox } from './Checkbox'
 import { PCode, install as installPCode } from './Code'
 import { PCombobox, install as installPCombobox } from './Combobox'
 import { PContent, install as installPContent } from './Content'
+import { PContextAccordionItem, install as installPContextAccordionItem } from './ContextAccordionItem'
 import { PContextDivider, install as installPContextDivider } from './ContextDivider'
 import { PContextNavItem, install as installPContextNavItem } from './ContextNavItem'
 import { PContextSidebar, install as installPContextSidebar } from './ContextSidebar'
@@ -51,6 +53,7 @@ import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 
 export {
+  PAutoHeightTransition,
   PBaseInput,
   PBreadCrumbs,
   PButton,
@@ -60,6 +63,7 @@ export {
   PCode,
   PCombobox,
   PContent,
+  PContextAccordionItem,
   PContextDivider,
   PContextNavItem,
   PContextSidebar,
@@ -111,6 +115,7 @@ export {
 }
 
 export const installs = [
+  installPAutoHeightTransition,
   installPBaseInput,
   installPBreadCrumbs,
   installPButton,
@@ -120,6 +125,7 @@ export const installs = [
   installPCode,
   installPCombobox,
   installPContent,
+  installPContextAccordionItem,
   installPContextDivider,
   installPContextNavItem,
   installPContextSidebar,
@@ -166,6 +172,7 @@ export const installs = [
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    PAutoHeightTransition: typeof PAutoHeightTransition,
     PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
@@ -175,6 +182,7 @@ declare module '@vue/runtime-core' {
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,
+    PContextAccordionItem: typeof PContextAccordionItem,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
