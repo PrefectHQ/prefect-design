@@ -95,11 +95,6 @@ export const routes = [
     component: () => import('./ToastsSection.vue'),
   },
   {
-    name: 'Toggles',
-    path: 'toggles',
-    component: () => import('./TogglesSection.vue'),
-  },
-  {
     name: 'Typography',
     path: 'typography',
     component: () => import('./TypographySection.vue'),
