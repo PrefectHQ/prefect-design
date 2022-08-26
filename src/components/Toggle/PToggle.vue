@@ -49,7 +49,7 @@
   import { media } from '@/utilities/media'
 
   const props = defineProps<{
-    modelValue: boolean | null | undefined,
+    modelValue?: boolean | null,
     disabled?: boolean,
     state?: State,
     prepend?: string,
