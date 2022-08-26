@@ -70,9 +70,9 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import PositionSelect from '../components/PositionSelect.vue'
-  import Section from '../components/Section.vue'
-  import SubSection from '../components/SubSection.vue'
+  import PositionSelect from '../../components/PositionSelect.vue'
+  import Section from '../../components/Section.vue'
+  import SubSection from '../../components/SubSection.vue'
   import PButton from '@/components/Button/PButton.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PToggle from '@/components/Toggle/PToggle.vue'

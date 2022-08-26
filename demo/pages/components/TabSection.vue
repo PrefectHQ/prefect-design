@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-  import Section from '../components/Section.vue'
+  import Section from '../../components/Section.vue'
   import { PTabs } from '@/components'
 
   const tabs = ['Tab One', 'Tab Two', 'Tab Three']

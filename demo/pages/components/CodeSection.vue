@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts" setup>
-  import Section from '../components/Section.vue'
+  import Section from '../../components/Section.vue'
   import { PCode } from '@/components'
 
   const multilineContent = `import { createApp } from 'vue'

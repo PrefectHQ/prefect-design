@@ -78,9 +78,9 @@
 </template>
 
 <script lang="ts" setup>
-  import ResizableSection from '../components/ResizableSection.vue'
-  import Section from '../components/Section.vue'
-  import SubSection from '../components/SubSection.vue'
+  import ResizableSection from '../../components/ResizableSection.vue'
+  import Section from '../../components/Section.vue'
+  import SubSection from '../../components/SubSection.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTags from '@/components/Tags/PTags.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'

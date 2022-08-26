@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  import Section from '../components/Section.vue'
+  import Section from '../../components/Section.vue'
 
   const showModal = ref(false)
 </script>

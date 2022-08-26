@@ -23,8 +23,8 @@
 
 <script lang="ts" setup>
   import * as heroIcons from '@heroicons/vue/solid'
-  import Section from '../components/Section.vue'
-  import SubSection from '../components/SubSection.vue'
+  import Section from '../../components/Section.vue'
+  import SubSection from '../../components/SubSection.vue'
   import * as prefectIcons from '@/components/Icon/icons'
 
   import { showToast } from '@/plugins/Toast'

@@ -159,7 +159,7 @@
   import SearchIcon from '@heroicons/vue/solid/SearchIcon'
   import { format } from 'date-fns'
   import { reactive, ref } from 'vue'
-  import Section from '../components/Section.vue'
+  import Section from '../../components/Section.vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
   import PCombobox from '@/components/Combobox/PCombobox.vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'

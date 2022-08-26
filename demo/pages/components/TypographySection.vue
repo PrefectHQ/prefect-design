@@ -111,8 +111,8 @@
 
 <script lang="ts" setup>
   import { addHours, addMinutes } from 'date-fns'
-  import Section from '../components/Section.vue'
-  import SubSection from '../components/SubSection.vue'
+  import Section from '../../components/Section.vue'
+  import SubSection from '../../components/SubSection.vue'
   import { utcOffsetMinutes } from '@/compositions/useAdjustedDate'
   import { formatDate, formatDateTimeNumeric, formatTimeNumeric, formatDateTimeRelative } from '@/utilities/dates'
 

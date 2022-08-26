@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-  import ResizableSection from '../components/ResizableSection.vue'
-  import Section from '../components/Section.vue'
+  import ResizableSection from '../../components/ResizableSection.vue'
+  import Section from '../../components/Section.vue'
 </script>
 
 <style>

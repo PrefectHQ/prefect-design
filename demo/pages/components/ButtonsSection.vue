@@ -109,7 +109,7 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import Section from '../components/Section.vue'
+  import Section from '../../components/Section.vue'
   import { ButtonGroupOption, SelectModelValue } from '@/types'
 
   const buttonLoading = ref(false)

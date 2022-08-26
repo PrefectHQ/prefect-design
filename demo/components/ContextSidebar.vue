@@ -7,10 +7,24 @@
       </div>
     </template>
 
-    <p-context-nav-item title="Components" icon="PuzzleIcon" to="/components" />
-    <p-context-nav-item title="Tables" icon="TableIcon" to="/tables" />
+    <p-context-accordion-item title="Components" icon="PuzzleIcon" :children="components" />
     <p-context-nav-item title="Icons" icon="AdjustmentsIcon" to="/icons" />
-    <p-context-divider />
-    <p-context-nav-item title="Layouts" icon="TemplateIcon" to="/layouts" />
+    <p-context-accordion-item title="Layouts" icon="TemplateIcon" :children="layouts" />
   </p-context-sidebar>
 </template>
+
+<script lang="ts" setup>
+  import { routes as componentRoutes } from '../pages/components'
+  import { routes as layoutRoutes } from '../pages/layouts'
+  import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
+
+  const components: ContextAccordionChildItem[] = componentRoutes.map(route => ({
+    title: `p-${route.path}`,
+    to: { name: route.name },
+  }))
+
+  const layouts: ContextAccordionChildItem[] = layoutRoutes.map(route => ({
+    title: `p-${route.path}`,
+    to: { name: route.name },
+  }))
+</script>

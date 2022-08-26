@@ -1,27 +1,23 @@
 
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-
+import { routes as componentRoutes } from '../pages/components'
+import { routes as layoutRoutes } from '../pages/layouts'
 
 const routeRecords: RouteRecordRaw[] = [
   {
     name: 'components',
     path: '/components',
-    component: () => import('../pages/ComponentsPage.vue'),
-  },
-  {
-    name: 'tables',
-    path: '/tables',
-    component: () => import('../pages/TablesPage.vue'),
+    children: componentRoutes,
   },
   {
     name: 'layouts',
     path: '/layouts',
-    component: () => import('../pages/LayoutsPage.vue'),
+    children: layoutRoutes,
   },
   {
     name: 'icons',
     path: '/icons',
-    component: () => import('../pages/IconsPage.vue'),
+    component: () => import('../pages/icons/IconsSection.vue'),
   },
   {
     path: '/',

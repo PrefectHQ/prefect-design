@@ -27,8 +27,8 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import Section from '../components/Section.vue'
-  import SubSection from '../components/SubSection.vue'
+  import Section from '../../components/Section.vue'
+  import SubSection from '../../components/SubSection.vue'
   import PListItem from '@/components/ListItem/PListItem.vue'
   import PListItemInput from '@/components/ListItemInput/PListItemInput.vue'
 

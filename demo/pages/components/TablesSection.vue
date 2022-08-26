@@ -1,5 +1,5 @@
 <template>
-  <Page heading="Tables">
+  <Section heading="Tables">
     <SubSection heading="Basic">
       <p-table :data="data" />
     </SubSection>
@@ -63,13 +63,13 @@
         </template>
       </p-table>
     </SubSection>
-  </Page>
+  </Section>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import Page from '../components/Page.vue'
-  import SubSection from '../components/SubSection.vue'
+  import Section from '../../components/Section.vue'
+  import SubSection from '../../components/SubSection.vue'
   import PTable from '@/components/Table/PTable.vue'
   import PTableBody from '@/components/Table/PTableBody.vue'
   import PTableData from '@/components/Table/PTableData.vue'
