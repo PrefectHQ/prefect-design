@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-  import Section from '../../components/Section.vue'
   import PIconButtonMenu from '@/components/IconButtonMenu/PIconButtonMenu.vue'
   import POverflowMenuItem from '@/components/OverflowMenuItem/POverflowMenuItem.vue'
+  import Section from './Section.vue'
 </script>

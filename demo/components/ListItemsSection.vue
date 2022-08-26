@@ -26,11 +26,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
-  import Section from '../../components/Section.vue'
-  import SubSection from '../../components/SubSection.vue'
   import PListItem from '@/components/ListItem/PListItem.vue'
   import PListItemInput from '@/components/ListItemInput/PListItemInput.vue'
+  import { ref } from 'vue'
+  import Section from './Section.vue'
+  import SubSection from './SubSection.vue'
 
   const selected = ref([1])
 </script>

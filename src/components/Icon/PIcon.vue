@@ -7,7 +7,7 @@
   import * as outlinedHeroIcons from '@heroicons/vue/outline'
   import * as solidHeroIcons from '@heroicons/vue/solid'
   import { computed } from 'vue'
-  import * as prefectIcons from './icons'
+  import * as prefectIcons from '@/components/Icon/icons'
   import { Icon, PrefectIcon } from '@/types/icon'
 
   const props = defineProps<{

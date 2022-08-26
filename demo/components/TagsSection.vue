@@ -78,12 +78,12 @@
 </template>
 
 <script lang="ts" setup>
-  import ResizableSection from '../../components/ResizableSection.vue'
-  import Section from '../../components/Section.vue'
-  import SubSection from '../../components/SubSection.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTags from '@/components/Tags/PTags.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
+  import ResizableSection from './ResizableSection.vue'
+  import Section from './Section.vue'
+  import SubSection from './SubSection.vue'
 
   const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
 

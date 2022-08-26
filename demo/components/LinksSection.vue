@@ -17,5 +17,5 @@
 </template>
 
 <script setup lang="ts">
-  import Section from '../../components/Section.vue'
+  import Section from './Section.vue'
 </script>

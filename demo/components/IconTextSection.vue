@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import Section from '../../components/Section.vue'
   import { Icon } from '@/types/icon'
+  import Section from './Section.vue'
   const icons: Icon[] = ['Agent', 'AwaitingRetry', 'Cancelled']
 </script>

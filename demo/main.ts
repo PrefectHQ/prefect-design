@@ -1,13 +1,10 @@
+import { plugin } from '@/index'
 import { createApp } from 'vue'
+import App from './App.vue'
+import { router } from './router'
 
 // Global and functional styles
-import '@/styles/index.css'
-
-import App from './App.vue'
-import router from './router'
-import { plugin } from '@/index'
-
-import './styles.css'
+import '../src/styles/index.css'
 
 const app = createApp(App)
 app.use(plugin)

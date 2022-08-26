@@ -18,7 +18,7 @@
           </template>
           <template #append>
             <span class="h-5 w-5 text-gray-500 mx-2">
-              <ArchiveIcon />
+              <p-icon icon="ArchiveIcon" />
             </span>
           </template>
         </p-text-input>
@@ -36,7 +36,7 @@
         <p-text-input v-model="exampleSearch" :disabled="disabled" type="search" placeholder="search..." :state="exampleState">
           <template #prepend>
             <span class="h-5 w-5 text-gray-500 ml-2">
-              <SearchIcon />
+              <p-icon icon="SearchIcon" />
             </span>
           </template>
         </p-text-input>
@@ -155,11 +155,6 @@
 </template>
 
 <script lang="ts" setup>
-  import ArchiveIcon from '@heroicons/vue/solid/ArchiveIcon'
-  import SearchIcon from '@heroicons/vue/solid/SearchIcon'
-  import { format } from 'date-fns'
-  import { reactive, ref } from 'vue'
-  import Section from '../../components/Section.vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
   import PCombobox from '@/components/Combobox/PCombobox.vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'
@@ -174,6 +169,9 @@
   import PTextarea from '@/components/Textarea/PTextarea.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { State } from '@/types/state'
+  import { format } from 'date-fns'
+  import { reactive, ref } from 'vue'
+  import Section from './Section.vue'
 
   const disabled = ref(false)
 

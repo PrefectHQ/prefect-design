@@ -1,7 +1,7 @@
 
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-import { routes as componentRoutes } from '../pages/components'
-import { routes as layoutRoutes } from '../pages/layouts'
+import { routes as componentRoutes } from '../components/components'
+import { routes as layoutRoutes } from '../components/layouts'
 
 const routeRecords: RouteRecordRaw[] = [
   {
@@ -17,7 +17,7 @@ const routeRecords: RouteRecordRaw[] = [
   {
     name: 'icons',
     path: '/icons',
-    component: () => import('../pages/icons/IconsSection.vue'),
+    component: () => import('../components/IconsSection.vue'),
   },
   {
     path: '/',
@@ -35,5 +35,3 @@ export const router = createRouter({
     return { top: 0 }
   },
 })
-
-export default router

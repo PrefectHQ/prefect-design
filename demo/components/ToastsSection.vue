@@ -21,9 +21,9 @@
 </template>
 
 <script lang="ts" setup>
-  import Section from '../../components/Section.vue'
-  import ToastMessage from '../../components/ToastMessage.vue'
   import { showToast } from '@/plugins/Toast'
+  import Section from '../components/Section.vue'
+  import ToastMessage from '../components/ToastMessage.vue'
 
   const defaultToast = (): void => {
     showToast('This is default message', 'default')

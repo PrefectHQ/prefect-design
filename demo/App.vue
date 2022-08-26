@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts" setup>
+  import { media } from '@/utilities/media'
   import { computed, ref, watchEffect } from 'vue'
   import ContextSidebar from './components/ContextSidebar.vue'
-  import { media } from '@/utilities/media'
 
   const mobileMenuOpen = ref(false)
   const showMenu = computed(() => media.lg || mobileMenuOpen.value)

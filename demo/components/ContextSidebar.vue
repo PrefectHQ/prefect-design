@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { routes as componentRoutes } from '../pages/components'
-  import { routes as layoutRoutes } from '../pages/layouts'
   import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
+  import { routes as componentRoutes } from './components'
+  import { routes as layoutRoutes } from './layouts'
 
   const components: ContextAccordionChildItem[] = componentRoutes.map(route => ({
     title: `p-${route.path}`,

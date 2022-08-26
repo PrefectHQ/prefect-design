@@ -24,9 +24,9 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import Section from '../../components/Section.vue'
   import { Crumb } from '@/types'
+  import { ref } from 'vue'
+  import Section from './Section.vue'
 
   const wrap = ref(false)
   const newCrumb = ref<{ link?: boolean, text?: string }>({})

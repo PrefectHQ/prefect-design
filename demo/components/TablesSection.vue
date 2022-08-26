@@ -67,9 +67,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  import Section from '../../components/Section.vue'
-  import SubSection from '../../components/SubSection.vue'
   import PTable from '@/components/Table/PTable.vue'
   import PTableBody from '@/components/Table/PTableBody.vue'
   import PTableData from '@/components/Table/PTableData.vue'
@@ -78,6 +75,9 @@
   import { ClassValue } from '@/types/attributes'
   import { TableColumn, TableData } from '@/types/tables'
   import { media } from '@/utilities'
+  import { computed } from 'vue'
+  import Section from './Section.vue'
+  import SubSection from './SubSection.vue'
 
   const data = [
     {

@@ -74,8 +74,8 @@
 </template>
 
 <script setup lang="ts">
-  import Section from '../../components/Section.vue'
-  import SubSection from '../../components/SubSection.vue'
+  import Section from './Section.vue'
+  import SubSection from './SubSection.vue'
 </script>
 
 <style>

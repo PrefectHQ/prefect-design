@@ -12,10 +12,8 @@
     "prefect"
   ],
   "scripts": {
-    "serve": "vite --host",
     "dev": "vue-tsc -w & tsc-alias -w & vite build -w",
     "build": "vue-tsc && tsc-alias && vite build",
-    "build:demo": "vite build --mode=demo",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0"

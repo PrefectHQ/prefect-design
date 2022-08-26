@@ -22,13 +22,13 @@
 </template>
 
 <script lang="ts" setup>
-  import * as heroIcons from '@heroicons/vue/solid'
-  import Section from '../../components/Section.vue'
-  import SubSection from '../../components/SubSection.vue'
   import * as prefectIcons from '@/components/Icon/icons'
-
   import { showToast } from '@/plugins/Toast'
   import { HeroIcon, PrefectIcon } from '@/types'
+  import * as heroIcons from '@heroicons/vue/solid'
+  import Section from './Section.vue'
+  import SubSection from './SubSection.vue'
+
 
   const prefectIconKeys = Object.keys(prefectIcons) as PrefectIcon[]
   const heroIconKeys = Object.keys(heroIcons) as HeroIcon[]

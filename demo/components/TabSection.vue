@@ -28,8 +28,8 @@
 </template>
 
 <script lang="ts" setup>
-  import Section from '../../components/Section.vue'
-  import { PTabs } from '@/components'
+  import { PTabs } from '@/components/Tabs'
+  import Section from './Section.vue'
 
   const tabs = ['Tab One', 'Tab Two', 'Tab Three']
 </script>
