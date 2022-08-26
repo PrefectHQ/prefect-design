@@ -30,7 +30,7 @@
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
-    date: Date | null | undefined,
+    date?: Date | null,
   }>()
 
   const buttonElement = ref<HTMLButtonElement>()

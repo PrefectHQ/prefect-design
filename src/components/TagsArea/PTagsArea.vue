@@ -46,7 +46,7 @@
   import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{
-    modelValue: string[] | null | undefined,
+    modelValue?: string[] | null,
   }>()
 
   const emits = defineEmits<{

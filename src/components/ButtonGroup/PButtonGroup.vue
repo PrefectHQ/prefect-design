@@ -21,9 +21,10 @@
 
   const props = withDefaults(defineProps<{
     options: ButtonGroupOption[],
-    modelValue: string | number | null | undefined,
+    modelValue?: string | number | null,
     size?: Size,
   }>(), {
+    modelValue: undefined,
     size: 'md',
   })
 

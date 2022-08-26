@@ -3,8 +3,8 @@ import { useAdjustedDate } from '@/compositions/useAdjustedDate'
 import { secondsToApproximateString } from '@/utilities/seconds'
 
 export type DateRange = {
-  min?: Date | null | undefined,
-  max?: Date | null | undefined,
+  min?: Date | null,
+  max?: Date | null,
 }
 export type Precision = 'minute' | 'hour' | 'day' | 'month' | 'year'
 

@@ -70,12 +70,12 @@
   import { bottomRight, topRight, bottomLeft, topLeft } from '@/utilities/position'
 
   const props = defineProps<{
-    modelValue: Date | null | undefined,
+    modelValue?: Date | null,
     showTime?: boolean,
     clearable?: boolean,
     disabled?: boolean,
-    min?: Date | null | undefined,
-    max?: Date | null | undefined,
+    min?: Date | null,
+    max?: Date | null,
   }>()
 
   const emits = defineEmits<{

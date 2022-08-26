@@ -22,7 +22,7 @@
   import { keys } from '@/types/keyEvent'
 
   const props = defineProps<{
-    modelValue: number | null | undefined,
+    modelValue?: number | null,
   }>()
 
   const emits = defineEmits<{

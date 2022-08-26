@@ -102,11 +102,11 @@
   type Overlay = 'year' | 'month' | 'time' | null
 
   const props = defineProps<{
-    modelValue: Date | null | undefined,
+    modelValue?: Date | null,
     showTime?: boolean,
     clearable?: boolean,
-    min?: Date | null | undefined,
-    max?: Date | null | undefined,
+    min?: Date | null,
+    max?: Date | null,
   }>()
 
   const emits = defineEmits<{

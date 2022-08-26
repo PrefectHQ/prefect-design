@@ -25,9 +25,9 @@
   import { isDateAfter, isDateBefore, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
-    modelValue: Date | null | undefined,
-    min?: Date | null | undefined,
-    max?: Date | null | undefined,
+    modelValue?: Date | null,
+    min?: Date | null,
+    max?: Date | null,
   }>()
 
   const emits = defineEmits<{

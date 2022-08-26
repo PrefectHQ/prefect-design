@@ -39,7 +39,7 @@
   import PIcon from '@/components/Icon/PIcon.vue'
 
   const props = defineProps<{
-    modelValue: Date | null | undefined,
+    modelValue?: Date | null,
     min?: Date | null,
     max?: Date | null,
   }>()

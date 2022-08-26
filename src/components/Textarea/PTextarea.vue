@@ -14,7 +14,7 @@
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
-    modelValue: string | null | undefined,
+    modelValue?: string | null,
   }>()
 
   const emits = defineEmits<{

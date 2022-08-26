@@ -19,9 +19,10 @@
   import PCombobox from '@/components/Combobox/PCombobox.vue'
 
   const props = withDefaults(defineProps<{
-    modelValue: string[] | null | undefined,
+    modelValue?: string[] | null,
     placeholder?: string,
   }>(), {
+    modelValue: undefined,
     placeholder: 'Add tag',
   })
 
