@@ -1,43 +1,37 @@
 <template>
-  <div class="p-toggle">
-    <div v-if="prepend" class="p-toggle__prepend" @click="handlePrependClick">
+  <fieldset class="p-toggle" :disabled="disabled">
+    <button v-if="prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
       {{ prepend }}
-    </div>
+    </button>
     <slot name="prepend" />
 
     <template v-if="media.hover">
-      <button
-        type="button"
-        class="p-toggle__control"
-        :class="classes.control"
-        :disabled="disabled"
-        :state="state"
-        aria-hidden="true"
-        v-bind="$attrs"
-        @click="toggle"
-      >
-        <div class="p-toggle__slider">
+      <label class="p-toggle__control" :class="classes.control">
+        <input
+          v-show="false"
+          v-model="internalValue"
+          type="checkbox"
+        >
+        <div class="p-toggle__slider" aria-hidden="true">
           <template v-if="state?.pending">
             <PLoadingIcon />
           </template>
         </div>
-      </button>
+      </label>
     </template>
-
     <template v-else>
       <PCheckbox
         v-model="internalValue"
-        :disabled="disabled"
         :state="state"
         v-bind="$attrs"
       />
     </template>
 
-    <div v-if="append" class="p-toggle__append" @click="handleAppendClick">
+    <button v-if="append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
       {{ append }}
-    </div>
+    </button>
     <slot name="append" />
-  </div>
+  </fieldset>
 </template>
 
 <script lang="ts">
@@ -55,7 +49,7 @@
   import { media } from '@/utilities/media'
 
   const props = defineProps<{
-    modelValue: boolean | null,
+    modelValue: boolean | null | undefined,
     disabled?: boolean,
     state?: State,
     prepend?: string,
@@ -70,10 +64,12 @@
 
   const internalValue = computed({
     get() {
-      return props.modelValue
+      return props.modelValue ?? false
     },
-    set(value: boolean | null) {
-      emits('update:modelValue', !!value)
+    set(value: boolean) {
+      if (!props.disabled) {
+        emits('update:modelValue', value)
+      }
     },
   })
 
@@ -173,6 +169,5 @@
 .p-toggle__append { @apply
   whitespace-nowrap
   text-sm
-  cursor-pointer
 }
 </style>
