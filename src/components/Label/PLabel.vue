@@ -36,6 +36,7 @@
 <script lang="ts" setup>
   import { computed, useSlots } from 'vue'
   import { State } from '@/types/state'
+  import { randomId } from '@/utilities/id'
 
   const props = defineProps<{
     label?: string,
@@ -49,7 +50,7 @@
 
   const failed = computed(() => props.state && !props.state.valid && props.state.validated && !props.state.pending)
 
-  const id = computed(() => props.for ?? crypto.randomUUID())
+  const id = computed(() => props.for ?? randomId())
 
   const classes = computed(() => ({
     'p-label__message--failed': failed.value,
