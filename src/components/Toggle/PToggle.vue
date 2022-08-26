@@ -1,6 +1,6 @@
 <template>
   <fieldset class="p-toggle" :disabled="disabled">
-    <button v-if="prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
+    <button v-if="prepend || slots.prepend" type="button" class="p-toggle__prepend" @click="handlePrependClick">
       <slot name="prepend">
         {{ prepend }}
       </slot>
@@ -19,7 +19,7 @@
       </div>
     </label>
 
-    <button v-if="append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
+    <button v-if="append || slots.append" type="button" class="p-toggle__append" :disabled="disabled" @click="handleAppendClick">
       <slot name="append">
         {{ append }}
       </slot>
