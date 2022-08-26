@@ -226,7 +226,7 @@
     padding-left: 0;
   }
 
-  .color-toggle:not(.p-toggle__control--checked) { @apply
+  .color-toggle .p-toggle__control:not(.p-toggle__control--checked) { @apply
     bg-green-600
     border-green-600
   }
