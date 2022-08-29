@@ -10,26 +10,18 @@
         </template>
       </PGlobalSidebar>
     </template>
-    <ContextSidebar v-if="showMenu" class="app__sidebar" @click="close" />
+    <ContextSidebar v-if="showMenu" class="app__sidebar" />
     <router-view class="w-full mx-auto py-10 px-6 lg:px-8" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { media } from '@/utilities/media'
-  import { computed, ref, watchEffect } from 'vue'
+  import { computed, watchEffect } from 'vue'
   import ContextSidebar from './components/ContextSidebar.vue'
+  import { mobileMenuOpen, toggle } from './router/menu'
 
-  const mobileMenuOpen = ref(false)
   const showMenu = computed(() => media.lg || mobileMenuOpen.value)
-
-  function toggle(): void {
-    mobileMenuOpen.value = !mobileMenuOpen.value
-  }
-
-  function close(): void {
-    mobileMenuOpen.value = false
-  }
 
   watchEffect(() => document.body.classList.toggle('body-scrolling-disabled', showMenu.value && !media.lg))
 </script>

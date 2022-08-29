@@ -1,7 +1,8 @@
 
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-import { routes as componentRoutes } from '../components/components'
-import { routes as layoutRoutes } from '../components/layouts'
+import { routes as componentRoutes } from '../sections/components'
+import { routes as layoutRoutes } from '../sections/layouts'
+import { close } from './menu'
 
 const routeRecords: RouteRecordRaw[] = [
   {
@@ -17,7 +18,7 @@ const routeRecords: RouteRecordRaw[] = [
   {
     name: 'icons',
     path: '/icons',
-    component: () => import('../components/IconsSection.vue'),
+    component: () => import('../sections/IconsDoc.vue'),
   },
   {
     path: '/',
@@ -35,3 +36,5 @@ export const router = createRouter({
     return { top: 0 }
   },
 })
+
+router.beforeEach(() => close())
