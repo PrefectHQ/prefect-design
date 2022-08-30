@@ -4,10 +4,20 @@ declare global {
   }
 }
 
+function globalExists(varName: string): boolean {
+  const globalEval = eval
+  try {
+    globalEval(varName)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export function randomId(): string {
   // typescript says crypto will be defined but it might not be
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!crypto) {
+  if (!globalExists('crypto')) {
     return nonCryptoUUID()
   }
 
