@@ -24,5 +24,5 @@ export function asArray<T>(value: T | T[]): T[] {
 }
 
 export function sortStringArray(array: string[]): string[] {
-  return array.sort((tagA: string, tagB: string) => tagA.localeCompare(tagB))
+  return array.sort((stringA: string, stringB: string) => stringA.localeCompare(stringB))
 }
