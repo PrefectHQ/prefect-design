@@ -12,8 +12,10 @@
     "prefect"
   ],
   "scripts": {
+    "serve": "vite --host --mode=demo",
     "dev": "vue-tsc -w & tsc-alias -w & vite build -w",
     "build": "vue-tsc && tsc-alias && vite build",
+    "build:demo": "vite build --mode=demo",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0"
@@ -55,7 +57,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
-    "@prefecthq/vue-compositions": "0.1.41",
+    "@prefecthq/vue-compositions": "file:../../development/vue-compositions",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",

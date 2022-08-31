@@ -14,11 +14,11 @@ const prefectPalette = {
   900: '#01267C',
 }
 
-
 module.exports = {
   content: [
-    './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}',
+    './src/**/*.vue',
+    './demo/index.html',
+    './demo/**/*.vue',
   ],
   theme: {
     extend: {

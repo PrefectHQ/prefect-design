@@ -4,6 +4,7 @@
       <PGlobalSidebar class="app__mobile-menu">
         <template #upper-links>
           <p-icon icon="PrefectGradient" class="app__prefect-icon" />
+          <span class="text-slate-200">Prefect</span>
         </template>
         <template #bottom-links>
           <PIcon icon="MenuIcon" class="app__menu-icon" @click="toggle" />
@@ -41,7 +42,7 @@
 }
 
 .app__menu-icon { @apply
-  text-white
+  text-slate-200
   w-6
   h-6
   cursor-pointer
