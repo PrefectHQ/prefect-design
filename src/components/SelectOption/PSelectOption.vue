@@ -3,14 +3,14 @@
     <template v-if="multiple">
       <p-checkbox :model-value="selected" :disabled="disabled" />
     </template>
-    <template v-else-if="selected">
+    <span class="p-select-option__text">
+      <slot>{{ label }}</slot>
+    </span>
+    <template v-if="selected && !multiple">
       <span class="p-select-option__check">
         <p-icon icon="CheckIcon" />
       </span>
     </template>
-    <span class="p-select-option__text">
-      <slot>{{ label }}</slot>
-    </span>
   </span>
 </template>
 
