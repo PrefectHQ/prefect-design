@@ -6,19 +6,13 @@
     <span class="p-select-option__text">
       <slot>{{ label }}</slot>
     </span>
-    <template v-if="selected && !multiple">
-      <span class="p-select-option__check">
-        <p-icon icon="CheckIcon" />
-      </span>
-    </template>
   </span>
 </template>
+
 
 <script lang="ts" setup>
   import { computed } from 'vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
-  import PIcon from '@/components/Icon/PIcon.vue'
-
   const props = defineProps<{
     label: string,
     selected: boolean,
@@ -50,6 +44,7 @@
 
 .p-select-option--selected { @apply
   font-semibold
+  bg-prefect-200
 }
 
 .p-select-option--highlighted { @apply
