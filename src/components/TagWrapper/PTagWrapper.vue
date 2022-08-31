@@ -2,7 +2,7 @@
   <div ref="container" class="p-tag-wrapper">
     <div class="p-tag-wrapper__tag-container" :class="classes.tagContainer">
       <slot>
-        <template v-for="tag in tags" :key="tag">
+        <template v-for="tag in sortedTags" :key="tag">
           <div class="p-tag-wrapper__tag" :class="classes.tag">
             <slot name="tag" :tag="tag">
               <p-tag>
@@ -54,6 +54,17 @@
 
     }
   })
+
+  const sortedTags = computed(() => props.tags ? [...props.tags].sort((itemA: string, itemB: string): number => {
+    if (itemA < itemB) {
+      return -1
+    }
+    if (itemA > itemB) {
+      return 1
+    }
+
+    return 0
+  }) : [])
 
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
