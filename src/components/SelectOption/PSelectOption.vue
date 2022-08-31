@@ -9,7 +9,6 @@
   </span>
 </template>
 
-
 <script lang="ts" setup>
   import { computed } from 'vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
