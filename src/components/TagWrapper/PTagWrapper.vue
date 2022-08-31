@@ -28,6 +28,7 @@
 <script lang="ts" setup>
   import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import PTag from '@/components/Tag/PTag.vue'
+  import { sortStringArray } from '@/utilities/arrays'
 
   const props = defineProps<{
     tags?: string[],
@@ -55,16 +56,10 @@
     }
   })
 
-  const sortedTags = computed(() => props.tags ? [...props.tags].sort((itemA: string, itemB: string): number => {
-    if (itemA < itemB) {
-      return -1
-    }
-    if (itemA > itemB) {
-      return 1
-    }
-
-    return 0
-  }) : [])
+  const sortedTags = computed(() => {
+    const tags = props.tags ?? []
+    return sortStringArray(tags)
+  })
 
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
