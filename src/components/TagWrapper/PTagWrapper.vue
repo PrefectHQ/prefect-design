@@ -2,7 +2,7 @@
   <div ref="container" class="p-tag-wrapper">
     <div class="p-tag-wrapper__tag-container" :class="classes.tagContainer">
       <slot>
-        <template v-for="tag in tags" :key="tag">
+        <template v-for="tag in sortedTags" :key="tag">
           <div class="p-tag-wrapper__tag" :class="classes.tag">
             <slot name="tag" :tag="tag">
               <p-tag>
@@ -28,6 +28,7 @@
 <script lang="ts" setup>
   import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import PTag from '@/components/Tag/PTag.vue'
+  import { sortStringArray } from '@/utilities/arrays'
 
   const props = defineProps<{
     tags?: string[],
@@ -53,6 +54,11 @@
         ],
 
     }
+  })
+
+  const sortedTags = computed(() => {
+    const tags = props.tags ?? []
+    return sortStringArray(tags)
   })
 
   let resizeObserver: ResizeObserver | null = null
