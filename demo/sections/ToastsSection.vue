@@ -35,7 +35,7 @@
     showToast('Something went wrong..', 'error')
   }
   const noTimeoutToast = (): void => {
-    showToast('Waiting for you to dismiss', 'default', { timeout:false, dismissible: false })
+    showToast('Waiting for you to dismiss', 'default', { timeout:false })
   }
   const componentToast = (): void => {
     showToast(ToastMessage)
