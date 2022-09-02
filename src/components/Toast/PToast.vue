@@ -43,6 +43,7 @@
   }>()
 
   const timer = ref<ReturnType<typeof setTimeout>>()
+  const timerStrokeWidth = ref(props.timeout === false ? '0' : '8px')
   const animationDuration = ref(props.timeout ? `${props.timeout/1000}s` : '5s')
   const animationPlayState = ref('running')
 
@@ -170,13 +171,13 @@
 }
 
 .p-toast__svg-circle {  @apply
-  stroke-[8px]
   stroke-emerald-500
   fill-transparent;
 
   stroke-dasharray: 290px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
+  stroke-width: v-bind(timerStrokeWidth);
   animation: countdown linear forwards;
   animation-duration: v-bind(animationDuration);
   animation-play-state: v-bind(animationPlayState)
