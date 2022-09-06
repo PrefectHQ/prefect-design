@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const alternate = ref(true)
 </script>

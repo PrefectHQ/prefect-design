@@ -19,8 +19,8 @@
 <script lang="ts" setup>
   import { media } from '@/utilities/media'
   import { computed, watchEffect } from 'vue'
-  import ContextSidebar from './components/ContextSidebar.vue'
-  import { mobileMenuOpen, toggle } from './router/menu'
+  import ContextSidebar from '@/demo/components/ContextSidebar.vue'
+  import { mobileMenuOpen, toggle } from '@/demo/router/menu'
 
   const showMenu = computed(() => media.lg || mobileMenuOpen.value)
 

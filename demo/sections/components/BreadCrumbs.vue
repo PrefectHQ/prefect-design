@@ -32,7 +32,7 @@
 <script setup lang="ts">
   import { Crumb } from '@/types'
   import { ref } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const wrap = ref(false)
   const newCrumb = ref<{ link?: boolean, text?: string }>({})

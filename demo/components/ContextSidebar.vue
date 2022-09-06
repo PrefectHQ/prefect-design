@@ -33,9 +33,9 @@
   import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
   import { ref } from 'vue'
   import { RouteLocationRaw, RouteRecordRaw, useRouter } from 'vue-router'
-  import { routeRecords } from '../router'
-  import { mobileMenuOpen } from '../router/menu'
-  import { routeRecordsFlat } from '../router/routeRecordsFlat'
+  import { routeRecords } from '@/demo/router'
+  import { mobileMenuOpen } from '@/demo/router/menu'
+  import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
   function getComponentForRecord(record: RouteRecordRaw): typeof PContextAccordionItem | typeof PContextNavItem {
     if (record.children) {

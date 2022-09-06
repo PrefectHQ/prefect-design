@@ -123,7 +123,7 @@
   import { utcOffsetMinutes } from '@/compositions/useAdjustedDate'
   import { formatDate, formatDateTimeNumeric, formatTimeNumeric, formatDateTimeRelative } from '@/utilities/dates'
   import { addHours, addMinutes } from 'date-fns'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const date = new Date()
   const futureDate = addMinutes(addHours(date, 5), 22)

@@ -1,6 +1,6 @@
-import { Section } from '../router/routeRecords'
-import { components } from './components'
-import { layouts } from './layouts'
+import { Section } from '@/demo/router/routeRecords'
+import { components } from '@/demo/sections/components'
+import { layouts } from '@/demo/sections/layouts'
 
 export const sections: Section = {
   components,

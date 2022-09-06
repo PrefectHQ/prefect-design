@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
   import { PCode } from '@/components'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const multilineContent = `import { createApp } from 'vue'
 

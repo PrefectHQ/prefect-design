@@ -21,7 +21,7 @@
 <script lang="ts" setup>
   import { toPixels } from '@/utilities'
   import { onMounted, ref } from 'vue'
-  import ResizeIcon from './ResizeIcon.svg'
+  import ResizeIcon from '@/demo/components/ResizeIcon.svg'
 
   const container = ref<HTMLDivElement>()
   const content = ref<HTMLDivElement>()

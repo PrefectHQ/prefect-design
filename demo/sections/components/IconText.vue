@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
   import { Icon } from '@/types/icon'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const icons: Icon[] = ['Agent', 'AwaitingRetry', 'Cancelled']
 </script>

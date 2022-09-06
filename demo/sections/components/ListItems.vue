@@ -40,7 +40,7 @@
   import PListItem from '@/components/ListItem/PListItem.vue'
   import PListItemInput from '@/components/ListItemInput/PListItemInput.vue'
   import { ref } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const selected = ref([1])
 </script>

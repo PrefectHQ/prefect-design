@@ -1,5 +1,6 @@
 <template>
   <div class="component-page">
+    <!-- make sticky header -->
     <div class="component-page__heading">
       <HashLink>{{ title }}</HashLink>
       <p-link to="https://www.prefect.io/">
@@ -62,9 +63,9 @@
   import { kebabCase } from '@/utilities'
   import { computed, useSlots } from 'vue'
   import { useRoute } from 'vue-router'
-  import HashLink from '../components/HashLink.vue'
-  import { getRouteRecordIndex, routeRecordsFlat } from '../router/routeRecordsFlat'
-  import ResizableSection from './ResizableSection.vue'
+  import HashLink from '@/demo/components/HashLink.vue'
+  import ResizableSection from '@/demo/components/ResizableSection.vue'
+  import { getRouteRecordIndex, routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
   type DemoSection = {
     title: string,
@@ -129,7 +130,6 @@
 .component-page__demos,
 .component-page__demo { @apply
   mt-4
-  ml-4
   mb-8
 }
 

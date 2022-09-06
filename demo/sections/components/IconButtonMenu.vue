@@ -20,5 +20,5 @@
 <script lang="ts" setup>
   import PIconButtonMenu from '@/components/IconButtonMenu/PIconButtonMenu.vue'
   import POverflowMenuItem from '@/components/OverflowMenuItem/POverflowMenuItem.vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 </script>

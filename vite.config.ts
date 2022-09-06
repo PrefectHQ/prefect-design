@@ -3,15 +3,18 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import svgLoader from 'vite-svg-loader'
 
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const baseConfig = {
     resolve: {
       alias: [
         {
+          find: '@/demo',
+          replacement: resolve(__dirname, './demo'),
+        },
+        {
           find: '@',
-          replacement: resolve(__dirname, 'src'),
+          replacement: resolve(__dirname, './src'),
         },
       ],
     },

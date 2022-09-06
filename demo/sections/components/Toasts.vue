@@ -43,8 +43,8 @@
 
 <script lang="ts" setup>
   import { showToast } from '@/plugins/Toast'
-  import ComponentPage from '../../components/ComponentPage.vue'
-  import ToastMessage from '../../components/ToastMessage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
+  import ToastMessage from '@/demo/components/ToastMessage.vue'
 
   const defaultToast = (): void => {
     showToast('This is default message', 'default')

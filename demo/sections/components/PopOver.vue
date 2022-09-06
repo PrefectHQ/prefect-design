@@ -70,8 +70,8 @@
   import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/position'
   import { left, right } from '@/utilities/position'
   import { ref } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
-  import PositionSelect from '../../components/PositionSelect.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
+  import PositionSelect from '@/demo/components/PositionSelect.vue'
 
   const position = ref(left)
   const showManual = ref(false)

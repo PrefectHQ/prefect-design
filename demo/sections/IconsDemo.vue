@@ -40,8 +40,8 @@
   import * as heroIcons from '@heroicons/vue/solid'
   import { useDebouncedRef } from '@prefecthq/vue-compositions'
   import { ref, computed } from 'vue'
-  import CodeBlock from '../components/CodeBlock.vue'
-  import ComponentPage from '../components/ComponentPage.vue'
+  import CodeBlock from '@/demo/components/CodeBlock.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const prefectIconKeys = Object.keys(prefectIcons) as PrefectIcon[]
   const heroIconKeys = Object.keys(heroIcons) as HeroIcon[]

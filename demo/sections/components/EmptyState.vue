@@ -34,5 +34,5 @@
 
 <script lang="ts" setup>
   import { PEmptyState, PButton, PIcon } from '@/components'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 </script>

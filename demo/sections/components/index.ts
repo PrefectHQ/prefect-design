@@ -1,8 +1,9 @@
-import { Section } from '../../router/routeRecords'
+import { Section } from '@/demo/router/routeRecords'
 
 export const components: Section = {
   breadCrumbs: () => import('./BreadCrumbs.vue'),
   button: () => import ('./Buttons.vue'),
+  buttonGroup: () => import ('./ButtonGroup.vue'),
   card: () => import ('./Card.vue'),
   code: () => import ('./Code.vue'),
   divider: () => import ('./Divider.vue'),

@@ -10,7 +10,6 @@
       { title: 'Round Button Sizes', description: 'here is some useful info' },
       { title: 'Disabled', description: 'here is some useful info' },
       { title: 'Loading', description: 'here is some useful info' },
-      { title: 'Button Groups', description: 'here is some useful info' },
     ]"
   >
     <template #description>
@@ -132,59 +131,12 @@
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
     </template>
-
-    <template #button-groups>
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-1">
-          Big
-          <p-button-group v-model="preselectedItem" :options="buttonGroup" />
-        </div>
-        <div class="flex flex-col gap-1">
-          small
-          <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" />
-        </div>
-      </div>
-    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
-  import { ButtonGroupOption } from '@/types'
   import { ref } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const buttonLoading = ref(false)
-
-  const preselectedItem = ref('email')
-
-  const buttonGroup: ButtonGroupOption[] = [
-    {
-      label: 'Email',
-      value: 'email',
-      icon: 'MailIcon',
-    },
-    {
-      label: 'Slack',
-      value: 'slack',
-      icon: 'Slack',
-    },
-    {
-      label: 'GitHub',
-      value: 'github',
-      disabled: true,
-    },
-    {
-      label: 'Twitter',
-      value: 'twitter',
-    },
-    {
-      label: 'Facebook',
-      value: 'facebook',
-    },
-    {
-      label: 'Instagram',
-      value: 'instagram',
-      disabled: true,
-    },
-  ]
 </script>

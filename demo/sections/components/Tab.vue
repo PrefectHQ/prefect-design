@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
   import { PTabs } from '@/components/Tabs'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const tabs = ['Tab One', 'Tab Two', 'Tab Three']
 </script>

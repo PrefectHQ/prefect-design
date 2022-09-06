@@ -229,7 +229,7 @@
   import { State } from '@/types/state'
   import { format } from 'date-fns'
   import { reactive, ref } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const disabled = ref(false)
 

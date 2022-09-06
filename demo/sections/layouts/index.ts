@@ -1,4 +1,4 @@
-import { Section } from '../../router/routeRecords'
+import { Section } from '@/demo/router/routeRecords'
 
 export const layouts: Section = {
   layoutDefault: () => import('./LayoutDefaultDemo.vue'),

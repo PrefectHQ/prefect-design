@@ -88,7 +88,7 @@
   import { TableColumn, TableData } from '@/types/tables'
   import { media } from '@/utilities'
   import { computed } from 'vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const data = [
     {

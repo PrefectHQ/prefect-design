@@ -54,7 +54,7 @@
 <script lang="ts" setup>
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
 

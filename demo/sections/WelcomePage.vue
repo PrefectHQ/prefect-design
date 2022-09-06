@@ -32,9 +32,9 @@
 </template>
 
 <script lang="ts" setup>
-  import CirclesIcon from '../components/CirclesIcon.svg'
-  import TerminalWindow from '../components/TerminalWindow.vue'
-  import { routeRecordsFlat } from '../router/routeRecordsFlat'
+  import CirclesIcon from '@/demo/components/CirclesIcon.svg'
+  import TerminalWindow from '@/demo/components/TerminalWindow.vue'
+  import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
   const [firstComponent] = Object.keys(routeRecordsFlat)
 </script>

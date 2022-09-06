@@ -21,5 +21,5 @@
 
 <script lang="ts" setup>
   import { POverflowMenu, POverflowMenuItem } from '@/components'
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 </script>

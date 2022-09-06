@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-  import ComponentPage from '../../components/ComponentPage.vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 </script>
 
 
