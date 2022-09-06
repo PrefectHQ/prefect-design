@@ -100,7 +100,6 @@
   text-left
   hover:bg-slate-600
   active:bg-slate-800
-  focus:bg-white/25
 }
 
 .p-context-accordion-item__header--highlighted { @apply

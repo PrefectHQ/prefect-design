@@ -44,6 +44,7 @@
 .p-context-sidebar__header { @apply
   border-b-2
   border-slate-600
+  flex-shrink-0
 }
 
 .p-context-sidebar__body,
