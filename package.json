@@ -14,8 +14,8 @@
   "scripts": {
     "serve": "vite --host --mode=demo",
     "dev": "vue-tsc -w & tsc-alias -w & vite build -w",
-    "build": "npm run install:all && vue-tsc && tsc-alias && vite build",
-    "build:demo": "npm run install:demo && vite build --mode=demo",
+    "build": "vue-tsc && tsc-alias && vite build",
+    "build:demo": "vite build --mode=demo",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0",
