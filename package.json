@@ -19,10 +19,7 @@
     "build:demo": "vite build --mode=demo",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "changelog": "auto-changelog --package --commit-limit 0",
-    "install:src": "npm install",
-    "install:demo": "cd demo && npm install",
-    "install:all": "npm run install:src && npm run install:demo"
+    "changelog": "auto-changelog --package --commit-limit 0"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.es.js",
