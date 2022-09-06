@@ -38,14 +38,22 @@
     </template>
 
     <div class="component-page__navigation">
-      <p-link :to="routeRecordsFlat[previousComponent]" class="component-page__navigation-link">
-        <p-icon v-if="previousComponent" icon="ArrowNarrowLeftIcon" />
-        {{ previousComponent }}
-      </p-link>
-      <p-link :to="routeRecordsFlat[nextComponent]" class="component-page__navigation-link">
-        {{ nextComponent }}
-        <p-icon v-if="nextComponent" icon="ArrowNarrowRightIcon" />
-      </p-link>
+      <template v-if="previousComponent">
+        <p-link :to="routeRecordsFlat[previousComponent]" class="component-page__navigation-link">
+          <p-icon icon="ArrowNarrowLeftIcon" />
+          {{ previousComponent }}
+        </p-link>
+      </template>
+      <template v-else>
+        <div />
+      </template>
+
+      <template v-if="nextComponent">
+        <p-link :to="routeRecordsFlat[nextComponent]" class="component-page__navigation-link">
+          {{ nextComponent }}
+          <p-icon icon="ArrowNarrowRightIcon" />
+        </p-link>
+      </template>
     </div>
   </div>
 </template>
@@ -84,8 +92,8 @@
   })
 
   const routeIndex = computed(() => getRouteRecordIndex(route))
-  const previousComponent = computed(() => routeIndex.value === - 1 ? -1 : Object.keys(routeRecordsFlat)[routeIndex.value - 1])
-  const nextComponent = computed(() => routeIndex.value === - 1 ? -1 : Object.keys(routeRecordsFlat)[routeIndex.value + 1])
+  const previousComponent = computed(() => routeIndex.value === - 1 ? undefined : Object.keys(routeRecordsFlat)[routeIndex.value - 1])
+  const nextComponent = computed(() => routeIndex.value === - 1 ? undefined : Object.keys(routeRecordsFlat)[routeIndex.value + 1])
 </script>
 
 <style>
