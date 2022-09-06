@@ -22,3 +22,7 @@ export function reduceToMap<S, K, V>(array: S[], key: (item: S) => K, value: (it
 export function asArray<T>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value]
 }
+
+export function sortStringArray(array: string[]): string[] {
+  return array.sort((stringA: string, stringB: string) => stringA.localeCompare(stringB))
+}
