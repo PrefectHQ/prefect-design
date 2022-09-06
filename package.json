@@ -1,5 +1,6 @@
 {
   "name": "@prefecthq/prefect-design",
+  "workspaces": ["./demo"],
   "version": "1.0.40",
   "description": "",
   "repository": {
