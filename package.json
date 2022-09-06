@@ -15,13 +15,11 @@
     "serve": "vite --host --mode=demo",
     "dev": "vue-tsc -w & tsc-alias -w & vite build -w",
     "build": "vue-tsc && tsc-alias && vite build",
-    "build:demo": "vite build --mode=demo",
+    "build:demo": "npm run install:demo && vite build --mode=demo",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0",
-    "install:src": "npm install",
-    "install:demo": "cd demo && npm install",
-    "install:all": "npm run install:src && npm run install:demo"
+    "install:demo": "cd demo && npm install"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.es.js",
