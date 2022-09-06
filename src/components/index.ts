@@ -39,6 +39,7 @@ import { POverflowMenuItem, install as installPOverflowMenuItem } from './Overfl
 import { PPopOver, install as installPPopOver } from './PopOver'
 import { PSelect, install as installPSelect } from './Select'
 import { PSelectOption, install as installPSelectOption } from './SelectOption'
+import { PStepper, install as installPStepper } from './Stepper'
 import { PTab, install as installPTab } from './Tab'
 import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow, install as installPTable } from './Table'
 import { PTabs, install as installPTabs } from './Tabs'
@@ -58,6 +59,7 @@ export {
   PBaseInput,
   PBreadCrumbs,
   PButton,
+  PButtonGroup,
   PCalendar,
   PCard,
   PCheckbox,
@@ -71,7 +73,6 @@ export {
   PDateInput,
   PDatePicker,
   PDivider,
-  PButtonGroup,
   PEmptyResults,
   PEmptyState,
   PForm,
@@ -95,6 +96,7 @@ export {
   PPopOver,
   PSelect,
   PSelectOption,
+  PStepper,
   PTab,
   PTable,
   PTableBody,
@@ -121,6 +123,7 @@ export const installs = [
   installPBaseInput,
   installPBreadCrumbs,
   installPButton,
+  installPButtonGroup,
   installPCalendar,
   installPCard,
   installPCheckbox,
@@ -134,7 +137,6 @@ export const installs = [
   installPDateInput,
   installPDatePicker,
   installPDivider,
-  installPButtonGroup,
   installPEmptyResults,
   installPEmptyState,
   installPForm,
@@ -158,6 +160,7 @@ export const installs = [
   installPPopOver,
   installPSelect,
   installPSelectOption,
+  installPStepper,
   installPTab,
   installPTable,
   installPTabs,
@@ -179,6 +182,7 @@ declare module '@vue/runtime-core' {
     PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
+    PButtonGroup: typeof PButtonGroup,
     PCalendar: typeof PCalendar,
     PCard: typeof PCard,
     PCheckbox: typeof PCheckbox,
@@ -191,7 +195,6 @@ declare module '@vue/runtime-core' {
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
     PDivider: typeof PDivider,
-    PButtonGroup: typeof PButtonGroup,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,
@@ -215,6 +218,7 @@ declare module '@vue/runtime-core' {
     PPopOver: typeof PPopOver,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
+    PStepper: typeof PStepper,
     PTab: typeof PTab,
     PTable: typeof PTable,
     PTableBody: typeof PTableBody,
