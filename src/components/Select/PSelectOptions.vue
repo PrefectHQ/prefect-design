@@ -124,6 +124,7 @@
   my-1
   bg-white
   shadow-lg
+  overflow-hidden
   rounded-md
   ring-1
   ring-black

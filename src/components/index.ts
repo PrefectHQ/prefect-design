@@ -51,6 +51,7 @@ import { PTextarea, install as installPTextarea } from './Textarea'
 import { PTextInput, install as installPTextInput } from './TextInput'
 import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
+import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
 
 export {
   PAutoHeightTransition,
@@ -111,7 +112,8 @@ export {
   PTextarea,
   PTextInput,
   PToast,
-  PToggle
+  PToggle,
+  PTypeAhead
 }
 
 export const installs = [
@@ -168,6 +170,7 @@ export const installs = [
   installPTextInput,
   installPToast,
   installPToggle,
+  installPTypeAhead,
 ]
 
 declare module '@vue/runtime-core' {
@@ -230,5 +233,6 @@ declare module '@vue/runtime-core' {
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
+    PTypeAhead: typeof PTypeAhead,
   }
 }
