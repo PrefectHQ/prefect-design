@@ -1,5 +1,6 @@
 <template>
   <div class="welcome-page">
+    <CirclesIcon class="welcome-page__circles" />
     <p-icon class="welcome-page__logo-icon" icon="PrefectGradient" />
     <div class="welcome-page__intro">
       <p class="welcome-page__title">
@@ -31,6 +32,7 @@
 </template>
 
 <script lang="ts" setup>
+  import CirclesIcon from '../components/CirclesIcon.svg'
   import TerminalWindow from '../components/TerminalWindow.vue'
   import { routeRecordsFlat } from '../router/routeRecordsFlat'
 
@@ -44,6 +46,7 @@
   flex-col
   items-center
   gap-10
+  overflow-hidden
 }
 
 .welcome-page__logo-icon { @apply
@@ -83,5 +86,33 @@
 
 .welcome-page__github-link:not(.p-button--disabled) { @apply
   hover:bg-slate-700
+}
+
+.welcome-page__logo-icon,
+.welcome-page__intro,
+.welcome-page__title,
+.welcome-page__description,
+.welcome-page__terminal,
+.welcome-page__links { @apply
+  z-10
+}
+
+.welcome-page__circles { @apply
+text-stone-100
+  z-0
+  absolute;
+  animation-name: spin;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
 }
 </style>
