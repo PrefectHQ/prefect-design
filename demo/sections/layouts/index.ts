@@ -1,8 +1,8 @@
 import { Section } from '@/demo/router/routeRecords'
 
 export const layouts: Section = {
-  layoutDefault: () => import('./LayoutDefaultDemo.vue'),
-  layoutFull: () => import('./LayoutFullDemo.vue'),
-  layoutSidebar: () => import('./LayoutSidebarDemo.vue'),
-  layoutWell: () => import('./LayoutWellDemo.vue'),
+  layoutDefault: () => import('./LayoutDefault.vue'),
+  layoutFull: () => import('./LayoutFull.vue'),
+  layoutSidebar: () => import('./LayoutSidebar.vue'),
+  layoutWell: () => import('./LayoutWell.vue'),
 }

@@ -4,6 +4,6 @@ import { layouts } from '@/demo/sections/layouts'
 
 export const sections: Section = {
   components,
-  icons: () => import('./IconsDemo.vue'),
+  icons: () => import('./Icons.vue'),
   layouts,
 }
