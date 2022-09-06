@@ -145,7 +145,7 @@
       internalValue.value = newValue
     }
 
-    emits('selected', newValue)
+    emits('selected', newValue?.toString() ?? null)
 
     closeSelect()
   }

@@ -1,4 +1,4 @@
-import { Section } from '../router'
+import { Section } from '../router/routeRecords'
 import { components } from './components'
 import { layouts } from './layouts'
 
