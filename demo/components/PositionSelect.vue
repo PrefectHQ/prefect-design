@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { PositionMethod } from '@/types/position'
   import { left, right, bottom, top, topRight, bottomRight, topLeft, bottomLeft } from '@/utilities/position'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     // using any because vue's type warnings for props is dumb...

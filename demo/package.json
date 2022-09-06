@@ -5,5 +5,9 @@
   "devDependencies": {
     "@types/prismjs": "^1.26.0",
     "prismjs": "^1.29.0"
+  },
+  "dependencies": {
+    "@types/lodash.debounce": "^4.0.7",
+    "lodash.debounce": "^4.0.8"
   }
 }
