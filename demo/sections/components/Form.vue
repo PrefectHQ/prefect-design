@@ -100,29 +100,31 @@
     </template>
 
     <template #hybrid-select>
-      <p-label label="" :message="JSON.stringify(exampleSelect)" :state="exampleState">
+      <p-label label="" :message="JSON.stringify(exampleSelect)" :state="exampleState" class="h-96">
         <p-select v-model="exampleSelect" :disabled="disabled" allow-deselect :options="exampleOptionsWithEmpty" :state="exampleState" />
       </p-label>
     </template>
 
     <template #typeahead-select>
-      <p-type-ahead v-model="exampleTypeAhead" :options="exampleOptions.map(({ label }) => label)" />
+      <div class="h-96">
+        <p-type-ahead v-model="exampleTypeAhead" :options="exampleOptions.map(({ label }) => label)" />
+      </div>
     </template>
 
     <template #combobox-select>
-      <p-label label="" :message="JSON.stringify(exampleCombobox)" :state="exampleState">
+      <p-label label="" :message="JSON.stringify(exampleCombobox)" :state="exampleState" class="h-96">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
       </p-label>
     </template>
 
     <template #multi-select>
-      <p-label label="" :message="JSON.stringify(exampleMultiSelect)" :state="exampleState">
+      <p-label label="" :message="JSON.stringify(exampleMultiSelect)" :state="exampleState" class="h-96">
         <p-select v-model="exampleMultiSelect" :disabled="disabled" :options="exampleOptions" :state="exampleState" />
       </p-label>
     </template>
 
     <template #combobox-that-allows-custom-values>
-      <p-label label="" :message="JSON.stringify(exampleCombobox2)" :state="exampleState">
+      <p-label label="" :message="JSON.stringify(exampleCombobox2)" :state="exampleState" class="h-96">
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
       </p-label>
     </template>
@@ -140,7 +142,7 @@
     </template>
 
     <template #hybrid-date-input>
-      <p-label label="" :message="JSON.stringify(exampleDate)" :state="exampleState">
+      <p-label label="" :message="JSON.stringify(exampleDate)" :state="exampleState" class="h-96">
         <p-content>
           <p-date-input
             v-model="exampleDate"
@@ -170,7 +172,7 @@
     </template>
 
     <template #tags-input>
-      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState">
+      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState" class="h-44">
         <PTagsInput v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
       </p-label>
     </template>
