@@ -7,7 +7,7 @@
       size="xs"
       icon="MinusIcon"
       :disabled="!canDecrease"
-      @click="internalValue--"
+      @click="internalValue -= step"
     />
     <p-button
       class="p-stepper__step p-stepper__step--up"
@@ -16,18 +16,29 @@
       size="xs"
       icon="PlusIcon"
       :disabled="!canIncrease"
-      @click="internalValue++"
+      @click="internalValue += step"
     />
+    <div class="p-stepper__display">
+      <slot :value="internalValue.toLocaleString()">
+        {{ internalValue.toLocaleString() }}
+      </slot>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  const props = defineProps<{
+  import { computed, withDefaults } from 'vue'
+
+  const props = withDefaults(defineProps<{
     modelValue: number | null | undefined,
-    min?: number,
-    max?: number,
-  }>()
+    min?: number | null,
+    max?: number | null,
+    step?: number,
+  }>(), {
+    min: null,
+    max: null,
+    step: 1,
+  })
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: number | null): void,
@@ -43,8 +54,9 @@
       }
     },
   })
-  const canDecrease = computed(() => isWithinMin(internalValue.value -1))
-  const canIncrease = computed(() => isWithinMax(internalValue.value +1))
+
+  const canDecrease = computed(() => isWithinMin(internalValue.value - props.step))
+  const canIncrease = computed(() => isWithinMax(internalValue.value + props.step))
 
   function isWithinMin(value: number): boolean {
     return !props.min || value >= props.min
@@ -63,6 +75,7 @@
 .p-stepper { @apply
   flex
   gap-2
+  items-center
 }
 
 .p-stepper__step-icon { @apply
