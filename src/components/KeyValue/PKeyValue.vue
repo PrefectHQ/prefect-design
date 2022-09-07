@@ -30,6 +30,14 @@
   }>()
 
   const isDefined = (val: unknown): boolean => {
+    if (typeof val === 'object' && val !== null) {
+      if (Array.isArray(val)) {
+        return val.length > 0
+      }
+
+      return Object.keys(val).length > 0
+    }
+
     return typeof val !== 'undefined' && val !== null && val !== ''
   }
 
