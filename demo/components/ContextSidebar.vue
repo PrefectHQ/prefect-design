@@ -78,6 +78,10 @@
 </script>
 
 <style>
+.context-sidebar { @apply
+  z-50
+}
+
 .context-sidebar__header { @apply
   flex
   gap-1
