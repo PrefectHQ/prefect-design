@@ -21,6 +21,6 @@
     "vite-svg-loader": "3.4.0",
     "vue": "^3.2.36",
     "vue-router": "^4.0.12",
-    "vue-tsc": "0.39.4"
+    "vue-tsc": "0.40.11"
   }
 }

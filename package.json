@@ -52,7 +52,7 @@
     "vite": "^2.9.6",
     "vite-svg-loader": "3.4.0",
     "vue-router": "4.1.4",
-    "vue-tsc": "0.39.4"
+    "vue-tsc": "0.40.11"
   },
   "peerDependencies": {
     "@prefecthq/vue-compositions": "0.1.42",
