@@ -59,11 +59,11 @@
   const canIncrease = computed(() => isWithinMax(internalValue.value + props.step))
 
   function isWithinMin(value: number): boolean {
-    return !props.min || value >= props.min
+    return typeof props.min !== 'number' || value >= props.min
   }
 
   function isWithinMax(value: number): boolean {
-    return !props.max || value <= props.max
+    return typeof props.max !== 'number' || value <= props.max
   }
 
   function isWithinRange(value: number): boolean {
