@@ -76,7 +76,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { useElementWidth } from '@prefecthq/vue-compositions'
+  import { useElementRect } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
@@ -102,7 +102,7 @@
 
   const buttonElement = ref<typeof PSelectButton>()
   const targetElement = computed(() => buttonElement.value?.wrapper)
-  const targetElementWidth = useElementWidth(targetElement)
+  const { width:targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)

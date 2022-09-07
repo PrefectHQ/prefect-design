@@ -58,7 +58,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { useElementWidth } from '@prefecthq/vue-compositions'
+  import { useElementRect } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
@@ -82,7 +82,7 @@
 
   const inputElement = ref<typeof PTextInput>()
   const targetElement = computed(() => inputElement.value?.wrapper)
-  const targetElementWidth = useElementWidth(targetElement)
+  const { width:targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)
