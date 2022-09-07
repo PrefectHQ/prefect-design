@@ -14,7 +14,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { useElementRect } from '@/../../vue-compositions'
+  import { useElementRect } from '@prefecthq/vue-compositions'
   import { ref } from 'vue'
 
   const frame = ref<HTMLIFrameElement>()
