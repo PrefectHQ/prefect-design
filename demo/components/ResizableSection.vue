@@ -1,8 +1,8 @@
 <template>
   <div ref="container" class="resizable-section">
-    <div ref="content" class="resizable-section__content" @mouseup="stop">
+    <teleport v-if="content" :to="content">
       <slot />
-    </div>
+    </teleport>
 
     <div class="resizable-section__aside">
       <div class="resizable-section__handle" @mousedown="start" @mouseup="stop">
@@ -24,22 +24,24 @@
   import ResizeIcon from '@/demo/components/ResizeIcon.svg'
 
   const container = ref<HTMLDivElement>()
-  const content = ref<HTMLDivElement>()
+  const content = ref<HTMLDivElement>(document.createElement('div'))
+  const frame = ref(document.createElement('iframe'))
   const dragging = ref(false)
   const contentWidth = ref(0)
-  const maxWidth = ref(0)
   const minWidth = 200
   const handleWidth = 24
   const handleWidthPx = `${handleWidth}px`
 
   const start = (): void => {
     dragging.value = true
+    frame.value.classList.add('pointer-events-none')
     window.addEventListener('mouseup',  stop)
     window.addEventListener('mousemove', drag)
   }
 
   const stop = (): void => {
     dragging.value = false
+    frame.value.classList.remove('pointer-events-none')
     window.removeEventListener('mousemove', drag)
     window.removeEventListener('mouseup', stop)
   }
@@ -49,12 +51,34 @@
     const positionX = event.clientX - offsetLeft
 
     contentWidth.value =  Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
-    content.value!.style.width = toPixels(contentWidth.value)
+    frame.value!.style.width = toPixels(contentWidth.value)
+  }
+
+  function addStyleAndLinks(head: HTMLHeadElement): void {
+    const styles = Array.from(document.getElementsByTagName('style'))
+    const links = Array.from(document.getElementsByTagName('link'))
+
+    for (const el of styles.concat(links)) {
+      const styleElement = el.cloneNode(true)
+      head.appendChild(styleElement)
+    }
   }
 
   onMounted(() => {
-    maxWidth.value = container.value!.offsetWidth
-    contentWidth.value = content.value!.offsetWidth
+    frame.value!.classList.add('resizable-section__content')
+    frame.value!.onload = () => {
+      if (!frame.value.contentDocument) {
+        return
+      }
+
+      const [head] = frame.value.contentDocument.getElementsByTagName('head')
+      addStyleAndLinks(head)
+      const [body] = frame.value.contentDocument.getElementsByTagName('body')
+      body.appendChild(content.value)
+      frame.value!.style.height = toPixels(content.value!.scrollHeight + 40)
+    }
+
+    container.value!.appendChild(frame.value)
   })
 </script>
 
@@ -68,12 +92,12 @@
 }
 
 .resizable-section__content { @apply
+  order-first
+  select-none
   max-w-full
   min-w-[200px]
   w-full
   p-4
-  overflow-auto
-  overscroll-contain;
 }
 
 .resizable-section__aside { @apply
@@ -99,6 +123,7 @@
 }
 
 .resizable-section__px { @apply
+  select-none
   bg-opacity-70
   bg-slate-900
   text-slate-100
