@@ -1,13 +1,11 @@
-import { createApp } from 'vue'
+import '../src/styles/index.css'
+import 'prismjs/themes/prism-okaidia.css'
 
-// Global and functional styles
-import '@/styles/index.css'
-
-import App from './App.vue'
-import router from './router'
 import { plugin } from '@/index'
+import { createApp } from 'vue'
+import App from './App.vue'
+import { router } from './router'
 
-import './styles.css'
 
 const app = createApp(App)
 app.use(plugin)

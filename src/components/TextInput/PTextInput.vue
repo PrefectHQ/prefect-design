@@ -1,16 +1,16 @@
 <template>
-  <PBaseInput class="p-text-input">
+  <PBaseInput ref="wrapperElement" class="p-text-input">
     <template v-for="(index, name) in $slots" #[name]="scope">
       <slot :name="name" v-bind="scope" />
     </template>
     <template #control="{ attrs }">
-      <input v-model="value" type="text" class="p-text-input__control" v-bind="attrs">
+      <input ref="inputElement" v-model="value" type="text" class="p-text-input__control" v-bind="attrs">
     </template>
   </PBaseInput>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
@@ -20,6 +20,13 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | null): void,
   }>()
+
+  const wrapperElement = ref<typeof PBaseInput>()
+  const wrapper = computed(() => wrapperElement.value?.el)
+  const inputElement = ref<HTMLInputElement>()
+  const el = computed(() => inputElement.value)
+
+  defineExpose({ el, wrapper })
 
   const value = computed({
     get() {

@@ -36,6 +36,7 @@
   gap-3
   text-sm
   leading-5
+  select-none
   font-medium
   hover:bg-slate-600
   active:bg-slate-800

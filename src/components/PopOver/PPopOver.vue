@@ -2,7 +2,7 @@
   <div ref="target" class="p-pop-over" v-bind="attrs">
     <slot name="target" v-bind="{ open, close, toggle }" />
   </div>
-  <teleport v-if="visible" :to="to">
+  <teleport v-if="visible" :to="container">
     <div ref="content" class="p-pop-over-content" :style="styles">
       <slot v-bind="{ close }" />
     </div>
@@ -47,13 +47,8 @@
 
   const attrs = useAttrs()
 
-  const container = computed(() => {
-    if (typeof props.to === 'string') {
-      return document.querySelector(props.to) ?? undefined
-    }
+  const container = ref<Element>()
 
-    return props.to
-  })
   const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
   const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
 
@@ -69,6 +64,14 @@
     document.removeEventListener('focusin', eventHandler)
   })
 
+  function getContainer(): Element | undefined {
+    if (typeof props.to === 'string') {
+      return target.value!.closest(props.to) ?? undefined
+    }
+
+    return props.to
+  }
+
   function eventHandler(event: MouseEvent | FocusEvent): void {
     if (target.value?.contains(event.target as Node) || content.value?.contains(event.target as Node)) {
       return
@@ -78,6 +81,7 @@
   }
 
   function open(): void {
+    container.value = getContainer()
     visible.value = true
   }
 
@@ -86,7 +90,11 @@
   }
 
   function toggle(): void {
-    visible.value = !visible.value
+    if (!visible.value) {
+      open()
+    } else {
+      close()
+    }
   }
 
   watch(visible, value => emit('open', value))

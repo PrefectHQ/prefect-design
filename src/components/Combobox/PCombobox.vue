@@ -52,6 +52,9 @@
     <template #post-options="scope">
       <slot name="post-options" v-bind="scope" />
     </template>
+    <template v-for="(index, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
   </PSelect>
 </template>
 
@@ -59,7 +62,7 @@
   import { computed, ref, nextTick, withDefaults } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
-  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, optionStartsWith, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
     modelValue: string | number | null | SelectModelValue[] | undefined,
@@ -145,14 +148,6 @@
 
   function optionLabel(option: SelectOption): string {
     return option.value && unknownValues.value.includes(option.value.toString()) ? `"${option.label}"` : option.label
-  }
-
-  function optionStartsWith(option: SelectOption, target: string | null): boolean {
-    if (typeof target !== 'string') {
-      return true
-    }
-
-    return option.label.toLowerCase().startsWith(target.toLowerCase())
   }
 
   function optionsIncludeValue(options: SelectOption[], value: string | null): boolean {

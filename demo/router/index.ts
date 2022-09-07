@@ -1,32 +1,16 @@
 
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import { sections } from '../sections'
+import { close } from './menu'
+import { convertSectionToRouteRecords } from './routeRecords'
 
-
-const routeRecords: RouteRecordRaw[] = [
+export const routeRecords: RouteRecordRaw[] = [
   {
-    name: 'components',
-    path: '/components',
-    component: () => import('../pages/ComponentsPage.vue'),
-  },
-  {
-    name: 'tables',
-    path: '/tables',
-    component: () => import('../pages/TablesPage.vue'),
-  },
-  {
-    name: 'layouts',
-    path: '/layouts',
-    component: () => import('../pages/LayoutsPage.vue'),
-  },
-  {
-    name: 'icons',
-    path: '/icons',
-    component: () => import('../pages/IconsPage.vue'),
-  },
-  {
+    name: 'home',
     path: '/',
-    redirect: 'components',
+    component: () => import('../sections/WelcomePage.vue'),
   },
+  ...convertSectionToRouteRecords(sections),
 ]
 
 export const router = createRouter({
@@ -36,8 +20,17 @@ export const router = createRouter({
     if (savedPosition) {
       return savedPosition
     }
+
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+        top: +10,
+      }
+    }
+
     return { top: 0 }
   },
 })
 
-export default router
+router.beforeEach(() => close())

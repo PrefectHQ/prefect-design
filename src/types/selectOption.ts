@@ -9,3 +9,11 @@ export type SelectOption = {
 export function isSelectOption(input: string | number | SelectOption): input is SelectOption {
   return typeof input === 'object'
 }
+
+export function optionStartsWith(option: SelectOption, target: string | null): boolean {
+  if (typeof target !== 'string') {
+    return true
+  }
+
+  return option.label.toLowerCase().startsWith(target.toLowerCase())
+}

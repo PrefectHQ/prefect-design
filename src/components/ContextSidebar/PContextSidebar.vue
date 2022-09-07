@@ -38,11 +38,13 @@
 .p-context-sidebar__body,
 .p-context-sidebar__footer { @apply
   p-3
+  overflow-y-auto
 }
 
 .p-context-sidebar__header { @apply
   border-b-2
   border-slate-600
+  flex-shrink-0
 }
 
 .p-context-sidebar__body,

@@ -1,3 +1,4 @@
+import { PAutoHeightTransition, install as installPAutoHeightTransition } from './AutoHeightTransition'
 import { PBaseInput, install as installPBaseInput } from './BaseInput'
 import { PBreadCrumbs, install as installPBreadCrumbs } from './BreadCrumbs'
 import { PButton, install as installPButton } from './Button'
@@ -8,6 +9,7 @@ import { PCheckbox, install as installPCheckbox } from './Checkbox'
 import { PCode, install as installPCode } from './Code'
 import { PCombobox, install as installPCombobox } from './Combobox'
 import { PContent, install as installPContent } from './Content'
+import { PContextAccordionItem, install as installPContextAccordionItem } from './ContextAccordionItem'
 import { PContextDivider, install as installPContextDivider } from './ContextDivider'
 import { PContextNavItem, install as installPContextNavItem } from './ContextNavItem'
 import { PContextSidebar, install as installPContextSidebar } from './ContextSidebar'
@@ -17,6 +19,7 @@ import { PDivider, install as installPDivider } from './Divider'
 import { PEmptyResults, install as installPEmptyResults } from './EmptyResults'
 import { PEmptyState, install as installPEmptyState } from './EmptyState'
 import { PForm, install as installPForm } from './Form'
+import { PFrame, install as installPFrame } from './Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from './GlobalNavItem'
 import { PGlobalSidebar, install as installPGlobalSidebar } from './GlobalSidebar'
 import { PIcon, install as installPIcon } from './Icon'
@@ -45,12 +48,16 @@ import { PTags, install as installPTags } from './Tags'
 import { PTagsArea, install as installPTagsArea } from './TagsArea'
 import { PTagsInput, install as installPTagsInput } from './TagsInput'
 import { PTagWrapper, install as installPTagWrapper } from './TagWrapper'
+import { PTerminal, install as installPTerminal } from './Terminal'
 import { PTextarea, install as installPTextarea } from './Textarea'
 import { PTextInput, install as installPTextInput } from './TextInput'
 import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
+import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
+import { PWindow, install as installPWindow } from './Window'
 
 export {
+  PAutoHeightTransition,
   PBaseInput,
   PBreadCrumbs,
   PButton,
@@ -60,6 +67,7 @@ export {
   PCode,
   PCombobox,
   PContent,
+  PContextAccordionItem,
   PContextDivider,
   PContextNavItem,
   PContextSidebar,
@@ -70,6 +78,7 @@ export {
   PEmptyResults,
   PEmptyState,
   PForm,
+  PFrame,
   PGlobalNavItem,
   PGlobalSidebar,
   PIcon,
@@ -104,13 +113,17 @@ export {
   PTagsArea,
   PTagsInput,
   PTagWrapper,
+  PTerminal,
   PTextarea,
   PTextInput,
   PToast,
-  PToggle
+  PToggle,
+  PTypeAhead,
+  PWindow
 }
 
 export const installs = [
+  installPAutoHeightTransition,
   installPBaseInput,
   installPBreadCrumbs,
   installPButton,
@@ -120,6 +133,7 @@ export const installs = [
   installPCode,
   installPCombobox,
   installPContent,
+  installPContextAccordionItem,
   installPContextDivider,
   installPContextNavItem,
   installPContextSidebar,
@@ -130,6 +144,7 @@ export const installs = [
   installPEmptyResults,
   installPEmptyState,
   installPForm,
+  installPFrame,
   installPGlobalNavItem,
   installPGlobalSidebar,
   installPIcon,
@@ -158,14 +173,18 @@ export const installs = [
   installPTagsArea,
   installPTagsInput,
   installPTagWrapper,
+  installPTerminal,
   installPTextarea,
   installPTextInput,
   installPToast,
   installPToggle,
+  installPTypeAhead,
+  installPWindow,
 ]
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    PAutoHeightTransition: typeof PAutoHeightTransition,
     PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
     PButton: typeof PButton,
@@ -175,6 +194,7 @@ declare module '@vue/runtime-core' {
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,
+    PContextAccordionItem: typeof PContextAccordionItem,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
@@ -184,6 +204,7 @@ declare module '@vue/runtime-core' {
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,
+    PFrame: typeof PFrame,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
     PIcon: typeof PIcon,
@@ -218,9 +239,12 @@ declare module '@vue/runtime-core' {
     PTagsArea: typeof PTagsArea,
     PTagsInput: typeof PTagsInput,
     PTagWrapper: typeof PTagWrapper,
+    PTerminal: typeof PTerminal,
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
+    PTypeAhead: typeof PTypeAhead,
+    PWindow: typeof PWindow,
   }
 }
