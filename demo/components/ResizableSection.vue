@@ -1,8 +1,10 @@
 <template>
   <div ref="container" class="resizable-section">
-    <teleport v-if="content" :to="content">
-      <slot />
-    </teleport>
+    <p-frame :style="styles.iframe" :class="classes.iframe">
+      <div class="resizable-section__content">
+        <slot />
+      </div>
+    </p-frame>
 
     <div class="resizable-section__aside">
       <div class="resizable-section__handle" @mousedown="start" @mouseup="stop">
@@ -20,28 +22,36 @@
 
 <script lang="ts" setup>
   import { toPixels } from '@/utilities'
-  import { onMounted, ref } from 'vue'
+  import { computed, ref } from 'vue'
   import ResizeIcon from '@/demo/components/ResizeIcon.svg'
 
   const container = ref<HTMLDivElement>()
-  const content = ref<HTMLDivElement>(document.createElement('div'))
-  const frame = ref(document.createElement('iframe'))
   const dragging = ref(false)
-  const contentWidth = ref(0)
+  const contentWidth = ref<number>()
   const minWidth = 200
   const handleWidth = 24
   const handleWidthPx = `${handleWidth}px`
 
+  const classes = computed(() => ({
+    iframe: {
+      'pointer-events-none': dragging.value,
+    },
+  }))
+
+  const styles = computed(() => ({
+    iframe: {
+      'width': contentWidth.value ? toPixels(contentWidth.value): '100%',
+    },
+  }))
+
   const start = (): void => {
     dragging.value = true
-    frame.value.classList.add('pointer-events-none')
     window.addEventListener('mouseup',  stop)
     window.addEventListener('mousemove', drag)
   }
 
   const stop = (): void => {
     dragging.value = false
-    frame.value.classList.remove('pointer-events-none')
     window.removeEventListener('mousemove', drag)
     window.removeEventListener('mouseup', stop)
   }
@@ -51,35 +61,7 @@
     const positionX = event.clientX - offsetLeft
 
     contentWidth.value =  Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
-    frame.value!.style.width = toPixels(contentWidth.value)
   }
-
-  function addStyleAndLinks(head: HTMLHeadElement): void {
-    const styles = Array.from(document.getElementsByTagName('style'))
-    const links = Array.from(document.getElementsByTagName('link'))
-
-    for (const el of styles.concat(links)) {
-      const styleElement = el.cloneNode(true)
-      head.appendChild(styleElement)
-    }
-  }
-
-  onMounted(() => {
-    frame.value!.classList.add('resizable-section__content')
-    frame.value!.onload = () => {
-      if (!frame.value.contentDocument) {
-        return
-      }
-
-      const [head] = frame.value.contentDocument.getElementsByTagName('head')
-      addStyleAndLinks(head)
-      const [body] = frame.value.contentDocument.getElementsByTagName('body')
-      body.appendChild(content.value)
-      frame.value!.style.height = toPixels(content.value!.scrollHeight + 40)
-    }
-
-    container.value!.appendChild(frame.value)
-  })
 </script>
 
 <style>
@@ -92,11 +74,11 @@
 }
 
 .resizable-section__content { @apply
+  relative
   order-first
   select-none
   max-w-full
   min-w-[200px]
-  w-full
   p-4
 }
 
