@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { kebabCase } from '@/utilities'
+  import { asArray, kebabCase } from '@/utilities'
   import { computed, useSlots } from 'vue'
   import { useRoute } from 'vue-router'
   import HashLink from '@/demo/components/HashLink.vue'
@@ -82,9 +82,7 @@
   const route = useRoute()
 
   const validDemosArray = computed(() => {
-    const demosAsArray = Array.isArray(props.demos) ? props.demos : [props.demos]
-
-    return demosAsArray
+    return asArray(props.demos)
       .map(demo => ({
         ...demo,
         slotKey: kebabCase(demo.title),

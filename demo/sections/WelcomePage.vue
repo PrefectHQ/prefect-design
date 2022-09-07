@@ -10,7 +10,7 @@
         Prefect Design is UI Component library built on Vue 3 and Typescript. Components are designed on top of Tailwind CSS, so each component is beautiful and responsive.
       </p>
     </div>
-    <TerminalWindow class="welcome-page__terminal" command="npm i @prefecthq/prefect-design" />
+    <p-terminal class="welcome-page__terminal" command="npm i @prefecthq/prefect-design" />
     <div class="welcome-page__links">
       <a href="https://www.prefect.io/">
         <p-button icon="BookOpenIcon">
@@ -33,7 +33,6 @@
 
 <script lang="ts" setup>
   import CirclesIcon from '@/demo/components/CirclesIcon.svg'
-  import TerminalWindow from '@/demo/components/TerminalWindow.vue'
   import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
   const [firstComponent] = Object.keys(routeRecordsFlat)
