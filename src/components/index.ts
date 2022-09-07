@@ -19,6 +19,7 @@ import { PDivider, install as installPDivider } from './Divider'
 import { PEmptyResults, install as installPEmptyResults } from './EmptyResults'
 import { PEmptyState, install as installPEmptyState } from './EmptyState'
 import { PForm, install as installPForm } from './Form'
+import { PFrame, install as installPFrame } from './Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from './GlobalNavItem'
 import { PGlobalSidebar, install as installPGlobalSidebar } from './GlobalSidebar'
 import { PIcon, install as installPIcon } from './Icon'
@@ -47,11 +48,13 @@ import { PTags, install as installPTags } from './Tags'
 import { PTagsArea, install as installPTagsArea } from './TagsArea'
 import { PTagsInput, install as installPTagsInput } from './TagsInput'
 import { PTagWrapper, install as installPTagWrapper } from './TagWrapper'
+import { PTerminal, install as installPTerminal } from './Terminal'
 import { PTextarea, install as installPTextarea } from './Textarea'
 import { PTextInput, install as installPTextInput } from './TextInput'
 import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
+import { PWindow, install as installPWindow } from './Window'
 
 export {
   PAutoHeightTransition,
@@ -75,6 +78,7 @@ export {
   PEmptyResults,
   PEmptyState,
   PForm,
+  PFrame,
   PGlobalNavItem,
   PGlobalSidebar,
   PIcon,
@@ -109,11 +113,13 @@ export {
   PTagsArea,
   PTagsInput,
   PTagWrapper,
+  PTerminal,
   PTextarea,
   PTextInput,
   PToast,
   PToggle,
-  PTypeAhead
+  PTypeAhead,
+  PWindow
 }
 
 export const installs = [
@@ -138,6 +144,7 @@ export const installs = [
   installPEmptyResults,
   installPEmptyState,
   installPForm,
+  installPFrame,
   installPGlobalNavItem,
   installPGlobalSidebar,
   installPIcon,
@@ -166,11 +173,13 @@ export const installs = [
   installPTagsArea,
   installPTagsInput,
   installPTagWrapper,
+  installPTerminal,
   installPTextarea,
   installPTextInput,
   installPToast,
   installPToggle,
   installPTypeAhead,
+  installPWindow,
 ]
 
 declare module '@vue/runtime-core' {
@@ -195,6 +204,7 @@ declare module '@vue/runtime-core' {
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,
+    PFrame: typeof PFrame,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
     PIcon: typeof PIcon,
@@ -229,10 +239,12 @@ declare module '@vue/runtime-core' {
     PTagsArea: typeof PTagsArea,
     PTagsInput: typeof PTagsInput,
     PTagWrapper: typeof PTagWrapper,
+    PTerminal: typeof PTerminal,
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
+    PWindow: typeof PWindow,
   }
 }
