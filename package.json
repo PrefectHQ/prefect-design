@@ -55,12 +55,12 @@
     "vue-tsc": "0.39.4"
   },
   "peerDependencies": {
+    "@prefecthq/vue-compositions": "0.1.42",
     "vue": "^3.2.36",
     "vue-router": "^4.0.12"
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
-    "@prefecthq/vue-compositions": "0.1.42",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
