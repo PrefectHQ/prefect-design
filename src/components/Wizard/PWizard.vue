@@ -9,7 +9,9 @@
           :loading="loading && index === currentStepIndex"
           :complete="index < currentStepIndex"
           class="p-wizard__header-step"
-        />
+        >
+          <slot :name="`${getStepKey(step)}-heading`" />
+        </PWizardStepHeader>
       </template>
     </p-card>
 

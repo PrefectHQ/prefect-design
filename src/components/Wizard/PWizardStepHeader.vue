@@ -12,7 +12,9 @@
       </template>
     </div>
     <div class="p-wizard-step-header__title">
-      {{ step.title }}
+      <slot>
+        {{ step.title }}
+      </slot>
     </div>
   </div>
 </template>
