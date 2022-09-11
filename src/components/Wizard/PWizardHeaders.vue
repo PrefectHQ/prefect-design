@@ -9,7 +9,9 @@
           :loading="loading && index === currentStepIndex"
           :complete="index < currentStepIndex"
         >
-          <slot :name="`${getStepKey(step)}-heading`" />
+          <template #default="data">
+            <slot :name="`${getStepKey(step)}-heading`" v-bind="data" />
+          </template>
         </PWizardStepHeader>
       </span>
     </template>
