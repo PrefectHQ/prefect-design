@@ -43,7 +43,7 @@
 
 <style>
 .p-wizard-step-header { @apply
-  flex
+  inline-flex
   items-center
   gap-4
   text-gray-400

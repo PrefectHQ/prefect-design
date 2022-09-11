@@ -1,26 +1,21 @@
 <template>
   <div class="p-wizard">
     <p-card class="p-wizard__header">
-      <template v-for="(step, index) in steps" :key="index">
-        <PWizardStepHeader
-          :step="step"
-          :index="index"
-          :current="index === currentStepIndex"
-          :loading="loading && index === currentStepIndex"
-          :complete="index < currentStepIndex"
-          class="p-wizard__header-step"
-        >
-          <slot :name="`${getStepKey(step)}-heading`" />
-        </PWizardStepHeader>
-      </template>
+      <PWizardHeaders
+        :steps="steps"
+        :loading="loading"
+        :current-step-index="currentStepIndex"
+      />
     </p-card>
 
     <p-card>
-      <div v-if="currentStep" class="p-wizard__step">
-        <PWizardStep :step="currentStep">
-          <slot :name="getStepKey(currentStep)" />
-        </PWizardStep>
-      </div>
+      <template v-for="(step, index) in steps" :key="index">
+        <div v-show="index === currentStepIndex" class="p-wizard__step">
+          <PWizardStep :step="step">
+            <slot :name="getStepKey(step)" />
+          </PWizardStep>
+        </div>
+      </template>
 
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
@@ -44,8 +39,8 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { useWizard } from './compositions'
+  import PWizardHeaders from './PWizardHeaders.vue'
   import PWizardStep from './PWizardStep.vue'
-  import PWizardStepHeader from './PWizardStepHeader.vue'
   import { Step } from './types'
   import { getStepKey } from './utilities'
 
@@ -88,13 +83,6 @@
   flex
   flex-col
   gap-8
-}
-
-.p-wizard__header { @apply
-  flex
-  flex-wrap
-  justify-around
-  gap-2
 }
 
 .p-wizard__step { @apply
