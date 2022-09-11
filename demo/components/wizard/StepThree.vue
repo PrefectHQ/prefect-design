@@ -9,7 +9,7 @@
 
   defineProps<{
     formData: {
-      orgName: string,
+      favoriteColor: string,
       agrees: true,
     },
   }>()

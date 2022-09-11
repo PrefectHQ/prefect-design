@@ -1,6 +1,6 @@
 <template>
   <div class="step-two">
-    <p-form @submit="wizard">
+    <p-form @submit="wizard.next">
       <p-label label="Here are my terms, agree or perish">
         <p-checkbox v-model="internalValue" label="I agree" />
       </p-label>
