@@ -23,4 +23,5 @@ export const components: Section = {
   tags: () => import ('./Tags.vue'),
   toast: () => import ('./Toast.vue'),
   typography: () => import ('./Typography.vue'),
+  wizard: () => import ('./Wizard.vue'),
 }
