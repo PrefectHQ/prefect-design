@@ -10,7 +10,7 @@
   defineProps<{
     formData: {
       favoriteColor: string,
-      agrees: true,
+      agrees: boolean,
     },
   }>()
 </script>
