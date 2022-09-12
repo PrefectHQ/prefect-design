@@ -20,6 +20,7 @@
 .p-window { @apply
   max-w-2xl
   bg-gray-800
+  overflow-hidden
   rounded
   w-full
 }
