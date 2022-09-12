@@ -7,7 +7,7 @@
     "prismjs": "^1.29.0"
   },
   "dependencies": {
-    "@prefecthq/vue-compositions": "0.1.42",
+    "@prefecthq/vue-compositions": "0.1.43",
     "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^18.7.13",
     "@types/tailwindcss": "^3.0.10",
