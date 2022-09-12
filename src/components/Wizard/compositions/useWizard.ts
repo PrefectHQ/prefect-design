@@ -1,12 +1,11 @@
 /* eslint-disable no-redeclare */
 import { computed, InjectionKey, provide, Ref, ref } from 'vue'
-import { Step, UseWizard, ValidationState } from '../types'
+import { WizardStep, UseWizard, ValidationState } from '../types'
 import { getStepKey } from '../utilities'
 
 export const useWizardKey: InjectionKey<UseWizard> = Symbol('UseWizard')
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function useWizard(steps: Step[] | Ref<Step[]>) {
+export function useWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
   const loading = ref(false)
   const stepsRef = ref(steps)
   const currentStepIndex = ref(0)
@@ -26,9 +25,9 @@ export function useWizard(steps: Step[] | Ref<Step[]>) {
 
   function goto(key: string): void
   function goto(index: number): void
-  function goto(step: Step): void
-  function goto(keyIndexOrStep: Step | string | number): void
-  function goto(keyIndexOrStep: Step | string | number): void {
+  function goto(step: WizardStep): void
+  function goto(keyIndexOrStep: WizardStep | string | number): void
+  function goto(keyIndexOrStep: WizardStep | string | number): void {
     const index = typeof keyIndexOrStep === 'number' ? getZeroBasedIndex(keyIndexOrStep) : getStepIndex(keyIndexOrStep)
 
     new Promise<ValidationState[]>(resolve => {
@@ -59,9 +58,9 @@ export function useWizard(steps: Step[] | Ref<Step[]>) {
   }
 
   function getStepIndex(key: string): number
-  function getStepIndex(step: Step): number
-  function getStepIndex(keyOrStep: string | Step): number
-  function getStepIndex(keyOrStep: string | Step): number {
+  function getStepIndex(step: WizardStep): number
+  function getStepIndex(keyOrStep: string | WizardStep): number
+  function getStepIndex(keyOrStep: string | WizardStep): number {
     const step = typeof keyOrStep === 'object' ? keyOrStep : getStep(keyOrStep)
 
     if (!step) {
@@ -71,10 +70,10 @@ export function useWizard(steps: Step[] | Ref<Step[]>) {
     return stepsRef.value.indexOf(step)
   }
 
-  function getStep(key: string): Step | undefined
-  function getStep(index: number): Step | undefined
-  function getStep(keyOrIndex: string | number): Step | undefined
-  function getStep(keyOrIndex: string | number): Step | undefined {
+  function getStep(key: string): WizardStep | undefined
+  function getStep(index: number): WizardStep | undefined
+  function getStep(keyOrIndex: string | number): WizardStep | undefined
+  function getStep(keyOrIndex: string | number): WizardStep | undefined {
     if (typeof keyOrIndex === 'number') {
       return stepsRef.value[keyOrIndex]
     }
@@ -82,7 +81,7 @@ export function useWizard(steps: Step[] | Ref<Step[]>) {
     return stepsRef.value.find(step => getStepKey(step) === keyOrIndex)
   }
 
-  function setStep(key: string, step: Step): void {
+  function setStep(key: string, step: WizardStep): void {
     const index = getStepIndex(key)
 
     if (index === -1) {

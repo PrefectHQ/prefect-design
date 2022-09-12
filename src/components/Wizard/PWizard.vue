@@ -37,29 +37,31 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, withDefaults } from 'vue'
   import { useWizard } from './compositions'
   import PWizardHeaders from './PWizardHeaders.vue'
   import PWizardStep from './PWizardStep.vue'
-  import { Step } from './types'
+  import { WizardStep } from './types'
   import { getStepKey } from './utilities'
 
-  const props = defineProps<{
-    steps: Step[],
+  const props = withDefaults(defineProps<{
+    steps: WizardStep[],
     showCancel?: boolean,
     lastStepText?: string,
-  }>()
+  }>(), {
+    lastStepText: 'Submit',
+  })
 
   const emits = defineEmits<{
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
   }>()
 
-  const { steps, currentStep, currentStepIndex, loading, next, previous } = useWizard(props.steps)
+  const { steps, currentStepIndex, loading, next, previous } = useWizard(props.steps)
 
   const isOnFirstStep = computed(() => currentStepIndex.value === 0)
   const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length -1)
 
-  const nextButtonText = computed(() => isOnLastStep.value ? props.lastStepText ?? 'Submit' : 'Next')
+  const nextButtonText = computed(() => isOnLastStep.value ? props.lastStepText : 'Next')
 
   function handlePreviousButtonClick(): void {
     previous()

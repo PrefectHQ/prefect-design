@@ -21,14 +21,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { Step } from '@/components/Wizard'
+  import { WizardStep } from '@/components/Wizard'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import StepOne from '@/demo/components/wizard/StepOne.vue'
   import StepThree from '@/demo/components/wizard/StepThree.vue'
   import StepTwo from '@/demo/components/wizard/StepTwo.vue'
 
-  const steps: Step[] = [
+  const steps: WizardStep[] = [
     { title: 'Basic Information' },
     { title: 'Terms and Conditions' },
     { title: 'Review' },

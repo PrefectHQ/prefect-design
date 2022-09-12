@@ -1,3 +1,16 @@
-import { useWizard } from '../compositions/useWizard'
+import { Ref } from 'vue'
+import { WizardStep } from './wizardStep'
 
-export type UseWizard = ReturnType<typeof useWizard>
+export type UseWizard = {
+  steps: Ref<WizardStep[]>,
+  currentStepIndex: Ref<number>,
+  currentStep: Ref<WizardStep | undefined>,
+  loading: Ref<boolean>,
+  next: () => void,
+  previous: () => void,
+  goto: ((key: string) => void) | ((index: number) => void) | ((step: WizardStep) => void),
+  getStepIndex: ((key: string) => number) | ((step: WizardStep) => number) | ((keyOrStep: string | WizardStep) => number),
+  getStep: ((key: string) => WizardStep | undefined) | ((index: number) => WizardStep | undefined) | ((keyOrIndex: string | number) => WizardStep | undefined),
+  setStep: (key: string, step: WizardStep) => void,
+  isValid: (index?: number) => Promise<boolean>,
+}

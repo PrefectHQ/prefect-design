@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 import { inject, InjectionKey, ref, Ref, computed } from 'vue'
 import { WizardNotFound, WizardStepNotFound } from '../errors'
-import { Step, UseWizard, UseWizardStep, WizardStepValidator } from '../types'
+import { WizardStep, UseWizard, UseWizardStep, WizardStepValidator } from '../types'
 import { useWizardKey } from './useWizard'
 
 export const useWizardStepKey: InjectionKey<Required<UseWizardStep>> = Symbol('UseWizardStep')
@@ -22,7 +22,7 @@ function useWizardStep(key?: string | Ref<string>): UseWizardStep {
     get() {
       return getStep()
     },
-    set(value: Step) {
+    set(value: WizardStep) {
       wizard.setStep(keyRef.value, value)
     },
   })
@@ -37,7 +37,7 @@ function useWizardStep(key?: string | Ref<string>): UseWizardStep {
     return wizardOrUndefined
   }
 
-  function getStep(): Step {
+  function getStep(): WizardStep {
     const stepOrUndefined = wizard.getStep(keyRef.value)
 
     if (!stepOrUndefined) {

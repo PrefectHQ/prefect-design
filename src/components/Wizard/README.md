@@ -7,12 +7,12 @@ This component makes any multi-step process clearer to the user. Typically these
 
 component setup
 ```ts
-import { Step } from '@prefecthq/prefect-design'
+import { WizardStep } from '@prefecthq/prefect-design'
 import StepOne from '@/StepOne.vue'
 import StepThree from '@/StepThree.vue'
 import StepTwo from '@/StepTwo.vue'
 
-const steps: Step[] = [
+const steps: WizardStep[] = [
   { title: 'Basic Information' },
   { title: 'Terms and Conditions' },
   { title: 'Review' },
@@ -87,7 +87,7 @@ This button is only visible when the user is on the final step. The text for thi
 ## Props
 | Name | Type | Description |
 |----|----|----|
-| steps | `Step[]` | This is the foundation of the component. The steps defined here drive both the header values and what slots are available for each step. Each step only needs to define `title:string`, which is what will be shown in the header area. If the developer chooses to provide `key?:string`, that will be the value used to place slots, define step content with `useWizardStep`, get steps from `useWizard`, etc. This object can also contain the `WizardStepValidator`. |
+| steps | `WizardStep[]` | This is the foundation of the component. The steps defined here drive both the header values and what slots are available for each step. Each step only needs to define `title:string`, which is what will be shown in the header area. If the developer chooses to provide `key?:string`, that will be the value used to place slots, define step content with `useWizardStep`, get steps from `useWizard`, etc. This object can also contain the `WizardStepValidator`. |
 | show-cancel | `boolean?` | This prop conditionally hides the cancel button inside of the footer area of `p-wizard`. Defaults to `false`. |
 | last-step-text | `string?` | This prop overrides the text displayed on the submit button, shown when the user is on the last step of the form in place of the next button.  Defaults to `"Submit"`. |
 
@@ -99,21 +99,21 @@ This composition is called by default from within `p-wizard` setup. The componen
 
 | Name | Type | Description | 
 | ---- | ---- | ---- | 
-| steps | `Step[] \| Ref<Step[]>` | These are the same steps provided to `p-wizard`.  |
+| steps | `WizardStep[] \| Ref<WizardStep[]>` | These are the same steps provided to `p-wizard`.  |
 
 ### Returns
 
 | Name | Type | Description | 
 | ---- | ---- | ---- | 
-| steps | `Ref<Step[]>` | Ref of the steps passed in. Useful for components used in the slot of wizard for gathering greater context. |
+| steps | `Ref<WizardStep[]>` | Ref of the steps passed in. Useful for components used in the slot of wizard for gathering greater context. |
 | currentStepIndex | `Ref<number>` | Zero-based index the user is current viewing | 
-| currentStep | `ComputedRef<Step>` | Corresponding value of `steps[currentStepIndex]` | 
+| currentStep | `ComputedRef<WizardStep>` | Corresponding value of `steps[currentStepIndex]` | 
 | loading | `Ref<boolean>` | Used to display loading. By default loading only happens during async validation. |
 | next | `() => void` | Convenience method for `goto(currentStepIndex + 1)` |
 | previous | `() => void` | Convenience method for `goto(currentStepIndex - 1)`|
-| goto | `(key: string) => number \| (step: Step) => number \| (keyOrStep: string \| Step) => number` | This method is responsible for updating `currentStepIndex`. This method is also responsible for finding and running any validation methods needed to pass each step. Note, `goto` will validate EACH step from current step to desired step. |
-| getStep | `(key: string) => Step \| undefined (index: number) => Step \| undefined \| (keyOrIndex: string \| number) => Step \| undefined;` | This method returns the desired step or `undefined` if no step is found. |
-| setStep | `(key: string, step: Step) => void` | This method is used to update the internal dataset of steps. This is particularly useful when slot components override the validation of a step without losing reactivity. | 
+| goto | `(key: string) => number \| (step: WizardStep) => number \| (keyOrStep: string \| WizardStep) => number` | This method is responsible for updating `currentStepIndex`. This method is also responsible for finding and running any validation methods needed to pass each step. Note, `goto` will validate EACH step from current step to desired step. |
+| getStep | `(key: string) => WizardStep \| undefined (index: number) => WizardStep \| undefined \| (keyOrIndex: string \| number) => WizardStep \| undefined;` | This method returns the desired step or `undefined` if no step is found. |
+| setStep | `(key: string, step: WizardStep) => void` | This method is used to update the internal dataset of steps. This is particularly useful when slot components override the validation of a step without losing reactivity. | 
 | isValid | `(index?: number) => Promise<boolean>` | This method exposes the internal validation for the developer. `index` is the desired step to validate up to, and defaults to `currentStepIndex + 1`.
 
 ## useWizardStep
@@ -126,7 +126,7 @@ This composition is designed to enable components used inside of the step slot t
 
 | Name | Type | Description | 
 | ---- | ---- | ---- | 
-| key | `string | Ref<string> | undefined` | If a key is provided, the key must match a key of the parent wizard. |
+| key | `string \| Ref<string> \| undefined` | If a key is provided, the key must match a key of the parent wizard. |
 
 > If you try calling `useWizardStep` with a key that does not match a step key, the composition will throw `WizardStepNotFound` error.
 
@@ -135,7 +135,7 @@ This composition is designed to enable components used inside of the step slot t
 | Name | Type | Description | 
 | ---- | ---- | ---- | 
 | wizard | `UseWizard` | Returns same instance of useWizard that the parent has with reactivity in place. This can be used to change steps, validate steps, etc. |
-| step | `WritableComputed<Step> | undefined` | This computed wraps `getStep`, which returns `Step` for the key provided to `useWizardStep`. When you set this computed, it will call the underlying `setStep` method on `useWizard`. This value will be undefined if `key` is not provided to `useWizard` | 
+| step | `WritableComputed<WizardStep> \| undefined` | This computed wraps `getStep`, which returns `Step` for the key provided to `useWizardStep`. When you set this computed, it will call the underlying `setStep` method on `useWizard`. This value will be undefined if `key` is not provided to `useWizard` | 
 | defineValidate | `(validate: WizardStepValidator) => void` | This is a convenience method for setting the required validation that should happen when this step is executed. Calling this method is equivalent to `step.value = {...step.value, validate }`. This value will be undefined if `key` is not provided to `useWizard` |
 
 ### p-wizard-step
@@ -157,10 +157,10 @@ const { wizard, step, defineValidate } = inject(useWizardStepKey)
 
 ## Validation
 
-Validate method is physically stored on each `Step` within the `useWizard`. The validate method can be set by the step definitions themselves.
+Validate method is physically stored on each `WizardStep` within the `useWizard`. The validate method can be set by the step definitions themselves.
 
 ```ts
-const steps: Step[] = [
+const steps: WizardStep[] = [
   {title: 'My Step', validate: () => ...}
 ]
 ```

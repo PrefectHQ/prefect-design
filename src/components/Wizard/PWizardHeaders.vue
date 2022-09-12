@@ -20,11 +20,11 @@
 
 <script lang="ts" setup>
   import PWizardStepHeader from './PWizardStepHeader.vue'
-  import { Step } from './types'
+  import { WizardStep } from './types'
   import { getStepKey } from './utilities'
 
   defineProps<{
-    steps: Step[],
+    steps: WizardStep[],
     currentStepIndex: number,
     loading: boolean,
   }>()

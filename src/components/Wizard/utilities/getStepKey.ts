@@ -1,6 +1,6 @@
-import { Step } from '../types'
+import { WizardStep } from '../types'
 import { kebabCase } from '@/utilities'
 
-export function getStepKey(step: Step): string {
+export function getStepKey(step: WizardStep): string {
   return step.key ?? kebabCase(step.title)
 }

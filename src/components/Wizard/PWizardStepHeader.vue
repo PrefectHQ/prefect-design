@@ -21,11 +21,11 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { Step } from './types'
+  import { WizardStep } from './types'
   import { PLoadingIcon } from '@/components/LoadingIcon'
 
   const props = defineProps<{
-    step: Step,
+    step: WizardStep,
     index: number,
     current: boolean,
     loading: boolean,

@@ -1,6 +1,6 @@
 import { WizardStepValidator } from './validation'
 
-export type Step = {
+export type WizardStep = {
   title: string,
   key?: string,
   validate?: WizardStepValidator,

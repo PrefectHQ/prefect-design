@@ -5,11 +5,11 @@
 <script lang="ts" setup>
   import { computed, provide, watchEffect } from 'vue'
   import { useWizardStep, useWizardStepKey } from './compositions'
-  import { Step } from './types'
+  import { WizardStep } from './types'
   import { getStepKey } from './utilities'
 
   const props = defineProps<{
-    step: Step,
+    step: WizardStep,
   }>()
 
   const key = computed(() => getStepKey(props.step))
