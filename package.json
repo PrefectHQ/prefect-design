@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "",
   "repository": {
     "type": "git",
@@ -47,11 +47,11 @@
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24",
     "ts-node": "^10.7.0",
-    "tsc-alias": "1.6.7",
+    "tsc-alias": "1.7.0",
     "typescript": "4.7.4",
     "vite": "^2.9.6",
     "vite-svg-loader": "3.4.0",
-    "vue-router": "4.1.4",
+    "vue-router": "4.1.5",
     "vue-tsc": "0.39.4"
   },
   "peerDependencies": {
