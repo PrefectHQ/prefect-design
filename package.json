@@ -55,7 +55,7 @@
     "vue-tsc": "0.39.4"
   },
   "peerDependencies": {
-    "@prefecthq/vue-compositions": "0.1.42",
+    "@prefecthq/vue-compositions": "0.1.43",
     "vue": "^3.2.36",
     "vue-router": "^4.0.12"
   },
