@@ -25,4 +25,5 @@ export const components: Section = {
   toast: () => import ('./Toast.vue'),
   typography: () => import ('./Typography.vue'),
   window: () => import ('./Window.vue'),
+  wizard: () => import ('./Wizard.vue'),
 }

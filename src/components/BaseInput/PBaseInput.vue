@@ -29,7 +29,7 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import PLoadingIcon from '@/components/LoadingIcon/LoadingIcon.vue'
+  import { PLoadingIcon } from '@/components/LoadingIcon'
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
   import { asArray } from '@/utilities'

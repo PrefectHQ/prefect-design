@@ -56,6 +56,7 @@ import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
 import { PWindow, install as installPWindow } from './Window'
+import { PWizard, install as installPWizard } from './Wizard'
 
 export {
   PAutoHeightTransition,
@@ -121,7 +122,8 @@ export {
   PToast,
   PToggle,
   PTypeAhead,
-  PWindow
+  PWindow,
+  PWizard
 }
 
 export const installs = [
@@ -183,6 +185,7 @@ export const installs = [
   installPToggle,
   installPTypeAhead,
   installPWindow,
+  installPWizard,
 ]
 
 declare module '@vue/runtime-core' {
@@ -250,5 +253,6 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
     PWindow: typeof PWindow,
+    PWizard: typeof PWizard,
   }
 }
