@@ -1,6 +1,7 @@
 import { Section } from '@/demo/router/routeRecords'
 
 export const components: Section = {
+  premoji: () => import('./Premoji.vue'),
   breadCrumbs: () => import('./BreadCrumbs.vue'),
   button: () => import ('./Buttons.vue'),
   buttonGroup: () => import ('./ButtonGroup.vue'),
