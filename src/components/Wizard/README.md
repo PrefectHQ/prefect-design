@@ -128,19 +128,19 @@ This composition is designed to enable components used inside of the step slot t
 | ---- | ---- | ---- | 
 | key | `string \| Ref<string> \| undefined` | If a key is provided, the key must match a key of the parent wizard. |
 
-> If you try calling `useWizardStep` with a key that does not match a step key, the composition will throw `WizardStepNotFound` error.
+> If you try calling `useWizardStep` with a key that does not match a step key or if you omit the key and there is nothing provided by `useWizardStepKey`, the composition will throw `WizardStepNotFound` error.
 
 ### Returns
 
 | Name | Type | Description | 
 | ---- | ---- | ---- | 
 | wizard | `UseWizard` | Returns same instance of useWizard that the parent has with reactivity in place. This can be used to change steps, validate steps, etc. |
-| step | `WritableComputed<WizardStep> \| undefined` | This computed wraps `getStep`, which returns `Step` for the key provided to `useWizardStep`. When you set this computed, it will call the underlying `setStep` method on `useWizard`. This value will be undefined if `key` is not provided to `useWizard` | 
-| defineValidate | `(validate: WizardStepValidator) => void` | This is a convenience method for setting the required validation that should happen when this step is executed. Calling this method is equivalent to `step.value = {...step.value, validate }`. This value will be undefined if `key` is not provided to `useWizard` |
+| step | `Computed<WizardStep> \| undefined` | This computed wraps `getStep`, which returns `Step` for the key provided to `useWizardStep`. | 
+| defineValidate | `(validate: WizardStepValidator) => void` | This is a convenience method for setting the required validation that should happen when this step is executed. |
 
 ### p-wizard-step
 
-This component was created to bypass the `key` argument for `useWizardStep`. Because we know the key for each slot from within `p-wizard`, we wrap the slot in `p-wizard-step` and pass the key as a prop. `p-wizard-step` then calls `useWizardStep` with the correct key and `provides` the response for any of it's children to use. So defining a component that is aware of the parent wizard context is as easy as
+This component was created to bypass the `key` argument for `useWizardStep`. Because we know the key for each slot from within `p-wizard`, we wrap the slot in `p-wizard-step` and pass the key as a prop. `p-wizard-step` then calls `useWizardStep` with the correct key and `provides` the response for any of it's children to use when calling `useWizardStep()` without any args. So defining a component that is aware of the parent wizard context is as easy as
 
 ```html
 <p-wizard :steps="[{title: 'First Step'}]">
@@ -152,7 +152,7 @@ This component was created to bypass the `key` argument for `useWizardStep`. Bec
 
 from setup of `StepOne.vue`
 ```ts
-const { wizard, step, defineValidate } = inject(useWizardStepKey)
+const { wizard, step, defineValidate } = useWizardStep()
 ```
 
 ## Validation
@@ -170,8 +170,8 @@ Or validation can be dynamically defined by whatever component gets rendered in 
 ```ts
 // can be used to define validation for ANY step
 const { defineValidate } = useWizardStep('my-step')
-// or if we want to set validation for current step, thanks to `p-wizard-step` we can simply use 
-const { defineValidate } = inject(useWizardStepKey)
+// or if we want to set validation for current step, thanks to `p-wizard-step` we can simply use
+const { defineValidate } = useWizardStep()
 
 defineValidate(() => {
   return new Promise(resolve => {
