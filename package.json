@@ -51,7 +51,7 @@
     "typescript": "4.7.4",
     "vite": "^2.9.6",
     "vite-svg-loader": "3.4.0",
-    "vue-router": "4.1.4",
+    "vue-router": "4.1.5",
     "vue-tsc": "0.39.4"
   },
   "peerDependencies": {
@@ -60,7 +60,7 @@
     "vue-router": "^4.0.12"
   },
   "dependencies": {
-    "@heroicons/vue": "^1.0.6",
+    "@heroicons/vue": "^2.0.11",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
