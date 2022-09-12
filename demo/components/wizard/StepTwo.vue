@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useWizardStepKey } from '@/components/Wizard/compositions'
-  import { computed, inject } from 'vue'
+  import { useWizardStep } from '@/components/Wizard/compositions'
+  import { computed } from 'vue'
 
   const props = defineProps<{
     modelValue: boolean,
@@ -29,7 +29,7 @@
     },
   })
 
-  const { wizard, defineValidate } = inject(useWizardStepKey)!
+  const { wizard, defineValidate } = useWizardStep()
 
   defineValidate(() => internalValue.value)
 </script>

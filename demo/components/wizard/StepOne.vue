@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useWizardStepKey } from '@/components/Wizard/compositions'
-  import { computed, inject } from 'vue'
+  import { useWizardStep } from '@/components/Wizard/compositions'
+  import { computed } from 'vue'
 
   // need to handle "submit" vs goto (last)
   // goto 3 passed validation on 2? -> because 2 was never mounted to define it's validation
@@ -37,7 +37,7 @@
     },
   })
 
-  const { wizard, defineValidate } = inject(useWizardStepKey)!
+  const { wizard, defineValidate } = useWizardStep()
 
   defineValidate(() => {
     return new Promise(resolve => {
