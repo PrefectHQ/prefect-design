@@ -1,9 +1,9 @@
 <template>
   <thead class="p-table-head">
     <slot>
-      <p-table-row>
+      <PTableRow>
         <slot name="row" />
-      </p-table-row>
+      </PTableRow>
     </slot>
   </thead>
 </template>

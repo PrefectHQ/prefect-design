@@ -1,12 +1,13 @@
 <template>
   <div class="p-tags">
-    <p-tag v-for="tag in sortStringArray(tags)" :key="tag">
+    <PTag v-for="tag in sortStringArray(tags)" :key="tag">
       {{ tag }}
-    </p-tag>
+    </PTag>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import PTag from '@/components/Tag/PTag.vue'
   import { sortStringArray } from '@/utilities/arrays'
 
   defineProps<{

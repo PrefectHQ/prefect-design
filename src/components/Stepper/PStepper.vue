@@ -1,6 +1,6 @@
 <template>
   <div class="p-stepper">
-    <p-button
+    <PButton
       class="p-stepper__step p-stepper__step--down"
       rounded
       inset
@@ -9,7 +9,7 @@
       :disabled="!canDecrease"
       @click="internalValue -= step"
     />
-    <p-button
+    <PButton
       class="p-stepper__step p-stepper__step--up"
       rounded
       inset
@@ -28,6 +28,7 @@
 
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
 
   const props = withDefaults(defineProps<{
     modelValue: number | null | undefined,

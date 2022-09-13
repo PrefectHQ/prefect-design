@@ -5,9 +5,9 @@
         <template v-for="tag in sortedTags" :key="tag">
           <div class="p-tag-wrapper__tag" :class="classes.tag">
             <slot name="tag" :tag="tag">
-              <p-tag>
+              <PTag>
                 {{ tag }}
-              </p-tag>
+              </PTag>
             </slot>
           </div>
         </template>
@@ -16,9 +16,9 @@
 
       <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag" :title="hiddenText">
         <slot name="overflow-tags" :overflowed-children="overflowChildren">
-          <p-tag>
+          <PTag>
             +{{ overflowChildren }}
-          </p-tag>
+          </PTag>
         </slot>
       </div>
     </div>

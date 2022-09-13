@@ -1,18 +1,20 @@
 <template>
-  <p-window class="p-terminal">
+  <PWindow class="p-terminal">
     <template #actions>
-      <p-button size="xs" inset class="p-terminal__copy-button" @click="copy">
+      <PButton size="xs" inset class="p-terminal__copy-button" @click="copy">
         Copy
-      </p-button>
+      </PButton>
     </template>
 
     <div class="p-terminal__code">
       {{ command }}<span class="p-terminal__cursor" />
     </div>
-  </p-window>
+  </PWindow>
 </template>
 
 <script lang="ts" setup>
+  import PButton from '@/components/Button/PButton.vue'
+  import PWindow from '@/components/Window/PWindow.vue'
   import { showToast } from '@/plugins'
 
   const props = defineProps<{
