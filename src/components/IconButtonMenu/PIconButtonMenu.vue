@@ -1,5 +1,5 @@
 <template>
-  <p-pop-over
+  <PPopOver
     ref="popOver"
     class="p-icon-button-menu"
     :class="classes"
@@ -8,14 +8,14 @@
     auto-close
   >
     <template #target="{ toggle }">
-      <p-button ref="button" :icon="icon" v-bind="attrs" inset @click="toggle" />
+      <PButton ref="button" :icon="icon" v-bind="attrs" inset @click="toggle" />
     </template>
     <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="close">
-      <p-overflow-menu>
+      <POverflowMenu>
         <slot v-bind="{ close }" />
-      </p-overflow-menu>
+      </POverflowMenu>
     </div>
-  </p-pop-over>
+  </PPopOver>
 </template>
 
 <script lang="ts">

@@ -2,7 +2,7 @@
   <div class="p-wizard-step-header" :class="classes">
     <div class="p-wizard-step-header__index">
       <template v-if="complete">
-        <p-icon icon="CheckIcon" />
+        <PIcon icon="CheckIcon" />
       </template>
       <template v-else-if="loading">
         <PLoadingIcon />
@@ -22,7 +22,8 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { WizardStep } from './types'
-  import { PLoadingIcon } from '@/components/LoadingIcon'
+  import PIcon from '@/components/Icon/PIcon.vue'
+  import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
 
   const props = defineProps<{
     step: WizardStep,

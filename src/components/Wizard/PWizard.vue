@@ -1,14 +1,14 @@
 <template>
   <div class="p-wizard">
-    <p-card class="p-wizard__header">
+    <PCard class="p-wizard__header">
       <PWizardHeaders
         :steps="steps"
         :loading="loading"
         :current-step-index="currentStepIndex"
       />
-    </p-card>
+    </PCard>
 
-    <p-card>
+    <PCard>
       <template v-for="(step, index) in steps" :key="index">
         <div v-show="index === currentStepIndex" class="p-wizard__step">
           <PWizardStep :step="step">
@@ -20,19 +20,19 @@
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
           <template v-if="showCancel">
-            <p-button inset @click="emits('cancel')">
+            <PButton inset @click="emits('cancel')">
               Cancel
-            </p-button>
+            </PButton>
           </template>
-          <p-button secondary :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
+          <PButton secondary :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
             Previous
-          </p-button>
-          <p-button primary :disabled="loading" @click="handleNextButtonClick">
+          </PButton>
+          <PButton primary :disabled="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
-          </p-button>
+          </PButton>
         </slot>
       </div>
-    </p-card>
+    </PCard>
   </div>
 </template>
 
@@ -43,6 +43,8 @@
   import PWizardStep from './PWizardStep.vue'
   import { WizardStep } from './types'
   import { getStepKey } from './utilities'
+  import PButton from '@/components/Button/PButton.vue'
+  import PCard from '@/components/Card/PCard.vue'
 
   const props = withDefaults(defineProps<{
     steps: WizardStep[],

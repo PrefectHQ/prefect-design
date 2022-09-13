@@ -2,7 +2,7 @@
   <div class="p-date-picker" :class="classes.picker">
     <div class="p-date-picker__top-bar">
       <template v-if="overlay">
-        <p-button
+        <PButton
           class="p-date-picker__close-icon"
           flat
           icon="XIcon"
@@ -11,7 +11,7 @@
         />
       </template>
       <template v-else>
-        <p-button
+        <PButton
           class="p-date-picker__previous-icon"
           flat
           icon="ChevronLeftIcon"
@@ -21,14 +21,14 @@
         />
       </template>
       <div class="p-date-picker__title">
-        <p-button class="p-date-picker__title-month" flat @click="setOverlay('month')">
+        <PButton class="p-date-picker__title-month" flat @click="setOverlay('month')">
           {{ viewingMonth }}
-        </p-button>
-        <p-button class="p-date-picker__title-year" flat @click="setOverlay('year')">
+        </PButton>
+        <PButton class="p-date-picker__title-year" flat @click="setOverlay('year')">
           {{ viewingYear }}
-        </p-button>
+        </PButton>
       </div>
-      <p-button
+      <PButton
         class="p-date-picker__next-icon"
         flat
         icon="ChevronRightIcon"
@@ -39,9 +39,9 @@
     </div>
 
     <div class="p-date-picker__body">
-      <p-calendar :month="viewingDate.getMonth()" :year="viewingDate.getFullYear()">
+      <PCalendar :month="viewingDate.getMonth()" :year="viewingDate.getFullYear()">
         <template #date="{ date }">
-          <p-button
+          <PButton
             class="p-date-picker__date"
             :class="classes.date(date)"
             :flat="!isSameDayAsSelectedDate(date)"
@@ -50,26 +50,26 @@
             @click="updateSelectedDate(date)"
           >
             {{ date.getDate() }}
-          </p-button>
+          </PButton>
         </template>
-      </p-calendar>
+      </PCalendar>
 
       <div class="p-date-picker__bottom-bar">
         <template v-if="showTime && selectedDate">
-          <p-button class="p-date-picker__time-button" size="sm" flat @click="setOverlay('time')">
+          <PButton class="p-date-picker__time-button" size="sm" flat @click="setOverlay('time')">
             {{ time }}
-          </p-button>
+          </PButton>
         </template>
         <div class="p-date-picker__actions">
           <template v-if="isDateInRange(new Date(), range, 'day')">
-            <p-button class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
+            <PButton class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
               {{ showTime ? 'Now' : 'Today' }}
-            </p-button>
+            </PButton>
           </template>
           <template v-if="clearable">
-            <p-button class="p-date-picker__clear-button" size="sm" flat :disabled="selectedDate === null" @click="selectedDate = null">
+            <PButton class="p-date-picker__clear-button" size="sm" flat :disabled="selectedDate === null" @click="selectedDate = null">
               Clear
-            </p-button>
+            </PButton>
           </template>
         </div>
       </div>

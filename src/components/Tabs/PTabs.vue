@@ -2,7 +2,7 @@
   <section class="p-tabs">
     <div v-if="media.sm" class="p-tabs--not-mobile">
       <ul class="p-tabs--not-mobile__tabs" role="tablist" aria-label="Tab">
-        <p-tab
+        <PTab
           v-for="(tab, index) in innerTabs"
           :id="kebabCase(tab.label)"
           :key="tab.label"
@@ -18,12 +18,12 @@
           >
             {{ tab.label }}
           </slot>
-        </p-tab>
+        </PTab>
       </ul>
     </div>
     <div v-else class="p-tabs--mobile">
       <label for="tabs" class="p-tabs--mobile__label">Select a tab</label>
-      <p-select
+      <PSelect
         id="tabs"
         v-model="selectedTab"
         :options="options"
@@ -36,7 +36,7 @@
         >
           {{ tab.label }}
         </option>
-      </p-select>
+      </PSelect>
     </div>
     <template v-for="tab in innerTabs" :key="tab">
       <section

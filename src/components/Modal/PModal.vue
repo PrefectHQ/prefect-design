@@ -19,14 +19,14 @@
               <div class="p-modal__tile-icon-group">
                 <slot name="icon" :close="closeModal">
                   <template v-if="icon">
-                    <p-icon :icon="icon" class="p-modal__icon" />
+                    <PIcon :icon="icon" class="p-modal__icon" />
                   </template>
                 </slot>
                 <slot name="title" :close="closeModal">
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <p-button class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
+              <PButton class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
             </div>
 
             <div ref="modalBody" class="p-modal__body">
@@ -36,9 +36,9 @@
             <div class="p-modal__footer">
               <slot name="actions" :close="closeModal" />
               <slot name="cancel" :close="closeModal">
-                <p-button inset class="p-modal__close-button" @click="closeModal">
+                <PButton inset class="p-modal__close-button" @click="closeModal">
                   Cancel
-                </p-button>
+                </PButton>
               </slot>
             </div>
           </div>
@@ -58,6 +58,8 @@
 
 <script setup lang="ts">
   import { nextTick, computed, ref, useSlots, watch } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
   import { keys } from '@/types'
   import { Icon } from '@/types/icon'

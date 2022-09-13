@@ -38,9 +38,9 @@
         <slot name="options-empty" v-bind="scope">
           <template v-if="typedValue">
             <span>No matches for "{{ typedValue }}"</span>
-            <p-button secondary size="sm" @click.stop="typedValue = null">
+            <PButton secondary size="sm" @click.stop="typedValue = null">
               See All Options
-            </p-button>
+            </PButton>
           </template>
         </slot>
       </div>
@@ -60,6 +60,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, nextTick, withDefaults } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
   import { isSelectOption, optionStartsWith, SelectModelValue, SelectOption } from '@/types/selectOption'

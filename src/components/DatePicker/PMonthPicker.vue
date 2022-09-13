@@ -2,7 +2,7 @@
   <div class="p-month-picker">
     <template v-for="(option) in monthOptions" :key="option.value">
       <div class="p-month-picker__month">
-        <p-button
+        <PButton
           size="xs"
           class="p-month-picker__month-button"
           :disabled="isDisabled(option.value)"
@@ -12,7 +12,7 @@
           <span ref="monthElements" :data-month="option.value">
             {{ option.label }}
           </span>
-        </p-button>
+        </PButton>
       </div>
     </template>
   </div>

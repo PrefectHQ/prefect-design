@@ -1,6 +1,6 @@
 <template>
   <div class="p-text">
-    <p-icon :icon="icon" class="p-text__icon" />
+    <PIcon :icon="icon" class="p-text__icon" />
     <div class="p-text__label">
       <slot>
         {{ text }}
@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts" setup>
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
 
   defineProps<{
