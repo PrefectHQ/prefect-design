@@ -21,6 +21,9 @@ export const components: Section = {
   tab: () => import ('./Tab.vue'),
   table: () => import ('./Table.vue'),
   tags: () => import ('./Tags.vue'),
+  terminal: () => import ('./Terminal.vue'),
   toast: () => import ('./Toast.vue'),
   typography: () => import ('./Typography.vue'),
+  window: () => import ('./Window.vue'),
+  wizard: () => import ('./Wizard.vue'),
 }

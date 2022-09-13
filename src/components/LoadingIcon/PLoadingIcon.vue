@@ -1,20 +1,26 @@
 <template>
   <div class="p-loading-icon">
-    <div />
-    <div />
-    <div />
-    <div />
+    <div class="p-loading-icon__segment" />
+    <div class="p-loading-icon__segment" />
+    <div class="p-loading-icon__segment" />
+    <div class="p-loading-icon__segment" />
   </div>
 </template>
 
 <style>
-.p-loading-icon div {
+.p-loading-icon { @apply
+  relative
+  w-4
+  h-4
+}
+
+.p-loading-icon__segment {
   animation: loading-icon 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 
   @apply
   absolute
-  w-4
-  h-4
+  w-full
+  h-full
   border-2
   border-current
   border-r-transparent
@@ -25,15 +31,15 @@
   left-[50%]
 }
 
-.p-loading-icon div:nth-child(1) {
+.p-loading-icon__segment:nth-child(1) {
   animation-delay: -450ms;
 }
 
-.p-loading-icon div:nth-child(2) {
+.p-loading-icon__segment:nth-child(2) {
   animation-delay: -300ms;
 }
 
-.p-loading-icon div:nth-child(3) {
+.p-loading-icon__segment:nth-child(3) {
   animation-delay: -150ms;
 }
 
