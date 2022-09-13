@@ -6,7 +6,7 @@
       </slot>
     </button>
 
-    <label class="p-toggle__control" :class="classes.control">
+    <label class="p-toggle__control cursor-pointer" :class="classes.control">
       <input
         v-show="false"
         v-model="internalValue"
