@@ -61,7 +61,7 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "@types/lodash.debounce": "4.0.7",
-    "date-fns": "2.29.2",
+    "date-fns": "2.29.3",
     "lodash.debounce": "4.0.8",
     "vue": "^3.2.36",
     "vue-router": "^4.0.12"
