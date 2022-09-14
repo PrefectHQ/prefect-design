@@ -38,7 +38,7 @@
   "types": "./dist/types/src/index.d.ts",
   "devDependencies": {
     "@prefecthq/eslint-config": "1.0.16",
-    "@prefecthq/vue-compositions": "0.1.47",
+    "@prefecthq/vue-compositions": "0.1.49",
     "@types/node": "^18.7.13",
     "@types/tailwindcss": "^3.0.10",
     "@vitejs/plugin-vue": "^2.3.1",
