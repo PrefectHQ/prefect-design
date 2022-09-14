@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 import { computed, InjectionKey, provide, Ref, ref } from 'vue'
-import { WizardStep, UseWizard, ValidationState } from '../types'
-import { getStepKey } from '../utilities'
+import { WizardStep, UseWizard, ValidationState } from '@/types/wizard'
+import { getStepKey } from '@/utilities/wizard'
 
 export const useWizardKey: InjectionKey<UseWizard> = Symbol('UseWizard')
 

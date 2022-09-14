@@ -21,9 +21,9 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { WizardStep } from './types'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
+  import { WizardStep } from '@/types/wizard'
 
   const props = defineProps<{
     step: WizardStep,

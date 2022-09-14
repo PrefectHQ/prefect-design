@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { WizardStep } from '@/components/Wizard'
+  import { WizardStep } from '@/types/wizard'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import StepOne from '@/demo/components/wizard/StepOne.vue'

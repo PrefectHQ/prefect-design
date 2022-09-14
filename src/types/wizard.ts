@@ -1,6 +1,13 @@
-/* eslint-disable @typescript-eslint/unified-signatures */
-import { Ref } from 'vue'
-import { WizardStep } from './wizardStep'
+import { Ref, ComputedRef } from 'vue'
+
+export type WizardStepValidator = () => boolean | Promise<boolean>
+export type ValidationState = { index: number, valid: boolean }
+
+export type WizardStep = {
+  title: string,
+  key?: string,
+  validate?: WizardStepValidator,
+}
 
 export type UseWizard = {
   steps: Ref<WizardStep[]>,
@@ -24,4 +31,10 @@ export type UseWizard = {
   },
   setStep: (key: string, step: WizardStep) => void,
   isValid: (index?: number) => Promise<boolean>,
+}
+
+export type UseWizardStep = {
+  wizard: UseWizard,
+  step: ComputedRef<WizardStep>,
+  defineValidate: (validate: WizardStepValidator) => void,
 }

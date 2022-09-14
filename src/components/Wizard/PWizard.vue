@@ -38,13 +38,13 @@
 
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
-  import { useWizard } from './compositions'
   import PWizardHeaders from './PWizardHeaders.vue'
   import PWizardStep from './PWizardStep.vue'
-  import { WizardStep } from './types'
-  import { getStepKey } from './utilities'
   import PButton from '@/components/Button/PButton.vue'
   import PCard from '@/components/Card/PCard.vue'
+  import { useWizard } from '@/compositions/wizard'
+  import { WizardStep } from '@/types/wizard'
+  import { getStepKey } from '@/utilities/wizard'
 
   const props = withDefaults(defineProps<{
     steps: WizardStep[],
