@@ -27,7 +27,7 @@
           <PButton secondary :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
             Previous
           </PButton>
-          <PButton primary :disabled="loading" @click="handleNextButtonClick">
+          <PButton primary :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
           </PButton>
         </slot>
