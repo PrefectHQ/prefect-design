@@ -22,8 +22,8 @@
   // import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PWizardStepHeader from './PWizardStepHeader.vue'
-  import { WizardStep } from './types'
-  import { getStepKey } from './utilities'
+  import { WizardStep } from '@/types/wizard'
+  import { getStepKey } from '@/utilities/wizard'
 
   defineProps<{
     steps: WizardStep[],
