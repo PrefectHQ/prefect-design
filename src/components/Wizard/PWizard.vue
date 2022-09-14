@@ -90,7 +90,8 @@
 }
 
 .p-wizard__step { @apply
-  py-4
+  pt-4
+  pb-6
 }
 
 .p-wizard__footer { @apply
