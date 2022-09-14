@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-  // import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
+  import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PWizardStepHeader from './PWizardStepHeader.vue'
   import { WizardStep } from '@/types/wizard'
@@ -33,11 +33,11 @@
 
   const container = ref<HTMLDivElement>()
   const children = ref<HTMLSpanElement[]>([])
-  // const wrapped = useChildrenAreWrapped(children, container)
+  const wrapped = useChildrenAreWrapped(children, container)
 
   const classes = computed(() => ({
     container: {
-      // 'p-wizard-headers--wrapped': wrapped.value,
+      'p-wizard-headers--wrapped': wrapped.value,
     },
   }))
 </script>
