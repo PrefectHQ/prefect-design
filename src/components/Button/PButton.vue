@@ -245,6 +245,11 @@
 }
 
 .p-button--loading .p-button__content { @apply
-  invisible
+  opacity-10
+}
+
+.p-button__loading-icon {
+  position: absolute;
+  left: calc(50% - 8px)
 }
 </style>
