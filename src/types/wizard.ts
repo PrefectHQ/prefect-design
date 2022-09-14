@@ -18,15 +18,19 @@ export type UseWizard = {
   previous: () => void,
   goto: {
     (key: string): void,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
     (index: number): void,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
     (step: WizardStep): void,
   },
   getStepIndex: {
     (key: string): number,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
     (step: WizardStep): number,
   },
   getStep: {
     (key: string): WizardStep | undefined,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
     (index: number): WizardStep | undefined,
   },
   setStep: (key: string, step: WizardStep) => void,
