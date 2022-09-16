@@ -58,7 +58,33 @@
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
   }>()
 
-  const { steps, currentStepIndex, loading, next, previous } = useWizard(props.steps)
+  const {
+    steps,
+    currentStepIndex,
+    currentStep,
+    loading,
+    next,
+    previous,
+    goto,
+    getStepIndex,
+    getStep,
+    setStep,
+    isValid,
+  } = useWizard(props.steps)
+
+  defineExpose({
+    steps,
+    currentStepIndex,
+    currentStep,
+    loading,
+    next,
+    previous,
+    goto,
+    getStepIndex,
+    getStep,
+    setStep,
+    isValid,
+  })
 
   const isOnFirstStep = computed(() => currentStepIndex.value === 0)
   const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length -1)
