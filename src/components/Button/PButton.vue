@@ -250,6 +250,7 @@
 
 .p-button__loading-icon {
   position: absolute;
-  left: calc(50% - 8px)
+  left: 50%;
+  transform: translateX(50%);
 }
 </style>
