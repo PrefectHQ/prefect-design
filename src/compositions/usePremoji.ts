@@ -24,15 +24,13 @@ const host = 'https://raw.githubusercontent.com/PrefectHQ/premojis/main/premojis
 
 const next = (input: string): string | number => {
   const pattern = /(:[A-Za-z0-9-_]+:)/g
-  const [match] = (pattern.exec(input) || []).slice(1)
+  const [match] = (pattern.exec(input) ?? []).slice(1)
 
   if (match) {
     const key = match.substring(1, match.length - 1)
     let replacement
 
-    if (premojis.find(item => item.name === `:${key}:`)) {
-      replacement = `<img style="display:inline-block" src="${host}${key}.png" width="20" height="20">`
-    }
+    premojis.find(item => item.name === `:${key}:` ? replacement = `<img style="display:inline-block" src="${host}${item.image}" width="20" height="20">` : null)
 
     if (!replacement) {
       return input.indexOf(match) + match.length + 1
