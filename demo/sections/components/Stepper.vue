@@ -4,7 +4,6 @@
     :demos="[
       { title: 'Min and Max Props' },
       { title: 'Step Size' },
-      { title: 'Show Input' },
     ]"
   >
     <template #description>
@@ -64,26 +63,6 @@
         </p-button>
       </div>
     </template>
-
-    <template #show-input>
-      <div class="stepper__demo">
-        <p-stepper
-          v-model="numberValue"
-          show-input
-        />
-        <p-divider />
-        {{ { numberValue } }}
-        <p-button
-          inset
-          class="stepper__value-reset-button"
-          size="xs"
-          :disabled="numberValue === null"
-          @click="numberValue = null"
-        >
-          Reset Value
-        </p-button>
-      </div>
-    </template>
   </ComponentPage>
 </template>
 
@@ -97,14 +76,18 @@
 
   const minMaxValue = ref<number | null>(null)
   const stepValue = ref<number | null>(null)
-  const numberValue = ref<number | null>(null)
 </script>
 
 <style>
 .stepper__demo { @apply
   flex
   flex-col
+  justify-start
   gap-4
+}
+
+.stepper__demo .p-stepper {
+  max-width: 120px;
 }
 
 .stepper__demo-options { @apply

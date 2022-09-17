@@ -1,27 +1,28 @@
 <template>
-  <div class="p-stepper" :class="classes.stepper">
-    <PButton
-      class="p-stepper__step p-stepper__step--down"
-      rounded
-      inset
-      size="xs"
-      icon="MinusIcon"
-      :disabled="!canDecrease"
-      @click="internalValue -= step"
-    />
-    <template v-if="showInput">
-      <input v-model="internalValue" type="number" class="p-stepper__number-input">
+  <p-number-input v-model="internalValue" class="p-stepper">
+    <template #prepend>
+      <PButton
+        class="p-stepper__step p-stepper__step--down"
+        inset
+        rounded
+        size="xs"
+        icon="MinusIcon"
+        :disabled="!canDecrease"
+        @click="internalValue -= step"
+      />
     </template>
-    <PButton
-      class="p-stepper__step p-stepper__step--up"
-      rounded
-      inset
-      size="xs"
-      icon="PlusIcon"
-      :disabled="!canIncrease"
-      @click="internalValue += step"
-    />
-  </div>
+    <template #append>
+      <PButton
+        class="p-stepper__step p-stepper__step--up"
+        inset
+        rounded
+        size="xs"
+        icon="PlusIcon"
+        :disabled="!canIncrease"
+        @click="internalValue += step"
+      />
+    </template>
+  </p-number-input>
 </template>
 
 <script lang="ts" setup>
@@ -33,7 +34,6 @@
     min?: number | null,
     max?: number | null,
     step?: number,
-    showInput?: boolean,
   }>(), {
     min: null,
     max: null,
@@ -55,12 +55,6 @@
     },
   })
 
-  const classes = computed(() => ({
-    stepper:{
-      'p-stepper--show-input': props.showInput,
-    },
-  }))
-
   const canDecrease = computed(() => isWithinMin(internalValue.value - props.step))
   const canIncrease = computed(() => isWithinMax(internalValue.value + props.step))
 
@@ -79,48 +73,29 @@
 
 <style>
 .p-stepper { @apply
-  inline-flex
-  gap-2
-  items-center
-}
-
-.p-stepper--show-input { @apply
-  gap-0
   items-stretch
-  self-start
+  overflow-hidden
 }
 
-.p-stepper--show-input .p-stepper__step { @apply
-  rounded-none
-  px-3
+.p-stepper:has(.p-stepper__step:focus) {@apply
+  focus-within:ring-0
+  focus-within:border-gray-300
 }
 
-.p-stepper--show-input .p-stepper__step--down { @apply
-  rounded-l
+.p-stepper__step { @apply
+  m-1
+  flex-shrink-0
+  focus:ring-offset-0
 }
 
-.p-stepper--show-input .p-stepper__step--up { @apply
-  rounded-r
-}
-
-.p-stepper__number-input { @apply
-  w-14
-  border-x-0
-  border-gray-300
+.p-stepper .p-number-input__control { @apply
   text-center
-  focus:border-gray-300
-  focus:ring-0;
-  -moz-appearance: textfield;
+  px-0
 }
 
-.p-stepper__number-input::-webkit-outer-spin-button,
-.p-stepper__number-input::-webkit-inner-spin-button {
+.p-stepper .p-number-input__control::-webkit-outer-spin-button,
+.p-stepper .p-number-input__control::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.p-stepper__step-icon { @apply
-  w-7
-  h-7
 }
 </style>
