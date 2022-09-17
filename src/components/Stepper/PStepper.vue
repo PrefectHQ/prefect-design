@@ -1,5 +1,5 @@
 <template>
-  <div class="p-stepper">
+  <div class="p-stepper" :class="classes.stepper">
     <PButton
       class="p-stepper__step p-stepper__step--down"
       rounded
@@ -9,6 +9,9 @@
       :disabled="!canDecrease"
       @click="internalValue -= step"
     />
+    <template v-if="showInput">
+      <input v-model="internalValue" type="number" class="p-stepper__number-input">
+    </template>
     <PButton
       class="p-stepper__step p-stepper__step--up"
       rounded
@@ -18,11 +21,6 @@
       :disabled="!canIncrease"
       @click="internalValue += step"
     />
-    <div class="p-stepper__display">
-      <slot :value="internalValue.toLocaleString()">
-        {{ internalValue.toLocaleString() }}
-      </slot>
-    </div>
   </div>
 </template>
 
@@ -35,6 +33,7 @@
     min?: number | null,
     max?: number | null,
     step?: number,
+    showInput?: boolean,
   }>(), {
     min: null,
     max: null,
@@ -56,6 +55,12 @@
     },
   })
 
+  const classes = computed(() => ({
+    stepper:{
+      'p-stepper--show-input': props.showInput,
+    },
+  }))
+
   const canDecrease = computed(() => isWithinMin(internalValue.value - props.step))
   const canIncrease = computed(() => isWithinMax(internalValue.value + props.step))
 
@@ -74,9 +79,44 @@
 
 <style>
 .p-stepper { @apply
-  flex
+  inline-flex
   gap-2
   items-center
+}
+
+.p-stepper--show-input { @apply
+  gap-0
+  items-stretch
+  self-start
+}
+
+.p-stepper--show-input .p-stepper__step { @apply
+  rounded-none
+  px-3
+}
+
+.p-stepper--show-input .p-stepper__step--down { @apply
+  rounded-l
+}
+
+.p-stepper--show-input .p-stepper__step--up { @apply
+  rounded-r
+}
+
+.p-stepper__number-input { @apply
+  w-14
+  border-x-0
+  border-gray-300
+  text-center
+  focus:border-gray-300
+  focus:ring-0;
+  -moz-appearance: textfield;
+}
+
+.p-stepper__number-input::-webkit-outer-spin-button,
+.p-stepper__number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .p-stepper__step-icon { @apply
