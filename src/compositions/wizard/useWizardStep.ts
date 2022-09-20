@@ -2,7 +2,7 @@
 import { inject, InjectionKey, ref, Ref, computed } from 'vue'
 import { useWizardKey } from './useWizard'
 import { WizardNotFound, WizardStepNotFound } from '@/models/wizard'
-import { UseWizard, UseWizardStep, WizardStepValidator } from '@/types/wizard'
+import { UseWizard, UseWizardStep, WizardStepSubmit, WizardStepValidator } from '@/types/wizard'
 
 export const useWizardStepKey: InjectionKey<UseWizardStep> = Symbol('UseWizardStep')
 
@@ -47,6 +47,12 @@ export function useWizardStep(key?: string | Ref<string>): UseWizardStep {
       wizard.setStep(keyRef.value, {
         ...step.value,
         validate,
+      })
+    },
+    defineSubmit: (submit: WizardStepSubmit) => {
+      wizard.setStep(keyRef.value, {
+        ...step.value,
+        submit,
       })
     },
   }

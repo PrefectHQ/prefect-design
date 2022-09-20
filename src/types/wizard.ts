@@ -1,5 +1,6 @@
 import { Ref, ComputedRef } from 'vue'
 
+export type WizardStepSubmit = () => void | Promise<void>
 export type WizardStepValidator = () => boolean | Promise<boolean>
 export type ValidationState = { index: number, valid: boolean }
 
@@ -7,6 +8,7 @@ export type WizardStep = {
   title: string,
   key?: string,
   validate?: WizardStepValidator,
+  submit?: WizardStepSubmit,
 }
 
 export type UseWizard = {
@@ -41,4 +43,5 @@ export type UseWizardStep = {
   wizard: UseWizard,
   step: ComputedRef<WizardStep>,
   defineValidate: (validate: WizardStepValidator) => void,
+  defineSubmit: (submit: WizardStepSubmit) => void,
 }
