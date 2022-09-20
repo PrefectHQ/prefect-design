@@ -1,37 +1,37 @@
 <template>
-  <div class="p-radio-group" :class="classes">
+  <div class="p-radio-group">
     <template v-for="(option, index) in radioOptions" :key="index">
-      <p-label :label="option.label" class="p-radio-group__label">
+      <p-radio
+        v-model="value"
+        v-bind="$attrs"
+        :name="name"
+        :label="option.label"
+        :value="option.value"
+      >
         <template #label>
           <slot name="label" :option="option" />
         </template>
-        <template #default="{ id }">
-          <input
-            :id="id"
-            v-model="value"
-            type="radio"
-            :name="name"
-            :disabled="disabled"
-            :value="option.value"
-            class="p-radio-group__input"
-          >
-        </template>
-      </p-label>
+      </p-radio>
     </template>
   </div>
 </template>
 
+<script lang="ts">
+  export default {
+    name: 'PRadioGroup',
+    expose: [],
+    inheritAttrs: false,
+  }
+</script>
+
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { isSelectOption, SelectOption } from '@/types/selectOption'
-  import { State } from '@/types/state'
   import { randomId } from '@/utilities'
 
   const props = defineProps<{
     modelValue: string | null | undefined,
     options: string[] | SelectOption[],
-    state?: State,
-    disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -58,14 +58,6 @@
       return { label: option.toLocaleString(), value: option }
     })
   })
-
-  const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
-
-  const classes = computed(() => ({
-    'p-radio-group--disabled': props.disabled,
-    'p-radio-group--failed': failed.value,
-    'p-radio-group--pending': props.state?.pending,
-  }))
 </script>
 
 <style>
@@ -74,46 +66,5 @@
   flex-col
   items-start
   gap-2
-}
-
-.p-radio-group--disabled { @apply
-  opacity-50
-}
-
-.p-radio-group--disabled .p-radio-group__label,
-.p-radio-group--disabled .p-radio-group__input,
-.p-radio-group--disabled .p-label__label { @apply
-  cursor-not-allowed
-}
-
-.p-radio-group__label { @apply
-  flex
-  flex-row
-  items-center
-  w-min
-  gap-2
-}
-
-.p-radio-group__label .p-label__body { @apply
-  order-first
-}
-
-.p-radio-group__input { @apply
-  ring-offset-2
-  focus-within:ring-2
-}
-
-.p-radio-group--failed .p-radio-group__input { @apply
-  ring-1
-  ring-red-600
-  focus-within:ring-2
-  focus-within:ring-red-600
-}
-
-.p-radio-group--pending .p-radio-group__input { @apply
-  ring-1
-  ring-prefect-300
-  focus-within:ring-2
-  focus-within:ring-prefect-300
 }
 </style>
