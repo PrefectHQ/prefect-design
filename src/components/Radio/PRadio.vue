@@ -10,7 +10,6 @@
         v-model="internalValue"
         type="radio"
         :class="classes.input"
-        :name="name"
         :disabled="disabled"
         :value="value"
         class="p-radio__input"
@@ -37,7 +36,6 @@
     modelValue: string | null | undefined,
     label: string,
     value: SelectModelValue,
-    name?: string,
     state?: State,
     disabled?: boolean,
   }>()

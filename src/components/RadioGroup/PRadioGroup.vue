@@ -4,7 +4,6 @@
       <p-radio
         v-model="value"
         v-bind="attrs"
-        :name="name"
         :label="option.label"
         :value="option.value"
       >
@@ -28,7 +27,6 @@
   import { computed } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isSelectOption, SelectOption } from '@/types/selectOption'
-  import { randomId } from '@/utilities'
 
   const props = defineProps<{
     modelValue: string | null | undefined,
@@ -38,8 +36,6 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | null): void,
   }>()
-
-  const name = randomId()
 
   const value = computed({
     get() {
