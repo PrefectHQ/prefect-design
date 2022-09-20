@@ -89,9 +89,9 @@
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
-    modelValue: string | number | null | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
-    options: (string | number | SelectOption)[],
+    options: (string | number | boolean | SelectOption)[],
     filterOptions?: (option: SelectOption) => boolean,
   }>()
 

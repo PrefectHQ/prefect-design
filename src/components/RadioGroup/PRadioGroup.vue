@@ -3,9 +3,10 @@
     <template v-for="(option, index) in radioOptions" :key="index">
       <p-radio
         v-model="value"
-        v-bind="attrs"
         :label="option.label"
         :value="option.value"
+        :disabled="option.disabled"
+        v-bind="attrs"
       >
         <template #label>
           <slot name="label" :option="option" />
