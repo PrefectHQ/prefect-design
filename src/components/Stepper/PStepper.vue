@@ -1,29 +1,28 @@
 <template>
-  <div class="p-stepper">
-    <PButton
-      class="p-stepper__step p-stepper__step--down"
-      rounded
-      inset
-      size="xs"
-      icon="MinusIcon"
-      :disabled="!canDecrease"
-      @click="internalValue -= step"
-    />
-    <PButton
-      class="p-stepper__step p-stepper__step--up"
-      rounded
-      inset
-      size="xs"
-      icon="PlusIcon"
-      :disabled="!canIncrease"
-      @click="internalValue += step"
-    />
-    <div class="p-stepper__display">
-      <slot :value="internalValue.toLocaleString()">
-        {{ internalValue.toLocaleString() }}
-      </slot>
-    </div>
-  </div>
+  <p-number-input v-model="internalValue" class="p-stepper">
+    <template #prepend>
+      <PButton
+        class="p-stepper__step p-stepper__step--down"
+        inset
+        rounded
+        size="xs"
+        icon="MinusIcon"
+        :disabled="!canDecrease"
+        @click="internalValue -= step"
+      />
+    </template>
+    <template #append>
+      <PButton
+        class="p-stepper__step p-stepper__step--up"
+        inset
+        rounded
+        size="xs"
+        icon="PlusIcon"
+        :disabled="!canIncrease"
+        @click="internalValue += step"
+      />
+    </template>
+  </p-number-input>
 </template>
 
 <script lang="ts" setup>
@@ -74,13 +73,29 @@
 
 <style>
 .p-stepper { @apply
-  flex
-  gap-2
-  items-center
+  items-stretch
+  overflow-hidden
 }
 
-.p-stepper__step-icon { @apply
-  w-7
-  h-7
+.p-stepper:has(.p-stepper__step:focus) {@apply
+  focus-within:ring-0
+  focus-within:border-gray-300
+}
+
+.p-stepper__step { @apply
+  m-1
+  flex-shrink-0
+  focus:ring-offset-0
+}
+
+.p-stepper .p-number-input__control { @apply
+  text-center
+  px-0
+}
+
+.p-stepper .p-number-input__control::-webkit-outer-spin-button,
+.p-stepper .p-number-input__control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
