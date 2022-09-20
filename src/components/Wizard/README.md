@@ -137,7 +137,7 @@ This composition is designed to enable components used inside of the step slot t
 | wizard | `UseWizard` | Returns same instance of useWizard that the parent has with reactivity in place. This can be used to change steps, validate steps, etc. |
 | step | `Computed<WizardStep> \| undefined` | This computed wraps `getStep`, which returns `Step` for the key provided to `useWizardStep`. | 
 | defineValidate | `(validate: WizardStepValidator) => void` | This is a convenience method for setting the required validation that should happen when this step is executed. |
-| defineSubmit | `(submit: WizardStepSubmit) => void` | This is a convenience method for setting the callback handler that should be executed when user clicks "next" or "Submit" from this step. |
+| defineSubmit | `(submit: WizardStepSubmit) => void` | This is a convenience method for setting the callback handler that should be executed when user clicks "next" or "Submit" from this step. On submit, `WizardStepValidator` will automatically be called if defined. |
 
 ### p-wizard-step
 
