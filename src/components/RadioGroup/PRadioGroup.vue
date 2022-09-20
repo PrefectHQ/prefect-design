@@ -30,7 +30,7 @@
   import { isSelectOption, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | null | undefined,
+    modelValue: string | number | boolean | null | undefined,
     options: string[] | SelectOption[],
   }>()
 
