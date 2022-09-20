@@ -6,7 +6,7 @@
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
-        :disabled="option.disabled || attrs.disabled as boolean"
+        :disabled="option.disabled || disabled"
       >
         <template #label>
           <slot name="label" :option="option" />
@@ -32,17 +32,18 @@
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
     options: string[] | SelectOption[],
+    disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | null): void,
+    (event: 'update:modelValue', value: string | number | boolean | null): void,
   }>()
 
   const value = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | null) {
+    set(value: string | number | boolean | null) {
       emits('update:modelValue', value)
     },
   })
