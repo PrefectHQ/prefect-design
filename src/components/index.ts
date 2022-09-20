@@ -38,6 +38,8 @@ import { PNumberInput, install as installPNumberInput } from './NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from './OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from './OverflowMenuItem'
 import { PPopOver, install as installPPopOver } from './PopOver'
+import { PRadio, install as installPRadio } from './Radio'
+import { PRadioGroup, install as installPRadioGroup } from './RadioGroup'
 import { PSelect, install as installPSelect } from './Select'
 import { PSelectOption, install as installPSelectOption } from './SelectOption'
 import { PStepper, install as installPStepper } from './Stepper'
@@ -99,6 +101,8 @@ export {
   POverflowMenu,
   POverflowMenuItem,
   PPopOver,
+  PRadio,
+  PRadioGroup,
   PSelect,
   PSelectOption,
   PStepper,
@@ -167,6 +171,8 @@ export const installs = [
   installPOverflowMenu,
   installPOverflowMenuItem,
   installPPopOver,
+  installPRadio,
+  installPRadioGroup,
   installPSelect,
   installPSelectOption,
   installPStepper,
@@ -229,6 +235,8 @@ declare module '@vue/runtime-core' {
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
     PPopOver: typeof PPopOver,
+    PRadio: typeof PRadio,
+    PRadioGroup: typeof PRadioGroup,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
     PStepper: typeof PStepper,

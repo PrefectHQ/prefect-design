@@ -27,12 +27,7 @@
     <template #description>
       This is where we add a short description of <p-code>p-forms</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
-      <p-label is="div" label="Validation State">
-        <p-checkbox v-model="exampleState.valid" label="valid" />
-        <p-checkbox v-model="exampleState.validated" label="validated" />
-        <p-checkbox v-model="exampleState.pending" label="pending" />
-        <p-checkbox v-model="disabled" label="disabled" />
-      </p-label>
+      <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
     <template #p-label-behavior>
@@ -230,8 +225,9 @@
   import PTypeAhead from '@/components/TypeAhead/PTypeAhead.vue'
   import { State } from '@/types/state'
   import { format } from 'date-fns'
-  import { reactive, ref } from 'vue'
+  import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+  import DemoState from '@/demo/components/DemoState.vue'
 
   const disabled = ref(false)
 
@@ -266,13 +262,7 @@
   const minDate = ref<Date | null>(null)
   const maxDate = ref<Date | null>(null)
 
-  const exampleState = reactive<State>({
-    valid: true,
-    validated: false,
-    pending: false,
-    dirty: false,
-    touched: false,
-  })
+  const exampleState = ref<State>()
 
   const showTimeInExampleDate = ref(true)
   const isClearableDate = ref(false)

@@ -17,6 +17,7 @@ export const components: Section = {
   modals: () => import ('./Modals.vue'),
   overflowMenu: () => import ('./OverflowMenu.vue'),
   popOver: () => import ('./PopOver.vue'),
+  radioGroup: () => import ('./RadioGroup.vue'),
   stepper: () => import ('./Stepper.vue'),
   tab: () => import ('./Tab.vue'),
   table: () => import ('./Table.vue'),
