@@ -1,9 +1,9 @@
 <template>
-  <div class="p-radio-group">
+  <div class="p-radio-group" :class="classes" :style="styles">
     <template v-for="(option, index) in radioOptions" :key="index">
       <p-radio
         v-model="value"
-        v-bind="$attrs"
+        v-bind="attrs"
         :name="name"
         :label="option.label"
         :value="option.value"
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
+  import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { isSelectOption, SelectOption } from '@/types/selectOption'
   import { randomId } from '@/utilities'
 
@@ -58,6 +59,8 @@
       return { label: option.toLocaleString(), value: option }
     })
   })
+
+  const { classes, styles, attrs } = useAttrsStylesClassesAndListeners()
 </script>
 
 <style>

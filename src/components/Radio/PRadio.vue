@@ -1,5 +1,5 @@
 <template>
-  <p-label :label="label" class="p-radio" :class="classes.label">
+  <p-label :label="label" class="p-radio" :class="classes.label" :style="styles">
     <template #label>
       <slot name="label" :label="label" :value="value" />
     </template>
@@ -9,7 +9,6 @@
         v-bind="attrs"
         v-model="internalValue"
         type="radio"
-        :style="styles"
         :class="classes.input"
         :name="name"
         :disabled="disabled"
@@ -47,7 +46,6 @@
     (event: 'update:modelValue', value: string | null): void,
   }>()
 
-
   const { classes: attrClasses, styles, attrs } = useAttrsStylesClassesAndListeners()
 
   const internalValue = computed({
@@ -63,12 +61,12 @@
 
   const classes = computed(() => ({
     label: {
+      ...attrClasses,
       'p-radio--disabled': props.disabled,
       'p-radio--failed': failed.value,
       'p-radio--pending': props.state?.pending,
     },
     input: {
-      ...attrClasses,
       'p-radio__input--disabled': props.disabled,
       'p-radio__input--failed': failed.value,
       'p-radio__input--pending': props.state?.pending,
