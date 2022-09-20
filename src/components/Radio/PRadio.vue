@@ -33,7 +33,7 @@
   import { State } from '@/types/state'
 
   const props = defineProps<{
-    modelValue: string | null | undefined,
+    modelValue: string | number | boolean | null | undefined,
     label: string,
     value: SelectModelValue,
     state?: State,
@@ -41,7 +41,7 @@
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | null): void,
+    (event: 'update:modelValue', value: string | number | boolean | null): void,
   }>()
 
   const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
@@ -50,7 +50,7 @@
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | null) {
+    set(value: string | number | boolean | null) {
       emits('update:modelValue', value)
     },
   })
