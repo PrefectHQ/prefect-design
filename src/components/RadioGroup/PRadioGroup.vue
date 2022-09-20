@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
+  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isSelectOption, SelectOption } from '@/types/selectOption'
   import { randomId } from '@/utilities'
 
@@ -60,7 +60,7 @@
     })
   })
 
-  const { classes, styles, attrs } = useAttrsStylesClassesAndListeners()
+  const { classes, styles, attrs } = useAttrsStylesAndClasses()
 </script>
 
 <style>

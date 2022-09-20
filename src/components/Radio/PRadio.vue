@@ -29,7 +29,7 @@
 
   <script lang="ts" setup>
   import { computed } from 'vue'
-  import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
+  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'
 
@@ -46,7 +46,7 @@
     (event: 'update:modelValue', value: string | null): void,
   }>()
 
-  const { classes: attrClasses, styles, attrs } = useAttrsStylesClassesAndListeners()
+  const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
 
   const internalValue = computed({
     get() {
