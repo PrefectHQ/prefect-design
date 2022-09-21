@@ -1,5 +1,5 @@
 <template>
-  <div class="p-checkbox" :class="classes">
+  <div class="p-checkbox" :class="classes" :style="attrStyles">
     <label class="p-checkbox__label">
       <template v-if="label || slots.label">
         <div class="p-checkbox__label-text">
@@ -13,7 +13,7 @@
         type="checkbox"
         class="p-checkbox__control"
         :disabled="disabled"
-        v-bind="$attrs"
+        v-bind="attrs"
       >
     </label>
   </div>
@@ -29,6 +29,7 @@
 
 <script lang="ts" setup>
   import { computed, useSlots } from 'vue'
+  import { useAttrsStylesAndClasses } from '@/compositions'
   import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
 
@@ -44,6 +45,7 @@
   }>()
 
   const slots = useSlots()
+  const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
 
   const value = computed({
     get() {
@@ -56,11 +58,13 @@
 
   const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
 
-  const classes = computed(() => ({
-    'p-checkbox--disabled': props.disabled,
-    'p-checkbox--failed': failed.value,
-    'p-checkbox--pending': props.state?.pending,
-  }))
+  const classes = computed(() => [
+    attrClasses.value, {
+      'p-checkbox--disabled': props.disabled,
+      'p-checkbox--failed': failed.value,
+      'p-checkbox--pending': props.state?.pending,
+    },
+  ])
 </script>
 
 <style>
