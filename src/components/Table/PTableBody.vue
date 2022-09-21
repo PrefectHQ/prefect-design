@@ -2,17 +2,17 @@
   <tbody class="p-table-body">
     <slot>
       <template v-for="(row, index) in data" :key="index">
-        <p-table-row>
+        <PTableRow>
           <slot name="row" v-bind="{ row, index }">
             <template v-for="column in columns" :key="column">
               <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
-                <p-table-data>
+                <PTableData>
                   {{ getValue(row, column) }}
-                </p-table-data>
+                </PTableData>
               </slot>
             </template>
           </slot>
-        </p-table-row>
+        </PTableRow>
       </template>
     </slot>
   </tbody>

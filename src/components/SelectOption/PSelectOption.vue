@@ -1,7 +1,7 @@
 <template>
   <span class="p-select-option" role="option" :class="classes">
     <template v-if="multiple">
-      <p-checkbox :model-value="selected" :disabled="disabled" />
+      <PCheckbox :model-value="selected" :disabled="disabled" />
     </template>
     <span class="p-select-option__text">
       <slot>{{ label }}</slot>
@@ -12,6 +12,7 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
+
   const props = defineProps<{
     label: string,
     selected: boolean,

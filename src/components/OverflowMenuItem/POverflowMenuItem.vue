@@ -3,7 +3,7 @@
     type="button"
     class="p-menu-item"
   >
-    <p-icon v-if="icon" :icon="icon" class="p-menu-item__icon" />
+    <PIcon v-if="icon" :icon="icon" class="p-menu-item__icon" />
 
     <slot>
       <span>{{ label }}</span>
@@ -16,7 +16,9 @@
 </template>
 
 <script lang="ts" setup>
+  import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
+
   defineProps<{
     label?: string,
     icon?: Icon,

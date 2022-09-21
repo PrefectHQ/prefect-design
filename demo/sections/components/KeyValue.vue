@@ -6,6 +6,7 @@
       { title: 'Using Slots' },
       { title: 'Empty Value' },
       { title: 'Empty Value Slot' },
+      { title: 'Dates' },
     ]"
   >
     <template #description>
@@ -42,6 +43,10 @@
         </template>
       </p-key-value>
     </template>
+
+    <template #dates>
+      <p-key-value label="Displays a date" :value="dateValue" :alternate="alternate" />
+    </template>
   </ComponentPage>
 </template>
 
@@ -50,6 +55,7 @@
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const alternate = ref(true)
+  const dateValue = new Date()
 </script>
 
 <style>

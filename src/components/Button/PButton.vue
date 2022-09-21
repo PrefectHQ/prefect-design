@@ -2,7 +2,7 @@
   <button ref="el" type="button" class="p-button" :class="classes" :disabled="disabled || loading">
     <div class="p-button__content">
       <template v-if="icon">
-        <p-icon :icon="icon" class="p-button__icon" />
+        <PIcon :icon="icon" class="p-button__icon" />
       </template>
       <slot />
     </div>
@@ -14,8 +14,8 @@
 
 <script lang="ts" setup>
   import { computed, useSlots, PropType, ref } from 'vue'
-  import { PLoadingIcon } from '@/components'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
 
@@ -245,6 +245,12 @@
 }
 
 .p-button--loading .p-button__content { @apply
-  invisible
+  opacity-10
+}
+
+.p-button__loading-icon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

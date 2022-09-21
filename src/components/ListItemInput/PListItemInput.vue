@@ -1,15 +1,15 @@
 <template>
-  <p-list-item class="list-item-input" v-on="{ mouseenter, mouseleave }">
+  <PListItem class="list-item-input" v-on="{ mouseenter, mouseleave }">
     <div class="list-item-input__control" :class="classes.control">
       <label class="list-item-input__checkbox">
-        <p-checkbox v-model="model" v-bind="{ value, disabled }" />
+        <PCheckbox v-model="model" v-bind="{ value, disabled }" />
       </label>
     </div>
 
     <div class="list-item-input__content">
       <slot />
     </div>
-  </p-list-item>
+  </PListItem>
 </template>
 
 <script lang="ts" setup>

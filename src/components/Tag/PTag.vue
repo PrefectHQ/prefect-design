@@ -1,13 +1,13 @@
 <template>
   <span class="p-tag">
     <div v-if="icon" class="p-tag__icon">
-      <p-icon :icon="icon" />
+      <PIcon :icon="icon" />
     </div>
 
     <slot>{{ label }}</slot>
 
     <div v-if="dismissible" class="p-tag__dismiss" @click.stop="emits('dismiss')">
-      <p-icon icon="XIcon" />
+      <PIcon icon="XIcon" />
     </div>
   </span>
 </template>

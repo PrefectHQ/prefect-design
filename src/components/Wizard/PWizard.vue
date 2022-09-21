@@ -1,14 +1,14 @@
 <template>
   <div class="p-wizard">
-    <p-card class="p-wizard__header">
+    <PCard class="p-wizard__header">
       <PWizardHeaders
         :steps="steps"
         :loading="loading"
         :current-step-index="currentStepIndex"
       />
-    </p-card>
+    </PCard>
 
-    <p-card>
+    <PCard>
       <template v-for="(step, index) in steps" :key="index">
         <div v-show="index === currentStepIndex" class="p-wizard__step">
           <PWizardStep :step="step">
@@ -20,29 +20,31 @@
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
           <template v-if="showCancel">
-            <p-button inset @click="emits('cancel')">
+            <PButton inset @click="emits('cancel')">
               Cancel
-            </p-button>
+            </PButton>
           </template>
-          <p-button secondary :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
+          <PButton secondary :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
             Previous
-          </p-button>
-          <p-button primary :disabled="loading" @click="handleNextButtonClick">
+          </PButton>
+          <PButton primary :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
-          </p-button>
+          </PButton>
         </slot>
       </div>
-    </p-card>
+    </PCard>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
-  import { useWizard } from './compositions'
   import PWizardHeaders from './PWizardHeaders.vue'
   import PWizardStep from './PWizardStep.vue'
-  import { WizardStep } from './types'
-  import { getStepKey } from './utilities'
+  import PButton from '@/components/Button/PButton.vue'
+  import PCard from '@/components/Card/PCard.vue'
+  import { useWizard } from '@/compositions/wizard'
+  import { WizardStep } from '@/types/wizard'
+  import { getStepKey } from '@/utilities/wizard'
 
   const props = withDefaults(defineProps<{
     steps: WizardStep[],
@@ -56,7 +58,33 @@
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
   }>()
 
-  const { steps, currentStepIndex, loading, next, previous } = useWizard(props.steps)
+  const {
+    steps,
+    currentStepIndex,
+    currentStep,
+    loading,
+    next,
+    previous,
+    goto,
+    getStepIndex,
+    getStep,
+    setStep,
+    isValid,
+  } = useWizard(props.steps)
+
+  defineExpose({
+    steps,
+    currentStepIndex,
+    currentStep,
+    loading,
+    next,
+    previous,
+    goto,
+    getStepIndex,
+    getStep,
+    setStep,
+    isValid,
+  })
 
   const isOnFirstStep = computed(() => currentStepIndex.value === 0)
   const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length -1)
@@ -88,7 +116,8 @@
 }
 
 .p-wizard__step { @apply
-  py-4
+  pt-4
+  pb-6
 }
 
 .p-wizard__footer { @apply

@@ -8,7 +8,7 @@
   >
     <div class="p-toast__card-container">
       <div class="p-toast__info">
-        <p-icon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
+        <PIcon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
         <p class="p-toast__message">
           <slot>
             {{ message }}
@@ -18,7 +18,7 @@
       <div v-if="dismissible || timeout === false" class="p-toast__close">
         <button type="button" class="p-toast__close-btn" @click="removeToast">
           <span class="sr-only">Close</span>
-          <p-icon class="p-toast__close-icon" icon="XIcon" aria-hidden="true" />
+          <PIcon class="p-toast__close-icon" icon="XIcon" aria-hidden="true" />
 
           <svg v-if="dismissible" class="p-toast__svg" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" class="p-toast__svg-circle" />

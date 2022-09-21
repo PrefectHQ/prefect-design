@@ -48,7 +48,7 @@
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: SelectOption[],
     highlightedIndex: number,
   }>()
