@@ -1,13 +1,13 @@
 <template>
   <div class="p-checkbox" :class="classes">
     <label class="p-checkbox__label">
-      <slot name="label">
-        <template v-if="label">
-          <div class="p-checkbox__label-text">
+      <template v-if="label || slots.label">
+        <div class="p-checkbox__label-text">
+          <slot name="label">
             {{ label }}
-          </div>
-        </template>
-      </slot>
+          </slot>
+        </div>
+      </template>
       <input
         v-model="value"
         type="checkbox"
@@ -28,7 +28,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
   import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
 
@@ -42,6 +42,8 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: CheckboxModel): void,
   }>()
+
+  const slots = useSlots()
 
   const value = computed({
     get() {
