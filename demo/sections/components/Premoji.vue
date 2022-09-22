@@ -1,7 +1,7 @@
 <template>
   <ComponentPage title="Premojis" :demos="[{ title: 'Premojis' }]">
     <template #premojis>
-      <span v-premoji>:google:-random-words:abc123: :github:</span>
+      <span v-premoji>:google:-random-words:abc123: :github::google-logo::gh:</span>
     </template>
   </ComponentPage>
 </template>

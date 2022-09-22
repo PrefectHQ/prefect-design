@@ -6,23 +6,24 @@ export type Premoji = {
   codes: string[],
 }
 
-export const premojis = [
+const premojis: Premoji[] = [
   {
-    // The name that we should see in the pattern, e.g. :github:, sort of like a unique ID
-    'name': ':github:',
-    // name of the image or link to the image (?)
+    'name': 'GitHub',
     'image': 'github.png',
-    // tags that we can use to search for premoji; can be reused
-    'meta-tags': ['github', 'git', 'gh', 'logo'],
+    'codes': ['github', 'gh', 'git'],
   },
   {
-    'name': ':google:',
+    'name': 'Google',
     'image': 'google.png',
-    'meta-tags': ['google', 'logo'],
+    'codes': ['google', 'google-logo'],
   },
 ]
 
 const host = 'https://raw.githubusercontent.com/PrefectHQ/premojis/main/premojis/'
+
+const findCodesMatch = (codes: string[], key: string): boolean => {
+  return codes.includes(key)
+}
 
 const convertToHtml = (input: string): string | number => {
   const pattern = /(:[A-Za-z0-9-_]+:)/g
@@ -32,7 +33,7 @@ const convertToHtml = (input: string): string | number => {
     const key = patternMatch.substring(1, patternMatch.length - 1)
     const replacement = ref<string | null>(null)
 
-    premojis.find(item => item.name === `:${key}:` ? replacement.value = `<img style="display:inline-block" src="${host}${item.image}" width="20" height="20">` : replacement.value = null)
+    premojis.find(premoji => findCodesMatch(premoji.codes, key) ? replacement.value = `<img style="display:inline-block" src="${host}${premoji.image}" width="20" height="20">` : replacement.value = null)
 
     if (!replacement.value) {
       return input.indexOf(patternMatch) + patternMatch.length + 1
