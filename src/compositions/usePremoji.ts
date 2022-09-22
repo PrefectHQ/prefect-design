@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 export type Premoji = {
   name: string,
   image: string,
@@ -22,24 +24,24 @@ export const premojis = [
 
 const host = 'https://raw.githubusercontent.com/PrefectHQ/premojis/main/premojis/'
 
-const next = (input: string): string | number => {
+const convertToHtml = (input: string): string | number => {
   const pattern = /(:[A-Za-z0-9-_]+:)/g
-  const [match] = (pattern.exec(input) ?? []).slice(1)
+  const [patternMatch] = (pattern.exec(input) ?? []).slice(1)
 
-  if (match) {
-    const key = match.substring(1, match.length - 1)
-    let replacement
+  if (patternMatch) {
+    const key = patternMatch.substring(1, patternMatch.length - 1)
+    const replacement = ref<string | null>(null)
 
-    premojis.find(item => item.name === `:${key}:` ? replacement = `<img style="display:inline-block" src="${host}${item.image}" width="20" height="20">` : null)
+    premojis.find(item => item.name === `:${key}:` ? replacement.value = `<img style="display:inline-block" src="${host}${item.image}" width="20" height="20">` : replacement.value = null)
 
-    if (!replacement) {
-      return input.indexOf(match) + match.length + 1
+    if (!replacement.value) {
+      return input.indexOf(patternMatch) + patternMatch.length + 1
     }
 
-    return input.replace(match, replacement)
+    return input.replace(patternMatch, replacement.value)
   }
 
-  throw new Error('No emoji found!')
+  throw new Error('No premoji found!')
 }
 
 export const convertToPremoji = (input: string): string => {
@@ -47,7 +49,7 @@ export const convertToPremoji = (input: string): string => {
   let offset = 0
   try {
     while (value) {
-      const result = next(value.substring(offset))
+      const result = convertToHtml(value.substring(offset))
       if (typeof result === 'number') {
         offset = result
       } else {
