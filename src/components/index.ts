@@ -6,6 +6,7 @@ import { PButtonGroup, install as installPButtonGroup } from './ButtonGroup'
 import { PCalendar, install as installPCalendar } from './Calendar'
 import { PCard, install as installPCard } from './Card'
 import { PCheckbox, install as installPCheckbox } from './Checkbox'
+import { PCheckboxGroup, install as installPCheckboxGroup } from './CheckboxGroup'
 import { PCode, install as installPCode } from './Code'
 import { PCombobox, install as installPCombobox } from './Combobox'
 import { PContent, install as installPContent } from './Content'
@@ -69,6 +70,7 @@ export {
   PCalendar,
   PCard,
   PCheckbox,
+  PCheckboxGroup,
   PCode,
   PCombobox,
   PContent,
@@ -139,6 +141,7 @@ export const installs = [
   installPCalendar,
   installPCard,
   installPCheckbox,
+  installPCheckboxGroup,
   installPCode,
   installPCombobox,
   installPContent,
@@ -204,6 +207,7 @@ declare module '@vue/runtime-core' {
     PCalendar: typeof PCalendar,
     PCard: typeof PCard,
     PCheckbox: typeof PCheckbox,
+    PCheckboxGroup: typeof PCheckboxGroup,
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,

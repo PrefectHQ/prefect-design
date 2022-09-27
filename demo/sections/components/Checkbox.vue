@@ -16,20 +16,13 @@
       {{ simple }}
     </template>
 
-    <template #multiple>
-      <p-checkbox v-model="multiple" value="A" label="A" />
-      <p-checkbox v-model="multiple" value="B" label="B" />
-      <p-checkbox v-model="multiple" value="C" label="C" />
-      {{ multiple }}
-    </template>
-
     <template #label-slot>
       <p-checkbox v-model="slot">
         <template #label>
           Using the <span class="font-bold">label</span> slot
         </template>
       </p-checkbox>
-      {{ simple }}
+      {{ slot }}
     </template>
   </ComponentPage>
 </template>
@@ -40,5 +33,4 @@
 
   const simple = ref(false)
   const slot = ref(false)
-  const multiple = ref([])
 </script>
