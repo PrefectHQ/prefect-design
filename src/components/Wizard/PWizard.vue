@@ -84,6 +84,7 @@
     getStep,
     setStep,
     isValid,
+    setLoading,
   })
 
   const isOnFirstStep = computed(() => currentStepIndex.value === 0)
@@ -105,6 +106,10 @@
 
       emits('next')
     }
+  }
+
+  function setLoading(value: boolean): void {
+    loading.value = value
   }
 </script>
 
