@@ -1,8 +1,8 @@
 <template>
   <div class="p-radio-group" :class="classes" :style="styles">
     <template v-for="(option, index) in radioOptions" :key="index">
-      <p-radio
-        v-model="value"
+      <PRadio
+        v-model="internalModelValue"
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
@@ -11,7 +11,7 @@
         <template #label>
           <slot name="label" :option="option" />
         </template>
-      </p-radio>
+      </PRadio>
     </template>
   </div>
 </template>
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
+  import { PRadio } from '@/components/Radio'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isSelectOption, SelectOption } from '@/types/selectOption'
 
@@ -39,7 +40,7 @@
     (event: 'update:modelValue', value: string | number | boolean | null): void,
   }>()
 
-  const value = computed({
+  const internalModelValue = computed({
     get() {
       return props.modelValue ?? null
     },
