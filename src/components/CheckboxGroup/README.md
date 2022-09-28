@@ -25,5 +25,5 @@ const disabled = ref(false)
 | Name | Type | Description |
 |----|----|----|
 | modelValue | `string[] \| number[] \| boolean[]` | This prop represents the array of options that are checked. |
-| options | `string[] \| SelectOption[]` | The prop represents the list of options to be displayed as individual checkboxes. |
+| options | `string[] \| number[] \| boolean[] \| SelectOption[]` | The prop represents the list of options to be displayed as individual checkboxes. |
 | disabled | `boolean?` | If this prop is `true`, the entire checkbox group will be disabled. Individual option can be disabled with the `SelectOption.disabled` property. |

@@ -1,18 +1,20 @@
 <template>
   <div class="p-checkbox-group" :class="classes" :style="styles">
-    <template v-for="(option, index) in checkboxOptions" :key="index">
-      <PCheckbox
-        v-model="internalModelValue"
-        v-bind="attrs"
-        :label="option.label"
-        :value="option.value"
-        :disabled="option.disabled || disabled"
-      >
-        <template #label>
-          <slot name="label" :option="option" />
-        </template>
-      </PCheckbox>
-    </template>
+    <fieldset :disabled="disabled">
+      <template v-for="(option, index) in checkboxOptions" :key="index">
+        <PCheckbox
+          v-model="internalModelValue"
+          v-bind="attrs"
+          :label="option.label"
+          :value="option.value"
+          :disabled="option.disabled"
+        >
+          <template #label>
+            <slot name="label" :option="option" />
+          </template>
+        </PCheckbox>
+      </template>
+    </fieldset>
   </div>
 </template>
 
@@ -32,7 +34,7 @@
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],
-    options: string[] | SelectOption[],
+    options: string[] | number[] | boolean[] | SelectOption[],
     disabled?: boolean,
   }>()
 
