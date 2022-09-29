@@ -1,21 +1,19 @@
 <template>
-  <div class="p-checkbox-group" :class="classes" :style="styles">
-    <fieldset :disabled="disabled">
-      <template v-for="(option, index) in checkboxOptions" :key="index">
-        <PCheckbox
-          v-model="internalModelValue"
-          v-bind="attrs"
-          :label="option.label"
-          :value="option.value"
-          :disabled="option.disabled"
-        >
-          <template #label>
-            <slot name="label" :option="option" />
-          </template>
-        </PCheckbox>
-      </template>
-    </fieldset>
-  </div>
+  <fieldset class="p-checkbox-group" :class="classes" :style="styles" :disabled="disabled">
+    <template v-for="(option, index) in checkboxOptions" :key="index">
+      <PCheckbox
+        v-model="internalModelValue"
+        v-bind="attrs"
+        :label="option.label"
+        :value="option.value"
+        :disabled="option.disabled"
+      >
+        <template #label>
+          <slot name="label" :option="option" />
+        </template>
+      </PCheckbox>
+    </template>
+  </fieldset>
 </template>
 
 <script lang="ts">
