@@ -76,7 +76,6 @@
 .resizable-section__content { @apply
   relative
   order-first
-  select-none
   max-w-full
   min-w-[200px]
   p-4

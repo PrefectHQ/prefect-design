@@ -167,7 +167,7 @@
     </template>
 
     <template #tags-input>
-      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState" class="h-44">
+      <p-label label="Tags Input" :message="JSON.stringify(exampleTagsValue)" :state="exampleState" class="h-96">
         <PTagsInput v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
       </p-label>
     </template>
