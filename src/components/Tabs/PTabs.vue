@@ -106,8 +106,12 @@
   }
 
   onMounted(() => {
-    const [firstTab] = innerTabs.value
-    selectedTab.value = firstTab.label
+    if (props.selected) {
+      selectedTab.value = props.selected
+    } else {
+      const [firstTab] = innerTabs.value
+      selectedTab.value = firstTab.label
+    }
   })
 
   watchEffect(() => {
