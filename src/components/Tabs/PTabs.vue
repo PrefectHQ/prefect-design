@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted, computed, watchEffect } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import PTab from '@/components/Tab/PTab.vue'
   import { Tab, areTabs } from '@/types/tabs'
@@ -63,10 +63,11 @@
 
   const props = defineProps<{
     tabs: string[] | Tab[],
+    selected?: string,
   }>()
 
   const emits = defineEmits<{
-    (event: 'tab', value: string | Tab): void,
+    (event: 'tab' | 'update:selected', value: string | Tab): void,
   }>()
 
   const innerTabs = computed<Tab[]>(() => {
@@ -85,6 +86,7 @@
     selectedTab.value = tab.label
 
     emits('tab', value)
+    emits('update:selected', value)
   }
 
   function handleKeyDown(tab: Tab): void {
@@ -104,8 +106,18 @@
   }
 
   onMounted(() => {
-    const [firstTab] = innerTabs.value
-    selectedTab.value = firstTab.label
+    if (props.selected) {
+      selectedTab.value = props.selected
+    } else {
+      const [firstTab] = innerTabs.value
+      selectedTab.value = firstTab.label
+    }
+  })
+
+  watchEffect(() => {
+    if (props.selected) {
+      selectedTab.value = props.selected
+    }
   })
 </script>
 
