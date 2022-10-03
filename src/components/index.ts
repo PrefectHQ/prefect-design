@@ -15,6 +15,7 @@ import { PContextNavItem, install as installPContextNavItem } from './ContextNav
 import { PContextSidebar, install as installPContextSidebar } from './ContextSidebar'
 import { PDateInput, install as installPDateInput } from './DateInput'
 import { PDatePicker, install as installPDatePicker } from './DatePicker'
+import { PDateRange, install as installPDateRange } from './DateRange'
 import { PDivider, install as installPDivider } from './Divider'
 import { PEmptyResults, install as installPEmptyResults } from './EmptyResults'
 import { PEmptyState, install as installPEmptyState } from './EmptyState'
@@ -78,6 +79,7 @@ export {
   PContextSidebar,
   PDateInput,
   PDatePicker,
+  PDateRange,
   PDivider,
   PEmptyResults,
   PEmptyState,
@@ -148,6 +150,7 @@ export const installs = [
   installPContextSidebar,
   installPDateInput,
   installPDatePicker,
+  installPDateRange,
   installPDivider,
   installPEmptyResults,
   installPEmptyState,
@@ -212,6 +215,7 @@ declare module '@vue/runtime-core' {
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
+    PDateRange: typeof PDateRange,
     PDivider: typeof PDivider,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,

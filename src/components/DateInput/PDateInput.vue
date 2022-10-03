@@ -17,20 +17,23 @@
           :disabled="disabled"
           v-bind="attrs"
           @click="openPicker"
-        />
+        >
+          <slot name="target" :hover="true" />
+        </PDateButton>
       </template>
       <template v-else>
-        <PNativeDateInput
-          v-model="adjustedSelectedDate"
-          class="p-date-input__native"
-          :min="min"
-          :max="max"
-          :class="classes"
-          :style="styles"
-          :disabled="disabled"
-          v-bind="attrs"
-          @keydown="handleTargetKeydown"
-        />
+        <slot name="target" :hover="false">
+          <PNativeDateInput
+            v-model="adjustedSelectedDate"
+            class="p-date-input__native"
+            :min="min"
+            :max="max"
+            :class="classes"
+            :style="styles"
+            :disabled="disabled"
+            v-bind="attrs"
+          />
+        </slot>
       </template>
     </template>
 
@@ -43,7 +46,11 @@
       :max="max"
       @click.stop
       @keydown="closeOnEscape"
-    />
+    >
+      <template v-for="(index, name) in $slots" #[name]="data">
+        <slot :name="name" v-bind="data" />
+      </template>
+    </PDatePicker>
   </PPopOver>
 </template>
 
@@ -108,14 +115,12 @@
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
-  const classes = computed(() => ({
-    control: [
-      ...asArray(attrClasses.value),
-      {
-        'p-date-input--open': isOpen.value,
-      },
-    ],
-  }))
+  const classes = computed(() => [
+    ...asArray(attrClasses.value),
+    {
+      'p-date-input--open': isOpen.value,
+    },
+  ])
 
   function openPicker(): void {
     if (!isOpen.value && !props.disabled) {
@@ -126,25 +131,6 @@
   function closePicker(): void {
     if (isOpen.value) {
       popOver.value!.close()
-    }
-  }
-
-  function handleTargetKeydown(event: KeyboardEvent): void {
-    if (!media.hover) {
-      return
-    }
-
-    switch (event.key) {
-      case keys.space:
-        openPicker()
-        event.preventDefault()
-        break
-      case keys.escape:
-        closePicker()
-        event.preventDefault()
-        break
-      default:
-        break
     }
   }
 

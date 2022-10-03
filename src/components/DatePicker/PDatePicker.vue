@@ -41,16 +41,26 @@
     <div class="p-date-picker__body">
       <PCalendar :month="viewingDate.getMonth()" :year="viewingDate.getFullYear()">
         <template #date="{ date }">
-          <PButton
-            class="p-date-picker__date"
-            :class="classes.date(date)"
-            :flat="!isSameDayAsSelectedDate(date)"
+          <slot
+            name="date"
+            :date="date"
             :disabled="!!overlay || !isDateInRange(date, range, 'day')"
-            size="xs"
-            @click="updateSelectedDate(date)"
+            :today="isSameDay(date, new Date())"
+            :selected="isSameDayAsSelectedDate(date)"
+            :out-of-month="!isSameMonth(date, viewingDate)"
+            :select="() => updateSelectedDate(date)"
           >
-            {{ date.getDate() }}
-          </PButton>
+            <PButton
+              class="p-date-picker__date"
+              :class="classes.date(date)"
+              :flat="!isSameDayAsSelectedDate(date)"
+              :disabled="!!overlay || !isDateInRange(date, range, 'day')"
+              size="xs"
+              @click="updateSelectedDate(date)"
+            >
+              {{ date.getDate() }}
+            </PButton>
+          </slot>
         </template>
       </PCalendar>
 
@@ -212,10 +222,13 @@
 
 <style>
 .p-date-picker { @apply
+  flex
+  flex-col
   border
   p-2
   select-none
-  w-80
+  min-w-[20rem]
+  min-h-[20rem]
 }
 
 .p-date-picker__top-bar { @apply
@@ -255,6 +268,9 @@
 
 .p-date-picker__body { @apply
   relative
+  flex
+  flex-col
+  flex-grow
   my-2
 }
 
@@ -271,7 +287,7 @@
 
 .p-date-picker__date { @apply
   justify-center
-  px-0
+  p-0
 }
 
 .p-date-picker__date--today:not(.p-date-picker__date--selected) { @apply

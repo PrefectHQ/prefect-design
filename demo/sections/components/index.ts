@@ -7,6 +7,7 @@ export const components: Section = {
   card: () => import ('./Card.vue'),
   checkbox: () => import ('./Checkbox.vue'),
   code: () => import ('./Code.vue'),
+  dateRange: () => import ('./DateRange.vue'),
   divider: () => import ('./Divider.vue'),
   emptyState: () => import ('./EmptyState.vue'),
   form: () => import ('./Form.vue'),

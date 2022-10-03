@@ -46,6 +46,7 @@
 .p-calendar { @apply
   flex
   flex-col
+  flex-grow
   gap-y-3
   px-4
   py-3
@@ -69,6 +70,7 @@
   grid-cols-7
   gap-y-2
   gap-x-3
+  flex-grow
 }
 
 .p-calendar__date { @apply
