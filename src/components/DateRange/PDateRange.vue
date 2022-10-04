@@ -2,10 +2,25 @@
   <PDateInput v-model="rangeValue" :clearable="clearable">
     <template #target="{ hover }">
       <template v-if="hover">
-        noice
+        <div class="p-date-range__target">
+          {{ displayStartDate }}
+          <p-icon icon="ArrowSmRightIcon" class="p-date-range__target-icon" />
+          {{ displayEndDate }}
+        </div>
       </template>
       <template v-else>
-        todo: a native solution (on mobile)
+        <div class="p-date-range__target">
+          <p-label label="Start">
+            <template #default="{ id }">
+              <PNativeDateInput :id="id" v-model="internalStartDate" :max="internalEndDate" />
+            </template>
+          </p-label>
+          <p-label label="End">
+            <template #default="{ id }">
+              <PNativeDateInput :id="id" v-model="internalEndDate" :min="internalStartDate" />
+            </template>
+          </p-label>
+        </div>
       </template>
     </template>
     <template #date="{ date, disabled, today, outOfMonth, select }">
@@ -26,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { closestTo, isSameDay } from 'date-fns'
+  import { closestTo, format, isSameDay } from 'date-fns'
   import { computed } from 'vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'
   import { ClassValue } from '@/types/attributes'
@@ -51,6 +66,14 @@
     },
   })
 
+  const displayStartDate = computed(() => {
+    if (internalStartDate.value) {
+      return format(internalStartDate.value, 'MM/dd/yyyy')
+    }
+
+    return 'mm/dd/yyyy'
+  })
+
   const internalEndDate = computed({
     get() {
       return props.endDate ?? null
@@ -58,6 +81,14 @@
     set(value: Date | null) {
       emits('update:endDate', value)
     },
+  })
+
+  const displayEndDate = computed(() => {
+    if (internalEndDate.value) {
+      return format(internalEndDate.value, 'MM/dd/yyyy')
+    }
+
+    return 'mm/dd/yyyy'
   })
 
   const rangeValue = computed({
@@ -168,12 +199,24 @@
   p-1
 }
 
+.p-date-range__target { @apply
+  flex
+  gap-2
+  items-center
+}
+
+.p-date-range__target-icon { @apply
+  text-gray-400
+}
+
 .p-date-range__date--in-range:not(.p-date-range__date--selected) { @apply
-  bg-prefect-200
+  bg-prefect-600/70
+  text-white
 }
 
 .p-date-range__date--in-range:not(.p-date-range__date--selected):hover { @apply
-  bg-prefect-300
+  bg-prefect-600/80
+  text-white
 }
 
 .p-date-range__date--today:not(.p-date-range__date--selected):not(.p-date-range__date--in-range) { @apply
