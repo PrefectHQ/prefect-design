@@ -86,13 +86,23 @@
 
       <template v-if="overlayComponent">
         <div class="p-date-picker__overlay">
-          <component
-            :is="overlayComponent"
-            v-model="selectedDate"
-            :min="min"
-            :max="max"
-            @update:model-value="closeOverlayIfOverlayIsNotTime"
-          />
+          <template v-if="overlay === 'time'">
+            <component
+              :is="overlayComponent"
+              v-model="selectedDate"
+              :min="min"
+              :max="max"
+            />
+          </template>
+          <template v-else>
+            <component
+              :is="overlayComponent"
+              v-model="viewingDate"
+              :min="min"
+              :max="max"
+              @update:model-value="closeOverlay"
+            />
+          </template>
         </div>
       </template>
     </div>
@@ -187,12 +197,6 @@
 
   function isSameDayAsSelectedDate(date: Date): boolean {
     return !!selectedDate.value && isSameDay(date, selectedDate.value)
-  }
-
-  function closeOverlayIfOverlayIsNotTime(): void {
-    if (overlay.value !== 'time') {
-      closeOverlay()
-    }
   }
 
   function closeOverlay(): void {
