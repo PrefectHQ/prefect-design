@@ -32,7 +32,12 @@
         size="xs"
         @click="select"
       >
-        <slot name="date" :date="date">
+        <slot
+          name="date"
+          :date="date"
+          :is-selected="isDateSelected(date)"
+          :is-in-selected-range="isDateInSelectedRange(date)"
+        >
           {{ date.getDate() }}
         </slot>
       </PButton>

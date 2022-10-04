@@ -6,15 +6,7 @@
 
     <template #date-range>
       <div class="date-range__demo">
-        <p-date-range v-model:startDate="value.start" v-model:endDate="value.end" clearable>
-          <!--
-            <template #date="{ date }">
-            <div>
-            {{ date.getDate() }}+
-            </div>
-            </template>
-          -->
-        </p-date-range>
+        <p-date-range v-model:startDate="value.start" v-model:endDate="value.end" clearable />
 
         <p-code>start:{{ JSON.stringify(value.start) }}</p-code>
         <p-code>end:{{ JSON.stringify(value.end) }}</p-code>
