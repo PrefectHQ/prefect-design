@@ -23,8 +23,39 @@
       """
 
     # Content-Security-Policy to prevent XSS attacks.
+    #
+    # default-src
+    #   'self' - all resources from current origin are permitted by default
+    # base-uri
+    #   'none' - no external resources are allowed
+    # child-src
+    #   'none' - no external resources are allowed
+    # connect-src
+    #   'none' - no external resources are allowed
+    # font-src
+    #   'self' - all fonts are embedded with FontSource
+    # form-action
+    #   'none' - no forms submissions allowed
+    # frame-ancestors
+    #   'none' - no external sites are permitted to embed this
+    # frame-src
+    #  'none' - no external resources are allowed
+    # img-src
+    #   'self' - all images from current origin are permitted
+    #   data: - images embedded inline are permitted
+    # media-src
+    #   'none' - no audio or video files are permitted
+    # object-src
+    #   'none' - no legacy objects are allowed; see
+    #            https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/object-src
+    # script-src
+    #   'self' - all resources from current origin are permitted
+    #   (we cannot use script-src-elem because it has worse browser support)
+    # style-src
+    #   'unsafe-inline' - Tailwind styles are injected inline
+    #   (we cannot use script-src-elem because it has worse browser support)
     Content-Security-Policy = """\
-      default-src 'none'; \
+      default-src 'self'; \
       base-uri 'none'; \
       child-src 'none'; \
       connect-src 'none'; \
@@ -33,14 +64,10 @@
       frame-ancestors 'none'; \
       frame-src 'none'; \
       img-src 'self' data:; \
-      manifest-src 'none'; \
       media-src 'none'; \
       object-src 'none'; \
-      prefetch-src 'none'; \
       script-src 'self' 'unsafe-eval'; \
-      script-src-elem 'self'; \
-      style-src 'self' 'unsafe-inline'; \
-      worker-src 'none'; \
+      style-src 'self' 'unsafe-inline' \
       """
 
     # Referrer-Policy controls the Referer header in requests.
