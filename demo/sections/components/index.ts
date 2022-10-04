@@ -6,6 +6,7 @@ export const components: Section = {
   buttonGroup: () => import ('./ButtonGroup.vue'),
   card: () => import ('./Card.vue'),
   checkbox: () => import ('./Checkbox.vue'),
+  checkboxGroup: () => import ('./CheckboxGroup.vue'),
   code: () => import ('./Code.vue'),
   divider: () => import ('./Divider.vue'),
   emptyState: () => import ('./EmptyState.vue'),

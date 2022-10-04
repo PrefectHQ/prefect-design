@@ -1,0 +1,46 @@
+<template>
+  <ComponentPage title="Checkbox Group" :demos="[{ title: 'Checkbox Group' }, { title: 'Using Label Slot' }]">
+    <template #description>
+      This is where we add a short description of <p-code>p-checkbox-group</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+    </template>
+
+    <template #checkbox-group>
+      <div class="checkbox-group__demo">
+        <p-checkbox-group v-model="value" :options="options" :disabled="disabled" />
+
+        <p-code>value:{{ JSON.stringify(value) }}</p-code>
+      </div>
+    </template>
+
+    <template #using-label-slot>
+      <div class="checkbox-group__demo">
+        <p-checkbox-group v-model="slotValue" :options="options" :disabled="disabled">
+          <template #label="{ option }">
+            <strong>{{ option.label.toUpperCase() }}!!!</strong>
+          </template>
+        </p-checkbox-group>
+
+        <p-code>value:{{ JSON.stringify(slotValue) }}</p-code>
+      </div>
+    </template>
+  </ComponentPage>
+</template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const disabled = ref(false)
+
+  const value = ref([])
+  const slotValue = ref([])
+  const options = ['first', 'second', 'third']
+</script>
+
+<style>
+.checkbox-group__demo { @apply
+  flex
+  flex-col
+  gap-4
+}
+</style>

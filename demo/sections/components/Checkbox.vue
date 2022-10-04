@@ -13,14 +13,16 @@
 
     <template #checkbox>
       <p-checkbox v-model="simple" label="A simple checkbox" />
-      {{ simple }}
+
+      <p-code>value:{{ JSON.stringify(simple) }}</p-code>
     </template>
 
     <template #multiple>
       <p-checkbox v-model="multiple" value="A" label="A" />
       <p-checkbox v-model="multiple" value="B" label="B" />
       <p-checkbox v-model="multiple" value="C" label="C" />
-      {{ multiple }}
+
+      <p-code>value:{{ JSON.stringify(multiple) }}</p-code>
     </template>
 
     <template #label-slot>
@@ -29,7 +31,8 @@
           Using the <span class="font-bold">label</span> slot
         </template>
       </p-checkbox>
-      {{ simple }}
+
+      <p-code>value:{{ JSON.stringify(slot) }}</p-code>
     </template>
   </ComponentPage>
 </template>
@@ -39,6 +42,6 @@
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const simple = ref(false)
-  const slot = ref(false)
   const multiple = ref([])
+  const slot = ref(false)
 </script>

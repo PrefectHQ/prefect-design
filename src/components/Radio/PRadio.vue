@@ -1,5 +1,5 @@
 <template>
-  <p-label :label="label" class="p-radio" :class="classes.label" :style="styles">
+  <PLabel :label="label" class="p-radio" :class="classes.label" :style="styles">
     <template #label>
       <slot name="label" :label="label" :value="value" />
     </template>
@@ -7,7 +7,7 @@
       <input
         :id="id"
         v-bind="attrs"
-        v-model="internalValue"
+        v-model="internalModelValue"
         type="radio"
         :class="classes.input"
         :disabled="disabled"
@@ -15,7 +15,7 @@
         class="p-radio__input"
       >
     </template>
-  </p-label>
+  </PLabel>
 </template>
 
 <script lang="ts">
@@ -28,6 +28,7 @@
 
   <script lang="ts" setup>
   import { computed } from 'vue'
+  import { PLabel } from '../Label'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'
@@ -46,7 +47,7 @@
 
   const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
 
-  const internalValue = computed({
+  const internalModelValue = computed({
     get() {
       return props.modelValue ?? null
     },

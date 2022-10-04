@@ -1,24 +1,24 @@
 <template>
-  <div class="p-radio-group" :class="classes" :style="styles">
-    <template v-for="(option, index) in radioOptions" :key="index">
-      <PRadio
+  <fieldset class="p-checkbox-group" :class="classes" :style="styles" :disabled="disabled">
+    <template v-for="(option, index) in checkboxOptions" :key="index">
+      <PCheckbox
         v-model="internalModelValue"
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
-        :disabled="option.disabled || disabled"
+        :disabled="option.disabled"
       >
         <template #label>
           <slot name="label" :option="option" />
         </template>
-      </PRadio>
+      </PCheckbox>
     </template>
-  </div>
+  </fieldset>
 </template>
 
 <script lang="ts">
   export default {
-    name: 'PRadioGroup',
+    name: 'PCheckboxGroup',
     expose: [],
     inheritAttrs: false,
   }
@@ -26,30 +26,30 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { PRadio } from '@/components/Radio'
-  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { isSelectOption, SelectOption } from '@/types/selectOption'
+  import { PCheckbox } from '@/components/Checkbox'
+  import { useAttrsStylesAndClasses } from '@/compositions'
+  import { isSelectOption, SelectOption } from '@/types'
 
   const props = defineProps<{
-    modelValue: string | number | boolean | null | undefined,
-    options: string[] | SelectOption[],
+    modelValue: string[] | number[] | boolean[],
+    options: string[] | number[] | boolean[] | SelectOption[],
     disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | boolean | null): void,
+    (event: 'update:modelValue', value: string[] | number[] | boolean[]): void,
   }>()
 
   const internalModelValue = computed({
     get() {
-      return props.modelValue ?? null
+      return props.modelValue
     },
-    set(value: string | number | boolean | null) {
+    set(value: string[] | number[] | boolean[]) {
       emits('update:modelValue', value)
     },
   })
 
-  const radioOptions = computed<SelectOption[]>(() => {
+  const checkboxOptions = computed<SelectOption[]>(() => {
     return props.options.map(option => {
       if (isSelectOption(option)) {
         return option
@@ -63,7 +63,7 @@
 </script>
 
 <style>
-.p-radio-group { @apply
+.p-checkbox-group { @apply
   flex
   flex-col
   items-start
