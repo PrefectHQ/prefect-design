@@ -1,4 +1,4 @@
-# p-date-range
+# p-date-range-input
 
 This component allows the user to select a start date and an end date on a single calendar input. The calendar will provide a visual indication of all the dates which fall within the selected range. It functions very similarly to PDateInput, but with two dates instead of one.
 
@@ -15,7 +15,7 @@ const value = ref({
 ```
 
 ```html
-<p-date-range v-model:startDate="value.start" v-model:endDate="value.end" clearable />
+<p-date-range-input v-model:startDate="value.start" v-model:endDate="value.end" clearable />
 ```
 
 ## Slots

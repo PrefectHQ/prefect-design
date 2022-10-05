@@ -1,12 +1,12 @@
 <template>
-  <ComponentPage title="Date Range" :demos="[{ title: 'Date Range' }]">
+  <ComponentPage title="Date Range Input" :demos="[{ title: 'Date Range Input' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-date-range</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code>p-date-range-input</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
-    <template #date-range>
+    <template #date-range-input>
       <div class="date-range__demo">
-        <p-date-range v-model:startDate="value.start" v-model:endDate="value.end" clearable />
+        <p-date-range-input v-model:startDate="value.start" v-model:endDate="value.end" clearable />
 
         <p-code>start:{{ JSON.stringify(value.start) }}</p-code>
         <p-code>end:{{ JSON.stringify(value.end) }}</p-code>
@@ -26,7 +26,7 @@
 </script>
 
 <style>
-.date-range__demo { @apply
+.date-range-input__demo { @apply
   flex
   flex-col
   gap-4

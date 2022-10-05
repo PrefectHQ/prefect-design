@@ -2,14 +2,14 @@
   <PDateInput v-model="rangeValue" :clearable="clearable">
     <template #target="{ hover }">
       <template v-if="hover">
-        <div class="p-date-range__target">
+        <div class="p-date-range-input__target">
           {{ displayStartDate }}
-          <p-icon icon="ArrowSmRightIcon" class="p-date-range__target-icon" />
+          <p-icon icon="ArrowSmRightIcon" class="p-date-range-input__target-icon" />
           {{ displayEndDate }}
         </div>
       </template>
       <template v-else>
-        <div class="p-date-range__target">
+        <div class="p-date-range-input__target">
           <p-label label="Start">
             <template #default="{ id }">
               <PNativeDateInput :id="id" v-model="internalStartDate" :max="internalEndDate" />
@@ -25,7 +25,7 @@
     </template>
     <template #date="{ date, disabled, today, outOfMonth, select }">
       <PButton
-        class="p-date-range__date"
+        class="p-date-range-input__date"
         :class="getClasses(date, today, outOfMonth)"
         :flat="!isDateSelected(date)"
         :disabled="disabled"
@@ -147,10 +147,10 @@
 
   function getClasses(date: Date, today: boolean, outOfMonth: boolean): ClassValue {
     return {
-      'p-date-range__date--today': today,
-      'p-date-range__date--selected': isDateSelected(date),
-      'p-date-range__date--in-range': isDateInSelectedRange(date),
-      'p-date-range__date--out-of-month': outOfMonth,
+      'p-date-range-input__date--today': today,
+      'p-date-range-input__date--selected': isDateSelected(date),
+      'p-date-range-input__date--in-range': isDateInSelectedRange(date),
+      'p-date-range-input__date--out-of-month': outOfMonth,
     }
   }
 
@@ -200,35 +200,35 @@
 </script>
 
 <style>
-.p-date-range__date { @apply
+.p-date-range-input__date { @apply
   p-1
 }
 
-.p-date-range__target { @apply
+.p-date-range-input__target { @apply
   flex
   gap-2
   items-center
 }
 
-.p-date-range__target-icon { @apply
+.p-date-range-input__target-icon { @apply
   text-gray-400
 }
 
-.p-date-range__date--in-range:not(.p-date-range__date--selected) { @apply
+.p-date-range-input__date--in-range:not(.p-date-range-input__date--selected) { @apply
   bg-prefect-600/70
   text-white
 }
 
-.p-date-range__date--in-range:not(.p-date-range__date--selected):hover { @apply
+.p-date-range-input__date--in-range:not(.p-date-range-input__date--selected):hover { @apply
   bg-prefect-600/80
   text-white
 }
 
-.p-date-range__date--today:not(.p-date-range__date--selected):not(.p-date-range__date--in-range) { @apply
+.p-date-range-input__date--today:not(.p-date-range-input__date--selected):not(.p-date-range-input__date--in-range) { @apply
   text-prefect-600
 }
 
-.p-date-range__date--out-of-month:not(.p-button--disabled) { @apply
+.p-date-range-input__date--out-of-month:not(.p-button--disabled) { @apply
   text-gray-300
   hover:text-gray-400
 }
