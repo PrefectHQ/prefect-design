@@ -45,7 +45,7 @@
             name="date"
             :date="date"
             :disabled="!!overlay || !isDateInRange(date, range, 'day')"
-            :today="isSameDay(date, new Date())"
+            :today="isToday(date)"
             :selected="isSameDayAsSelectedDate(date)"
             :out-of-month="!isSameMonth(date, viewingDate)"
             :select="() => updateSelectedDate(date)"
@@ -110,7 +110,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth, isToday } from 'date-fns'
   import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PCalendar from '@/components/Calendar/PCalendar.vue'
