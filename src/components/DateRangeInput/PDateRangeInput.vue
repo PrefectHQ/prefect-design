@@ -1,12 +1,18 @@
 <template>
   <PDateInput v-model="rangeValue" :clearable="clearable">
-    <template #target="{ hover }">
-      <template v-if="hover">
-        <div class="p-date-range-input__target">
-          {{ displayStartDate }}
-          <p-icon icon="ArrowSmRightIcon" class="p-date-range-input__target-icon" />
-          {{ displayEndDate }}
-        </div>
+    <template #default="{ openPicker, isOpen, disabled }">
+      <template v-if="media.hover">
+        <PDateButton
+          :class="{ 'p-date-range-input__target--open': isOpen }"
+          :disabled="disabled"
+          @click="openPicker"
+        >
+          <div class="p-date-range-input__target">
+            {{ displayStartDate }}
+            <p-icon icon="ArrowSmRightIcon" class="p-date-range-input__target-icon" />
+            {{ displayEndDate }}
+          </div>
+        </PDateButton>
       </template>
       <template v-else>
         <div class="p-date-range-input__target">
@@ -47,10 +53,12 @@
 
 <script lang="ts" setup>
   import { closestTo, format, isSameDay } from 'date-fns'
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
+  import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'
   import { ClassValue } from '@/types/attributes'
   import { isDateAfter, isDateBefore, isDateInRange } from '@/utilities'
+  import { media } from '@/utilities/media'
 
   const props = defineProps<{
     startDate: Date | null | undefined,
@@ -105,43 +113,23 @@
         return clear()
       }
 
-      if (props.clearable && internalStartDate.value && isSameDay(value, internalStartDate.value)) {
-        return internalStartDate.value = null
-      }
+      if (internalStartDate.value && isDateBefore(value, internalStartDate.value)) {
+        internalEndDate.value = internalEndDate.value ? null : internalStartDate.value
+        internalStartDate.value = value
 
-      if (props.clearable && internalEndDate.value && isSameDay(value, internalEndDate.value)) {
-        return internalEndDate.value = null
+        return
       }
 
       if (!internalStartDate.value) {
-        if (isDateSelected(value)) {
-          return
-        }
-        if (isDateAfterRange(value)) {
-          internalStartDate.value = internalEndDate.value
-          return internalEndDate.value = value
-        }
-
         return internalStartDate.value = value
       }
 
       if (!internalEndDate.value) {
-        if (isDateSelected(value)) {
-          return
-        }
-        if (isDateBeforeRange(value)) {
-          internalEndDate.value = internalStartDate.value
-          return internalStartDate.value = value
-        }
-
-        return internalEndDate.value = value
-      }
-
-      if (isDateCloserToEnd(value)) {
         return internalEndDate.value = value
       }
 
       internalStartDate.value = value
+      internalEndDate.value = null
     },
   })
 
@@ -167,32 +155,6 @@
     return isDateInRange(date, { min: internalStartDate.value, max: internalEndDate.value })
   }
 
-  function isDateBeforeRange(date: Date): boolean {
-    if (!internalStartDate.value) {
-      return false
-    }
-
-    return isDateBefore(date, internalStartDate.value)
-  }
-
-  function isDateAfterRange(date: Date): boolean {
-    if (!internalEndDate.value) {
-      return false
-    }
-
-    return isDateAfter(date, internalEndDate.value)
-  }
-
-  function isDateCloserToEnd(date: Date): boolean {
-    if (!internalStartDate.value || !internalEndDate.value) {
-      return false
-    }
-
-    const closestDate = closestTo(date, [ internalStartDate.value, internalEndDate.value])
-
-    return !!closestDate && isSameDay(closestDate, internalEndDate.value)
-  }
-
   function clear(): void {
     internalStartDate.value = null
     internalEndDate.value = null
@@ -208,6 +170,13 @@
   flex
   gap-2
   items-center
+}
+
+.p-date-range-input__target--open { @apply
+  outline-none
+  ring-1
+  ring-prefect-500
+  border-prefect-500
 }
 
 .p-date-range-input__target-icon { @apply

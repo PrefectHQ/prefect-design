@@ -5,7 +5,7 @@
     </template>
 
     <template #date-range-input>
-      <div class="date-range__demo">
+      <div class="date-range-input__demo">
         <p-date-range-input v-model:startDate="value.start" v-model:endDate="value.end" clearable />
 
         <p-code>start:{{ JSON.stringify(value.start) }}</p-code>
