@@ -8,6 +8,7 @@ export const components: Section = {
   checkbox: () => import ('./Checkbox.vue'),
   checkboxGroup: () => import ('./CheckboxGroup.vue'),
   code: () => import ('./Code.vue'),
+  dateRangeInput: () => import ('./DateRangeInput.vue'),
   divider: () => import ('./Divider.vue'),
   emptyState: () => import ('./EmptyState.vue'),
   form: () => import ('./Form.vue'),

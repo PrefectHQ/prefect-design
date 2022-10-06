@@ -106,6 +106,7 @@
   flex-grow
   justify-center
   items-center
+  font-normal
 }
 
 .p-button--primary { @apply

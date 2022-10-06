@@ -8,30 +8,23 @@
     @keydown="handleKeydown"
   >
     <template #target>
-      <template v-if="media.hover">
-        <PDateButton
-          ref="buttonElement"
-          :date="adjustedSelectedDate"
-          :class="classes"
-          :style="styles"
-          :disabled="disabled"
-          v-bind="attrs"
-          @click="openPicker"
-        />
-      </template>
-      <template v-else>
-        <PNativeDateInput
-          v-model="adjustedSelectedDate"
-          class="p-date-input__native"
-          :min="min"
-          :max="max"
-          :class="classes"
-          :style="styles"
-          :disabled="disabled"
-          v-bind="attrs"
-          @keydown="handleTargetKeydown"
-        />
-      </template>
+      <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
+        <template v-if="media.hover">
+          <PDateButton
+            :date="adjustedSelectedDate"
+            :class="classes.control"
+            :disabled="disabled"
+            @click="openPicker"
+          />
+        </template>
+        <template v-else>
+          <PNativeDateInput
+            v-model="adjustedSelectedDate"
+            class="p-date-input__native"
+            v-bind="{ min, max, disabled }"
+          />
+        </template>
+      </slot>
     </template>
 
     <PDatePicker
@@ -43,17 +36,13 @@
       :max="max"
       @click.stop
       @keydown="closeOnEscape"
-    />
+    >
+      <template v-for="(index, name) in $slots" #[name]="data">
+        <slot :name="name" v-bind="data" />
+      </template>
+    </PDatePicker>
   </PPopOver>
 </template>
-
-<script lang="ts">
-  export default {
-    name: 'PDateInput',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
@@ -61,10 +50,8 @@
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
   import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
   import { keys } from '@/types'
-  import { asArray } from '@/utilities'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
   import { bottomRight, topRight, bottomLeft, topLeft } from '@/utilities/position'
@@ -83,10 +70,7 @@
     (event: 'open' | 'close'): void,
   }>()
 
-  const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const buttonElement = ref<typeof PDateButton>()
-  const targetElement = computed(() => buttonElement.value?.el)
 
   const selectedDate = computed({
     get() {
@@ -109,12 +93,10 @@
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const classes = computed(() => ({
-    control: [
-      ...asArray(attrClasses.value),
+    control:
       {
         'p-date-input--open': isOpen.value,
       },
-    ],
   }))
 
   function openPicker(): void {
@@ -126,25 +108,6 @@
   function closePicker(): void {
     if (isOpen.value) {
       popOver.value!.close()
-    }
-  }
-
-  function handleTargetKeydown(event: KeyboardEvent): void {
-    if (!media.hover) {
-      return
-    }
-
-    switch (event.key) {
-      case keys.space:
-        openPicker()
-        event.preventDefault()
-        break
-      case keys.escape:
-        closePicker()
-        event.preventDefault()
-        break
-      default:
-        break
     }
   }
 
@@ -160,7 +123,6 @@
       emits('open')
     } else {
       emits('close')
-      targetElement.value?.focus()
     }
   }
 
