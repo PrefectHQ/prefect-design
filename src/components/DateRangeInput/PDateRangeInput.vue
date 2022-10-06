@@ -3,7 +3,8 @@
     <template #default="{ openPicker, isOpen, disabled }">
       <template v-if="media.hover">
         <PDateButton
-          :class="{ 'p-date-range-input__target--open': isOpen }"
+          :date="null"
+          :class="classes.target(isOpen)"
           :disabled="disabled"
           @click="openPicker"
         >
@@ -32,7 +33,7 @@
     <template #date="{ date, disabled, today, outOfMonth, select }">
       <PButton
         class="p-date-range-input__date"
-        :class="getClasses(date, today, outOfMonth)"
+        :class="classes.date(date, today, outOfMonth)"
         :flat="!isDateSelected(date)"
         :disabled="disabled"
         size="xs"
@@ -52,12 +53,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { closestTo, format, isSameDay } from 'date-fns'
-  import { computed, ref } from 'vue'
+  import { format, isSameDay } from 'date-fns'
+  import { computed } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'
-  import { ClassValue } from '@/types/attributes'
-  import { isDateAfter, isDateBefore, isDateInRange } from '@/utilities'
+  import { isDateBefore, isDateInRange } from '@/utilities'
   import { media } from '@/utilities/media'
 
   const props = defineProps<{
@@ -133,14 +133,15 @@
     },
   })
 
-  function getClasses(date: Date, today: boolean, outOfMonth: boolean): ClassValue {
-    return {
+  const classes = computed(() => ({
+    target: (isOpen: boolean) => ({ 'p-date-range-input__target--open': isOpen }),
+    date: (date: Date, today: boolean, outOfMonth: boolean) => ({
       'p-date-range-input__date--today': today,
       'p-date-range-input__date--selected': isDateSelected(date),
       'p-date-range-input__date--in-range': isDateInSelectedRange(date),
       'p-date-range-input__date--out-of-month': outOfMonth,
-    }
-  }
+    }),
+  }))
 
   function isDateSelected(date: Date): boolean {
     return !!internalStartDate.value && isSameDay(date, internalStartDate.value)
