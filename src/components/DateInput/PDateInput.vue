@@ -8,25 +8,23 @@
     @keydown="handleKeydown"
   >
     <template #target>
-      <template v-if="media.hover">
-        <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
+      <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
+        <template v-if="media.hover">
           <PDateButton
             :date="adjustedSelectedDate"
             :class="classes.control"
             :disabled="disabled"
             @click="openPicker"
           />
-        </slot>
-      </template>
-      <template v-else>
-        <slot>
+        </template>
+        <template v-else>
           <PNativeDateInput
             v-model="adjustedSelectedDate"
             class="p-date-input__native"
             v-bind="{ min, max, disabled }"
           />
-        </slot>
-      </template>
+        </template>
+      </slot>
     </template>
 
     <PDatePicker
