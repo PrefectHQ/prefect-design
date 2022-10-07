@@ -11,7 +11,7 @@
         <p-type-ahead v-model="exampleTypeAhead" :options="exampleOptions" />
 
         <p-code>
-          value:{{ JSON.stringify(exampleTypeAhead) }}
+          value: {{ JSON.stringify(exampleTypeAhead) }}
         </p-code>
       </div>
     </template>

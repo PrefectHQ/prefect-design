@@ -11,7 +11,7 @@
         <p-tags-area v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
 
         <p-code>
-          value:{{ JSON.stringify(exampleTagsValue) }}
+          value: {{ JSON.stringify(exampleTagsValue) }}
         </p-code>
       </div>
     </template>

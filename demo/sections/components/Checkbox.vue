@@ -17,7 +17,7 @@
       <div class="checkbox__demo">
         <p-checkbox v-model="simple" label="A simple checkbox" :disabled="disabled" :state="exampleState" />
 
-        <p-code>value:{{ JSON.stringify(simple) }}</p-code>
+        <p-code>value: {{ JSON.stringify(simple) }}</p-code>
       </div>
     </template>
 
@@ -29,7 +29,7 @@
           <p-checkbox v-model="multiple" value="C" label="C" :state="exampleState" />
         </fieldset>
 
-        <p-code>value:{{ JSON.stringify(multiple) }}</p-code>
+        <p-code>value: {{ JSON.stringify(multiple) }}</p-code>
       </div>
     </template>
 
@@ -41,7 +41,7 @@
           </template>
         </p-checkbox>
 
-        <p-code>value:{{ JSON.stringify(slot) }}</p-code>
+        <p-code>value: {{ JSON.stringify(slot) }}</p-code>
       </div>
     </template>
   </ComponentPage>

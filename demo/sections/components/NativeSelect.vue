@@ -10,7 +10,7 @@
       <div class="native-select__demo">
         <p-native-select v-model="exampleNativeSelect" :disabled="disabled" :options="exampleOptionsWithEmpty" :state="exampleState" />
 
-        <p-code>value:{{ JSON.stringify(exampleNativeSelect) }}</p-code>
+        <p-code>value: {{ JSON.stringify(exampleNativeSelect) }}</p-code>
       </div>
     </template>
   </ComponentPage>

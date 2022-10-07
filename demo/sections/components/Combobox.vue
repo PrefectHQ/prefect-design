@@ -17,7 +17,7 @@
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
 
         <p-code>
-          value:{{ JSON.stringify(exampleCombobox) }}
+          value: {{ JSON.stringify(exampleCombobox) }}
         </p-code>
       </div>
     </template>
@@ -27,7 +27,7 @@
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
 
         <p-code>
-          value:{{ JSON.stringify(exampleCombobox2) }}
+          value: {{ JSON.stringify(exampleCombobox2) }}
         </p-code>
       </div>
     </template>

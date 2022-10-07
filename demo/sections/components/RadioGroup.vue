@@ -16,7 +16,7 @@
       <div class="radio-group__demo">
         <p-radio-group v-model="value" :options="options" :state="exampleState" :disabled="disabled" />
 
-        <p-code>value:{{ JSON.stringify(value) }}</p-code>
+        <p-code>value: {{ JSON.stringify(value) }}</p-code>
       </div>
     </template>
 
@@ -28,7 +28,7 @@
           </template>
         </p-radio-group>
 
-        <p-code>value:{{ JSON.stringify(slotValue) }}</p-code>
+        <p-code>value: {{ JSON.stringify(slotValue) }}</p-code>
       </div>
     </template>
   </ComponentPage>

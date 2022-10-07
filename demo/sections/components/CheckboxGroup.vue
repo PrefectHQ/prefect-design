@@ -10,7 +10,7 @@
       <div class="checkbox-group__demo">
         <p-checkbox-group v-model="value" :options="options" :disabled="disabled" :state="exampleState" />
 
-        <p-code>value:{{ JSON.stringify(value) }}</p-code>
+        <p-code>value: {{ JSON.stringify(value) }}</p-code>
       </div>
     </template>
 
@@ -22,7 +22,7 @@
           </template>
         </p-checkbox-group>
 
-        <p-code>value:{{ JSON.stringify(slotValue) }}</p-code>
+        <p-code>value: {{ JSON.stringify(slotValue) }}</p-code>
       </div>
     </template>
   </ComponentPage>

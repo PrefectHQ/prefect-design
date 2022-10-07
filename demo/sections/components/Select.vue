@@ -17,7 +17,7 @@
         />
 
         <p-code>
-          value:{{ JSON.stringify(exampleSelect) }}
+          value: {{ JSON.stringify(exampleSelect) }}
         </p-code>
       </div>
     </template>
@@ -26,7 +26,7 @@
         <p-select v-model="exampleMultiSelect" :disabled="disabled" :options="exampleOptions" :state="exampleState" />
 
         <p-code>
-          value:{{ JSON.stringify(exampleMultiSelect) }}
+          value: {{ JSON.stringify(exampleMultiSelect) }}
         </p-code>
       </div>
     </template>

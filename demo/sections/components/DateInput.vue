@@ -18,7 +18,7 @@
           :state="exampleState"
         />
         <p-code>
-          value:{{ JSON.stringify(exampleDate) }}
+          value: {{ JSON.stringify(exampleDate) }}
         </p-code>
         <div class="flex justify-start gap-4">
           <p-checkbox v-model="showTimeInExampleDate" :disabled="disabled" label="Show Time" />
