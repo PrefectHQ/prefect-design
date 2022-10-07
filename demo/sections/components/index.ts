@@ -13,6 +13,7 @@ export const components: Section = {
   dateInput: () => import ('./DateInput.vue'),
   divider: () => import ('./Divider.vue'),
   emptyState: () => import ('./EmptyState.vue'),
+  form: () => import ('./Form.vue'),
   iconButtonMenu: () => import ('./IconButtonMenu.vue'),
   iconText: () => import ('./IconText.vue'),
   keyValue: () => import ('./KeyValue.vue'),
