@@ -11,6 +11,7 @@ export const components: Section = {
   code: () => import ('./Code.vue'),
   combobox: () => import ('./Combobox.vue'),
   dateInput: () => import ('./DateInput.vue'),
+  dateRangeInput: () => import ('./DateRangeInput.vue'),
   divider: () => import ('./Divider.vue'),
   emptyState: () => import ('./EmptyState.vue'),
   form: () => import ('./Form.vue'),

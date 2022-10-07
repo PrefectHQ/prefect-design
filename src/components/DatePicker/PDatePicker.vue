@@ -41,16 +41,26 @@
     <div class="p-date-picker__body">
       <PCalendar :month="viewingDate.getMonth()" :year="viewingDate.getFullYear()">
         <template #date="{ date }">
-          <PButton
-            class="p-date-picker__date"
-            :class="classes.date(date)"
-            :flat="!isSameDayAsSelectedDate(date)"
+          <slot
+            name="date"
+            :date="date"
             :disabled="!!overlay || !isDateInRange(date, range, 'day')"
-            size="xs"
-            @click="updateSelectedDate(date)"
+            :today="isToday(date)"
+            :selected="isSameDayAsSelectedDate(date)"
+            :out-of-month="!isSameMonth(date, viewingDate)"
+            :select="() => updateSelectedDate(date)"
           >
-            {{ date.getDate() }}
-          </PButton>
+            <PButton
+              class="p-date-picker__date"
+              :class="classes.date(date)"
+              :flat="!isSameDayAsSelectedDate(date)"
+              :disabled="!!overlay || !isDateInRange(date, range, 'day')"
+              size="xs"
+              @click="updateSelectedDate(date)"
+            >
+              {{ date.getDate() }}
+            </PButton>
+          </slot>
         </template>
       </PCalendar>
 
@@ -76,13 +86,23 @@
 
       <template v-if="overlayComponent">
         <div class="p-date-picker__overlay">
-          <component
-            :is="overlayComponent"
-            v-model="selectedDate"
-            :min="min"
-            :max="max"
-            @update:model-value="closeOverlayIfOverlayIsNotTime"
-          />
+          <template v-if="overlay === 'time'">
+            <component
+              :is="overlayComponent"
+              v-model="selectedDate"
+              :min="min"
+              :max="max"
+            />
+          </template>
+          <template v-else>
+            <component
+              :is="overlayComponent"
+              v-model="viewingDate"
+              :min="min"
+              :max="max"
+              @update:model-value="closeOverlay"
+            />
+          </template>
         </div>
       </template>
     </div>
@@ -90,7 +110,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth } from 'date-fns'
+  import { format, startOfDay, isSameDay, isSameMonth, isSameMinute, addMonths, set, startOfMonth, endOfMonth, isToday } from 'date-fns'
   import { computed, ref, watchEffect } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PCalendar from '@/components/Calendar/PCalendar.vue'
@@ -179,12 +199,6 @@
     return !!selectedDate.value && isSameDay(date, selectedDate.value)
   }
 
-  function closeOverlayIfOverlayIsNotTime(): void {
-    if (overlay.value !== 'time') {
-      closeOverlay()
-    }
-  }
-
   function closeOverlay(): void {
     overlay.value = null
   }
@@ -212,10 +226,13 @@
 
 <style>
 .p-date-picker { @apply
+  flex
+  flex-col
   border
   p-2
   select-none
-  w-80
+  min-w-[20rem]
+  min-h-[20rem]
 }
 
 .p-date-picker__top-bar { @apply
@@ -255,6 +272,9 @@
 
 .p-date-picker__body { @apply
   relative
+  flex
+  flex-col
+  flex-grow
   my-2
 }
 
@@ -271,7 +291,7 @@
 
 .p-date-picker__date { @apply
   justify-center
-  px-0
+  p-0
 }
 
 .p-date-picker__date--today:not(.p-date-picker__date--selected) { @apply

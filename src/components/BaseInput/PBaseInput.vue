@@ -75,6 +75,7 @@
   border-gray-300
   shadow-sm
   rounded-md
+  font-normal
 }
 
 .p-base-input--disabled,
