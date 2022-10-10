@@ -3,45 +3,68 @@
     title="Checkbox"
     :demos="[
       { title: 'Checkbox' },
-      { title: 'Multiple' },
+      { title: 'Multiple', description: 'See also: p-checkbox-group' },
       { title: 'Label Slot' },
     ]"
   >
     <template #description>
       This is where we add a short description of <p-code>p-checkbox</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+
+      <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
     <template #checkbox>
-      <p-checkbox v-model="simple" label="A simple checkbox" />
+      <div class="checkbox__demo">
+        <p-checkbox v-model="simple" label="A simple checkbox" :disabled="disabled" :state="exampleState" />
 
-      <p-code>value:{{ JSON.stringify(simple) }}</p-code>
+        <p-code>value: {{ JSON.stringify(simple) }}</p-code>
+      </div>
     </template>
 
     <template #multiple>
-      <p-checkbox v-model="multiple" value="A" label="A" />
-      <p-checkbox v-model="multiple" value="B" label="B" />
-      <p-checkbox v-model="multiple" value="C" label="C" />
+      <div class="checkbox__demo">
+        <fieldset :disabled="disabled">
+          <p-checkbox v-model="multiple" value="A" label="A" :state="exampleState" />
+          <p-checkbox v-model="multiple" value="B" label="B" :state="exampleState" />
+          <p-checkbox v-model="multiple" value="C" label="C" :state="exampleState" />
+        </fieldset>
 
-      <p-code>value:{{ JSON.stringify(multiple) }}</p-code>
+        <p-code>value: {{ JSON.stringify(multiple) }}</p-code>
+      </div>
     </template>
 
     <template #label-slot>
-      <p-checkbox v-model="slot">
-        <template #label>
-          Using the <span class="font-bold">label</span> slot
-        </template>
-      </p-checkbox>
+      <div class="checkbox__demo">
+        <p-checkbox v-model="slot">
+          <template #label>
+            Using the <span class="font-bold">label</span> slot
+          </template>
+        </p-checkbox>
 
-      <p-code>value:{{ JSON.stringify(slot) }}</p-code>
+        <p-code>value: {{ JSON.stringify(slot) }}</p-code>
+      </div>
     </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
+  import { State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+  import DemoState from '@/demo/components/DemoState.vue'
+
+  const exampleState = ref<State>()
+  const disabled = ref(false)
 
   const simple = ref(false)
   const multiple = ref([])
   const slot = ref(false)
 </script>
+
+<style>
+  .checkbox__demo { @apply
+    flex
+    flex-col
+    gap-4
+  }
+  </style>

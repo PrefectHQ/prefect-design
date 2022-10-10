@@ -1,0 +1,67 @@
+<template>
+  <ComponentPage title="Date Input" :demos="[{ title: 'Date Input' }]">
+    <template #description>
+      This is where we add a short description of <p-code>p-date-input</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+
+      <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
+    </template>
+
+    <template #date-input>
+      <p-content class="date-input__demo">
+        <p-date-input
+          v-model="exampleDate"
+          :show-time="showTimeInExampleDate"
+          :clearable="isClearableDate"
+          :disabled="disabled"
+          :min="minDate"
+          :max="maxDate"
+          :state="exampleState"
+        />
+        <p-code>
+          value: {{ JSON.stringify(exampleDate) }}
+        </p-code>
+        <div class="flex justify-start gap-4">
+          <p-checkbox v-model="showTimeInExampleDate" :disabled="disabled" label="Show Time" />
+
+          <p-checkbox v-model="isClearableDate" :disabled="disabled" label="Clearable" />
+        </div>
+        <div class="flex gap-4 w-1/2">
+          <p-label label="Min Value" :message="minDate ? format(minDate, 'MMM do, yyyy h:mm a') : ''">
+            <p-native-date-input v-model="minDate" :disabled="disabled" :state="exampleState" />
+          </p-label>
+
+          <p-label label="Max Value" :message="maxDate ? format(maxDate, 'MMM do, yyyy h:mm a') : ''">
+            <p-native-date-input v-model="maxDate" :disabled="disabled" :state="exampleState" />
+          </p-label>
+        </div>
+      </p-content>
+    </template>
+  </ComponentPage>
+</template>
+
+<script lang="ts" setup>
+  import { State } from '@/types'
+  import { format } from 'date-fns'
+  import { ref } from 'vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
+  import DemoState from '@/demo/components/DemoState.vue'
+
+  const exampleState = ref<State>()
+  const disabled = ref(false)
+
+  const exampleDate = ref<Date | null>()
+  const minDate = ref<Date | null>(null)
+  const maxDate = ref<Date | null>(null)
+  const showTimeInExampleDate = ref(true)
+  const isClearableDate = ref(false)
+</script>
+
+<style>
+  .date-input__demo {
+    @apply
+    h-96
+    flex
+    flex-col
+    gap-4
+  }
+</style>
