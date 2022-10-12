@@ -41,6 +41,7 @@
   font-semibold
   cursor-pointer
   whitespace-nowrap
+  hover:underline
 }
 
 .p-link__external-icon { @apply
