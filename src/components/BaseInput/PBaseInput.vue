@@ -109,6 +109,10 @@
   focus-within:ring-red-600
 }
 
+.p-base-input--failed {
+  scroll-margin: var(--prefect-scroll-margin);
+}
+
 .p-base-input__failed-icon { @apply
   text-red-600
   w-5

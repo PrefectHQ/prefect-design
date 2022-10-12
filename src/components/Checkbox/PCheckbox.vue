@@ -73,6 +73,10 @@
   flex
 }
 
+.p-checkbox--failed {
+  scroll-margin: var(--prefect-scroll-margin);
+}
+
 .p-checkbox__control { @apply
   focus:ring-prefect-600
   h-4
