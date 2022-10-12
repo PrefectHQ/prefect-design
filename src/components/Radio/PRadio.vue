@@ -74,6 +74,18 @@
 </script>
 
 <style>
+.p-radio { @apply
+  flex
+  flex-row
+  items-center
+  w-min
+  gap-2
+}
+
+.p-radio--failed {
+  scroll-margin: var(--prefect-scroll-margin);
+}
+
 .p-radio--disabled { @apply
   opacity-50
 }
@@ -82,14 +94,6 @@
 .p-radio--disabled .p-label__label,
 .p-radio__input--disabled { @apply
   cursor-not-allowed
-}
-
-.p-radio { @apply
-  flex
-  flex-row
-  items-center
-  w-min
-  gap-2
 }
 
 .p-radio .p-label__body { @apply
