@@ -17,12 +17,12 @@
       </template>
       <template v-else>
         <div class="p-date-range-input__target">
-          <p-label label="Start">
+          <p-label label="Start Date">
             <template #default="{ id }">
               <PNativeDateInput :id="id" v-model="internalStartDate" :max="internalEndDate" />
             </template>
           </p-label>
-          <p-label label="End">
+          <p-label label="End Date">
             <template #default="{ id }">
               <PNativeDateInput :id="id" v-model="internalEndDate" :min="internalStartDate" />
             </template>
@@ -169,6 +169,8 @@
 
 .p-date-range-input__target { @apply
   flex
+  flex-wrap
+  md:flex-nowrap
   gap-2
   items-center
 }
