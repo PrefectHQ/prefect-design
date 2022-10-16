@@ -5,6 +5,7 @@ export * from '@/compositions'
 export * from '@/layouts'
 export * from '@/models'
 export * from '@/plugins'
+export * from '@/services'
 export * from '@/types'
 export * from '@/utilities'
 
