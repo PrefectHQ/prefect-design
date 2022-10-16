@@ -1,7 +1,6 @@
 /* eslint-disable no-redeclare */
-import { computed } from '@vue/reactivity'
 import { addMinutes } from 'date-fns'
-import { Ref, ref, isRef, ComputedRef } from 'vue'
+import { Ref, ref, isRef, ComputedRef, computed } from 'vue'
 
 export const utcOffsetMinutes = ref<number | null>(null)
 
