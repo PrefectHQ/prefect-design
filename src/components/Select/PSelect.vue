@@ -22,10 +22,7 @@
           @click="toggleSelect"
         >
           <template v-for="(index, name) in $slots" #[name]="data">
-            <slot :name="name" v-bind="data" />
-          </template>
-          <template #default="scope">
-            <slot v-bind="scope" :is-open="isOpen" :open="openSelect" :close="closeSelect" />
+            <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect, toggle: toggleSelect }" />
           </template>
         </PSelectButton>
       </template>
@@ -51,17 +48,8 @@
       @keydown="handleKeydown"
       @update:model-value="setValue"
     >
-      <template #pre-options="scope">
-        <slot name="pre-options" v-bind="scope" />
-      </template>
-      <template #option="scope">
-        <slot name="option" v-bind="scope" />
-      </template>
-      <template #options-empty="scope">
-        <slot name="options-empty" v-bind="scope" />
-      </template>
-      <template #post-options="scope">
-        <slot name="post-options" v-bind="scope" />
+      <template v-for="(index, name) in $slots" #[name]="data">
+        <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
       </template>
     </PSelectOptions>
   </PPopOver>

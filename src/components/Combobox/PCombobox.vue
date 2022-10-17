@@ -46,12 +46,6 @@
       </div>
     </template>
 
-    <template #default="scope">
-      <slot v-bind="scope" />
-    </template>
-    <template #post-options="scope">
-      <slot name="post-options" v-bind="scope" />
-    </template>
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>

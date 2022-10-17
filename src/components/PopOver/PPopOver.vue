@@ -1,6 +1,6 @@
 <template>
   <div ref="target" class="p-pop-over" v-bind="attrs">
-    <slot name="target" v-bind="{ open, close, toggle }" />
+    <slot name="target" v-bind="{ open, close, toggle, visible }" />
   </div>
   <teleport v-if="visible" :to="container">
     <div ref="content" class="p-pop-over-content" :style="styles">
