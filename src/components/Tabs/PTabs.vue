@@ -134,7 +134,6 @@
   flex
   items-center
   -mb-px
-  cursor-pointer;
 }
 
 .p-tabs__content {

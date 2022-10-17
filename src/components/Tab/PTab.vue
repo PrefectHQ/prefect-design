@@ -27,6 +27,7 @@
   text-sm
   flex
   items-center
+  cursor-pointer
 }
 
 .p-tab__active { @apply
