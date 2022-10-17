@@ -57,7 +57,7 @@
   import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
-  import { isSelectOption, optionStartsWith, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, optionIncludes, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
@@ -127,7 +127,8 @@
     return options
   })
 
-  const filteredSelectOptions = computed(() => selectOptionsWithUnknown.value.filter(option => optionStartsWith(option, typedValue.value)))
+  const filteredSelectOptions = computed(() => selectOptionsWithUnknown.value.filter(option => optionIncludes(option, typedValue.value)))
+
   function filterOptions(option: SelectOption): boolean {
     return filteredSelectOptions.value.includes(option)
   }
