@@ -20,7 +20,7 @@
         @click="handleInputClick"
       >
         <template v-for="(index, name) in $slots" #[name]="data">
-          <slot :name="name" v-bind="{ ...data, isOpen }" />
+          <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect }" />
         </template>
       </PTextInput>
     </template>
@@ -34,7 +34,7 @@
       @update:model-value="setValue"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
-        <slot :name="name" v-bind="{ ...data, isOpen }" />
+        <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
       </template>
     </PSelectOptions>
   </PPopOver>
