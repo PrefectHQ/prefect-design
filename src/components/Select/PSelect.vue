@@ -22,7 +22,7 @@
           @click="toggleSelect"
         >
           <template v-for="(index, name) in $slots" #[name]="data">
-            <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect }" />
+            <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect, toggle: toggleSelect }" />
           </template>
         </PSelectButton>
       </template>
@@ -49,7 +49,7 @@
       @update:model-value="setValue"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
-        <slot :name="name" v-bind="{ ...data, isOpen }" />
+        <slot :name="name" v-bind="{ ...data, open: openSelect, close: closeSelect, toggle: toggleSelect }" />
       </template>
     </PSelectOptions>
   </PPopOver>

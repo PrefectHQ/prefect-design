@@ -4,7 +4,7 @@
   </div>
   <teleport v-if="visible" :to="container">
     <div ref="content" class="p-pop-over-content" :style="styles">
-      <slot v-bind="{ close, visible }" />
+      <slot v-bind="{ close }" />
     </div>
   </teleport>
 </template>
