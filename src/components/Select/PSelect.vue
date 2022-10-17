@@ -22,10 +22,7 @@
           @click="toggleSelect"
         >
           <template v-for="(index, name) in $slots" #[name]="data">
-            <slot :name="name" v-bind="{ ...data, isOpen }" />
-          </template>
-          <template #default="scope">
-            <slot v-bind="scope" :is-open="isOpen" :open="openSelect" :close="closeSelect" />
+            <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect }" />
           </template>
         </PSelectButton>
       </template>
