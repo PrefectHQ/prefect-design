@@ -59,6 +59,7 @@ import { PTextInput, install as installPTextInput } from './TextInput'
 import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
+import { PVirtualScroller, install as installPVirtualScroller } from './VirtualScroller'
 import { PWindow, install as installPWindow } from './Window'
 import { PWizard, install as installPWizard } from './Wizard'
 
@@ -130,6 +131,7 @@ export {
   PToast,
   PToggle,
   PTypeAhead,
+  PVirtualScroller,
   PWindow,
   PWizard
 }
@@ -196,6 +198,7 @@ export const installs = [
   installPToast,
   installPToggle,
   installPTypeAhead,
+  installPVirtualScroller,
   installPWindow,
   installPWizard,
 ]
@@ -268,6 +271,7 @@ declare module '@vue/runtime-core' {
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
+    PVirtualScroller: typeof PVirtualScroller,
     PWindow: typeof PWindow,
     PWizard: typeof PWizard,
   }
