@@ -42,6 +42,7 @@ export const components: Section = {
   toggle: () => import ('./Toggle.vue'),
   typeAhead: () => import ('./TypeAhead.vue'),
   typography: () => import ('./Typography.vue'),
+  virtualScroller: () => import ('./VirtualScroller.vue'),
   window: () => import ('./Window.vue'),
   wizard: () => import ('./Wizard.vue'),
 }
