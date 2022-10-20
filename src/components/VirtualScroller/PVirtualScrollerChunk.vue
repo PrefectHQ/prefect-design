@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="virtual-scroller-chunk" :style="styles">
+  <div ref="el" class="p-virtual-scroller-chunk" :style="styles">
     <template v-if="visible">
       <slot />
     </template>
