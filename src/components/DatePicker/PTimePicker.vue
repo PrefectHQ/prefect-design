@@ -69,7 +69,7 @@
       return parseInt(format(selectedDate.value, 'mm'))
     },
     set(value: SelectModelValue) {
-      selectedDate.value = applyMinutes(selectedDate.value, parseInt(value))
+      selectedDate.value = applyMinutes(selectedDate.value, value as number)
     },
   })
 
