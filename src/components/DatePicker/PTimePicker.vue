@@ -51,7 +51,9 @@
       return props.modelValue ?? startOfMinute(new Date())
     },
     set(value: Date) {
-      emits('update:modelValue', keepDateInRange(value, range.value))
+      const withoutSeconds = startOfMinute(value)
+
+      emits('update:modelValue', keepDateInRange(withoutSeconds, range.value))
     },
   })
 
