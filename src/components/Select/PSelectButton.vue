@@ -45,7 +45,9 @@
 
         <template v-else>
           <div class="p-select-button__value p-select-button__value--empty">
-            {{ emptyMessage }}
+            <slot name="empty-message">
+              {{ emptyMessage }}
+            </slot>
           </div>
         </template>
       </button>
