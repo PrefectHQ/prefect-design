@@ -48,12 +48,10 @@
 
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? new Date()
+      return props.modelValue ?? startOfMinute(new Date())
     },
     set(value: Date) {
-      const valueWithoutSeconds = startOfMinute(value)
-
-      emits('update:modelValue', keepDateInRange(valueWithoutSeconds, range.value))
+      emits('update:modelValue', keepDateInRange(value, range.value))
     },
   })
 
