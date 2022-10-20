@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { endOfDay, format, set, setHours, setMinutes, startOfDay } from 'date-fns'
+  import { endOfDay, format, set, setHours, setMinutes, startOfMinute, startOfDay } from 'date-fns'
   import { computed } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
   import { SelectModelValue } from '@/types/selectOption'
@@ -48,7 +48,7 @@
 
   const selectedDate = computed({
     get() {
-      return props.modelValue ?? new Date()
+      return props.modelValue ?? startOfMinute(new Date())
     },
     set(value: Date) {
       emits('update:modelValue', keepDateInRange(value, range.value))
@@ -69,7 +69,7 @@
       return parseInt(format(selectedDate.value, 'mm'))
     },
     set(value: SelectModelValue) {
-      selectedDate.value = setMinutes(selectedDate.value, value as number)
+      selectedDate.value = applyMinutes(selectedDate.value, value as number)
     },
   })
 
@@ -91,6 +91,10 @@
     }
 
     return setHours(date, hours + 12)
+  }
+
+  function applyMinutes(date: Date, minutes: number): Date {
+    return setMinutes(date, minutes)
   }
 
   function applyMeridiem(date: Date, meridiem: 'AM' | 'PM'): Date {
