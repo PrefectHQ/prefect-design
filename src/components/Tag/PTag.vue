@@ -33,7 +33,7 @@
   inline-flex
   items-center
   rounded-full
-  bg-gray-100
+  bg-gray-200
   text-black
   px-2.5
   py-0.5
@@ -48,7 +48,7 @@
 .p-tag__dismiss { @apply
   hover:text-black
   hover:cursor-pointer
-  text-gray-500
+  text-gray-600
 }
 
 .p-tag__dismiss .p-icon { @apply

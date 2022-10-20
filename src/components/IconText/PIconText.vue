@@ -1,7 +1,7 @@
 <template>
-  <div class="p-text">
-    <PIcon :icon="icon" class="p-text__icon" />
-    <div class="p-text__label">
+  <div class="p-icon-text">
+    <PIcon :icon="icon" class="p-icon-text__icon" />
+    <div class="p-icon-text__label">
       <slot>
         {{ text }}
       </slot>
@@ -20,20 +20,24 @@
 </script>
 
 <style>
-.p-text { @apply
+.p-icon-text { @apply
   flex
   items-start
-  gap-1
+  gap-0.5
 }
 
-.p-text__icon { @apply
+.p-icon-text__icon { @apply
   text-slate-400
   w-4
   flex-shrink-0
   h-4
 }
 
-.p-text__label { @apply
+.p-link .p-icon-text__icon {
+  color: inherit
+}
+
+.p-icon-text__label { @apply
   text-xs
   leading-4
   font-normal
