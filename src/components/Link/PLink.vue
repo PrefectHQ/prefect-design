@@ -40,7 +40,6 @@
   text-primary
   font-semibold
   cursor-pointer
-  whitespace-nowrap
   hover:underline
 }
 
