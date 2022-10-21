@@ -33,9 +33,12 @@
 <style>
 .p-pager { @apply
   flex
+  flex-col
+  flex-wrap
   items-center
   justify-between
   gap-2
+  sm:flex-row
 }
 
 .p-pager__context { @apply
@@ -49,6 +52,7 @@
 
 .p-pager__buttons { @apply
   flex
+  flex-wrap
   items-center
   gap-2
 }
