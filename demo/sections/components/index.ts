@@ -26,6 +26,7 @@ export const components: Section = {
   nativeSelect: () => import ('./NativeSelect.vue'),
   numberInput: () => import ('./NumberInput.vue'),
   overflowMenu: () => import ('./OverflowMenu.vue'),
+  pager: () => import('./Pager.vue'),
   popOver: () => import ('./PopOver.vue'),
   radioGroup: () => import ('./RadioGroup.vue'),
   select: () => import ('./Select.vue'),
