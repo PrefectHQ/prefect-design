@@ -11,7 +11,7 @@
       <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
         <template v-if="media.hover">
           <PDateButton
-            :date="adjustedSelectedDate"
+            :date="internalModelValue"
             :class="classes.control"
             :disabled="disabled"
             @click="openPicker"
@@ -19,7 +19,7 @@
         </template>
         <template v-else>
           <PNativeDateInput
-            v-model="adjustedSelectedDate"
+            v-model="internalModelValue"
             class="p-date-input__native"
             v-bind="{ min, max, disabled }"
           />
@@ -28,7 +28,7 @@
     </template>
 
     <PDatePicker
-      v-model="adjustedSelectedDate"
+      v-model="internalModelValue"
       class="p-date-input__date-picker"
       :show-time="showTime"
       :clearable="clearable"
@@ -50,7 +50,6 @@
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
   import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import { useAdjustedDate, useUnadjustedDate } from '@/compositions/useAdjustedDate'
   import { keys } from '@/types'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
@@ -72,21 +71,12 @@
 
   const popOver = ref<typeof PPopOver>()
 
-  const selectedDate = computed({
+  const internalModelValue = computed({
     get() {
       return props.modelValue ?? null
     },
     set(value: Date | null) {
       emits('update:modelValue', keepDateInRange(value, { min: props.min, max: props.max }))
-    },
-  })
-
-  const adjustedSelectedDate = computed({
-    get() {
-      return selectedDate.value ? useAdjustedDate(selectedDate.value) : null
-    },
-    set(value: Date | null) {
-      emits('update:modelValue', value ? useUnadjustedDate(value) : null)
     },
   })
 
