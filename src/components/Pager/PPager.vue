@@ -1,13 +1,18 @@
 <template>
   <div class="p-pager">
     <p class="p-pager__context">
-      Showing page <span class="p-pager__page">{{ page }}</span> of <span class="p-pager__page">{{ pages }}</span>
+      <template v-if="pages">
+        Showing page <span class="p-pager__page">{{ page }}</span> of <span class="p-pager__page">{{ pages }}</span>
+      </template>
+      <template v-else>
+        Page <span class="p-pager__page">{{ page }}</span>
+      </template>
     </p>
     <div class="p-pager__buttons">
-      <p-button inset size="sm" :disabled="!showPrevious" @click="emit('previous')">
+      <p-button inset size="sm" :disabled="!showPrevious" @click="previous">
         <p-icon icon="ArrowSmLeftIcon" /> Previous
       </p-button>
-      <p-button inset size="sm" :disabled="!showNext" @click="emit('next')">
+      <p-button inset size="sm" :disabled="!showNext" @click="next">
         Next <p-icon icon="ArrowSmRightIcon" />
       </p-button>
     </div>
@@ -23,11 +28,19 @@
   }>()
 
   const emit = defineEmits<{
-    (event: 'next' | 'previous'): void,
+    (event: 'update:page', value: number): void,
   }>()
 
   const showPrevious = computed(() => props.page > 1)
   const showNext = computed(() => props.page < (props.pages ?? Infinity))
+
+  function previous(): void {
+    emit('update:page', props.page - 1)
+  }
+
+  function next(): void {
+    emit('update:page', props.page + 1)
+  }
 </script>
 
 <style>
