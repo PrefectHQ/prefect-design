@@ -1,6 +1,6 @@
 <template>
   <div class="welcome-page">
-    <CirclesIcon class="welcome-page__circles" />
+    <component :is="CirclesIcon" class="welcome-page__circles" />
     <p-icon class="welcome-page__logo-icon" icon="PrefectGradient" />
     <div class="welcome-page__intro">
       <p class="welcome-page__title">

@@ -8,7 +8,7 @@
 
     <div class="resizable-section__aside">
       <div class="resizable-section__handle" @mousedown="start" @mouseup="stop">
-        <ResizeIcon />
+        <component :is="ResizeIcon" />
       </div>
 
       <transition name="fade">
