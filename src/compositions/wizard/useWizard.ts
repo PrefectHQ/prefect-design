@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 import { computed, InjectionKey, provide, Ref, ref } from 'vue'
-import { WizardStep, UseWizard, ValidationState } from '../types'
-import { getStepKey } from '../utilities'
+import { WizardStep, UseWizard, ValidationState } from '@/types/wizard'
+import { getStepKey } from '@/utilities/wizard'
 
 export const useWizardKey: InjectionKey<UseWizard> = Symbol('UseWizard')
 
@@ -23,14 +23,14 @@ export function useWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
     goto(index - 1)
   }
 
-  function goto(key: string): void
-  function goto(index: number): void
-  function goto(step: WizardStep): void
-  function goto(keyIndexOrStep: WizardStep | string | number): void
-  function goto(keyIndexOrStep: WizardStep | string | number): void {
+  function goto(key: string): Promise<void>
+  function goto(index: number): Promise<void>
+  function goto(step: WizardStep): Promise<void>
+  function goto(keyIndexOrStep: WizardStep | string | number): Promise<void>
+  function goto(keyIndexOrStep: WizardStep | string | number): Promise<void> {
     const index = typeof keyIndexOrStep === 'number' ? getZeroBasedIndex(keyIndexOrStep) : getStepIndex(keyIndexOrStep)
 
-    new Promise<ValidationState[]>(resolve => {
+    return new Promise<ValidationState[]>(resolve => {
       loading.value = true
 
       if (index < 0 || index >= stepsRef.value.length) {

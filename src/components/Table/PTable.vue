@@ -2,43 +2,43 @@
   <div class="p-table">
     <table class="p-table__table">
       <slot>
-        <p-table-head>
+        <PTableHead>
           <slot name="header">
-            <p-table-row>
+            <PTableRow>
               <template v-for="column in visibleColumns" :key="column">
-                <p-table-header :style="getColumnStyle(column)">
+                <PTableHeader :style="getColumnStyle(column)">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
                   </slot>
-                </p-table-header>
+                </PTableHeader>
               </template>
-            </p-table-row>
+            </PTableRow>
           </slot>
-        </p-table-head>
-        <p-table-body>
+        </PTableHead>
+        <PTableBody>
           <template v-for="(row, rowIndex) in data" :key="rowIndex">
-            <p-table-row :class="getRowClasses(row, rowIndex)">
+            <PTableRow :class="getRowClasses(row, rowIndex)">
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
-                <p-table-data :class="getColumnClasses(column, getValue(row, column), columnIndex, row, rowIndex)">
+                <PTableData :class="getColumnClasses(column, getValue(row, column), columnIndex, row, rowIndex)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
                     {{ getValue(row, column) }}
                   </slot>
-                </p-table-data>
+                </PTableData>
               </template>
-            </p-table-row>
+            </PTableRow>
           </template>
           <template v-if="slots['empty-state'] && data.length === 0">
-            <p-table-row>
+            <PTableRow>
               <td :colspan="visibleColumns.length">
                 <slot name="empty-state" />
               </td>
-            </p-table-row>
+            </PTableRow>
           </template>
-        </p-table-body>
+        </PTableBody>
         <template v-if="slots.footer">
-          <p-table-foot>
+          <PTableFoot>
             <slot name="footer" />
-          </p-table-foot>
+          </PTableFoot>
         </template>
       </slot>
     </table>

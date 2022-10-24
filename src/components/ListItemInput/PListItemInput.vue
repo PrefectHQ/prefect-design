@@ -1,15 +1,15 @@
 <template>
-  <p-list-item class="list-item-input" v-on="{ mouseenter, mouseleave }">
+  <PListItem class="list-item-input" v-on="{ mouseenter, mouseleave }">
     <div class="list-item-input__control" :class="classes.control">
       <label class="list-item-input__checkbox">
-        <p-checkbox v-model="model" v-bind="{ value, disabled }" />
+        <PCheckbox v-model="model" v-bind="{ value, disabled }" />
       </label>
     </div>
 
     <div class="list-item-input__content">
       <slot />
     </div>
-  </p-list-item>
+  </PListItem>
 </template>
 
 <script lang="ts" setup>
@@ -83,7 +83,8 @@
 .list-item-input__content { @apply
   flex-grow
   py-3
-  px-4
+  pl-3
+  pr-4
   min-w-0
 }
 
@@ -91,7 +92,8 @@
   flex-grow-0
   flex-shrink-0
   flex
-  w-1
+  w-10
+  sm:w-2
   justify-self-stretch
   overflow-hidden
   transition-all
@@ -104,12 +106,15 @@
 
 .list-item-input__checkbox { @apply
   justify-center
-  items-center
+  items-start
+  sm:items-center
   flex
   flex-shrink-0
   justify-self-stretch
   bg-gray-200
   w-10
+  pt-3
+  sm:pt-0
   cursor-pointer
 }
 </style>

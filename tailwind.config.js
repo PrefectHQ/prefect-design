@@ -27,8 +27,8 @@ module.exports = {
         prefect: prefectPalette,
       },
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
+        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+        mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],
       },
     },
   },

@@ -6,9 +6,9 @@
   >
     <slot name="pre-options" />
     <template v-if="options.length">
-      <ul class="p-select-options__options">
-        <template v-for="(option, index) in options" :key="index">
-          <li
+      <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
+        <template #default="{ item: option, index }">
+          <div
             ref="optionElements"
             @mouseenter="indexValue = index"
             @click.stop="handleOptionClick(option)"
@@ -27,9 +27,9 @@
                 :highlighted="indexValue === index"
               />
             </PSelectOption>
-          </li>
+          </div>
         </template>
-      </ul>
+      </PVirtualScroller>
     </template>
     <template v-else>
       <slot name="options-empty">
@@ -45,10 +45,11 @@
 <script lang="ts" setup>
   import { computed, ref, watch, watchEffect } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
+  import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: SelectOption[],
     highlightedIndex: number,
   }>()

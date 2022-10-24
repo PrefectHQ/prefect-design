@@ -2,7 +2,7 @@
   <section class="p-tabs">
     <div v-if="media.sm" class="p-tabs--not-mobile">
       <ul class="p-tabs--not-mobile__tabs" role="tablist" aria-label="Tab">
-        <p-tab
+        <PTab
           v-for="(tab, index) in innerTabs"
           :id="kebabCase(tab.label)"
           :key="tab.label"
@@ -18,12 +18,12 @@
           >
             {{ tab.label }}
           </slot>
-        </p-tab>
+        </PTab>
       </ul>
     </div>
     <div v-else class="p-tabs--mobile">
       <label for="tabs" class="p-tabs--mobile__label">Select a tab</label>
-      <p-select
+      <PSelect
         id="tabs"
         v-model="selectedTab"
         :options="options"
@@ -36,7 +36,7 @@
         >
           {{ tab.label }}
         </option>
-      </p-select>
+      </PSelect>
     </div>
     <template v-for="tab in innerTabs" :key="tab">
       <section
@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted, computed, watchEffect } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import PTab from '@/components/Tab/PTab.vue'
   import { Tab, areTabs } from '@/types/tabs'
@@ -63,10 +63,11 @@
 
   const props = defineProps<{
     tabs: string[] | Tab[],
+    selected?: string,
   }>()
 
   const emits = defineEmits<{
-    (event: 'tab', value: string | Tab): void,
+    (event: 'tab' | 'update:selected', value: string | Tab): void,
   }>()
 
   const innerTabs = computed<Tab[]>(() => {
@@ -85,6 +86,7 @@
     selectedTab.value = tab.label
 
     emits('tab', value)
+    emits('update:selected', value)
   }
 
   function handleKeyDown(tab: Tab): void {
@@ -104,8 +106,18 @@
   }
 
   onMounted(() => {
-    const [firstTab] = innerTabs.value
-    selectedTab.value = firstTab.label
+    if (props.selected) {
+      selectedTab.value = props.selected
+    } else {
+      const [firstTab] = innerTabs.value
+      selectedTab.value = firstTab.label
+    }
+  })
+
+  watchEffect(() => {
+    if (props.selected) {
+      selectedTab.value = props.selected
+    }
   })
 </script>
 
@@ -122,7 +134,6 @@
   flex
   items-center
   -mb-px
-  cursor-pointer;
 }
 
 .p-tabs__content {

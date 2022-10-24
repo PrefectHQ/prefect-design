@@ -12,7 +12,9 @@
         v-bind="attrs"
       >
         <span class="p-date-button__value">
-          {{ displayValue }}
+          <slot>
+            {{ displayValue }}
+          </slot>
         </span>
       </button>
     </template>

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useWizardStep } from '@/components/Wizard/compositions'
+  import { useWizardStep } from '@/compositions/wizard'
   import { computed } from 'vue'
 
   const props = defineProps<{

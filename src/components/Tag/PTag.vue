@@ -1,13 +1,13 @@
 <template>
   <span class="p-tag">
     <div v-if="icon" class="p-tag__icon">
-      <p-icon :icon="icon" />
+      <PIcon :icon="icon" />
     </div>
 
     <slot>{{ label }}</slot>
 
     <div v-if="dismissible" class="p-tag__dismiss" @click.stop="emits('dismiss')">
-      <p-icon icon="XIcon" />
+      <PIcon icon="XIcon" />
     </div>
   </span>
 </template>
@@ -33,7 +33,7 @@
   inline-flex
   items-center
   rounded-full
-  bg-gray-100
+  bg-gray-200
   text-black
   px-2.5
   py-0.5
@@ -48,7 +48,7 @@
 .p-tag__dismiss { @apply
   hover:text-black
   hover:cursor-pointer
-  text-gray-500
+  text-gray-600
 }
 
 .p-tag__dismiss .p-icon { @apply

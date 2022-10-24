@@ -2,14 +2,14 @@
   <div aria-live="assertive" class="p-toast-container">
     <transition-group name="toast">
       <div v-for="{ id, message, dismissible, timeout, type, dismiss } in queue" :key="id" class="p-toast-container__toast">
-        <p-toast v-bind="{ dismissible, timeout, type }" @close="dismiss">
+        <PToast v-bind="{ dismissible, timeout, type }" @close="dismiss">
           <template v-if="isStringMessage(message)">
             {{ message }}
           </template>
           <template v-else>
             <component :is="message" />
           </template>
-        </p-toast>
+        </PToast>
       </div>
     </transition-group>
   </div>

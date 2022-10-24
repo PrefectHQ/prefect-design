@@ -38,20 +38,14 @@
         <slot name="options-empty" v-bind="scope">
           <template v-if="typedValue">
             <span>No matches for "{{ typedValue }}"</span>
-            <p-button secondary size="sm" @click.stop="typedValue = null">
+            <PButton secondary size="sm" @click.stop="typedValue = null">
               See All Options
-            </p-button>
+            </PButton>
           </template>
         </slot>
       </div>
     </template>
 
-    <template #default="scope">
-      <slot v-bind="scope" />
-    </template>
-    <template #post-options="scope">
-      <slot name="post-options" v-bind="scope" />
-    </template>
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -60,13 +54,14 @@
 
 <script lang="ts" setup>
   import { computed, ref, nextTick, withDefaults } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
-  import { isSelectOption, optionStartsWith, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, optionIncludes, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
-    modelValue: string | number | null | SelectModelValue[] | undefined,
-    options: (string | number | SelectOption)[],
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
+    options: (string | number | boolean | SelectOption)[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,
     placeholder?: string,
@@ -132,7 +127,8 @@
     return options
   })
 
-  const filteredSelectOptions = computed(() => selectOptionsWithUnknown.value.filter(option => optionStartsWith(option, typedValue.value)))
+  const filteredSelectOptions = computed(() => selectOptionsWithUnknown.value.filter(option => optionIncludes(option, typedValue.value)))
+
   function filterOptions(option: SelectOption): boolean {
     return filteredSelectOptions.value.includes(option)
   }

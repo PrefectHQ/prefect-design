@@ -6,6 +6,7 @@ import { PButtonGroup, install as installPButtonGroup } from './ButtonGroup'
 import { PCalendar, install as installPCalendar } from './Calendar'
 import { PCard, install as installPCard } from './Card'
 import { PCheckbox, install as installPCheckbox } from './Checkbox'
+import { PCheckboxGroup, install as installPCheckboxGroup } from './CheckboxGroup'
 import { PCode, install as installPCode } from './Code'
 import { PCombobox, install as installPCombobox } from './Combobox'
 import { PContent, install as installPContent } from './Content'
@@ -15,6 +16,7 @@ import { PContextNavItem, install as installPContextNavItem } from './ContextNav
 import { PContextSidebar, install as installPContextSidebar } from './ContextSidebar'
 import { PDateInput, install as installPDateInput } from './DateInput'
 import { PDatePicker, install as installPDatePicker } from './DatePicker'
+import { PDateRangeInput, install as installPDateRangeInput } from './DateRangeInput'
 import { PDivider, install as installPDivider } from './Divider'
 import { PEmptyResults, install as installPEmptyResults } from './EmptyResults'
 import { PEmptyState, install as installPEmptyState } from './EmptyState'
@@ -38,6 +40,8 @@ import { PNumberInput, install as installPNumberInput } from './NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from './OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from './OverflowMenuItem'
 import { PPopOver, install as installPPopOver } from './PopOver'
+import { PRadio, install as installPRadio } from './Radio'
+import { PRadioGroup, install as installPRadioGroup } from './RadioGroup'
 import { PSelect, install as installPSelect } from './Select'
 import { PSelectOption, install as installPSelectOption } from './SelectOption'
 import { PStepper, install as installPStepper } from './Stepper'
@@ -55,6 +59,7 @@ import { PTextInput, install as installPTextInput } from './TextInput'
 import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
+import { PVirtualScroller, install as installPVirtualScroller } from './VirtualScroller'
 import { PWindow, install as installPWindow } from './Window'
 import { PWizard, install as installPWizard } from './Wizard'
 
@@ -67,6 +72,7 @@ export {
   PCalendar,
   PCard,
   PCheckbox,
+  PCheckboxGroup,
   PCode,
   PCombobox,
   PContent,
@@ -76,6 +82,7 @@ export {
   PContextSidebar,
   PDateInput,
   PDatePicker,
+  PDateRangeInput,
   PDivider,
   PEmptyResults,
   PEmptyState,
@@ -99,6 +106,8 @@ export {
   POverflowMenu,
   POverflowMenuItem,
   PPopOver,
+  PRadio,
+  PRadioGroup,
   PSelect,
   PSelectOption,
   PStepper,
@@ -122,6 +131,7 @@ export {
   PToast,
   PToggle,
   PTypeAhead,
+  PVirtualScroller,
   PWindow,
   PWizard
 }
@@ -135,6 +145,7 @@ export const installs = [
   installPCalendar,
   installPCard,
   installPCheckbox,
+  installPCheckboxGroup,
   installPCode,
   installPCombobox,
   installPContent,
@@ -144,6 +155,7 @@ export const installs = [
   installPContextSidebar,
   installPDateInput,
   installPDatePicker,
+  installPDateRangeInput,
   installPDivider,
   installPEmptyResults,
   installPEmptyState,
@@ -167,6 +179,8 @@ export const installs = [
   installPOverflowMenu,
   installPOverflowMenuItem,
   installPPopOver,
+  installPRadio,
+  installPRadioGroup,
   installPSelect,
   installPSelectOption,
   installPStepper,
@@ -184,6 +198,7 @@ export const installs = [
   installPToast,
   installPToggle,
   installPTypeAhead,
+  installPVirtualScroller,
   installPWindow,
   installPWizard,
 ]
@@ -198,6 +213,7 @@ declare module '@vue/runtime-core' {
     PCalendar: typeof PCalendar,
     PCard: typeof PCard,
     PCheckbox: typeof PCheckbox,
+    PCheckboxGroup: typeof PCheckboxGroup,
     PCode: typeof PCode,
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,
@@ -206,6 +222,7 @@ declare module '@vue/runtime-core' {
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
+    PDateRangeInput: typeof PDateRangeInput,
     PDivider: typeof PDivider,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
@@ -229,6 +246,8 @@ declare module '@vue/runtime-core' {
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
     PPopOver: typeof PPopOver,
+    PRadio: typeof PRadio,
+    PRadioGroup: typeof PRadioGroup,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
     PStepper: typeof PStepper,
@@ -252,6 +271,7 @@ declare module '@vue/runtime-core' {
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
+    PVirtualScroller: typeof PVirtualScroller,
     PWindow: typeof PWindow,
     PWizard: typeof PWizard,
   }

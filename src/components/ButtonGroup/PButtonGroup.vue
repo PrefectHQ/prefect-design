@@ -1,7 +1,7 @@
 <template>
   <div class="p-button-group">
     <template v-for="button in options" :key="button.label">
-      <p-button
+      <PButton
         :disabled="button.disabled"
         :size="size"
         :inset="button.value !== modelValue"
@@ -10,13 +10,14 @@
         @click="select(button.value)"
       >
         {{ button.label }}
-      </p-button>
+      </PButton>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
   import { SelectModelValue, ButtonGroupOption, Size } from '@/types'
 
   const props = withDefaults(defineProps<{

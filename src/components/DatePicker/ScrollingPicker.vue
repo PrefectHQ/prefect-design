@@ -22,8 +22,8 @@
   import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | undefined,
-    options: (string | number | SelectOption)[],
+    modelValue: string | number | boolean | null | undefined,
+    options: (string | number | boolean | SelectOption)[],
     preventFocus?: boolean,
   }>()
 

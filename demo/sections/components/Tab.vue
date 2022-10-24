@@ -5,7 +5,7 @@
     </template>
 
     <template #tab>
-      <p-tabs :tabs="tabs">
+      <p-tabs v-model:selected="selectedTab" :tabs="tabs">
         <template #tab-one-heading="{ tab }">
           <p-icon icon="Prefect" class="w-4 h-4 mr-2" />
           <span>{{ tab }}</span>
@@ -29,13 +29,23 @@
           </div>
         </template>
       </p-tabs>
+
+      <p-button size="sm" class="mt-2" @click="changeToTab(tabs[2])">
+        Switch to third tab
+      </p-button>
     </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
   import { PTabs } from '@/components/Tabs'
+  import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const tabs = ['Tab One', 'Tab Two', 'Tab Three']
+
+  const selectedTab = ref()
+  const changeToTab = (tab: string): void => {
+    selectedTab.value = tab
+  }
 </script>
