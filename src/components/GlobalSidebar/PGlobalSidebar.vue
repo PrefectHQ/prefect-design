@@ -11,13 +11,11 @@
 </template>
 
 <style>
-.p-global-sidebar {
-  @apply
+.p-global-sidebar { @apply
   bg-slate-800
   sticky
   top-0
   h-16
-  w-screen
   flex
   flex-row
   items-center
@@ -30,8 +28,7 @@
   lg:py-5
 }
 
-.p-global-sidebar__nav-links {
-  @apply
+.p-global-sidebar__nav-links { @apply
   flex
   items-center
   gap-4

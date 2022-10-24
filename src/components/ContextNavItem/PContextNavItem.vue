@@ -5,7 +5,7 @@
     :to="to"
   >
     <template v-if="icon">
-      <p-icon :icon="icon" class="p-context-nav-item__icon" />
+      <PIcon :icon="icon" class="p-context-nav-item__icon" />
     </template>
     <span>{{ title }}</span>
   </router-link>

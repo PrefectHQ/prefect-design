@@ -2,20 +2,20 @@
   <div class="p-context-accordion-item">
     <button type="button" class="p-context-accordion-item__header" :class="classes.header" @click="toggle">
       <template v-if="icon">
-        <p-icon :icon="icon" class="p-context-accordion-item__icon" />
+        <PIcon :icon="icon" class="p-context-accordion-item__icon" />
       </template>
       <div class="p-context-accordion-item__title">
         {{ title }}
       </div>
       <template v-if="hasChildren">
-        <p-icon
+        <PIcon
           icon="ChevronRightIcon"
           class="p-context-accordion-item__indicator"
           :class="classes.indicator"
         />
       </template>
     </button>
-    <p-auto-height-transition>
+    <PAutoHeightTransition>
       <div v-if="open" class="p-context-accordion-item__contents">
         <slot />
         <template v-for="(item, index) in children" :key="index">
@@ -28,13 +28,14 @@
           </router-link>
         </template>
       </div>
-    </p-auto-height-transition>
+    </PAutoHeightTransition>
   </div>
 </template>
 
 <script setup lang="ts">
   import { ref, computed, useSlots, watch } from 'vue'
   import { useRoute } from 'vue-router'
+  import PAutoHeightTransition from '@/components/AutoHeightTransition/PAutoHeightTransition.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
   import { Icon } from '@/types/icon'

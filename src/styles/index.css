@@ -1,5 +1,5 @@
-@import "https://rsms.me/inter/inter.css";
-@import 'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap';
+@import "@fontsource/inconsolata/variable.css";
+@import "@fontsource/inter/variable.css";
 
 @tailwind base;
 @tailwind components;

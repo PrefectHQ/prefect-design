@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { isDate, isValid } from 'date-fns'
   import { computed, useSlots } from 'vue'
 
   const slots = useSlots()
@@ -31,6 +32,10 @@
 
   const isDefined = (val: unknown): boolean => {
     if (typeof val === 'object' && val !== null) {
+      if (isDate(val)) {
+        return isValid(val)
+      }
+
       if (Array.isArray(val)) {
         return val.length > 0
       }

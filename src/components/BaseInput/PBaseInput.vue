@@ -29,7 +29,7 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import PLoadingIcon from '@/components/LoadingIcon/LoadingIcon.vue'
+  import { PLoadingIcon } from '@/components/LoadingIcon'
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
   import { asArray } from '@/utilities'
@@ -75,6 +75,7 @@
   border-gray-300
   shadow-sm
   rounded-md
+  font-normal
 }
 
 .p-base-input--disabled,
@@ -107,6 +108,10 @@
   border-red-600
   focus-within:border-red-600
   focus-within:ring-red-600
+}
+
+.p-base-input--failed {
+  scroll-margin: var(--prefect-scroll-margin);
 }
 
 .p-base-input__failed-icon { @apply

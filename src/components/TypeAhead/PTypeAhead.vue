@@ -20,7 +20,7 @@
         @click="handleInputClick"
       >
         <template v-for="(index, name) in $slots" #[name]="data">
-          <slot :name="name" v-bind="data" />
+          <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect }" />
         </template>
       </PTextInput>
     </template>
@@ -33,17 +33,8 @@
       @keydown="handleKeydown"
       @update:model-value="setValue"
     >
-      <template #pre-options="scope">
-        <slot name="pre-options" v-bind="scope" />
-      </template>
-      <template #option="scope">
-        <slot name="option" v-bind="scope" />
-      </template>
-      <template #options-empty="scope">
-        <slot name="options-empty" v-bind="scope" />
-      </template>
-      <template #post-options="scope">
-        <slot name="post-options" v-bind="scope" />
+      <template v-for="(index, name) in $slots" #[name]="data">
+        <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
       </template>
     </PSelectOptions>
   </PPopOver>
@@ -65,7 +56,7 @@
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, isSelectOption, optionStartsWith, SelectModelValue } from '@/types/selectOption'
+  import { SelectOption, isSelectOption, optionIncludes, SelectModelValue } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -108,7 +99,7 @@
     })
   })
 
-  const filteredSelectOptions = computed(() => selectOptions.value.filter(option => optionStartsWith(option, internalValue.value)))
+  const filteredSelectOptions = computed(() => selectOptions.value.filter(option => optionIncludes(option, internalValue.value)))
 
   const classes = computed(() => ({
     control: {

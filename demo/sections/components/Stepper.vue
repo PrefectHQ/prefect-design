@@ -3,7 +3,7 @@
     title="Stepper"
     :demos="[
       { title: 'Min and Max Props' },
-      { title: 'Step Prop' },
+      { title: 'Step Size' },
     ]"
   >
     <template #description>
@@ -39,7 +39,7 @@
       </div>
     </template>
 
-    <template #step-prop>
+    <template #step-size>
       <div class="stepper__demo">
         <p-stepper
           v-model="stepValue"
@@ -72,7 +72,7 @@
 
   const min = ref<number | null>(null)
   const max = ref<number | null>(null)
-  const step = ref<number>(1)
+  const step = ref<number>(0.25)
 
   const minMaxValue = ref<number | null>(null)
   const stepValue = ref<number | null>(null)
@@ -82,7 +82,12 @@
 .stepper__demo { @apply
   flex
   flex-col
+  justify-start
   gap-4
+}
+
+.stepper__demo .p-stepper {
+  max-width: 120px;
 }
 
 .stepper__demo-options { @apply

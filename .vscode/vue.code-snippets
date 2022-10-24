@@ -43,6 +43,36 @@
         ],
         "description": "vue-demo"
     },
+    "vue-demo-with-state": {
+        "scope": "vue",
+        "prefix": "vue-demo-state",
+        "body": [
+            "<template>",
+            "  <ComponentPage title=\"${TM_FILENAME_BASE/(^[A-Z][a-z]*|[a-z])([A-Z])?/${1}${2:+ }${2}/g}\" :demos=\"[{ title: '${TM_FILENAME_BASE/(^[A-Z][a-z]*|[a-z])([A-Z])?/${1}${2:+ }${2}/g}' }]\">",
+            "    <template #description>",
+            "      This is where we add a short description of <p-code>p-${TM_FILENAME_BASE/(^[A-Z][a-z]*|[a-z])([A-Z])?/${1:/downcase}${2:+-}${2:/downcase}/g}</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.",
+            "",
+            "      <DemoState v-model:state=\"exampleState\" v-model:disabled=\"disabled\" />",
+            "    </template>",
+            "",
+            "    <template #${TM_FILENAME_BASE/(^[A-Z][a-z]*|[a-z])([A-Z])?/${1:/downcase}${2:+-}${2:/downcase}/g}>",
+            "      $1",
+            "    </template>",
+            "  </ComponentPage>",
+            "</template>",
+            "",
+            "<script lang=\"ts\" setup>",
+            "  import { State } from '@/types'",
+            "  import { ref } from 'vue'",
+            "  import ComponentPage from '@/demo/components/ComponentPage.vue'",
+            "  import DemoState from '@/demo/components/DemoState.vue'",
+            "",
+            "  const exampleState = ref<State>()",
+            "  const disabled = ref(false)",
+            "</script>"
+        ],
+        "description": "vue-demo"
+    },
     "template": {
         "scope": "vue",
         "prefix": "template",

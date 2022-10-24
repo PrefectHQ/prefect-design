@@ -1,5 +1,5 @@
 <template>
-  <div class="p-label">
+  <div class="p-label" :class="classes.root">
     <template v-if="slots.label || isDefined(label) || slots.description || isDefined(description)">
       <div class="p-label__header">
         <template v-if="slots.label || isDefined(label)">
@@ -23,7 +23,7 @@
     <div class="p-label__body">
       <slot :id="id" />
     </div>
-    <div v-if="slots.message || isDefined(message)" class="p-label__message" :class="classes">
+    <div v-if="slots.message || isDefined(message)" class="p-label__message" :class="classes.message">
       <slot name="message">
         <span>
           {{ message }}
@@ -53,7 +53,12 @@
   const id = computed(() => props.for ?? randomId())
 
   const classes = computed(() => ({
-    'p-label__message--failed': failed.value,
+    root: {
+      'p-label--failed': failed.value,
+    },
+    message: {
+      'p-label__message--failed': failed.value,
+    },
   }))
 
   function isDefined(value: string | undefined): boolean {
@@ -70,6 +75,10 @@
   flex
   flex-col
   gap-y-1
+}
+
+.p-label--failed {
+  scroll-margin: var(--prefect-scroll-margin);
 }
 
 .p-label__header { @apply

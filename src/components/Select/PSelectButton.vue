@@ -45,7 +45,9 @@
 
         <template v-else>
           <div class="p-select-button__value p-select-button__value--empty">
-            {{ emptyMessage }}
+            <slot name="empty-message">
+              {{ emptyMessage }}
+            </slot>
           </div>
         </template>
       </button>
@@ -66,7 +68,7 @@
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | null | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: SelectOption[],
     emptyMessage?: string,
   }>()
