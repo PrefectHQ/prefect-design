@@ -39,6 +39,7 @@ import { PNativeSelect, install as installPNativeSelect } from './NativeSelect'
 import { PNumberInput, install as installPNumberInput } from './NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from './OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from './OverflowMenuItem'
+import { PPager, install as installPPager } from './Pager'
 import { PPopOver, install as installPPopOver } from './PopOver'
 import { PRadio, install as installPRadio } from './Radio'
 import { PRadioGroup, install as installPRadioGroup } from './RadioGroup'
@@ -105,6 +106,7 @@ export {
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
+  PPager,
   PPopOver,
   PRadio,
   PRadioGroup,
@@ -178,6 +180,7 @@ export const installs = [
   installPNumberInput,
   installPOverflowMenu,
   installPOverflowMenuItem,
+  installPPager,
   installPPopOver,
   installPRadio,
   installPRadioGroup,
@@ -245,6 +248,7 @@ declare module '@vue/runtime-core' {
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
+    PPager: typeof PPager,
     PPopOver: typeof PPopOver,
     PRadio: typeof PRadio,
     PRadioGroup: typeof PRadioGroup,
