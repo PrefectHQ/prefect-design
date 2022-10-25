@@ -23,7 +23,7 @@
 .p-icon-text { @apply
   flex
   items-start
-  gap-0.5
+  gap-1
 }
 
 .p-icon-text__icon { @apply
@@ -33,8 +33,9 @@
   h-4
 }
 
-.p-link .p-icon-text__icon {
-  color: inherit
+.p-link .p-icon-text__icon { @apply
+  text-inherit
+  opacity-70
 }
 
 .p-icon-text__label { @apply
