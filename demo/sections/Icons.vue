@@ -1,30 +1,44 @@
 <template>
   <ComponentPage title="Icons" :demos="[{ title: 'Icons' }]">
     <template #description>
-      The following icons are a combination of <p-link to="https://heroicons.com/">
+      The following icons are a combination of <PLink to="https://heroicons.com/">
         Hero Icons
-      </p-link> and custom icons added by Prefect.
+      </PLink> and custom icons added by Prefect.
     </template>
 
     <template #icons>
-      <p-text-input v-model="searchTerm" placeholder="Filter Icons">
+      <PTextInput v-model="searchTerm" placeholder="Filter Icons">
         <template #append>
-          <p-icon icon="SearchIcon" class="mr-2" />
+          <PIcon icon="SearchIcon" class="mr-2" />
         </template>
-      </p-text-input>
+      </PTextInput>
 
       <div class="icons-doc__icons">
         <template v-for="(icon, index) in icons" :key="index">
           <button type="button" :title="icon" @click="selectedIcon = icon">
-            <p-icon :icon="icon" class="icons-doc__icon" :class="classes.icon(icon)" />
+            <PIcon :icon="icon" class="icons-doc__icon" :class="classes.icon(icon)" />
           </button>
         </template>
 
         <template v-if="noResults">
           <div class="icons-doc__no-results">
-            Sorry, nothing for "{{ searchDebounced }}" <p-icon icon="EmojiSadIcon" class="icons-doc__no-results-icon" />
+            Sorry, nothing for "{{ searchDebounced }}" <PIcon icon="EmojiSadIcon" class="icons-doc__no-results-icon" />
           </div>
         </template>
+      </div>
+
+      <div class="icons-doc__size-preview">
+        <div class="icons-doc__size-selector">
+          <PLabel label="Icon Size">
+            <PRadioGroup v-model="sizeValue" :options="sizes" />
+          </PLabel>
+        </div>
+
+        <div class="icons-doc__icon-preview">
+          <template v-if="selectedIcon">
+            <PIcon :icon="selectedIcon" :size="sizeValue || undefined" />
+          </template>
+        </div>
       </div>
 
       <div class="icons-doc__code-snippet">
@@ -35,6 +49,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { PRadioGroup, PLabel, PIcon, PLink, PTextInput } from '@/components'
   import * as prefectIcons from '@/components/Icon/icons'
   import { HeroIcon, PrefectIcon } from '@/types'
   import * as heroIcons from '@heroicons/vue/solid'
@@ -48,7 +63,7 @@
   const icons = [...prefectIconKeys, ...heroIconKeys]
 
   const selectedIcon = ref<typeof icons[number]>()
-  const codeSnippet = computed(() => `<p-icon icon="${selectedIcon.value ?? '...'}" />`)
+  const codeSnippet = computed(() => `<p-icon icon="${selectedIcon.value ?? '...'}"${sizeValue.value ? ` size="${  sizeValue.value}"` : ''} />`)
 
   const searchTerm = ref('')
   const searchDebounced = useDebouncedRef(searchTerm, 100)
@@ -64,6 +79,9 @@
   function iconMatchesSearch(icon: string): boolean {
     return icon.toLowerCase().includes(searchDebounced.value.toLowerCase())
   }
+
+  const sizes = [{ label: 'default', value: '' }, { label: 'small', value: 'small' }, { label: 'large', value: 'large' }]
+  const sizeValue = ref<'small' | 'large' | ''>('')
 </script>
 
 <style>
@@ -104,5 +122,23 @@ text-slate-600
 .icons-doc__no-results-icon { @apply
   h-14
   w-14
+}
+
+.icons-doc__size-preview { @apply
+  py-4
+  flex
+  w-full
+}
+
+.icons-doc__size-selector { @apply
+  max-w-fit
+  px-8
+  py-4
+  bg-prefect-100
+}
+
+.icons-doc__icon-preview { @apply
+  h-full
+  m-auto
 }
 </style>

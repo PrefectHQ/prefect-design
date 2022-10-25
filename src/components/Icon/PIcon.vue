@@ -1,5 +1,5 @@
 <template>
-  <component :is="component" class="p-icon" />
+  <component :is="component" class="p-icon" :class="iconSizeClass" />
 </template>
 
 
@@ -13,6 +13,7 @@
   const props = defineProps<{
     icon: Icon,
     solid?: boolean,
+    size?: 'small' | 'large',
   }>()
 
   const component = computed(() => {
@@ -35,11 +36,23 @@
 
     return icons.includes(value)
   }
+
+  const iconSizeClass = computed(()=> props.size && `p-icon--${props.size}`)
 </script>
 
 <style>
 .p-icon { @apply
   w-5
   h-5
+}
+
+.p-icon--small { @apply
+  w-4
+  h-4
+}
+
+.p-icon--large { @apply
+  w-6
+  h-6
 }
 </style>
