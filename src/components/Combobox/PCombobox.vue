@@ -35,7 +35,7 @@
 
     <template #options-empty="scope">
       <div class="p-combobox__options-empty">
-        <slot name="combobox-options-empty" v-bind="scope">
+        <slot name="options-empty" v-bind="scope">
           <template v-if="typedValue">
             <span>No matches for "{{ typedValue }}"</span>
             <PButton secondary size="sm" @click.stop="typedValue = null">
