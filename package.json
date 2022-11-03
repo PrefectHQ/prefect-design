@@ -22,7 +22,11 @@
     "build:demo": "vite build --mode=demo",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "changelog": "auto-changelog --package --commit-limit 0"
+    "changelog": "auto-changelog --package --commit-limit 0",
+    "changelog:commit": "npm run changelog && git add -A && git commit -m 'Update CHANGELOG.md'",
+    "release:patch": "npm version patch && npm run changelog:commit",
+    "release:minor": "npm version minor && npm run changelog:commit",
+    "release:major": "npm version major && npm run changelog:commit'"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.es.js",
