@@ -15,3 +15,7 @@ export function getRouteName(route: RouteLocationRaw): string | undefined {
 export function isRouteLocationNamedRaw(route: RouteLocationRaw): route is RouteLocationNamedRaw {
   return !!(route as RouteLocationNamedRaw).name
 }
+
+export function isRouteExternal(route: RouteLocationRaw): boolean {
+  return typeof route === 'string' && route.startsWith('http')
+}

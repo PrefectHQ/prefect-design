@@ -1,5 +1,12 @@
 <template>
-  <button ref="el" type="button" class="p-button" :class="classes" :disabled="disabled || loading">
+  <component
+    :is="component"
+    ref="el"
+    class="p-button"
+    :class="classes"
+    :disabled="disabled || loading"
+    v-bind="componentProps"
+  >
     <div class="p-button__content">
       <template v-if="icon">
         <PIcon :icon="icon" class="p-button__icon" />
@@ -9,15 +16,17 @@
     <template v-if="loading">
       <PLoadingIcon class="p-button__loading-icon" />
     </template>
-  </button>
+  </component>
 </template>
 
 <script lang="ts" setup>
   import { computed, useSlots, PropType, ref } from 'vue'
+  import { RouteLocationRaw, RouterLink } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
   import { Icon } from '@/types/icon'
   import { Size } from '@/types/size'
+  import { isRouteExternal } from '@/utilities/router'
 
   type ButtonClass = 'primary' | 'secondary' | 'inset' | 'flat' | 'danger'
 
@@ -37,6 +46,10 @@
       type: String as PropType<Icon>,
       default: undefined,
     },
+    to: {
+      type: [String, Object] as PropType<RouteLocationRaw>,
+      default: undefined,
+    },
   })
 
   const slots = useSlots()
@@ -44,6 +57,33 @@
 
   defineExpose({
     el,
+  })
+
+  const component = computed(() => {
+    if (props.to) {
+      return isRouteExternal(props.to) ? 'a' : RouterLink
+    }
+
+    return 'button'
+  })
+
+  const componentProps = computed(() => {
+    if (component.value === 'a') {
+      return {
+        role: 'button',
+        href: props.to,
+      }
+    }
+
+    if (component.value === 'button') {
+      return {
+        type: 'button',
+      }
+    }
+
+    return {
+      to: props.to,
+    }
   })
 
   const classes = computed(() => ({
