@@ -82,6 +82,7 @@
     }
 
     return {
+      role: 'button',
       to: props.to,
     }
   })
