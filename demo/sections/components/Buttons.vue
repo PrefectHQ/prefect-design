@@ -17,17 +17,23 @@
     </template>
 
     <template #simple-buttons>
-      <div class="flex gap-1">
-        <p-button>something</p-button>
+      <div class="flex gap-1 flex-wrap">
+        <p-button>
+          something
+        </p-button>
+
         <p-button secondary>
           secondary
         </p-button>
+
         <p-button inset>
           inset
         </p-button>
+
         <p-button flat>
           flat
         </p-button>
+
         <p-button danger>
           danger
         </p-button>
@@ -35,7 +41,7 @@
     </template>
 
     <template #with-icons>
-      <div class="flex gap-1">
+      <div class="flex gap-1 flex-wrap">
         <p-button icon="BeakerIcon">
           icon with text
         </p-button>
@@ -59,7 +65,7 @@
     </template>
 
     <template #icons-only>
-      <div class="flex gap-1">
+      <div class="flex gap-1 flex-wrap">
         <p-button icon="BeakerIcon" />
         <p-button secondary icon="BeakerIcon" />
         <p-button inset icon="BeakerIcon" />
@@ -69,7 +75,7 @@
     </template>
 
     <template #icons-round>
-      <div class="flex gap-1">
+      <div class="flex gap-1 flex-wrap">
         <p-button rounded icon="BeakerIcon" />
         <p-button secondary rounded icon="BeakerIcon" />
         <p-button inset rounded icon="BeakerIcon" />
@@ -109,7 +115,7 @@
     </template>
 
     <template #disabled>
-      <div class="flex gap-1">
+      <div class="flex gap-1 flex-wrap">
         <p-button disabled>
           disabled
         </p-button>
@@ -123,7 +129,7 @@
     </template>
 
     <template #loading>
-      <div class="flex gap-1">
+      <div class="flex gap-1 flex-wrap">
         <p-button :loading="buttonLoading" icon="BeakerIcon">
           Loading Button
         </p-button>
