@@ -1,4 +1,5 @@
 export { default as Agent } from './agent.svg'
+export { default as Automation } from './automation.svg'
 export { default as AwaitingRetry } from './awaiting-retry.svg'
 export { default as Cancelled } from './cancelled.svg'
 export { default as Completed } from './completed.svg'
