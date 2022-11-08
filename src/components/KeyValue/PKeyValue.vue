@@ -5,46 +5,25 @@
         {{ label }}
       </slot>
     </div>
-    <div v-if="isDefined(value) || slots.value" class="p-key-value__value" :class="classes.value">
+    <div class="p-key-value__value" :class="classes.value">
       <slot name="value">
         {{ value }}
-      </slot>
-    </div>
-    <div v-else class="p-key-value__empty" :class="classes.empty">
-      <slot name="empty">
-        None
       </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { isDate, isValid } from 'date-fns'
-  import { computed, useSlots } from 'vue'
-
-  const slots = useSlots()
+  import { computed } from 'vue'
 
   const props = defineProps<{
     alternate?: boolean,
     label?: string,
     value?: unknown,
+    emptyText?: string,
   }>()
 
-  const isDefined = (val: unknown): boolean => {
-    if (typeof val === 'object' && val !== null) {
-      if (isDate(val)) {
-        return isValid(val)
-      }
-
-      if (Array.isArray(val)) {
-        return val.length > 0
-      }
-
-      return Object.keys(val).length > 0
-    }
-
-    return typeof val !== 'undefined' && val !== null && val !== ''
-  }
+  const emptyText = computed(()=> props.emptyText ?`'${props.emptyText}'` : '"None"')
 
   const classes = computed(() => {
     return {
@@ -56,9 +35,6 @@
       },
       value: {
         'p-key-value__value--alt': props.alternate,
-      },
-      empty: {
-        'p-key-value__empty--alt': props.alternate,
       },
     }
   })
@@ -84,8 +60,8 @@
 .p-key-value__value {
   overflow-wrap: anywhere;
 }
-
-.p-key-value__empty {
+.p-key-value__value:empty::after {
+  content: v-bind(emptyText);
   @apply
   text-slate-400
 }

@@ -5,7 +5,7 @@
       { title: 'Basic' },
       { title: 'Using Slots' },
       { title: 'Empty Value' },
-      { title: 'Empty Value Slot' },
+      { title: 'Empty Text Prop' },
       { title: 'Dates' },
     ]"
   >
@@ -36,12 +36,8 @@
       <p-key-value label="This should say 'None' below" :alternate="alternate" />
     </template>
 
-    <template #empty-value-slot>
-      <p-key-value label="This uses an empty slot" :alternate="alternate">
-        <template #empty>
-          None - <span class="key-value-section__turtles">Ninja turtles</span>
-        </template>
-      </p-key-value>
+    <template #empty-text-prop>
+      <p-key-value label="This uses the empty-text prop" :alternate="alternate" empty-text="N/A" />
     </template>
 
     <template #dates>
