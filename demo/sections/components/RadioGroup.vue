@@ -45,7 +45,7 @@
 
   const value = ref(null)
   const slotValue = ref(null)
-  const options = ['first', 'second', 'third']
+  const options = ['first option', 'second option', 'third option']
 </script>
 
 <style>

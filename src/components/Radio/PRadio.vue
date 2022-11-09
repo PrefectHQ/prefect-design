@@ -78,7 +78,6 @@
   flex
   flex-row
   items-center
-  w-min
   gap-2
 }
 
