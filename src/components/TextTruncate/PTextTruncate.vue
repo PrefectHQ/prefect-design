@@ -1,10 +1,8 @@
 <template>
   <div class="p-text-truncate">
+    <span v-bind="text" />
     <span>
-      {{ text }}
-    </span>
-    <span>
-      {{ actionText }}
+      {{ expanded ? actionText : "See Less" }}
     </span>
   </div>
 </template>
