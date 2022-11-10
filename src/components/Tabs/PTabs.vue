@@ -28,15 +28,7 @@
         v-model="selectedTab"
         :options="options"
         name="tabs"
-      >
-        <option
-          v-for="tab in innerTabs"
-          :key="kebabCase(tab.label)"
-          :selected="selectedTab === tab.label"
-        >
-          {{ tab.label }}
-        </option>
-      </PSelect>
+      />
     </div>
     <template v-for="tab in innerTabs" :key="tab">
       <section
