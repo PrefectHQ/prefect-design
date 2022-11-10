@@ -12,7 +12,8 @@
 <style>
 .p-layout-default {
   @apply
-  p-8
+  p-3
+  lg:p-8
   grid
   grid-rows-[max-content_max-content]
   gap-4
