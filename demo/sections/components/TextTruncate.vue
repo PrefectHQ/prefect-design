@@ -14,5 +14,5 @@
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const exampleText = ref('')
+  const exampleText = ref('Cupcake ipsum dolor sit amet. Chocolate pastry icing danish sweet roll marshmallow. Candy sweet roll brownie powder muffin liquorice pie candy canes I love. Jelly beans gingerbread lollipop lemon drops dragée sugar plum tart.')
 </script>

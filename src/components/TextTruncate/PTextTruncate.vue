@@ -10,18 +10,15 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, nextTick, withDefaults } from 'vue'
-  const props = withDefaults(defineProps<{
-    characterCount?: number,
+  import { computed, ref } from 'vue'
+  const props = defineProps<{
     text: string,
-    actionText?: string,
-  }>(), {
-    text: '',
-    characterCount: 70,
-    actionText: 'See more',
-  })
+    characterCount?: number | null,
+    actionText?: string | null,
+  }>()
 
-  const characterCount = computed(() => props.characterCount)
+  const characterCount = computed(() => props.characterCount ?? 70)
+  const actionText = computed(() => props.actionText ?? 'See More')
   const text = computed(() => props.text)
   const expanded = ref(false)
 </script>

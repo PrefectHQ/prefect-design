@@ -38,6 +38,7 @@ export const components: Section = {
   tagsInput: () => import ('./TagsInput.vue'),
   terminal: () => import ('./Terminal.vue'),
   textarea: () => import ('./Textarea.vue'),
+  textTruncate: () => import ('./TextTruncate.vue'),
   textInput: () => import ('./TextInput.vue'),
   toast: () => import ('./Toast.vue'),
   toggle: () => import ('./Toggle.vue'),
