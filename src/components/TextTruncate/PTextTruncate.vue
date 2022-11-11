@@ -1,7 +1,7 @@
 <template>
   <span class="p-text-truncate">
     {{ text }}
-    <span class="p-text-truncate--action-text" @click="expanded = !expanded">
+    <span v-if="!tooShort" class="p-text-truncate--action-text" @click="expanded = !expanded">
       {{ expanded ? collapseText : actionText }}
     </span>
   </span>
@@ -27,11 +27,15 @@
   const text = computed(() => {
     let txt = props.text
     let cc = props.characterCount ?? 70
-    // TODO : Create a checker for the character count being greater than the truncated amount
-    if (expanded.value) {
+    if (expanded.value || tooShort.value) {
       return txt
     }
     return `${txt.substring(0, cc)}...`
+  })
+  const tooShort = computed(() => {
+    let txt = props.text
+    let cc = props.characterCount ?? 70
+    return txt.length <= cc
   })
   const expanded = ref(false)
 </script>
