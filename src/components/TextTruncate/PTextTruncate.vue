@@ -28,16 +28,19 @@
     collapseText: 'See Less',
   })
 
+  const expanded = ref(false)
+  
   const text = computed(() => {
     if (expanded.value || tooShort.value) {
       return props.text
     }
+    
     return `${props.text.substring(0, props.characterCount).trim()}...`
   })
+  
   const tooShort = computed(() => {
     return props.text.length <= props.characterCount
   })
-  const expanded = ref(false)
 </script>
 
 <style>
