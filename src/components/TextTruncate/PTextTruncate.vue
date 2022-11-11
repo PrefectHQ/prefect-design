@@ -28,8 +28,6 @@
     collapseText: 'See Less',
   })
 
-  const actionText = computed(() => props.actionText)
-  const collapseText = computed(() => props.collapseText)
   const text = computed(() => {
     if (expanded.value || tooShort.value) {
       return props.text
