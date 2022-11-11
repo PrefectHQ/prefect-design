@@ -15,7 +15,8 @@
 <style>
 .p-layout-well {
   @apply
-  p-8
+  p-4
+  lg:p-8
   grid
   grid-cols-[1fr_1fr_250px]
   grid-rows-[max-content_max-content]
