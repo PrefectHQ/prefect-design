@@ -30,7 +30,7 @@
     if (expanded.value || tooShort.value) {
       return txt
     }
-    return `${txt.substring(0, cc)}...`
+    return `${txt.substring(0, cc).trim()}...`
   })
   const tooShort = computed(() => {
     let txt = props.text
