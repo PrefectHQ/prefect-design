@@ -14,28 +14,30 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
-  const props = defineProps<{
-    text: string,
-    characterCount?: number | null,
-    actionText?: string | null,
-    collapseText?: string | null,
-  }>()
+  import { computed, ref, withDefaults } from 'vue'
 
-  const actionText = computed(() => props.actionText ?? 'See More')
-  const collapseText = computed(() => props.collapseText ?? 'See Less')
+  const props = withDefaults(defineProps<{
+    text: string,
+    characterCount?: number,
+    actionText?: string,
+    collapseText?: string,
+  }>(), {
+    text: 'None',
+    characterCount: () => 70,
+    actionText: 'See More',
+    collapseText: 'See Less',
+  })
+
+  const actionText = computed(() => props.actionText)
+  const collapseText = computed(() => props.collapseText)
   const text = computed(() => {
-    let txt = props.text
-    let cc = props.characterCount ?? 70
     if (expanded.value || tooShort.value) {
-      return txt
+      return props.text
     }
-    return `${txt.substring(0, cc).trim()}...`
+    return `${props.text.substring(0, props.characterCount).trim()}...`
   })
   const tooShort = computed(() => {
-    let txt = props.text
-    let cc = props.characterCount ?? 70
-    return txt.length <= cc
+    return props.text.length <= props.characterCount
   })
   const expanded = ref(false)
 </script>
