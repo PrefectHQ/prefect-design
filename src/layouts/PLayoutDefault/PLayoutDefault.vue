@@ -12,7 +12,7 @@
 <style>
 .p-layout-default {
   @apply
-  p-3
+  p-4
   lg:p-8
   grid
   grid-rows-[max-content_max-content]

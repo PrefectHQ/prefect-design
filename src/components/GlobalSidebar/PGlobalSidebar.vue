@@ -20,8 +20,9 @@
   flex-row
   items-center
   justify-between
-  px-5
   z-10
+  px-4
+  lg:px-5
   lg:h-screen
   lg:w-16
   lg:flex-col
