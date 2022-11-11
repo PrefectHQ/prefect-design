@@ -1,11 +1,22 @@
 <template>
-  <div class="p-text-truncate">
-    <span v-bind="text" />
-    <span>
-      {{ expanded ? actionText : "See Less" }}
+  <span class="p-text-truncate">
+    {{ text }}
+    <span class="p-text-truncate--action-text" @click="expanded = !expanded">
+      {{ expanded ? collapseText : actionText }}
     </span>
-  </div>
+  </span>
 </template>
+
+<script lang="ts">
+  export default {
+    name: 'PTextTruncate',
+    filters: {
+      truncate: function(string: sring, value: number) {
+        return `${string.substring(0, value)  }...`
+      },
+    },
+  }
+</script>
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
@@ -13,16 +24,30 @@
     text: string,
     characterCount?: number | null,
     actionText?: string | null,
+    collapseText?: string | null,
   }>()
 
-  const characterCount = computed(() => props.characterCount ?? 70)
   const actionText = computed(() => props.actionText ?? 'See More')
-  const text = computed(() => props.text)
+  const collapseText = computed(() => props.collapseText ?? 'See Less')
+  const text = computed(() => {
+    let txt = props.text
+    let cc = props.characterCount ?? 70
+    // TODO : Create a checker for the character count being greater than the truncated amount
+    if (expanded.value) {
+      return txt
+    }
+    return `${txt.substring(0, cc)}...`
+  })
   const expanded = ref(false)
 </script>
 
 <style>
 .p-text-truncate {
-  @apply inline-flex;
+  @apply inline;
+}
+.p-text-truncate--action-text {
+  @apply cursor-pointer
+  underline
+  text-primary;
 }
 </style>

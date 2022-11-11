@@ -57,6 +57,7 @@ import { PTagWrapper, install as installPTagWrapper } from './TagWrapper'
 import { PTerminal, install as installPTerminal } from './Terminal'
 import { PTextarea, install as installPTextarea } from './Textarea'
 import { PTextInput, install as installPTextInput } from './TextInput'
+import { PTextTruncate, install as installPTextTruncate } from './TextTruncate'
 import { PToast, install as installPToast } from './Toast'
 import { PToggle, install as installPToggle } from './Toggle'
 import { PTypeAhead, install as installPTypeAhead } from './TypeAhead'
@@ -130,6 +131,7 @@ export {
   PTerminal,
   PTextarea,
   PTextInput,
+  PTextTruncate,
   PToast,
   PToggle,
   PTypeAhead,
@@ -198,6 +200,7 @@ export const installs = [
   installPTerminal,
   installPTextarea,
   installPTextInput,
+  installPTextTruncate,
   installPToast,
   installPToggle,
   installPTypeAhead,
@@ -272,6 +275,7 @@ declare module '@vue/runtime-core' {
     PTerminal: typeof PTerminal,
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,
+    PTextTruncate: typeof PTextTruncate,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,

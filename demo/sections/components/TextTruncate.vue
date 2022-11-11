@@ -4,8 +4,8 @@
       This is where we add a short description of <p-code>p-text-truncate</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
-    <template #multiline>
-      <p-text-truncate text="exampleText" />
+    <template #text-truncate>
+      <p-text-truncate :text="exampleText" />
     </template>
   </ComponentPage>
 </template>
