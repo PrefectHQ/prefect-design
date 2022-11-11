@@ -10,11 +10,6 @@
 <script lang="ts">
   export default {
     name: 'PTextTruncate',
-    filters: {
-      truncate: function(string: sring, value: number) {
-        return `${string.substring(0, value)  }...`
-      },
-    },
   }
 </script>
 
