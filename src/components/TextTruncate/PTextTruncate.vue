@@ -22,8 +22,8 @@
     actionText?: string,
     collapseText?: string,
   }>(), {
-    text: 'None',
-    characterCount: () => 70,
+    text: '',
+    characterCount: 70,
     actionText: 'See More',
     collapseText: 'See Less',
   })
