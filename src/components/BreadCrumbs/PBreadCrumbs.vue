@@ -32,16 +32,15 @@
 <style>
 .p-bread-crumbs { @apply
   flex
-  flex-nowrap
+  flex-wrap
   font-bold
   text-xl
   text-slate-700
 }
 
 .p-bread-crumbs__crumb { @apply
-  whitespace-nowrap
   overflow-hidden
-  text-ellipsis
+  break-words;
 }
 
 .p-bread-crumbs__crumb:not(:first-child) { @apply
