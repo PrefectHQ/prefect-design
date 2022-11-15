@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { useWizardStep } from '@/compositions/wizard/useWizardStep'
   import CodeBlock from '../CodeBlock.vue'
 
   defineProps<{
@@ -13,6 +14,12 @@
       agrees: boolean,
     },
   }>()
+
+  const { defineValidate } = useWizardStep()
+
+  defineValidate(() => {
+    return true
+  })
 </script>
 
 <style>

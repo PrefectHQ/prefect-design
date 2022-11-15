@@ -20,7 +20,7 @@
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
           <template v-if="showCancel">
-            <PButton inset @click="emits('cancel')">
+            <PButton inset @click="emit('cancel')">
               Cancel
             </PButton>
           </template>
@@ -54,7 +54,7 @@
     lastStepText: 'Submit',
   })
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
   }>()
 
@@ -92,19 +92,24 @@
 
   const nextButtonText = computed(() => isOnLastStep.value ? props.lastStepText : 'Next')
 
-  function handlePreviousButtonClick(): void {
-    previous()
+  async function handlePreviousButtonClick(): Promise<void> {
+    const { success } = await previous()
 
-    emits('previous')
+    if (success) {
+      emit('previous')
+    }
   }
 
-  function handleNextButtonClick(): void {
-    if (isOnLastStep.value) {
-      emits('submit')
-    } else {
-      next()
+  async function handleNextButtonClick(): Promise<void> {
+    const last = isOnLastStep.value
+    const { success } = await next()
 
-      emits('next')
+    if (success) {
+      emit('next')
+
+      if (last) {
+        emit('submit')
+      }
     }
   }
 

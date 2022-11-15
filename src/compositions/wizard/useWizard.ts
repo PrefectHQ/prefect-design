@@ -1,6 +1,6 @@
 /* eslint-disable no-redeclare */
 import { computed, InjectionKey, provide, Ref, ref } from 'vue'
-import { WizardStep, UseWizard, ValidationState } from '@/types/wizard'
+import { WizardStep, UseWizard, ValidationState, WizardNavigation } from '@/types/wizard'
 import { getStepKey } from '@/utilities/wizard'
 
 export const useWizardKey: InjectionKey<UseWizard> = Symbol('UseWizard')
@@ -11,29 +11,31 @@ export function useWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
   const currentStepIndex = ref(0)
   const currentStep = computed(() => stepsRef.value[currentStepIndex.value])
 
-  function next(): void {
+  function next(): Promise<WizardNavigation> {
     const index = getOneBasedIndex(currentStepIndex.value)
+    const nextIndex = index + 1
 
-    goto(index + 1)
+    return goto(nextIndex)
   }
 
-  function previous(): void {
+  function previous(): Promise<WizardNavigation> {
     const index = getOneBasedIndex(currentStepIndex.value)
+    const previousIndex = index - 1
 
-    goto(index - 1)
+    return goto(previousIndex)
   }
 
-  function goto(key: string): Promise<void>
-  function goto(index: number): Promise<void>
-  function goto(step: WizardStep): Promise<void>
-  function goto(keyIndexOrStep: WizardStep | string | number): Promise<void>
-  function goto(keyIndexOrStep: WizardStep | string | number): Promise<void> {
+  function goto(key: string): Promise<WizardNavigation>
+  function goto(index: number): Promise<WizardNavigation>
+  function goto(step: WizardStep): Promise<WizardNavigation>
+  function goto(keyIndexOrStep: WizardStep | string | number): Promise<WizardNavigation>
+  function goto(keyIndexOrStep: WizardStep | string | number): Promise<WizardNavigation> {
     const index = typeof keyIndexOrStep === 'number' ? getZeroBasedIndex(keyIndexOrStep) : getStepIndex(keyIndexOrStep)
 
     return new Promise<ValidationState[]>(resolve => {
       loading.value = true
 
-      if (index < 0 || index >= stepsRef.value.length) {
+      if (index < 0) {
         resolve([{ index: currentStepIndex.value, valid: false }])
       }
 
@@ -44,9 +46,28 @@ export function useWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
       .then(validStates => {
         const firstFailure = validStates.find(({ valid }) => !valid)
 
-        currentStepIndex.value = firstFailure?.index ?? index
+        setCurrentStepIndex(firstFailure?.index ?? index)
+
+        return {
+          success: !firstFailure,
+          newIndex: currentStepIndex.value,
+        }
       })
       .finally(() => loading.value = false)
+  }
+
+  function setCurrentStepIndex(index: number): void {
+    if (index < 0) {
+      currentStepIndex.value = 0
+      return
+    }
+
+    if (index >= stepsRef.value.length) {
+      currentStepIndex.value = stepsRef.value.length - 1
+      return
+    }
+
+    currentStepIndex.value = index
   }
 
   function getZeroBasedIndex(index: number): number {

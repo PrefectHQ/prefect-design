@@ -5,7 +5,7 @@
     </template>
 
     <template #wizard>
-      <p-wizard :steps="steps">
+      <p-wizard :steps="steps" @next="next" @submit="submit">
         <template #basic-information>
           <StepOne v-model="formData.favoriteColor" />
         </template>
@@ -38,4 +38,12 @@
     favoriteColor: '',
     agrees: false,
   })
+
+  function next(): void {
+    console.log('next')
+  }
+
+  function submit(): void {
+    console.log('submit')
+  }
 </script>
