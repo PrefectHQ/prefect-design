@@ -9,19 +9,24 @@ export type WizardStep = {
   validate?: WizardStepValidator,
 }
 
+export type WizardNavigation = {
+  success: boolean,
+  newIndex: number,
+}
+
 export type UseWizard = {
   steps: Ref<WizardStep[]>,
   currentStepIndex: Ref<number>,
   currentStep: Ref<WizardStep | undefined>,
   loading: Ref<boolean>,
-  next: () => void,
-  previous: () => void,
+  next: () => Promise<WizardNavigation>,
+  previous: () => Promise<WizardNavigation>,
   goto: {
-    (key: string): void,
+    (key: string): Promise<WizardNavigation>,
     // eslint-disable-next-line @typescript-eslint/unified-signatures
-    (index: number): void,
+    (index: number): Promise<WizardNavigation>,
     // eslint-disable-next-line @typescript-eslint/unified-signatures
-    (step: WizardStep): void,
+    (step: WizardStep): Promise<WizardNavigation>,
   },
   getStepIndex: {
     (key: string): number,
