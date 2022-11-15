@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "",
   "repository": {
     "type": "git",
