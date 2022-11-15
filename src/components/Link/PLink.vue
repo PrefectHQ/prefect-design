@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import { RouteLocationRaw, RouterLink } from 'vue-router'
+  import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { isRouteExternal } from '@/utilities/router'
 
@@ -18,7 +18,7 @@
   }>()
 
   const isExternal = computed(() => !!props.to && isRouteExternal(props.to))
-  const component = computed(() => !props.to || isExternal.value ? 'a' : RouterLink)
+  const component = computed(() => !props.to || isExternal.value ? 'a' : 'router-link')
   const componentProps = computed(() => {
     if (!props.to) {
       return {}
