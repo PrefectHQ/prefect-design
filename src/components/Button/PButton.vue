@@ -28,7 +28,7 @@
   import { Size } from '@/types/size'
   import { isRouteExternal } from '@/utilities/router'
 
-  type ButtonClass = 'primary' | 'secondary' | 'inset' | 'flat' | 'danger'
+  type ButtonClass = 'primary' | 'secondary' | 'inset' | 'flat' | 'danger' | 'danger-secondary'
 
   const props = defineProps({
     secondary: Boolean,
@@ -93,6 +93,7 @@
     'p-button--inset': buttonClass.value === 'inset',
     'p-button--flat': buttonClass.value === 'flat',
     'p-button--danger': buttonClass.value === 'danger',
+    'p-button--danger--secondary': buttonClass.value === 'danger-secondary',
     'p-button--rounded': props.rounded,
     'p-button--equal-padding': props.icon && !slots.default,
     'p-button-xs': props.size === 'xs',
@@ -105,6 +106,10 @@
   }))
 
   const buttonClass = computed<ButtonClass>(() => {
+    if (props.danger && props.secondary) {
+      return 'danger-secondary'
+    }
+
     if (props.danger) {
       return 'danger'
     }
@@ -162,7 +167,7 @@
 .p-button--secondary { @apply
   text-prefect-600
   bg-prefect-100
-  focus:ring-prefect-100
+  focus:ring-prefect-600
 }
 .p-button--secondary:not(.p-button--disabled) { @apply
   hover:bg-prefect-200
@@ -201,6 +206,14 @@
 }
 .p-button--danger:not(.p-button--disabled) { @apply
   hover:bg-red-700
+}
+.p-button--danger--secondary { @apply
+  text-red-700
+  bg-red-100
+  focus:ring-red-600
+}
+.p-button--danger--secondary:not(.p-button--disabled) { @apply
+  hover:bg-red-200
 }
 
 .p-button-xs { @apply

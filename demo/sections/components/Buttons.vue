@@ -37,6 +37,10 @@
         <p-button danger>
           danger
         </p-button>
+
+        <p-button secondary danger>
+          secondary danger
+        </p-button>
       </div>
     </template>
 
@@ -61,6 +65,10 @@
         <p-button danger icon="BeakerIcon">
           icon with text
         </p-button>
+
+        <p-button secondary danger icon="BeakerIcon">
+          icon with text
+        </p-button>
       </div>
     </template>
 
@@ -71,6 +79,7 @@
         <p-button inset icon="BeakerIcon" />
         <p-button flat icon="BeakerIcon" />
         <p-button danger icon="BeakerIcon" />
+        <p-button secondary danger icon="BeakerIcon" />
       </div>
     </template>
 
@@ -81,6 +90,7 @@
         <p-button inset rounded icon="BeakerIcon" />
         <p-button flat rounded icon="BeakerIcon" />
         <p-button danger rounded icon="BeakerIcon" />
+        <p-button secondary danger rounded icon="BeakerIcon" />
       </div>
     </template>
 
@@ -125,6 +135,7 @@
         <p-button disabled inset icon="BeakerIcon" />
         <p-button disabled flat icon="BeakerIcon" />
         <p-button disabled danger icon="BeakerIcon" />
+        <p-button secondary disabled danger icon="BeakerIcon" />
       </div>
     </template>
 
