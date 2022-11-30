@@ -125,21 +125,21 @@
 
 .p-message__dismiss--info,
 .p-message__icon--info { @apply
-  text-prefect-400
+  text-prefect-600
 }
 
 .p-message__dismiss--warning,
 .p-message__icon--warning { @apply
-  text-orange-400
+  text-orange-600
 }
 
 .p-message__dismiss--error,
 .p-message__icon--error { @apply
-  text-red-400
+  text-red-600
 }
 
 .p-message__dismiss--success,
 .p-message__icon--success { @apply
-  text-green-400
+  text-green-600
 }
 </style>
