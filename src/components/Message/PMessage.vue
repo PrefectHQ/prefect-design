@@ -102,6 +102,9 @@
 .p-message__dismiss  { @apply
   !p-1
 }
+.p-message__dismiss:not(.p-button--disabled) { @apply
+  hover:bg-gray-200
+}
 
 .p-message--info { @apply
   bg-prefect-50
@@ -125,21 +128,33 @@
 
 .p-message__dismiss--info,
 .p-message__icon--info { @apply
-  text-prefect-600
+  text-prefect-800
+}
+.p-message__dismiss--info:not(.p-button--disabled) { @apply
+  hover:bg-prefect-100
 }
 
 .p-message__dismiss--warning,
 .p-message__icon--warning { @apply
-  text-orange-600
+  text-orange-800
+}
+.p-message__dismiss--warning:not(.p-button--disabled) { @apply
+  hover:bg-orange-100
 }
 
 .p-message__dismiss--error,
 .p-message__icon--error { @apply
-  text-red-600
+  text-red-800
+}
+.p-message__dismiss--error:not(.p-button--disabled) { @apply
+  hover:bg-red-100
 }
 
 .p-message__dismiss--success,
 .p-message__icon--success { @apply
-  text-green-600
+  text-green-800
+}
+.p-message__dismiss--success:not(.p-button--disabled) { @apply
+  hover:bg-green-100
 }
 </style>
