@@ -5,10 +5,14 @@
         Copy
       </PButton>
     </template>
-
-    <div class="p-terminal__code">
-      {{ command }}<span class="p-terminal__cursor" />
-    </div>
+    <slot>
+      <div v-if="preCommand" class="p-terminal__code">
+        {{ preCommand }}
+      </div>
+      <div class="p-terminal__code">
+        {{ command }}<span class="p-terminal__cursor" />
+      </div>
+    </slot>
   </PWindow>
 </template>
 
@@ -19,10 +23,12 @@
 
   const props = defineProps<{
     command: string,
+    preCommand?: string,
   }>()
 
   async function copy(): Promise<void> {
-    await navigator.clipboard.writeText(props.command)
+    const copyText = props.preCommand ? `${props.preCommand} && ${props.command}` : props.command
+    await navigator.clipboard.writeText(copyText)
 
     showToast('Copied!', 'success')
   }
