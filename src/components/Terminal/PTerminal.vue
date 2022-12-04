@@ -5,14 +5,13 @@
         Copy
       </PButton>
     </template>
-    <slot>
-      <div v-if="preCommand" class="p-terminal__code">
-        {{ preCommand }}
-      </div>
-      <div class="p-terminal__code">
-        {{ command }}<span class="p-terminal__cursor" />
-      </div>
-    </slot>
+
+    <div v-if="preCommand" class="p-terminal__code">
+      {{ preCommand }}
+    </div>
+    <div class="p-terminal__code">
+      {{ command }}<span class="p-terminal__cursor" />
+    </div>
   </PWindow>
 </template>
 
