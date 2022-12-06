@@ -27,11 +27,14 @@
   bottom-0
   lg:bottom-auto
   w-screen
-  z-10
   flex
   flex-col
   lg:h-screen
   lg:w-64
+}
+
+.p-context-sidebar {
+  z-index: var(--p-context-sidebar-z-index, 20)
 }
 
 .p-context-sidebar__header,
