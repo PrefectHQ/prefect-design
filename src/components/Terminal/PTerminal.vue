@@ -7,27 +7,32 @@
       </PButton>
     </template>
 
-    <div v-if="preCommand" class="p-terminal__code">
-      {{ preCommand }}
-    </div>
     <div class="p-terminal__code">
-      {{ command }}<span class="p-terminal__cursor" />
+      <template v-for="(line, index) in commands" :key="index">
+        <p class="p-terminal__code-line">
+          {{ line }}
+          <span class="p-terminal__cursor" />
+        </p>
+      </template>
     </div>
   </PWindow>
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PWindow from '@/components/Window/PWindow.vue'
   import { showToast } from '@/plugins'
+  import { asArray } from '@/utilities'
 
   const props = defineProps<{
-    command: string,
-    preCommand?: string,
+    command: string | string[],
   }>()
 
+  const commands = computed(() => asArray(props.command))
+
   async function copy(): Promise<void> {
-    const copyText = props.preCommand ? `${props.preCommand} && ${props.command}` : props.command
+    const copyText = commands.value.join(' && ')
     await navigator.clipboard.writeText(copyText)
 
     showToast('Copied!', 'success')
@@ -45,8 +50,16 @@
 }
 
 .p-terminal__code { @apply
-  px-5
-  py-4
+  px-4
+  py-2
+}
+
+.p-terminal__code-line { @apply
+  py-1
+}
+
+.p-terminal__code-line:not(:last-of-type) .p-terminal__cursor { @apply
+  hidden
 }
 
 .p-terminal__cursor { @apply
