@@ -2,7 +2,8 @@
   <PWindow class="p-terminal">
     <template #actions>
       <PButton size="xs" inset class="p-terminal__copy-button" @click="copy">
-        Copy
+        <span class="p-terminal__copy-text">Copy</span>
+        <p-icon icon="DuplicateIcon" />
       </PButton>
     </template>
 
@@ -32,6 +33,10 @@
 .p-terminal__copy-button { @apply
   opacity-50
   hover:opacity-100
+}
+
+.p-terminal__copy-text { @apply
+  font-medium
 }
 
 .p-terminal__code { @apply
