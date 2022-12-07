@@ -1,5 +1,10 @@
 <template>
-  <pre v-if="multiline" class="p-code-container p-code-container--block"><code><slot /></code></pre>
+  <div v-if="multiline" class="relative">
+    <p-button v-if="code" inset size="xs" class="copy-button" @click="handleCopy">
+      Copy
+    </p-button>
+    <pre class="p-code-container p-code-container--block"><code>{{ code }}<slot v-if="!code" /></code></pre>
+  </div>
   <code v-else class="p-code-container">
     <slot />
   </code>
@@ -13,13 +18,25 @@
 </script>
 
 <script lang="ts" setup>
-  defineProps<{
+  import PButton from '@/components/Button/PButton.vue'
+  import { showToast } from '@/plugins'
+
+  const props = defineProps<{
     /**
      * Optionally wraps the component in semantic
      * \<pre\> tags and applies additional block-level styling
      */
     multiline?: boolean,
+    code?: string | null,
   }>()
+  async function handleCopy(): Promise<void> {
+    if (!props.code) {
+      return
+    }
+    await navigator.clipboard.writeText(props.code)
+
+    showToast('Copied!', 'success')
+  }
 </script>
 
 <style>
@@ -29,10 +46,22 @@
   rounded
   px-1
   py-1
+  relative
 }
 .p-code-container--block { @apply
   px-2
   py-2
   overflow-x-auto
+}
+
+.copy-button {
+  @apply
+  bg-white
+  bg-opacity-50
+  absolute
+  top-3
+  right-3
+  my-auto
+  z-10
 }
 </style>
