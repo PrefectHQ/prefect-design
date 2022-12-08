@@ -62,11 +62,13 @@
 .p-code-file__code-line span:before {
   counter-increment: line;
   content: counter(line);
-  display: inline-block;
-  border-right: 1px solid #ddd;
-  padding: 0 .7em;
-  margin-right: 1.2em;
-  color: #888
+  @apply
+  inline-block
+  border-r-[1px]
+  border-gray-200
+  px-3
+  mr-5
+  text-gray-400;
 }
 
 .p-code-file__code-line {
@@ -87,22 +89,5 @@
   -translate-x-1/2
   -translate-y-1/2
   text-gray-400
-}
-
-.p-code-file__cursor { @apply
-  ml-1
-  -mb-1
-  bg-gray-400
-  inline-block;
-  content: "";
-  width: 7px;
-  height: 18px;
-  animation: blink 1.2s steps(2) infinite;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 0;
-  }
 }
 </style>
