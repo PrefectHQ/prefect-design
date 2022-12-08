@@ -9,7 +9,7 @@
     </template>
 
     <template #code-file>
-      <p-code-file file-name="basic_file.py" :code="code" />
+      <p-code-file file-name="basic_file.py" :code="stringLiteral" />
     </template>
   </component-page>
 </template>
@@ -17,6 +17,8 @@
 <script lang="ts" setup>
   import { PCodeFile } from '@/components'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
-
-  const code = 'from prefect import flow\n\n@flow\n\tdef hello_flow():\n\t\tprint(\'hello\')\n\nif __name__ == "__main__":\n\thello_flow()'
+  const stringLiteral = `
+prefect config set PREFECT_API_URL
+  test
+`.trim()
 </script>
