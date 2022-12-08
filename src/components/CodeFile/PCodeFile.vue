@@ -1,7 +1,7 @@
 <template>
   <PWindow class="p-code-file">
     <template #actions>
-      <p v-if="fileName" class="p-code-file__file-name">
+      <p class="p-code-file__file-name">
         {{ fileName }}
       </p>
       <PButton size="xs" inset class="p-code-file__copy-button" @click="copy">
