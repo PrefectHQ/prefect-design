@@ -155,6 +155,7 @@ export const installs = [
   installPCheckbox,
   installPCheckboxGroup,
   installPCode,
+  installPCodeFile,
   installPCombobox,
   installPContent,
   installPContextAccordionItem,
