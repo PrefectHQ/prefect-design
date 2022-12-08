@@ -23,10 +23,10 @@ from prefect import flow, get_run_logger
 
 @flow
   def basic_flow():
-  logger = get_run_logger()
-  logger.warning("Hello, World!")
+    logger = get_run_logger()
+    logger.warning("Hello, World!")
 
 if __name__ == "__main__":
-basic_flow()
+  basic_flow()
 `.trim()
 </script>
