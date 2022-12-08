@@ -11,7 +11,7 @@
     </template>
 
     <div class="p-code-file__code">
-      <code><pre class="p-code-file__code-line"><span v-for="(line, index) in commands" :key="index">{{ line }}</span></pre></code>
+      <code><pre class="p-code-file__code-line"><span v-for="(line, index) in code" :key="index">{{ line }}</span></pre></code>
     </div>
   </PWindow>
 </template>
@@ -23,16 +23,16 @@
   import { showToast } from '@/plugins'
 
   const props = defineProps<{
-    command: string,
+    code: string,
     fileName?: string,
   }>()
 
   const fileName = computed(() => props.fileName ?? '')
 
-  const commands = computed(() => props.command.split('\n'))
+  const code = computed(() => props.code.split('\n'))
 
   async function copy(): Promise<void> {
-    await navigator.clipboard.writeText(props.command)
+    await navigator.clipboard.writeText(props.code)
 
     showToast('Copied!', 'success')
   }
