@@ -9,7 +9,7 @@
     </template>
 
     <template #code-file>
-      <p-code-file file-name="basic_file.py" :code="stringLiteral" />
+      <p-code-file file-name="basic_file.py" :code="multilineString" />
     </template>
   </component-page>
 </template>
@@ -18,7 +18,7 @@
   import { PCodeFile } from '@/components'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const stringLiteral = `
+  const multilineString = `
 prefect config set PREFECT_API_URL
   test
 `.trim()
