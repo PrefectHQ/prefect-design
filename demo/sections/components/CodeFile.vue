@@ -9,7 +9,7 @@
     </template>
 
     <template #code-file>
-      <p-code-file file-name="basic_file.py" :code="multilineString" />
+      <p-code-file file-name="basic_flow.py" :code="multilineString" />
     </template>
   </component-page>
 </template>
@@ -19,7 +19,14 @@
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const multilineString = `
-prefect config set PREFECT_API_URL
-  test
+from prefect import flow, get_run_logger
+
+@flow
+  def basic_flow():
+  logger = get_run_logger()
+  logger.warning("Hello, World!")
+
+if __name__ == "__main__":
+basic_flow()
 `.trim()
 </script>
