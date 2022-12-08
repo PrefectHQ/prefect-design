@@ -17,6 +17,9 @@
       <p class="p-empty-state__description">
         <slot name="description" />
       </p>
+
+      <slot />
+
       <div class="p-empty-state__actions">
         <slot name="actions" />
       </div>
