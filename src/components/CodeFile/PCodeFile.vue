@@ -1,7 +1,7 @@
 <template>
   <PWindow class="p-code-file">
     <template #actions>
-      <p class="p-code-file__file-name">
+      <p v-if="fileName" class="p-code-file__file-name">
         {{ fileName }}
       </p>
       <PButton size="xs" inset class="p-code-file__copy-button" @click="copy">
@@ -24,8 +24,10 @@
 
   const props = defineProps<{
     command: string,
-    fileName: string,
+    fileName?: string,
   }>()
+
+  const fileName = computed(() => props.fileName ?? '')
 
   const commands = computed(() => props.command.split('\n'))
 
@@ -47,14 +49,14 @@
 }
 
 .p-code-file__code { @apply
-  px-4
-  py-2
+  pb-2
 }
 
 .p-code-file__code-line span {
   @apply
   block
-  w-full;
+  w-full
+  h-5;
 }
 
 .p-code-file__code-line span:before {
@@ -62,8 +64,8 @@
   content: counter(line);
   display: inline-block;
   border-right: 1px solid #ddd;
-  padding: 0 .5em;
-  margin-right: .5em;
+  padding: 0 .7em;
+  margin-right: 1.2em;
   color: #888
 }
 

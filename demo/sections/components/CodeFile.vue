@@ -1,7 +1,11 @@
 <template>
   <component-page title="CodeFile" :demos="[{ title: 'CodeFile' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-terminal</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This component <p-code>p-code-file</p-code> takes in two props, an optional <p-code>file-name</p-code>, and a single <p-code>command</p-code> prop.
+      <br>
+      The <p-code>command</p-code> prop will take in character formatters such as <p-code>\n</p-code> to create new lines and <p-code>\t</p-code> to create tabs.
+      <br>
+      It copies the code as formatted.
     </template>
 
     <template #code-file>
@@ -14,5 +18,5 @@
   import { PCodeFile } from '@/components'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const command = 'perfect config set PREFECT_API_URL\n\ttest'
+  const command = 'from prefect import flow\n\n@flow\n\tdef hello_flow():\n\t\tprint(\'hello\')\n\nif __name__ == "__main__":\n\thello_flow()'
 </script>
