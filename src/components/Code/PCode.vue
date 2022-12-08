@@ -13,9 +13,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { showToast } from '@/plugins'
-
-  const props = defineProps<{
+  defineProps<{
     /**
      * Optionally wraps the component in semantic
      * \<pre\> tags and applies additional block-level styling
@@ -25,30 +23,16 @@
 </script>
 
 <style>
-.p-code-container {
-  @apply
+.p-code-container { @apply
   bg-slate-700
   text-slate-50
   rounded
   px-1
   py-1
-  relative
 }
-.p-code-container--block {
-  @apply
+.p-code-container--block { @apply
   px-2
   py-2
   overflow-x-auto
-}
-
-.copy-button {
-  @apply
-  bg-white
-  bg-opacity-50
-  absolute
-  top-3
-  right-3
-  my-auto
-  z-10
 }
 </style>
