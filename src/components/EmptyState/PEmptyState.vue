@@ -44,7 +44,9 @@
 
 .p-empty-state__text { @apply
   text-center
-  p-16
+  p-4
+  md:p-10
+  lg:p-16
 }
 
 .p-empty-state__icon { @apply
