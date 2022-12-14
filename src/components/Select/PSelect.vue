@@ -80,7 +80,7 @@
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
     options: (string | number | boolean | SelectOption)[],
-    filterOptions?: (option: SelectOption) => boolean,
+    filterOptions?: (option: SelectOption) => boolean | Promise<boolean>,
   }>()
 
   const emits = defineEmits<{
@@ -118,7 +118,7 @@
   })
 
   const filteredSelectOptions = computed(() => {
-    return selectOptions.value.filter(option => !props.filterOptions || props.filterOptions(option))
+    return selectOptions.value.filter(async option => !props.filterOptions || await props.filterOptions(option))
   })
 
   const classes = computed(() => ({
