@@ -13,7 +13,8 @@ export function getRouteName(route: RouteLocationRaw): string | undefined {
 }
 
 export function isRouteLocationNamedRaw(route: RouteLocationRaw): route is RouteLocationNamedRaw {
-  return !!route as RouteLocationNamedRaw.name
+  const name = route as RouteLocationNamedRaw['name']
+  return !!name
 }
 
 export function isRouteExternal(route: RouteLocationRaw): boolean {
