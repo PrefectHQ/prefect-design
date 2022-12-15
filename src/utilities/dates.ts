@@ -30,6 +30,8 @@ export function isMatchingPrecision(dateLeft: Date, dateRight: Date, precision: 
       return isSameMonth(dateLeft, dateRight)
     case 'year':
       return isSameYear(dateLeft, dateRight)
+    default:
+      throw new Error(`isMatchingPrecision missing case for ${precision}`)
   }
 }
 
