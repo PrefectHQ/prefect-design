@@ -90,7 +90,7 @@
 
   const buttonElement = ref<typeof PSelectButton>()
   const targetElement = computed(() => buttonElement.value?.wrapper)
-  const { width:targetElementWidth } = useElementRect(targetElement)
+  const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)

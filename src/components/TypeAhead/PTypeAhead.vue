@@ -73,7 +73,7 @@
 
   const inputElement = ref<typeof PTextInput>()
   const targetElement = computed(() => inputElement.value?.wrapper)
-  const { width:targetElementWidth } = useElementRect(targetElement)
+  const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const highlightedIndex = ref(0)

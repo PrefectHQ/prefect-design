@@ -21,7 +21,7 @@
 <script lang="ts" setup>
   import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
-  import PWizardStepHeader from './PWizardStepHeader.vue'
+  import PWizardStepHeader from '@/components/Wizard/PWizardStepHeader.vue'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
 

@@ -39,7 +39,7 @@
     'p-wizard-step-header--complete': props.complete,
   }))
 
-  const paddedIndex = computed(() =>  String(props.index + 1).padStart(2, '0'))
+  const paddedIndex = computed(() => String(props.index + 1).padStart(2, '0'))
 </script>
 
 <style>

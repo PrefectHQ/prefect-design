@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PButton from './PButton.vue'
+import PButton from '@/components/Button/PButton.vue'
 
 const install = (app: App): void => {
   app.component('PButton', PButton)

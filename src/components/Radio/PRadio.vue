@@ -28,7 +28,7 @@
 
   <script lang="ts" setup>
   import { computed } from 'vue'
-  import { PLabel } from '../Label'
+  import { PLabel } from '@/components/Label'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'

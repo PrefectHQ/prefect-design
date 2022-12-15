@@ -37,7 +37,7 @@
   const container: Ref<HTMLDivElement | undefined> = ref()
   const ready = ref(false)
   const overflowChildren = ref(0)
-  const overflowTag: Ref<HTMLDivElement | undefined> =  ref()
+  const overflowTag: Ref<HTMLDivElement | undefined> = ref()
   const hiddenText = ref('')
 
   const classes = computed(() => {
@@ -76,7 +76,7 @@
     let overflowed = false
 
     overflowChildren.value = children.length
-    let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
+    const overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
     let tagsWidth = 0
     let largestChildHeight = overflowBoundingBox.height
 
@@ -162,7 +162,7 @@
     resizeObserver?.disconnect()
   })
 
-  watch(() => props.tags,  () => {
+  watch(() => props.tags, () => {
     nextTick(() => calculateOverflow())
   }, { deep: true })
 </script>

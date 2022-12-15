@@ -1,5 +1,5 @@
 import { Ref } from 'vue'
-import { Pixels } from './units'
+import { Pixels } from '@/types/units'
 
 export type Position = { top: number, left: number }
 

@@ -23,7 +23,7 @@
   }>()
 
   const classes = computed(() => ({
-    link:(crumb: Crumb) => ({
+    link: (crumb: Crumb) => ({
       'p-bread-crumb__crumb--link': !!crumb.to,
     }),
   }))

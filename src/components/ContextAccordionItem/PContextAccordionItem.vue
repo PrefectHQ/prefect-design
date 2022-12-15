@@ -59,7 +59,7 @@
     }
 
     const matchedPaths = route.matched.map(({ name }) => name)
-    const childPaths =  props.children.map(({ to }) => getRouteName(to))
+    const childPaths = props.children.map(({ to }) => getRouteName(to))
 
     return childPaths.some(path => path && matchedPaths.includes(path))
   })

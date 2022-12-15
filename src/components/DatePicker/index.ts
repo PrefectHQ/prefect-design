@@ -1,8 +1,8 @@
 import { App } from 'vue'
-import PDatePicker from './PDatePicker.vue'
-import PMonthPicker from './PMonthPicker.vue'
-import PTimePicker from './PTimePicker.vue'
-import PYearPicker from './PYearPicker.vue'
+import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
+import PMonthPicker from '@/components/DatePicker/PMonthPicker.vue'
+import PTimePicker from '@/components/DatePicker/PTimePicker.vue'
+import PYearPicker from '@/components/DatePicker/PYearPicker.vue'
 
 const install = (app: App): void => {
   app.component('PDatePicker', PDatePicker)

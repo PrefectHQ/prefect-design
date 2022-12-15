@@ -55,7 +55,7 @@
 
   const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
     if (isSelectOption(option)) {
-      return  option
+      return option
     }
 
     return { label: option.toLocaleString(), value: option }

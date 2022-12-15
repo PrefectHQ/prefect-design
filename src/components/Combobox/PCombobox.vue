@@ -89,7 +89,7 @@
     }
 
     if (Array.isArray(internalValue.value)) {
-      return internalValue.value.map(option => option? option.toString() : '')
+      return internalValue.value.map(option => option ? option.toString() : '')
     }
 
     return [internalValue.value.toString()]
@@ -115,13 +115,13 @@
     const options = [...selectOptions.value]
     if (internalValue.value && props.allowUnknownValue) {
       const unknownSelectOptions = unknownValues.value
-        .map(value => ({ label:`${value}`, value }))
+        .map(value => ({ label: `${value}`, value }))
 
       options.push(...unknownSelectOptions)
     }
 
     if (typedValue.value && props.allowUnknownValue && !optionsIncludeValue(options, typedValue.value)) {
-      options.push({ label:`${typedValue.value}`, value: typedValue.value })
+      options.push({ label: `${typedValue.value}`, value: typedValue.value })
     }
 
     return options

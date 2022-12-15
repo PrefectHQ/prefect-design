@@ -37,7 +37,7 @@
     return icons.includes(value)
   }
 
-  const iconSizeClass = computed(()=> props.size && `p-icon--${props.size}`)
+  const iconSizeClass = computed(() => props.size && `p-icon--${props.size}`)
 </script>
 
 <style>

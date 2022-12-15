@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PStepper from './PStepper.vue'
+import PStepper from '@/components/Stepper/PStepper.vue'
 
 
 const install = (app: App): void => {
