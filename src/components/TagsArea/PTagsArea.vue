@@ -85,7 +85,7 @@
     trySubmitNewTag()
   }
 
-  function validateNewTag(tag: string | null): tag is string  {
+  function validateNewTag(tag: string | null): tag is string {
     return !!newTag.value?.length && !internalValue.value.includes(newTag.value)
   }
 

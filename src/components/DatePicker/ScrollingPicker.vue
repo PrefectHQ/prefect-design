@@ -54,7 +54,7 @@
   const optionElements = ref<HTMLElement[]>([])
 
   const classes = computed(() => ({
-    option:(option: SelectOption) => ({
+    option: (option: SelectOption) => ({
       'scrolling-picker__option--selected': option.value === internalValue.value,
       'scrolling-picker__option--disabled': option.disabled,
     }),

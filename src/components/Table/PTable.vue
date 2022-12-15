@@ -47,12 +47,12 @@
 
 <script lang="ts" setup>
   import { computed, StyleValue, useSlots } from 'vue'
-  import PTableBody from './PTableBody.vue'
-  import PTableData from './PTableData.vue'
-  import PTableFoot from './PTableFoot.vue'
-  import PTableHead from './PTableHead.vue'
-  import PTableHeader from './PTableHeader.vue'
-  import PTableRow from './PTableRow.vue'
+  import PTableBody from '@/components/Table/PTableBody.vue'
+  import PTableData from '@/components/Table/PTableData.vue'
+  import PTableFoot from '@/components/Table/PTableFoot.vue'
+  import PTableHead from '@/components/Table/PTableHead.vue'
+  import PTableHeader from '@/components/Table/PTableHeader.vue'
+  import PTableRow from '@/components/Table/PTableRow.vue'
   import { ClassValue } from '@/types/attributes'
   import { ColumnClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
   import { isEven, isOdd } from '@/utilities'

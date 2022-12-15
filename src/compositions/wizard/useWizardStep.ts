@@ -1,6 +1,6 @@
 /* eslint-disable no-redeclare */
 import { inject, InjectionKey, ref, Ref, computed } from 'vue'
-import { useWizardKey } from './useWizard'
+import { useWizardKey } from '@/compositions/wizard/useWizard'
 import { WizardNotFound, WizardStepNotFound } from '@/models/wizard'
 import { UseWizard, UseWizardStep, WizardStepValidator } from '@/types/wizard'
 

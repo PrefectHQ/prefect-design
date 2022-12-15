@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
   import { Component as ComponentType } from 'vue'
-  import PToast from './PToast.vue'
+  import PToast from '@/components/Toast/PToast.vue'
   import { queue } from '@/plugins/Toast'
 
   function isStringMessage(message: string | ComponentType): message is string {

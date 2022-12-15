@@ -38,10 +38,10 @@
 
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
-  import PWizardHeaders from './PWizardHeaders.vue'
-  import PWizardStep from './PWizardStep.vue'
   import PButton from '@/components/Button/PButton.vue'
   import PCard from '@/components/Card/PCard.vue'
+  import PWizardHeaders from '@/components/Wizard/PWizardHeaders.vue'
+  import PWizardStep from '@/components/Wizard/PWizardStep.vue'
   import { useWizard } from '@/compositions/wizard'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
@@ -88,7 +88,7 @@
   })
 
   const isOnFirstStep = computed(() => currentStepIndex.value === 0)
-  const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length -1)
+  const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length - 1)
 
   const nextButtonText = computed(() => isOnLastStep.value ? props.lastStepText : 'Next')
 

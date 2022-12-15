@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PLink from './PLink.vue'
+import PLink from '@/components/Link/PLink.vue'
 
 const install = (app: App): void => {
   app.component('PLink', PLink)

@@ -56,7 +56,7 @@
     const minYear = viewingYear.value - viewingCount
     const maxYear = viewingYear.value + viewingCount
 
-    for (let year=minYear > 0 ? minYear : 0; year<maxYear; year++) {
+    for (let year = minYear > 0 ? minYear : 0; year < maxYear; year++) {
       const dateValue = setYear(selectedDate.value, year)
 
       values.push({

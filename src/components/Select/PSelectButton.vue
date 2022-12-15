@@ -101,7 +101,7 @@
     }
 
     if (Array.isArray(internalValue.value)) {
-      return internalValue.value.map(option => option? option.toString() : '')
+      return internalValue.value.map(option => option ? option.toString() : '')
     }
 
     return [internalValue.value.toString()]

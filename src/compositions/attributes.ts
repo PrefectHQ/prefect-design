@@ -40,9 +40,9 @@ export function useAttrsStylesClassesAndListeners(): UseAttrsStylesAndListeners 
   watchEffect(() => {
     for (const attr in attrs.value) {
       if (isListener(attr)) {
-        listeners.value[attr] = (attrs.value as unknown as Record<string, unknown>)[attr]
+        listeners.value[attr] = attrs.value as unknown as Record<string, unknown>[attr]
       } else {
-        nonListenerAttrs.value[attr] = (attrs.value as unknown as Record<string, unknown>)[attr]
+        nonListenerAttrs.value[attr] = attrs.value as unknown as Record<string, unknown>[attr]
       }
     }
   })

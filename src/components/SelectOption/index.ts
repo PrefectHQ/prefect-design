@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PSelectOption from './PSelectOption.vue'
+import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
 
 const install = (app: App): void => {
   app.component('PSelectOption', PSelectOption)

@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PTextarea from './PTextarea.vue'
+import PTextarea from '@/components/Textarea/PTextarea.vue'
 
 const install = (app: App): void => {
   app.component('PTextarea', PTextarea)

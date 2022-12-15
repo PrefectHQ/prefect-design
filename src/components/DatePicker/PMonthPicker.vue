@@ -47,7 +47,7 @@
     },
   })
 
-  const monthOptions = eachMonthOfInterval({ start:startOfYear(new Date()), end: endOfYear(new Date()) }).map(x => ({
+  const monthOptions = eachMonthOfInterval({ start: startOfYear(new Date()), end: endOfYear(new Date()) }).map(x => ({
     value: x.getMonth(),
     label: format(x, 'MMMM'),
   }))

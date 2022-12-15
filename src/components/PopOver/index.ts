@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PPopOver from './PPopOver.vue'
+import PPopOver from '@/components/PopOver/PPopOver.vue'
 
 const install = (app: App): void => {
   app.component('PPopOver', PPopOver)

@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PListItem from './PListItem.vue'
+import PListItem from '@/components/ListItem/PListItem.vue'
 
 const install = (app: App): void => {
   app.component('PListItem', PListItem)

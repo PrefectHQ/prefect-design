@@ -1,11 +1,11 @@
 import { App } from 'vue'
-import PTable from './PTable.vue'
-import PTableBody from './PTableBody.vue'
-import PTableData from './PTableData.vue'
-import PTableFoot from './PTableFoot.vue'
-import PTableHead from './PTableHead.vue'
-import PTableHeader from './PTableHeader.vue'
-import PTableRow from './PTableRow.vue'
+import PTable from '@/components/Table/PTable.vue'
+import PTableBody from '@/components/Table/PTableBody.vue'
+import PTableData from '@/components/Table/PTableData.vue'
+import PTableFoot from '@/components/Table/PTableFoot.vue'
+import PTableHead from '@/components/Table/PTableHead.vue'
+import PTableHeader from '@/components/Table/PTableHeader.vue'
+import PTableRow from '@/components/Table/PTableRow.vue'
 
 const install = (app: App): void => {
   app.component('PTable', PTable)

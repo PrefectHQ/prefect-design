@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import PTab from './PTab.vue'
+import PTab from '@/components/Tab/PTab.vue'
 
 
 const install = (app: App): void => {

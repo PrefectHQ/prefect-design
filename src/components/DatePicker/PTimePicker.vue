@@ -151,13 +151,13 @@
 
     return [
       {
-        label:'AM',
-        value:'AM',
+        label: 'AM',
+        value: 'AM',
         disabled: !isDateRangeOverlappingRange(beforeMeridiem),
       },
       {
-        label:'PM',
-        value:'PM',
+        label: 'PM',
+        value: 'PM',
         disabled: !isDateRangeOverlappingRange(afterMeridiem),
       },
     ]

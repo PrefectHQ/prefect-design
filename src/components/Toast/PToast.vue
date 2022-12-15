@@ -44,7 +44,7 @@
 
   const timer = ref<ReturnType<typeof setTimeout>>()
   const timerStrokeWidth = ref(props.timeout === false ? '0' : '8px')
-  const animationDuration = ref(props.timeout ? `${props.timeout/1000}s` : '5s')
+  const animationDuration = ref(props.timeout ? `${props.timeout / 1000}s` : '5s')
   const animationPlayState = ref('running')
 
   const iconMap: Record<string, string> = {
@@ -55,8 +55,8 @@
   const icon = computed(() => iconMap[props.type] as Icon)
 
   const colorClasses = [
-    { className: 'p-toast__icon--success', name: 'success'  },
-    { className: 'p-toast__icon--error', name: 'error'  },
+    { className: 'p-toast__icon--success', name: 'success' },
+    { className: 'p-toast__icon--error', name: 'error' },
   ]
 
   const color = computed(() => {

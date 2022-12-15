@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import PTableRow from './PTableRow.vue'
+  import PTableRow from '@/components/Table/PTableRow.vue'
 </script>
 
 <style>
