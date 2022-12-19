@@ -25,8 +25,6 @@
     valid: props.state?.valid ?? true,
     validated: props.state?.validated ?? false,
     pending: props.state?.pending ?? false,
-    dirty: props.state?.dirty ?? false,
-    touched: props.state?.touched ?? false,
   })
 
   const internalDisabled = computed({
