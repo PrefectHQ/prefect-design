@@ -1,5 +1,3 @@
-export type State = {
-  pending: boolean,
-  valid: boolean,
-  validated: boolean,
-}
+import { UseValidationState } from '@prefecthq/vue-compositions'
+
+export type State = Pick<UseValidationState, 'pending' | 'valid' | 'validated'>
