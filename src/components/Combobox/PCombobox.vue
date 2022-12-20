@@ -1,14 +1,18 @@
 <template>
   <PSelect
     v-model="internalValue"
-    :options="selectOptionsWithUnknown"
+    :options="filteredSelectOptions"
     :empty-message="emptyMessage"
-    :filter-options="filterOptions"
     @update:model-value="resetTypedValue"
     @close="resetTypedValue"
     @open="focusOnTextInput"
     @keydown="handleComboboxKeydown"
   >
+    <template #default="{ value }">
+      <slot :value="value" :display-value="displayValue(value)">
+        {{ displayValue(value) }}
+      </slot>
+    </template>
     <template #pre-options>
       <div class="p-combobox__search-option">
         <input
@@ -70,7 +74,7 @@
     placeholder: 'Search',
   })
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
@@ -79,7 +83,7 @@
       return props.modelValue ?? null
     },
     set(value: SelectModelValue | SelectModelValue[]) {
-      emits('update:modelValue', value)
+      emit('update:modelValue', value)
     },
   })
 
@@ -127,11 +131,9 @@
     return options
   })
 
-  const filteredSelectOptions = computed(() => selectOptionsWithUnknown.value.filter(option => optionIncludes(option, typedValue.value)))
-
-  function filterOptions(option: SelectOption): boolean {
-    return filteredSelectOptions.value.includes(option)
-  }
+  const filteredSelectOptions = computed(() => {
+    return selectOptionsWithUnknown.value.filter(option => optionIncludes(option, typedValue.value))
+  })
 
   const classes = computed(() => ({
     input: {
@@ -141,6 +143,28 @@
 
   const typedValue = ref<string | null>(null)
   const textInput = ref<HTMLInputElement>()
+
+  function displayValue(value: SelectModelValue): string {
+    const option = getSelectOption(value)
+
+    if (option?.value) {
+      return option.label
+    }
+
+    if (!value) {
+      return ''
+    }
+
+    if (unknownValues.value.includes(value.toString())) {
+      return `"${value}"`
+    }
+
+    return value.toString()
+  }
+
+  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
+    return selectOptions.value.find(x => x.value === value)
+  }
 
   function optionLabel(option: SelectOption): string {
     return option.value && unknownValues.value.includes(option.value.toString()) ? `"${option.label}"` : option.label
