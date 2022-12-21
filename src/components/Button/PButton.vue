@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
   import { computed, useSlots, PropType, ref } from 'vue'
-  import { RouteLocationRaw, RouterLink } from 'vue-router'
+  import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
   import { Icon } from '@/types/icon'
@@ -61,7 +61,7 @@
 
   const component = computed(() => {
     if (props.to) {
-      return isRouteExternal(props.to) ? 'a' : RouterLink
+      return isRouteExternal(props.to) ? 'a' : 'router-link'
     }
 
     return 'button'
