@@ -42,7 +42,7 @@
     "@fontsource/inconsolata": "^4.5.7",
     "@fontsource/inter": "^4.5.12",
     "@prefecthq/eslint-config": "1.0.20",
-    "@prefecthq/vue-compositions": "1.1.2",
+    "@prefecthq/vue-compositions": "1.1.3",
     "@types/node": "^18.7.13",
     "@types/tailwindcss": "^3.0.10",
     "@vitejs/plugin-vue": "3.2.0",
