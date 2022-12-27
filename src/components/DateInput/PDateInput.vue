@@ -29,6 +29,7 @@
 
     <PDatePicker
       v-model="internalModelValue"
+      v-model:viewingDate="internalViewingDate"
       class="p-date-input__date-picker"
       :show-time="showTime"
       :clearable="clearable"
@@ -57,6 +58,7 @@
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
+    viewingDate?: Date,
     showTime?: boolean,
     clearable?: boolean,
     disabled?: boolean,
@@ -64,8 +66,9 @@
     max?: Date | null | undefined,
   }>()
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
+    (event: 'update:viewingDate', value: Date | undefined): void,
     (event: 'open' | 'close'): void,
   }>()
 
@@ -76,7 +79,16 @@
       return props.modelValue ?? null
     },
     set(value: Date | null) {
-      emits('update:modelValue', keepDateInRange(value, { min: props.min, max: props.max }))
+      emit('update:modelValue', keepDateInRange(value, { min: props.min, max: props.max }))
+    },
+  })
+
+  const internalViewingDate = computed({
+    get() {
+      return props.viewingDate
+    },
+    set(value) {
+      emit('update:viewingDate', value)
     },
   })
 
@@ -110,9 +122,9 @@
 
   function handleOpenChange(open: boolean): void {
     if (open) {
-      emits('open')
+      emit('open')
     } else {
-      emits('close')
+      emit('close')
     }
   }
 

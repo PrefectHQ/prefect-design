@@ -17,7 +17,7 @@
           icon="ChevronLeftIcon"
           size="sm"
           :disabled="previousDisabled"
-          @click="viewingDate = addMonths(viewingDate, -1)"
+          @click="internalViewingDate = addMonths(internalViewingDate, -1)"
         />
       </template>
       <div class="p-date-picker__title">
@@ -34,12 +34,12 @@
         icon="ChevronRightIcon"
         size="sm"
         :disabled="nextDisabled"
-        @click="viewingDate = addMonths(viewingDate, 1)"
+        @click="internalViewingDate = addMonths(internalViewingDate, 1)"
       />
     </div>
 
     <div class="p-date-picker__body">
-      <PCalendar :month="viewingDate.getMonth()" :year="viewingDate.getFullYear()">
+      <PCalendar :month="internalViewingDate.getMonth()" :year="internalViewingDate.getFullYear()">
         <template #date="{ date }">
           <slot
             name="date"
@@ -47,7 +47,7 @@
             :disabled="!!overlay || !isDateInRange(date, range, 'day')"
             :today="isToday(date)"
             :selected="isSameDayAsSelectedDate(date)"
-            :out-of-month="!isSameMonth(date, viewingDate)"
+            :out-of-month="!isSameMonth(date, internalViewingDate)"
             :select="() => updateSelectedDate(date)"
           >
             <PButton
@@ -97,7 +97,7 @@
           <template v-else>
             <component
               :is="overlayComponent"
-              v-model="viewingDate"
+              v-model="internalViewingDate"
               :min="min"
               :max="max"
               @update:model-value="closeOverlay"
@@ -123,14 +123,16 @@
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
+    viewingDate?: Date,
     showTime?: boolean,
     clearable?: boolean,
     min?: Date | null | undefined,
     max?: Date | null | undefined,
   }>()
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
+    (event: 'update:viewingDate', value: Date): void,
   }>()
 
   const range = computed(() => ({ min: props.min, max: props.max }))
@@ -140,7 +142,7 @@
       return props.modelValue ?? null
     },
     set(value: Date | null) {
-      emits('update:modelValue', keepDateInRange(value, range.value))
+      emit('update:modelValue', keepDateInRange(value, range.value))
     },
   })
 
@@ -158,12 +160,21 @@
     }
   })
 
-  const viewingDate = ref(new Date())
+  const fallbackViewingDate = ref(new Date())
+  const internalViewingDate = computed({
+    get() {
+      return props.viewingDate ?? fallbackViewingDate.value
+    },
+    set(value) {
+      emit('update:viewingDate', value)
+      fallbackViewingDate.value = value
+    },
+  })
 
-  watchEffect(() => viewingDate.value = startOfDay(selectedDate.value ?? new Date()))
+  watchEffect(() => internalViewingDate.value = startOfDay(selectedDate.value ?? new Date()))
 
-  const viewingMonth = computed(() => format(viewingDate.value, 'MMMM'))
-  const viewingYear = computed(() => format(viewingDate.value, 'yyyy'))
+  const viewingMonth = computed(() => format(internalViewingDate.value, 'MMMM'))
+  const viewingYear = computed(() => format(internalViewingDate.value, 'yyyy'))
   const time = computed(() => selectedDate.value ? format(selectedDate.value, 'h:mm a') : '')
 
   const todayDisabled = computed(() => {
@@ -175,12 +186,12 @@
   })
 
   const previousDisabled = computed(() => {
-    const previousMonth = addMonths(viewingDate.value, -1)
+    const previousMonth = addMonths(internalViewingDate.value, -1)
     return !!range.value.min && isDateBefore(endOfMonth(previousMonth), range.value.min)
   })
 
   const nextDisabled = computed(() => {
-    const nextMonth = addMonths(viewingDate.value, 1)
+    const nextMonth = addMonths(internalViewingDate.value, 1)
     return !!range.value.max && isDateAfter(startOfMonth(nextMonth), range.value.max)
   })
 
@@ -191,7 +202,7 @@
     date: (date: Date) => ({
       'p-date-picker__date--today': isSameDay(date, new Date()),
       'p-date-picker__date--selected': isSameDayAsSelectedDate(date),
-      'p-date-picker__date--out-of-month': !isSameMonth(date, viewingDate.value),
+      'p-date-picker__date--out-of-month': !isSameMonth(date, internalViewingDate.value),
     }),
   }))
 
