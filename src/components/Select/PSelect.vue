@@ -95,6 +95,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
@@ -137,10 +138,6 @@
       return { label: option.toLocaleString(), value: option }
     })
   })
-
-  function isArray<T>(value: T | T[]): value is T[] {
-    return Array.isArray(value)
-  }
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
     return selectOptions.value.find(x => x.value === value)
