@@ -18,7 +18,7 @@
     </template>
 
     <template #with-multiselect>
-      <p-table v-model:selected-rows="selectedRows" :data="data" />
+      <p-table v-model:selected="selectedRows" :data="data" />
 
       <p-code multiline class="mt-4">
         {{ selectedRows }}
