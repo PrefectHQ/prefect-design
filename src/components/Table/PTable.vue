@@ -5,7 +5,7 @@
         <PTableHead>
           <slot name="header">
             <PTableRow>
-              <template v-if="selectedRows">
+              <template v-if="selected">
                 <PTableData class="p-table__checkbox-cell">
                   <p-checkbox v-model="selectAll" />
                 </PTableData>
@@ -24,7 +24,7 @@
         <PTableBody>
           <template v-for="(row, rowIndex) in data" :key="rowIndex">
             <PTableRow :class="getRowClasses(row, rowIndex)">
-              <template v-if="selectedRows">
+              <template v-if="selected">
                 <PTableData class="p-table__checkbox-cell">
                   <p-checkbox v-model="internalSelectedRows" :value="row" :disabled="row.disabled" />
                 </PTableData>
@@ -73,7 +73,7 @@
 
   const props = defineProps<{
     data: TableData[],
-    selectedRows?: TableData[],
+    selected?: TableData[],
     columns?: TableColumn[],
     rowClasses?: RowClassesMethod,
     columnClasses?: ColumnClassesMethod,
@@ -87,7 +87,7 @@
 
   const internalSelectedRows = computed({
     get() {
-      return props.selectedRows ?? []
+      return props.selected ?? []
     },
     set(value: TableData[]) {
       emit('update:selectedRows', value)
