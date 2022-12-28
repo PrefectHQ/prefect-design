@@ -1,5 +1,5 @@
 <template>
-  <PDateInput v-model="rangeValue" :clearable="clearable">
+  <PDateInput v-model="rangeValue" v-model:viewingDate="internalViewingDate" :clearable="clearable">
     <template #default="{ openPicker, isOpen, disabled }">
       <template v-if="media.hover">
         <PDateButton
@@ -63,11 +63,13 @@
   const props = defineProps<{
     startDate: Date | null | undefined,
     endDate: Date | null | undefined,
+    viewingDate?: Date,
     clearable?: boolean,
   }>()
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:startDate' | 'update:endDate', value: Date | null): void,
+    (event: 'update:viewingDate', value: Date | undefined): void,
   }>()
 
   const internalStartDate = computed({
@@ -75,7 +77,7 @@
       return props.startDate ?? null
     },
     set(value: Date | null) {
-      emits('update:startDate', value)
+      emit('update:startDate', value)
     },
   })
 
@@ -92,7 +94,7 @@
       return props.endDate ?? null
     },
     set(value: Date | null) {
-      emits('update:endDate', value)
+      emit('update:endDate', value)
     },
   })
 
@@ -130,6 +132,15 @@
 
       internalStartDate.value = value
       internalEndDate.value = null
+    },
+  })
+
+  const internalViewingDate = computed({
+    get() {
+      return props.viewingDate
+    },
+    set(value) {
+      emit('update:viewingDate', value)
     },
   })
 
