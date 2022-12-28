@@ -7,7 +7,7 @@
             <PTableRow>
               <template v-if="selected">
                 <PTableData class="p-table__checkbox-cell">
-                  <p-checkbox v-model="selectAll" />
+                  <p-checkbox v-model="allSelected" />
                 </PTableData>
               </template>
 
@@ -94,22 +94,14 @@
     },
   })
 
-  const selectAll = computed({
+  const allSelected = computed({
     get() {
       return internalSelectedRows.value.length === selectableRows.value.length
     },
     set(value: boolean) {
-      handleRowSelectAll(value)
+      internalSelectedRows.value = value ? selectableRows.value : []
     },
   })
-
-  const handleRowSelectAll = (value: boolean): void => {
-    if (value) {
-      internalSelectedRows.value = selectableRows.value
-    } else {
-      internalSelectedRows.value = []
-    }
-  }
 
   const selectableRows = computed(() => props.data.filter(row => !row.disabled))
 
