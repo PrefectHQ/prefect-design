@@ -66,11 +66,4 @@
 .p-layout-table__section--end { @apply
   ml-auto
 }
-
-.p-layout-table__row__actions { @apply
-  justify-end
-  items-center
-  flex
-  gap-2
-}
 </style>
