@@ -1,27 +1,27 @@
 <template>
   <div class="p-layout-table">
-    <div class="p-layout-table__controls-header">
-      <slot name="controls-header">
-        <div class="p-layout-table__controls__section p-layout-table__controls__section--start">
-          <slot name="controls-header__start" />
+    <div class="p-layout-table__header">
+      <slot name="header">
+        <div class="p-layout-table__section p-layout-table__section--start">
+          <slot name="header__start" />
         </div>
 
-        <div class="p-layout-table__controls__section p-layout-table__controls__section--end">
-          <slot name="controls-header__end" />
+        <div class="p-layout-table__section p-layout-table__section--end">
+          <slot name="header__end" />
         </div>
       </slot>
     </div>
 
     <slot />
 
-    <div class="p-layout-table__controls-footer">
-      <slot name="controls-footer">
-        <div class="p-layout-table__controls__section p-layout-table__controls__section--start">
-          <slot name="controls-footer__start" />
+    <div class="p-layout-table__footer">
+      <slot name="footer">
+        <div class="p-layout-table__section p-layout-table__section--start">
+          <slot name="footer__start" />
         </div>
 
-        <div class="p-layout-table__controls__section p-layout-table__controls__section--end">
-          <slot name="controls-footer__end" />
+        <div class="p-layout-table__section p-layout-table__section--end">
+          <slot name="footer__end" />
         </div>
       </slot>
     </div>
@@ -29,7 +29,7 @@
 </template>
 
 <style>
-.p-layout-table__controls-header { @apply
+.p-layout-table__header { @apply
   flex
   justify-between
   items-center
@@ -42,7 +42,7 @@
   z-10
 }
 
-.p-layout-table__controls-footer { @apply
+.p-layout-table__footer { @apply
   flex
   justify-between
   items-center
@@ -53,17 +53,17 @@
   z-10
 }
 
-.p-layout-table__controls__section { @apply
+.p-layout-table__section { @apply
   flex
   gap-2
   items-center
 }
 
-.p-layout-table__controls__section--start { @apply
+.p-layout-table__section--start { @apply
   mr-auto
 }
 
-.p-layout-table__controls__section--end { @apply
+.p-layout-table__section--end { @apply
   ml-auto
 }
 
