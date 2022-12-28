@@ -11,15 +11,15 @@
             </div>
           </template>
 
-          <template #header__start>
+          <template #header-start>
             <div class="bg-indigo-500 layout-table-section__box">
-              header__start
+              header-start
             </div>
           </template>
 
-          <template #header__end>
+          <template #header-end>
             <div class="bg-violet-500 layout-table-section__box">
-              header__end
+              header-end
             </div>
           </template>
 
@@ -33,15 +33,15 @@
             </div>
           </template>
 
-          <template #footer__start>
+          <template #footer-start>
             <div class="bg-lime-500 layout-table-section__box">
-              footer__start
+              footer-start
             </div>
           </template>
 
-          <template #footer__end>
+          <template #footer-end>
             <div class="bg-amber-500 layout-table-section__box">
-              footer__end
+              footer-end
             </div>
           </template>
         </p-layout-table>
@@ -59,15 +59,15 @@
             </div>
           </template>
 
-          <template #header__start>
+          <template #header-start>
             <div class="bg-indigo-500 layout-table-section__box">
-              header__start
+              header-start
             </div>
           </template>
 
-          <template #header__end>
+          <template #header-end>
             <div class="bg-violet-500 layout-table-section__box">
-              header__end
+              header-end
             </div>
           </template>
 
@@ -83,15 +83,15 @@
             </div>
           </template>
 
-          <template #footer__start>
+          <template #footer-start>
             <div class="bg-lime-500 layout-table-section__box">
-              footer__start
+              footer-start
             </div>
           </template>
 
-          <template #footer__end>
+          <template #footer-end>
             <div class="bg-amber-500 layout-table-section__box">
-              footer__end
+              footer-end
             </div>
           </template>
         </p-layout-table>

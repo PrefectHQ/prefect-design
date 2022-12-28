@@ -3,11 +3,11 @@
     <div class="p-layout-table__header" :class="classes.header">
       <slot name="header">
         <div class="p-layout-table__section p-layout-table__section--start">
-          <slot name="header__start" />
+          <slot name="header-start" />
         </div>
 
         <div class="p-layout-table__section p-layout-table__section--end">
-          <slot name="header__end" />
+          <slot name="header-end" />
         </div>
       </slot>
     </div>
@@ -17,11 +17,11 @@
     <div class="p-layout-table__footer">
       <slot name="footer">
         <div class="p-layout-table__section p-layout-table__section--start">
-          <slot name="footer__start" />
+          <slot name="footer-start" />
         </div>
 
         <div class="p-layout-table__section p-layout-table__section--end">
-          <slot name="footer__end" />
+          <slot name="footer-end" />
         </div>
       </slot>
     </div>
