@@ -5,6 +5,12 @@
         <PTableHead>
           <slot name="header">
             <PTableRow>
+              <template v-if="selectedRows">
+                <PTableData class="p-table__checkbox-cell">
+                  <p-checkbox v-model="selectAll" />
+                </PTableData>
+              </template>
+
               <template v-for="column in visibleColumns" :key="column">
                 <PTableHeader :style="getColumnStyle(column)">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
@@ -18,6 +24,12 @@
         <PTableBody>
           <template v-for="(row, rowIndex) in data" :key="rowIndex">
             <PTableRow :class="getRowClasses(row, rowIndex)">
+              <template v-if="selectedRows">
+                <PTableData class="p-table__checkbox-cell">
+                  <p-checkbox v-model="internalSelectedRows" :value="row" :disabled="row.disabled" />
+                </PTableData>
+              </template>
+
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
                 <PTableData :class="getColumnClasses(column, getValue(row, column), columnIndex, row, rowIndex)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
@@ -61,12 +73,45 @@
 
   const props = defineProps<{
     data: TableData[],
+    selectedRows?: TableData[],
     columns?: TableColumn[],
     rowClasses?: RowClassesMethod,
     columnClasses?: ColumnClassesMethod,
   }>()
 
   const slots = useSlots()
+
+  const emit = defineEmits<{
+    (event: 'update:selectedRows', value: TableData[]): void,
+  }>()
+
+  const internalSelectedRows = computed({
+    get() {
+      return props.selectedRows ?? []
+    },
+    set(value: TableData[]) {
+      emit('update:selectedRows', value)
+    },
+  })
+
+  const selectAll = computed({
+    get() {
+      return internalSelectedRows.value.length === selectableRows.value.length
+    },
+    set(value: boolean) {
+      handleRowSelectAll(value)
+    },
+  })
+
+  const handleRowSelectAll = (value: boolean): void => {
+    if (value) {
+      internalSelectedRows.value = selectableRows.value
+    } else {
+      internalSelectedRows.value = []
+    }
+  }
+
+  const selectableRows = computed(() => props.data.filter(row => !row.disabled))
 
   const columns = computed<TableColumn[]>(() => {
     if (props.columns) {
@@ -128,7 +173,6 @@
   function getColumnClasses(column: TableColumn, value: unknown, index: number, row: TableData, rowIndex: number): ClassValue {
     const custom = asArray(props.columnClasses?.(column, value, index, row, rowIndex))
 
-
     return [
       ...custom,
       {
@@ -151,9 +195,17 @@
   ring-opacity-5
   md:rounded-lg
 }
+
 .p-table__table { @apply
   min-w-full
   divide-y
   divide-gray-300
+}
+
+.p-table__checkbox-cell { @apply
+  flex
+  justify-center
+  items-center
+  px-1
 }
 </style>
