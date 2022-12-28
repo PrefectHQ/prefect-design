@@ -11,35 +11,9 @@
         aria-hidden="true"
         v-bind="attrs"
       >
-        <template v-if="multiple && valueAsArray.length">
-          <PTagWrapper class="p-select-button__value" :tags="valueAsArray">
-            <template #tag="{ tag }">
-              <slot
-                name="default"
-                :selected-option="getSelectOption(tag)"
-                :unselect-option="() => unselectOptionValue(tag)"
-              >
-                <PTag dismissible @dismiss="unselectOptionValue(tag)">
-                  {{ getSelectOption(tag)?.label }}
-                </PTag>
-              </slot>
-            </template>
-
-            <template #overflow-tags="{ overflowedChildren }">
-              <span>+{{ overflowedChildren }}</span>
-            </template>
-          </PTagWrapper>
-        </template>
-
-        <template v-else-if="!multiple && selectedOption">
+        <template v-if="modelValue">
           <span class="p-select-button__value">
-            <slot
-              name="default"
-              :selected-option="selectedOption"
-              :unselect-option="() => internalValue = null"
-            >
-              {{ selectedOption.label }}
-            </slot>
+            <slot name="default" />
           </span>
         </template>
 
@@ -63,18 +37,11 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
-  import PTag from '@/components/Tag/PTag.vue'
-  import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
-  import { SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue } from '@/types/selectOption'
 
-  const props = defineProps<{
+  defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    options: SelectOption[],
     emptyMessage?: string,
-  }>()
-
-  const emits = defineEmits<{
-    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
   const wrapperElement = ref<typeof PBaseInput>()
@@ -83,47 +50,6 @@
   const el = computed(() => buttonElement.value)
 
   defineExpose({ el, wrapper })
-
-  const internalValue = computed({
-    get() {
-      return props.modelValue ?? null
-    },
-    set(value: SelectModelValue | SelectModelValue[]) {
-      emits('update:modelValue', value)
-    },
-  })
-
-  const multiple = computed(() => Array.isArray(internalValue.value))
-
-  const valueAsArray = computed(() => {
-    if (!internalValue.value) {
-      return []
-    }
-
-    if (Array.isArray(internalValue.value)) {
-      return internalValue.value.map(option => option ? option.toString() : '')
-    }
-
-    return [internalValue.value.toString()]
-  })
-
-  const selectedOption = computed(() => {
-    if (multiple.value) {
-      return null
-    }
-
-    return props.options.find(x => x.value === internalValue.value)
-  })
-
-  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
-    return props.options.find(x => x.value === value)
-  }
-
-  function unselectOptionValue(tag: SelectModelValue): void {
-    const value = valueAsArray.value.filter(x => x !== tag)
-
-    internalValue.value = value
-  }
 </script>
 
 <style>

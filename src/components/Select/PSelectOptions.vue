@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch, watchEffect } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
@@ -51,12 +51,12 @@
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: SelectOption[],
-    highlightedIndex: number,
+    highlightedIndex: number | undefined,
   }>()
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue): void,
-    (event: 'update:highlightedIndex', value: number): void,
+    (event: 'update:highlightedIndex', value: number | undefined): void,
   }>()
 
   const internalValue = computed(() => props.modelValue ?? null)
@@ -69,8 +69,8 @@
     get() {
       return props.highlightedIndex
     },
-    set(value: number) {
-      emits('update:highlightedIndex', value)
+    set(value) {
+      emit('update:highlightedIndex', value)
     },
   })
 
@@ -87,7 +87,7 @@
       return
     }
 
-    emits('update:modelValue', option.value)
+    emit('update:modelValue', option.value)
   }
 
   function getOptionElement(index: number): HTMLLIElement | undefined {
@@ -101,21 +101,19 @@
   }
 
   watch(() => props.highlightedIndex, (value, previous) => {
-    const difference = value - previous
+    if (value === undefined) {
+      return
+    }
 
-    if (props.options[props.highlightedIndex].disabled) {
-      const newIndex = indexValue.value + difference
-      if (newIndex > 0 && newIndex < props.options.length) {
-        indexValue.value += difference
+    if (props.options[value]?.disabled) {
+      const difference = value - (previous ?? -1)
+      const newIndex = value + difference
+
+      if (newIndex >= 0 && newIndex < props.options.length) {
+        indexValue.value = newIndex
       }
     } else {
       scrollToOption(value)
-    }
-  })
-
-  watchEffect(() => {
-    if (props.options.length <= indexValue.value) {
-      indexValue.value = 0
     }
   })
 </script>

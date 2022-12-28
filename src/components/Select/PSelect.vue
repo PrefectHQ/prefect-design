@@ -21,8 +21,28 @@
           :options="selectOptions"
           @click="toggleSelect"
         >
-          <template v-for="(index, name) in $slots" #[name]="data">
-            <slot :name="name" v-bind="{ ...data, isOpen, open: openSelect, close: closeSelect, toggle: toggleSelect }" />
+          <template #default>
+            <template v-if="isArray(internalValue)">
+              <PTagWrapper class="p-select-button__value" :tags="internalValue.map(x => x?.toString() ?? '')">
+                <template #tag="{ tag }">
+                  <PTag dismissible @dismiss="unselectOptionValue(tag)">
+                    <slot :value="tag">
+                      {{ getSelectOption(tag)?.label }}
+                    </slot>
+                  </PTag>
+                </template>
+
+                <template #overflow-tags="{ overflowedChildren }">
+                  <span>+{{ overflowedChildren }}</span>
+                </template>
+              </PTagWrapper>
+            </template>
+
+            <template v-else>
+              <slot :value="internalValue">
+                {{ getSelectOption(internalValue)?.label }}
+              </slot>
+            </template>
           </template>
         </PSelectButton>
       </template>
@@ -35,7 +55,7 @@
           :class="classes.control"
           :disabled="disabled"
           v-bind="attrs"
-          :options="filteredSelectOptions"
+          :options="selectOptions"
         />
       </template>
     </template>
@@ -43,7 +63,7 @@
     <PSelectOptions
       v-model:highlightedIndex="highlightedIndex"
       :model-value="internalValue"
-      :options="filteredSelectOptions"
+      :options="selectOptions"
       :style="styles.option"
       @keydown="handleKeydown"
       @update:model-value="setValue"
@@ -65,14 +85,17 @@
 
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
-  import { computed, ref } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
+  import PTag from '@/components/Tag/PTag.vue'
+  import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
@@ -80,10 +103,9 @@
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
     options: (string | number | boolean | SelectOption)[],
-    filterOptions?: (option: SelectOption) => boolean | Promise<boolean>,
   }>()
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'open' | 'close'): void,
   }>()
@@ -93,18 +115,18 @@
   const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const highlightedIndex = ref(0)
+  const highlightedIndex = ref<number>()
 
   const internalValue = computed({
     get() {
       return props.modelValue ?? null
     },
     set(value: SelectModelValue | SelectModelValue[]) {
-      emits('update:modelValue', value)
+      emit('update:modelValue', value)
     },
   })
 
-  const multiple = computed(() => Array.isArray(internalValue.value))
+  const multiple = computed(() => isArray(internalValue.value))
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const selectOptions = computed<SelectOption[]>(() => {
@@ -117,9 +139,15 @@
     })
   })
 
-  const filteredSelectOptions = computed(() => {
-    return selectOptions.value.filter(async option => !props.filterOptions || await props.filterOptions(option))
-  })
+  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
+    return selectOptions.value.find(x => x.value === value)
+  }
+
+  function unselectOptionValue(value: SelectModelValue): void {
+    if (isArray(internalValue.value)) {
+      internalValue.value = internalValue.value.filter(x => x !== value)
+    }
+  }
 
   const classes = computed(() => ({
     control: {
@@ -172,7 +200,11 @@
   }
 
   function getHighlighted(): SelectOption | undefined {
-    return filteredSelectOptions.value[highlightedIndex.value]
+    if (highlightedIndex.value === undefined) {
+      return undefined
+    }
+
+    return selectOptions.value[highlightedIndex.value]
   }
 
   function trySettingValueToHighlighted(): boolean {
@@ -189,9 +221,9 @@
 
   function handleOpenChange(open: boolean): void {
     if (open) {
-      emits('open')
+      emit('open')
     } else {
-      emits('close')
+      emit('close')
       buttonElement.value?.el.focus()
     }
   }
@@ -210,6 +242,8 @@
       case keys.upArrow:
         if (!isOpen.value) {
           openSelect()
+        } else if (highlightedIndex.value === undefined) {
+          highlightedIndex.value = selectOptions.value.length - 1
         } else if (highlightedIndex.value > 0) {
           highlightedIndex.value -= 1
         }
@@ -218,7 +252,9 @@
       case keys.downArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value < filteredSelectOptions.value.length - 1) {
+        } else if (highlightedIndex.value === undefined) {
+          highlightedIndex.value = 0
+        } else if (highlightedIndex.value < selectOptions.value.length - 1) {
           highlightedIndex.value += 1
         }
         event.preventDefault()
@@ -233,6 +269,10 @@
         break
       case keys.enter:
         if (isOpen.value) {
+          if (selectOptions.value.length === 1) {
+            highlightedIndex.value = 0
+          }
+
           trySettingValueToHighlighted()
           event.preventDefault()
         }
@@ -241,6 +281,12 @@
         break
     }
   }
+
+  watch([selectOptions, highlightedIndex], ([options, index]) => {
+    if (index && !options[index]) {
+      highlightedIndex.value = undefined
+    }
+  })
 </script>
 
 <style>

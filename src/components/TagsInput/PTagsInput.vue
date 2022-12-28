@@ -3,6 +3,9 @@
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
+    <template #default="{ value }">
+      {{ value }}
+    </template>
     <template #option="{ option }">
       <slot name="tag" :tag="option.value">
         <span class="p-tags-input__tag">{{ option.label }}</span>
@@ -25,7 +28,7 @@
     placeholder: 'Add tag',
   })
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:modelValue', value: string[]): void,
   }>()
 
@@ -34,7 +37,7 @@
       return props.modelValue ?? []
     },
     set(value: string[]) {
-      emits('update:modelValue', value)
+      emit('update:modelValue', value)
     },
   })
 </script>

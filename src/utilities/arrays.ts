@@ -20,7 +20,11 @@ export function reduceToMap<S, K, V>(array: S[], key: (item: S) => K, value: (it
 }
 
 export function asArray<T>(value: T | T[]): T[] {
-  return Array.isArray(value) ? value : [value]
+  return isArray(value) ? value : [value]
+}
+
+export function isArray<T>(value: T | T[]): value is T[] {
+  return Array.isArray(value)
 }
 
 export function sortStringArray(array: string[]): string[] {
