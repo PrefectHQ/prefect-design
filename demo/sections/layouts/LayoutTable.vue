@@ -4,21 +4,21 @@
       <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
       <p-layout-table class="bg-slate-100">
-        <template v-if="useFullSlots" #controls-header>
+        <template v-if="useFullSlots" #header>
           <div class="bg-fuchsia-500 layout-table-section__box">
-            controls-header
+            header
           </div>
         </template>
 
-        <template #controls-header__start>
+        <template #header__start>
           <div class="bg-indigo-500 layout-table-section__box">
-            controls-header__start
+            header__start
           </div>
         </template>
 
-        <template #controls-header__end>
+        <template #header__end>
           <div class="bg-violet-500 layout-table-section__box">
-            controls-header__end
+            header__end
           </div>
         </template>
 
@@ -26,21 +26,21 @@
           main
         </div>
 
-        <template v-if="useFullSlots" #controls-footer>
+        <template v-if="useFullSlots" #footer>
           <div class="bg-orange-500 layout-table-section__box">
-            controls-footer
+            footer
           </div>
         </template>
 
-        <template #controls-footer__start>
+        <template #footer__start>
           <div class="bg-lime-500 layout-table-section__box">
-            controls-footer__start
+            footer__start
           </div>
         </template>
 
-        <template #controls-footer__end>
+        <template #footer__end>
           <div class="bg-amber-500 layout-table-section__box">
-            controls-footer__end
+            footer__end
           </div>
         </template>
       </p-layout-table>
