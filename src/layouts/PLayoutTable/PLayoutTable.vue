@@ -1,6 +1,6 @@
 <template>
   <div class="p-layout-table">
-    <div class="p-layout-table__header">
+    <div class="p-layout-table__header" :class="classes.header">
       <slot name="header">
         <div class="p-layout-table__section p-layout-table__section--start">
           <slot name="header__start" />
@@ -28,16 +28,34 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+  import { computed } from 'vue'
+
+  const props = defineProps<{
+    sticky?: boolean,
+  }>()
+
+  const classes = computed(() => ({
+    header: {
+      'p-layout-table__header--sticky': props.sticky,
+    },
+  }))
+</script>
+
 <style>
 .p-layout-table__header { @apply
   flex
   justify-between
   items-center
   mb-2
-  sticky
-  top-0
   bg-white
   bg-opacity-90
+  py-2
+}
+
+.p-layout-table__header--sticky { @apply
+  sticky
+  top-0
   py-2
   z-10
 }
