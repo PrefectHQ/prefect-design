@@ -3,6 +3,7 @@
     title="Tables"
     :demos="[
       { title: 'Basic' },
+      { title: 'With Multiselect' },
       { title: 'Using Columns' },
       { title: 'Custom Slots' },
       { title: 'Empty States' },
@@ -14,6 +15,14 @@
 
     <template #basic>
       <p-table :data="data" />
+    </template>
+
+    <template #with-multiselect>
+      <p-table v-model:selected="selectedRows" :data="data" />
+
+      <p-code multiline class="mt-4">
+        {{ selectedRows }}
+      </p-code>
     </template>
 
     <template #using-columns>
@@ -87,7 +96,7 @@
   import { ClassValue } from '@/types/attributes'
   import { TableColumn, TableData } from '@/types/tables'
   import { media } from '@/utilities'
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const data = [
@@ -139,6 +148,8 @@
       width: '100px',
     },
   ])
+
+  const selectedRows = ref<TableData[]>([])
 
   function rowClasses(row: TableData, index: number): ClassValue {
     return {
