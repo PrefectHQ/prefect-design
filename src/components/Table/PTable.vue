@@ -82,7 +82,7 @@
   const slots = useSlots()
 
   const emit = defineEmits<{
-    (event: 'update:selectedRows', value: TableData[]): void,
+    (event: 'update:selected', value: TableData[]): void,
   }>()
 
   const internalSelectedRows = computed({
@@ -90,7 +90,7 @@
       return props.selected ?? []
     },
     set(value: TableData[]) {
-      emit('update:selectedRows', value)
+      emit('update:selected', value)
     },
   })
 
