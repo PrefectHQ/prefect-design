@@ -22,7 +22,13 @@
           @click="toggleSelect"
         >
           <template #default>
-            <template v-if="isArray(internalValue)">
+            <template v-if="showShowEmptyMessage">
+              <slot name="empty-message">
+                {{ emptyMessage }}
+              </slot>
+            </template>
+
+            <template v-else-if="isArray(internalValue)">
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
@@ -105,6 +111,7 @@
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
     options: (string | number | boolean | SelectOption)[],
+    emptyMessage?: string,
   }>()
 
   const emit = defineEmits<{
@@ -134,6 +141,13 @@
 
   const multiple = computed(() => isArray(internalValue.value))
   const isOpen = computed(() => popOver.value?.visible ?? false)
+  const showShowEmptyMessage = computed(() => {
+    if (isArray(internalValue.value)) {
+      return internalValue.value.length === 0
+    }
+
+    return getSelectOption(internalValue.value) === undefined
+  })
 
   const selectOptions = computed<SelectOption[]>(() => {
     return props.options.map(option => {
