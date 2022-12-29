@@ -5,7 +5,7 @@
         <PTableHead>
           <slot name="header">
             <PTableRow>
-              <template v-if="selected">
+              <template v-if="showMultiselect">
                 <PTableData class="p-table__checkbox-cell">
                   <p-checkbox v-model="allSelected" />
                 </PTableData>
@@ -24,7 +24,7 @@
         <PTableBody>
           <template v-for="(row, rowIndex) in data" :key="rowIndex">
             <PTableRow :class="getRowClasses(row, rowIndex)">
-              <template v-if="selected">
+              <template v-if="showMultiselect">
                 <PTableData class="p-table__checkbox-cell">
                   <p-checkbox v-model="internalSelectedRows" :value="row" :disabled="row.disabled" />
                 </PTableData>
@@ -104,6 +104,8 @@
   })
 
   const selectableRows = computed(() => props.data.filter(row => !row.disabled))
+
+  const showMultiselect = computed(() => props.selected !== undefined && selectableRows.value.length > 0)
 
   const columns = computed<TableColumn[]>(() => {
     if (props.columns) {
