@@ -23,13 +23,15 @@
         >
           <template #default>
             <template v-if="isArray(internalValue)">
-              <PTagWrapper class="p-select-button__value" :tags="internalValue.map(x => x?.toString() ?? '')">
+              <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
-                  <PTag dismissible @dismiss="unselectOptionValue(tag)">
-                    <slot :value="tag">
-                      {{ getSelectOption(tag)?.label }}
-                    </slot>
-                  </PTag>
+                  <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
+                    <PTag dismissible @dismiss="unselectOptionValue(tag)">
+                      <slot :label="getLabel(tag)" :value="tag">
+                        {{ getLabel(tag) }}
+                      </slot>
+                    </PTag>
+                  </slot>
                 </template>
 
                 <template #overflow-tags="{ overflowedChildren }">
@@ -39,8 +41,8 @@
             </template>
 
             <template v-else>
-              <slot :value="internalValue">
-                {{ getSelectOption(internalValue)?.label }}
+              <slot :label="getLabel(internalValue)" :value="internalValue">
+                {{ getLabel(internalValue) }}
               </slot>
             </template>
           </template>
@@ -95,7 +97,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
-  import { isArray } from '@/utilities/arrays'
+  import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
@@ -126,6 +128,10 @@
     },
   })
 
+  const tags = computed(() => {
+    return asArray(internalValue.value).map(option => option?.toString() ?? '')
+  })
+
   const multiple = computed(() => isArray(internalValue.value))
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
@@ -141,6 +147,10 @@
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
     return selectOptions.value.find(x => x.value === value)
+  }
+
+  function getLabel(value: SelectModelValue): string {
+    return getSelectOption(value)?.label ?? ''
   }
 
   function unselectOptionValue(value: SelectModelValue): void {
