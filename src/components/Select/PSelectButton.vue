@@ -11,19 +11,9 @@
         aria-hidden="true"
         v-bind="attrs"
       >
-        <template v-if="modelValue">
-          <span class="p-select-button__value">
-            <slot name="default" />
-          </span>
-        </template>
-
-        <template v-else>
-          <div class="p-select-button__value p-select-button__value--empty">
-            <slot name="empty-message">
-              {{ emptyMessage }}
-            </slot>
-          </div>
-        </template>
+        <span class="p-select-button__value">
+          <slot name="default" />
+        </span>
       </button>
     </template>
     <template #append>
@@ -37,12 +27,6 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
-  import { SelectModelValue } from '@/types/selectOption'
-
-  defineProps<{
-    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    emptyMessage?: string,
-  }>()
 
   const wrapperElement = ref<typeof PBaseInput>()
   const wrapper = computed(() => wrapperElement.value?.el)
