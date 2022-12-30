@@ -133,7 +133,7 @@
 
 .component-page__description,
 .component-page__demo-description { @apply
-  text-gray-500
+  text-foreground-300
   my-2
   text-sm
 }

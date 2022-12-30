@@ -69,10 +69,12 @@
   flex
   items-center
   focus-within:ring-1
-  bg-white
+  bg-background
+  border-background-400
+  dark:border-foreground-200
+  text-foreground
   focus-within:border-prefect-600
   focus-within:ring-prefect-600
-  border-gray-300
   shadow-sm
   rounded-md
   font-normal
@@ -93,7 +95,8 @@
   justify-center
   self-stretch
   text-sm
-  border-gray-300
+  border-background-400
+  dark:border-foreground-200
 }
 
 .p-base-input__prepend { @apply

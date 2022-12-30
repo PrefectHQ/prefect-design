@@ -1,7 +1,7 @@
 <template>
   <div ref="container" class="resizable-section">
     <p-frame :style="styles.iframe" :class="classes.iframe">
-      <div class="resizable-section__content">
+      <div class="resizable-section__content" :class="classes.content">
         <slot />
       </div>
     </p-frame>
@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { useColorTheme } from '@/compositions'
   import { toPixels } from '@/utilities'
   import { computed, ref } from 'vue'
   import ResizeIcon from '@/demo/components/ResizeIcon.svg'
@@ -32,7 +33,15 @@
   const handleWidth = 24
   const handleWidthPx = `${handleWidth}px`
 
+  const { value: colorTheme } = useColorTheme()
+
   const classes = computed(() => ({
+    content: {
+      'dark': colorTheme.value === 'dark',
+      'light': colorTheme.value === 'light',
+      'bg-background-900': colorTheme.value === 'light',
+      'bg-background-400': colorTheme.value === 'dark',
+    },
     iframe: {
       'pointer-events-none': dragging.value,
     },
@@ -40,13 +49,13 @@
 
   const styles = computed(() => ({
     iframe: {
-      'width': contentWidth.value ? toPixels(contentWidth.value): '100%',
+      'width': contentWidth.value ? toPixels(contentWidth.value) : '100%',
     },
   }))
 
   const start = (): void => {
     dragging.value = true
-    window.addEventListener('mouseup',  stop)
+    window.addEventListener('mouseup', stop)
     window.addEventListener('mousemove', drag)
   }
 
@@ -60,7 +69,7 @@
     const { offsetLeft, offsetWidth } = container.value!
     const positionX = event.clientX - offsetLeft
 
-    contentWidth.value =  Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
+    contentWidth.value = Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
   }
 </script>
 
@@ -71,6 +80,7 @@
   relative
   border
   overflow-hidden
+  bg-transparent
 }
 
 .resizable-section__content { @apply
@@ -82,12 +92,13 @@
 }
 
 .resizable-section__aside { @apply
-  bg-slate-800/25
+  bg-background-400
   grow;
 }
 
 .resizable-section__handle { @apply
-  bg-slate-800/25
+  bg-background-600
+  text-foreground-300
   w-[v-bind(handleWidthPx)]
   h-full
   flex
@@ -97,17 +108,11 @@
   filter: drop-shadow(0 0 0.15rem rgba(0, 0, 0, 0.2));
 }
 
-.resizable-section__resize-icon { @apply
-  w-full
-  rotate-90
-  text-slate-900
-}
-
 .resizable-section__px { @apply
   select-none
   bg-opacity-70
-  bg-slate-900
-  text-slate-100
+  bg-background
+  text-foreground
   rounded
   px-2
   py-0.5

@@ -106,7 +106,7 @@
 }
 
 .context-sidebar__search-box { @apply
-  text-slate-900
+  text-foreground-600
 }
 
 .context-sidebar .p-context-accordion-item__title,

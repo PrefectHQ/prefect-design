@@ -37,7 +37,7 @@
 
 .app { @apply
   text-foreground
-  bg-background-600
+  bg-background-900
   dark:bg-background-400
 }
 

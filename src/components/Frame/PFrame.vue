@@ -1,5 +1,5 @@
 <template>
-  <iframe ref="frame" srcdoc="<body></body>" :height="height" v-bind="$attrs" @load="onLoad" />
+  <iframe ref="frame" srcdoc="<body class='bg-rose-500/50'></body>" :height="height" v-bind="$attrs" @load="onLoad" />
   <teleport v-if="content" :to="content">
     <slot />
   </teleport>

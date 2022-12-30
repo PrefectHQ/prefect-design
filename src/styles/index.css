@@ -10,35 +10,42 @@
 }
 
 :root {
-  --50: #f8fafc;
+  /* --50: #f8fafc; */
   --50: 210deg 40% 98%;
 
-  --100: #f1f5f9;
+  /* --100: #f1f5f9; */
   --100: 210deg 44% 96%;
 
-  --200: #e2e8f0;
+  /* --200: #e2e8f0; */
   --200: 214deg 32% 91%;
 
-  --300: #cbd5e1;
+  /* --300: #cbd5e1; */
   --300: 213deg 27% 84%;
 
-  --400: #94a3b8;
+  /* --400: #94a3b8; */
   --400: 215deg 20% 65%;
 
-  --500: #64748b;
+  /* --500: #64748b; */
   --500: 215deg 16% 47%;
 
-  --600: #475569;
+  /* --600: #475569; */
   --600: 215deg 19% 35%;
 
-  --700: #334155;
+  /* --700: #334155; */
   --700: 215deg 25% 27%;
 
-  --800: #1e293b;
+  /* --800: #1e293b; */
   --800: 217deg 33% 17%;
 
-  --900: #0f172a;
+  /* --900: #0f172a; */
   --900: 222deg 47% 11%;
+}
+
+.dark:root {
+  color-scheme: dark;
+}
+.light:root {
+  color-scheme: light;
 }
 
 @layer base {
@@ -74,35 +81,13 @@
     --background-700: var(--600);
     --background-800: var(--500);
     --background-900: var(--400);
-
-    /* --foreground-50: var(--50);
-    --foreground-100: var(--50);
-    --foreground-200: var(--50);
-    --foreground-300: var(--50);
-    --foreground-400: var(--100);
-    --foreground-500: var(--200);
-    --foreground-600: var(--300);
-    --foreground-700: var(--400);
-    --foreground-800: var(--500);
-    --foreground-900: var(--600);
-
-    --background-50: var(--50);
-    --background-100: var(--100);
-    --background-200: var(--200);
-    --background-300: var(--300);
-    --background-400: var(--400);
-    --background-500: var(--800);
-    --background-600: var(--900);
-    --background-700: var(--900);
-    --background-800: var(--900);
-    --background-900: var(--900); */
   }
 
   .light {
     color-scheme: light;
 
     --foreground: var(--800);
-    --background: var(--200);
+    --background: var(--100);
 
     --foreground-50: var(--300);
     --foreground-100: var(--400);
@@ -120,33 +105,11 @@
     --background-200: var(--500);
     --background-300: var(--400);
     --background-400: var(--300);
-    --background-500: var(--200);
-    --background-600: var(--100);
+    --background-500: var(--100);
+    --background-600: var(--50);
     --background-700: var(--50);
     --background-800: var(--50);
     --background-900: var(--50);
-  
-    /* --foreground-50: var(--300);
-    --foreground-100: var(--400);
-    --foreground-200: var(--500);
-    --foreground-300: var(--600);
-    --foreground-400: var(--700);
-    --foreground-500: var(--800);
-    --foreground-600: var(--900);
-    --foreground-700: var(--900);
-    --foreground-800: var(--900);
-    --foreground-900: var(--900);
-
-    --background-50: var(--50);
-    --background-100: var(--50);
-    --background-200: var(--50);
-    --background-300: var(--50);
-    --background-400: var(--50);
-    --background-500: var(--100);
-    --background-600: var(--200);
-    --background-700: var(--300);
-    --background-800: var(--400);
-    --background-900: var(--500); */
   }
 }
 
