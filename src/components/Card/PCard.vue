@@ -5,9 +5,9 @@
 </template>
 
 <style>
-.p-card {
-    @apply
-  bg-white
+.p-card { @apply
+  bg-background
+  text-foreground
   border
   border-gray-300
   p-6
