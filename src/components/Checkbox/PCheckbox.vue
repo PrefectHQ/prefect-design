@@ -82,7 +82,9 @@
   h-4
   w-4
   text-prefect-600
-  border-gray-300
+  bg-background-600
+  border-background-400
+  dark:border-foreground-200
   rounded
   transition-colors
   ring-offset-2
@@ -95,6 +97,7 @@
   gap-x-2
   items-center
   cursor-pointer
+  text-foreground
 }
 
 .p-checkbox__label .p-checkbox__label-text { @apply
