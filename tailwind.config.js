@@ -1,19 +1,6 @@
 const forms = require('@tailwindcss/forms')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-const prefectPalette = {
-  50: '#F2F6FF',
-  100: '#E6EDFF',
-  200: '#C0D3FF',
-  300: '#9AB8FE',
-  400: '#4E82FE',
-  500: '#024DFD',
-  600: '#0245E4',
-  700: '#023ABE',
-  800: '#012E98',
-  900: '#01267C',
-}
-
 // Think of foreground/background palette scales as scales of intensity from a starting color
 const generateColorPalette = (base) => {
   const colors = {
@@ -24,12 +11,17 @@ const generateColorPalette = (base) => {
   return colors
 }
 
-const colors = () => ({
-  primary: prefectPalette[500],
-  prefect: prefectPalette,
-  foreground: generateColorPalette('foreground'),
-  background: generateColorPalette('background'),
-})
+const colors = () => {
+  const primary = generateColorPalette('primary')
+
+  return {
+    prefect: primary,
+    primary: primary,
+    secondary: generateColorPalette('secondary'),
+    foreground: generateColorPalette('foreground'),
+    background: generateColorPalette('background'),
+  }
+}
 
 module.exports = {
   darkMode: 'class',
