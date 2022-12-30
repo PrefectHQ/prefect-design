@@ -60,6 +60,7 @@ import { PTerminal, install as installPTerminal } from '@/components/Terminal'
 import { PTextarea, install as installPTextarea } from '@/components/Textarea'
 import { PTextInput, install as installPTextInput } from '@/components/TextInput'
 import { PTextTruncate, install as installPTextTruncate } from '@/components/TextTruncate'
+import { PThemeToggle, install as installPThemeToggle } from '@/components/ThemeToggle'
 import { PToast, install as installPToast } from '@/components/Toast'
 import { PToggle, install as installPToggle } from '@/components/Toggle'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
@@ -136,6 +137,7 @@ export {
   PTextarea,
   PTextInput,
   PTextTruncate,
+  PThemeToggle,
   PToast,
   PToggle,
   PTypeAhead,
@@ -207,6 +209,7 @@ export const installs = [
   installPTextarea,
   installPTextInput,
   installPTextTruncate,
+  installPThemeToggle,
   installPToast,
   installPToggle,
   installPTypeAhead,

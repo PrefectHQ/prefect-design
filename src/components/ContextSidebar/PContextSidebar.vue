@@ -18,8 +18,10 @@
 
 <style>
 .p-context-sidebar { @apply
-  bg-slate-700
+  bg-slate-800
   text-slate-300
+  /* dark:bg-slate-800
+  dark:text-slate-200 */
   fixed
   lg:sticky
   top-16
@@ -59,6 +61,7 @@
 .p-context-sidebar__footer { @apply
   mt-auto
   border-t-2
+  flex-shrink-0
   border-slate-600
 }
 </style>

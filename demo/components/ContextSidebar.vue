@@ -25,6 +25,12 @@
     <template v-for="record in routeRecords" :key="record.name">
       <component :is="getComponentForRecord(record)" v-bind="getContextProps(record)" />
     </template>
+
+    <template #footer>
+      <div class="context-sidebar__footer">
+        <p-theme-toggle />
+      </div>
+    </template>
   </p-context-sidebar>
 </template>
 
@@ -106,5 +112,11 @@
 .context-sidebar .p-context-accordion-item__title,
 .context-sidebar .p-context-nav-item { @apply
   capitalize
+}
+
+.context-sidebar__footer { @apply
+  min-h-[36px]
+  flex
+  items-center
 }
 </style>

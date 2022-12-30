@@ -14,7 +14,22 @@ const prefectPalette = {
   900: '#01267C',
 }
 
+// Think of foreground/background palette scales as scales of intensity from a starting color
+const generateColorPalette = (base) => {
+  const colors = {}
+  const keys = ['default', '50', '100', '200', '300', '400', '500', '600', '700', '800', '900']
+  keys.forEach((key) => {
+    if (key === 'default') {
+      colors[key] = `var(--${base}-500)`
+    } else {
+      colors[key] = `var(--${base}-${key})`
+    }
+  })
+  return colors
+}
+
 module.exports = {
+  darkMode: 'class',
   content: [
     './src/**/*.vue',
     './demo/index.html',
@@ -25,6 +40,8 @@ module.exports = {
       colors: {
         primary: prefectPalette[500],
         prefect: prefectPalette,
+        foreground: generateColorPalette('foreground'),
+        background: generateColorPalette('background'),
       },
       fontFamily: {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
