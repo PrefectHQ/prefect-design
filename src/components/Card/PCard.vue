@@ -9,7 +9,8 @@
   bg-background
   text-foreground
   border
-  border-gray-300
+  border-background-400
+  dark:border-foreground-200
   p-6
   rounded-lg
   shadow-sm
