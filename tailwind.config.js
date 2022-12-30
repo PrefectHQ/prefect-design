@@ -16,17 +16,20 @@ const prefectPalette = {
 
 // Think of foreground/background palette scales as scales of intensity from a starting color
 const generateColorPalette = (base) => {
-  const colors = {}
-  const keys = ['default', '50', '100', '200', '300', '400', '500', '600', '700', '800', '900']
-  keys.forEach((key) => {
-    if (key === 'default') {
-      colors[key] = `var(--${base}-500)`
-    } else {
-      colors[key] = `var(--${base}-${key})`
-    }
-  })
+  const colors = {
+    DEFAULT: `hsl(var(--${base}) / <alpha-value>)`,
+  }
+  const keys = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
+  keys.forEach((key) => colors[key] = `hsl(var(--${base}-${key}) / <alpha-value>)`)
   return colors
 }
+
+const colors = () => ({
+  primary: prefectPalette[500],
+  prefect: prefectPalette,
+  foreground: generateColorPalette('foreground'),
+  background: generateColorPalette('background'),
+})
 
 module.exports = {
   darkMode: 'class',
@@ -37,12 +40,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: prefectPalette[500],
-        prefect: prefectPalette,
-        foreground: generateColorPalette('foreground'),
-        background: generateColorPalette('background'),
-      },
+      colors: colors,
       fontFamily: {
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
         mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],

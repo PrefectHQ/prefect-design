@@ -117,6 +117,7 @@
 .context-sidebar__footer { @apply
   min-h-[36px]
   flex
+  justify-center
   items-center
 }
 </style>

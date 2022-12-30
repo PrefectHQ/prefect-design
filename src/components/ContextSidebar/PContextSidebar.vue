@@ -20,8 +20,6 @@
 .p-context-sidebar { @apply
   bg-slate-800
   text-slate-300
-  /* dark:bg-slate-800
-  dark:text-slate-200 */
   fixed
   lg:sticky
   top-16

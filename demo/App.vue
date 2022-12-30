@@ -36,12 +36,9 @@
 }
 
 .app { @apply
-  text-foreground-500
-  bg-background-100
-  dark:text-foreground-100
-  dark:bg-background-700
-  /* dark:text-slate-400
-  dark:bg-slate-900 */
+  text-foreground
+  bg-background-600
+  dark:bg-background-400
 }
 
 .app__prefect-icon { @apply
@@ -50,7 +47,7 @@
 }
 
 .app__menu-icon { @apply
-  text-slate-200
+  text-foreground-500
   w-6
   h-6
   cursor-pointer
