@@ -144,6 +144,8 @@
   items-center
   rounded-md
   shadow-sm
+
+  dark:ring-offset-background-400
 }
 
 .p-button__content { @apply
