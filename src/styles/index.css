@@ -99,7 +99,7 @@
     --foreground: var(--200);
     --background: var(--800);
     --primary: var(--primary-default-400);
-    --danger: var(--danger-default-400);
+    --danger: var(--danger-default-500);
 
     --foreground-50: var(--700);
     --foreground-100: var(--600);
@@ -135,15 +135,15 @@
     --primary-900: var(--primary-default-50);
 
     --danger-50:  var(--danger-default-900);
-    --danger-100: var(--danger-default-800);
-    --danger-200: var(--danger-default-700);
-    --danger-300: var(--danger-default-600);
-    --danger-400: var(--danger-default-500);
+    --danger-100: var(--danger-default-900);
+    --danger-200: var(--danger-default-800);
+    --danger-300: var(--danger-default-700);
+    --danger-400: var(--danger-default-600);
     --danger-500: var(--danger);
-    --danger-600: var(--danger-default-300);
-    --danger-700: var(--danger-default-200);
-    --danger-800: var(--danger-default-100);
-    --danger-900: var(--danger-default-50);
+    --danger-600: var(--danger-default-400);
+    --danger-700: var(--danger-default-300);
+    --danger-800: var(--danger-default-200);
+    --danger-900: var(--danger-default-100);
   }
 
   .light {

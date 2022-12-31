@@ -224,29 +224,26 @@
 
 .p-button--danger { @apply
   text-white
-  bg-danger-500
-  focus:ring-danger-500
-
-  dark:bg-danger-400
-  dark:focus:ring-danger-400
+  bg-danger
+  focus:ring-danger
 }
 .p-button--danger:not(.p-button--disabled) { @apply
-  hover:bg-danger-600
-  dark:hover:bg-danger-300
+  hover:bg-danger-500
+  dark:hover:bg-danger-400
 }
 
 .p-button--danger--secondary { @apply
-  text-danger-500
+  text-danger
   bg-danger-100
   focus:ring-danger-600
 
   dark:text-white
-  dark:bg-danger-600
-  dark:focus:ring-danger-600
+  dark:bg-danger-700
+  dark:focus:ring-danger-700
 }
 .p-button--danger--secondary:not(.p-button--disabled) { @apply
   hover:bg-danger-200
-  dark:hover:bg-danger-400
+  dark:hover:bg-danger-600
 }
 
 .p-button-xs { @apply
