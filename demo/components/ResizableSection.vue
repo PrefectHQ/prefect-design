@@ -81,6 +81,8 @@
   border
   overflow-hidden
   bg-transparent
+  rounded
+  dark:border-background-600
 }
 
 .resizable-section__content { @apply
@@ -92,8 +94,8 @@
 }
 
 .resizable-section__aside { @apply
-  bg-background-400
-  grow;
+  bg-background-500
+  grow
 }
 
 .resizable-section__handle { @apply

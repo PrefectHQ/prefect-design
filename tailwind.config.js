@@ -17,7 +17,7 @@ const colors = () => {
   return {
     prefect: primary,
     primary: primary,
-    secondary: generateColorPalette('secondary'),
+    danger: generateColorPalette('danger'),
     foreground: generateColorPalette('foreground'),
     background: generateColorPalette('background'),
   }

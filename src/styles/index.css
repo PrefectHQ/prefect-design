@@ -33,49 +33,49 @@
   --900: 222deg 47% 11%;
 
 
-  /* primary-default palette */
+  /* Primary default palette */
   /* #F2F6FF */
-  --primary-default-50:  222 100% 97%;
+  --primary-default-50:  222deg 100% 97%;
   /* #E6EDFF */
-  --primary-default-100: 223 100% 95%;
+  --primary-default-100: 223deg 100% 95%;
   /* #C0D3FF */
-  --primary-default-200: 222 100% 88%;
+  --primary-default-200: 222deg 100% 88%;
   /* #9AB8FE */
-  --primary-default-300: 222 98% 80%;
+  --primary-default-300: 222deg 98% 80%;
   /* #4E82FE */
-  --primary-default-400: 222 99% 65%;
+  --primary-default-400: 222deg 99% 65%;
   /* #024DFD */
-  --primary-default-500: 222 98% 50%;
+  --primary-default-500: 222deg 98% 50%;
   /* #0245E4 */
-  --primary-default-600: 222 98% 45%;
+  --primary-default-600: 222deg 98% 45%;
   /* #023ABE */
-  --primary-default-700: 222 98% 38%;
+  --primary-default-700: 222deg 98% 38%;
   /* #012E98 */
-  --primary-default-800: 222 99% 30%;
+  --primary-default-800: 222deg 99% 30%;
   /* #01267C */
-  --primary-default-900: 222 98% 25%;
+  --primary-default-900: 222deg 98% 25%;
 
-  /* secondary-default palette */
+  /* Danger default palette */
   /* #fdf2f8 */
-  --secondary-default-50: 327 73% 97;
+  --danger-default-50: 327deg 73% 97%;
   /* #ffe4e6 */
-  --secondary-default-100: 356 100% 95;
+  --danger-default-100: 356deg 100% 95%;
   /* #fecdd3 */
-  --secondary-default-200: 353 96% 90;
+  --danger-default-200: 353deg 96% 90%;
   /* #fda4af */
-  --secondary-default-300: 353 96% 82;
+  --danger-default-300: 353deg 96% 82%;
   /* #fb7185 */
-  --secondary-default-400: 351 95% 71;
+  --danger-default-400: 351deg 95% 71%;
   /* #f43f5e */
-  --secondary-default-500: 350 89% 60;
+  --danger-default-500: 350deg 89% 60%;
   /* #e11d48 */
-  --secondary-default-600: 347 77% 50;
+  --danger-default-600: 347deg 77% 50%;
   /* #be123c */
-  --secondary-default-700: 345 83% 41;
+  --danger-default-700: 345deg 83% 41%;
   /* #9f1239 */
-  --secondary-default-800: 343 80% 35;
+  --danger-default-800: 343deg 80% 35%;
   /* #881337 */
-  --secondary-default-900: 342 75% 30;
+  --danger-default-900: 342deg 75% 30%;
 }
 
 .dark:root {
@@ -89,7 +89,8 @@
   :root {
     --foreground: var(--800);
     --background: var(--100);
-    --secondary: var(--secondary-default-500);
+    --primary: var(--primary-default-400);
+    --danger: var(--danger-default-400);
   }
   
   .dark {
@@ -98,7 +99,7 @@
     --foreground: var(--200);
     --background: var(--800);
     --primary: var(--primary-default-400);
-    --secondary: var(--secondary-default-400);
+    --danger: var(--danger-default-400);
 
     --foreground-50: var(--700);
     --foreground-100: var(--600);
@@ -133,16 +134,16 @@
     --primary-800: var(--primary-default-100);
     --primary-900: var(--primary-default-50);
 
-    --secondary-50:  var(--secondary-default-900);
-    --secondary-100: var(--secondary-default-800);
-    --secondary-200: var(--secondary-default-700);
-    --secondary-300: var(--secondary-default-600);
-    --secondary-400: var(--secondary-default-500);
-    --secondary-500: var(--secondary);
-    --secondary-600: var(--secondary-default-300);
-    --secondary-700: var(--secondary-default-200);
-    --secondary-800: var(--secondary-default-100);
-    --secondary-900: var(--secondary-default-50);
+    --danger-50:  var(--danger-default-900);
+    --danger-100: var(--danger-default-800);
+    --danger-200: var(--danger-default-700);
+    --danger-300: var(--danger-default-600);
+    --danger-400: var(--danger-default-500);
+    --danger-500: var(--danger);
+    --danger-600: var(--danger-default-300);
+    --danger-700: var(--danger-default-200);
+    --danger-800: var(--danger-default-100);
+    --danger-900: var(--danger-default-50);
   }
 
   .light {
@@ -151,7 +152,7 @@
     --foreground: var(--800);
     --background: var(--100);
     --primary: var(--primary-default-500);
-    --secondary: var(--secondary-default-500);
+    --danger: var(--danger-default-500);
 
     --foreground-50: var(--300);
     --foreground-100: var(--400);
@@ -186,21 +187,25 @@
     --primary-800: var(--primary-default-800);
     --primary-900: var(--primary-default-900);
 
-    --secondary-50: var(--secondary-default-50);
-    --secondary-100: var(--secondary-default-100);
-    --secondary-200: var(--secondary-default-200);
-    --secondary-300: var(--secondary-default-300);
-    --secondary-400: var(--secondary-default-400);
-    --secondary-500: var(--secondary);
-    --secondary-600: var(--secondary-default-600);
-    --secondary-700: var(--secondary-default-700);
-    --secondary-800: var(--secondary-default-800);
-    --secondary-900: var(--secondary-default-900);
+    --danger-50: var(--danger-default-50);
+    --danger-100: var(--danger-default-100);
+    --danger-200: var(--danger-default-200);
+    --danger-300: var(--danger-default-300);
+    --danger-400: var(--danger-default-400);
+    --danger-500: var(--danger);
+    --danger-600: var(--danger-default-600);
+    --danger-700: var(--danger-default-700);
+    --danger-800: var(--danger-default-800);
+    --danger-900: var(--danger-default-900);
   }
 }
 
-body {
-  --duration: 1.5s;
-  --timing: ease-in-out;
-  transition: color var(--duration) var(--timing), background-color var(--duration) var(--timing);
+html {
+  transition: inherit;
+}
+
+* {
+  --duration: 50ms;
+  --timing: ease;
+  transition: background-color var(--duration) var(--timing), color var(--duration) var(--timing);   
 }
