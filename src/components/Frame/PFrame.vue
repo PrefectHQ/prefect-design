@@ -54,7 +54,7 @@
     }
 
     const [body] = frame.value.contentDocument.getElementsByTagName('body')
-    body.classList.forEach((className) => content.value.classList.remove(className))
+    body.classList.forEach((className) => body.classList.remove(className))
 
     if (typeof props.bodyClass === 'string') {
       body.classList.add(props.bodyClass)
