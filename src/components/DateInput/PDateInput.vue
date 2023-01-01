@@ -148,9 +148,10 @@
 
 <style>
 .p-date-input__date-picker { @apply
-  bg-white
+  bg-background
   my-1
   shadow-lg
+  rounded
 }
 
 .p-date-input--open { @apply
