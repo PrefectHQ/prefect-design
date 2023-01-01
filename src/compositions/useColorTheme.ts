@@ -33,7 +33,7 @@ const handlePrefersColorSchemeChange = (event: MediaQueryListEvent): void => {
 
 export function useColorTheme(): { value: Ref<ColorTheme>, toggleTheme: () => void, setTheme: (theme: ColorTheme) => void } {
   onBeforeMount(() => {
-    if (!document.documentElement.classList.contains(initialTheme)) {
+    if (!document.documentElement.classList.contains(internalValue.value)) {
       setTheme(initialTheme)
     }
   })
