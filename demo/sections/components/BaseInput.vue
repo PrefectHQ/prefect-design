@@ -8,13 +8,6 @@
     ]"
   >
     <template #description>
-      <div class="bg-background text-foreground">
-        The quick brown fox jumps over the lazy dog
-      </div>
-
-      <br>
-      <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" :state="exampleState" />
-      <br>
       This is where we add a short description of <p-code>p-base-input</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
