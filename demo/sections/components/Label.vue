@@ -13,7 +13,7 @@
     </template>
 
     <template #label-behavior>
-      <p-label label="Label text" for="plain-text" :state="exampleState">
+      <p-label label="Label text" for="plain-text" :state="exampleState" message="Some label message">
         <p-text-input id="plain-text" v-model="exampleText" :disabled="disabled" :append="exampleText" :state="exampleState" />
       </p-label>
     </template>

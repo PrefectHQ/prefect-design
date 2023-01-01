@@ -100,6 +100,6 @@
 }
 
 .p-label__message--failed { @apply
-  text-red-800
+  text-danger
 }
 </style>
