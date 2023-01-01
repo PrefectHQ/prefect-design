@@ -122,7 +122,8 @@
 .p-tabs--not-mobile__tabs {
   @apply
   border-b
-  border-gray-200
+  border-background-400
+  dark:border-background-600
   flex
   items-center
   -mb-px
