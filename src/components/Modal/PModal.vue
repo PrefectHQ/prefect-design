@@ -145,7 +145,7 @@
 .p-modal__background { @apply
   fixed
   inset-0
-  bg-gray-500
+  bg-background-600
   bg-opacity-75
   transition-opacity
 }
@@ -153,7 +153,7 @@
 .p-modal__card { @apply
   relative
   inline-block
-  bg-white
+  bg-background-500
   rounded-lg
   shadow-xl
   transition-all
@@ -171,7 +171,9 @@
   text-lg
   leading-6
   font-medium
-  text-gray-900
+  text-foreground-900
+  border-background-400
+  dark:border-background-600
 }
 
 .p-modal__header--no-title { @apply
@@ -202,6 +204,8 @@
   border-t
   sm:justify-end
   sm:flex-row
+  border-background-400
+  dark:border-background-600
 }
 
 .p-modal__close-button { @apply
@@ -209,7 +213,7 @@
 }
 
 .p-modal__x-button { @apply
-  text-gray-400
+  text-foreground-400
   !p-1
 }
 
