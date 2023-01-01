@@ -47,7 +47,7 @@
   inline-flex
   items-center
   gap-4
-  text-gray-400
+  text-foreground-200
 }
 
 .p-wizard-step-header__index { @apply
