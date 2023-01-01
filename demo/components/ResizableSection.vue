@@ -91,6 +91,7 @@
   max-w-full
   min-w-[200px]
   p-4
+  text-foreground
 }
 
 .resizable-section__aside { @apply

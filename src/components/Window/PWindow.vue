@@ -19,7 +19,7 @@
 <style>
 .p-window { @apply
   max-w-2xl
-  bg-gray-800
+  bg-foreground
   overflow-hidden
   rounded
   w-full
@@ -31,7 +31,7 @@
   px-5
   py-4
   justify-between
-  bg-white/25
+  bg-slate-50/25
 }
 
 .p-window__buttons { @apply
@@ -62,7 +62,7 @@
 }
 
 .p-window__body { @apply
-  text-gray-200
+  text-slate-200
   px-5
   py-4
 }

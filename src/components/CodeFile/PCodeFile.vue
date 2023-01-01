@@ -65,10 +65,10 @@
   @apply
   inline-block
   border-r-[1px]
-  border-gray-200
+  border-slate-200
   px-3
   mr-5
-  text-gray-400;
+  text-slate-400;
 }
 
 .p-code-file__code-line {
@@ -88,6 +88,6 @@
   transform
   -translate-x-1/2
   -translate-y-1/2
-  text-gray-400
+  text-slate-400
 }
 </style>

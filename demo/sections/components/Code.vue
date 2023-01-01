@@ -50,8 +50,4 @@ createApp({
 .code-row__content {
   @apply flex-grow select-auto whitespace-pre-wrap;
 }
-
-.code-row__trailing {
-  @apply text-xs text-slate-500 leading-6;
-}
 </style>
