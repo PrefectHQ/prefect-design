@@ -218,20 +218,23 @@
   h-full
   w-full
   rounded-md
-  border-gray-300
-  focus:border-gray-300
   focus:ring-0
+  bg-background
+  border-background-400
+  dark:border-foreground-200
+  focus:border-background-300
+  dark:focus:border-foreground-400
 }
 
 .p-combobox__text-input--unknown-value { @apply
-  text-gray-400
+  text-foreground-400
 }
 
 .p-combobox__options-empty { @apply
   flex
   justify-between
   items-center
-  text-gray-700
+  text-foreground-400
   text-sm
   italic
   p-2

@@ -8,6 +8,13 @@
   >
     <template #description>
       This is where we add a short description of <p-code>p-combobox</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      <p-combobox
+        v-model="exampleCombobox"
+        :disabled="disabled"
+        allow-deselect
+        :options="exampleOptions"
+        :state="exampleState"
+      />
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
