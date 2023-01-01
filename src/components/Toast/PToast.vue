@@ -92,19 +92,19 @@
 <style>
 /* TODO: This should be responsive to global CVD settings */
 .p-toast__icon--success { @apply
-  text-emerald-500
+  text-success
 }
 
 /* TODO: This should be responsive to global CVD settings */
 .p-toast__icon--error { @apply
-  text-rose-500
+  text-danger
 }
 
 .p-toast__card { @apply
   max-w-sm
   w-full
-  bg-slate-700
-  text-slate-50
+  bg-background-400
+  dark:bg-background-600
   shadow-lg
   rounded-lg
   pointer-events-auto
@@ -134,7 +134,7 @@
 
 .p-toast__message { @apply
   text-sm
-  text-slate-100
+  text-foreground
 }
 
 .p-toast__close { @apply
@@ -144,18 +144,19 @@
 }
 
 .p-toast__close-btn { @apply
-  bg-slate-600
+  bg-foreground-200
   relative
   rounded-full
   inline-flex
   justify-center
   items-center
-  text-slate-300
-  hover:text-slate-50
+  text-background-600
+  hover:text-background-700
+  hover:bg-foreground-300
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
-  focus:ring-indigo-500
+  focus:ring-primary-500
   h-5
   w-5
 }
@@ -171,7 +172,7 @@
 }
 
 .p-toast__svg-circle {  @apply
-  stroke-emerald-500
+  stroke-success
   fill-transparent;
 
   stroke-dasharray: 290px;
@@ -190,12 +191,12 @@
 
 @keyframes countdown {
   from { @apply
-    stroke-emerald-500;
+    stroke-success;
 
     stroke-dashoffset: 0px;
   }
   to { @apply
-    stroke-rose-500;
+    stroke-danger;
 
     stroke-dashoffset: 290px;
   }
