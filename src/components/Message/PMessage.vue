@@ -85,7 +85,7 @@
   flex
   gap-2
   items-center
-  bg-gray-100
+  bg-background
   p-4
   rounded-md
   text-sm
@@ -103,12 +103,12 @@
   !p-1
 }
 .p-message__dismiss:not(.p-button--disabled) { @apply
-  hover:bg-gray-200
+  hover:bg-background-200
 }
 
 .p-message--info { @apply
-  bg-prefect-50
-  text-prefect-800
+  bg-primary-50
+  text-primary-800
 }
 
 .p-message--warning { @apply
@@ -117,21 +117,21 @@
 }
 
 .p-message--error { @apply
-  bg-red-50
-  text-red-800
+  bg-danger-50
+  text-danger-900
 }
 
 .p-message--success { @apply
-  bg-green-50
-  text-green-800
+  bg-success-50
+  text-success-900
 }
 
 .p-message__dismiss--info,
 .p-message__icon--info { @apply
-  text-prefect-800
+  text-primary-800
 }
 .p-message__dismiss--info:not(.p-button--disabled) { @apply
-  hover:bg-prefect-100
+  hover:bg-primary-100
 }
 
 .p-message__dismiss--warning,
@@ -144,17 +144,17 @@
 
 .p-message__dismiss--error,
 .p-message__icon--error { @apply
-  text-red-800
+  text-danger-900
 }
 .p-message__dismiss--error:not(.p-button--disabled) { @apply
-  hover:bg-red-100
+  hover:bg-danger-100
 }
 
 .p-message__dismiss--success,
 .p-message__icon--success { @apply
-  text-green-800
+  text-success-900
 }
 .p-message__dismiss--success:not(.p-button--disabled) { @apply
-  hover:bg-green-100
+  hover:bg-success-100
 }
 </style>

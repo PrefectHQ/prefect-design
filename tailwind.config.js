@@ -18,6 +18,7 @@ const colors = () => {
     prefect: primary,
     primary: primary,
     danger: generateColorPalette('danger'),
+    success: generateColorPalette('success'),
     foreground: generateColorPalette('foreground'),
     background: generateColorPalette('background'),
   }
