@@ -56,7 +56,7 @@
 
 .p-pager__context { @apply
   text-sm
-  text-gray-700
+  text-foreground-200
 }
 
 .p-pager__page { @apply
