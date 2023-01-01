@@ -29,12 +29,12 @@
 .p-menu-item { @apply
   p-3
   font-normal
-  text-gray-900
+  text-foreground
   text-sm
   flex
   items-center
   w-full
-  hover:bg-gray-100
+  hover:bg-background-500
 }
 
 .p-menu-item__icon { @apply

@@ -5,14 +5,16 @@
     </template>
 
     <template #icon-button-menu>
-      <p-icon-button-menu>
-        <template #default="{ close }">
-          <p-overflow-menu-item icon="ArchiveIcon" label="Archive" @click="close" />
-          <p-overflow-menu-item icon="ArrowCircleDownIcon" label="Move Down" @click="close" />
-          <p-overflow-menu-item icon="ArrowCircleUpIcon" label="Move Up" @click="close" />
-          <p-overflow-menu-item icon="ArrowCircleRightIcon" label="Move Right" @click="close" />
-        </template>
-      </p-icon-button-menu>
+      <div class="icon-button-menu__container">
+        <p-icon-button-menu>
+          <template #default="{ close }">
+            <p-overflow-menu-item icon="ArchiveIcon" label="Archive" @click="close" />
+            <p-overflow-menu-item icon="ArrowCircleDownIcon" label="Move Down" @click="close" />
+            <p-overflow-menu-item icon="ArrowCircleUpIcon" label="Move Up" @click="close" />
+            <p-overflow-menu-item icon="ArrowCircleRightIcon" label="Move Right" @click="close" />
+          </template>
+        </p-icon-button-menu>
+      </div>
     </template>
   </ComponentPage>
 </template>
@@ -22,3 +24,9 @@
   import POverflowMenuItem from '@/components/OverflowMenuItem/POverflowMenuItem.vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 </script>
+
+<style>
+.icon-button-menu__container { @apply
+  h-64
+}
+</style>
