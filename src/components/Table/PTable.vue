@@ -187,13 +187,15 @@
   ring-1
   ring-black
   ring-opacity-5
+  rounded
   md:rounded-lg
 }
 
 .p-table__table { @apply
   min-w-full
   divide-y
-  divide-gray-300
+  divide-background-400
+  dark:divide-background-900
 }
 
 .p-table__checkbox-cell { @apply

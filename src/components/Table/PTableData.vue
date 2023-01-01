@@ -10,6 +10,6 @@
   px-3
   py-4
   text-sm
-  text-gray-500
+  text-foreground-300
 }
 </style>
