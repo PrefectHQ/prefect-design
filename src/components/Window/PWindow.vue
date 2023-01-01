@@ -19,7 +19,7 @@
 <style>
 .p-window { @apply
   max-w-2xl
-  bg-foreground
+  bg-slate-800
   overflow-hidden
   rounded
   w-full
