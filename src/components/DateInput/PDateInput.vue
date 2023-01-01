@@ -152,6 +152,7 @@
   my-1
   shadow-lg
   rounded
+  dark:border-foreground-300
 }
 
 .p-date-input--open { @apply
