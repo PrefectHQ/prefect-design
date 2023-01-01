@@ -107,23 +107,24 @@
   text-sm
   cursor-pointer
   rounded
-  focus:ring-prefect-600
+  text-foreground
+  focus:ring-primary-600
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
 }
 
 .scrolling-picker__option:not(.scrolling-picker__option--disabled) { @apply
-  hover:bg-gray-100
+  hover:bg-background-400
 }
 
 .scrolling-picker__option--selected { @apply
   text-white
-  bg-prefect-600
+  bg-primary-500
 }
 
 .scrolling-picker__option--selected:not(.scrolling-picker__option--disabled) { @apply
-  hover:bg-prefect-800
+  hover:bg-primary-600
 }
 
 .scrolling-picker__option--disabled { @apply
