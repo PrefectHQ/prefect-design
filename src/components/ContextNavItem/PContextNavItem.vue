@@ -38,9 +38,12 @@
   leading-5
   select-none
   font-medium
-  hover:bg-slate-600
-  active:bg-slate-800
-  focus:bg-white/25
+  hover:bg-primary-800
+  dark:hover:bg-primary-200
+  active:bg-primary-700
+  dark:active:bg-primary-300
+  focus:bg-primary-800
+  dark:focus:bg-primary-200
 }
 
 .p-context-nav-item__icon { @apply
@@ -49,6 +52,7 @@
 }
 
 .p-context-nav-item--active { @apply
-  bg-white/25
+  bg-primary-900
+  dark:bg-primary-100
 }
 </style>
