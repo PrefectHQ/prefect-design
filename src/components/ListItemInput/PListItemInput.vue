@@ -72,7 +72,7 @@
 
 <style>
 .list-item-input { @apply
-  bg-gray-50
+  bg-background
   shadow
   rounded-lg
   overflow-hidden
@@ -111,7 +111,8 @@
   flex
   flex-shrink-0
   justify-self-stretch
-  bg-gray-200
+  bg-background-400
+  dark:bg-background-600
   w-10
   pt-3
   sm:pt-0
