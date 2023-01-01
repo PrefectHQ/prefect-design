@@ -62,7 +62,6 @@
       body.classList.add(...props.bodyClass)
     } else {
       for (const [className, shouldAdd] of Object.entries(props.bodyClass)) {
-        console.log(`adding ${className} ${shouldAdd}`)
         if (shouldAdd) {
           body.classList.add(className)
         } else {
