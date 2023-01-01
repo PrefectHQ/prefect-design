@@ -27,7 +27,7 @@
 }
 
 .p-icon-text__icon { @apply
-  text-slate-400
+  text-foreground-400
   w-4
   flex-shrink-0
   h-4
