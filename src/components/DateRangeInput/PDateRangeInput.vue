@@ -189,30 +189,30 @@
 .p-date-range-input__target--open { @apply
   outline-none
   ring-1
-  ring-prefect-500
-  border-prefect-500
+  ring-primary-500
+  border-primary-500
 }
 
 .p-date-range-input__target-icon { @apply
-  text-gray-400
+  text-foreground-400
 }
 
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected) { @apply
-  bg-prefect-600/70
+  bg-primary-600/70
   text-white
 }
 
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected):hover { @apply
-  bg-prefect-600/80
+  bg-primary-600/80
   text-white
 }
 
 .p-date-range-input__date--today:not(.p-date-range-input__date--selected):not(.p-date-range-input__date--in-range) { @apply
-  text-prefect-600
+  text-primary-600
 }
 
 .p-date-range-input__date--out-of-month:not(.p-button--disabled) { @apply
-  text-gray-300
-  hover:text-gray-400
+  text-foreground-300
+  hover:text-foreground-400
 }
 </style>
