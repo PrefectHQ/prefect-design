@@ -31,8 +31,9 @@
 <style>
 .p-empty-state { @apply
   border
-  border-gray-300
-  bg-white
+  border-background-400
+  dark:border-background-600
+  bg-background-500
   rounded-lg
   shadow-sm
 }
@@ -50,7 +51,7 @@
 }
 
 .p-empty-state__icon { @apply
-  text-gray-400
+  text-foreground-100
   flex
   items-center
   justify-center
@@ -64,13 +65,13 @@
 
 .p-empty-state__heading { @apply
   mt-9
-  text-gray-900
+  text-foreground-900
   text-2xl
   font-bold
 }
 
 .p-empty-state__description { @apply
-  text-gray-500
+  text-foreground-300
   text-base
   font-normal
   mt-2
