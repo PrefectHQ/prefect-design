@@ -189,6 +189,7 @@
   ring-opacity-5
   rounded
   md:rounded-lg
+  dark:ring-background-600
 }
 
 .p-table__table { @apply
