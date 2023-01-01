@@ -11,13 +11,13 @@
   rounded-md
   shadow-lg
   bg-background-800
-  dark:bg-background-600
+  dark:bg-background-500
   border-2
   border-background-400
   dark:border-background-600
   divide-y-2
   divide-background-400
-  dark:divide-background-500
+  dark:divide-background-600
 }
 
 .p-overflow-menu > a { @apply

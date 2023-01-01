@@ -35,6 +35,7 @@
   items-center
   w-full
   hover:bg-background-500
+  dark:hover:bg-background-600
 }
 
 .p-menu-item__icon { @apply
