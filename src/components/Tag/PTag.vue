@@ -33,8 +33,9 @@
   inline-flex
   items-center
   rounded-full
-  bg-foreground-100
-  text-white
+  bg-background-400
+  text-foreground
+  dark:bg-background-600
   px-2.5
   py-0.5
   text-sm
