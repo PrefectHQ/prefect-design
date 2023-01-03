@@ -27,10 +27,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const link = ref('#global-sidebar')
+  const link = '#global-sidebar'
 </script>
 
 <style>
