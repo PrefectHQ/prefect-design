@@ -12,11 +12,9 @@ const generateColorPalette = (base) => {
 }
 
 const colors = () => {
-  const primary = generateColorPalette('primary')
-
   return {
-    prefect: primary,
-    primary: primary,
+    prefect: generateColorPalette('prefect'),
+    primary: generateColorPalette('primary'),
     danger: generateColorPalette('danger'),
     success: generateColorPalette('success'),
     foreground: generateColorPalette('foreground'),
