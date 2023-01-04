@@ -116,8 +116,20 @@
     --primary: var(--primary-default-400);
     --danger: var(--danger-default-400);
     --success: var(--success-default-400);
+    --prefect: var(--primary-default-500);
+
+    --prefect-50: var(--primary-default-50);
+    --prefect-100: var(--primary-default-100);
+    --prefect-200: var(--primary-default-200);
+    --prefect-300: var(--primary-default-300);
+    --prefect-400: var(--primary-default-400);
+    --prefect-500: var(--prefect);
+    --prefect-600: var(--primary-default-600);
+    --prefect-700: var(--primary-default-700);
+    --prefect-800: var(--primary-default-800);
+    --prefect-900: var(--primary-default-900);
   }
-  
+
   .dark {
     color-scheme: dark;
 
