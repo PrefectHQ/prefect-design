@@ -87,7 +87,7 @@
 
 .p-key-value__empty {
   @apply
-  text-slate-400
+  text-foreground-100
 }
 
 .p-key-value--alt {
@@ -102,6 +102,6 @@
 
 .p-key-value__label--alt {
   @apply
-  text-slate-800
+  text-foreground-800
 }
 </style>

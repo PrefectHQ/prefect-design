@@ -101,34 +101,38 @@
   flex
   items-center
   border-2
-  border-gray-300
-  bg-gray-300
+  border-foreground-50
+  bg-background-400
+  dark:border-background-600
+  dark:bg-background-600
   w-11
   h-full
   rounded-full
   transition-colors
   ring-offset-2
   focus:ring-2
-  focus:ring-prefect-600
+  focus:ring-primary-600
   outline-none
   cursor-pointer
 }
 
 .p-toggle__control--checked { @apply
-  border-prefect-500
-  bg-prefect-500
+  border-primary-500
+  dark:border-primary-500
+  bg-primary-500
+  dark:bg-primary-500
 }
 
 .p-toggle__control--failed { @apply
   ring-1
-  ring-red-600
-  focus-within:ring-red-600
+  ring-danger
+  focus-within:ring-danger
 }
 
 .p-toggle__control--pending { @apply
   ring-1
-  ring-prefect-300
-  focus-within:ring-prefect-300
+  ring-primary-300
+  focus-within:ring-primary-300
 }
 
 .p-toggle__control--disabled { @apply
@@ -139,10 +143,11 @@
 .p-toggle__slider { @apply
   w-5
   h-5
-  text-prefect-300
+  text-primary-300
   relative
   rounded-full
-  bg-white
+  bg-background
+  dark:bg-foreground
   transition-all
 }
 

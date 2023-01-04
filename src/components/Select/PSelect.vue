@@ -323,8 +323,8 @@
 .p-select--open { @apply
   outline-none
   ring-1
-  ring-prefect-500
-  border-prefect-500
+  ring-primary-500
+  border-primary-500
 }
 
 .p-select__custom { @apply

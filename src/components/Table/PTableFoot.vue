@@ -6,6 +6,6 @@
 
 <style>
 .p-table-foot { @apply
-  bg-gray-50
+  bg-background
 }
 </style>

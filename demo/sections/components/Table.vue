@@ -76,7 +76,7 @@
         <template #empty-state>
           <p-empty-results>
             <template #actions>
-              <p-button secondary size="sm">
+              <p-button size="sm">
                 Show all
               </p-button>
             </template>
@@ -168,18 +168,18 @@
 
 <style>
 .custom-row-class { @apply
-  bg-slate-300
+  bg-rose-400
 }
 
 .custom-row-class--index { @apply
-  bg-gray-100
+  bg-teal-200
 }
 
 .custom-column-class { @apply
-  bg-gray-200
+  bg-emerald-200
 }
 
 .custom-column-class--index { @apply
-  bg-slate-300
+  bg-amber-200
 }
 </style>

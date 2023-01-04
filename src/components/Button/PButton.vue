@@ -144,6 +144,8 @@
   items-center
   rounded-md
   shadow-sm
+
+  dark:ring-offset-background-400
 }
 
 .p-button__content { @apply
@@ -157,63 +159,91 @@
 
 .p-button--primary { @apply
   text-white
-  bg-prefect-600
-  focus:ring-prefect-600
+  bg-primary-600
+  focus:ring-primary-600
+
+  dark:bg-primary-500
+  dark:focus:ring-primary-400
 }
 .p-button--primary:not(.p-button--disabled) { @apply
-  hover:bg-prefect-700
+  hover:bg-primary-700
+  dark:hover:bg-primary-400
 }
 
 .p-button--secondary { @apply
-  text-prefect-600
-  bg-prefect-100
-  focus:ring-prefect-600
+  text-primary-600
+  bg-primary-100
+  focus:ring-primary-500
+
+  dark:text-foreground-400
+  dark:bg-background-500
+  dark:focus:ring-background-500
 }
 .p-button--secondary:not(.p-button--disabled) { @apply
-  hover:bg-prefect-200
+  hover:bg-primary-200
+  dark:hover:bg-background-700
 }
 
 .p-button--inset { @apply
   border
-  border-gray-300
   focus:border-transparent
-  text-gray-500
-  bg-white
-  focus:ring-prefect-600
+
+  text-foreground-300
+  border-background-400
+  bg-background-600
+  focus:ring-primary-600
+
+  dark:text-foreground-400
+  dark:border-background-400
+  dark:focus:border-transparent
+  dark:bg-background-600
+  dark:focus:ring-primary-400
 }
 .p-button--inset:not(.p-button--disabled) { @apply
-  hover:bg-gray-300
+  hover:bg-background-400
+  dark:hover:bg-background-700
 }
 
 .p-button--flat { @apply
   border
   border-transparent
   focus:outline-none
-  text-gray-700
   focus:ring-2
   focus:ring-offset-2
-  focus:ring-prefect-600
   shadow-none
+
+  text-foreground-300
+  focus:ring-primary-600
+  dark:focus:ring-primary-400
 }
 .p-button--flat:not(.p-button--disabled) { @apply
-  hover:bg-gray-100
+  hover:bg-background-400
+  dark:hover:bg-background-600
+  hover:text-foreground-400
 }
 
 .p-button--danger { @apply
   text-white
-  bg-red-500
-  focus:ring-red-600
+  bg-danger
+  focus:ring-danger
 }
 .p-button--danger:not(.p-button--disabled) { @apply
-  hover:bg-red-700
+  hover:bg-danger-500
+  dark:hover:bg-danger-400
 }
+
 .p-button--danger--secondary { @apply
-  text-red-700
-  bg-red-100
-  focus:ring-red-600
+  text-danger
+  bg-danger-100
+  focus:ring-danger-600
+
+  dark:text-white
+  dark:bg-danger-700
+  dark:focus:ring-danger-700
 }
 .p-button--danger--secondary:not(.p-button--disabled) { @apply
-  hover:bg-red-200
+  hover:bg-danger-200
+  dark:hover:bg-danger-600
 }
 
 .p-button-xs { @apply

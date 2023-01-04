@@ -106,15 +106,15 @@
 
 .p-radio__input--failed { @apply
   ring-1
-  ring-red-600
+  ring-danger-600
   focus-within:ring-2
-  focus-within:ring-red-600
+  focus-within:ring-danger-600
 }
 
 .p-radio__input--pending { @apply
   ring-1
-  ring-prefect-300
+  ring-primary-300
   focus-within:ring-2
-  focus-within:ring-prefect-300
+  focus-within:ring-primary-300
 }
 </style>

@@ -14,6 +14,6 @@
 
 <style>
 .p-table-head { @apply
-  bg-gray-50
+  bg-background
 }
 </style>

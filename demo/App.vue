@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { useColorTheme } from '@/compositions'
   import { media } from '@/utilities/media'
   import { computed, watchEffect } from 'vue'
   import ContextSidebar from '@/demo/components/ContextSidebar.vue'
@@ -25,6 +26,8 @@
   const showMenu = computed(() => media.lg || mobileMenuOpen.value)
 
   watchEffect(() => document.body.classList.toggle('body-scrolling-disabled', showMenu.value && !media.lg))
+
+  useColorTheme()
 </script>
 
 <style>
@@ -33,7 +36,9 @@
 }
 
 .app { @apply
-  text-slate-900;
+  text-foreground
+  bg-background-900
+  dark:bg-background-400
 }
 
 .app__prefect-icon { @apply
@@ -42,7 +47,7 @@
 }
 
 .app__menu-icon { @apply
-  text-slate-200
+  text-foreground-500
   w-6
   h-6
   cursor-pointer

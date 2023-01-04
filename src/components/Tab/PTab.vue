@@ -32,16 +32,19 @@
 
 .p-tab__active { @apply
   border-b-2
-  border-prefect-600
-  text-prefect-600
+  border-primary-600
+  text-primary-600
 }
 
 .p-tab:not(.p-tab__active) { @apply
   border-b-2
   border-transparent
-  hover:border-gray-400
-  text-gray-500
-  hover:text-gray-600
+  hover:border-background-400
+  hover:dark:border-foreground-300
+
+  text-foreground-200
+  hover:text-foreground-400
+  hover:dark:text-foreground-300
 }
 
 .p-tab__disabled { @apply

@@ -45,6 +45,7 @@
   px-8
   py-4
   my-4
-  bg-prefect-100
+  bg-background
+  rounded
 }
 </style>

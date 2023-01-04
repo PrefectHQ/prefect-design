@@ -47,7 +47,7 @@
   inline-flex
   items-center
   gap-4
-  text-gray-400
+  text-foreground-200
 }
 
 .p-wizard-step-header__index { @apply
@@ -63,17 +63,17 @@
 }
 
 .p-wizard-step-header--current { @apply
-  text-prefect-600
+  text-primary-600
 }
 
 .p-wizard-step-header--current .p-wizard-step-header__index { @apply
-  border-prefect-600
+  border-primary-600
 }
 
 .p-wizard-step-header--loading .p-wizard-step-header__index,
 .p-wizard-step-header--complete .p-wizard-step-header__index { @apply
-  border-prefect-600
-  bg-prefect-600
+  border-primary-600
+  bg-primary-600
   text-white
 }
 </style>

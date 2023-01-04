@@ -30,7 +30,7 @@
 
 <style>
 .p-select-option { @apply
-  text-gray-900
+  text-foreground
   select-none
   relative
   py-2
@@ -44,11 +44,11 @@
 
 .p-select-option--selected { @apply
   font-semibold
-  bg-prefect-200
+  bg-primary-200
 }
 
 .p-select-option--highlighted { @apply
-  bg-prefect-100
+  bg-primary-100
 }
 
 .p-select-option__text { @apply

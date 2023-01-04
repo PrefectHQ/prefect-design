@@ -10,11 +10,14 @@
   inline-block
   rounded-md
   shadow-lg
-  bg-white
+  bg-background-800
+  dark:bg-background-500
   border-2
-  border-gray-200
+  border-background-400
+  dark:border-background-600
   divide-y-2
-  divide-gray-100
+  divide-background-400
+  dark:divide-background-600
 }
 
 .p-overflow-menu > a { @apply

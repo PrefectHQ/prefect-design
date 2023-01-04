@@ -22,6 +22,6 @@
 }
 
 .p-empty-results__message { @apply
-  text-slate-500
+  text-foreground-400
 }
 </style>

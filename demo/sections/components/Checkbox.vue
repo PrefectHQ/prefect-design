@@ -35,7 +35,7 @@
 
     <template #label-slot>
       <div class="checkbox__demo">
-        <p-checkbox v-model="slot">
+        <p-checkbox v-model="slot" :disabled="disabled">
           <template #label>
             Using the <span class="font-bold">label</span> slot
           </template>

@@ -121,7 +121,7 @@
 <style>
 .p-select-options { @apply
   my-1
-  bg-white
+  bg-background
   shadow-lg
   overflow-hidden
   rounded-md

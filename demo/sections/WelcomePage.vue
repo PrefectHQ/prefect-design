@@ -79,12 +79,12 @@
 
 .welcome-page__github-link { @apply
   text-white
-  bg-slate-900
-  focus:ring-slate-900
+  bg-black
+  focus:ring-black
 }
 
 .welcome-page__github-link:not(.p-button--disabled) { @apply
-  hover:bg-slate-700
+  hover:bg-neutral-900
 }
 
 .welcome-page__logo-icon,
@@ -97,7 +97,7 @@
 }
 
 .welcome-page__circles { @apply
-text-stone-100
+  text-foreground-100
   z-0
   absolute;
   animation-name: spin;

@@ -10,7 +10,7 @@
       </p-button>
 
       <p-modal v-model:showModal="showModal" title="Modal Title" icon="CakeIcon">
-        <p class="text-sm text-gray-500">
+        <p class="text-sm text-foreground">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
         </p>
 

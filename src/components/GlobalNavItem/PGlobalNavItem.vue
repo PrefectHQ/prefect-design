@@ -22,8 +22,8 @@
 .p-global-nav-item__icon {
   @apply
   w-6
-  stroke-slate-400
-  hover:stroke-white
+  text-foreground-400
+  hover:text-foreground
   transition
   duration-200
   ease-linear

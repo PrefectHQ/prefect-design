@@ -297,7 +297,7 @@
   bottom-0
   flex
   justify-center
-  bg-white/[.95]
+  bg-background-500/[.95]
 }
 
 .p-date-picker__date { @apply
@@ -310,8 +310,8 @@
 }
 
 .p-date-picker__date--out-of-month:not(.p-button--disabled) { @apply
-  text-gray-300
-  hover:text-gray-400
+  text-foreground-200
+  hover:text-foreground-300
 }
 
 .p-date-picker__bottom-bar { @apply

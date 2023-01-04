@@ -63,13 +63,13 @@
   const icons = [...prefectIconKeys, ...heroIconKeys]
 
   const selectedIcon = ref<typeof icons[number]>()
-  const codeSnippet = computed(() => `<p-icon icon="${selectedIcon.value ?? '...'}"${sizeValue.value ? ` size="${  sizeValue.value}"` : ''} />`)
+  const codeSnippet = computed(() => `<p-icon icon="${selectedIcon.value ?? '...'}"${sizeValue.value ? ` size="${ sizeValue.value}"` : ''} />`)
 
   const searchTerm = ref('')
   const searchDebounced = useDebouncedRef(searchTerm, 100)
 
   const classes = computed(() => ({
-    icon:(key: string) => ({
+    icon: (key: string) => ({
       'icons-doc__icon--excluded': !iconMatchesSearch(key),
     }),
   }))
@@ -98,6 +98,7 @@
   h-8
   duration-300
   transition-opacity
+  text-foreground-500
 }
 
 .icons-doc__icon--excluded { @apply
@@ -105,7 +106,7 @@
 }
 
 .icons-doc__no-results { @apply
-text-slate-600
+  text-foreground-600
   absolute
   left-0
   top-0
@@ -134,7 +135,7 @@ text-slate-600
   max-w-fit
   px-8
   py-4
-  bg-prefect-100
+  bg-primary-100
 }
 
 .icons-doc__icon-preview { @apply

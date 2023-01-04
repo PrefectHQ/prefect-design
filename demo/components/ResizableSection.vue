@@ -1,6 +1,6 @@
 <template>
   <div ref="container" class="resizable-section">
-    <p-frame :style="styles.iframe" :class="classes.iframe">
+    <p-frame v-if="show" :style="styles.iframe" :class="classes.iframe" :body-class="classes.content">
       <div class="resizable-section__content">
         <slot />
       </div>
@@ -21,8 +21,9 @@
 </template>
 
 <script lang="ts" setup>
+  import { useColorTheme } from '@/compositions'
   import { toPixels } from '@/utilities'
-  import { computed, ref } from 'vue'
+  import { computed, ref, nextTick } from 'vue'
   import ResizeIcon from '@/demo/components/ResizeIcon.svg'
 
   const container = ref<HTMLDivElement>()
@@ -32,7 +33,16 @@
   const handleWidth = 24
   const handleWidthPx = `${handleWidth}px`
 
+  const { value: colorTheme } = useColorTheme()
+  const show = ref(true)
+
   const classes = computed(() => ({
+    content: {
+      'dark': colorTheme.value === 'dark',
+      'light': colorTheme.value === 'light',
+      'bg-background-700': colorTheme.value === 'light',
+      'bg-background-400': colorTheme.value === 'dark',
+    },
     iframe: {
       'pointer-events-none': dragging.value,
     },
@@ -40,13 +50,13 @@
 
   const styles = computed(() => ({
     iframe: {
-      'width': contentWidth.value ? toPixels(contentWidth.value): '100%',
+      'width': contentWidth.value ? toPixels(contentWidth.value) : '100%',
     },
   }))
 
   const start = (): void => {
     dragging.value = true
-    window.addEventListener('mouseup',  stop)
+    window.addEventListener('mouseup', stop)
     window.addEventListener('mousemove', drag)
   }
 
@@ -60,7 +70,18 @@
     const { offsetLeft, offsetWidth } = container.value!
     const positionX = event.clientX - offsetLeft
 
-    contentWidth.value =  Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
+    contentWidth.value = Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
+  }
+
+  // This code block allows the component to take advantage of HMR
+  if (import.meta.hot) {
+    const { hot } = import.meta
+
+    hot.on('vite:afterUpdate', async () => {
+      show.value = false
+      await nextTick()
+      show.value = true
+    })
   }
 </script>
 
@@ -71,6 +92,9 @@
   relative
   border
   overflow-hidden
+  bg-transparent
+  rounded
+  dark:border-background-600
 }
 
 .resizable-section__content { @apply
@@ -79,15 +103,17 @@
   max-w-full
   min-w-[200px]
   p-4
+  text-foreground
 }
 
 .resizable-section__aside { @apply
-  bg-slate-800/25
-  grow;
+  bg-background-500
+  grow
 }
 
 .resizable-section__handle { @apply
-  bg-slate-800/25
+  bg-background-600
+  text-foreground-300
   w-[v-bind(handleWidthPx)]
   h-full
   flex
@@ -97,17 +123,11 @@
   filter: drop-shadow(0 0 0.15rem rgba(0, 0, 0, 0.2));
 }
 
-.resizable-section__resize-icon { @apply
-  w-full
-  rotate-90
-  text-slate-900
-}
-
 .resizable-section__px { @apply
   select-none
   bg-opacity-70
-  bg-slate-900
-  text-slate-100
+  bg-background
+  text-foreground
   rounded
   px-2
   py-0.5

@@ -78,15 +78,22 @@
 }
 
 .p-checkbox__control { @apply
-  focus:ring-prefect-600
   h-4
   w-4
-  text-prefect-600
-  border-gray-300
   rounded
   transition-colors
   ring-offset-2
   focus-within:ring-2
+
+  text-primary-600
+  bg-background
+  focus:ring-primary-600
+
+  border-background-400
+  dark:text-primary-300
+  dark:border-foreground-200
+  dark:focus:ring-primary-400
+  dark:ring-offset-background-500
 }
 
 .p-checkbox__label { @apply
@@ -95,6 +102,7 @@
   gap-x-2
   items-center
   cursor-pointer
+  text-foreground
 }
 
 .p-checkbox__label .p-checkbox__label-text { @apply
@@ -103,16 +111,19 @@
 
 .p-checkbox--failed .p-checkbox__control { @apply
   ring-1
-  ring-red-600
+  ring-danger
   focus-within:ring-2
-  focus-within:ring-red-600
+  focus-within:ring-danger
 }
 
 .p-checkbox--pending .p-checkbox__control { @apply
   ring-1
-  ring-prefect-300
+  ring-primary-300
   focus-within:ring-2
-  focus-within:ring-prefect-300
+  focus-within:ring-primary-300
+
+  dark:ring-primary-100
+  dark:focus-within:ring-primary-100
 }
 
 .p-checkbox--disabled .p-checkbox__control {

@@ -59,12 +59,12 @@
   const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
 
   const classes = [
-    { className: 'tag--completed', name: 'Completed'  },
-    { className: 'tag--cancelled', name: 'Cancelled'  },
-    { className:  'tag--failed',  name: 'Failed'  },
-    { className: 'tag--pending',  name: 'Pending'  },
-    { className:  'tag--running',  name: 'Running'  },
-    { className:  'tag--scheduled', name: 'Scheduled'  },
+    { className: 'tag--completed', name: 'Completed' },
+    { className: 'tag--cancelled', name: 'Cancelled' },
+    { className: 'tag--failed', name: 'Failed' },
+    { className: 'tag--pending', name: 'Pending' },
+    { className: 'tag--running', name: 'Running' },
+    { className: 'tag--scheduled', name: 'Scheduled' },
   ]
 </script>
 
@@ -89,27 +89,27 @@
   text-slate-800
 }
 
-.tag--completed {
-  background-color: var(--completed)
+.tag.tag--completed {
+  background-color: var(--completed);
 }
 
-.tag--cancelled {
-  background-color: var(--cancelled)
+.tag.tag--cancelled {
+  background-color: var(--cancelled);
 }
 
-.tag--failed{
-  background-color: var(--failed)
+.tag.tag--failed{
+  background-color: var(--failed);
 }
 
-.tag--pending{
-  background-color: var(--pending)
+.tag.tag--pending{
+  background-color: var(--pending);
 }
 
-.tag--running{
-  background-color: var(--running)
+.tag.tag--running{
+  background-color: var(--running);
 }
 
-.tag--scheduled {
-  background-color: var(--scheduled)
+.tag.tag--scheduled {
+  background-color: var(--scheduled);
 }
 </style>

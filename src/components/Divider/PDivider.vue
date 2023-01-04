@@ -6,7 +6,8 @@
   .p-divider { @apply
     border-none
     h-[1px]
-    bg-slate-300
+    bg-background-400
+    dark:bg-background-500
     w-full
     my-3
   }

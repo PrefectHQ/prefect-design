@@ -69,10 +69,12 @@
   flex
   items-center
   focus-within:ring-1
-  bg-white
+  bg-background
+  border-background-400
+  dark:border-foreground-200
+  text-foreground
   focus-within:border-prefect-600
   focus-within:ring-prefect-600
-  border-gray-300
   shadow-sm
   rounded-md
   font-normal
@@ -93,7 +95,8 @@
   justify-center
   self-stretch
   text-sm
-  border-gray-300
+  border-background-400
+  dark:border-foreground-200
 }
 
 .p-base-input__prepend { @apply
@@ -105,9 +108,9 @@
 }
 
 .p-base-input--failed { @apply
-  border-red-600
-  focus-within:border-red-600
-  focus-within:ring-red-600
+  border-danger-600
+  focus-within:border-danger-600
+  focus-within:ring-danger-600
 }
 
 .p-base-input--failed {
@@ -115,7 +118,7 @@
 }
 
 .p-base-input__failed-icon { @apply
-  text-red-600
+  text-danger-600
   w-5
   h-5
   mr-2
