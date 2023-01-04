@@ -150,6 +150,7 @@
 .p-date-input__date-picker { @apply
   bg-background
   my-1
+  rounded-md
   shadow-lg
   rounded
   dark:border-foreground-300
