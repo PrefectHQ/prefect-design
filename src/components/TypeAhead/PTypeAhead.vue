@@ -131,7 +131,11 @@
     }
   }
 
-  function setValue(newValue: SelectModelValue): void {
+  function setValue(newValue: SelectModelValue | SelectModelValue[]): void {
+    if (Array.isArray(newValue)) {
+      return
+    }
+
     if (typeof newValue === 'string') {
       internalValue.value = newValue
     }
