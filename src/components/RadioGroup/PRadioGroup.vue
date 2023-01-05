@@ -28,23 +28,23 @@
   import { computed } from 'vue'
   import { PRadio } from '@/components/Radio'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { isSelectOption, SelectOption } from '@/types/selectOption'
+  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | boolean | null | undefined,
+    modelValue: SelectModelValue | undefined,
     options: string[] | SelectOption[],
     disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | boolean | null): void,
+    (event: 'update:modelValue', value: SelectModelValue): void,
   }>()
 
   const internalModelValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | boolean | null) {
+    set(value: SelectModelValue) {
       emits('update:modelValue', value)
     },
   })

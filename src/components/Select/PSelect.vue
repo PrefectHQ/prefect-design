@@ -107,7 +107,7 @@
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
-    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
+    modelValue: SelectModelValue | SelectModelValue[] | undefined,
     disabled?: boolean,
     options: (string | number | boolean | SelectOption)[],
     emptyMessage?: string,

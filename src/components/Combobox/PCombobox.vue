@@ -64,7 +64,7 @@
   import { isSelectOption, optionIncludes, SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
-    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
+    modelValue: SelectModelValue | SelectModelValue[] | undefined,
     options: (string | number | boolean | SelectOption)[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,

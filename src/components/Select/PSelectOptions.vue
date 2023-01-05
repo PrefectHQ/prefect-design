@@ -59,13 +59,13 @@
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
+    modelValue: SelectModelValue | SelectModelValue[] | undefined,
     options: SelectOption[],
     highlightedIndex: number | undefined,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:modelValue', value: string | number | boolean | null | SelectModelValue[]): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'update:highlightedIndex', value: number | undefined): void,
   }>()
 
