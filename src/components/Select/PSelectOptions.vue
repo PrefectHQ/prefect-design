@@ -39,11 +39,21 @@
       </slot>
     </template>
     <slot name="post-options" />
+    <template v-if="multiple && options.length">
+      <div class="p-select-options__select-all">
+        <p-button size="sm" inset @click="selectAllOptions">
+          Select all
+        </p-button>
+        <p-button size="sm" inset @click="unselectAllOptions">
+          Select none
+        </p-button>
+      </div>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue'
+  import { computed, ref, toRefs, watch } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
@@ -55,11 +65,20 @@
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:modelValue', value: SelectModelValue): void,
+    (event: 'update:modelValue', value: string | number | boolean | null | SelectModelValue[]): void,
     (event: 'update:highlightedIndex', value: number | undefined): void,
   }>()
 
-  const internalValue = computed(() => props.modelValue ?? null)
+  const { options } = toRefs(props)
+
+  const internalValue = computed({
+    get() {
+      return props.modelValue ?? null
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    },
+  })
 
   const multiple = computed(() => Array.isArray(internalValue.value))
 
@@ -87,7 +106,35 @@
       return
     }
 
-    emit('update:modelValue', option.value)
+    if (Array.isArray(internalValue.value)) {
+      const index = internalValue.value.indexOf(option.value)
+
+      if (index > -1) {
+        internalValue.value = [...internalValue.value.slice(0, index), ...internalValue.value.slice(index + 1)]
+      } else {
+        internalValue.value = [...internalValue.value, option.value]
+      }
+    } else {
+      internalValue.value = option.value
+    }
+  }
+
+  function selectAllOptions(): void {
+    if (!Array.isArray(internalValue.value)) {
+      return
+    }
+
+    internalValue.value = options.value
+      .filter(({ disabled }) => !disabled)
+      .map(({ value }) => value)
+  }
+
+  function unselectAllOptions(): void {
+    if (!Array.isArray(internalValue.value)) {
+      return
+    }
+
+    internalValue.value = []
   }
 
   function getOptionElement(index: number): HTMLLIElement | undefined {
@@ -105,7 +152,7 @@
       return
     }
 
-    if (props.options[value]?.disabled) {
+    if (options.value[value]?.disabled) {
       const difference = value - (previous ?? -1)
       const newIndex = value + difference
 
@@ -147,5 +194,11 @@
   .p-select-options__options { @apply
     block
   }
+}
+
+.p-select-options__select-all { @apply
+  flex
+  gap-1
+  p-1
 }
 </style>

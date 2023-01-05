@@ -70,11 +70,10 @@
 
     <PSelectOptions
       v-model:highlightedIndex="highlightedIndex"
-      :model-value="internalValue"
+      v-model:model-value="internalValue"
       :options="selectOptions"
       :style="styles.option"
       @keydown="handleKeydown"
-      @update:model-value="setValue"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
