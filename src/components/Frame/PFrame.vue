@@ -1,5 +1,13 @@
 <template>
-  <iframe ref="frame" srcdoc="<body></body>" :height="height" v-bind="$attrs" @load="onLoad" />
+  <iframe
+    ref="frame"
+    class="p-frame"
+    :class="classes.iframe"
+    srcdoc="<body></body>"
+    :height="height"
+    v-bind="$attrs"
+    @load="onLoad"
+  />
   <teleport v-if="content" :to="content">
     <slot />
   </teleport>
@@ -15,7 +23,7 @@
 
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
-  import { ref, watch } from 'vue'
+  import { ref, watch, computed } from 'vue'
 
   const props = defineProps<{
     bodyClass: Record<string, boolean> | string | string[],
@@ -23,6 +31,7 @@
 
   const frame = ref<HTMLIFrameElement>()
   const content = ref<HTMLElement>(document.createElement('div'))
+  const loaded = ref(false)
 
   const { height } = useElementRect(content)
 
@@ -36,6 +45,12 @@
     }
   }
 
+  const classes = computed(() => ({
+    iframe: {
+      'p-frame--loaded': loaded.value,
+    },
+  }))
+
   function onLoad(): void {
     if (!frame.value?.contentDocument) {
       return
@@ -46,6 +61,8 @@
     updateBodyClasses()
     const [body] = frame.value.contentDocument.getElementsByTagName('body')
     body.appendChild(content.value)
+
+    loaded.value = true
   }
 
   function updateBodyClasses(): void {
@@ -75,3 +92,13 @@
     updateBodyClasses()
   })
 </script>
+
+<style>
+.p-frame { @apply
+  invisible
+}
+
+.p-frame--loaded { @apply
+  visible
+}
+</style>
