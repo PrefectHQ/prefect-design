@@ -101,7 +101,7 @@
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, isSelectOption, SelectModelValue } from '@/types/selectOption'
+  import { SelectOption, SelectModelValue, SelectOptions, toSelectOptions } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
@@ -109,7 +109,7 @@
   const props = defineProps<{
     modelValue: SelectModelValue | SelectModelValue[] | undefined,
     disabled?: boolean,
-    options: (string | number | boolean | SelectOption)[],
+    options: SelectOptions,
     emptyMessage?: string,
   }>()
 
@@ -148,14 +148,8 @@
     return getSelectOption(internalValue.value) === undefined
   })
 
-  const selectOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const selectOptions = computed(() => {
+    return props.options.map(toSelectOptions)
   })
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {

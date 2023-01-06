@@ -28,7 +28,7 @@
   import { computed } from 'vue'
   import { PRadio } from '@/components/Radio'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOption, toSelectOptions } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | undefined,
@@ -49,14 +49,8 @@
     },
   })
 
-  const radioOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const radioOptions = computed(() => {
+    return props.options.map(toSelectOptions)
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

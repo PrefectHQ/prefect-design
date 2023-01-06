@@ -28,7 +28,7 @@
   import { computed } from 'vue'
   import { PCheckbox } from '@/components/Checkbox'
   import { useAttrsStylesAndClasses } from '@/compositions'
-  import { isSelectOption, SelectOption } from '@/types'
+  import { SelectOption, toSelectOptions } from '@/types'
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],
@@ -49,14 +49,8 @@
     },
   })
 
-  const checkboxOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const checkboxOptions = computed(() => {
+    return props.options.map(toSelectOptions)
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

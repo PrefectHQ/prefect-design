@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref, watchEffect } from 'vue'
-  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOption, toSelectOptions } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | undefined,
@@ -42,13 +42,9 @@
     },
   })
 
-  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
-    if (isSelectOption(option)) {
-      return option
-    }
-
-    return { label: option.toLocaleString(), value: option }
-  }))
+  const selectOptions = computed(() => {
+    return props.options.map(toSelectOptions)
+  })
 
   const containerElement = ref<HTMLDivElement>()
   const optionElements = ref<HTMLElement[]>([])

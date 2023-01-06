@@ -31,7 +31,7 @@
   import { computed } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOption, toSelectOptions } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | SelectModelValue[] | undefined,
@@ -53,13 +53,9 @@
 
   const multiple = computed(() => Array.isArray(internalValue.value))
 
-  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
-    if (isSelectOption(option)) {
-      return option
-    }
-
-    return { label: option.toLocaleString(), value: option }
-  }))
+  const selectOptions = computed(() => {
+    return props.options.map(toSelectOptions)
+  })
 
   const classes = computed(() => ({
     'p-native-select__control--multiple': multiple.value,

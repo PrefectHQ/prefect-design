@@ -56,7 +56,7 @@
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, isSelectOption, optionIncludes, SelectModelValue } from '@/types/selectOption'
+  import { SelectOption, optionIncludes, SelectModelValue, toSelectOptions } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -89,17 +89,13 @@
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
-  const selectOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const selectOptions = computed(() => {
+    return props.options.map(toSelectOptions)
   })
 
-  const filteredSelectOptions = computed(() => selectOptions.value.filter(option => optionIncludes(option, internalValue.value)))
+  const filteredSelectOptions = computed(() => {
+    return selectOptions.value.filter(option => optionIncludes(option, internalValue.value))
+  })
 
   const classes = computed(() => ({
     control: {
