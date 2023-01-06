@@ -44,16 +44,6 @@
       </slot>
     </template>
     <slot name="post-options" />
-    <template v-if="multiple && options.length">
-      <div class="p-select-options__select-all">
-        <p-button size="sm" inset @click="selectAllOptions">
-          Select all
-        </p-button>
-        <p-button size="sm" inset @click="unselectAllOptions">
-          Select none
-        </p-button>
-      </div>
-    </template>
   </div>
 </template>
 
@@ -147,24 +137,6 @@
     } else {
       internalValue.value = option.value
     }
-  }
-
-  function selectAllOptions(): void {
-    if (!Array.isArray(internalValue.value)) {
-      return
-    }
-
-    internalValue.value = options.value
-      .filter(({ disabled }) => !disabled)
-      .map(({ value }) => value)
-  }
-
-  function unselectAllOptions(): void {
-    if (!Array.isArray(internalValue.value)) {
-      return
-    }
-
-    internalValue.value = []
   }
 
   function getFirstSelectableOption(): number | undefined {
