@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => {
       },
       rollupOptions: {
       // ensures vue isn't added to the bundle
-        external: ['vue'],
+        external: ['vue', 'vue-router'],
         output: {
           exports: 'named',
           // Provide vue as a global variable to use in the UMD build
