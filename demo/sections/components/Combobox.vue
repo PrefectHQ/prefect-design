@@ -76,7 +76,7 @@
     { label: 'Gray', value: 'Gray', group: 'Here are some neutral colors' },
     { label: 'Audi', value: 'Audi', group: 'Here are some German car brands' },
     { label: 'BMW', value: 'BMW', group: 'Here are some German car brands' },
-    { label: 'Mercedes', value: 'Gray', group: 'Here are some German car brands' },
+    { label: 'Mercedes', value: 'Mercedes', group: 'Here are some German car brands' },
   ]
 </script>
 
