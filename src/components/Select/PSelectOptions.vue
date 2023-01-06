@@ -2,7 +2,7 @@
   <div
     class="p-select-options"
     role="listbox"
-    @mouseleave="indexValue = 0"
+    @mouseleave="highlightedIndex = 0"
   >
     <slot name="pre-options" />
     <template v-if="selectOptionsWithGroups.length">
@@ -15,27 +15,23 @@
           </template>
 
           <template v-else>
-            <div
-              ref="optionElements"
+            <PSelectOption
+              :label="option.label"
+              :multiple="multiple"
               class="p-select-options__option"
-              @mouseenter="indexValue = index"
+              :disabled="option.disabled"
+              :selected="isSelected(option)"
+              :highlighted="highlightedIndex === index"
+              @mouseenter="highlightedIndex = index"
               @click.stop="handleOptionClick(option)"
             >
-              <PSelectOption
-                :label="option.label"
-                :multiple="multiple"
-                :disabled="option.disabled"
+              <slot
+                name="option"
+                :option="option"
                 :selected="isSelected(option)"
-                :highlighted="indexValue === index"
-              >
-                <slot
-                  name="option"
-                  :option="option"
-                  :selected="isSelected(option)"
-                  :highlighted="indexValue === index"
-                />
-              </PSelectOption>
-            </div>
+                :highlighted="highlightedIndex === index"
+              />
+            </PSelectOption>
           </template>
         </template>
       </PVirtualScroller>
@@ -62,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, toRefs, watch } from 'vue'
+  import { computed, toRefs, watch } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
   import { SelectModelValue, SelectOption } from '@/types/selectOption'
@@ -91,9 +87,7 @@
 
   const multiple = computed(() => Array.isArray(internalValue.value))
 
-  const optionElements = ref<HTMLLIElement[]>([])
-
-  const indexValue = computed({
+  const highlightedIndex = computed({
     get() {
       return props.highlightedIndex
     },
@@ -123,7 +117,7 @@
       }
 
       return [
-        { label: group.label, value: null, isGroup: true },
+        { label: group.label, disabled: true, value: null, isGroup: true },
         ...group.options,
       ]
     })
@@ -173,30 +167,34 @@
     internalValue.value = []
   }
 
-  function getOptionElement(index: number): HTMLLIElement | undefined {
-    return optionElements.value[index]
+  function getFirstSelectableOption(): number | undefined {
+    return selectOptionsWithGroups.value.findIndex(x => !x.disabled)
   }
 
-  function scrollToOption(index: number): void {
-    const element = getOptionElement(index)
-
-    element?.scrollIntoView({ block: 'nearest' })
+  function getLastSelectableOption(): number | undefined {
+    return selectOptionsWithGroups.value.length - selectOptionsWithGroups.value.reverse().findIndex(x => !x.disabled) - 1
   }
 
-  watch(() => props.highlightedIndex, (value, previous) => {
-    if (value === undefined) {
+  watch(highlightedIndex, (index, previous) => {
+    if (index === undefined) {
       return
     }
 
-    if (options.value[value]?.disabled) {
-      const difference = value - (previous ?? -1)
-      const newIndex = value + difference
+    if (selectOptionsWithGroups.value[index]?.disabled) {
+      const difference = index - (previous ?? -1)
+      highlightedIndex.value = index + difference
+    }
 
-      if (newIndex >= 0 && newIndex < props.options.length) {
-        indexValue.value = newIndex
-      }
-    } else {
-      scrollToOption(value)
+    if (index <= 0) {
+      highlightedIndex.value = getFirstSelectableOption()
+    } else if (index >= selectOptionsWithGroups.value.length) {
+      highlightedIndex.value = getLastSelectableOption()
+    }
+  })
+
+  watch(selectOptionsWithGroups, (options) => {
+    if (highlightedIndex.value !== undefined && !options[highlightedIndex.value]) {
+      highlightedIndex.value = undefined
     }
   })
 </script>

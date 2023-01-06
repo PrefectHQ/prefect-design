@@ -70,7 +70,7 @@
 
     <PSelectOptions
       v-model:highlightedIndex="highlightedIndex"
-      v-model:model-value="internalValue"
+      v-model:modelValue="internalValue"
       :options="selectOptions"
       :style="styles.option"
       @keydown="handleKeydown"
@@ -92,7 +92,7 @@
 
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
-  import { computed, ref, watch } from 'vue'
+  import { computed, ref } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
@@ -261,8 +261,8 @@
           openSelect()
         } else if (highlightedIndex.value === undefined) {
           highlightedIndex.value = selectOptions.value.length - 1
-        } else if (highlightedIndex.value > 0) {
-          highlightedIndex.value -= 1
+        } else {
+          highlightedIndex.value--
         }
         event.preventDefault()
         break
@@ -271,8 +271,8 @@
           openSelect()
         } else if (highlightedIndex.value === undefined) {
           highlightedIndex.value = 0
-        } else if (highlightedIndex.value < selectOptions.value.length - 1) {
-          highlightedIndex.value += 1
+        } else {
+          highlightedIndex.value++
         }
         event.preventDefault()
         break
@@ -298,12 +298,6 @@
         break
     }
   }
-
-  watch([selectOptions, highlightedIndex], ([options, index]) => {
-    if (index && !options[index]) {
-      highlightedIndex.value = undefined
-    }
-  })
 </script>
 
 <style>
