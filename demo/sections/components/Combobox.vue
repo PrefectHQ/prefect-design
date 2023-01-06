@@ -2,8 +2,9 @@
   <ComponentPage
     title="Combobox"
     :demos="[
-      { title: 'Combobox Select' },
-      { title: 'Combobox that allows custom values' },
+      { title: 'Combobox' },
+      { title: 'Allows custom values' },
+      { title: 'Grouped' },
     ]"
   >
     <template #description>
@@ -12,7 +13,7 @@
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
-    <template #combobox-select>
+    <template #combobox>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
 
@@ -22,7 +23,7 @@
       </div>
     </template>
 
-    <template #combobox-that-allows-custom-values>
+    <template #allows-custom-values>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
 
@@ -31,11 +32,21 @@
         </p-code>
       </div>
     </template>
+
+    <template #grouped>
+      <div class="combobox__demo">
+        <p-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+
+        <p-code>
+          value: {{ JSON.stringify(exampleCombobox3) }}
+        </p-code>
+      </div>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
-  import { State } from '@/types'
+  import { SelectOption, State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import DemoState from '@/demo/components/DemoState.vue'
@@ -45,6 +56,7 @@
 
   const exampleCombobox = ref('Space-X')
   const exampleCombobox2 = ref([])
+  const exampleCombobox3 = ref([])
 
   const exampleOptions = [
     { label: 'Tim Cook', value: 'Apple' },
@@ -53,6 +65,18 @@
     { label: 'Sundar Pichai', value: 'Google' },
     { label: 'Elon Musk', value: 'Space-X' },
     { label: 'Mark Lizardking', value: 'Facebook' },
+  ]
+
+  const exampleOptionsGrouped: (string | number | boolean | SelectOption)[] = [
+    { label: 'This option is not grouped', value: 'No Group' },
+    { label: 'Black', value: 'Black', group: 'Here are some neutral colors' },
+    { label: 'White', value: 'White', group: 'Here are some neutral colors' },
+    { label: 'Slate', value: 'Slate', group: 'Here are some neutral colors' },
+    { label: 'Stone', value: 'Stone', group: 'Here are some neutral colors' },
+    { label: 'Gray', value: 'Gray', group: 'Here are some neutral colors' },
+    { label: 'Audi', value: 'Audi', group: 'Here are some German car brands' },
+    { label: 'BMW', value: 'BMW', group: 'Here are some German car brands' },
+    { label: 'Mercedes', value: 'Gray', group: 'Here are some German car brands' },
   ]
 </script>
 
