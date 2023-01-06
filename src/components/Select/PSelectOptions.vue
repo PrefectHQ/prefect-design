@@ -5,29 +5,38 @@
     @mouseleave="indexValue = 0"
   >
     <slot name="pre-options" />
-    <template v-if="options.length">
-      <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option, index }">
-          <div
-            ref="optionElements"
-            @mouseenter="indexValue = index"
-            @click.stop="handleOptionClick(option)"
-          >
-            <PSelectOption
-              :label="option.label"
-              :multiple="multiple"
-              :disabled="option.disabled"
-              :selected="isSelected(option)"
-              :highlighted="indexValue === index"
+    <template v-if="selectOptionsWithGroups.length">
+      <PVirtualScroller :items="selectOptionsWithGroups" item-key="label" class="p-select-options__options">
+        <template #default="{ item: option, index }: { item: SelectOptionOrGroup, index: number }">
+          <template v-if="option.isGroup">
+            <div class="p-select-options__group">
+              {{ option.label }}
+            </div>
+          </template>
+
+          <template v-else>
+            <div
+              ref="optionElements"
+              class="p-select-options__option"
+              @mouseenter="indexValue = index"
+              @click.stop="handleOptionClick(option)"
             >
-              <slot
-                name="option"
-                :option="option"
+              <PSelectOption
+                :label="option.label"
+                :multiple="multiple"
+                :disabled="option.disabled"
                 :selected="isSelected(option)"
                 :highlighted="indexValue === index"
-              />
-            </PSelectOption>
-          </div>
+              >
+                <slot
+                  name="option"
+                  :option="option"
+                  :selected="isSelected(option)"
+                  :highlighted="indexValue === index"
+                />
+              </PSelectOption>
+            </div>
+          </template>
         </template>
       </PVirtualScroller>
     </template>
@@ -91,6 +100,33 @@
     set(value) {
       emit('update:highlightedIndex', value)
     },
+  })
+
+  type SelectOptionGroups = { label: string | undefined, options: SelectOption[] }
+  type SelectOptionOrGroup = SelectOption & { isGroup?: true }
+  const selectOptionsWithGroups = computed<SelectOptionOrGroup[]>(() => {
+    const grouped = options.value.reduce<SelectOptionGroups[]>((grouped, option) => {
+      const existingGroup = grouped.find(group => group.label === option.group)
+
+      if (existingGroup) {
+        existingGroup.options.push(option)
+      } else {
+        grouped.push({ label: option.group, options: [option] })
+      }
+
+      return grouped
+    }, [{ label: undefined, options: [] }])
+
+    return grouped.flatMap(group => {
+      if (group.label === undefined) {
+        return group.options
+      }
+
+      return [
+        { label: group.label, value: null, isGroup: true },
+        ...group.options,
+      ]
+    })
   })
 
   function isSelected(option: SelectOption): boolean {
@@ -200,5 +236,18 @@
   flex
   gap-1
   p-1
+}
+
+.p-select-options__group { @apply
+  border-t
+  mt-2
+  pb-1
+  px-3
+  border-foreground-200
+  text-foreground-200
+}
+
+.p-select-options__group:first-child { @apply
+  border-t-0
 }
 </style>
