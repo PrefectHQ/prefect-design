@@ -48,7 +48,7 @@
 }
 
 .p-select-option--highlighted { @apply
-  bg-primary-50
+  bg-primary-100
 }
 
 .p-select-option--selected.p-select-option--highlighted { @apply
