@@ -202,12 +202,6 @@
   }
 }
 
-.p-select-options__select-all { @apply
-  flex
-  gap-1
-  p-1
-}
-
 .p-select-options__group { @apply
   border-t
   mt-2
