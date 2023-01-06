@@ -9,6 +9,10 @@ export type SelectOption = {
 
 export type SelectOptions = (string | number | boolean | SelectOption)[]
 
+export type SelectOptionGroups = { label: string | undefined, options: SelectOption[] }
+
+export type SelectOptionOrGroup = SelectOption & { isGroup?: true }
+
 export function isSelectOption(value: unknown): value is SelectOption {
   return value !== null && typeof value === 'object' && 'label' in value && 'value' in value
 }

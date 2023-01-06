@@ -5,8 +5,8 @@
     @mouseleave="highlightedIndex = 0"
   >
     <slot name="pre-options" />
-    <template v-if="selectOptionsWithGroups.length">
-      <PVirtualScroller :items="selectOptionsWithGroups" item-key="label" class="p-select-options__options">
+    <template v-if="options.length">
+      <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
         <template #default="{ item: option, index }: { item: SelectOptionOrGroup, index: number }">
           <template v-if="option.isGroup">
             <div class="p-select-options__group">
@@ -48,14 +48,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, toRefs, watch } from 'vue'
+  import { computed, toRefs } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOption, SelectOptionOrGroup } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | SelectModelValue[] | undefined,
-    options: SelectOption[],
+    options: SelectOptionOrGroup[],
     highlightedIndex: number | undefined,
   }>()
 
@@ -86,33 +86,6 @@
     },
   })
 
-  type SelectOptionGroups = { label: string | undefined, options: SelectOption[] }
-  type SelectOptionOrGroup = SelectOption & { isGroup?: true }
-  const selectOptionsWithGroups = computed<SelectOptionOrGroup[]>(() => {
-    const grouped = options.value.reduce<SelectOptionGroups[]>((grouped, option) => {
-      const existingGroup = grouped.find(group => group.label === option.group)
-
-      if (existingGroup) {
-        existingGroup.options.push(option)
-      } else {
-        grouped.push({ label: option.group, options: [option] })
-      }
-
-      return grouped
-    }, [{ label: undefined, options: [] }])
-
-    return grouped.flatMap(group => {
-      if (group.label === undefined) {
-        return group.options
-      }
-
-      return [
-        { label: group.label, disabled: true, value: null, isGroup: true },
-        ...group.options,
-      ]
-    })
-  })
-
   function isSelected(option: SelectOption): boolean {
     if (Array.isArray(internalValue.value)) {
       return internalValue.value.includes(option.value)
@@ -138,37 +111,6 @@
       internalValue.value = option.value
     }
   }
-
-  function getFirstSelectableOption(): number | undefined {
-    return selectOptionsWithGroups.value.findIndex(x => !x.disabled)
-  }
-
-  function getLastSelectableOption(): number | undefined {
-    return selectOptionsWithGroups.value.length - selectOptionsWithGroups.value.reverse().findIndex(x => !x.disabled) - 1
-  }
-
-  watch(highlightedIndex, (index, previous) => {
-    if (index === undefined) {
-      return
-    }
-
-    if (selectOptionsWithGroups.value[index]?.disabled) {
-      const difference = index - (previous ?? -1)
-      highlightedIndex.value = index + difference
-    }
-
-    if (index <= 0) {
-      highlightedIndex.value = getFirstSelectableOption()
-    } else if (index >= selectOptionsWithGroups.value.length) {
-      highlightedIndex.value = getLastSelectableOption()
-    }
-  })
-
-  watch(selectOptionsWithGroups, (options) => {
-    if (highlightedIndex.value !== undefined && !options[highlightedIndex.value]) {
-      highlightedIndex.value = undefined
-    }
-  })
 </script>
 
 <style>

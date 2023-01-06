@@ -71,7 +71,7 @@
     <PSelectOptions
       v-model:highlightedIndex="highlightedIndex"
       v-model:modelValue="internalValue"
-      :options="selectOptions"
+      :options="selectOptionsWithGroups"
       :style="styles.option"
       @keydown="handleKeydown"
     >
@@ -92,7 +92,7 @@
 
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
-  import { computed, ref } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
@@ -101,7 +101,7 @@
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, SelectModelValue, SelectOptions, toSelectOptions } from '@/types/selectOption'
+  import { SelectOption, SelectModelValue, SelectOptions, toSelectOptions, SelectOptionOrGroup, SelectOptionGroups } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
@@ -150,6 +150,31 @@
 
   const selectOptions = computed(() => {
     return props.options.map(toSelectOptions)
+  })
+
+  const selectOptionsWithGroups = computed<SelectOptionOrGroup[]>(() => {
+    const grouped = selectOptions.value.reduce<SelectOptionGroups[]>((grouped, option) => {
+      const existingGroup = grouped.find(group => group.label === option.group)
+
+      if (existingGroup) {
+        existingGroup.options.push(option)
+      } else {
+        grouped.push({ label: option.group, options: [option] })
+      }
+
+      return grouped
+    }, [{ label: undefined, options: [] }])
+
+    return grouped.flatMap(group => {
+      if (group.label === undefined) {
+        return group.options
+      }
+
+      return [
+        { label: group.label, disabled: true, value: null, isGroup: true },
+        ...group.options,
+      ]
+    })
   })
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
@@ -221,7 +246,7 @@
       return undefined
     }
 
-    return selectOptions.value[highlightedIndex.value]
+    return selectOptionsWithGroups.value[highlightedIndex.value]
   }
 
   function trySettingValueToHighlighted(): boolean {
@@ -245,6 +270,20 @@
     }
   }
 
+  function getFirstSelectableOption(): number | undefined {
+    return selectOptionsWithGroups.value.findIndex(x => !x.disabled)
+  }
+
+  function getLastSelectableOption(): number | undefined {
+    for (let i = selectOptionsWithGroups.value.length - 1; i > 0; i--) {
+      if (!selectOptionsWithGroups.value[i].disabled) {
+        return i
+      }
+    }
+
+    return undefined
+  }
+
   function handleKeydown(event: KeyboardEvent): void {
     if (isAlphaNumeric(event.key)) {
       openSelect()
@@ -260,8 +299,8 @@
         if (!isOpen.value) {
           openSelect()
         } else if (highlightedIndex.value === undefined) {
-          highlightedIndex.value = selectOptions.value.length - 1
-        } else {
+          highlightedIndex.value = selectOptionsWithGroups.value.length - 1
+        } else if (highlightedIndex.value > 0) {
           highlightedIndex.value--
         }
         event.preventDefault()
@@ -271,7 +310,7 @@
           openSelect()
         } else if (highlightedIndex.value === undefined) {
           highlightedIndex.value = 0
-        } else {
+        } else if (highlightedIndex.value < selectOptionsWithGroups.value.length) {
           highlightedIndex.value++
         }
         event.preventDefault()
@@ -298,6 +337,30 @@
         break
     }
   }
+
+  watch(highlightedIndex, (index, previous) => {
+    if (index === undefined) {
+      return
+    }
+
+    if (selectOptionsWithGroups.value[index]?.disabled) {
+      const difference = index - (previous ?? -1)
+      highlightedIndex.value = index + difference
+      return
+    }
+
+    if (index <= 0) {
+      highlightedIndex.value = getFirstSelectableOption()
+    } else if (index >= selectOptionsWithGroups.value.length) {
+      highlightedIndex.value = getLastSelectableOption()
+    }
+  })
+
+  watch(selectOptionsWithGroups, (options) => {
+    if (highlightedIndex.value !== undefined && !options[highlightedIndex.value]) {
+      highlightedIndex.value = undefined
+    }
+  })
 </script>
 
 <style>
