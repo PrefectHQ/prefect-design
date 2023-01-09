@@ -56,13 +56,9 @@
   top-0
   bg-opacity-90
   bg-background
-  shadow
-  ring-1
-  ring-black
-  ring-opacity-5
+  dark:bg-background-400
   rounded
   md:rounded-lg
-  dark:ring-background-600
   z-10
 }
 
