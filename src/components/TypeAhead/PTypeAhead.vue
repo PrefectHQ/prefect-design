@@ -50,13 +50,14 @@
 
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
-  import { computed, ref } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
+  import { useHighlightedIndex } from '@/components/Select/useHighlightedIndex'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, optionIncludes, SelectModelValue, toSelectOptions } from '@/types/selectOption'
+  import { optionIncludes, SelectModelValue, toSelectOptions } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -76,7 +77,6 @@
   const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const highlightedIndex = ref(0)
 
   const internalValue = computed({
     get() {
@@ -96,6 +96,8 @@
   const filteredSelectOptions = computed(() => {
     return selectOptions.value.filter(option => optionIncludes(option, internalValue.value))
   })
+
+  const { highlightedIndex, highlighted, incrementHighlightedIndex, decrementHighlightedIndex } = useHighlightedIndex(filteredSelectOptions)
 
   const classes = computed(() => ({
     control: {
@@ -141,22 +143,6 @@
     closeSelect()
   }
 
-  function getHighlighted(): SelectOption | undefined {
-    return filteredSelectOptions.value[highlightedIndex.value]
-  }
-
-  function trySettingValueToHighlighted(): boolean {
-    const highlighted = getHighlighted()
-
-    if (!highlighted || highlighted.disabled) {
-      return false
-    }
-
-    setValue(highlighted.value)
-
-    return true
-  }
-
   function handleOpenChange(open: boolean): void {
     if (open) {
       emits('open')
@@ -180,30 +166,30 @@
       case keys.upArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value > 0) {
-          highlightedIndex.value -= 1
+        } else {
+          decrementHighlightedIndex()
         }
         event.preventDefault()
         break
       case keys.downArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value < filteredSelectOptions.value.length - 1) {
-          highlightedIndex.value += 1
+        } else {
+          incrementHighlightedIndex()
         }
         event.preventDefault()
         break
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else {
-          trySettingValueToHighlighted()
+        } else if (highlighted.value && !highlighted.value.disabled) {
+          setValue(highlighted.value.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value) {
-          trySettingValueToHighlighted()
+        if (isOpen.value && highlighted.value && !highlighted.value.disabled) {
+          setValue(highlighted.value.value)
           event.preventDefault()
         }
         break
@@ -211,6 +197,12 @@
         break
     }
   }
+
+  watch(filteredSelectOptions, (options) => {
+    if (highlightedIndex.value !== undefined && !options[highlightedIndex.value]) {
+      highlightedIndex.value = undefined
+    }
+  })
 </script>
 
 <style>

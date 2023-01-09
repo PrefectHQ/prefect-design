@@ -97,6 +97,7 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
+  import { useHighlightedIndex } from '@/components/Select/useHighlightedIndex'
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
@@ -123,7 +124,6 @@
   const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const highlightedIndex = ref<number>()
 
   const internalValue = computed({
     get() {
@@ -176,6 +176,8 @@
       ]
     })
   })
+
+  const { highlightedIndex, highlighted, incrementHighlightedIndex, decrementHighlightedIndex } = useHighlightedIndex(selectOptionsWithGroups)
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
     return selectOptions.value.find(x => x.value === value)
@@ -241,25 +243,6 @@
     }
   }
 
-  function getHighlighted(): SelectOption | undefined {
-    if (highlightedIndex.value === undefined) {
-      return undefined
-    }
-
-    return selectOptionsWithGroups.value[highlightedIndex.value]
-  }
-
-  function trySettingValueToHighlighted(): boolean {
-    const highlighted = getHighlighted()
-
-    if (!highlighted || highlighted.disabled) {
-      return false
-    }
-
-    setValue(highlighted.value)
-
-    return true
-  }
 
   function handleOpenChange(open: boolean): void {
     if (open) {
@@ -298,34 +281,30 @@
       case keys.upArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value === undefined) {
-          highlightedIndex.value = selectOptionsWithGroups.value.length - 1
-        } else if (highlightedIndex.value > 0) {
-          highlightedIndex.value--
+        } else {
+          decrementHighlightedIndex()
         }
         event.preventDefault()
         break
       case keys.downArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value === undefined) {
-          highlightedIndex.value = 0
-        } else if (highlightedIndex.value < selectOptionsWithGroups.value.length - 1) {
-          highlightedIndex.value++
+        } else {
+          incrementHighlightedIndex()
         }
         event.preventDefault()
         break
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else {
-          trySettingValueToHighlighted()
+        } else if (highlighted.value && !highlighted.value.disabled) {
+          setValue(highlighted.value.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value) {
-          trySettingValueToHighlighted()
+        if (isOpen.value && highlighted.value && !highlighted.value.disabled) {
+          setValue(highlighted.value.value)
           event.preventDefault()
         }
         break
