@@ -325,10 +325,6 @@
         break
       case keys.enter:
         if (isOpen.value) {
-          if (selectOptions.value.length === 1) {
-            highlightedIndex.value = 0
-          }
-
           trySettingValueToHighlighted()
           event.preventDefault()
         }
