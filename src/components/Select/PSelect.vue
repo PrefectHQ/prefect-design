@@ -310,7 +310,7 @@
           openSelect()
         } else if (highlightedIndex.value === undefined) {
           highlightedIndex.value = 0
-        } else if (highlightedIndex.value < selectOptionsWithGroups.value.length) {
+        } else if (highlightedIndex.value < selectOptionsWithGroups.value.length - 1) {
           highlightedIndex.value++
         }
         event.preventDefault()
