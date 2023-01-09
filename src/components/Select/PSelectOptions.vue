@@ -149,8 +149,8 @@
   mt-2
   pb-1
   px-3
-  border-foreground-200
-  text-foreground-200
+  border-foreground/50
+  text-foreground/50
 }
 
 .p-select-options__group:first-child { @apply
