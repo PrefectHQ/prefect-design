@@ -253,20 +253,6 @@
     }
   }
 
-  function getFirstSelectableOption(): number | undefined {
-    return selectOptionsWithGroups.value.findIndex(x => !x.disabled)
-  }
-
-  function getLastSelectableOption(): number | undefined {
-    for (let i = selectOptionsWithGroups.value.length - 1; i > 0; i--) {
-      if (!selectOptionsWithGroups.value[i].disabled) {
-        return i
-      }
-    }
-
-    return undefined
-  }
-
   function handleKeydown(event: KeyboardEvent): void {
     if (isAlphaNumeric(event.key)) {
       openSelect()
@@ -312,24 +298,6 @@
         break
     }
   }
-
-  watch(highlightedIndex, (index, previous) => {
-    if (index === undefined) {
-      return
-    }
-
-    if (selectOptionsWithGroups.value[index]?.disabled) {
-      const difference = index - (previous ?? -1)
-      highlightedIndex.value = index + difference
-      return
-    }
-
-    if (index <= 0) {
-      highlightedIndex.value = getFirstSelectableOption()
-    } else if (index >= selectOptionsWithGroups.value.length) {
-      highlightedIndex.value = getLastSelectableOption()
-    }
-  })
 
   watch(selectOptionsWithGroups, (options) => {
     if (highlightedIndex.value !== undefined && !options[highlightedIndex.value]) {
