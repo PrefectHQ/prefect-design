@@ -1,10 +1,10 @@
 <template>
   <ComponentPage title="Table Layout" :demos="[{ title: 'Table Layout' }, { title: 'Sticky Header' }]">
     <template #table-layout>
-      <div class="bg-rose-200 layout-table-section__box layout-table--scrollable ">
+      <div class="layout-table-section__box layout-table--scrollable ">
         <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
-        <p-layout-table class="bg-slate-100">
+        <p-layout-table class="bg-background-400">
           <template v-if="useFullSlots" #header>
             <div class="bg-fuchsia-500 layout-table-section__box">
               header
@@ -49,10 +49,10 @@
     </template>
 
     <template #sticky-header>
-      <div class="bg-rose-200 layout-table-section__box layout-table--scrollable ">
+      <div class="layout-table-section__box layout-table--scrollable ">
         <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
-        <p-layout-table class="bg-slate-100" sticky>
+        <p-layout-table class="bg-background-400" sticky>
           <template v-if="useFullSlots" #header>
             <div class="bg-fuchsia-500 layout-table-section__box">
               header

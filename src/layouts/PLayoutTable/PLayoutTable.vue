@@ -48,15 +48,17 @@
   justify-between
   items-center
   mb-2
-  bg-white
-  bg-opacity-90
-  py-2
+  p-2
 }
 
 .p-layout-table__header--sticky { @apply
   sticky
   top-0
-  py-2
+  bg-opacity-90
+  bg-background
+  dark:bg-background-400
+  rounded
+  md:rounded-lg
   z-10
 }
 
@@ -65,8 +67,6 @@
   justify-between
   items-center
   mt-2
-  bg-white
-  bg-opacity-90
   py-2
   z-10
 }
