@@ -34,7 +34,8 @@ export default defineConfig(({ mode }) => {
   return {
     ...baseConfig,
     build: {
-      emptyOutDir: false,
+      emptyOutDir: true,
+      copyPublicDir: true,
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'PrefectDesign',

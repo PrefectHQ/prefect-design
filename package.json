@@ -32,7 +32,8 @@
       "import": "./dist/prefect-design.mjs",
       "require": "./dist/prefect-design.umd.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": "./dist/style.css",
+    "./dist/tailwindPlugin.js": "./dist/tailwindPlugin.js"
   },
   "files": [
     "dist"
