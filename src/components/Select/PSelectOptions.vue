@@ -9,9 +9,11 @@
       <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
         <template #default="{ item: option, index }: { item: SelectOptionOrGroup, index: number }">
           <template v-if="option.isGroup">
-            <div class="p-select-options__group">
-              {{ option.label }}
-            </div>
+            <slot name="group" :group="option">
+              <div class="p-select-options__group">
+                {{ option.label }}
+              </div>
+            </slot>
           </template>
 
           <template v-else>
