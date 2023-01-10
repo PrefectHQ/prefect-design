@@ -34,7 +34,6 @@ export default defineConfig(({ mode }) => {
   return {
     ...baseConfig,
     build: {
-      emptyOutDir: true,
       copyPublicDir: true,
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
