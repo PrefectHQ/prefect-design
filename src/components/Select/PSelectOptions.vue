@@ -148,8 +148,8 @@
 
 .p-select-options__group { @apply
   border-t
-  mt-2
-  pb-1
+  mt-1
+  py-1
   px-3
   border-foreground/50
   text-foreground/50
