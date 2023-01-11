@@ -32,7 +32,7 @@
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
-                    <PTag dismissible @dismiss="unselectOptionValue(tag)">
+                    <PTag :dismissible="!getSelectOption(tag)?.disabled" @dismiss="unselectOptionValue(tag)">
                       <slot :label="getLabel(tag)" :value="tag">
                         {{ getLabel(tag) }}
                       </slot>
