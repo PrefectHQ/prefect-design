@@ -61,10 +61,10 @@
   import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
-  import { flattenSelectOptions, SelectModelValue, SelectOption, SelectOptionGroup, normalize, SelectOptionNormalized, SelectOptionGroupNormalized, filterOptionsOrOptionGroups } from '@/types/selectOption'
+  import { flattenSelectOptions, SelectModelValue, SelectOptionGroup, normalize, SelectOptionNormalized, SelectOptionGroupNormalized, filterOptionsOrOptionGroups, SelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
-    modelValue: SelectModelValue | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: (SelectOption | SelectOptionGroup)[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,

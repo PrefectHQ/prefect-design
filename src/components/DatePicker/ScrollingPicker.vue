@@ -19,10 +19,10 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref, watchEffect } from 'vue'
-  import { SelectModelValue, SelectOption, normalize, SelectOptionNormalized } from '@/types/selectOption'
+  import { SelectModelValue, normalize, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: SelectModelValue | undefined,
+    modelValue: string | number | boolean | null | undefined,
     options: SelectOption[],
     preventFocus?: boolean,
   }>()

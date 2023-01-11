@@ -28,11 +28,11 @@
   import { computed } from 'vue'
   import { PCheckbox } from '@/components/Checkbox'
   import { useAttrsStylesAndClasses } from '@/compositions'
-  import { SelectOption, normalize } from '@/types'
+  import { normalize, SelectOptionNormalized } from '@/types'
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],
-    options: string[] | number[] | boolean[] | SelectOption[],
+    options: string[] | number[] | boolean[] | SelectOptionNormalized[],
     disabled?: boolean,
   }>()
 

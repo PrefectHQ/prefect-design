@@ -38,10 +38,10 @@
   import { computed } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { SelectModelValue, SelectOption, SelectOptionGroup, normalize, isSelectOptionGroup, flattenSelectOptions } from '@/types/selectOption'
+  import { SelectModelValue, SelectOptionGroup, normalize, isSelectOptionGroup, flattenSelectOptions, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: SelectModelValue | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: (SelectOption | SelectOptionGroup)[],
   }>()
 

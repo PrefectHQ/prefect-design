@@ -105,13 +105,13 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized } from '@/types/selectOption'
+  import { SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
-    modelValue: SelectModelValue | SelectModelValue[] | undefined,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
     options: (SelectOption | SelectOptionGroup)[],
     emptyMessage?: string,
