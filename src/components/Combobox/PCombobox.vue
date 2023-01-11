@@ -61,11 +61,11 @@
   import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
-  import { flattenSelectOptions, isSelectOption, optionIncludes, SelectModelValue, SelectOption, SelectOptionGroup, SelectOptions, toSelectOptionOrGroup } from '@/types/selectOption'
+  import { flattenSelectOptions, SelectModelValue, SelectOption, SelectOptionGroup, normalize, SelectOptionNormalized, SelectOptionGroupNormalized, filterOptionsOrOptionGroups } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
     modelValue: SelectModelValue | SelectModelValue[] | undefined,
-    options: SelectOptions,
+    options: (SelectOption | SelectOptionGroup)[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,
     placeholder?: string,
@@ -100,7 +100,7 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(toSelectOptionOrGroup)
+    return props.options.map(normalize)
   })
 
   const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
@@ -112,6 +112,7 @@
 
   const selectOptionsWithUnknown = computed(() => {
     const options = [...selectOptions.value]
+
     if (modelValue.value && props.allowUnknownValue) {
       const unknownSelectOptions = unknownValues.value
         .map(value => ({ label: `${value}`, value }))
@@ -127,7 +128,11 @@
   })
 
   const filteredSelectOptions = computed(() => {
-    return selectOptionsWithUnknown.value.filter(option => isSelectOption(option) && optionIncludes(option, typedValue.value))
+    if (!typedValue.value) {
+      return selectOptionsWithUnknown.value
+    }
+
+    return filterOptionsOrOptionGroups(selectOptionsWithUnknown.value, typedValue.value)
   })
 
   const classes = computed(() => ({
@@ -157,15 +162,15 @@
     return value.toString()
   }
 
-  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
+  function getSelectOption(value: SelectModelValue): SelectOptionNormalized | undefined {
     return flatSelectOptions.value.find(x => x.value === value)
   }
 
-  function optionLabel(option: SelectOption): string {
+  function optionLabel(option: SelectOptionNormalized): string {
     return option.value && unknownValues.value.includes(option.value.toString()) ? `"${option.label}"` : option.label
   }
 
-  function optionsIncludeValue(options: (SelectOption | SelectOptionGroup)[], value: string | null): boolean {
+  function optionsIncludeValue(options: (SelectOptionNormalized | SelectOptionGroupNormalized)[], value: string | null): boolean {
     if (!value) {
       return true
     }
