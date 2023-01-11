@@ -12,10 +12,10 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
-  import { SelectModelValue, SelectOptionGroup } from '@/types'
+  import { SelectModelValue, SelectOptionGroupNormalized } from '@/types'
 
   const props = defineProps<{
-    group: SelectOptionGroup,
+    group: SelectOptionGroupNormalized,
     modelValue: SelectModelValue | SelectModelValue[],
     highlightedValue: SelectModelValue | symbol,
   }>()

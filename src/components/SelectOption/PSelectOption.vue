@@ -24,12 +24,12 @@
 <script lang="ts" setup>
   import { computed, toRefs } from 'vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
-  import { SelectModelValue, SelectOption } from '@/types'
+  import { SelectModelValue, SelectOptionNormalized } from '@/types'
 
   const props = defineProps<{
-    modelValue: SelectModelValue | SelectModelValue[],
-    highlightedValue: SelectModelValue | symbol,
-    option: SelectOption,
+    modelValue: string | number | boolean | null | SelectModelValue[],
+    highlightedValue: string | number | boolean | null | symbol,
+    option: SelectOptionNormalized,
   }>()
 
   const emit = defineEmits<{

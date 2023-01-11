@@ -105,7 +105,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, SelectModelValue, SelectOptions, toSelectOptionOrGroup, isSelectOption, flattenSelectOptions } from '@/types/selectOption'
+  import { SelectOption, SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
@@ -113,7 +113,7 @@
   const props = defineProps<{
     modelValue: SelectModelValue | SelectModelValue[] | undefined,
     disabled?: boolean,
-    options: SelectOptions,
+    options: (SelectOption | SelectOptionGroup)[],
     emptyMessage?: string,
   }>()
 
@@ -152,14 +152,14 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(toSelectOptionOrGroup)
+    return props.options.map(normalize)
   })
 
   const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
   const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
 
-  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
-    return flatSelectOptions.value.find(x => isSelectOption(x) && x.value === value)
+  function getSelectOption(value: SelectModelValue): SelectOptionNormalized | undefined {
+    return flatSelectOptions.value.find(option => option.value === value)
   }
 
   function getLabel(value: SelectModelValue): string {

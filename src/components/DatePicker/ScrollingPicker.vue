@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref, watchEffect } from 'vue'
-  import { SelectModelValue, SelectOption, toSelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOption, normalize, SelectOptionNormalized } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | undefined,
@@ -43,20 +43,20 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(toSelectOption)
+    return props.options.map(option => normalize(option))
   })
 
   const containerElement = ref<HTMLDivElement>()
   const optionElements = ref<HTMLElement[]>([])
 
   const classes = computed(() => ({
-    option: (option: SelectOption) => ({
+    option: (option: SelectOptionNormalized) => ({
       'scrolling-picker__option--selected': option.value === modelValue.value,
       'scrolling-picker__option--disabled': option.disabled,
     }),
   }))
 
-  function handleOptionClick(option: SelectOption): void {
+  function handleOptionClick(option: SelectOptionNormalized): void {
     modelValue.value = option.value
   }
 

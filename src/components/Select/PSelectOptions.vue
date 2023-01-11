@@ -3,7 +3,7 @@
     <slot name="pre-options" />
     <template v-if="options.length">
       <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option }: { item: SelectOption | SelectOptionGroup }">
+        <template #default="{ item: option }: { item: SelectOptionNormalized | SelectOptionGroupNormalized }">
           <template v-if="isSelectOptionGroup(option)">
             <PSelectOptionGroup
               v-model="internalValue"
@@ -46,12 +46,12 @@
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { isSelectOptionGroup, SelectModelValue, SelectOption, SelectOptionGroup } from '@/types/selectOption'
+  import { isSelectOptionGroup, SelectModelValue, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
 
   const props = defineProps<{
-    modelValue: SelectModelValue | SelectModelValue[] | undefined,
-    options: (SelectOption | SelectOptionGroup)[],
-    highlightedValue: SelectModelValue | symbol,
+    modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
+    options: (SelectOptionNormalized | SelectOptionGroupNormalized)[],
+    highlightedValue: string | number | boolean | null | symbol,
   }>()
 
   const emit = defineEmits<{
