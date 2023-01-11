@@ -58,7 +58,7 @@
     get() {
       return internalValue.value ? format(internalValue.value, 'yyyy-MM-dd') : null
     },
-    set(value: string | null) {
+    set(value) {
       emits('update:modelValue', value ? parseISO(value) : null)
     },
   })

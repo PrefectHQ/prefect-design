@@ -50,7 +50,7 @@
     get() {
       return props.modelValue ?? false
     },
-    set(value: boolean) {
+    set(value) {
       if (!props.disabled) {
         emits('update:modelValue', value)
       }

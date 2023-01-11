@@ -31,7 +31,7 @@
     get() {
       return props.disabled ?? false
     },
-    set(value: boolean) {
+    set(value) {
       emits('update:disabled', value)
     },
   })

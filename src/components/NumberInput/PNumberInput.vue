@@ -33,7 +33,7 @@
     get() {
       return props.modelValue ?? ''
     },
-    set(value: number | string) {
+    set(value) {
       if (typeof value === 'number') {
         emits('update:modelValue', value)
         return

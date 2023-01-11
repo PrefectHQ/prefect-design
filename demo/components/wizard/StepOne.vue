@@ -29,7 +29,7 @@
     get() {
       return props.modelValue
     },
-    set(value: string) {
+    set(value) {
       emits('update:modelValue', value)
     },
   })

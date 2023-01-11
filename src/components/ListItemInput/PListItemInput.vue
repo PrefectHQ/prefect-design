@@ -33,7 +33,7 @@
     get() {
       return props.selected ?? undefined
     },
-    set(value: Selected) {
+    set(value) {
       emit('update:selected', value)
     },
   })
