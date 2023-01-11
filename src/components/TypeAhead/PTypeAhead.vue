@@ -99,7 +99,7 @@
     return selectOptions.value.filter(option => optionIncludes(option, modelValue.value))
   })
 
-  const { isUnselected, highlightedValue, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(filteredSelectOptions)
+  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(filteredSelectOptions)
 
   const classes = computed(() => ({
     control: {
@@ -190,13 +190,13 @@
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else if (isUnselected.value) {
+        } else if (!isUnselected(highlightedValue.value)) {
           setValue(highlightedValue.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value && isUnselected.value) {
+        if (isOpen.value && !isUnselected(highlightedValue.value)) {
           setValue(highlightedValue.value)
           event.preventDefault()
         }

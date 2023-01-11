@@ -156,7 +156,7 @@
   })
 
   const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
-  const { isUnselected, highlightedValue, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
+  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
     return flatSelectOptions.value.find(x => isSelectOption(x) && x.value === value)
@@ -269,13 +269,13 @@
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else if (isUnselected.value) {
+        } else if (!isUnselected(highlightedValue.value)) {
           setValue(highlightedValue.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value && isUnselected.value) {
+        if (isOpen.value && !isUnselected(highlightedValue.value)) {
           setValue(highlightedValue.value)
           event.preventDefault()
         }

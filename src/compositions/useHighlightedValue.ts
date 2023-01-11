@@ -1,12 +1,13 @@
-import { computed, ComputedRef, Ref, ref, watch } from 'vue'
+import { computed, Ref, ref, watch } from 'vue'
 import { SelectModelValue, SelectOption } from '@/types'
 import { MaybeRef } from '@/types/ref'
 
-const unselected = 'UNSELECTED_VALUE' as const
+
+const unselected = Symbol()
 
 export type UseHighlightedValue = {
-  highlightedValue: Ref<SelectModelValue>,
-  isUnselected: ComputedRef<boolean>,
+  highlightedValue: Ref<SelectModelValue | typeof unselected>,
+  isUnselected: (value: unknown) => value is typeof unselected,
   setNextHighlightedValue: () => void,
   setPreviousHighlightedValue: () => void,
   setHighlightedValueUnselected: () => void,
@@ -17,9 +18,11 @@ export function useHighlightedValue(selectOptions: MaybeRef<SelectOption[]>): Us
     .filter(option => !option.disabled)
     .map(({ value }) => value))
 
-  const highlightedValue = ref<SelectModelValue>(unselected)
+  const highlightedValue = ref<SelectModelValue | typeof unselected>(unselected)
 
-  const isUnselected = computed(() => highlightedValue.value === unselected)
+  function isUnselected(value: unknown): value is typeof unselected {
+    return value === unselected
+  }
 
   function setNextHighlightedValue(): void {
     const currentIndex = highlightableValues.value.indexOf(highlightedValue.value as SelectModelValue)
@@ -43,17 +46,22 @@ export function useHighlightedValue(selectOptions: MaybeRef<SelectOption[]>): Us
   }
 
   watch(highlightableValues, (options) => {
+    if (highlightedValue.value === unselected) {
+      return
+    }
+
     if (!options.includes(highlightedValue.value)) {
       highlightedValue.value = unselected
     }
   })
 
-
-  return {
+  const value = {
     highlightedValue,
     isUnselected,
     setNextHighlightedValue,
     setPreviousHighlightedValue,
     setHighlightedValueUnselected,
   }
+
+  return value
 }
