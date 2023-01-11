@@ -13,7 +13,7 @@
       <template v-if="media.hover">
         <PSelectButton
           ref="buttonElement"
-          v-model="internalValue"
+          v-model="modelValue"
           class="p-select__custom"
           :class="classes.control"
           :disabled="disabled"
@@ -28,7 +28,7 @@
               </slot>
             </template>
 
-            <template v-else-if="isArray(internalValue)">
+            <template v-else-if="isArray(modelValue)">
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
@@ -47,8 +47,8 @@
             </template>
 
             <template v-else>
-              <slot :label="getLabel(internalValue)" :value="internalValue">
-                {{ getLabel(internalValue) }}
+              <slot :label="getLabel(modelValue)" :value="modelValue">
+                {{ getLabel(modelValue) }}
               </slot>
             </template>
           </template>
@@ -57,7 +57,7 @@
 
       <template v-else>
         <PNativeSelect
-          v-model="internalValue"
+          v-model="modelValue"
           size="1"
           class="p-select__native"
           :class="classes.control"
@@ -69,11 +69,12 @@
     </template>
 
     <PSelectOptions
-      v-model="internalValue"
+      v-model="modelValue"
       v-model:highlightedValue="highlightedValue"
       class="p-select__options"
       :options="selectOptions"
       :style="styles.option"
+      @update:model-value="closeIfNotArray"
       @keydown="handleKeydown"
       @mouseleave="setHighlightedValueUnselected"
     >
@@ -94,7 +95,7 @@
 
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
-  import { computed, ref, watch } from 'vue'
+  import { computed, ref } from 'vue'
   import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
@@ -102,6 +103,7 @@
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
+  import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectOption, SelectModelValue, SelectOptions, toSelectOptionOrGroup, isSelectOption, flattenSelectOptions } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
@@ -125,10 +127,8 @@
   const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const unselected = 'UNSELECTED_VALUE' as const
-  const highlightedValue = ref<SelectModelValue | 'UNSELECTED_VALUE'>(unselected)
 
-  const internalValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -138,17 +138,17 @@
   })
 
   const tags = computed(() => {
-    return asArray(internalValue.value).map(option => option?.toString() ?? '')
+    return asArray(modelValue.value).map(option => option?.toString() ?? '')
   })
 
-  const multiple = computed(() => isArray(internalValue.value))
+  const multiple = computed(() => isArray(modelValue.value))
   const isOpen = computed(() => popOver.value?.visible ?? false)
   const showShowEmptyMessage = computed(() => {
-    if (isArray(internalValue.value)) {
-      return internalValue.value.length === 0
+    if (isArray(modelValue.value)) {
+      return modelValue.value.length === 0
     }
 
-    return getSelectOption(internalValue.value) === undefined
+    return getSelectOption(modelValue.value) === undefined
   })
 
   const selectOptions = computed(() => {
@@ -156,28 +156,7 @@
   })
 
   const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
-  const highlightableValues = computed(() => flatSelectOptions.value.filter(option => !option.disabled).map(({ value }) => value))
-
-  function setNextHighlightedValue(): void {
-    const currentIndex = highlightableValues.value.indexOf(highlightedValue.value as SelectModelValue)
-    const newIndex = Math.min(currentIndex + 1, highlightableValues.value.length - 1)
-    highlightedValue.value = highlightableValues.value[newIndex]
-  }
-
-  function setPreviousHighlightedValue(): void {
-    if (highlightedValue.value === unselected) {
-      highlightedValue.value = highlightableValues.value[highlightableValues.value.length - 1]
-      return
-    }
-
-    const currentIndex = highlightableValues.value.indexOf(highlightedValue.value as SelectModelValue)
-    const newIndex = Math.max(currentIndex - 1, 0)
-    highlightedValue.value = highlightableValues.value[newIndex]
-  }
-
-  function setHighlightedValueUnselected(): void {
-    highlightedValue.value = unselected
-  }
+  const { isUnselected, highlightedValue, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
     return flatSelectOptions.value.find(x => isSelectOption(x) && x.value === value)
@@ -188,9 +167,17 @@
   }
 
   function unselectOptionValue(value: SelectModelValue): void {
-    if (isArray(internalValue.value)) {
-      internalValue.value = internalValue.value.filter(x => x !== value)
+    if (isArray(modelValue.value)) {
+      modelValue.value = modelValue.value.filter(x => x !== value)
     }
+  }
+
+  function closeIfNotArray(newValue: SelectModelValue | SelectModelValue[]): void {
+    if (Array.isArray(newValue)) {
+      return
+    }
+
+    closeSelect()
   }
 
   const classes = computed(() => ({
@@ -226,23 +213,22 @@
   }
 
   function setValue(newValue: SelectModelValue): void {
-    if (Array.isArray(internalValue.value)) {
-      const index = internalValue.value.indexOf(newValue)
+    if (Array.isArray(modelValue.value)) {
+      const index = modelValue.value.indexOf(newValue)
 
       if (index > -1) {
-        internalValue.value = [...internalValue.value.slice(0, index), ...internalValue.value.slice(index + 1)]
+        modelValue.value = [...modelValue.value.slice(0, index), ...modelValue.value.slice(index + 1)]
       } else {
-        internalValue.value = [...internalValue.value, newValue]
+        modelValue.value = [...modelValue.value, newValue]
       }
     } else {
-      internalValue.value = newValue
+      modelValue.value = newValue
     }
 
     if (!multiple.value) {
       closeSelect()
     }
   }
-
 
   function handleOpenChange(open: boolean): void {
     if (open) {
@@ -283,13 +269,13 @@
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedValue.value !== unselected) {
+        } else if (isUnselected.value) {
           setValue(highlightedValue.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value && highlightedValue.value !== unselected) {
+        if (isOpen.value && isUnselected.value) {
           setValue(highlightedValue.value)
           event.preventDefault()
         }
@@ -298,12 +284,6 @@
         break
     }
   }
-
-  watch(highlightableValues, (options) => {
-    if (options.includes(highlightedValue.value)) {
-      highlightedValue.value = unselected
-    }
-  })
 </script>
 
 <style>
