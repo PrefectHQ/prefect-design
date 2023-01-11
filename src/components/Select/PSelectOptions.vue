@@ -5,11 +5,7 @@
       <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
         <template #default="{ item: option }: { item: SelectOptionNormalized | SelectOptionGroupNormalized }">
           <template v-if="isSelectOptionGroup(option)">
-            <PSelectOptionGroup
-              v-model="internalValue"
-              v-model:highlightedValue="highlightedValue"
-              :group="option"
-            >
+            <PSelectOptionGroup :group="option">
               <template #default="scope">
                 <slot name="group" v-bind="scope" />
               </template>

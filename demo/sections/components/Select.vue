@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { SelectOption, SelectOptions, State } from '@/types'
+  import { SelectOption, State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import DemoState from '@/demo/components/DemoState.vue'
@@ -67,7 +67,7 @@
     },
   ]
 
-  const exampleOptionsGrouped: SelectOptions = [
+  const exampleOptionsGrouped = [
     { label: 'This option is not grouped', value: 'No Group' },
     {
       label: 'Here are some neutral colors',
