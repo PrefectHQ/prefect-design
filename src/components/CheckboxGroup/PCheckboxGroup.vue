@@ -2,7 +2,7 @@
   <fieldset class="p-checkbox-group" :class="classes" :style="styles" :disabled="disabled">
     <template v-for="(option, index) in checkboxOptions" :key="index">
       <PCheckbox
-        v-model="internalModelValue"
+        v-model="modelValue"
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
@@ -28,7 +28,7 @@
   import { computed } from 'vue'
   import { PCheckbox } from '@/components/Checkbox'
   import { useAttrsStylesAndClasses } from '@/compositions'
-  import { SelectOption, toSelectOptions } from '@/types'
+  import { SelectOption, toSelectOption } from '@/types'
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],
@@ -40,7 +40,7 @@
     (event: 'update:modelValue', value: string[] | number[] | boolean[]): void,
   }>()
 
-  const internalModelValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue
     },
@@ -50,7 +50,7 @@
   })
 
   const checkboxOptions = computed(() => {
-    return props.options.map(toSelectOptions)
+    return props.options.map(toSelectOption)
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

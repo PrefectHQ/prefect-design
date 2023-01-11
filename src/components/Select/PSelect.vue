@@ -69,11 +69,13 @@
     </template>
 
     <PSelectOptions
-      v-model:highlightedIndex="highlightedIndex"
-      v-model:modelValue="internalValue"
-      :options="selectOptionsWithGroups"
+      v-model="internalValue"
+      v-model:highlightedValue="highlightedValue"
+      class="p-select__options"
+      :options="selectOptions"
       :style="styles.option"
       @keydown="handleKeydown"
+      @mouseleave="setHighlightedValueUnselected"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
@@ -97,12 +99,11 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import PSelectButton from '@/components/Select/PSelectButton.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
-  import { useHighlightedIndex } from '@/components/Select/useHighlightedIndex'
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, SelectModelValue, SelectOptions, toSelectOptions, SelectOptionOrGroup, SelectOptionGroups } from '@/types/selectOption'
+  import { SelectOption, SelectModelValue, SelectOptions, toSelectOptionOrGroup, isSelectOption, flattenSelectOptions } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
@@ -124,6 +125,8 @@
   const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
+  const unselected = 'UNSELECTED_VALUE' as const
+  const highlightedValue = ref<SelectModelValue | 'UNSELECTED_VALUE'>(unselected)
 
   const internalValue = computed({
     get() {
@@ -149,38 +152,35 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(toSelectOptions)
+    return props.options.map(toSelectOptionOrGroup)
   })
 
-  const selectOptionsWithGroups = computed<SelectOptionOrGroup[]>(() => {
-    const grouped = selectOptions.value.reduce<SelectOptionGroups[]>((grouped, option) => {
-      const existingGroup = grouped.find(group => group.label === option.group)
+  const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
+  const highlightableValues = computed(() => flatSelectOptions.value.filter(option => !option.disabled).map(({ value }) => value))
 
-      if (existingGroup) {
-        existingGroup.options.push(option)
-      } else {
-        grouped.push({ label: option.group, options: [option] })
-      }
+  function setNextHighlightedValue(): void {
+    const currentIndex = highlightableValues.value.indexOf(highlightedValue.value as SelectModelValue)
+    const newIndex = Math.min(currentIndex + 1, highlightableValues.value.length - 1)
+    highlightedValue.value = highlightableValues.value[newIndex]
+  }
 
-      return grouped
-    }, [{ label: undefined, options: [] }])
+  function setPreviousHighlightedValue(): void {
+    if (highlightedValue.value === unselected) {
+      highlightedValue.value = highlightableValues.value[highlightableValues.value.length - 1]
+      return
+    }
 
-    return grouped.flatMap(group => {
-      if (group.label === undefined) {
-        return group.options
-      }
+    const currentIndex = highlightableValues.value.indexOf(highlightedValue.value as SelectModelValue)
+    const newIndex = Math.max(currentIndex - 1, 0)
+    highlightedValue.value = highlightableValues.value[newIndex]
+  }
 
-      return [
-        { label: group.label, disabled: true, value: null, isGroup: true },
-        ...group.options,
-      ]
-    })
-  })
-
-  const { highlightedIndex, highlighted, incrementHighlightedIndex, decrementHighlightedIndex } = useHighlightedIndex(selectOptionsWithGroups)
+  function setHighlightedValueUnselected(): void {
+    highlightedValue.value = unselected
+  }
 
   function getSelectOption(value: SelectModelValue): SelectOption | undefined {
-    return selectOptions.value.find(x => x.value === value)
+    return flatSelectOptions.value.find(x => isSelectOption(x) && x.value === value)
   }
 
   function getLabel(value: SelectModelValue): string {
@@ -268,7 +268,7 @@
         if (!isOpen.value) {
           openSelect()
         } else {
-          decrementHighlightedIndex()
+          setPreviousHighlightedValue()
         }
         event.preventDefault()
         break
@@ -276,21 +276,21 @@
         if (!isOpen.value) {
           openSelect()
         } else {
-          incrementHighlightedIndex()
+          setNextHighlightedValue()
         }
         event.preventDefault()
         break
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlighted.value && !highlighted.value.disabled) {
-          setValue(highlighted.value.value)
+        } else if (highlightedValue.value !== unselected) {
+          setValue(highlightedValue.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value && highlighted.value && !highlighted.value.disabled) {
-          setValue(highlighted.value.value)
+        if (isOpen.value && highlightedValue.value !== unselected) {
+          setValue(highlightedValue.value)
           event.preventDefault()
         }
         break
@@ -299,9 +299,9 @@
     }
   }
 
-  watch(selectOptionsWithGroups, (options) => {
-    if (highlightedIndex.value !== undefined && !options[highlightedIndex.value]) {
-      highlightedIndex.value = undefined
+  watch(highlightableValues, (options) => {
+    if (options.includes(highlightedValue.value)) {
+      highlightedValue.value = unselected
     }
   })
 </script>
@@ -323,5 +323,14 @@
 .p-select__custom { @apply
   w-full
   rounded-md
+}
+
+.p-select__options { @apply
+  rounded-md
+  shadow-lg
+  ring-1
+  ring-black
+  ring-opacity-5
+  focus:outline-none
 }
 </style>

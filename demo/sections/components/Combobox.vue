@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { SelectOption, State } from '@/types'
+  import { SelectOptions, State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import DemoState from '@/demo/components/DemoState.vue'
@@ -67,16 +67,24 @@
     { label: 'Mark Lizardking', value: 'Facebook' },
   ]
 
-  const exampleOptionsGrouped: (string | number | boolean | SelectOption)[] = [
+  const exampleOptionsGrouped: SelectOptions = [
     { label: 'This option is not grouped', value: 'No Group' },
-    { label: 'Black', value: 'Black', group: 'Here are some neutral colors' },
-    { label: 'White', value: 'White', group: 'Here are some neutral colors' },
-    { label: 'Slate', value: 'Slate', group: 'Here are some neutral colors' },
-    { label: 'Stone', value: 'Stone', group: 'Here are some neutral colors' },
-    { label: 'Gray', value: 'Gray', group: 'Here are some neutral colors' },
-    { label: 'Audi', value: 'Audi', group: 'Here are some German car brands' },
-    { label: 'BMW', value: 'BMW', group: 'Here are some German car brands' },
-    { label: 'Mercedes', value: 'Mercedes', group: 'Here are some German car brands' },
+    {
+      label: 'Here are some neutral colors',
+      options: [
+        { label: 'Slate', value: 'Slate' },
+        { label: 'Stone', value: 'Stone' },
+        { label: 'Gray', value: 'Gray' },
+      ],
+    },
+    {
+      label: 'Here are some German car brands',
+      options: [
+        { label: 'Audi', value: 'Audi' },
+        { label: 'BMW', value: 'BMW' },
+        { label: 'Mercedes', value: 'Mercedes' },
+      ],
+    },
   ]
 </script>
 

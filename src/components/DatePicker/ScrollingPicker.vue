@@ -19,11 +19,11 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref, watchEffect } from 'vue'
-  import { SelectModelValue, SelectOption, toSelectOptions } from '@/types/selectOption'
+  import { SelectModelValue, SelectOption, toSelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | undefined,
-    options: (string | number | boolean | SelectOption)[],
+    options: SelectOption[],
     preventFocus?: boolean,
   }>()
 
@@ -33,7 +33,7 @@
 
   defineExpose({ scrollToOption })
 
-  const internalValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -43,7 +43,7 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(toSelectOptions)
+    return props.options.map(toSelectOption)
   })
 
   const containerElement = ref<HTMLDivElement>()
@@ -51,13 +51,13 @@
 
   const classes = computed(() => ({
     option: (option: SelectOption) => ({
-      'scrolling-picker__option--selected': option.value === internalValue.value,
+      'scrolling-picker__option--selected': option.value === modelValue.value,
       'scrolling-picker__option--disabled': option.disabled,
     }),
   }))
 
   function handleOptionClick(option: SelectOption): void {
-    internalValue.value = option.value
+    modelValue.value = option.value
   }
 
   function scrollToOption(value: SelectModelValue): HTMLElement | undefined {
@@ -74,11 +74,11 @@
   }
 
   watchEffect(() => {
-    scrollToOption(internalValue.value)
+    scrollToOption(modelValue.value)
   })
 
   onMounted(() => {
-    const element = scrollToOption(internalValue.value)
+    const element = scrollToOption(modelValue.value)
 
     if (element && !props.preventFocus) {
       element.parentElement?.focus()

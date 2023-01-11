@@ -1,38 +1,30 @@
 <template>
-  <div
-    class="p-select-options"
-    role="listbox"
-    @mouseleave="highlightedIndex = 0"
-  >
+  <div class="p-select-options" role="listbox">
     <slot name="pre-options" />
     <template v-if="options.length">
       <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option, index }: { item: SelectOptionOrGroup, index: number }">
-          <template v-if="option.isGroup">
-            <slot name="group" :group="option">
-              <div class="p-select-options__group">
-                {{ option.label }}
-              </div>
-            </slot>
+        <template #default="{ item: option }: { item: SelectOption | SelectOptionGroup }">
+          <template v-if="isSelectOptionGroup(option)">
+            <PSelectOptionGroup
+              v-model="internalValue"
+              v-model:highlightedValue="highlightedValue"
+              :group="option"
+            >
+              <template #default="scope">
+                <slot name="group" v-bind="scope" />
+              </template>
+            </PSelectOptionGroup>
           </template>
 
           <template v-else>
             <PSelectOption
-              :label="option.label"
-              :multiple="multiple"
-              class="p-select-options__option"
-              :disabled="option.disabled"
-              :selected="isSelected(option)"
-              :highlighted="highlightedIndex === index"
-              @mouseenter="highlightedIndex = index"
-              @click.stop="handleOptionClick(option)"
+              v-model="internalValue"
+              v-model:highlightedValue="highlightedValue"
+              :option="option"
             >
-              <slot
-                name="option"
-                :option="option"
-                :selected="isSelected(option)"
-                :highlighted="highlightedIndex === index"
-              />
+              <template #default="scope">
+                <slot name="option" v-bind="scope" />
+              </template>
             </PSelectOption>
           </template>
         </template>
@@ -52,18 +44,19 @@
 <script lang="ts" setup>
   import { computed, toRefs } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
+  import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { SelectModelValue, SelectOption, SelectOptionOrGroup } from '@/types/selectOption'
+  import { isSelectOptionGroup, SelectModelValue, SelectOption, SelectOptionGroup } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: SelectModelValue | SelectModelValue[] | undefined,
-    options: SelectOptionOrGroup[],
-    highlightedIndex: number | undefined,
+    options: (SelectOption | SelectOptionGroup)[],
+    highlightedValue: SelectModelValue | symbol,
   }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
-    (event: 'update:highlightedIndex', value: number | undefined): void,
+    (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
   }>()
 
   const { options } = toRefs(props)
@@ -77,55 +70,21 @@
     },
   })
 
-  const multiple = computed(() => Array.isArray(internalValue.value))
-
-  const highlightedIndex = computed({
+  const highlightedValue = computed({
     get() {
-      return props.highlightedIndex
+      return props.highlightedValue
     },
     set(value) {
-      emit('update:highlightedIndex', value)
+      emit('update:highlightedValue', value)
     },
   })
-
-  function isSelected(option: SelectOption): boolean {
-    if (Array.isArray(internalValue.value)) {
-      return internalValue.value.includes(option.value)
-    }
-
-    return option.value === internalValue.value
-  }
-
-  function handleOptionClick(option: SelectOption): void {
-    if (option.disabled) {
-      return
-    }
-
-    if (Array.isArray(internalValue.value)) {
-      const index = internalValue.value.indexOf(option.value)
-
-      if (index > -1) {
-        internalValue.value = [...internalValue.value.slice(0, index), ...internalValue.value.slice(index + 1)]
-      } else {
-        internalValue.value = [...internalValue.value, option.value]
-      }
-    } else {
-      internalValue.value = option.value
-    }
-  }
 </script>
 
 <style>
 .p-select-options { @apply
   my-1
   bg-background
-  shadow-lg
   overflow-hidden
-  rounded-md
-  ring-1
-  ring-black
-  ring-opacity-5
-  focus:outline-none
 }
 
 .p-select-options__options { @apply
@@ -144,18 +103,5 @@
   .p-select-options__options { @apply
     block
   }
-}
-
-.p-select-options__group { @apply
-  border-t
-  mt-1
-  py-1
-  px-3
-  border-foreground/50
-  text-foreground/50
-}
-
-.p-select-options__group:first-child { @apply
-  border-t-0
 }
 </style>
