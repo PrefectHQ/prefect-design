@@ -304,13 +304,4 @@
   w-full
   rounded-md
 }
-
-.p-select__options { @apply
-  rounded-md
-  shadow-lg
-  ring-1
-  ring-black
-  ring-opacity-5
-  focus:outline-none
-}
 </style>

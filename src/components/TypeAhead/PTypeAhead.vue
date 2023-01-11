@@ -221,13 +221,4 @@
   ring-primary-500
   border-primary-500
 }
-
-.p-type-ahead__options { @apply
-  rounded-md
-  shadow-lg
-  ring-1
-  ring-black
-  ring-opacity-5
-  focus:outline-none
-}
 </style>

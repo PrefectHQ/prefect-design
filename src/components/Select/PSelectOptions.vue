@@ -2,7 +2,7 @@
   <div class="p-select-options" role="listbox">
     <slot name="pre-options" />
     <template v-if="options.length">
-      <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
+      <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
         <template #default="{ item: option }: { item: SelectOptionNormalized | SelectOptionGroupNormalized }">
           <template v-if="isSelectOptionGroup(option)">
             <PSelectOptionGroup
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, toRefs } from 'vue'
+  import { computed } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
@@ -58,8 +58,6 @@
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
   }>()
-
-  const { options } = toRefs(props)
 
   const internalValue = computed({
     get() {
@@ -78,6 +76,19 @@
       emit('update:highlightedValue', value)
     },
   })
+
+  function flattenGroupsAndOptions(value: SelectOptionNormalized | SelectOptionGroupNormalized): (SelectOptionNormalized | SelectOptionGroupNormalized)[] {
+    if (isSelectOptionGroup(value)) {
+      return [
+        value,
+        ...value.options.flatMap(option => flattenGroupsAndOptions(option)),
+      ]
+    }
+
+    return [value]
+  }
+
+  const flattened = computed(() => props.options.flatMap(option => flattenGroupsAndOptions(option)))
 </script>
 
 <style>
@@ -85,6 +96,12 @@
   my-1
   bg-background
   overflow-hidden
+  rounded-md
+  shadow-lg
+  ring-1
+  ring-black
+  ring-opacity-5
+  focus:outline-none
 }
 
 .p-select-options__options { @apply
