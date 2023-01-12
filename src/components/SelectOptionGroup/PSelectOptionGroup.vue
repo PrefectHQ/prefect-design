@@ -18,9 +18,8 @@
 
 <style>
 .p-select-option-group { @apply
+  py-2
   border-t
-  mt-1
-  py-1
   border-foreground/50
   text-foreground/50
 }
