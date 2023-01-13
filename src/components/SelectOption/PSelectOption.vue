@@ -1,31 +1,113 @@
 <template>
-  <span class="p-select-option" role="option" :class="classes">
+  <div
+    class="p-select-option"
+    role="option"
+    :class="classes"
+    @click="handleClick"
+    @mouseenter="handleMouseEnter"
+  >
     <template v-if="multiple">
-      <PCheckbox :model-value="selected" :disabled="disabled" />
+      <PCheckbox :model-value="selected" :disabled="option.disabled" />
     </template>
     <span class="p-select-option__text">
-      <slot>{{ label }}</slot>
+      <slot
+        :option="option"
+        :selected="selected"
+        :highlighted="highlightedValue === modelValue"
+      >
+        {{ option.label }}
+      </slot>
     </span>
-  </span>
+  </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, toRefs } from 'vue'
   import PCheckbox from '@/components/Checkbox/PCheckbox.vue'
+  import { SelectModelValue, SelectOptionNormalized } from '@/types'
 
   const props = defineProps<{
-    label: string,
-    selected: boolean,
-    highlighted: boolean,
-    multiple?: boolean,
-    disabled?: boolean,
+    modelValue: string | number | boolean | null | SelectModelValue[],
+    highlightedValue: string | number | boolean | null | symbol,
+    option: SelectOptionNormalized,
   }>()
 
+  const emit = defineEmits<{
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
+    (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
+  }>()
+
+  const { option } = toRefs(props)
+
+  const modelValue = computed({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      if (option.value.disabled) {
+        return
+      }
+
+      emit('update:modelValue', value)
+    },
+  })
+
+  const multiple = computed(() => Array.isArray(modelValue.value))
+
+  const selected = computed(() => {
+    if (Array.isArray(modelValue.value)) {
+      return modelValue.value.includes(option.value.value)
+    }
+
+    return option.value.value === modelValue.value
+  })
+
+  const highlightedValue = computed({
+    get() {
+      return props.highlightedValue
+    },
+    set(value) {
+      emit('update:highlightedValue', value)
+    },
+  })
+
   const classes = computed(() => ({
-    'p-select-option--selected': props.selected,
-    'p-select-option--highlighted': props.highlighted,
-    'p-select-option--disabled': props.disabled,
+    'p-select-option--selected': selected.value,
+    'p-select-option--highlighted': highlightedValue.value === option.value.value,
+    'p-select-option--disabled': option.value.disabled,
   }))
+
+  function handleClick(): void {
+    if (selected.value) {
+      unsetValue()
+    } else {
+      setValue()
+    }
+  }
+
+  function handleMouseEnter(): void {
+    if (option.value.disabled) {
+      return
+    }
+
+    highlightedValue.value = option.value.value
+  }
+
+  function setValue(): void {
+    if (Array.isArray(modelValue.value)) {
+      modelValue.value = [...modelValue.value, option.value.value]
+    } else {
+      modelValue.value = option.value.value
+    }
+  }
+
+  function unsetValue(): void {
+    if (Array.isArray(modelValue.value)) {
+      modelValue.value = modelValue.value.filter(value => value !== option.value.value)
+    } else {
+      modelValue.value = null
+    }
+  }
 </script>
 
 <style>
@@ -49,6 +131,10 @@
 
 .p-select-option--highlighted { @apply
   bg-primary-100
+}
+
+.p-select-option--selected.p-select-option--highlighted { @apply
+  bg-primary-300
 }
 
 .p-select-option__text { @apply

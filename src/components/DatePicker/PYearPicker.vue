@@ -19,7 +19,7 @@
   import { setYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted } from 'vue'
   import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
-  import { SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOptionNormalized } from '@/types/selectOption'
   import { isDateInRange, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
@@ -52,7 +52,7 @@
   const scrollingPicker = ref<typeof ScrollingPicker>()
 
   const years = computed(() => {
-    const values: SelectOption[] = []
+    const values: SelectOptionNormalized[] = []
     const minYear = viewingYear.value - viewingCount
     const maxYear = viewingYear.value + viewingCount
 

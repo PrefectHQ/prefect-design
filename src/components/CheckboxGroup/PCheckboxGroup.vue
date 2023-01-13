@@ -2,7 +2,7 @@
   <fieldset class="p-checkbox-group" :class="classes" :style="styles" :disabled="disabled">
     <template v-for="(option, index) in checkboxOptions" :key="index">
       <PCheckbox
-        v-model="internalModelValue"
+        v-model="modelValue"
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
@@ -28,11 +28,11 @@
   import { computed } from 'vue'
   import { PCheckbox } from '@/components/Checkbox'
   import { useAttrsStylesAndClasses } from '@/compositions'
-  import { isSelectOption, SelectOption } from '@/types'
+  import { normalize, SelectOptionNormalized } from '@/types'
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],
-    options: string[] | number[] | boolean[] | SelectOption[],
+    options: string[] | number[] | boolean[] | SelectOptionNormalized[],
     disabled?: boolean,
   }>()
 
@@ -40,7 +40,7 @@
     (event: 'update:modelValue', value: string[] | number[] | boolean[]): void,
   }>()
 
-  const internalModelValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue
     },
@@ -49,14 +49,8 @@
     },
   })
 
-  const checkboxOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const checkboxOptions = computed(() => {
+    return props.options.map(option => normalize(option))
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

@@ -4,20 +4,27 @@
       <slot :name="name" v-bind="data" />
     </template>
     <template #control="{ attrs }">
-      <select v-model="internalValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="attrs">
+      <select v-model="modelValue" class="p-native-select__control" :class="classes" :multiple="multiple" v-bind="attrs">
         <template v-for="(option, index) in selectOptions" :key="index">
-          <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
-            {{ option.label }}
-          </option>
+          <template v-if="isSelectOptionGroup(option)">
+            <optgroup :label="option.label">
+              <template v-for="(nestedOption, nestedIndex) in option.options" :key="nestedIndex">
+                <option class="p-native-select__option" :value="nestedOption.value" :selected="nestedOption.value === modelValue" :disabled="nestedOption.disabled">
+                  {{ nestedOption.label }}
+                </option>
+              </template>
+            </optgroup>
+          </template>
+
+          <template v-else>
+            <option class="p-native-select__option" :value="option.value" :selected="option.value === modelValue" :disabled="option.disabled">
+              {{ option.label }}
+            </option>
+          </template>
         </template>
       </select>
-      <select v-model="internalValue" class="p-native-select__control p-native-select__control--placeholder" :class="classes" :multiple="multiple" v-bind="attrs">
-        <template v-for="(option, index) in selectOptions" :key="index">
-          <option class="p-native-select__option" :value="option.value" :selected="option.value === internalValue" :disabled="option.disabled">
-            {{ option.label }}
-          </option>
-        </template>
-      </select>
+
+      <select class="p-native-select__control p-native-select__control--placeholder" :class="classes" v-bind="attrs" />
     </template>
     <template #append>
       <span class="p-native-select__icon">
@@ -31,18 +38,18 @@
   import { computed } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOptionGroup, normalize, isSelectOptionGroup, flattenSelectOptions, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    options: (string | number | boolean | SelectOption)[],
+    options: (SelectOption | SelectOptionGroup)[],
   }>()
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
-  const internalValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -51,15 +58,22 @@
     },
   })
 
-  const multiple = computed(() => Array.isArray(internalValue.value))
+  const multiple = computed(() => Array.isArray(modelValue.value))
 
-  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
-    if (isSelectOption(option)) {
-      return option
-    }
+  const selectOptions = computed(() => {
+    return props.options.map(optionOrGroup => {
+      const normalized = normalize(optionOrGroup)
 
-    return { label: option.toLocaleString(), value: option }
-  }))
+      if (isSelectOptionGroup(normalized)) {
+        return {
+          ...normalized,
+          options: flattenSelectOptions(normalized.options),
+        }
+      }
+
+      return normalized
+    })
+  })
 
   const classes = computed(() => ({
     'p-native-select__control--multiple': multiple.value,

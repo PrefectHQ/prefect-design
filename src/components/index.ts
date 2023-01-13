@@ -47,6 +47,7 @@ import { PRadio, install as installPRadio } from '@/components/Radio'
 import { PRadioGroup, install as installPRadioGroup } from '@/components/RadioGroup'
 import { PSelect, install as installPSelect } from '@/components/Select'
 import { PSelectOption, install as installPSelectOption } from '@/components/SelectOption'
+import { PSelectOptionGroup, install as installPSelectOptionGroup } from '@/components/SelectOptionGroup'
 import { PStepper, install as installPStepper } from '@/components/Stepper'
 import { PTab, install as installPTab } from '@/components/Tab'
 import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow, install as installPTable } from '@/components/Table'
@@ -118,6 +119,7 @@ export {
   PRadioGroup,
   PSelect,
   PSelectOption,
+  PSelectOptionGroup,
   PStepper,
   PTab,
   PTable,
@@ -196,6 +198,7 @@ export const installs = [
   installPRadioGroup,
   installPSelect,
   installPSelectOption,
+  installPSelectOptionGroup,
   installPStepper,
   installPTab,
   installPTable,
@@ -268,6 +271,7 @@ declare module '@vue/runtime-core' {
     PRadioGroup: typeof PRadioGroup,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
+    PSelectOptionGroup: typeof PSelectOptionGroup,
     PStepper: typeof PStepper,
     PTab: typeof PTab,
     PTable: typeof PTable,
