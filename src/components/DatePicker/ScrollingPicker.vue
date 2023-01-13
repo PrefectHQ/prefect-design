@@ -19,11 +19,11 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref, watchEffect } from 'vue'
-  import { isSelectOption, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, normalize, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
-    options: (string | number | boolean | SelectOption)[],
+    options: SelectOption[],
     preventFocus?: boolean,
   }>()
 
@@ -33,7 +33,7 @@
 
   defineExpose({ scrollToOption })
 
-  const internalValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -42,26 +42,22 @@
     },
   })
 
-  const selectOptions = computed<SelectOption[]>(() => props.options.map(option => {
-    if (isSelectOption(option)) {
-      return option
-    }
-
-    return { label: option.toLocaleString(), value: option }
-  }))
+  const selectOptions = computed(() => {
+    return props.options.map(option => normalize(option))
+  })
 
   const containerElement = ref<HTMLDivElement>()
   const optionElements = ref<HTMLElement[]>([])
 
   const classes = computed(() => ({
-    option: (option: SelectOption) => ({
-      'scrolling-picker__option--selected': option.value === internalValue.value,
+    option: (option: SelectOptionNormalized) => ({
+      'scrolling-picker__option--selected': option.value === modelValue.value,
       'scrolling-picker__option--disabled': option.disabled,
     }),
   }))
 
-  function handleOptionClick(option: SelectOption): void {
-    internalValue.value = option.value
+  function handleOptionClick(option: SelectOptionNormalized): void {
+    modelValue.value = option.value
   }
 
   function scrollToOption(value: SelectModelValue): HTMLElement | undefined {
@@ -78,11 +74,11 @@
   }
 
   watchEffect(() => {
-    scrollToOption(internalValue.value)
+    scrollToOption(modelValue.value)
   })
 
   onMounted(() => {
-    const element = scrollToOption(internalValue.value)
+    const element = scrollToOption(modelValue.value)
 
     if (element && !props.preventFocus) {
       element.parentElement?.focus()

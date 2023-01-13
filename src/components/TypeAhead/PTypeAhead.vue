@@ -12,7 +12,7 @@
     <template #target>
       <PTextInput
         ref="inputElement"
-        v-model="internalValue"
+        v-model="modelValue"
         :class="classes.control"
         :disabled="disabled"
         v-bind="attrs"
@@ -26,12 +26,14 @@
     </template>
 
     <PSelectOptions
-      v-model:highlightedIndex="highlightedIndex"
-      :model-value="internalValue"
+      v-model="modelValue"
+      v-model:highlightedValue="highlightedValue"
+      class="p-type-ahead__options"
       :options="filteredSelectOptions"
       :style="styles.option"
+      @update:model-value="handleOptionSelected"
       @keydown="handleKeydown"
-      @update:model-value="setValue"
+      @mouseleave="setHighlightedValueUnselected"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
@@ -55,8 +57,9 @@
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
+  import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectOption, isSelectOption, optionIncludes, SelectModelValue } from '@/types/selectOption'
+  import { optionIncludes, SelectModelValue, normalize } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -76,9 +79,8 @@
   const { width: targetElementWidth } = useElementRect(targetElement)
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
-  const highlightedIndex = ref(0)
 
-  const internalValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -89,17 +91,15 @@
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
-  const selectOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const selectOptions = computed(() => {
+    return props.options.map(option => normalize(option))
   })
 
-  const filteredSelectOptions = computed(() => selectOptions.value.filter(option => optionIncludes(option, internalValue.value)))
+  const filteredSelectOptions = computed(() => {
+    return selectOptions.value.filter(option => optionIncludes(option, modelValue.value))
+  })
+
+  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(filteredSelectOptions)
 
   const classes = computed(() => ({
     control: {
@@ -131,9 +131,9 @@
     }
   }
 
-  function setValue(newValue: SelectModelValue): void {
-    if (typeof newValue === 'string') {
-      internalValue.value = newValue
+  function handleOptionSelected(newValue: SelectModelValue | SelectModelValue[]): void {
+    if (Array.isArray(newValue)) {
+      return
     }
 
     emits('selected', newValue?.toString() ?? null)
@@ -141,20 +141,14 @@
     closeSelect()
   }
 
-  function getHighlighted(): SelectOption | undefined {
-    return filteredSelectOptions.value[highlightedIndex.value]
-  }
-
-  function trySettingValueToHighlighted(): boolean {
-    const highlighted = getHighlighted()
-
-    if (!highlighted || highlighted.disabled) {
-      return false
+  function setValue(newValue: SelectModelValue): void {
+    if (typeof newValue !== 'string') {
+      return
     }
 
-    setValue(highlighted.value)
+    modelValue.value = newValue
 
-    return true
+    handleOptionSelected(newValue)
   }
 
   function handleOpenChange(open: boolean): void {
@@ -180,32 +174,33 @@
       case keys.upArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value > 0) {
-          highlightedIndex.value -= 1
+        } else {
+          setPreviousHighlightedValue()
         }
         event.preventDefault()
         break
       case keys.downArrow:
         if (!isOpen.value) {
           openSelect()
-        } else if (highlightedIndex.value < filteredSelectOptions.value.length - 1) {
-          highlightedIndex.value += 1
+        } else {
+          setNextHighlightedValue()
         }
         event.preventDefault()
         break
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else {
-          trySettingValueToHighlighted()
+        } else if (!isUnselected(highlightedValue.value)) {
+          setValue(highlightedValue.value)
         }
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value) {
-          trySettingValueToHighlighted()
+        if (isOpen.value && !isUnselected(highlightedValue.value)) {
+          setValue(highlightedValue.value)
           event.preventDefault()
         }
+        closeSelect()
         break
       default:
         break

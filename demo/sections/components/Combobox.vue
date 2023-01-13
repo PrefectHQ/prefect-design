@@ -2,8 +2,9 @@
   <ComponentPage
     title="Combobox"
     :demos="[
-      { title: 'Combobox Select' },
-      { title: 'Combobox that allows custom values' },
+      { title: 'Combobox' },
+      { title: 'Allows custom values' },
+      { title: 'Grouped' },
     ]"
   >
     <template #description>
@@ -12,7 +13,7 @@
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
-    <template #combobox-select>
+    <template #combobox>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
 
@@ -22,12 +23,22 @@
       </div>
     </template>
 
-    <template #combobox-that-allows-custom-values>
+    <template #allows-custom-values>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
 
         <p-code>
           value: {{ JSON.stringify(exampleCombobox2) }}
+        </p-code>
+      </div>
+    </template>
+
+    <template #grouped>
+      <div class="combobox__demo">
+        <p-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+
+        <p-code>
+          value: {{ JSON.stringify(exampleCombobox3) }}
         </p-code>
       </div>
     </template>
@@ -45,6 +56,7 @@
 
   const exampleCombobox = ref('Space-X')
   const exampleCombobox2 = ref([])
+  const exampleCombobox3 = ref([])
 
   const exampleOptions = [
     { label: 'Tim Cook', value: 'Apple' },
@@ -53,6 +65,26 @@
     { label: 'Sundar Pichai', value: 'Google' },
     { label: 'Elon Musk', value: 'Space-X' },
     { label: 'Mark Lizardking', value: 'Facebook' },
+  ]
+
+  const exampleOptionsGrouped = [
+    { label: 'This option is not grouped', value: 'No Group' },
+    {
+      label: 'Here are some neutral colors',
+      options: [
+        { label: 'Slate', value: 'Slate' },
+        { label: 'Stone', value: 'Stone' },
+        { label: 'Gray', value: 'Gray' },
+      ],
+    },
+    {
+      label: 'Here are some German car brands',
+      options: [
+        { label: 'Audi', value: 'Audi' },
+        { label: 'BMW', value: 'BMW' },
+        { label: 'Mercedes', value: 'Mercedes' },
+      ],
+    },
   ]
 </script>
 

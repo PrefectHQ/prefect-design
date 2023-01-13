@@ -1,33 +1,28 @@
 <template>
-  <div
-    class="p-select-options"
-    role="listbox"
-    @mouseleave="indexValue = 0"
-  >
+  <div class="p-select-options" role="listbox">
     <slot name="pre-options" />
     <template v-if="options.length">
-      <PVirtualScroller :items="options" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option, index }">
-          <div
-            ref="optionElements"
-            @mouseenter="indexValue = index"
-            @click.stop="handleOptionClick(option)"
-          >
+      <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
+        <template #default="{ item: option }: { item: SelectOptionNormalized | SelectOptionGroupNormalized }">
+          <template v-if="isSelectOptionGroup(option)">
+            <PSelectOptionGroup :group="option">
+              <template #default="scope">
+                <slot name="group" v-bind="scope" />
+              </template>
+            </PSelectOptionGroup>
+          </template>
+
+          <template v-else>
             <PSelectOption
-              :label="option.label"
-              :multiple="multiple"
-              :disabled="option.disabled"
-              :selected="isSelected(option)"
-              :highlighted="indexValue === index"
+              v-model="internalValue"
+              v-model:highlightedValue="highlightedValue"
+              :option="option"
             >
-              <slot
-                name="option"
-                :option="option"
-                :selected="isSelected(option)"
-                :highlighted="indexValue === index"
-              />
+              <template #default="scope">
+                <slot name="option" v-bind="scope" />
+              </template>
             </PSelectOption>
-          </div>
+          </template>
         </template>
       </PVirtualScroller>
     </template>
@@ -43,88 +38,62 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue'
+  import { computed } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
+  import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { isSelectOptionGroup, SelectModelValue, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    options: SelectOption[],
-    highlightedIndex: number | undefined,
+    options: (SelectOptionNormalized | SelectOptionGroupNormalized)[],
+    highlightedValue: string | number | boolean | null | symbol,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:modelValue', value: SelectModelValue): void,
-    (event: 'update:highlightedIndex', value: number | undefined): void,
+    (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
+    (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
   }>()
 
-  const internalValue = computed(() => props.modelValue ?? null)
-
-  const multiple = computed(() => Array.isArray(internalValue.value))
-
-  const optionElements = ref<HTMLLIElement[]>([])
-
-  const indexValue = computed({
+  const internalValue = computed({
     get() {
-      return props.highlightedIndex
+      return props.modelValue ?? null
     },
     set(value) {
-      emit('update:highlightedIndex', value)
+      emit('update:modelValue', value)
     },
   })
 
-  function isSelected(option: SelectOption): boolean {
-    if (Array.isArray(internalValue.value)) {
-      return internalValue.value.includes(option.value)
-    }
-
-    return option.value === internalValue.value
-  }
-
-  function handleOptionClick(option: SelectOption): void {
-    if (option.disabled) {
-      return
-    }
-
-    emit('update:modelValue', option.value)
-  }
-
-  function getOptionElement(index: number): HTMLLIElement | undefined {
-    return optionElements.value[index]
-  }
-
-  function scrollToOption(index: number): void {
-    const element = getOptionElement(index)
-
-    element?.scrollIntoView({ block: 'nearest' })
-  }
-
-  watch(() => props.highlightedIndex, (value, previous) => {
-    if (value === undefined) {
-      return
-    }
-
-    if (props.options[value]?.disabled) {
-      const difference = value - (previous ?? -1)
-      const newIndex = value + difference
-
-      if (newIndex >= 0 && newIndex < props.options.length) {
-        indexValue.value = newIndex
-      }
-    } else {
-      scrollToOption(value)
-    }
+  const highlightedValue = computed({
+    get() {
+      return props.highlightedValue
+    },
+    set(value) {
+      emit('update:highlightedValue', value)
+    },
   })
+
+  function flattenGroupsAndOptions(value: SelectOptionNormalized | SelectOptionGroupNormalized): (SelectOptionNormalized | SelectOptionGroupNormalized)[] {
+    if (isSelectOptionGroup(value)) {
+      return [
+        value,
+        ...value.options.flatMap(option => flattenGroupsAndOptions(option)),
+      ]
+    }
+
+    return [value]
+  }
+
+  const flattened = computed(() => props.options.flatMap(option => flattenGroupsAndOptions(option)))
 </script>
 
 <style>
 .p-select-options { @apply
   my-1
   bg-background
-  shadow-lg
   overflow-hidden
   rounded-md
+  shadow-lg
   ring-1
   ring-black
   ring-opacity-5

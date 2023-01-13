@@ -1,6 +1,6 @@
 <template>
   <PSelect
-    v-model="internalValue"
+    v-model="modelValue"
     :options="filteredSelectOptions"
     :empty-message="emptyMessage"
     @update:model-value="resetTypedValue"
@@ -61,11 +61,11 @@
   import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
-  import { isSelectOption, optionIncludes, SelectModelValue, SelectOption } from '@/types/selectOption'
+  import { flattenSelectOptions, SelectModelValue, SelectOptionGroup, normalize, SelectOptionNormalized, SelectOptionGroupNormalized, filterOptionsOrOptionGroups, SelectOption } from '@/types/selectOption'
 
   const props = withDefaults(defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    options: (string | number | boolean | SelectOption)[],
+    options: (SelectOption | SelectOptionGroup)[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,
     placeholder?: string,
@@ -78,7 +78,7 @@
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
   }>()
 
-  const internalValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -88,27 +88,22 @@
   })
 
   const valueAsArray = computed(() => {
-    if (!internalValue.value) {
+    if (!modelValue.value) {
       return []
     }
 
-    if (Array.isArray(internalValue.value)) {
-      return internalValue.value.map(option => option ? option.toString() : '')
+    if (Array.isArray(modelValue.value)) {
+      return modelValue.value.map(option => option ? option.toString() : '')
     }
 
-    return [internalValue.value.toString()]
+    return [modelValue.value.toString()]
   })
 
   const selectOptions = computed(() => {
-    return props.options
-      .map(option => {
-        if (isSelectOption(option)) {
-          return option
-        }
-
-        return { label: option.toLocaleString(), value: option }
-      })
+    return props.options.map(normalize)
   })
+
+  const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
 
   const unknownValues = computed(() => {
     return valueAsArray.value
@@ -117,7 +112,8 @@
 
   const selectOptionsWithUnknown = computed(() => {
     const options = [...selectOptions.value]
-    if (internalValue.value && props.allowUnknownValue) {
+
+    if (modelValue.value && props.allowUnknownValue) {
       const unknownSelectOptions = unknownValues.value
         .map(value => ({ label: `${value}`, value }))
 
@@ -132,7 +128,11 @@
   })
 
   const filteredSelectOptions = computed(() => {
-    return selectOptionsWithUnknown.value.filter(option => optionIncludes(option, typedValue.value))
+    if (!typedValue.value) {
+      return selectOptionsWithUnknown.value
+    }
+
+    return filterOptionsOrOptionGroups(selectOptionsWithUnknown.value, typedValue.value)
   })
 
   const classes = computed(() => ({
@@ -162,20 +162,22 @@
     return value.toString()
   }
 
-  function getSelectOption(value: SelectModelValue): SelectOption | undefined {
-    return selectOptions.value.find(x => x.value === value)
+  function getSelectOption(value: SelectModelValue): SelectOptionNormalized | undefined {
+    return flatSelectOptions.value.find(x => x.value === value)
   }
 
-  function optionLabel(option: SelectOption): string {
+  function optionLabel(option: SelectOptionNormalized): string {
     return option.value && unknownValues.value.includes(option.value.toString()) ? `"${option.label}"` : option.label
   }
 
-  function optionsIncludeValue(options: SelectOption[], value: string | null): boolean {
+  function optionsIncludeValue(options: (SelectOptionNormalized | SelectOptionGroupNormalized)[], value: string | null): boolean {
     if (!value) {
       return true
     }
 
-    return !!options.find(option => option.value === value)
+    const flat = flattenSelectOptions(options)
+
+    return !!flat.find(option => option.value === value)
   }
 
   function resetTypedValue(): void {

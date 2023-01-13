@@ -2,7 +2,7 @@
   <div class="p-radio-group" :class="classes" :style="styles">
     <template v-for="(option, index) in radioOptions" :key="index">
       <PRadio
-        v-model="internalModelValue"
+        v-model="modelValue"
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
@@ -28,35 +28,29 @@
   import { computed } from 'vue'
   import { PRadio } from '@/components/Radio'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { isSelectOption, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, normalize, SelectOptionNormalized } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
-    options: string[] | SelectOption[],
+    options: string[] | SelectOptionNormalized[],
     disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:modelValue', value: string | number | boolean | null): void,
+    (event: 'update:modelValue', value: SelectModelValue): void,
   }>()
 
-  const internalModelValue = computed({
+  const modelValue = computed({
     get() {
       return props.modelValue ?? null
     },
-    set(value: string | number | boolean | null) {
+    set(value: SelectModelValue) {
       emits('update:modelValue', value)
     },
   })
 
-  const radioOptions = computed<SelectOption[]>(() => {
-    return props.options.map(option => {
-      if (isSelectOption(option)) {
-        return option
-      }
-
-      return { label: option.toLocaleString(), value: option }
-    })
+  const radioOptions = computed(() => {
+    return props.options.map(option => normalize(option))
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

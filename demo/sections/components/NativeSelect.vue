@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Native Select" :demos="[{ title: 'Native Select' }]">
+  <ComponentPage title="Native Select" :demos="[{ title: 'Native Select' }, { title: 'Grouped' }]">
     <template #description>
       This is where we add a short description of <p-code>p-native-select</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
@@ -11,6 +11,14 @@
         <p-native-select v-model="exampleNativeSelect" :disabled="disabled" :options="exampleOptionsWithEmpty" :state="exampleState" />
 
         <p-code>value: {{ JSON.stringify(exampleNativeSelect) }}</p-code>
+      </div>
+    </template>
+
+    <template #grouped>
+      <div class="native-select__demo">
+        <p-native-select v-model="exampleNativeSelectGrouped" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+
+        <p-code>value: {{ JSON.stringify(exampleNativeSelectGrouped) }}</p-code>
       </div>
     </template>
   </ComponentPage>
@@ -36,6 +44,27 @@
     },
     {
       label: 'Three', value: 3,
+    },
+  ]
+
+  const exampleNativeSelectGrouped = ref(null)
+  const exampleOptionsGrouped = [
+    { label: 'This option is not grouped', value: 'No Group' },
+    {
+      label: 'Here are some neutral colors',
+      options: [
+        { label: 'Slate', value: 'Slate' },
+        { label: 'Stone', value: 'Stone' },
+        { label: 'Gray', value: 'Gray' },
+      ],
+    },
+    {
+      label: 'Here are some German car brands',
+      options: [
+        { label: 'Audi', value: 'Audi' },
+        { label: 'BMW', value: 'BMW' },
+        { label: 'Mercedes', value: 'Mercedes' },
+      ],
     },
   ]
 </script>
