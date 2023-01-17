@@ -78,7 +78,7 @@
     get() {
       return props.modelValue ?? null
     },
-    set(value: Date | null) {
+    set(value) {
       emit('update:modelValue', keepDateInRange(value, { min: props.min, max: props.max }))
     },
   })

@@ -24,7 +24,7 @@
     get() {
       return props.modelValue
     },
-    set(value: boolean) {
+    set(value) {
       emits('update:modelValue', value)
     },
   })

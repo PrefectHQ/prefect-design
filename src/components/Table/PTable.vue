@@ -89,7 +89,7 @@
     get() {
       return props.selected ?? []
     },
-    set(value: TableData[]) {
+    set(value) {
       emit('update:selected', value)
     },
   })
@@ -98,7 +98,7 @@
     get() {
       return internalSelectedRows.value.length === selectableRows.value.length
     },
-    set(value: boolean) {
+    set(value) {
       internalSelectedRows.value = value ? selectableRows.value : []
     },
   })

@@ -53,7 +53,7 @@
     get() {
       return props.modelValue ?? null
     },
-    set(value: SelectModelValue | SelectModelValue[]) {
+    set(value) {
       emits('update:modelValue', value)
     },
   })

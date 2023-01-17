@@ -42,7 +42,7 @@
     get() {
       return props.modelValue ?? new Date()
     },
-    set(value: Date) {
+    set(value) {
       emits('update:modelValue', keepDateInRange(value, range.value))
     },
   })

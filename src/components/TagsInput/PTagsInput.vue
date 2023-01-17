@@ -36,7 +36,7 @@
     get() {
       return props.modelValue ?? []
     },
-    set(value: string[]) {
+    set(value) {
       emit('update:modelValue', value)
     },
   })

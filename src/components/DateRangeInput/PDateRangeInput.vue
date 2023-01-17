@@ -76,7 +76,7 @@
     get() {
       return props.startDate ?? null
     },
-    set(value: Date | null) {
+    set(value) {
       emit('update:startDate', value)
     },
   })
@@ -93,7 +93,7 @@
     get() {
       return props.endDate ?? null
     },
-    set(value: Date | null) {
+    set(value) {
       emit('update:endDate', value)
     },
   })
@@ -110,7 +110,7 @@
     get() {
       return internalEndDate.value ?? internalStartDate.value
     },
-    set(value: Date | null) {
+    set(value) {
       if (!value) {
         return clear()
       }
