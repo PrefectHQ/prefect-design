@@ -50,7 +50,7 @@
     get() {
       return props.modelValue ?? startOfMinute(new Date())
     },
-    set(value: Date) {
+    set(value) {
       const withoutSeconds = startOfMinute(value)
 
       emits('update:modelValue', keepDateInRange(withoutSeconds, range.value))
@@ -70,7 +70,7 @@
     get() {
       return parseInt(format(selectedDate.value, 'mm'))
     },
-    set(value: SelectModelValue) {
+    set(value) {
       selectedDate.value = applyMinutes(selectedDate.value, value as number)
     },
   })

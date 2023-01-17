@@ -51,7 +51,7 @@
     get() {
       return props.modelValue ?? undefined
     },
-    set(value: CheckboxModel) {
+    set(value) {
       emits('update:modelValue', value)
     },
   })

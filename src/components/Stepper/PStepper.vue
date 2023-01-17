@@ -48,7 +48,7 @@
     get() {
       return props.modelValue ?? props.min ?? 0
     },
-    set(value: number) {
+    set(value) {
       if (isWithinRange(value)) {
         emits('update:modelValue', value)
       }

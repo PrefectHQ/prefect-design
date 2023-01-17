@@ -20,7 +20,7 @@
     get() {
       return internalValue.value === 'dark'
     },
-    set(value: boolean) {
+    set(value) {
       const theme = value ? 'dark' : 'light'
       setTheme(theme)
     },

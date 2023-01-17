@@ -78,7 +78,7 @@
     get() {
       return props.showModal
     },
-    set(value: boolean) {
+    set(value) {
       emits('update:showModal', value)
     },
   })
