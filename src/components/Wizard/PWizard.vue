@@ -9,6 +9,8 @@
     </PCard>
 
     <PCard>
+      <slot name="before-steps" />
+
       <template v-for="(step, index) in steps" :key="index">
         <div v-show="index === currentStepIndex" class="p-wizard__step">
           <PWizardStep :step="step">
@@ -16,6 +18,8 @@
           </PWizardStep>
         </div>
       </template>
+
+      <slot name="after-steps" />
 
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
