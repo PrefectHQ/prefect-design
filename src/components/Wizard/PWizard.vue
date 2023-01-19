@@ -16,6 +16,7 @@
           </PWizardStep>
         </div>
       </template>
+      <slot name="after-steps" />
 
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
