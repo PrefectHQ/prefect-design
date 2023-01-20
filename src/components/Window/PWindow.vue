@@ -6,6 +6,11 @@
         <div class="p-window__button" />
         <div class="p-window__button" />
       </div>
+      <div class="p-window__file-name">
+        <slot name="file-name">
+          {{ title }}
+        </slot>
+      </div>
       <div class="p-window__actions">
         <slot name="actions" />
       </div>
@@ -15,6 +20,12 @@
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+  defineProps<{
+    title?: string,
+  }>()
+</script>
 
 <style>
 .p-window { @apply
@@ -26,12 +37,16 @@
 }
 
 .p-window__top-bar { @apply
-  relative
   flex
   px-5
   py-4
   justify-between
+  items-center
   bg-slate-50/25
+}
+
+.p-window__file-name { @apply
+  text-sm
 }
 
 .p-window__buttons { @apply
