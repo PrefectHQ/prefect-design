@@ -5,10 +5,10 @@
     </template>
 
     <template #window>
-      <p-window>
+      <p-window title="title.prop-or-slot.py">
         <template #actions>
           <p-button inset size="xs">
-            Custom Actions
+            Actions slot
           </p-button>
         </template>
         window slot!
