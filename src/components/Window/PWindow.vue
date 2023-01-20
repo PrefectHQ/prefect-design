@@ -6,8 +6,8 @@
         <div class="p-window__button" />
         <div class="p-window__button" />
       </div>
-      <div class="p-window__file-name">
-        <slot name="file-name">
+      <div class="p-window__title">
+        <slot name="title">
           {{ title }}
         </slot>
       </div>
