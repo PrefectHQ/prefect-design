@@ -23,7 +23,7 @@
     </template>
     <template #multi-select>
       <div class="select__demo">
-        <p-select v-model="exampleMultiSelect" :disabled="disabled" :options="exampleOptions" :state="exampleState" />
+        <p-select v-model="exampleMultiSelect" :disabled="disabled" :options="exampleOptions" :state="exampleState" multiple />
 
         <p-code>
           value: {{ JSON.stringify(exampleMultiSelect) }}
@@ -52,7 +52,7 @@
   const disabled = ref(false)
 
   const exampleSelect = ref(null)
-  const exampleMultiSelect = ref<string[]>([])
+  const exampleMultiSelect = ref<string[] | undefined>(undefined)
   const exampleGroupedSelect = ref(null)
 
   const exampleOptions: SelectOption[] = [

@@ -30,6 +30,7 @@
     modelValue: string | number | boolean | null | SelectModelValue[],
     highlightedValue: string | number | boolean | null | symbol,
     option: SelectOptionNormalized,
+    multiple?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -52,7 +53,8 @@
     },
   })
 
-  const multiple = computed(() => Array.isArray(modelValue.value))
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+  const multiple = computed(() => props.multiple || Array.isArray(modelValue.value))
 
   const selected = computed(() => {
     if (Array.isArray(modelValue.value)) {

@@ -17,6 +17,7 @@
               v-model="internalValue"
               v-model:highlightedValue="highlightedValue"
               :option="option"
+              :multiple="multiple"
             >
               <template #default="scope">
                 <slot name="option" v-bind="scope" />
@@ -48,6 +49,7 @@
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: (SelectOptionNormalized | SelectOptionGroupNormalized)[],
     highlightedValue: string | number | boolean | null | symbol,
+    multiple?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -57,6 +59,10 @@
 
   const internalValue = computed({
     get() {
+      if (props.multiple) {
+        return props.modelValue ?? []
+      }
+
       return props.modelValue ?? null
     },
     set(value) {
