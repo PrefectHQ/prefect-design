@@ -3,6 +3,7 @@
     title="Combobox"
     :demos="[
       { title: 'Combobox' },
+      { title: 'Multiple' },
       { title: 'Allows custom values' },
       { title: 'Grouped' },
     ]"
@@ -19,6 +20,23 @@
 
         <p-code>
           value: {{ JSON.stringify(exampleCombobox) }}
+        </p-code>
+      </div>
+    </template>
+
+    <template #multiple>
+      <div class="combobox__demo">
+        <p-combobox
+          v-model="exampleMultiple"
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+          multiple
+        />
+
+        <p-code>
+          value: {{ JSON.stringify(exampleMultiple) }}
         </p-code>
       </div>
     </template>
@@ -55,6 +73,7 @@
   const disabled = ref(false)
 
   const exampleCombobox = ref('Space-X')
+  const exampleMultiple = ref<string[] | undefined>()
   const exampleCombobox2 = ref([])
   const exampleCombobox3 = ref([])
 

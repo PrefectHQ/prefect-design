@@ -28,7 +28,7 @@
               </slot>
             </template>
 
-            <template v-else-if="isArray(modelValue)">
+            <template v-else-if="multiple">
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
@@ -46,7 +46,7 @@
               </PTagWrapper>
             </template>
 
-            <template v-else>
+            <template v-else-if="!Array.isArray(modelValue)">
               <slot :label="getLabel(modelValue)" :value="modelValue">
                 {{ getLabel(modelValue) }}
               </slot>
@@ -74,7 +74,8 @@
       class="p-select__options"
       :options="selectOptions"
       :style="styles.option"
-      @update:model-value="closeIfNotArray"
+      :multiple="multiple"
+      @update:model-value="closeIfNotMultiple"
       @keydown="handleKeydown"
       @mouseleave="setHighlightedValueUnselected"
     >
@@ -115,6 +116,7 @@
     disabled?: boolean,
     options: (SelectOption | SelectOptionGroup)[],
     emptyMessage?: string,
+    multiple?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -141,7 +143,9 @@
     return asArray(modelValue.value).map(option => option?.toString() ?? '')
   })
 
-  const multiple = computed(() => isArray(modelValue.value))
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+  const multiple = computed(() => props.multiple || isArray(modelValue.value))
+
   const isOpen = computed(() => popOver.value?.visible ?? false)
   const showShowEmptyMessage = computed(() => {
     if (isArray(modelValue.value)) {
@@ -172,8 +176,8 @@
     }
   }
 
-  function closeIfNotArray(newValue: SelectModelValue | SelectModelValue[]): void {
-    if (Array.isArray(newValue)) {
+  function closeIfNotMultiple(newValue: SelectModelValue | SelectModelValue[]): void {
+    if (multiple.value) {
       return
     }
 
