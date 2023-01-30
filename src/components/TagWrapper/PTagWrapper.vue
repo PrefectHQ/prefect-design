@@ -2,7 +2,7 @@
   <div ref="container" class="p-tag-wrapper">
     <div class="p-tag-wrapper__tag-container" :class="classes.tagContainer">
       <slot>
-        <template v-for="tag in sortedTags" :key="tag">
+        <template v-for="tag in tags" :key="tag">
           <div class="p-tag-wrapper__tag" :class="classes.tag">
             <slot name="tag" :tag="tag">
               <PTag :value="tag" />
@@ -54,11 +54,10 @@
     }
   })
 
-  const sortedTags = computed(() => {
-    const tags = props.tags ?? []
-    const normalized = tags.map(normalize)
+  const tags = computed(() => {
+    const value = props.tags ?? []
 
-    return normalized.sort((tagA, tagB) => tagA.label.localeCompare(tagB.label))
+    return value.map(normalize)
   })
 
   let resizeObserver: ResizeObserver | null = null

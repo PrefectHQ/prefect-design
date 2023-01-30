@@ -15,7 +15,7 @@
     tags: (string | TagValue)[],
   }>()
 
-  const tags = computed(() => props.tags.map(normalize).sort((tagA, tagB) => tagA.label.localeCompare(tagB.label)))
+  const tags = computed(() => props.tags.map(normalize))
 </script>
 
 <style>
