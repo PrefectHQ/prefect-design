@@ -31,8 +31,8 @@
             <template v-else-if="multiple">
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
-                  <slot name="tag" :label="tag.label" :value="tag" :dismiss="() => unselectOptionValue(tag)">
-                    <PTag :dismissible="isDismissible(tag)" @dismiss="unselectOptionValue(tag)">
+                  <slot name="tag" :label="tag.label" :value="tag" :dismiss="() => dismissTag(tag)">
+                    <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">
                       <slot :label="tag.label" :value="tag.value">
                         {{ tag.label }}
                       </slot>
@@ -174,7 +174,7 @@
     return getSelectOption(value)?.label ?? ''
   }
 
-  function unselectOptionValue(tagValue: TagValue): void {
+  function dismissTag(tagValue: TagValue): void {
     if (isArray(modelValue.value)) {
       modelValue.value = modelValue.value.filter(x => x !== tagValue.value)
     }
