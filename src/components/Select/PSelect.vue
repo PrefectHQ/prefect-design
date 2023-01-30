@@ -32,7 +32,7 @@
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
-                    <PTag :dismissible="!getSelectOption(tag)?.disabled" @dismiss="unselectOptionValue(tag)">
+                    <PTag :dismissible="isDismissible(tag)" @dismiss="unselectOptionValue(tag)">
                       <slot :label="getLabel(tag)" :value="tag">
                         {{ getLabel(tag) }}
                       </slot>
@@ -106,7 +106,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
@@ -182,6 +182,16 @@
     }
 
     closeSelect()
+  }
+
+  function isDismissible(tag: SelectModelValue): boolean {
+    if (props.disabled) {
+      return false
+    }
+
+    const option = getSelectOption(tag)
+
+    return !option?.disabled
   }
 
   const classes = computed(() => ({
@@ -279,7 +289,17 @@
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value && !isUnselected(highlightedValue.value)) {
+        if (!isOpen.value) {
+          return
+        }
+
+        if (selectOptions.value.length === 1) {
+          const [first] = selectOptions.value
+
+          if (isSelectOptionNormalized(first)) {
+            setValue(first.value)
+          }
+        } else if (!isUnselected(highlightedValue.value)) {
           setValue(highlightedValue.value)
           event.preventDefault()
         }
