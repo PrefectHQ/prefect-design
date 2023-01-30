@@ -31,10 +31,10 @@
             <template v-else-if="multiple">
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
-                  <slot name="tag" :label="getLabel(tag)" :value="tag" :dismiss="() => unselectOptionValue(tag)">
+                  <slot name="tag" :label="tag.label" :value="tag" :dismiss="() => unselectOptionValue(tag)">
                     <PTag :dismissible="isDismissible(tag)" @dismiss="unselectOptionValue(tag)">
-                      <slot :label="getLabel(tag)" :value="tag">
-                        {{ getLabel(tag) }}
+                      <slot :label="tag.label" :value="tag.value">
+                        {{ tag.label }}
                       </slot>
                     </PTag>
                   </slot>
@@ -107,6 +107,7 @@
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
+  import { TagValue } from '@/types/tag'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
@@ -140,7 +141,10 @@
   })
 
   const tags = computed(() => {
-    return asArray(modelValue.value).map(option => option?.toString() ?? '')
+    return asArray(modelValue.value).map(option => ({
+      label: getLabel(option),
+      value: option,
+    }))
   })
 
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
@@ -162,7 +166,7 @@
   const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
   const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
 
-  function getSelectOption(value: SelectModelValue): SelectOptionNormalized | undefined {
+  function getSelectOption(value: unknown): SelectOptionNormalized | undefined {
     return flatSelectOptions.value.find(option => option.value === value)
   }
 
@@ -170,13 +174,13 @@
     return getSelectOption(value)?.label ?? ''
   }
 
-  function unselectOptionValue(value: SelectModelValue): void {
+  function unselectOptionValue(tagValue: TagValue): void {
     if (isArray(modelValue.value)) {
-      modelValue.value = modelValue.value.filter(x => x !== value)
+      modelValue.value = modelValue.value.filter(x => x !== tagValue.value)
     }
   }
 
-  function closeIfNotMultiple(newValue: SelectModelValue | SelectModelValue[]): void {
+  function closeIfNotMultiple(): void {
     if (multiple.value) {
       return
     }
@@ -184,12 +188,12 @@
     closeSelect()
   }
 
-  function isDismissible(tag: SelectModelValue): boolean {
+  function isDismissible(tagValue: TagValue): boolean {
     if (props.disabled) {
       return false
     }
 
-    const option = getSelectOption(tag)
+    const option = getSelectOption(tagValue.value)
 
     return !option?.disabled
   }

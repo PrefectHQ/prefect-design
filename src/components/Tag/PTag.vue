@@ -4,13 +4,13 @@
       <PIcon :icon="icon" />
     </div>
 
-    <slot>{{ label }}</slot>
+    <slot>{{ tagValue.label }}</slot>
 
     <button
       v-if="dismissible"
       type="button"
       class="p-tag__dismiss"
-      @click.stop="emits('dismiss')"
+      @click.stop="emits('dismiss', tagValue)"
     >
       <PIcon icon="XIcon" class="p-tag__icon p-tag__icon--dismiss" />
     </button>
@@ -18,18 +18,25 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
+  import { TagValue, normalize } from '@/types/tag'
 
-  defineProps<{
+  const props = defineProps<{
     icon?: Icon,
     label?: string,
+    value?: string | TagValue,
     dismissible?: boolean,
   }>()
 
   const emits = defineEmits<{
-    (event: 'dismiss'): void,
+    (event: 'dismiss', value: TagValue): void,
   }>()
+
+  const tagValue = computed(() => {
+    return normalize(props.value ?? props.label ?? '')
+  })
 </script>
 
 <style>
