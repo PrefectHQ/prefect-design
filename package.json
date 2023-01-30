@@ -42,7 +42,7 @@
   "devDependencies": {
     "@fontsource/inconsolata": "^4.5.7",
     "@fontsource/inter": "^4.5.12",
-    "@prefecthq/eslint-config": "1.0.22",
+    "@prefecthq/eslint-config": "1.0.23",
     "@types/node": "^18.7.13",
     "@types/tailwindcss": "^3.0.10",
     "@vitejs/plugin-vue": "4.0.0",
