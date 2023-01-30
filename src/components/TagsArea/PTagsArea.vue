@@ -3,13 +3,13 @@
     <slot :tags="internalValue" :remove-tag="removeTag">
       <div class="p-tags-area__tags">
         <template v-for="tag in internalValue" :key="tag">
-          <div class="p-tags-area__tag" @click="editTag(tag)">
+          <button type="button" class="p-tags-area__tag" :disabled="disabled" @click="editTag(tag)">
             <slot name="tag" :tag="tag" :remove-tag="removeTag">
-              <PTag dismissible @dismiss="removeTag(tag)">
+              <PTag :dismissible="!disabled" @dismiss="removeTag(tag)">
                 {{ tag }}
               </PTag>
             </slot>
-          </div>
+          </button>
         </template>
       </div>
     </slot>
@@ -22,7 +22,7 @@
           v-model="newTag"
           type="text"
           class="p-tags-area__input"
-          v-bind="attrs"
+          v-bind="{ ...attrs, disabled }"
           @keydown="handleKeydown"
           @blur="handleBlur"
         >
@@ -47,6 +47,7 @@
 
   const props = defineProps<{
     modelValue: string[] | null | undefined,
+    disabled?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -102,10 +103,6 @@
 </script>
 
 <style>
-.p-tags-area__tag { @apply
-  cursor-pointer
-}
-
 .p-tags-area__tags { @apply
   flex
   flex-wrap
