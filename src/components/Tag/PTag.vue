@@ -6,9 +6,14 @@
 
     <slot>{{ label }}</slot>
 
-    <div v-if="dismissible" class="p-tag__dismiss" @click.stop="emits('dismiss')">
-      <PIcon icon="XIcon" />
-    </div>
+    <button
+      v-if="dismissible"
+      type="button"
+      class="p-tag__dismiss"
+      @click.stop="emits('dismiss')"
+    >
+      <PIcon icon="XIcon" class="p-tag__icon p-tag__icon--dismiss" />
+    </button>
   </span>
 </template>
 
@@ -47,13 +52,7 @@
 }
 
 .p-tag__dismiss { @apply
-  hover:text-foreground-300
-  hover:cursor-pointer
   text-foreground-600
-}
-
-.p-tag__dismiss .p-icon { @apply
-  w-4
-  h-4
+  hover:text-foreground-300
 }
 </style>
