@@ -9,6 +9,7 @@ export const components: Section = {
   checkbox: () => import('./Checkbox.vue'),
   checkboxGroup: () => import('./CheckboxGroup.vue'),
   code: () => import('./Code.vue'),
+  codeHighlight: () => import('./CodeHighlight.vue'),
   combobox: () => import('./Combobox.vue'),
   dateInput: () => import('./DateInput.vue'),
   dateRangeInput: () => import('./DateRangeInput.vue'),
