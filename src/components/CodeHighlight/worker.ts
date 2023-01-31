@@ -22,7 +22,7 @@ export type UnformattedMessagePayload = {
 
 export type FormattedMessagePayload = {
   text: string,
-  tokens: Token[],
+  result: HighlightResult,
 }
 
 const highlightText = (text: string, lang: SupportedLanguage): HighlightResult => {
