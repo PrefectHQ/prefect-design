@@ -28,7 +28,7 @@
   import { computed } from 'vue'
   import { PRadio } from '@/components/Radio'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { SelectModelValue, normalize, SelectOptionNormalized } from '@/types/selectOption'
+  import { SelectModelValue, normalizeSelectOption, SelectOptionNormalized } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
@@ -50,7 +50,7 @@
   })
 
   const radioOptions = computed(() => {
-    return props.options.map(option => normalize(option))
+    return props.options.map(option => normalizeSelectOption(option))
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

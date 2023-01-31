@@ -56,10 +56,10 @@ export function optionIncludes(option: SelectOptionNormalized, term: string | nu
   return option.label.toLowerCase().includes(term.toLowerCase())
 }
 
-export function normalize(value: SelectOption): SelectOptionNormalized
-export function normalize(value: SelectOptionGroup): SelectOptionGroupNormalized
-export function normalize(value: SelectOption | SelectOptionGroup): SelectOptionNormalized | SelectOptionGroupNormalized
-export function normalize(value: SelectOption | SelectOptionGroup): SelectOptionNormalized | SelectOptionGroupNormalized {
+export function normalizeSelectOption(value: SelectOption): SelectOptionNormalized
+export function normalizeSelectOption(value: SelectOptionGroup): SelectOptionGroupNormalized
+export function normalizeSelectOption(value: SelectOption | SelectOptionGroup): SelectOptionNormalized | SelectOptionGroupNormalized
+export function normalizeSelectOption(value: SelectOption | SelectOptionGroup): SelectOptionNormalized | SelectOptionGroupNormalized {
   if (isSelectOptionNormalized(value)) {
     return value
   }
@@ -67,7 +67,7 @@ export function normalize(value: SelectOption | SelectOptionGroup): SelectOption
   if (isSelectOptionGroup(value)) {
     return {
       ...value,
-      options: value.options.map(normalize),
+      options: value.options.map(normalizeSelectOption),
     }
   }
 
