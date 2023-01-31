@@ -2,12 +2,10 @@
   <div ref="container" class="p-tag-wrapper">
     <div class="p-tag-wrapper__tag-container" :class="classes.tagContainer">
       <slot>
-        <template v-for="tag in sortedTags" :key="tag">
+        <template v-for="tag in tags" :key="tag">
           <div class="p-tag-wrapper__tag" :class="classes.tag">
             <slot name="tag" :tag="tag">
-              <PTag>
-                {{ tag }}
-              </PTag>
+              <PTag :value="tag" />
             </slot>
           </div>
         </template>
@@ -28,12 +26,13 @@
 <script lang="ts" setup>
   import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import PTag from '@/components/Tag/PTag.vue'
-  import { sortStringArray } from '@/utilities/arrays'
+  import { TagValue, normalize } from '@/types/tag'
 
   const props = defineProps<{
-    tags?: string[],
+    tags?: (string | TagValue)[],
     justify?: 'left' | 'center' | 'right',
   }>()
+
   const container: Ref<HTMLDivElement | undefined> = ref()
   const ready = ref(false)
   const overflowChildren = ref(0)
@@ -52,13 +51,13 @@
           `p-tag-wrapper__tag-container--${props.justify ?? 'left'}`,
           { 'p-tag-wrapper__tag-container--invisible': !ready.value },
         ],
-
     }
   })
 
-  const sortedTags = computed(() => {
-    const tags = props.tags ?? []
-    return sortStringArray(tags)
+  const tags = computed(() => {
+    const value = props.tags ?? []
+
+    return value.map(normalize)
   })
 
   let resizeObserver: ResizeObserver | null = null

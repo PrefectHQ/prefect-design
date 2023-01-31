@@ -9,7 +9,7 @@
     @keydown="handleComboboxKeydown"
   >
     <template #default="{ value }">
-      <slot :value="value" :display-value="displayValue(value)">
+      <slot :value="value" :label="displayValue(value)">
         {{ displayValue(value) }}
       </slot>
     </template>
