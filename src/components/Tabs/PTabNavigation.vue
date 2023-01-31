@@ -1,5 +1,5 @@
 <template>
-  <ul class="p-tab-nav" role="tablist" aria-label="Tab">
+  <ul class="p-tab-navigation" role="tablist" aria-label="Tab">
     <template v-for="(tab, index) in tabs" :key="tab.label">
       <PTab
         :id="kebabCase(tab.label)"
@@ -62,7 +62,7 @@
 </script>
 
 <style>
-.p-tab-nav { @apply
+.p-tab-navigation { @apply
   border-b
   border-background-400
   dark:border-background-600

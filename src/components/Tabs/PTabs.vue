@@ -1,11 +1,11 @@
 <template>
   <section class="p-tabs">
     <template v-if="media.sm">
-      <PTabNav v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
+      <PTabNavigation v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
         <template v-for="(index, name) in $slots" #[name]="data">
           <slot :name="name" v-bind="data" />
         </template>
-      </PTabNav>
+      </PTabNavigation>
     </template>
     <template v-else>
       <PTabSelect v-model:selected="selected" class="p-tabs--mobile" :tabs="tabs">
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import PTabNav from '@/components/Tabs/PTabNav.vue'
+  import PTabNavigation from '@/components/Tabs/PTabNavigation.vue'
   import PTabSelect from '@/components/Tabs/PTabSelect.vue'
   import { Tab, normalizeTab } from '@/types/tabs'
   import { media } from '@/utilities/media'
