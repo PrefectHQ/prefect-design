@@ -59,7 +59,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { optionIncludes, SelectModelValue, normalize } from '@/types/selectOption'
+  import { optionIncludes, SelectModelValue, normalizeSelectOption } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -92,7 +92,7 @@
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const selectOptions = computed(() => {
-    return props.options.map(option => normalize(option))
+    return props.options.map(option => normalizeSelectOption(option))
   })
 
   const filteredSelectOptions = computed(() => {

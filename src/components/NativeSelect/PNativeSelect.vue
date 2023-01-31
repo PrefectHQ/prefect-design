@@ -38,7 +38,7 @@
   import { computed } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { SelectModelValue, SelectOptionGroup, normalize, isSelectOptionGroup, flattenSelectOptions, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, SelectOptionGroup, normalizeSelectOption, isSelectOptionGroup, flattenSelectOptions, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
@@ -62,7 +62,7 @@
 
   const selectOptions = computed(() => {
     return props.options.map(optionOrGroup => {
-      const normalized = normalize(optionOrGroup)
+      const normalized = normalizeSelectOption(optionOrGroup)
 
       if (isSelectOptionGroup(normalized)) {
         return {

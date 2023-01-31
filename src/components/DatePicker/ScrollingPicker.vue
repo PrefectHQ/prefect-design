@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref, watchEffect } from 'vue'
-  import { SelectModelValue, normalize, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
+  import { SelectModelValue, normalizeSelectOption, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
@@ -43,7 +43,7 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(option => normalize(option))
+    return props.options.map(option => normalizeSelectOption(option))
   })
 
   const containerElement = ref<HTMLDivElement>()
