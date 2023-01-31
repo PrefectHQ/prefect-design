@@ -28,7 +28,7 @@
   import { computed } from 'vue'
   import { PCheckbox } from '@/components/Checkbox'
   import { useAttrsStylesAndClasses } from '@/compositions'
-  import { normalize, SelectOptionNormalized } from '@/types'
+  import { normalizeSelectOption, SelectOptionNormalized } from '@/types'
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],
@@ -50,7 +50,7 @@
   })
 
   const checkboxOptions = computed(() => {
-    return props.options.map(option => normalize(option))
+    return props.options.map(option => normalizeSelectOption(option))
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()

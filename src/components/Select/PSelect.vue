@@ -106,7 +106,7 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectModelValue, flattenSelectOptions, normalize, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
+  import { SelectModelValue, flattenSelectOptions, normalizeSelectOption, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
   import { TagValue } from '@/types/tag'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
@@ -160,7 +160,7 @@
   })
 
   const selectOptions = computed(() => {
-    return props.options.map(normalize)
+    return props.options.map(normalizeSelectOption)
   })
 
   const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
