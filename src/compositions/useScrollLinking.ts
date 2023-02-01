@@ -1,4 +1,5 @@
 import { onMounted, onUnmounted, ref, Ref } from 'vue'
+import { MaybeRef } from '@/types/ref'
 
 type DisconnectScrollLink = () => void
 type ScrollLinkReturnValue = {
@@ -21,8 +22,8 @@ type ScrollLinkReturnValue = {
  * @returns ScrollLinkReturnValue
  */
 export function useScrollLinking(
-  source?: Ref<HTMLElement>,
-  target?: Ref<HTMLElement>,
+  source?: MaybeRef<HTMLElement>,
+  target?: MaybeRef<HTMLElement>,
 ): ScrollLinkReturnValue {
   const sourceRef = ref(source)
   const targetRef = ref(target)
