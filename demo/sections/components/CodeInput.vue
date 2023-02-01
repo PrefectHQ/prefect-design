@@ -31,6 +31,9 @@
 </template>
 
 <script lang="ts" setup>
+/* eslint-disable no-useless-escape  */
+// ^^eslint doesn't know the difference between a necessary and a useless escape
+// in a <\/script> tag (try removing the one in this comment lol)
   import { PCode } from '@/components'
   import PCodeInput from '@/components/CodeInput/PCodeInput.vue'
   import { ref } from 'vue'
