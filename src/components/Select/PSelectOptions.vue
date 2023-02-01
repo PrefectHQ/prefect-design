@@ -3,7 +3,7 @@
     <slot name="pre-options" />
     <template v-if="options.length">
       <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option }: { item: SelectOptionNormalized | SelectOptionGroupNormalized }">
+        <template #default="{ item: option, index }: { item: SelectOptionNormalized | SelectOptionGroupNormalized, index:number }">
           <template v-if="isSelectOptionGroup(option)">
             <PSelectOptionGroup :group="option">
               <template #default="scope">
@@ -20,7 +20,7 @@
               :multiple="multiple"
             >
               <template #default="scope">
-                <slot name="option" v-bind="scope" />
+                <slot name="option" v-bind="{ ...scope, index }" />
               </template>
             </PSelectOption>
           </template>

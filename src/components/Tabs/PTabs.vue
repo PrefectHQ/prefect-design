@@ -1,135 +1,71 @@
 <template>
   <section class="p-tabs">
-    <div v-if="media.sm" class="p-tabs--not-mobile">
-      <ul class="p-tabs--not-mobile__tabs" role="tablist" aria-label="Tab">
-        <PTab
-          v-for="(tab, index) in innerTabs"
-          :id="kebabCase(tab.label)"
-          :key="tab.label"
-          :active="selectedTab === tab.label"
-          :disabled="tab.disabled"
-          :area-controls="`${kebabCase(tab.label)}-content`"
-          @click="selectTab(tab)"
-          @keydown.enter.space.prevent="handleKeyDown(tab)"
+    <template v-if="media.sm">
+      <PTabNavigation v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
+        <template v-for="(index, name) in $slots" #[name]="data">
+          <slot :name="name" v-bind="data" />
+        </template>
+      </PTabNavigation>
+    </template>
+    <template v-else>
+      <PTabSelect v-model:selected="selected" class="p-tabs--mobile" :tabs="tabs">
+        <template v-for="(index, name) in $slots" #[name]="data">
+          <slot :name="name" v-bind="data" />
+        </template>
+      </PTabSelect>
+    </template>
+    <template v-for="tab in tabs" :key="tab">
+      <template v-if="selected === tab.label">
+        <section
+          :id="`${kebabCase(tab.label)}-content`"
+          class="p-tabs__content"
+          role="tabpanel"
+          :aria-labelledby="`${kebabCase(tab.label)}`"
         >
-          <slot
-            :name="`${kebabCase(tab.label)}-heading`"
-            v-bind="scope(tab, index)"
-          >
-            {{ tab.label }}
-          </slot>
-        </PTab>
-      </ul>
-    </div>
-    <div v-else class="p-tabs--mobile">
-      <label for="tabs" class="p-tabs--mobile__label">Select a tab</label>
-      <PSelect
-        id="tabs"
-        v-model="selectedTab"
-        :options="options"
-        name="tabs"
-      />
-    </div>
-    <template v-for="tab in innerTabs" :key="tab">
-      <section
-        v-if="selectedTab === tab.label"
-        :id="`${kebabCase(tab.label)}-content`"
-        class="p-tabs__content"
-        role="tabpanel"
-        :aria-labelledby="`${kebabCase(tab.label)}`"
-      >
-        <slot :name="kebabCase(tab.label)" />
-      </section>
+          <slot :name="kebabCase(tab.label)" />
+        </section>
+      </template>
     </template>
   </section>
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, computed, watchEffect } from 'vue'
-  import PSelect from '@/components/Select/PSelect.vue'
-  import PTab from '@/components/Tab/PTab.vue'
-  import { Tab, areTabs } from '@/types/tabs'
+  import { computed } from 'vue'
+  import PTabNavigation from '@/components/Tabs/PTabNavigation.vue'
+  import PTabSelect from '@/components/Tabs/PTabSelect.vue'
+  import { Tab, normalizeTab } from '@/types/tabs'
   import { media } from '@/utilities/media'
   import { kebabCase } from '@/utilities/strings'
 
-
   const props = defineProps<{
-    tabs: string[] | Tab[],
+    tabs: (string | Tab)[],
     selected?: string,
   }>()
 
   const emits = defineEmits<{
-    (event: 'tab' | 'update:selected', value: string | Tab): void,
+    (event: 'update:selected', value: string): void,
   }>()
 
-  const innerTabs = computed<Tab[]>(() => {
-    if (areTabs(props.tabs)) {
-      return props.tabs
-    }
+  const tabs = computed(() => props.tabs.map(normalizeTab))
 
-    return props.tabs.map((label) => ({ label }))
-  })
+  const selected = computed({
+    get() {
+      if (props.selected) {
+        return props.selected
+      }
 
-  const selectedTab = ref(innerTabs.value[0].label)
-  const options = computed(() => innerTabs.value.map((tab) => tab.label))
+      const [first] = tabs.value
 
-  function selectTab(tab: Tab): void {
-    const value = areTabs(props.tabs) ? tab : tab.label
-    selectedTab.value = tab.label
-
-    emits('tab', value)
-    emits('update:selected', value)
-  }
-
-  function handleKeyDown(tab: Tab): void {
-    if (tab.disabled) {
-      return
-    }
-
-    selectTab(tab)
-  }
-
-  function scope(tab: Tab, index: number): { tab: string | Tab, index: number } {
-    if (areTabs(props.tabs)) {
-      return { tab, index }
-    }
-
-    return { tab: tab.label, index }
-  }
-
-  onMounted(() => {
-    if (props.selected) {
-      selectedTab.value = props.selected
-    } else {
-      const [firstTab] = innerTabs.value
-      selectedTab.value = firstTab.label
-    }
-  })
-
-  watchEffect(() => {
-    if (props.selected) {
-      selectedTab.value = props.selected
-    }
+      return first.label
+    },
+    set(value) {
+      emits('update:selected', value)
+    },
   })
 </script>
 
 <style>
-.p-tabs--mobile__label {
-  @apply sr-only;
-}
-
-
-.p-tabs--not-mobile__tabs {
-  @apply
-  border-b
-  border-background-400
-  dark:border-background-600
-  flex
-  items-center
-  -mb-px
-}
-
-.p-tabs__content {
-  @apply mt-5;
+.p-tabs__content { @apply
+  mt-5
 }
 </style>
