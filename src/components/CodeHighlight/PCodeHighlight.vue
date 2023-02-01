@@ -32,7 +32,6 @@
   }>()
 
   const worker: Worker = new HighlightWorker()
-  const loading = ref(true)
   const formattedText = ref('')
 
   const lines = computed(() => props.text.split('\n').length)
@@ -49,7 +48,6 @@
 
   const handleWorkerMessage = (message: FormattedMessagePayload): void => {
     formattedText.value = message.formatted
-    loading.value = false
   }
 
   worker.onmessage = (event: MessageEvent<FormattedMessagePayload>) => handleWorkerMessage(event.data)
@@ -96,7 +94,8 @@
   pl-2
   rounded-l-none
   border-l
-  border-l-foreground-200
+  border-background-400
+  dark:border-foreground-200
   py-1
 }
 

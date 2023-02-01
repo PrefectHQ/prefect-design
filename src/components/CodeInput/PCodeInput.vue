@@ -100,6 +100,7 @@
   relative
   min-h-[100px]
   font-mono
+  bg-background-500
   overflow-hidden
   p-0
 }
@@ -122,7 +123,8 @@
 
 .p-code-input__control--show-line-numbers { @apply
   border-l
-  border-l-foreground-200
+  border-background-400
+  dark:border-foreground-200
 }
 
 .p-code-input__control { @apply
@@ -179,6 +181,7 @@
 
   @apply
   bg-transparent
+  text-foreground
   p-0
 }
 </style>
