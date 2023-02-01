@@ -15,6 +15,8 @@
       <p-code>PCodeHighlight</p-code> is a wrapper around <p-code>PCode</p-code> that adds syntax highlighting via <p-link href="https://github.com/highlightjs/highlight.js">
         highlight.js
       </p-link>.
+
+      <PCodeHighlight :text="inlineCodeExample" multiline lang="vue" />
     </template>
 
     <template #inline>
@@ -86,8 +88,10 @@
   }
 
   const inlineContent = 'const javascript = "variable"'
-  const inlineCodeExample = sfc({ templateContent: `This should be an inline ${codeHighlight(`'${inlineContent}'`, 'javascript')} block.` },
-  )
+  const inlineCodeExample = sfc({
+    templateContent: `This should be an inline ${codeHighlight('inlineContent', 'javascript')} block.`,
+    scriptContent: `const inlineContent = '${inlineContent}'`,
+  })
 
   const pythonContent = `greeting = "Hello, World!"
 
@@ -117,6 +121,10 @@ for i in range(10):
   rounded-lg
   shadow-sm
 }
-</style>`
-  const vueCodeExample = `<PCodeHighlight :text="${vueContent}" lang="vue" />`
+</style>
+`
+  const vueCodeExample = sfc({
+    templateContent: '<PCodeHighlight :text="vueContent" lang="vue" />',
+    scriptContent: `const vueContent = \`${vueContent}\``,
+  })
 </script>

@@ -17,7 +17,6 @@
   import { PCode, PUnwrap } from '@/components'
   import type { FormattedMessagePayload, SupportedLanguage } from '@/components/CodeHighlight/types'
   import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
-  import 'highlight.js/styles/github-dark.css'
 
   const props = defineProps<{
     text: string,
@@ -40,3 +39,96 @@
     worker.postMessage({ text, lang })
   })
 </script>
+
+<style>
+.p-code-highlight .hljs { @apply
+  text-slate-50
+}
+
+/* Comment */
+.p-code-highlight .hljs-comment,
+.p-code-highlight .hljs-quote { @apply
+  text-slate-400
+}
+
+/* Red */
+.p-code-highlight .hljs-variable,
+.p-code-highlight .hljs-template-variable,
+.p-code-highlight .hljs-tag,
+.p-code-highlight .hljs-name,
+.p-code-highlight .hljs-selector-id,
+.p-code-highlight .hljs-selector-class,
+.p-code-highlight .hljs-regexp,
+.p-code-highlight .hljs-deletion { @apply
+  text-rose-400
+}
+
+/* Orange */
+.p-code-highlight .hljs-number,
+.p-code-highlight .hljs-built_in,
+.p-code-highlight .hljs-literal,
+.p-code-highlight .hljs-type,
+.p-code-highlight .hljs-params,
+.p-code-highlight .hljs-meta,
+.p-code-highlight .hljs-link { @apply
+  text-orange-400
+}
+
+/* Yellow */
+.p-code-highlight .hljs-attr,
+.p-code-highlight .hljs-attribute { @apply
+  text-amber-400
+}
+
+/* Green */
+.p-code-highlight .hljs-string,
+.p-code-highlight .hljs-symbol,
+.p-code-highlight .hljs-bullet,
+.p-code-highlight .hljs-addition { @apply
+  text-emerald-400
+}
+
+/* Blue */
+.p-code-highlight .hljs-title,
+.p-code-highlight .hljs-section { @apply
+  text-sky-400
+}
+
+/* Purple */
+.p-code-highlight .hljs-keyword,
+.p-code-highlight .hljs-selector-tag { @apply
+  text-fuchsia-400
+}
+
+.p-code-highlight .hljs-emphasis { @apply
+  italic
+}
+
+.p-code-highlight .hljs-strong { @apply
+  font-medium
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .p-code-highlight .hljs-addition,
+  .p-code-highlight .hljs-attr,
+  .p-code-highlight .hljs-built_in,
+  .p-code-highlight .hljs-bullet,
+  .p-code-highlight .hljs-comment,
+  .p-code-highlight .hljs-link,
+  .p-code-highlight .hljs-literal,
+  .p-code-highlight .hljs-meta,
+  .p-code-highlight .hljs-number,
+  .p-code-highlight .hljs-params,
+  .p-code-highlight .hljs-string,
+  .p-code-highlight .hljs-symbol,
+  .p-code-highlight .hljs-type,
+  .p-code-highlight .hljs-quote {
+    color: highlight;
+  }
+
+  .p-code-highlight .hljs-keyword,
+  .p-code-highlight .hljs-selector-tag { @apply
+    font-medium
+  }
+}
+</style>
