@@ -16,6 +16,10 @@
       <p-code>PCodeHighlight</p-code> is a wrapper around <p-code>PCode</p-code> that adds syntax highlighting via <p-link href="https://github.com/highlightjs/highlight.js">
         highlight.js
       </p-link>.
+
+      <div>
+        <p-checkbox v-model="showLineNumbers" label="Show line numbers" />
+      </div>
     </template>
 
     <template #inline>
@@ -24,7 +28,7 @@
           This should be an inline <PCodeHighlight :text="inlineContent" lang="javascript" /> block.
         </template>
         <template #code>
-          <PCodeHighlight :text="inlineCodeExample" multiline lang="vue" />
+          <PCodeHighlight :text="inlineCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
         </template>
       </p-tabs>
     </template>
@@ -32,7 +36,7 @@
     <template #markdown>
       <p-tabs :tabs="['Demo', 'Code']">
         <template #demo>
-          <PCodeHighlight :text="markdownContent" multiline lang="gh-markdown" />
+          <PCodeHighlight :text="markdownContent" multiline lang="gh-markdown" :show-line-numbers="showLineNumbers" />
         </template>
         <template #code>
           {{ markdownContent }}
@@ -43,10 +47,10 @@
     <template #vue>
       <p-tabs :tabs="['Demo', 'Code']">
         <template #demo>
-          <PCodeHighlight :text="vueContent" multiline lang="vue" />
+          <PCodeHighlight :text="vueContent" multiline lang="vue" :show-line-numbers="showLineNumbers" />
         </template>
         <template #code>
-          <PCodeHighlight :text="vueCodeExample" multiline lang="vue" />
+          <PCodeHighlight :text="vueCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
         </template>
       </p-tabs>
     </template>
@@ -54,10 +58,10 @@
     <template #python>
       <p-tabs :tabs="['Demo', 'Code']">
         <template #demo>
-          <PCodeHighlight :text="pythonContent" multiline lang="python" />
+          <PCodeHighlight :text="pythonContent" multiline lang="python" :show-line-numbers="showLineNumbers" />
         </template>
         <template #code>
-          <PCodeHighlight :text="pythonCodeExample" multiline lang="vue" />
+          <PCodeHighlight :text="pythonCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
         </template>
       </p-tabs>
     </template>
@@ -70,7 +74,10 @@
   // in a <\/script> tag (try removing the one in this comment lol)
   import { PCode } from '@/components'
   import PCodeHighlight from '@/components/CodeHighlight/PCodeHighlight.vue'
+  import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const showLineNumbers = ref(false)
 
   const template = (content: string): string => `<template>\n  ${content}\n</template>`
   const script = (content: string): string => `<script lang="ts" setup>\n  ${content}\n<\/script>`
