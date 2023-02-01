@@ -1,8 +1,14 @@
-export const SupportedLanguages = ['javascript', 'python', 'vue', 'markdown', 'html', 'css', 'markdown'] as const
+export const SupportedLanguages = ['javascript', 'python', 'vue', 'markdown', 'html', 'css', 'markdown', 'xml'] as const
 export type SupportedLanguage = typeof SupportedLanguages[number]
 export type UnformattedMessagePayload = {
   text: string,
   lang: SupportedLanguage,
 }
 
-export type FormattedMessagePayload = string
+export type FormattedMessagePayload = {
+  unformatted: string,
+  formatted: string,
+  illegal: boolean,
+  relevance: number,
+  language: string,
+}

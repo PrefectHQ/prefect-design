@@ -15,13 +15,13 @@
 <script lang="ts" setup>
   import { onMounted, ref } from 'vue'
   import { PCode, PUnwrap } from '@/components'
-  import type { FormattedMessagePayload } from '@/components/CodeHighlight/types'
+  import type { FormattedMessagePayload, SupportedLanguage } from '@/components/CodeHighlight/types'
   import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
   import 'highlight.js/styles/github-dark.css'
 
   const props = defineProps<{
     text: string,
-    lang: string,
+    lang: SupportedLanguage,
   }>()
 
   const worker: Worker = new HighlightWorker()
@@ -29,7 +29,7 @@
   const formattedText = ref('')
 
   const handleWorkerMessage = (message: FormattedMessagePayload): void => {
-    formattedText.value = message
+    formattedText.value = message.formatted
     loading.value = false
   }
 

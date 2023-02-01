@@ -1,6 +1,6 @@
 import type { HLJSApi, LanguageFn, Language } from 'highlight.js'
 
-export const vue: LanguageFn = (highlight: HLJSApi): Language => {
+export const vueLanguage: LanguageFn = (highlight: HLJSApi): Language => {
   return {
     subLanguage: 'xml',
     contains: [
@@ -32,4 +32,4 @@ export const vue: LanguageFn = (highlight: HLJSApi): Language => {
   }
 }
 
-export default vue
+export default vueLanguage

@@ -4,6 +4,7 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
 import python from 'highlight.js/lib/languages/python'
 import xml from 'highlight.js/lib/languages/xml'
+import { vueLanguage } from '@/components/CodeHighlight/languages/vue'
 import { SupportedLanguage, UnformattedMessagePayload } from '@/components/CodeHighlight/types'
 
 const registeredLanguages: Set<SupportedLanguage> = new Set()
@@ -21,9 +22,10 @@ const getLanguageFunctions = (lang: SupportedLanguage): LanguageFn[] => {
       return [python]
     case 'css':
       return [css]
+    case 'xml':
     case 'html':
     case 'vue':
-      return [xml, css, javascript]
+      return [xml, css, javascript, vueLanguage]
     case 'markdown':
       return [markdown]
     default:
@@ -45,8 +47,14 @@ const registerLanguage = (lang: SupportedLanguage): void => {
 
 const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void => {
   const { text, lang } = message.data
-  const highlighted = highlightText(text, lang)
-  self.postMessage(highlighted.value)
+  const { code, illegal, relevance, value, language } = highlightText(text, lang)
+  self.postMessage({
+    unformatted: code,
+    formatted: value,
+    illegal,
+    relevance,
+    language,
+  })
 }
 
 self.onmessage = handleMessage
