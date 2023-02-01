@@ -28,7 +28,6 @@ export function useScrollLinking(
   const targetRef = ref(target)
 
   const handleScroll = (): void => {
-    console.log('handle scroll', sourceRef.value, targetRef.value)
     if (!sourceRef.value || !targetRef.value) {
       return
     }
