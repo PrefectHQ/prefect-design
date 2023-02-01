@@ -4,14 +4,6 @@
   </div>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PLineNumbers',
-    expose: [],
-    components: {},
-  }
-</script>
-
 <script lang="ts" setup>
   defineProps<{
     lines: number,

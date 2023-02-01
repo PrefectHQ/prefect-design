@@ -42,14 +42,6 @@
   </p-base-input>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PCodeInput',
-    expose: [],
-    components: { PCode, PCodeHighlight },
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'

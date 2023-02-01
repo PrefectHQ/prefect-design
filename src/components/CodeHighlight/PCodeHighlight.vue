@@ -10,14 +10,6 @@
   </div>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PCodeHighlight',
-    expose: [],
-    components: { PCode },
-  }
-</script>
-
 <script lang="ts" setup>
   import { onMounted, ref, computed, watch } from 'vue'
   import { PCode, PUnwrap, PLineNumbers } from '@/components'
