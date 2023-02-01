@@ -40,7 +40,7 @@
       script-src 'self' 'unsafe-eval' blob:; \
       script-src-elem 'self'; \
       style-src 'self' 'unsafe-inline'; \
-      worker-src 'none'; \
+      worker-src 'self' 'unsafe-eval' blob:; \
       """
 
     # Referrer-Policy controls the Referer header in requests.
