@@ -41,14 +41,20 @@
 </script>
 
 <style>
+/* TODO: It'd be great to move each of these to CSS variables that could be themed more easily */
 .p-code-highlight .hljs { @apply
   text-slate-50
 }
 
 /* Comment */
-.p-code-highlight .hljs-comment,
-.p-code-highlight .hljs-quote { @apply
+.p-code-highlight .hljs-comment { @apply
   text-slate-400
+}
+
+/* Quote */
+.p-code-highlight .hljs-quote { @apply
+  text-slate-100
+  italic
 }
 
 /* Red */
@@ -100,12 +106,20 @@
   text-fuchsia-400
 }
 
+.p-code-highlight .hljs-code { @apply
+  font-mono
+}
+
+.p-code-highlight .hljs-strikethrough { @apply
+  line-through
+}
+
 .p-code-highlight .hljs-emphasis { @apply
   italic
 }
 
 .p-code-highlight .hljs-strong { @apply
-  font-medium
+  font-bold
 }
 
 @media screen and (-ms-high-contrast: active) {

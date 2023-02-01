@@ -2,6 +2,7 @@ import type { HLJSApi, LanguageFn, Language } from 'highlight.js'
 
 export const vueLanguage: LanguageFn = (highlight: HLJSApi): Language => {
   return {
+    name: 'vue',
     subLanguage: 'xml',
     contains: [
       highlight.COMMENT('<!--', '-->', {

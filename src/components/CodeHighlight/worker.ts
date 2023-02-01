@@ -4,6 +4,7 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
 import python from 'highlight.js/lib/languages/python'
 import xml from 'highlight.js/lib/languages/xml'
+import { githubFlavoredMarkdownLanguage } from '@/components/CodeHighlight/languages/markdown'
 import { vueLanguage } from '@/components/CodeHighlight/languages/vue'
 import { SupportedLanguage, UnformattedMessagePayload } from '@/components/CodeHighlight/types'
 
@@ -14,20 +15,22 @@ const highlightText = (text: string, lang: SupportedLanguage): HighlightResult =
   return highlight.highlight(text, { language: lang })
 }
 
-const getLanguageFunctions = (lang: SupportedLanguage): LanguageFn[] => {
+const getLanguageFunctions = (lang: SupportedLanguage): Record<string, LanguageFn> => {
   switch (lang) {
+    case 'json':
     case 'javascript':
-      return [javascript]
+      return { javascript }
     case 'python':
-      return [python]
+      return { python }
     case 'css':
-      return [css]
+      return { css }
     case 'xml':
     case 'html':
     case 'vue':
-      return [xml, css, javascript, vueLanguage]
+      return { xml, css, javascript, 'vue': vueLanguage }
     case 'markdown':
-      return [markdown]
+    case 'gh-markdown':
+      return { 'gh-markdown': githubFlavoredMarkdownLanguage, markdown, xml, css, python, javascript, vueLanguage }
     default:
       throw new Error(`Language ${lang} is not supported`)
   }
@@ -41,13 +44,13 @@ const registerLanguage = (lang: SupportedLanguage): void => {
   }
   registeredLanguages.add(lang)
   const languageFunctions = getLanguageFunctions(lang)
-
-  languageFunctions.forEach((langFn) => highlight.registerLanguage(lang, langFn))
+  Object.entries(languageFunctions).forEach(([langRef, langFn]) => highlight.registerLanguage(langRef, langFn))
 }
 
 const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void => {
   const { text, lang } = message.data
-  const { code, illegal, relevance, value, language } = highlightText(text, lang)
+  const { language, code, illegal, relevance, value } = highlightText(text, lang)
+
   self.postMessage({
     unformatted: code,
     formatted: value,

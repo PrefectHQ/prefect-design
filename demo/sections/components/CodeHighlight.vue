@@ -4,6 +4,7 @@
     :demos="[
       { title: 'Inline' },
       { title: 'Multiline' },
+      { title: 'Markdown' },
       { title: 'Python' },
       { title: 'Vue' },
       { title: 'JavaScript' },
@@ -15,8 +16,6 @@
       <p-code>PCodeHighlight</p-code> is a wrapper around <p-code>PCode</p-code> that adds syntax highlighting via <p-link href="https://github.com/highlightjs/highlight.js">
         highlight.js
       </p-link>.
-
-      <PCodeHighlight :text="inlineCodeExample" multiline lang="vue" />
     </template>
 
     <template #inline>
@@ -26,6 +25,17 @@
         </template>
         <template #code>
           <PCodeHighlight :text="inlineCodeExample" multiline lang="vue" />
+        </template>
+      </p-tabs>
+    </template>
+
+    <template #markdown>
+      <p-tabs :tabs="['Demo', 'Code']">
+        <template #demo>
+          <PCodeHighlight :text="markdownContent" multiline lang="gh-markdown" />
+        </template>
+        <template #code>
+          {{ markdownContent }}
         </template>
       </p-tabs>
     </template>
@@ -93,6 +103,68 @@
     scriptContent: `const inlineContent = '${inlineContent}'`,
   })
 
+  const markdownContent = `# Heading 1
+  
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6
+
+<!-- This is a comment -->
+
+Paragraph
+
+**Bold**
+
+*Italic*
+
+~~Strikethrough~~
+
+\`Inline code\`
+
+\`\`\`javascript
+
+const javascript = "variable"
+
+\`\`\`
+
+\`\`\`python
+
+python = "one of the languages"
+
+for i in range(10):
+  print(python)
+
+\`\`\`
+
+[Link](https://google.com)
+
+> Blockquote
+
+- List item 1
+
+- List item 2
+
+- List item 3
+
+1. List item 1
+
+2. List item 2
+
+3. List item 3
+
+| Table | Heading 1 | Heading 2 |
+| --- | --- | --- |
+| Row 1 | Column 1 | Column 2 |
+| Row 2 | Column 1 | Column 2 |
+| Row 3 | Column 1 | Column 2 |
+`
+
   const pythonContent = `greeting = "Hello, World!"
 
 for i in range(10):
@@ -109,6 +181,14 @@ for i in range(10):
     <slot />
   </div>
 </template>
+
+<script lang="ts" setup>
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
+    name: 'PCard',
+  })
+<\/script>
 
 <style>
 .p-card { @apply
