@@ -1,5 +1,6 @@
 import { default as highlight, LanguageFn, HighlightResult } from 'highlight.js'
 import css from 'highlight.js/lib/languages/css'
+import jinja from 'highlight.js/lib/languages/django'
 import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
 import python from 'highlight.js/lib/languages/python'
@@ -24,6 +25,8 @@ const getLanguageFunctions = (lang: SupportedLanguage): Record<string, LanguageF
       return { python }
     case 'css':
       return { css }
+    case 'jinja':
+      return { jinja }
     case 'xml':
     case 'html':
     case 'vue':

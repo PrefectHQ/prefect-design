@@ -6,9 +6,6 @@
       { title: 'Markdown' },
       { title: 'Python' },
       { title: 'Vue' },
-      { title: 'JavaScript' },
-      { title: 'HTML' },
-      { title: 'CSS' },
     ]"
   >
     <template #description>
@@ -20,7 +17,15 @@
     </template>
 
     <template #unstyled>
-      <PCodeInput v-model="unstyledInput" />
+      <PCodeInput v-model="vueInput" class="code-input__input" :show-line-numbers="showLineNumbers" />
+    </template>
+
+    <template #markdown>
+      <PCodeInput v-model="markdownInput" class="code-input__input" lang="gh-markdown" :show-line-numbers="showLineNumbers" />
+    </template>
+
+    <template #vue>
+      <PCodeInput v-model="vueInput" class="code-input__input" lang="vue" :show-line-numbers="showLineNumbers" />
     </template>
   </ComponentPage>
 </template>
@@ -33,5 +38,78 @@
 
   const showLineNumbers = ref(true)
 
-  const unstyledInput = ref('')
+  const vueInput = ref(`<template>
+  <div class="p-card">
+    <slot />
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
+    name: 'PCard',
+  })
+<\/script>
+
+<style>
+.p-card { @apply
+  bg-background
+  text-foreground
+  border
+  border-background-400
+  dark:border-foreground-200
+  p-6
+  rounded-lg
+  shadow-sm
+}
+</style>
+`)
+
+  const markdownInput = ref(`Eloisa to Abelard
+=======
+
+by Alexender Pope
+-----------
+ 
+### &#169; 1717
+ 
+How happy is the blameless vestal's lot! 
+The world forgetting---by the world forgot.
+
+Eternal sunshine of the   
+spotless mind!
+
+Each *pray'r accepted*, each **wish resign'd**, 
+\`Labour\`, and ~~rest~~ .
+
+That equal periods keep:
+
+  * Obedient
+  * Slumbers
+  * Wake
+  * Weep
+
+Numbered Lists:
+
+  1. Desires
+  2. Composed
+  3. Affections
+  4. Ev'n
+
+Tears that delight,
+And sighs that waft to heav'n
+
+ *[Alexander Pope](https://www.poetryfoundation.org/poems/44892/eloisa-to-abelard)*
+`)
 </script>
+
+<style>
+.code-input__input { @apply
+  resize
+  max-w-full
+  h-64
+  min-h-[200px]
+  min-w-[200px]
+}
+</style>

@@ -31,6 +31,7 @@ import { PIconButtonMenu, install as installPIconButtonMenu } from '@/components
 import { PIconText, install as installPIconText } from '@/components/IconText'
 import { PKeyValue, install as installPKeyValue } from '@/components/KeyValue'
 import { PLabel, install as installPLabel } from '@/components/Label'
+import { PLineNumbers, install as installPLineNumbers } from '@/components/LineNumbers'
 import { PLink, install as installPLink } from '@/components/Link'
 import { PListItem, install as installPListItem } from '@/components/ListItem'
 import { PListItemInput, install as installPListItemInput } from '@/components/ListItemInput'
@@ -105,6 +106,7 @@ export {
   PIconText,
   PKeyValue,
   PLabel,
+  PLineNumbers,
   PLink,
   PListItem,
   PListItemInput,
@@ -186,6 +188,7 @@ export const installs = [
   installPIconText,
   installPKeyValue,
   installPLabel,
+  installPLineNumbers,
   installPLink,
   installPListItem,
   installPListItemInput,
@@ -261,6 +264,7 @@ declare module '@vue/runtime-core' {
     PIconText: typeof PIconText,
     PKeyValue: typeof PKeyValue,
     PLabel: typeof PLabel,
+    PLineNumbers: typeof PLineNumbers,
     PLink: typeof PLink,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,

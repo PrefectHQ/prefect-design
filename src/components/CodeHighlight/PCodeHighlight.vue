@@ -1,18 +1,10 @@
 <template>
-  <div class="p-code-highlight" :class="classes.root">
-    <template v-if="showLineNumbers && multiline">
-      <div class="p-code-highlight__line-numbers">
-        <div
-          v-for="i in lines.length"
-          :key="i"
-          class="p-code-highlight__line-number"
-        >
-          {{ i }}
-        </div>
-      </div>
+  <div class="p-code-highlight" :lines="lines" :class="classes.root">
+    <template v-if="showLineNumbers">
+      <PLineNumbers class="p-code-highlight__line-numbers" :lines="lines" />
     </template>
 
-    <PCode v-bind="attrs" :multiline="multiline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
+    <PCode :multiline="multiline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
       <PUnwrap :html="formattedText" />
     </PCode>
   </div>
@@ -23,13 +15,12 @@
     name: 'PCodeHighlight',
     expose: [],
     components: { PCode },
-    inheritAttrs: false,
   }
 </script>
 
 <script lang="ts" setup>
-  import { onMounted, ref, computed, useAttrs } from 'vue'
-  import { PCode, PUnwrap } from '@/components'
+  import { onMounted, ref, computed, watch } from 'vue'
+  import { PCode, PUnwrap, PLineNumbers } from '@/components'
   import type { FormattedMessagePayload, SupportedLanguage } from '@/components/CodeHighlight/types'
   import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
 
@@ -40,12 +31,12 @@
     multiline?: boolean,
   }>()
 
-  const attrs = useAttrs()
-
   const worker: Worker = new HighlightWorker()
   const loading = ref(true)
   const formattedText = ref('')
-  const lines = computed(() => props.text.split('\n'))
+
+  const lines = computed(() => props.text.split('\n').length)
+  const showLineNumbers = computed(() => props.multiline && props.showLineNumbers)
 
   const classes = computed(() => ({
     root: {
@@ -67,55 +58,66 @@
     const { text, lang } = props
     worker.postMessage({ text, lang })
   })
+
+  watch(() => [props.lang, props.text], () => {
+    const { text, lang } = props
+    worker.postMessage({ text, lang })
+  })
 </script>
 
 <style>
-.p-code-highlight { @apply
+.p-code-highlight {
+  tab-size: 4;
+  hyphens: none;
+
+  @apply
   inline-flex
   bg-background-500
   rounded-md
+  font-mono
+  py-0
+  px-1
 }
 
 .p-code-highlight--multiline { @apply
   flex
 }
 
-.p-code-highlight__line-numbers { @apply
-  text-right
-  shrink
-  w-min
-  text-base
-  font-mono
-  py-2
-  text-foreground-100
-  dark:text-foreground-200
-  px-3
-}
+.p-code-highlight__code-wrapper {
+  font-size: inherit;
 
-.p-code-highlight__code-wrapper { @apply
-  grow
-  overflow-x-auto
+  @apply
+  p-0
+  bg-transparent
+  text-foreground-300
 }
 
 .p-code-highlight__code-wrapper--show-line-numbers { @apply
   pl-2
   rounded-l-none
+  border-l
+  border-l-foreground-200
+  py-1
 }
 
+.p-code-highlight__line-numbers { @apply
+  pr-2
+  py-1
+}
 
 /* TODO: It'd be great to move each of these to CSS variables that could be themed more easily */
 .p-code-highlight__code-wrapper .hljs { @apply
-  text-slate-50
+  text-foreground-300
 }
 
 /* Comment */
 .p-code-highlight__code-wrapper .hljs-comment { @apply
-  text-slate-400
+  text-foreground-200
 }
 
 /* Quote */
 .p-code-highlight__code-wrapper .hljs-quote { @apply
-  text-slate-100
+  text-foreground-200
   italic
 }
 
@@ -128,7 +130,7 @@
 .p-code-highlight__code-wrapper .hljs-selector-class,
 .p-code-highlight__code-wrapper .hljs-regexp,
 .p-code-highlight__code-wrapper .hljs-deletion { @apply
-  text-rose-400
+  text-rose-500
 }
 
 /* Orange */
@@ -139,13 +141,13 @@
 .p-code-highlight__code-wrapper .hljs-params,
 .p-code-highlight__code-wrapper .hljs-meta,
 .p-code-highlight__code-wrapper .hljs-link { @apply
-  text-orange-400
+  text-orange-500
 }
 
 /* Yellow */
 .p-code-highlight__code-wrapper .hljs-attr,
 .p-code-highlight__code-wrapper .hljs-attribute { @apply
-  text-amber-400
+  text-amber-500
 }
 
 /* Green */
@@ -153,19 +155,19 @@
 .p-code-highlight__code-wrapper .hljs-symbol,
 .p-code-highlight__code-wrapper .hljs-bullet,
 .p-code-highlight__code-wrapper .hljs-addition { @apply
-  text-emerald-400
+  text-emerald-500
 }
 
 /* Blue */
 .p-code-highlight__code-wrapper .hljs-title,
 .p-code-highlight__code-wrapper .hljs-section { @apply
-  text-sky-400
+  text-sky-500
 }
 
 /* Purple */
 .p-code-highlight__code-wrapper .hljs-keyword,
 .p-code-highlight__code-wrapper .hljs-selector-tag { @apply
-  text-fuchsia-400
+  text-fuchsia-500
 }
 
 .p-code-highlight__code-wrapper .hljs-code { @apply

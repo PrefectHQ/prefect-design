@@ -8,6 +8,7 @@
       { title: 'Python' },
       { title: 'Vue' },
       { title: 'JavaScript' },
+      { title: 'Jinja' },
       { title: 'HTML' },
       { title: 'CSS' },
     ]"
@@ -62,6 +63,17 @@
         </template>
         <template #code>
           <PCodeHighlight :text="pythonCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
+        </template>
+      </p-tabs>
+    </template>
+
+    <template #jinja>
+      <p-tabs :tabs="['Demo', 'Code']">
+        <template #demo>
+          <PCodeHighlight :text="jinjaContent" multiline lang="jinja" :show-line-numbers="showLineNumbers" />
+        </template>
+        <template #code>
+          <PCodeHighlight :text="jinjaCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
         </template>
       </p-tabs>
     </template>
@@ -213,5 +225,21 @@ for i in range(10):
   const vueCodeExample = sfc({
     templateContent: '<PCodeHighlight :text="vueContent" lang="vue" />',
     scriptContent: `const vueContent = \`${vueContent}\``,
+  })
+
+  const jinjaContent = `Flow run {{ flow.name }}/{{ flow_run.name }} entered state \`{{ flow_run.state.name }}\` at {{ flow_run.state.timestamp }}.
+Flow ID: {{ flow_run.flow_id }}
+Flow run ID: {{ flow_run.id }}
+Flow run URL: {{ flow_run|ui_url }}
+State message: {{ flow_run.state.message }}
+
+{% for i in range(11) %}
+  {{ i }}
+{% endfor %}
+`
+
+  const jinjaCodeExample = sfc({
+    templateContent: '<PCodeHighlight :text="vueContent" lang="jinja" />',
+    scriptContent: `const jinjaContent = \`${jinjaContent}\``,
   })
 </script>
