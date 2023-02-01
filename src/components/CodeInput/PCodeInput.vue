@@ -32,7 +32,7 @@
           </template>
 
           <template v-else>
-            <PCode class="p-code-input__view hello" multiline v-bind="ctrlAttrs">
+            <PCode class="p-code-input__view" multiline v-bind="ctrlAttrs">
               {{ internalValue }}
             </PCode>
           </template>
