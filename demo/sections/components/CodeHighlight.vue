@@ -19,10 +19,10 @@
     <template #inline>
       <p-tabs :tabs="['Demo', 'Code']">
         <template #demo>
-          <!-- <PCodeHighlight :content="content" lang="vue" /> -->
+          <PCodeHighlight :text="content" lang="vue" />
         </template>
         <template #code>
-          <!-- <PCodeHighlight :content="rawContent" lang="vue" /> -->
+          <PCodeHighlight :text="rawContent" lang="vue" />
         </template>
       </p-tabs>
     </template>
@@ -37,5 +37,5 @@
 
   const content = ref('import { PCode } from \'@/components\'')
 
-  const rawContent = ref(`<PCodeHighlight :content="${content.value}" lang="vue" />`)
+  const rawContent = ref(`<PCodeHighlight :text="${content.value}" lang="vue" />`)
 </script>
