@@ -80,11 +80,12 @@
   }))
 
   function handleClick(): void {
-    if (selected.value) {
+    if (multiple.value && selected.value) {
       unsetValue()
-    } else {
-      setValue()
+      return
     }
+
+    setValue()
   }
 
   function handleMouseEnter(): void {
