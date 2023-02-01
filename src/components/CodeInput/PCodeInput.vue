@@ -6,7 +6,7 @@
 
 <script lang="ts">
   export default {
-    name: 'PCodeEdit',
+    name: 'PCodeInput',
     expose: [],
     components: { PCodeHighlight },
     inheritAttrs: false,

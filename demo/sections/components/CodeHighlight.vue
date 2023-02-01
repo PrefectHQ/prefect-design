@@ -1,6 +1,6 @@
 <template>
   <ComponentPage
-    title="Code"
+    title="CodeHighlight"
     :demos="[
       { title: 'Inline' },
       { title: 'Multiline' },

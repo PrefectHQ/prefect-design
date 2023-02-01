@@ -8,8 +8,8 @@ import { PCard, install as installPCard } from '@/components/Card'
 import { PCheckbox, install as installPCheckbox } from '@/components/Checkbox'
 import { PCheckboxGroup, install as installPCheckboxGroup } from '@/components/CheckboxGroup'
 import { PCode, install as installPCode } from '@/components/Code'
-import { PCodeEdit, install as installPCodeEdit } from '@/components/CodeEdit'
 import { PCodeHighlight, install as installPCodeHighlight } from '@/components/CodeHighlight'
+import { PCodeInput, install as installPCodeInput } from '@/components/CodeInput'
 import { PCombobox, install as installPCombobox } from '@/components/Combobox'
 import { PContent, install as installPContent } from '@/components/Content'
 import { PContextAccordionItem, install as installPContextAccordionItem } from '@/components/ContextAccordionItem'
@@ -82,8 +82,8 @@ export {
   PCheckbox,
   PCheckboxGroup,
   PCode,
-  PCodeEdit,
   PCodeHighlight,
+  PCodeInput,
   PCombobox,
   PContent,
   PContextAccordionItem,
@@ -163,8 +163,8 @@ export const installs = [
   installPCheckbox,
   installPCheckboxGroup,
   installPCode,
-  installPCodeEdit,
   installPCodeHighlight,
+  installPCodeInput,
   installPCombobox,
   installPContent,
   installPContextAccordionItem,
@@ -239,8 +239,8 @@ declare module '@vue/runtime-core' {
     PCheckbox: typeof PCheckbox,
     PCheckboxGroup: typeof PCheckboxGroup,
     PCode: typeof PCode,
-    PCodeEdit: typeof PCodeEdit,
     PCodeHighlight: typeof PCodeHighlight,
+    PCodeInput: typeof PCodeInput,
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,
     PContextAccordionItem: typeof PContextAccordionItem,
