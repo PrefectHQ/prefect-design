@@ -4,26 +4,9 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
 import python from 'highlight.js/lib/languages/python'
 import xml from 'highlight.js/lib/languages/xml'
+import { SupportedLanguage, UnformattedMessagePayload } from '@/components/CodeHighlight/types'
 
-export const SupportedLanguages = ['javascript', 'python', 'vue', 'markdown', 'html', 'css', 'markdown'] as const
-export type SupportedLanguage = typeof SupportedLanguages[number]
 const registeredLanguages: Set<SupportedLanguage> = new Set()
-
-export type Token = {
-  type: string,
-  content: string,
-  raw: string,
-}
-
-export type UnformattedMessagePayload = {
-  text: string,
-  lang: SupportedLanguage,
-}
-
-export type FormattedMessagePayload = {
-  text: string,
-  result: HighlightResult,
-}
 
 const highlightText = (text: string, lang: SupportedLanguage): HighlightResult => {
   registerLanguage(lang)
@@ -60,8 +43,11 @@ const registerLanguage = (lang: SupportedLanguage): void => {
   languageFunctions.forEach((langFn) => highlight.registerLanguage(lang, langFn))
 }
 
-onmessage = (message: MessageEvent<UnformattedMessagePayload>) => {
+const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void => {
   const { text, lang } = message.data
   const highlighted = highlightText(text, lang)
-  postMessage(highlighted)
+  self.postMessage(highlighted.value)
 }
+
+self.onmessage = handleMessage
+export default {}

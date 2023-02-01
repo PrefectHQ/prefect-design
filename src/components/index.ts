@@ -64,6 +64,7 @@ import { PThemeToggle, install as installPThemeToggle } from '@/components/Theme
 import { PToast, install as installPToast } from '@/components/Toast'
 import { PToggle, install as installPToggle } from '@/components/Toggle'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
+import { PUnwrap, install as installPUnwrap } from '@/components/Unwrap'
 import { PVirtualScroller, install as installPVirtualScroller } from '@/components/VirtualScroller'
 import { PWindow, install as installPWindow } from '@/components/Window'
 import { PWizard, install as installPWizard } from '@/components/Wizard'
@@ -141,6 +142,7 @@ export {
   PToast,
   PToggle,
   PTypeAhead,
+  PUnwrap,
   PVirtualScroller,
   PWindow,
   PWizard
@@ -214,6 +216,7 @@ export const installs = [
   installPToggle,
   installPTypeAhead,
   installPVirtualScroller,
+  installPUnwrap,
   installPWindow,
   installPWizard,
 ]
@@ -291,6 +294,7 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
     PVirtualScroller: typeof PVirtualScroller,
+    PUnwrap: typeof PUnwrap,
     PWindow: typeof PWindow,
     PWizard: typeof PWizard,
   }
