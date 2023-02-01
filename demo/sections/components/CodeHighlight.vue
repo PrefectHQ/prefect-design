@@ -10,10 +10,6 @@
       <p-code>PCodeHighlight</p-code> is a wrapper around <p-code>PCode</p-code> that adds syntax highlighting via <p-link href="https://github.com/highlightjs/highlight.js">
         highlight.js
       </p-link>.
-
-      <div>
-        <PCodeHighlight :text="rawContent" lang="vue" />
-      </div>
     </template>
 
     <template #inline>
