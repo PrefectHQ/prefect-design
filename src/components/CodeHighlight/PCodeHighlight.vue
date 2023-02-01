@@ -3,11 +3,11 @@
     <template v-if="showLineNumbers && multiline">
       <div class="p-code-highlight__line-numbers">
         <div
-          v-for="lineNumber in text.split('\n').length"
-          :key="lineNumber"
+          v-for="i in splitText.length"
+          :key="i"
           class="p-code-highlight__line-number"
         >
-          {{ lineNumber }}
+          {{ i }}
         </div>
       </div>
     </template>
@@ -45,6 +45,7 @@
   const worker: Worker = new HighlightWorker()
   const loading = ref(true)
   const formattedText = ref('')
+  const splitText = computed(() => props.text.split('\n'))
 
   const classes = computed(() => ({
     root: {
