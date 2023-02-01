@@ -1,8 +1,8 @@
 import { App } from 'vue'
-import PCode from '@/components/Code/PCode.vue'
+import PCodeHighlight from '@/components/CodeHighlight/PCodeHighlight.vue'
 
 const install = (app: App): void => {
-  app.component('PCode', PCode)
+  app.component('PCodeHighlight', PCodeHighlight)
 }
 
-export { PCode, install }
+export { PCodeHighlight, install }
