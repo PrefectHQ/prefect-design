@@ -7,7 +7,7 @@ import python from 'highlight.js/lib/languages/python'
 import xml from 'highlight.js/lib/languages/xml'
 import { githubFlavoredMarkdownLanguage } from '@/components/CodeHighlight/languages/markdown'
 import { vueLanguage } from '@/components/CodeHighlight/languages/vue'
-import { SupportedLanguage, UnformattedMessagePayload } from '@/components/CodeHighlight/types'
+import { SupportedLanguage, UnformattedMessagePayload } from '@/types/codeHighlight'
 
 const registeredLanguages: Set<SupportedLanguage> = new Set()
 

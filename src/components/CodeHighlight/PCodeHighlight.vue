@@ -13,8 +13,8 @@
 <script lang="ts" setup>
   import { onMounted, ref, computed, watch } from 'vue'
   import { PCode, PUnwrap, PLineNumbers } from '@/components'
-  import type { FormattedMessagePayload, SupportedLanguage } from '@/components/CodeHighlight/types'
   import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
+  import type { FormattedMessagePayload, SupportedLanguage } from '@/types/codeHighlight'
 
   const props = defineProps<{
     text: string,

@@ -1,5 +1,5 @@
 import type { HLJSApi, LanguageFn, Language, Mode } from 'highlight.js'
-import { SupportedLanguages } from '@/components/CodeHighlight/types'
+import { SupportedLanguages } from '@/types/codeHighlight'
 
 export const githubFlavoredMarkdownLanguage: LanguageFn = (highlight: HLJSApi): Language => {
   const COMMENT = highlight.COMMENT(

@@ -45,8 +45,8 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
-  import { SupportedLanguage } from '@/components/CodeHighlight/types'
   import { useScrollLinking } from '@/compositions'
+  import { SupportedLanguage } from '@/types/codeHighlight'
 
   const props = defineProps<{
     modelValue: string | undefined,
