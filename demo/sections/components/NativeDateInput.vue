@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Native Date Input" :demos="[{ title: 'Native Date Input' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-native-date-input</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-native-date-input
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>

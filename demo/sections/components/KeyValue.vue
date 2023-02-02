@@ -10,7 +10,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-key-value</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-key-value
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <p-checkbox v-model="alternate" label="use 'alternate' style" />
     </template>

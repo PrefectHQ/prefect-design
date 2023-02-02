@@ -7,7 +7,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-radio-group</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-radio-group
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -16,7 +18,9 @@
       <div class="radio-group__demo">
         <p-radio-group v-model="value" :options="options" :state="exampleState" :disabled="disabled" />
 
-        <p-code>value: {{ JSON.stringify(value) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(value) }}
+        </p-code>
       </div>
     </template>
 
@@ -24,11 +28,15 @@
       <div class="radio-group__demo">
         <p-radio-group v-model="slotValue" :options="options" :state="exampleState" :disabled="disabled">
           <template #label="{ option }">
-            <p-code>{{ option.label }}</p-code>
+            <p-code inline>
+              {{ option.label }}
+            </p-code>
           </template>
         </p-radio-group>
 
-        <p-code>value: {{ JSON.stringify(slotValue) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(slotValue) }}
+        </p-code>
       </div>
     </template>
   </ComponentPage>

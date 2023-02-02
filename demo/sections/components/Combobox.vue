@@ -9,7 +9,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-combobox</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-combobox
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -18,7 +20,7 @@
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleCombobox) }}
         </p-code>
       </div>
@@ -35,7 +37,7 @@
           multiple
         />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleMultiple) }}
         </p-code>
       </div>
@@ -45,7 +47,7 @@
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleCombobox2) }}
         </p-code>
       </div>
@@ -55,7 +57,7 @@
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleCombobox3) }}
         </p-code>
       </div>

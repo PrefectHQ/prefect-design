@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Wizard" :demos="[{ title: 'Wizard' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-wizard</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-wizard
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #wizard>

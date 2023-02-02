@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Bread Crumbs" :demos="[{ title: 'Bread Crumbs' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-bread-crumbs</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-bread-crumbs
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #bread-crumbs>

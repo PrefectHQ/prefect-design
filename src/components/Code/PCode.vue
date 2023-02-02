@@ -1,8 +1,6 @@
 <template>
-  <pre v-if="multiline" class="p-code-container p-code-container--block"><code><slot /></code></pre>
-  <code v-else class="p-code-container">
-    <slot />
-  </code>
+  <code v-if="inline" class="p-code-container"><slot /></code>
+  <pre v-else class="p-code-container p-code-container--block"><code><slot /></code></pre>
 </template>
 
 <script lang="ts">
@@ -15,10 +13,10 @@
 <script lang="ts" setup>
   defineProps<{
     /**
-     * Optionally wraps the component in semantic
-     * \<pre\> tags and applies additional block-level styling
+     * Unwraps the semantic
+     * \<pre\> tags and removes block-level styling
      */
-    multiline?: boolean,
+    inline?: boolean,
   }>()
 </script>
 
@@ -29,10 +27,12 @@
   rounded
   px-1
   py-1
+  inline-block
 }
+
 .p-code-container--block { @apply
   px-2
   py-2
-  overflow-x-auto
+  block
 }
 </style>

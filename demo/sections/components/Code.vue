@@ -7,15 +7,19 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-code</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-code
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #inline>
-      This is an <p-code>inline</p-code> code block.
+      This is an <p-code inline>
+        inline
+      </p-code> code block.
     </template>
 
     <template #multiline>
-      <p-code multiline>
+      <p-code>
         {{ multilineContent }}
       </p-code>
     </template>

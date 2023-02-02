@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Checkbox Group" :demos="[{ title: 'Checkbox Group' }, { title: 'Using Label Slot' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-checkbox-group</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-checkbox-group
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -10,7 +12,9 @@
       <div class="checkbox-group__demo">
         <p-checkbox-group v-model="value" :options="options" :disabled="disabled" :state="exampleState" />
 
-        <p-code>value: {{ JSON.stringify(value) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(value) }}
+        </p-code>
       </div>
     </template>
 
@@ -22,7 +26,9 @@
           </template>
         </p-checkbox-group>
 
-        <p-code>value: {{ JSON.stringify(slotValue) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(slotValue) }}
+        </p-code>
       </div>
     </template>
   </ComponentPage>

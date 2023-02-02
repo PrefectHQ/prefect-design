@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Virtual Scroller" :demos="[{ title: 'Virtual Scroller' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-virtual-scroller</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-virtual-scroller
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #virtual-scroller>

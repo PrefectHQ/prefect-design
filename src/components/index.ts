@@ -8,6 +8,8 @@ import { PCard, install as installPCard } from '@/components/Card'
 import { PCheckbox, install as installPCheckbox } from '@/components/Checkbox'
 import { PCheckboxGroup, install as installPCheckboxGroup } from '@/components/CheckboxGroup'
 import { PCode, install as installPCode } from '@/components/Code'
+import { PCodeHighlight, install as installPCodeHighlight } from '@/components/CodeHighlight'
+import { PCodeInput, install as installPCodeInput } from '@/components/CodeInput'
 import { PCombobox, install as installPCombobox } from '@/components/Combobox'
 import { PContent, install as installPContent } from '@/components/Content'
 import { PContextAccordionItem, install as installPContextAccordionItem } from '@/components/ContextAccordionItem'
@@ -29,6 +31,7 @@ import { PIconButtonMenu, install as installPIconButtonMenu } from '@/components
 import { PIconText, install as installPIconText } from '@/components/IconText'
 import { PKeyValue, install as installPKeyValue } from '@/components/KeyValue'
 import { PLabel, install as installPLabel } from '@/components/Label'
+import { PLineNumbers, install as installPLineNumbers } from '@/components/LineNumbers'
 import { PLink, install as installPLink } from '@/components/Link'
 import { PListItem, install as installPListItem } from '@/components/ListItem'
 import { PListItemInput, install as installPListItemInput } from '@/components/ListItemInput'
@@ -64,6 +67,7 @@ import { PThemeToggle, install as installPThemeToggle } from '@/components/Theme
 import { PToast, install as installPToast } from '@/components/Toast'
 import { PToggle, install as installPToggle } from '@/components/Toggle'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
+import { PUnwrap, install as installPUnwrap } from '@/components/Unwrap'
 import { PVirtualScroller, install as installPVirtualScroller } from '@/components/VirtualScroller'
 import { PWindow, install as installPWindow } from '@/components/Window'
 import { PWizard, install as installPWizard } from '@/components/Wizard'
@@ -79,6 +83,8 @@ export {
   PCheckbox,
   PCheckboxGroup,
   PCode,
+  PCodeHighlight,
+  PCodeInput,
   PCombobox,
   PContent,
   PContextAccordionItem,
@@ -100,6 +106,7 @@ export {
   PIconText,
   PKeyValue,
   PLabel,
+  PLineNumbers,
   PLink,
   PListItem,
   PListItemInput,
@@ -143,6 +150,7 @@ export {
   PToast,
   PToggle,
   PTypeAhead,
+  PUnwrap,
   PVirtualScroller,
   PWindow,
   PWizard
@@ -159,6 +167,8 @@ export const installs = [
   installPCheckbox,
   installPCheckboxGroup,
   installPCode,
+  installPCodeHighlight,
+  installPCodeInput,
   installPCombobox,
   installPContent,
   installPContextAccordionItem,
@@ -180,6 +190,7 @@ export const installs = [
   installPIconText,
   installPKeyValue,
   installPLabel,
+  installPLineNumbers,
   installPLink,
   installPListItem,
   installPListItemInput,
@@ -216,6 +227,7 @@ export const installs = [
   installPToggle,
   installPTypeAhead,
   installPVirtualScroller,
+  installPUnwrap,
   installPWindow,
   installPWizard,
 ]
@@ -232,6 +244,8 @@ declare module '@vue/runtime-core' {
     PCheckbox: typeof PCheckbox,
     PCheckboxGroup: typeof PCheckboxGroup,
     PCode: typeof PCode,
+    PCodeHighlight: typeof PCodeHighlight,
+    PCodeInput: typeof PCodeInput,
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,
     PContextAccordionItem: typeof PContextAccordionItem,
@@ -252,6 +266,7 @@ declare module '@vue/runtime-core' {
     PIconText: typeof PIconText,
     PKeyValue: typeof PKeyValue,
     PLabel: typeof PLabel,
+    PLineNumbers: typeof PLineNumbers,
     PLink: typeof PLink,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
@@ -295,6 +310,7 @@ declare module '@vue/runtime-core' {
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
     PVirtualScroller: typeof PVirtualScroller,
+    PUnwrap: typeof PUnwrap,
     PWindow: typeof PWindow,
     PWizard: typeof PWizard,
   }
