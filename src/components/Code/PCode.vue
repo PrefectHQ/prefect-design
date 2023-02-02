@@ -33,7 +33,6 @@
 .p-code-container--block { @apply
   px-2
   py-2
-  overflow-x-auto
   block
 }
 </style>

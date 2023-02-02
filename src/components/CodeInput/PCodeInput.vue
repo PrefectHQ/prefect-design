@@ -17,6 +17,7 @@
           spellcheck="false"
           class="p-code-input__textarea"
           :rows="lines"
+          :class="classes.textArea"
           v-bind="ctrlAttrs"
         />
 
@@ -74,6 +75,9 @@
     inputControl: {
       'p-code-input__control--show-line-numbers': props.showLineNumbers,
     },
+    textArea: {
+      'p-code-input__textarea--show-line-numbers': props.showLineNumbers,
+    },
   }))
 </script>
 
@@ -92,7 +96,7 @@
   min-h-[100px]
   font-mono
   bg-background-500
-  overflow-hidden
+  overflow-auto
   p-0
 }
 
@@ -112,11 +116,6 @@
   w-full
 }
 
-.p-code-input__control--show-line-numbers { @apply
-  border-l
-  border-background-400
-  dark:border-foreground-200
-}
 
 .p-code-input__control { @apply
   grow
@@ -125,10 +124,18 @@
   items-start
   justify-start
   overflow-auto
+  rounded-lg
   min-h-[inherit]
   relative
   p-0
   z-[1]
+}
+
+.p-code-input__control--show-line-numbers { @apply
+  border-l
+  border-background-400
+  dark:border-foreground-200
+  rounded-l-none
 }
 
 .p-code-input__textarea {
@@ -140,7 +147,6 @@
   @apply
   block
   grow
-  rounded-l-none
   bg-background
   text-transparent
   overflow-hidden
@@ -159,6 +165,7 @@
   left-0
   p-4
   pointer-events-none
+  overflow-hidden
   z-0
 }
 
@@ -174,5 +181,6 @@
   bg-transparent
   text-foreground
   p-0
+  overflow-hidden
 }
 </style>
