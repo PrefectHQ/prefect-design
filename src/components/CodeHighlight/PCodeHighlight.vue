@@ -44,8 +44,7 @@
 
   worker.onmessage = (event: MessageEvent<FormattedMessagePayload>) => handleWorkerMessage(event.data)
 
-  watch(() => [props.lang, props.text], () => {
-    const { text, lang } = props
+  watch(() => [props.lang, props.text], ([lang, text]) => {
     worker.postMessage({ text, lang })
   }, { immediate: true })
 </script>
