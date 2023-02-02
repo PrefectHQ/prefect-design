@@ -34,7 +34,7 @@
       'p-code-highlight--multiline': props.multiline,
     },
     codeWrapper: {
-      'p-code-highlight__code-wrapper--show-line-numbers': props.multiline && props.showLineNumbers,
+      'p-code-highlight__code-wrapper--show-line-numbers': showLineNumbers.value,
     },
   }))
 
