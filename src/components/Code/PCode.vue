@@ -27,11 +27,13 @@
   rounded
   px-1
   py-1
+  inline-block
 }
 
 .p-code-container--block { @apply
   px-2
   py-2
   overflow-x-auto
+  block
 }
 </style>
