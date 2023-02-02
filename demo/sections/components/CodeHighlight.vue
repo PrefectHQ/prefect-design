@@ -184,11 +184,12 @@ for i in range(10):
 | Row 3 | Column 1 | Column 2 |
 `
 
-  const pythonContent = `greeting = "Hello, World!"
+  const pythonContent = `
+greeting = "Hello, World!"
 
 for i in range(10):
   print(greeting)
-`
+`.trim()
   const pythonCodeExample = sfc({
     templateContent: '<PCodeHighlight :text="pythonContent" lang="python" />',
     scriptContent: `const pythonContent = \`${pythonContent}\``,
