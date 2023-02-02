@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Icon Text" :demos="[{ title: 'Icon Text' }, { title: 'Icon Text Inside Link' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-icon-text</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-icon-text
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #icon-text>

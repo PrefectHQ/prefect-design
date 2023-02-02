@@ -9,7 +9,13 @@
     ]"
   >
     <template #description>
-      <p-code>PCodeInput</p-code> is a wrapper around <p-code>PCode</p-code> and <p-code>PCodeHighlight</p-code> that allows input.
+      <p-code inline>
+        PCodeInput
+      </p-code> is a wrapper around <p-code inline>
+        PCode
+      </p-code> and <p-code inline>
+        PCodeHighlight
+      </p-code> that allows input.
 
       <div>
         <p-checkbox v-model="showLineNumbers" label="Show line numbers" />

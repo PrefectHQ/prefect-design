@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Type Ahead" :demos="[{ title: 'Type Ahead' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-type-ahead</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-type-ahead
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -10,7 +12,7 @@
       <div class="type-ahead__demo">
         <p-type-ahead v-model="exampleTypeAhead" :options="exampleOptions" />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleTypeAhead) }}
         </p-code>
       </div>

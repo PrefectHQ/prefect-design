@@ -7,7 +7,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-button-group</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-button-group
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #basic>

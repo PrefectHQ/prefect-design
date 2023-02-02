@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Tags Input" :demos="[{ title: 'Tags Input' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-tags-input</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-tags-input
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -10,7 +12,7 @@
       <div class="tags-input__demo">
         <p-tags-input v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleTagsValue) }}
         </p-code>
       </div>

@@ -10,7 +10,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-tables</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-tables
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #basic>
@@ -20,7 +22,7 @@
     <template #with-multiselect>
       <p-table v-model:selected="selectedRows" :data="data" />
 
-      <p-code multiline class="mt-4">
+      <p-code class="mt-4">
         {{ selectedRows }}
       </p-code>
     </template>

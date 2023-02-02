@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Native Select" :demos="[{ title: 'Native Select' }, { title: 'Grouped' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-native-select</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-native-select
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -10,7 +12,9 @@
       <div class="native-select__demo">
         <p-native-select v-model="exampleNativeSelect" :disabled="disabled" :options="exampleOptionsWithEmpty" :state="exampleState" />
 
-        <p-code>value: {{ JSON.stringify(exampleNativeSelect) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(exampleNativeSelect) }}
+        </p-code>
       </div>
     </template>
 
@@ -18,7 +22,9 @@
       <div class="native-select__demo">
         <p-native-select v-model="exampleNativeSelectGrouped" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
 
-        <p-code>value: {{ JSON.stringify(exampleNativeSelectGrouped) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(exampleNativeSelectGrouped) }}
+        </p-code>
       </div>
     </template>
   </ComponentPage>

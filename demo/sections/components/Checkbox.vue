@@ -8,7 +8,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-checkbox</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-checkbox
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -17,7 +19,9 @@
       <div class="checkbox__demo">
         <p-checkbox v-model="simple" label="A simple checkbox" :disabled="disabled" :state="exampleState" />
 
-        <p-code>value: {{ JSON.stringify(simple) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(simple) }}
+        </p-code>
       </div>
     </template>
 
@@ -29,7 +33,9 @@
           <p-checkbox v-model="multiple" value="C" label="C" :state="exampleState" />
         </fieldset>
 
-        <p-code>value: {{ JSON.stringify(multiple) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(multiple) }}
+        </p-code>
       </div>
     </template>
 
@@ -41,7 +47,9 @@
           </template>
         </p-checkbox>
 
-        <p-code>value: {{ JSON.stringify(slot) }}</p-code>
+        <p-code inline>
+          value: {{ JSON.stringify(slot) }}
+        </p-code>
       </div>
     </template>
   </ComponentPage>

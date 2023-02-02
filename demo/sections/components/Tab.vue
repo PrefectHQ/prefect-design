@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Tab" :demos="[{ title: 'Tab' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-tab</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-tab
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #tab>

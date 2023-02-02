@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Select" :demos="[{ title: 'Single Select' }, { title: 'Multi-Select' }, { title: 'Grouped' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-select</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-select
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -16,7 +18,7 @@
           :state="exampleState"
         />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleSelect) }}
         </p-code>
       </div>
@@ -25,7 +27,7 @@
       <div class="select__demo">
         <p-select v-model="exampleMultiSelect" :disabled="disabled" :options="exampleOptions" :state="exampleState" multiple />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleMultiSelect) }}
         </p-code>
       </div>
@@ -34,7 +36,7 @@
       <div class="select__demo">
         <p-select v-model="exampleGroupedSelect" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
 
-        <p-code>
+        <p-code inline>
           value: {{ JSON.stringify(exampleGroupedSelect) }}
         </p-code>
       </div>

@@ -4,7 +4,7 @@
       <PLineNumbers class="p-code-highlight__line-numbers" :lines="lines" />
     </template>
 
-    <PCode :multiline="!inline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
+    <PCode :inline="inline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
       <PUnwrap :html="formattedText" />
     </PCode>
   </div>

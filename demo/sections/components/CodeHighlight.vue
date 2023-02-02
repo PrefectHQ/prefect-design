@@ -14,7 +14,11 @@
     ]"
   >
     <template #description>
-      <p-code>PCodeHighlight</p-code> is a wrapper around <p-code>PCode</p-code> that adds syntax highlighting via <p-link href="https://github.com/highlightjs/highlight.js">
+      <p-code inline>
+        PCodeHighlight
+      </p-code> is a wrapper around <p-code inline>
+        PCode
+      </p-code> that adds syntax highlighting via <p-link href="https://github.com/highlightjs/highlight.js">
         highlight.js
       </p-link>.
 
@@ -24,58 +28,23 @@
     </template>
 
     <template #inline>
-      <p-tabs :tabs="['Demo', 'Code']">
-        <template #demo>
-          This should be an inline <PCodeHighlight :text="inlineContent" lang="javascript" /> block.
-        </template>
-        <template #code>
-          <PCodeHighlight :text="inlineCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
-        </template>
-      </p-tabs>
+      This should be an inline <PCodeHighlight :text="inlineContent" inline lang="javascript" /> block.
     </template>
 
     <template #markdown>
-      <p-tabs :tabs="['Demo', 'Code']">
-        <template #demo>
-          <PCodeHighlight :text="markdownContent" multiline lang="gh-markdown" :show-line-numbers="showLineNumbers" />
-        </template>
-        <template #code>
-          {{ markdownContent }}
-        </template>
-      </p-tabs>
+      <PCodeHighlight :text="markdownContent" lang="gh-markdown" :show-line-numbers="showLineNumbers" />
     </template>
 
     <template #vue>
-      <p-tabs :tabs="['Demo', 'Code']">
-        <template #demo>
-          <PCodeHighlight :text="vueContent" multiline lang="vue" :show-line-numbers="showLineNumbers" />
-        </template>
-        <template #code>
-          <PCodeHighlight :text="vueCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
-        </template>
-      </p-tabs>
+      <PCodeHighlight :text="vueContent" lang="vue" :show-line-numbers="showLineNumbers" />
     </template>
 
     <template #python>
-      <p-tabs :tabs="['Demo', 'Code']">
-        <template #demo>
-          <PCodeHighlight :text="pythonContent" multiline lang="python" :show-line-numbers="showLineNumbers" />
-        </template>
-        <template #code>
-          <PCodeHighlight :text="pythonCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
-        </template>
-      </p-tabs>
+      <PCodeHighlight :text="pythonContent" lang="python" :show-line-numbers="showLineNumbers" />
     </template>
 
     <template #jinja>
-      <p-tabs :tabs="['Demo', 'Code']">
-        <template #demo>
-          <PCodeHighlight :text="jinjaContent" multiline lang="jinja" :show-line-numbers="showLineNumbers" />
-        </template>
-        <template #code>
-          <PCodeHighlight :text="jinjaCodeExample" multiline lang="vue" :show-line-numbers="showLineNumbers" />
-        </template>
-      </p-tabs>
+      <PCodeHighlight :text="jinjaContent" lang="jinja" :show-line-numbers="showLineNumbers" />
     </template>
   </ComponentPage>
 </template>
@@ -91,36 +60,7 @@
 
   const showLineNumbers = ref(false)
 
-  const template = (content: string): string => `<template>\n  ${content}\n</template>`
-  const script = (content: string): string => `<script lang="ts" setup>\n  ${content}\n<\/script>`
-  const style = (content: string): string => `<style>\n${content}\n<\/style>`
-  const codeHighlight = (text: string, lang: string): string => `<PCodeHighlight :text="${text}" lang="${lang}" />`
-
-  const sfc = (options: {
-    templateContent?: string,
-    scriptContent?: string,
-    styleContent?: string,
-  }): string => {
-    const { templateContent, scriptContent, styleContent } = options
-    const content = []
-    if (templateContent) {
-      content.push(template(templateContent))
-    }
-    if (scriptContent) {
-      content.push(script(scriptContent))
-    }
-    if (styleContent) {
-      content.push(style(styleContent))
-    }
-
-    return content.join('\n\n')
-  }
-
   const inlineContent = 'const javascript = "variable"'
-  const inlineCodeExample = sfc({
-    templateContent: `This should be an inline ${codeHighlight('inlineContent', 'javascript')} block.`,
-    scriptContent: `const inlineContent = '${inlineContent}'`,
-  })
 
   const markdownContent = `# Heading 1
   
@@ -190,10 +130,6 @@ greeting = "Hello, World!"
 for i in range(10):
   print(greeting)
 `.trim()
-  const pythonCodeExample = sfc({
-    templateContent: '<PCodeHighlight :text="pythonContent" lang="python" />',
-    scriptContent: `const pythonContent = \`${pythonContent}\``,
-  })
 
 
   const vueContent = `<template>
@@ -223,10 +159,6 @@ for i in range(10):
 }
 </style>
 `
-  const vueCodeExample = sfc({
-    templateContent: '<PCodeHighlight :text="vueContent" lang="vue" />',
-    scriptContent: `const vueContent = \`${vueContent}\``,
-  })
 
   const jinjaContent = `Flow run {{ flow.name }}/{{ flow_run.name }} entered state \`{{ flow_run.state.name }}\` at {{ flow_run.state.timestamp }}.
 Flow ID: {{ flow_run.flow_id }}
@@ -238,9 +170,4 @@ State message: {{ flow_run.state.message }}
   {{ i }}
 {% endfor %}
 `
-
-  const jinjaCodeExample = sfc({
-    templateContent: '<PCodeHighlight :text="vueContent" lang="jinja" />',
-    scriptContent: `const jinjaContent = \`${jinjaContent}\``,
-  })
 </script>

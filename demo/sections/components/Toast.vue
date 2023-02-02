@@ -10,7 +10,9 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code>p-toasts</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-toasts
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
     </template>
 
     <template #basic>
@@ -59,7 +61,7 @@
   }
 
   const noTimeoutToast = (): void => {
-    showToast('Waiting for you to dismiss', 'default', { timeout:false })
+    showToast('Waiting for you to dismiss', 'default', { timeout: false })
   }
 
   const componentToast = (): void => {

@@ -1,7 +1,9 @@
 <template>
   <ComponentPage title="Text Area" :demos="[{ title: 'Text Area' }]">
     <template #description>
-      This is where we add a short description of <p-code>p-text-area</p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      This is where we add a short description of <p-code inline>
+        p-text-area
+      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>

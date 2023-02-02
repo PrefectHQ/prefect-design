@@ -24,7 +24,6 @@
           <template v-if="lang">
             <PCodeHighlight
               :lang="lang"
-              multiline
               :text="internalValue"
               class="p-code-input__view"
               v-bind="ctrlAttrs"
@@ -32,7 +31,7 @@
           </template>
 
           <template v-else>
-            <PCode class="p-code-input__view" multiline v-bind="ctrlAttrs">
+            <PCode class="p-code-input__view" v-bind="ctrlAttrs">
               {{ internalValue }}
             </PCode>
           </template>
