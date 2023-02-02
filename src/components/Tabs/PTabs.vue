@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import PTabNavigation from '@/components/Tabs/PTabNavigation.vue'
   import PTabSelect from '@/components/Tabs/PTabSelect.vue'
   import { Tab, normalizeTab } from '@/types/tabs'
@@ -48,10 +48,15 @@
 
   const tabs = computed(() => props.tabs.map(normalizeTab))
 
+  const backupSelected = ref<string>()
   const selected = computed({
     get() {
       if (props.selected) {
         return props.selected
+      }
+
+      if (backupSelected.value) {
+        return backupSelected.value
       }
 
       const [first] = tabs.value
@@ -59,6 +64,7 @@
       return first.label
     },
     set(value) {
+      backupSelected.value = value
       emits('update:selected', value)
     },
   })
