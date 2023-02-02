@@ -4,14 +4,14 @@
       <PLineNumbers class="p-code-highlight__line-numbers" :lines="lines" />
     </template>
 
-    <PCode :multiline="multiline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
+    <PCode :multiline="!inline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
       <PUnwrap :html="formattedText" />
     </PCode>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, computed, watch } from 'vue'
+  import { ref, computed, watch } from 'vue'
   import { PCode, PUnwrap, PLineNumbers } from '@/components'
   import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
   import type { FormattedMessagePayload, SupportedLanguage } from '@/types/codeHighlight'
@@ -20,18 +20,18 @@
     text: string,
     lang: SupportedLanguage,
     showLineNumbers?: boolean,
-    multiline?: boolean,
+    inline?: boolean,
   }>()
 
   const worker: Worker = new HighlightWorker()
   const formattedText = ref('')
 
   const lines = computed(() => props.text.split('\n').length)
-  const showLineNumbers = computed(() => props.multiline && props.showLineNumbers)
+  const showLineNumbers = computed(() => !props.inline && props.showLineNumbers)
 
   const classes = computed(() => ({
     root: {
-      'p-code-highlight--multiline': props.multiline,
+      'p-code-highlight--inline': props.inline,
     },
     codeWrapper: {
       'p-code-highlight__code-wrapper--show-line-numbers': showLineNumbers.value,
@@ -55,7 +55,7 @@
   hyphens: none;
 
   @apply
-  inline-flex
+  flex
   bg-background-500
   rounded-md
   font-mono
@@ -63,8 +63,8 @@
   px-1
 }
 
-.p-code-highlight--multiline { @apply
-  flex
+.p-code-highlight--inline { @apply
+  inline-flex
 }
 
 .p-code-highlight__code-wrapper {
