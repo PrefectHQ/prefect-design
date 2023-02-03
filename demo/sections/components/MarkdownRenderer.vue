@@ -13,7 +13,7 @@
     <p-tabs v-model:selected="tab" :tabs="['Parsed', 'Raw']">
       <template #parsed>
         <div>
-          <PMarkdownRenderer :text="markdownRef" />
+          <PMarkdownRenderer :text="markdownRef" :link-base-url="getGitHubBaseUrl(selectedMarkdown)" />
         </div>
       </template>
 
@@ -32,13 +32,14 @@
   import { ref, watch } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
+  const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/blob/main`
   const options: (SelectOptionNormalized & { url: string })[] = [
-    { label: 'Prefect', value: 'prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
-    { label: 'Orion Design', value: 'orion-design', url: 'https://raw.githubusercontent.com/PrefectHQ/orion-design/main/README.md' },
-    { label: 'Vue Compositions', value: 'vue-compositions', url: 'https://raw.githubusercontent.com/PrefectHQ/vue-compositions/main/README.md' },
-    { label: 'Fiber', value: 'fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
+    { label: 'Prefect', value: 'prefecthq/prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
+    { label: 'Orion Design', value: 'prefecthq/orion-design', url: 'https://raw.githubusercontent.com/PrefectHQ/orion-design/main/README.md' },
+    { label: 'Vue Compositions', value: 'prefecthq/vue-compositions', url: 'https://raw.githubusercontent.com/PrefectHQ/vue-compositions/main/README.md' },
+    { label: 'Fiber', value: 'gofiber/fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
-  const selectedMarkdown = ref('prefect')
+  const selectedMarkdown = ref('prefecthq/prefect')
   const tab = ref('Parsed')
   const markdownRef = ref('')
   const getMarkdown = async (): Promise<void> => {
