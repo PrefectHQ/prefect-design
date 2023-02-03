@@ -94,7 +94,7 @@ const getVNode = (token: marked.TokensList[number]): VNode => {
   }
 
   if (token.type == 'codespan') {
-    // return h(PCode, {}, { default: () => token.text })
+    return h(PCode, { inline: true }, { default: () => token.text })
   }
 
   if (token.type == 'table') {
@@ -127,7 +127,7 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
     case 'markdown':
     case 'json':
     default:
-      return h(PCode, { multiline: true }, { default: () => token.text })
+      return h(PCode, {}, { default: () => token.text })
   }
 }
 

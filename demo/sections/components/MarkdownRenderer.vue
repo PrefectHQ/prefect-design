@@ -39,7 +39,7 @@
     { label: 'Fiber', value: 'fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
   const selectedMarkdown = ref('fiber')
-  const tab = ref('Raw')
+  const tab = ref('Parsed')
   const markdownRef = ref('')
   const getMarkdown = async (): Promise<void> => {
     const url = options.find(option => option.value == selectedMarkdown.value)?.url
