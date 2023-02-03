@@ -71,4 +71,19 @@
   max-w-full
   overflow-auto
 }
+
+.markdown-renderer__list--ordered { @apply
+  list-decimal
+}
+
+.markdown-renderer__list--unordered { @apply
+  list-disc
+  list-outside
+}
+
+.markdown-renderer__list-item { @apply
+  ml-4
+  mb-1
+  list-item
+}
 </style>
