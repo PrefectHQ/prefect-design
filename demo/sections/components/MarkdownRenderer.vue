@@ -6,6 +6,10 @@
       </p-code> is a component that renders markdown text into a Vue component tree.
     </template>
 
+    <p-label class="markdown-renderer__select" label="README.md">
+      <p-select v-model="selectedMarkdown" :options="options" />
+    </p-label>
+
     <p-tabs v-model:selected="tab" :tabs="['Parsed', 'Raw']">
       <template #parsed>
         <div>
@@ -14,9 +18,7 @@
       </template>
 
       <template #raw>
-        <div>
-          {{ markdownRef }}
-        </div>
+        <PCodeHighlight :text="markdownRef" lang="markdown" />
       </template>
     </p-tabs>
   </ComponentPage>
@@ -24,6 +26,7 @@
 
 <script lang="ts" setup>
   import { PTabs } from '@/components'
+  import PCodeHighlight from '@/components/CodeHighlight/PCodeHighlight.vue'
   import PMarkdownRenderer from '@/components/MarkdownRenderer/PMarkdownRenderer.vue'
   import { SelectOptionNormalized } from '@/types/selectOption'
   import { ref, watch } from 'vue'
@@ -31,6 +34,8 @@
 
   const options: (SelectOptionNormalized & { url: string })[] = [
     { label: 'Prefect', value: 'prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
+    { label: 'Orion Design', value: 'orion-design', url: 'https://raw.githubusercontent.com/PrefectHQ/orion-design/main/README.md' },
+    { label: 'Vue Compositions', value: 'vue-compositions', url: 'https://raw.githubusercontent.com/PrefectHQ/vue-compositions/main/README.md' },
     { label: 'Fiber', value: 'fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
   const selectedMarkdown = ref('fiber')
@@ -45,3 +50,11 @@
   }
   watch(selectedMarkdown, getMarkdown, { immediate: true })
 </script>
+
+<style>
+.markdown-renderer__select { @apply
+  mb-4
+  max-w-sm
+  ml-auto
+}
+</style>
