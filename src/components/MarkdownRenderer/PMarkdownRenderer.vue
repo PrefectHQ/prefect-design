@@ -1,5 +1,5 @@
 <template>
-  <RenderRoot />
+  <component :is="renderRoot" />
 </template>
 
 <script lang="ts" setup>
@@ -13,9 +13,9 @@
     text?: string,
   }>()
 
-  const tokens = ref<marked.TokensList>([])
+  const tokens = ref<marked.TokensList | []>([])
 
-  const RenderRoot = computed(() => {
+  const renderRoot = computed(() => {
     return getRootVNode(tokens.value)
   })
 

@@ -123,7 +123,7 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
   }
 }
 
-export const getRootVNode = (tokens: marked.TokensList): VNode => {
+export const getRootVNode = (tokens: marked.TokensList | []): VNode => {
   const children: VNode[] = tokens.map(getVNode)
   return h('article', { class: [baseClass] }, children)
 }
