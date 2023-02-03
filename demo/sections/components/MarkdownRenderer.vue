@@ -18,7 +18,7 @@
       </template>
 
       <template #raw>
-        <PCodeHighlight :text="markdownRef" lang="markdown" />
+        <PCodeHighlight :text="markdownRef" class="markdown-renderer__raw " show-line-numbers lang="markdown" />
       </template>
     </p-tabs>
   </ComponentPage>
@@ -56,5 +56,12 @@
   mb-4
   max-w-sm
   ml-auto
+}
+
+.markdown-renderer__raw { @apply
+  overflow-auto
+  max-w-full
+  max-h-96
+  w-full
 }
 </style>

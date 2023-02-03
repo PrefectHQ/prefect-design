@@ -33,3 +33,30 @@
     }
   }, { immediate: true })
 </script>
+
+<style>
+.markdown-renderer { @apply
+  text-base
+  block
+  relative
+  overflow-auto
+}
+
+.markdown-renderer > * { @apply
+  mb-4
+}
+
+.markdown-renderer__html { @apply
+  block
+}
+
+.markdown-renderer__html img { @apply
+  inline
+  max-w-full
+}
+
+.markdown-view__html,
+.markdown-view__token { @apply
+  mb-4
+}
+</style>
