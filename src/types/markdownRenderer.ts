@@ -14,7 +14,6 @@ export type FormattedMessagePayload = {
 }
 
 export type ParserOptions = {
-  baseElement?: string,
   headingClasses?: string[],
   baseLinkUrl?: string | null | undefined,
 }

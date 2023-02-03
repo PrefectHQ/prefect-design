@@ -3,35 +3,15 @@ import { VNode, h, createTextVNode as t } from 'vue'
 import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
+import { unescapeHtml } from '@/utilities/strings'
 
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
-// const componentMap = {
-//   blockquote: 'blockquote',
-//   br: PDivider,
-//   code: PCode,
-//   codespan: 'blockquote',
-//   def: 'blockquote',
-//   del: 'blockquote',
-//   em: 'blockquote',
-//   escape: 'blockquote',
-//   heading: 'blockquote',
-//   hr: 'blockquote',
-//   html: 'blockquote',
-//   image: 'blockquote',
-//   link: 'blockquote',
-//   list: 'blockquote',
-//   list_item: 'blockquote',
-//   paragraph: 'blockquote',
-//   space: 'blockquote',
-//   strong: 'blockquote',
-//   table: 'blockquote',
-//   text: 'blockquote',
-// }
-
 const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNode => {
-  const { headingClasses = defaultHeadingClasses, baseLinkUrl = '', baseElement = 'div' } = options
+  const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
+  const baseElement = 'div'
+  const baseInlineElement = 'span'
 
   const normalizeHref = (href: string): string => href.startsWith('http') ? href : `${baseLinkUrl}${href}`
 
@@ -46,7 +26,7 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   const props: Record<string, unknown> = { class: [`${baseClass}__token`] }
   const { type } = token
 
-  const textTypes: (Token & { text: string })['type'][] = ['text', 'paragraph', 'escape', 'strong', 'em', 'del', 'text']
+  const textTypes: Token['type'][] = ['text', 'paragraph', 'strong', 'em']
 
   if ('text' in token && textTypes.includes(type)) {
     // This is because text tokens can have embedded elements
@@ -56,7 +36,7 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
       return h(baseElement, { class: classList }, children)
     }
 
-    return t(token.text)
+    return t(unescapeHtml(token.text))
   }
 
   if (type == 'space') {
@@ -84,7 +64,7 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
     return getCodeVNode(token)
   }
 
-  if (type == 'codespan') {
+  if (type == 'codespan' || type == 'del') {
     return h(PCode, { inline: true }, { default: () => token.text })
   }
 
@@ -97,11 +77,10 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   }
 
   if (type == 'list_item') {
-    const { text, task, checked } = token
+    const { task } = token
 
     if (task) {
-      const classList = [`${baseClass}__checkbox`]
-      return h(PCheckbox, { modelValue: checked, disabled: true, label: text, checked, class: classList })
+      return getCheckboxVNode(token)
     }
 
     const classList = [`${baseClass}__list-item`]
@@ -138,6 +117,12 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
 const getTableVNode = (token: Token & { type: 'table' }): VNode => {
   const classList = [`${baseClass}__table`]
   return h('table', { class: classList }, [token.raw])
+}
+
+const getCheckboxVNode = (token: Token & { type: 'list_item' | 'checkbox' }): VNode => {
+  const { text, checked } = token
+  const classList = [`${baseClass}__checkbox`]
+  return h(PCheckbox, { modelValue: checked, disabled: true, label: text, checked, class: classList })
 }
 
 const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, children: VNodeChildren = []): VNode => {

@@ -17,3 +17,19 @@ export function kebabCase(string: string): string {
     .replace(/[\s_]+/g, '-')
     .toLowerCase()
 }
+
+export function unescapeHtml(str: string): string {
+  return str.replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+}
+
+export function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
