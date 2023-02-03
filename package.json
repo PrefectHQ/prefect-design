@@ -71,6 +71,7 @@
     "@types/lodash.debounce": "4.0.7",
     "date-fns": "2.29.3",
     "highlight.js": "11.7.0",
-    "lodash.debounce": "4.0.8"
+    "lodash.debounce": "4.0.8",
+    "markdown-it": "13.0.1"
   }
 }
