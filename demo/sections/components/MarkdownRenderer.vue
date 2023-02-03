@@ -3,7 +3,7 @@
     <template #description>
       <p-code inline>
         p-markdown-renderer
-      </p-code> is a component that renders markdown text into a Vue component tree.
+      </p-code> is a component that renders a Vue component tree from markdown.
     </template>
 
     <p-label class="markdown-renderer__select" label="README.md">
