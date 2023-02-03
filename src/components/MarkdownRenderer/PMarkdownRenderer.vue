@@ -72,6 +72,11 @@
   overflow-auto
 }
 
+.markdown-renderer__text--strong,
+.markdown-renderer__text--em { @apply
+  inline
+}
+
 .markdown-renderer__text--strong { @apply
   font-semibold
 }

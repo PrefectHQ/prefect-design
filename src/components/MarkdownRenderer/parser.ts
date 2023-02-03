@@ -11,7 +11,6 @@ const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 't
 const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
   const baseElement = 'div'
-  const baseInlineElement = 'span'
 
   const normalizeHref = (href: string): string => href.startsWith('http') ? href : `${baseLinkUrl}${href}`
 
@@ -57,7 +56,7 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   }
 
   if (type == 'html') {
-    return h('p', { align: 'center', dir: 'auto', class: [`${baseClass}__html`], innerHTML: token.text })
+    return h(baseElement, { class: [`${baseClass}__html`] }, children)
   }
 
   if (type == 'code') {

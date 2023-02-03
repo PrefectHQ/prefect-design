@@ -37,9 +37,10 @@
     { label: 'Prefect', value: 'prefecthq/prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
     { label: 'Orion Design', value: 'prefecthq/orion-design', url: 'https://raw.githubusercontent.com/PrefectHQ/orion-design/main/README.md' },
     { label: 'Vue Compositions', value: 'prefecthq/vue-compositions', url: 'https://raw.githubusercontent.com/PrefectHQ/vue-compositions/main/README.md' },
+    { label: 'Microbundle', value: 'developit/microbundle', url: 'https://raw.githubusercontent.com/developit/microbundle/master/README.md' },
     { label: 'Fiber', value: 'gofiber/fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
-  const selectedMarkdown = ref('prefecthq/vue-compositions')
+  const selectedMarkdown = ref('developit/microbundle')
   const tab = ref('Parsed')
   const markdownRef = ref('')
   const getMarkdown = async (): Promise<void> => {
