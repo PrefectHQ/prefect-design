@@ -10,13 +10,14 @@
   import type { FormattedMessagePayload } from '@/types/markdownRenderer'
 
   const props = defineProps<{
-    text?: string,
+    text: string,
+    linkBaseUrl?: string,
   }>()
 
   const tokens = ref<marked.TokensList | []>([])
 
   const renderRoot = computed(() => {
-    return getRootVNode(tokens.value)
+    return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
   })
 
   const handleWorkerMessage = (message: FormattedMessagePayload): void => {
@@ -58,6 +59,11 @@
 .markdown-view__html,
 .markdown-view__token { @apply
   mb-4
+}
+
+.markdown-renderer__image { @apply
+  h-auto
+  max-w-full
 }
 
 .markdown-renderer__code { @apply

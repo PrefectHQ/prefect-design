@@ -38,7 +38,7 @@
     { label: 'Vue Compositions', value: 'vue-compositions', url: 'https://raw.githubusercontent.com/PrefectHQ/vue-compositions/main/README.md' },
     { label: 'Fiber', value: 'fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
-  const selectedMarkdown = ref('fiber')
+  const selectedMarkdown = ref('prefect')
   const tab = ref('Parsed')
   const markdownRef = ref('')
   const getMarkdown = async (): Promise<void> => {
