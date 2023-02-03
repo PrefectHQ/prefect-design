@@ -32,7 +32,7 @@
   import { ref, watch } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/blob/main`
+  const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
   const options: (SelectOptionNormalized & { url: string })[] = [
     { label: 'Prefect', value: 'prefecthq/prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
     { label: 'Orion Design', value: 'prefecthq/orion-design', url: 'https://raw.githubusercontent.com/PrefectHQ/orion-design/main/README.md' },

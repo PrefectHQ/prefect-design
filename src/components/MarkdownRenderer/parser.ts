@@ -1,12 +1,11 @@
 import { marked } from 'marked'
-import { Parser } from 'postcss'
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PLink } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 
 const baseClass = 'markdown-renderer'
-const defaultHeadingClasses = ['text-3xl', 'text-2xl', 'text-xl', 'text-lg', 'text-base', 'text-sm']
+const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
 // const componentMap = {
 //   blockquote: 'blockquote',
@@ -47,13 +46,27 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   const props: Record<string, unknown> = { class: [`${baseClass}__token`] }
   const { type } = token
 
-  if (type == 'text') {
+  const textTypes: (Token & { text: string })['type'][] = ['text', 'paragraph', 'escape', 'strong', 'em', 'del', 'text']
+
+  if ('text' in token && textTypes.includes(type)) {
+    // This is because text tokens can have embedded elements
+    // like links, images, etc. and text nodes can't have children
     if (children?.length) {
-      console.log('returning text with children', children)
-      return h(baseElement, props, children)
+      const classList = [`${baseClass}__text`, `${baseClass}__text--${type}`]
+      return h(baseElement, { class: classList }, children)
     }
 
     return t(token.text)
+  }
+
+  if (type == 'space') {
+    const classList = [`${baseClass}__space`]
+    return h(baseElement, { class: classList }, children)
+  }
+
+  if (type == 'br' || type == 'hr') {
+    const classList = [`${baseClass}__divider`]
+    return h(PDivider, { class: classList })
   }
 
   if (type == 'image') {
@@ -87,37 +100,44 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
     const { text, task, checked } = token
 
     if (task) {
-      const classList: string[] = [`${baseClass}__checkbox`]
+      const classList = [`${baseClass}__checkbox`]
       return h(PCheckbox, { modelValue: checked, disabled: true, label: text, checked, class: classList })
     }
 
-    const classList: string[] = [`${baseClass}__list-item`]
+    const classList = [`${baseClass}__list-item`]
     const node = h('li', { class: classList }, children)
     return node
   }
 
   if (type == 'blockquote') {
-    return h('blockquote', {}, children)
+    const classList = [`${baseClass}__blockquote`]
+    return h('blockquote', { class: classList }, children)
   }
 
   if (type == 'heading') {
     const { depth } = token
-    const classList = [headingClasses[depth], 'font-semibold']
+    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
+
+    if (depth < 3) {
+      children?.push(h(PDivider))
+    }
+
     return h(`h${depth}`, { class: classList }, children)
   }
 
   if (type == 'link') {
-    console.log({ link: token })
     const { href, title } = token
+    const classList = [`${baseClass}__link`]
     const composedHref = normalizeHref(href)
-    return h(PLink, { to: composedHref, title }, { default: () => token.text })
+    return h(PLink, { to: composedHref, title, class: classList }, { default: () => token.text })
   }
 
   return h(baseElement, props, children)
 }
 
 const getTableVNode = (token: Token & { type: 'table' }): VNode => {
-  return h('table', {}, [token.raw])
+  const classList = [`${baseClass}__table`]
+  return h('table', { class: classList }, [token.raw])
 }
 
 const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, children: VNodeChildren = []): VNode => {
@@ -132,7 +152,7 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
   const classList = [`${baseClass}__code`]
   const { text, lang } = token
   if (isSupportedLanguage(lang)) {
-    h(PCodeHighlight, { text, lang, class: classList })
+    return h(PCodeHighlight, { text, lang, class: classList })
   }
 
   return h(PCode, { class: classList }, { default: () => text })

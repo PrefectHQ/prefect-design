@@ -72,6 +72,32 @@
   overflow-auto
 }
 
+.markdown-renderer__text--strong { @apply
+  font-semibold
+}
+
+.markdown-renderer__text--em { @apply
+  italic
+}
+
+.markdown-renderer__heading { @apply
+  font-semibold
+}
+
+.markdown-renderer__space { @apply
+  h-1
+  mb-0.5
+}
+
+.markdown-renderer__divider { @apply
+  h-1
+}
+
+.markdown-renderer__heading--h1,
+.markdown-renderer__heading--h2 { @apply
+  font-bold
+}
+
 .markdown-renderer__list--ordered { @apply
   list-decimal
 }
