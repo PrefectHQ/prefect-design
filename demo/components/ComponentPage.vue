@@ -16,6 +16,8 @@
       </div>
     </template>
 
+    <slot />
+
     <template v-if="validDemosArray.length">
       <div class="component-page__demos">
         <template v-for="demo in validDemosArray" :key="demo.title">

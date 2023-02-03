@@ -1,6 +1,6 @@
 import { marked } from 'marked'
 import { VNode, h, createTextVNode as t, RendererNode, RendererElement } from 'vue'
-import { PCode } from '@/components'
+import { PCode, PLink } from '@/components'
 import { Token } from '@/types/markdownRenderer'
 
 const baseClass = 'markdown-renderer'
@@ -80,30 +80,38 @@ const getVNode = (token: marked.TokensList[number]): VNode => {
   if (token.type == 'text') {
     return t(token.text)
   }
+
   if (token.type == 'image') {
     console.log('hello!')
   }
+
   if (token.type == 'html') {
     return h('p', { align: 'center', dir: 'auto', class: [`${baseClass}__html`], innerHTML: token.text })
   }
+
   if (token.type == 'code') {
     return getCodeVNode(token)
   }
+
   if (token.type == 'codespan') {
     // return h(PCode, {}, { default: () => token.text })
   }
+
   if (token.type == 'table') {
     return getTableVNode(token)
   }
+
   if (token.type == 'blockquote') {
     return h('blockquote', {}, children)
   }
+
   if (token.type == 'heading') {
     const classList = [headingClass[token.depth], 'font-semibold']
     return h(`h${token.depth}`, { class: classList }, children)
   }
+
   if (token.type == 'link') {
-    // return h(PLink, { to: token.href }, { default: () => token.text })
+    return h(PLink, { to: token.href }, { default: () => token.text })
   }
 
   return h(base, props, children)

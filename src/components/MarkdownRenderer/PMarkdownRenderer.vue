@@ -28,6 +28,8 @@
   worker.onmessage = (event: MessageEvent<FormattedMessagePayload>) => handleWorkerMessage(event.data)
 
   watch(() => [props.text], ([text]) => {
-    worker.postMessage({ text })
+    if (text) {
+      worker.postMessage({ text })
+    }
   }, { immediate: true })
 </script>
