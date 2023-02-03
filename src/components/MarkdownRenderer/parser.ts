@@ -1,6 +1,6 @@
 import { marked } from 'marked'
 import { VNode, h, createTextVNode as t, RendererNode, RendererElement } from 'vue'
-import { PCode, PLink } from '@/components'
+import { PCode, PCodeHighlight, PLink } from '@/components'
 import { Token } from '@/types/markdownRenderer'
 
 const baseClass = 'markdown-renderer'
@@ -122,12 +122,18 @@ const getTableVNode = (token: Token & { type: 'table' }): VNode => {
 }
 
 const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
+  const classList = [`${baseClass}__code`]
   switch (token.lang) {
     case 'python':
     case 'markdown':
     case 'json':
+    case 'html':
+    case 'css':
+    case 'javascript':
+    case 'vue':
+      return h(PCodeHighlight, { text: token.text, lang: token.lang, class: classList })
     default:
-      return h(PCode, {}, { default: () => token.text })
+      return h(PCode, { class: classList }, { default: () => token.text })
   }
 }
 

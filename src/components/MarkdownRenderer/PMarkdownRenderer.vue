@@ -59,4 +59,10 @@
 .markdown-view__token { @apply
   mb-4
 }
+
+.markdown-renderer__code { @apply
+  p-4
+  max-w-full
+  overflow-auto
+}
 </style>
