@@ -24,6 +24,7 @@ export const components: Section = {
   label: () => import('./Label.vue'),
   links: () => import('./Links.vue'),
   listItems: () => import('./ListItems.vue'),
+  markdownRenderer: () => import('./MarkdownRenderer.vue'),
   message: () => import('./Message.vue'),
   modals: () => import('./Modals.vue'),
   nativeDateInput: () => import('./NativeDateInput.vue'),
