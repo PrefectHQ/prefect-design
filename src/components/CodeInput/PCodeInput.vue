@@ -95,6 +95,7 @@
 
 <style>
 .p-code-input,
+.p-code-input__view,
 .p-code-input__control,
 .p-code-input__textarea,
 .p-code-input__textarea-view-container {
@@ -103,8 +104,14 @@
   line-height: inherit;
 }
 
-.p-code-input {
-  @apply
+.p-code-input__textarea,
+.p-code-input__view {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.p-code-input { @apply
   bg-background-500
   font-mono
   min-h-[100px]
@@ -154,12 +161,7 @@
   rounded-l-none
 }
 
-.p-code-input__textarea {
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-
-  @apply
+.p-code-input__textarea { @apply
   absolute
   bg-transparent
   block
@@ -186,8 +188,7 @@
   relative
 }
 
-.p-code-input__view-container {
-  @apply
+.p-code-input__view-container { @apply
   left-0
   overflow-hidden
   p-4
@@ -196,15 +197,7 @@
   z-0
 }
 
-.p-code-input__view {
-  border: none !important;
-  box-shadow: none !important;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  outline: none !important;
-
-  @apply
+.p-code-input__view { @apply
   bg-transparent
   overflow-hidden
   p-0
