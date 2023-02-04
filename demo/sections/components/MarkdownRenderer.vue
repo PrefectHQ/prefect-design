@@ -6,19 +6,36 @@
       </p-code> is a component that renders a Vue component tree from markdown.
     </template>
 
-    <p-label class="markdown-renderer__select" label="README.md">
-      <p-select v-model="selectedMarkdown" :options="options" />
-    </p-label>
+    <p-tabs v-model:selected="tab" :tabs="['Interactive', 'Live']">
+      <template #live>
+        <p-card class="markdown-renderer__live">
+          <p-label class="markdown-renderer__select" label="README.md">
+            <p-select v-model="selectedMarkdown" :options="options" />
+          </p-label>
 
-    <p-tabs v-model:selected="tab" :tabs="['Parsed', 'Raw']">
-      <template #parsed>
-        <div>
-          <PMarkdownRenderer :text="markdownRef" :link-base-url="getGitHubBaseUrl(selectedMarkdown)" />
-        </div>
+          <p-tabs v-model:selected="liveTab" :tabs="['Parsed', 'Raw']">
+            <template #parsed>
+              <div>
+                <PMarkdownRenderer :text="markdownRef" :link-base-url="getGitHubBaseUrl(selectedMarkdown)" />
+              </div>
+            </template>
+
+            <template #raw>
+              <p-code-highlight :text="markdownRef" class="markdown-renderer__raw" show-line-numbers lang="markdown" />
+            </template>
+          </p-tabs>
+        </p-card>
       </template>
 
-      <template #raw>
-        <PCodeHighlight :text="markdownRef" class="markdown-renderer__raw " show-line-numbers lang="markdown" />
+      <template #interactive>
+        <div class="markdown-renderer__interactive">
+          <p-code-input v-model="interactiveRef" lang="markdown" show-line-numbers class="markdown-renderer__interactive-input" />
+
+
+          <div class="markdown-renderer__interactive-preview">
+            <PMarkdownRenderer :text="interactiveRef" />
+          </div>
+        </div>
       </template>
     </p-tabs>
   </ComponentPage>
@@ -26,7 +43,6 @@
 
 <script lang="ts" setup>
   import { PTabs } from '@/components'
-  import PCodeHighlight from '@/components/CodeHighlight/PCodeHighlight.vue'
   import PMarkdownRenderer from '@/components/MarkdownRenderer/PMarkdownRenderer.vue'
   import { SelectOptionNormalized } from '@/types/selectOption'
   import { ref, watch } from 'vue'
@@ -41,7 +57,42 @@
     { label: 'Fiber', value: 'gofiber/fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
   const selectedMarkdown = ref('developit/microbundle')
-  const tab = ref('Parsed')
+  const tab = ref('Interactive')
+  const liveTab = ref('Parsed')
+
+  const user1 = 'xXXpossiblyviewerXXx'
+  const user2 = 'boomerangstaysail15'
+  const user3 = 'endurable_giraffe11'
+  const interactiveRef = ref(`# Chat history
+
+**${user1}**: hey
+**${user1}**: can i trade
+**${user1}**: items
+**${user1}**: well can i see your item
+**${user2}**: which one?
+**${user1}**: the scroched
+**${user1}**: can i just see it
+**${user2}**: i can't it's my friend's
+**${user1}**: can i see it for a sec
+**${user1}**: whats ur friends name
+**${user2}**: no
+**${user1}**: its my brother's item
+**${user2}**: what ur brothers name
+**${user1}**: ${user3}
+---
+__${user1} has changed their name to ${user3}__
+---
+**${user3}**: hey its me ur brother
+**${user1}**: no its not
+**${user3}**: yes
+
+---
+__**${user3}** has asked to trade with you__
+---
+__**${user3}** has changed their name to **${user1}**__
+---
+`)
+
   const markdownRef = ref('')
   const getMarkdown = async (): Promise<void> => {
     const url = options.find(option => option.value == selectedMarkdown.value)?.url
@@ -60,10 +111,41 @@
   ml-auto
 }
 
+.markdown-renderer__live { @apply
+  bg-background-400
+}
+
+.markdown-renderer__interactive,
+.markdown-renderer__live { @apply
+  my-12
+}
+
 .markdown-renderer__raw { @apply
+  bg-background-600
+  dark:bg-background-400
   overflow-auto
+  pl-0
   max-w-full
-  max-h-96
   w-full
+}
+
+.markdown-renderer__interactive { @apply
+  flex
+  flex-col
+  items-stretch
+  justify-items-stretch
+  gap-12
+  md:flex-row
+  h-96
+}
+
+.markdown-renderer__interactive-input { @apply
+  w-full
+}
+
+.markdown-renderer__interactive-preview { @apply
+  w-full
+  h-96
+  overflow-auto
 }
 </style>

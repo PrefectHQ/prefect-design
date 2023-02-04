@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { default as dompurify } from 'dompurify'
   import { marked } from 'marked'
   import { computed, ref, watch } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
@@ -28,8 +29,16 @@
 
   worker.onmessage = (event: MessageEvent<FormattedMessagePayload>) => handleWorkerMessage(event.data)
 
+
+  const forbiddenAttrs = ['style']
+  const useProfiles = { svg: true, html: true }
+
   watch(() => [props.text], ([text]) => {
     if (text) {
+      text = dompurify.sanitize(text, {
+        FORBID_ATTR: forbiddenAttrs,
+        USE_PROFILES: useProfiles,
+      })
       worker.postMessage({ text })
     }
   }, { immediate: true })
@@ -64,6 +73,8 @@
 .markdown-renderer__image { @apply
   h-auto
   max-w-full
+  rounded
+  shadow-sm
 }
 
 .markdown-renderer__code { @apply
@@ -79,6 +90,14 @@
 
 .markdown-renderer__text--strong { @apply
   font-semibold
+}
+
+.markdown-renderer__blockquote { @apply
+  italic
+  border-l-4
+  border-background-600
+  pl-4
+  ml-2
 }
 
 .markdown-renderer__text--em { @apply

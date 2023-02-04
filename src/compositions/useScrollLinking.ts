@@ -35,6 +35,8 @@ export function useScrollLinking(
 
     targetRef.value.scrollTop = sourceRef.value.scrollTop
     targetRef.value.scrollLeft = sourceRef.value.scrollLeft
+
+    sourceRef.value.style.width = `${targetRef.value.scrollWidth}px`
   }
 
   const connect = (): void => {

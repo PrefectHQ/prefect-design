@@ -13,11 +13,13 @@
     <template #control="{ attrs: ctrlAttrs }">
       <div ref="source" class="p-code-input__control" :class="classes.inputControl">
         <textarea
+          ref="textarea"
           v-model="internalValue"
           spellcheck="false"
           class="p-code-input__textarea"
           :rows="lines"
           :class="classes.textArea"
+          :style="styles.textArea"
           v-bind="ctrlAttrs"
         />
 
@@ -43,7 +45,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { useResizeObserver, UseResizeObserverCallback } from '@prefecthq/vue-compositions'
+  import { computed, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
   import { SupportedLanguage } from '@/types/codeHighlight'
@@ -58,7 +61,23 @@
     (event: 'update:modelValue', value: string): void,
   }>()
 
+  const textarea = ref()
+  const textAreaWidth = ref('100%')
   const { source, target } = useScrollLinking()
+
+  const handleResize: UseResizeObserverCallback = (entries: ResizeObserverEntry[]) => {
+    console.log('handling reszine 2')
+    if (!textarea.value || !source.value || !entries.length) {
+      return
+    }
+
+    console.log('handling resize')
+
+    textAreaWidth.value = `${source.value.scrollWidth}px`
+  }
+
+  const { observe } = useResizeObserver(handleResize)
+  observe(target)
 
   const lines = computed(() => internalValue.value.split('\n').length)
 
@@ -79,6 +98,21 @@
       'p-code-input__textarea--show-line-numbers': props.showLineNumbers,
     },
   }))
+
+  const styles = computed(() => ({
+    textArea: {
+      width: textAreaWidth.value,
+    },
+  }))
+
+
+  // onMounted(() => {
+  //   source.value?.addEventListener('resize', handleResize)
+  // })
+
+  // onBeforeUnmount(() => {
+  //   source.value?.removeEventListener('scroll', handleResize)
+  // })
 </script>
 
 <style>
@@ -155,6 +189,7 @@
   m-0
   p-4
   whitespace-nowrap
+  min-h-full
   top-0
 }
 

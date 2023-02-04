@@ -38,12 +38,12 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
     return t(unescapeHtml(token.text))
   }
 
-  if (type == 'space') {
+  if (type == 'br' || type == 'space') {
     const classList = [`${baseClass}__space`]
     return h(baseElement, { class: classList }, children)
   }
 
-  if (type == 'br' || type == 'hr') {
+  if (type == 'hr') {
     const classList = [`${baseClass}__divider`]
     return h(PDivider, { class: classList })
   }
@@ -76,9 +76,9 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   }
 
   if (type == 'list_item') {
-    const { task } = token
+    const { task, checked } = token
 
-    if (task) {
+    if (task || typeof checked === 'boolean') {
       return getCheckboxVNode(token)
     }
 
@@ -94,13 +94,18 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
 
   if (type == 'heading') {
     const { depth } = token
-    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
 
-    if (depth < 3) {
+    if (depth < 2) {
       children?.push(h(PDivider))
     }
 
-    return h(`h${depth}`, { class: classList }, children)
+    if (!children?.length) {
+      const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
+      return h(`h${depth}`, { class: classList }, children)
+    }
+
+    const classList = [`${baseClass}__heading-wrapper`]
+    return h(baseElement, { class: classList }, children)
   }
 
   if (type == 'link') {
