@@ -136,7 +136,6 @@
   w-full
 }
 
-
 .p-code-input__control { @apply
   bg-background
   cursor-text
@@ -186,8 +185,9 @@
 
 .p-code-input__textarea-view-container { @apply
   relative
-  mt-4
   ml-4
+  mt-4
+  pr-4
 }
 
 .p-code-input__view-container { @apply
