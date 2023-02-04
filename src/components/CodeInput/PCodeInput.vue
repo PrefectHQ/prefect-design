@@ -11,31 +11,34 @@
     </template>
 
     <template #control="{ attrs: ctrlAttrs }">
-      <div ref="source" class="p-code-input__control" :class="classes.inputControl">
-        <textarea
-          v-model="internalValue"
-          spellcheck="false"
-          class="p-code-input__textarea"
-          :rows="lines"
-          :class="classes.textArea"
-          v-bind="ctrlAttrs"
-        />
+      <div ref="source" class="p-code-input__control" :class="classes.inputControl" @click.self="handleInputControlClick">
+        <div class="p-code-input__textarea-view-container">
+          <textarea
+            ref="textarea"
+            v-model="internalValue"
+            spellcheck="false"
+            class="p-code-input__textarea"
+            :rows="rows"
+            :class="classes.textArea"
+            v-bind="ctrlAttrs"
+          />
 
-        <div class="p-code-input__view-container">
-          <template v-if="lang">
-            <PCodeHighlight
-              :lang="lang"
-              :text="internalValue"
-              class="p-code-input__view"
-              v-bind="ctrlAttrs"
-            />
-          </template>
+          <div class="p-code-input__view-container">
+            <template v-if="lang">
+              <PCodeHighlight
+                :lang="lang"
+                :text="internalValue"
+                class="p-code-input__view"
+                v-bind="ctrlAttrs"
+              />
+            </template>
 
-          <template v-else>
-            <PCode class="p-code-input__view" v-bind="ctrlAttrs">
-              {{ internalValue }}
-            </PCode>
-          </template>
+            <template v-else>
+              <PCode class="p-code-input__view" v-bind="ctrlAttrs">
+                {{ internalValue }}
+              </PCode>
+            </template>
+          </div>
         </div>
       </div>
     </template>
@@ -43,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
   import { SupportedLanguage } from '@/types/codeHighlight'
@@ -58,9 +61,12 @@
     (event: 'update:modelValue', value: string): void,
   }>()
 
+  const textarea = ref()
   const { source, target } = useScrollLinking()
 
-  const lines = computed(() => internalValue.value.split('\n').length)
+  const valueLines = computed(() => internalValue.value.split('\n').length)
+  const lines = computed(() => Math.max(valueLines.value - 1, 1))
+  const rows = computed(() => lines.value + 1)
 
   const internalValue = computed({
     get() {
@@ -79,12 +85,19 @@
       'p-code-input__textarea--show-line-numbers': props.showLineNumbers,
     },
   }))
+
+  const handleInputControlClick = (): void => {
+    if (textarea.value) {
+      textarea.value.focus()
+    }
+  }
 </script>
 
 <style>
 .p-code-input,
 .p-code-input__control,
-.p-code-input__textarea {
+.p-code-input__textarea,
+.p-code-input__textarea-view-container {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
@@ -124,10 +137,13 @@
   items-start
   justify-start
   overflow-auto
+  overscroll-contain
+  bg-background
   rounded-lg
   min-h-[inherit]
   relative
   p-0
+  cursor-text
   z-[1]
 }
 
@@ -142,12 +158,11 @@
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  z-index: -1;
 
   @apply
   block
   grow
-  bg-background
+  bg-transparent
   text-transparent
   overflow-hidden
   caret-foreground-500
@@ -155,12 +170,24 @@
   m-0
   p-4
   whitespace-nowrap
+  box-content
+  min-h-[1rem]
+  min-w-[1rem]
   top-0
+  left-0
+  bottom-0
+  right-0
+  absolute
+  w-full
+  z-0
+}
+
+.p-code-input__textarea-view-container { @apply
+  relative
 }
 
 .p-code-input__view-container {
   @apply
-  absolute
   top-0
   left-0
   p-4
