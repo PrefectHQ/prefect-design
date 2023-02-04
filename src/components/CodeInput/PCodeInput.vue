@@ -105,22 +105,22 @@
 
 .p-code-input {
   @apply
-  relative
-  min-h-[100px]
-  font-mono
   bg-background-500
+  font-mono
+  min-h-[100px]
   overflow-auto
   p-0
+  relative
 }
 
 .p-code-input__line-numbers-wrapper { @apply
-  relative
-  shrink-0
   grow-0
   h-full
   max-h-full
-  w-min
   overflow-hidden
+  relative
+  shrink-0
+  w-min
 }
 
 .p-code-input__line-numbers { @apply
@@ -131,19 +131,19 @@
 
 
 .p-code-input__control { @apply
+  bg-background
+  cursor-text
+  flex
   grow
   h-full
-  flex
   items-start
   justify-start
+  min-h-[inherit]
   overflow-auto
   overscroll-contain
-  bg-background
-  rounded-lg
-  min-h-[inherit]
-  relative
   p-0
-  cursor-text
+  relative
+  rounded-lg
   z-[1]
 }
 
@@ -156,29 +156,29 @@
 
 .p-code-input__textarea {
   border: none !important;
-  outline: none !important;
   box-shadow: none !important;
+  outline: none !important;
 
   @apply
-  block
-  grow
+  absolute
   bg-transparent
-  text-transparent
-  overflow-hidden
-  caret-foreground-500
-  resize-none
-  m-0
-  p-4
-  whitespace-nowrap
+  block
+  bottom-0
   box-content
+  caret-foreground-500
+  grow
+  left-0
+  m-0
   min-h-[1rem]
   min-w-[1rem]
-  top-0
-  left-0
-  bottom-0
+  overflow-hidden
+  p-4
+  resize-none
   right-0
-  absolute
+  text-transparent
+  top-0
   w-full
+  whitespace-nowrap
   z-0
 }
 
@@ -188,26 +188,26 @@
 
 .p-code-input__view-container {
   @apply
-  top-0
   left-0
+  overflow-hidden
   p-4
   pointer-events-none
-  overflow-hidden
+  top-0
   z-0
 }
 
 .p-code-input__view {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
   border: none !important;
-  outline: none !important;
   box-shadow: none !important;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  outline: none !important;
 
   @apply
   bg-transparent
-  text-foreground
-  p-0
   overflow-hidden
+  p-0
+  text-foreground
 }
 </style>
