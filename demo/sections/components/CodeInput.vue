@@ -9,6 +9,13 @@
     ]"
   >
     <template #description>
+      <textarea
+        v-model="vueInput"
+        spellcheck="false"
+        class="code-input__input-textarea"
+        :rows="rows"
+      />
+
       <p-code inline>
         PCodeInput
       </p-code> is a wrapper around <p-code inline>
@@ -42,10 +49,13 @@
 // in a <\/script> tag (try removing the one in this comment lol)
   import { PCode } from '@/components'
   import PCodeInput from '@/components/CodeInput/PCodeInput.vue'
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const showLineNumbers = ref(true)
+
+  const valueLines = computed(() => vueInput.value.split(/\r|\r\n|\n/))
+  const rows = computed(() => valueLines.value.length + 1)
 
   const vueInput = ref(`<template>
   <div class="p-card">
@@ -114,11 +124,20 @@ And sighs that waft to heav'n
 </script>
 
 <style>
+.code-input__input-textarea,
 .code-input__input { @apply
   resize
   max-w-full
   h-64
   min-h-[200px]
   min-w-[200px]
+}
+
+.code-input__input-textarea { @apply
+  bg-background
+  text-foreground
+  block
+  my-2
+  w-full
 }
 </style>

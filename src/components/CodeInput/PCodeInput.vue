@@ -64,9 +64,9 @@
   const textarea = ref()
   const { source, target } = useScrollLinking()
 
-  const valueLines = computed(() => internalValue.value.split('\n').length)
-  const lines = computed(() => Math.max(valueLines.value, 1))
-  const rows = computed(() => lines.value)
+  const valueLines = computed(() => internalValue.value.split(/\r|\r\n|\n/))
+  const lines = computed(() => Math.max(valueLines.value.length, 1))
+  const rows = computed(() => valueLines.value.length)
 
   const internalValue = computed({
     get() {
@@ -165,14 +165,14 @@
   absolute
   bg-transparent
   block
-  bottom-0
   box-content
   caret-foreground-500
   grow
+  h-min
   left-0
   m-0
-  min-h-[1rem]
-  min-w-[1rem]
+  min-h-[1.5rem]
+  min-w-[1.5rem]
   overflow-hidden
   p-0
   resize-none
@@ -193,6 +193,7 @@
 .p-code-input__view-container { @apply
   overflow-hidden
   pointer-events-none
+  min-h-full
   z-0
 }
 
