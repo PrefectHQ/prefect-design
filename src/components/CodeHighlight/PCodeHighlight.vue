@@ -91,6 +91,7 @@
 }
 
 /* TODO: It'd be great to move each of these to CSS variables that could be themed more easily */
+.p-code-highlight__code-wrapper .hljs-subst,
 .p-code-highlight__code-wrapper .hljs { @apply
   text-foreground-300
 }
