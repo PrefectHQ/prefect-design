@@ -7,7 +7,7 @@
   import { computed, ref, watch } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
   import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
-  import type { MarkdownMessagePayload, ParseMessagePayload, SanitizeMessagePayload } from '@/types/markdownRenderer'
+  import type { MarkdownMessagePayload, ParseMessagePayload } from '@/types/markdownRenderer'
 
   const props = defineProps<{
     text: string,
@@ -20,20 +20,17 @@
     return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
   })
 
-  const handleWorkerMessage = (message: ParseMessagePayload | SanitizeMessagePayload): void => {
-    const { type } = message
-    if (type == 'parse') {
-      tokens.value = message.tokens
-    }
+  const handleWorkerMessage = (message: ParseMessagePayload): void => {
+    tokens.value = message.tokens
   }
 
   const worker: Worker = new MarkdownTokenWorker()
 
-  worker.onmessage = (event: MessageEvent<ParseMessagePayload | SanitizeMessagePayload>) => handleWorkerMessage(event.data)
+  worker.onmessage = (event: MessageEvent<ParseMessagePayload>) => handleWorkerMessage(event.data)
 
   watch(() => [props.text], ([text]) => {
     if (text) {
-      const message: MarkdownMessagePayload = { type: 'parse', text }
+      const message: MarkdownMessagePayload = { text }
       worker.postMessage(message)
     }
   }, { immediate: true })
