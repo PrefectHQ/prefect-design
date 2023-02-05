@@ -1,8 +1,7 @@
-import { default as dompurify } from 'dompurify'
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 import { unescapeHtml } from '@/utilities/strings'
@@ -10,16 +9,6 @@ import { unescapeHtml } from '@/utilities/strings'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
-const forbiddenAttrs = ['style']
-const useProfiles = { svg: true, html: true }
-
-const sanitize = (text: string): string => {
-  return dompurify.sanitize(text,
-    {
-      FORBID_ATTR: forbiddenAttrs,
-      USE_PROFILES: useProfiles,
-    })
-}
 
 const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
@@ -70,9 +59,7 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
 
   if (type == 'html') {
     const { text } = token
-    const sanitized = sanitize(text)
-    const node = h(baseElement, { innerHTML: sanitized, class: [`${baseClass}__html`] })
-    return node
+    return h(PHtml, { html: text, class: [`${baseClass}__html`] })
   }
 
   if (type == 'code') {

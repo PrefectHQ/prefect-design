@@ -48,18 +48,14 @@
   mb-4
 }
 
-.markdown-renderer__html { @apply
-  block
-}
-
 .markdown-renderer__html img { @apply
   inline
   max-w-full
 }
 
-.markdown-view__html,
-.markdown-view__token { @apply
-  mb-4
+.markdown-renderer__html a[href] { @apply
+  text-primary-500
+  hover:text-primary-600
 }
 
 .markdown-renderer__image { @apply
