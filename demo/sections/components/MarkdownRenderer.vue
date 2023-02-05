@@ -57,7 +57,7 @@
     { label: 'Fiber', value: 'gofiber/fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
   const selectedMarkdown = ref('developit/microbundle')
-  const tab = ref('Interactive')
+  const tab = ref('Live')
   const liveTab = ref('Parsed')
 
   const user1 = 'xXXpossiblyviewerXXx'

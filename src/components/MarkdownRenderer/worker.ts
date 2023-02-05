@@ -1,6 +1,6 @@
 import { default as dompurify } from 'dompurify'
 import { marked } from 'marked'
-import { UnformattedMessagePayload } from '@/types/markdownRenderer'
+import { ParseMessagePayload, SanitizeMessagePayload, MarkdownMessagePayload } from '@/types/markdownRenderer'
 
 const forbiddenAttrs = ['style']
 const useProfiles = { svg: true, html: true }
@@ -21,16 +21,26 @@ const parse = (text: string): marked.TokensList => {
   return marked.lexer(text, markedOptions)
 }
 
-const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void => {
-  const { text } = message.data
+const sanitize = (text: string): string => {
+  return dompurify.sanitize(text,
+    {
+      FORBID_ATTR: forbiddenAttrs,
+      USE_PROFILES: useProfiles,
+    })
+}
 
-  const parsed = parse(text)
-  const response = {
-    unformatted: text,
-    tokens: parsed,
+const handleMessage = (message: MessageEvent<MarkdownMessagePayload>): void => {
+  const { text, type } = message.data
+
+  if (type == 'parse') {
+    const tokens = parse(text)
+    const response: ParseMessagePayload = { type, tokens }
+    self.postMessage(response)
+  } else {
+    const sanitized = sanitize(text)
+    const response: SanitizeMessagePayload = { type, sanitized }
+    self.postMessage(response)
   }
-
-  self.postMessage(response)
 }
 
 self.onmessage = handleMessage

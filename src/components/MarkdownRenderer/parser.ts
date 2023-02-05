@@ -8,6 +8,9 @@ import { unescapeHtml } from '@/utilities/strings'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
+const forbiddenAttrs = ['style']
+const useProfiles = { svg: true, html: true }
+
 const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
   const baseElement = 'div'

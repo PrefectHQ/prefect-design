@@ -3,12 +3,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { default as dompurify } from 'dompurify'
   import { marked } from 'marked'
   import { computed, ref, watch } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
   import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
-  import type { FormattedMessagePayload } from '@/types/markdownRenderer'
+  import type { MarkdownMessagePayload, ParseMessagePayload, SanitizeMessagePayload } from '@/types/markdownRenderer'
 
   const props = defineProps<{
     text: string,
@@ -21,25 +20,21 @@
     return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
   })
 
-  const handleWorkerMessage = (message: FormattedMessagePayload): void => {
-    tokens.value = message.tokens
+  const handleWorkerMessage = (message: ParseMessagePayload | SanitizeMessagePayload): void => {
+    const { type } = message
+    if (type == 'parse') {
+      tokens.value = message.tokens
+    }
   }
 
   const worker: Worker = new MarkdownTokenWorker()
 
-  worker.onmessage = (event: MessageEvent<FormattedMessagePayload>) => handleWorkerMessage(event.data)
-
-
-  const forbiddenAttrs = ['style']
-  const useProfiles = { svg: true, html: true }
+  worker.onmessage = (event: MessageEvent<ParseMessagePayload | SanitizeMessagePayload>) => handleWorkerMessage(event.data)
 
   watch(() => [props.text], ([text]) => {
     if (text) {
-      text = dompurify.sanitize(text, {
-        FORBID_ATTR: forbiddenAttrs,
-        USE_PROFILES: useProfiles,
-      })
-      worker.postMessage({ text })
+      const message: MarkdownMessagePayload = { type: 'parse', text }
+      worker.postMessage(message)
     }
   }, { immediate: true })
 </script>
