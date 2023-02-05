@@ -1,4 +1,6 @@
+import { default as dompurify } from 'dompurify'
 import { marked } from 'marked'
+
 import { VNode, h, createTextVNode as t } from 'vue'
 import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
@@ -10,6 +12,14 @@ const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 't
 
 const forbiddenAttrs = ['style']
 const useProfiles = { svg: true, html: true }
+
+const sanitize = (text: string): string => {
+  return dompurify.sanitize(text,
+    {
+      FORBID_ATTR: forbiddenAttrs,
+      USE_PROFILES: useProfiles,
+    })
+}
 
 const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
@@ -59,7 +69,10 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   }
 
   if (type == 'html') {
-    return h(baseElement, { class: [`${baseClass}__html`] }, children)
+    const { text } = token
+    const sanitized = sanitize(text)
+    const node = h(baseElement, { innerHTML: sanitized, class: [`${baseClass}__html`] })
+    return node
   }
 
   if (type == 'code') {
