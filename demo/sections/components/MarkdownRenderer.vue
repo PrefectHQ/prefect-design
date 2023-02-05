@@ -79,18 +79,25 @@
 **${user1}**: its my brother's item
 **${user2}**: what ur brothers name
 **${user1}**: ${user3}
+
 ---
-__${user1} has changed their name to ${user3}__
+
+_**${user1}** has changed their name to **${user3}**_
+
 ---
+
 **${user3}**: hey its me ur brother
 **${user1}**: no its not
 **${user3}**: yes
 
 ---
-__**${user3}** has asked to trade with you__
+
+_**${user3}** has asked to trade with you_
+
 ---
-__**${user3}** has changed their name to **${user1}**__
----
+
+_**${user3}** has changed their name to **${user1}**_
+
 `)
 
   const markdownRef = ref('')

@@ -99,13 +99,13 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
       children?.push(h(PDivider))
     }
 
+    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
+
     if (!children?.length) {
-      const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
       return h(`h${depth}`, { class: classList }, children)
     }
 
-    const classList = [`${baseClass}__heading-wrapper`]
-    return h(baseElement, { class: classList }, children)
+    return h(baseElement, { class: [...classList, `${baseClass}__heading-wrapper`] }, children)
   }
 
   if (type == 'link') {
