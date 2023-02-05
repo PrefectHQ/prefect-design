@@ -114,11 +114,20 @@ And sighs that waft to heav'n
 </script>
 
 <style>
+.code-input__input-textarea,
 .code-input__input { @apply
   resize
   max-w-full
   h-64
   min-h-[200px]
   min-w-[200px]
+}
+
+.code-input__input-textarea { @apply
+  bg-background
+  text-foreground
+  block
+  my-2
+  w-full
 }
 </style>

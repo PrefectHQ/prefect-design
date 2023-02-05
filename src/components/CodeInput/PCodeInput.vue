@@ -11,33 +11,34 @@
     </template>
 
     <template #control="{ attrs: ctrlAttrs }">
-      <div ref="source" class="p-code-input__control" :class="classes.inputControl">
-        <textarea
-          ref="textarea"
-          v-model="internalValue"
-          spellcheck="false"
-          class="p-code-input__textarea"
-          :rows="lines"
-          :class="classes.textArea"
-          :style="styles.textArea"
-          v-bind="ctrlAttrs"
-        />
+      <div ref="source" class="p-code-input__control" :class="classes.inputControl" @click.self="handleInputControlClick">
+        <div class="p-code-input__textarea-view-container">
+          <textarea
+            ref="textarea"
+            v-model="internalValue"
+            spellcheck="false"
+            class="p-code-input__textarea"
+            :rows="rows"
+            :class="classes.textArea"
+            v-bind="ctrlAttrs"
+          />
 
-        <div class="p-code-input__view-container">
-          <template v-if="lang">
-            <PCodeHighlight
-              :lang="lang"
-              :text="internalValue"
-              class="p-code-input__view"
-              v-bind="ctrlAttrs"
-            />
-          </template>
+          <div class="p-code-input__view-container">
+            <template v-if="lang">
+              <PCodeHighlight
+                :lang="lang"
+                :text="internalValue"
+                class="p-code-input__view"
+                v-bind="ctrlAttrs"
+              />
+            </template>
 
-          <template v-else>
-            <PCode class="p-code-input__view" v-bind="ctrlAttrs">
-              {{ internalValue }}
-            </PCode>
-          </template>
+            <template v-else>
+              <PCode class="p-code-input__view" v-bind="ctrlAttrs">
+                {{ internalValue }}
+              </PCode>
+            </template>
+          </div>
         </div>
       </div>
     </template>
@@ -45,7 +46,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { useResizeObserver, UseResizeObserverCallback } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
@@ -62,24 +62,11 @@
   }>()
 
   const textarea = ref()
-  const textAreaWidth = ref('100%')
   const { source, target } = useScrollLinking()
 
-  const handleResize: UseResizeObserverCallback = (entries: ResizeObserverEntry[]) => {
-    console.log('handling reszine 2')
-    if (!textarea.value || !source.value || !entries.length) {
-      return
-    }
-
-    console.log('handling resize')
-
-    textAreaWidth.value = `${source.value.scrollWidth}px`
-  }
-
-  const { observe } = useResizeObserver(handleResize)
-  observe(target)
-
-  const lines = computed(() => internalValue.value.split('\n').length)
+  const valueLines = computed(() => internalValue.value.split(/\r|\r\n|\n/))
+  const lines = computed(() => Math.max(valueLines.value.length, 1))
+  const rows = computed(() => valueLines.value.length)
 
   const internalValue = computed({
     get() {
@@ -99,49 +86,48 @@
     },
   }))
 
-  const styles = computed(() => ({
-    textArea: {
-      width: textAreaWidth.value,
-    },
-  }))
-
-
-  // onMounted(() => {
-  //   source.value?.addEventListener('resize', handleResize)
-  // })
-
-  // onBeforeUnmount(() => {
-  //   source.value?.removeEventListener('scroll', handleResize)
-  // })
+  const handleInputControlClick = (): void => {
+    if (textarea.value) {
+      textarea.value.focus()
+    }
+  }
 </script>
 
 <style>
 .p-code-input,
+.p-code-input__view,
 .p-code-input__control,
-.p-code-input__textarea {
+.p-code-input__textarea,
+.p-code-input__textarea-view-container {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
 }
 
-.p-code-input {
-  @apply
-  relative
-  min-h-[100px]
-  font-mono
+.p-code-input__textarea,
+.p-code-input__view {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.p-code-input { @apply
   bg-background-500
+  font-mono
+  min-h-[100px]
   overflow-auto
   p-0
+  relative
 }
 
 .p-code-input__line-numbers-wrapper { @apply
-  relative
-  shrink-0
   grow-0
   h-full
   max-h-full
-  w-min
   overflow-hidden
+  relative
+  shrink-0
+  w-min
 }
 
 .p-code-input__line-numbers { @apply
@@ -150,18 +136,20 @@
   w-full
 }
 
-
 .p-code-input__control { @apply
+  bg-background
+  cursor-text
+  flex
   grow
   h-full
-  flex
   items-start
   justify-start
-  overflow-auto
-  rounded-lg
   min-h-[inherit]
-  relative
+  overflow-auto
+  overscroll-contain
   p-0
+  relative
+  rounded-lg
   z-[1]
 }
 
@@ -172,50 +160,48 @@
   rounded-l-none
 }
 
-.p-code-input__textarea {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  z-index: -1;
-
-  @apply
-  block
-  grow
-  bg-background
-  text-transparent
-  overflow-hidden
-  caret-foreground-500
-  resize-none
-  m-0
-  p-4
-  whitespace-nowrap
-  min-h-full
-  top-0
-}
-
-.p-code-input__view-container {
-  @apply
+.p-code-input__textarea { @apply
   absolute
-  top-0
+  bg-transparent
+  block
+  box-content
+  caret-foreground-500
+  grow
+  h-min
   left-0
-  p-4
-  pointer-events-none
+  m-0
+  min-h-[1.5rem]
+  min-w-[1.5rem]
   overflow-hidden
+  p-0
+  resize-none
+  right-0
+  text-transparent
+  top-0
+  w-full
+  whitespace-nowrap
   z-0
 }
 
-.p-code-input__view {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+.p-code-input__textarea-view-container { @apply
+  relative
+  ml-4
+  mt-4
+  pr-4
+}
 
-  @apply
-  bg-transparent
-  text-foreground
-  p-0
+.p-code-input__view-container { @apply
   overflow-hidden
+  pointer-events-none
+  min-h-full
+  z-0
+}
+
+.p-code-input__view { @apply
+  bg-transparent
+  overflow-hidden
+  min-h-full
+  p-0
+  text-foreground
 }
 </style>
