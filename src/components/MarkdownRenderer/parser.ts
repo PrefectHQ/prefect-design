@@ -9,8 +9,7 @@ import { unescapeHtml } from '@/utilities/strings'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
-
-const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNode => {
+const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.TokensList | Token[]): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
   const baseElement = 'div'
 
@@ -19,7 +18,7 @@ const getVNode = (token: marked.TokensList[number], options: ParserOptions): VNo
   let children: VNodeChildren
 
   if ('tokens' in token) {
-    children = token.tokens?.map(_t => getVNode(_t, options)) ?? undefined
+    children = token.tokens?.map((_t, i, arr) => getVNode(_t, options, i, arr)) ?? undefined
   } else {
     children = []
   }
@@ -136,7 +135,7 @@ const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, c
   const { ordered, items } = token
   const base = ordered ? 'ol' : 'ul'
   const classList = [`${baseClass}__list`, `${baseClass}__list--${ordered ? 'ordered' : 'unordered'}`]
-  const listItems = items.map(item => getVNode(item, options))
+  const listItems = items.map((item, i, arr) => getVNode(item, options, i, arr))
   return h(base, { class: classList }, [...children, ...listItems])
 }
 
@@ -151,6 +150,6 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
 }
 
 export const getRootVNode = (tokens: marked.TokensList | [], options: ParserOptions): VNode => {
-  const children: VNode[] = tokens.map((token) => getVNode(token, options))
+  const children: VNode[] = tokens.map((token, i, arr) => getVNode(token, options, i, arr))
   return h('article', { class: [baseClass] }, children)
 }

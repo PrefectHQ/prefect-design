@@ -1,7 +1,7 @@
 <template>
-  <div class="p-html">
+  <span class="p-html">
     <PUnwrap :html="sanitizedHtml" />
-  </div>
+  </span>
 </template>
 
 <script lang="ts" setup>
