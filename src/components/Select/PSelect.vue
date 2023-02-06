@@ -33,7 +33,7 @@
                 <template #tag="{ tag }">
                   <slot name="tag" :label="tag.label" :value="tag" :dismiss="() => dismissTag(tag)">
                     <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">
-                      <slot :label="tag.label" :value="tag.value">
+                      <slot :label="tag.label" :value="tag.value" :option="getSelectOption(tag.value)">
                         {{ tag.label }}
                       </slot>
                     </PTag>
@@ -47,7 +47,7 @@
             </template>
 
             <template v-else-if="!Array.isArray(modelValue)">
-              <slot :label="getLabel(modelValue)" :value="modelValue">
+              <slot :label="getLabel(modelValue)" :value="modelValue" :option="getSelectOption(modelValue)">
                 {{ getLabel(modelValue) }}
               </slot>
             </template>

@@ -8,8 +8,8 @@
     @open="focusOnTextInput"
     @keydown="handleComboboxKeydown"
   >
-    <template #default="{ value }">
-      <slot :value="value" :label="displayValue(value)">
+    <template #default="{ value, option }">
+      <slot :value="value" :label="displayValue(value)" :option="option">
         {{ displayValue(value) }}
       </slot>
     </template>
