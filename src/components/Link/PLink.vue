@@ -21,7 +21,9 @@
   const component = computed(() => !props.to || isExternal.value ? 'a' : 'router-link')
   const componentProps = computed(() => {
     if (!props.to) {
-      return {}
+      return {
+        target: '_blank',
+      }
     }
 
     if (isExternal.value) {
