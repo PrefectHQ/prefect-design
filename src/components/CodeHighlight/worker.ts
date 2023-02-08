@@ -16,7 +16,6 @@ import {
   isHtmlLanguageRef,
   isGithubFlavoredMarkdownLanguageRef,
   isMarkdownLanguageRef,
-  isXmlLanguageRef,
   isVueLanguageRef,
   SupportedLanguage,
   UnformattedMessagePayload
@@ -46,7 +45,7 @@ const getLanguageFunctions = (lang: SupportedLanguage): Record<string, LanguageF
     return { jinja }
   }
 
-  if (isHtmlLanguageRef(lang) || isXmlLanguageRef(lang) || isVueLanguageRef(lang)) {
+  if (isHtmlLanguageRef(lang) || isVueLanguageRef(lang)) {
     return { xml, css, javascript, 'vue': vueLanguage }
   }
 

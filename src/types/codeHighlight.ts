@@ -67,10 +67,6 @@ export function isHtmlLanguageRef(lang: SupportedLanguage): lang is typeof HtmlL
   return HtmlLanguageRefs.includes(lang as typeof HtmlLanguageRefs[number])
 }
 
-export function isXmlLanguageRef(lang: SupportedLanguage): lang is typeof HtmlLanguageRefs[number] {
-  return HtmlLanguageRefs.includes(lang as typeof HtmlLanguageRefs[number])
-}
-
 export function isCssLanguageRef(lang: SupportedLanguage): lang is typeof CssLanguageRefs[number] {
   return CssLanguageRefs.includes(lang as typeof CssLanguageRefs[number])
 }
