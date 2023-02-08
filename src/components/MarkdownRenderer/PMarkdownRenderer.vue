@@ -62,9 +62,9 @@
   shadow-sm
 }
 
-.markdown-renderer__code,
-.markdown-renderer__table,
-.markdown-renderer__codespan { @apply
+.markdown-renderer__blockquote .markdown-renderer__code,
+.markdown-renderer__blockquote .markdown-renderer__table,
+.markdown-renderer__blockquote .markdown-renderer__codespan { @apply
   font-normal
   text-base
   not-italic
