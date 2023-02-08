@@ -6,7 +6,35 @@
       </p-code> is a component that renders a Vue component tree from markdown.
     </template>
 
-    <p-tabs v-model:selected="tab" :tabs="['Interactive', 'Live']">
+    <p-tabs v-model:selected="tab" :tabs="['Sections', 'Interactive', 'Live']">
+      <template #sections>
+        <p-content>
+          <PMarkdownRenderer :text="heading1" />
+          <PMarkdownRenderer :text="heading2" />
+          <PMarkdownRenderer :text="heading3" />
+          <PMarkdownRenderer :text="heading4" />
+          <PMarkdownRenderer :text="heading5" />
+          <PMarkdownRenderer :text="heading6" />
+
+          <PMarkdownRenderer :text="strikethrough" />
+          <PMarkdownRenderer :text="emphasis" />
+          <PMarkdownRenderer :text="strong" />
+          <PMarkdownRenderer :text="inlineCode" />
+          <PMarkdownRenderer :text="fencedCodeBlock" />
+          <PMarkdownRenderer :text="highlightedCodeBlock" />
+
+          <PMarkdownRenderer :text="image" />
+          <PMarkdownRenderer :text="link" />
+          <PMarkdownRenderer :text="anchor" />
+
+          <PMarkdownRenderer :text="lineBreak" />
+          <PMarkdownRenderer :text="horizontalRule" />
+
+          <PMarkdownRenderer :text="blockQuote" />
+          <PMarkdownRenderer :text="nestedBlockQuote" />
+        </p-content>
+      </template>
+
       <template #live>
         <p-card class="markdown-renderer__live">
           <p-label class="markdown-renderer__select" label="README.md">
@@ -48,6 +76,48 @@
   import { ref, watch } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
+
+  const heading1 = '# Heading 1'
+  const heading2 = '## Heading 2'
+  const heading3 = '### Heading 3'
+  const heading4 = '#### Heading 4'
+  const heading5 = '##### Heading 5'
+  const heading6 = '###### Heading 6'
+
+  const strikethrough = '~~strikethrough~~'
+  const emphasis = '_emphasis_'
+  const strong = '**strong**'
+  const inlineCode = '`inline = "code block"`'
+  const link = '[google.com](https://google.com)'
+  const lineBreak = 'line break before\nline break after'
+  const horizontalRule = 'horizontal rule before\n---\nhorizontal rule after'
+  const anchor = '[anchor](#heading-1)'
+  const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
+  const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
+  const highlightedCodeBlock = '\n```python\nhighlighted_fenced = "code block"\n```\n'
+
+  const blockQuote = '> Block quote'
+  const nestedBlockQuote = `
+  > ${emphasis}
+  > ${strong}
+  > ${strikethrough}
+  > ${inlineCode}
+  > ${fencedCodeBlock}
+  > ${highlightedCodeBlock}
+  > ${blockQuote} nested 
+  > ${link}
+  > ${anchor}
+  > ${heading1}
+  > ${heading2}
+  > ${heading3}
+  > ${heading4}
+  > ${heading5}
+  > ${heading6}
+  > ${image}
+  > ${lineBreak}
+  > ${horizontalRule}
+  `
+
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
   const options: (SelectOptionNormalized & { url: string })[] = [
     { label: 'Prefect', value: 'prefecthq/prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
@@ -57,7 +127,7 @@
     { label: 'Fiber', value: 'gofiber/fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
   const selectedMarkdown = ref('developit/microbundle')
-  const tab = ref('Live')
+  const tab = ref('Sections')
   const liveTab = ref('Parsed')
 
   const user1 = 'xXXpossiblyviewerXXx'
@@ -116,6 +186,14 @@ _**${user3}** has changed their name to **${user1}**_
   mb-4
   max-w-sm
   ml-auto
+}
+
+.markdown-renderer__section-header { @apply
+  mb-4
+  border-b
+  border-b-foreground-200
+  text-2xl
+  font-semibold
 }
 
 .markdown-renderer__live { @apply
