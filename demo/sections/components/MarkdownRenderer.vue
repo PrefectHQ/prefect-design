@@ -158,6 +158,8 @@
   > - [x] task list item 1
   > - [ ] task list item 2
   > - [ ] task list item 
+  > 
+  > ${table}
   `
 
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
