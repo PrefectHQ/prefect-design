@@ -76,7 +76,6 @@
   import { ref, watch } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-
   const heading1 = '# Heading 1'
   const heading2 = '## Heading 2'
   const heading3 = '### Heading 3'

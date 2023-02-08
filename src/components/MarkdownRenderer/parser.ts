@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 import { unescapeHtml } from '@/utilities/strings'

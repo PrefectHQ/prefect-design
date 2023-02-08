@@ -26,6 +26,7 @@ import { PForm, install as installPForm } from '@/components/Form'
 import { PFrame, install as installPFrame } from '@/components/Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from '@/components/GlobalNavItem'
 import { PGlobalSidebar, install as installPGlobalSidebar } from '@/components/GlobalSidebar'
+import { PHashLink, install as installPHashLink } from '@/components/HashLink'
 import { PHtml, install as installPHtml } from '@/components/Html'
 import { PIcon, install as installPIcon } from '@/components/Icon'
 import { PIconButtonMenu, install as installPIconButtonMenu } from '@/components/IconButtonMenu'
@@ -101,6 +102,7 @@ export {
   PEmptyState,
   PForm,
   PFrame,
+  PHashLink,
   PHtml,
   PGlobalNavItem,
   PGlobalSidebar,
@@ -187,6 +189,7 @@ export const installs = [
   installPEmptyState,
   installPForm,
   installPFrame,
+  installPHashLink,
   installPHtml,
   installPGlobalNavItem,
   installPGlobalSidebar,
@@ -267,6 +270,7 @@ declare module '@vue/runtime-core' {
     PFrame: typeof PFrame,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
+    PHashLink: typeof PHashLink,
     PHtml: typeof PHtml,
     PIcon: typeof PIcon,
     PIconButtonMenu: typeof PIconButtonMenu,
