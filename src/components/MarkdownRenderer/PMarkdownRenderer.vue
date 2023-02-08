@@ -104,11 +104,12 @@
 
 .markdown-renderer__space { @apply
   h-1
-  mb-0.5
+  my-1
 }
 
 .markdown-renderer__divider { @apply
   h-1
+  my-2
 }
 
 .markdown-renderer__heading { @apply
