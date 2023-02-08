@@ -21,7 +21,6 @@
   })
 
   const handleWorkerMessage = (message: ParseMessagePayload): void => {
-    console.log('message', message)
     tokens.value = message.tokens
   }
 

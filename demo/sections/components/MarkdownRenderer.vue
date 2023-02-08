@@ -94,7 +94,7 @@
   const anchor = '[anchor](#heading-1)'
   const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
   const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
-  const highlightedCodeBlock = '\n```python\nhighlighted_fenced = "code block"\n```\n'
+  const highlightedCodeBlock = '\n```py\nhighlighted_fenced = "code block"\n```\n'
 
   const blockQuote = '> Block quote'
   const nestedBlockQuote = `
