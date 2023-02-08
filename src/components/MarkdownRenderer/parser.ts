@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink, PTable } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 import { unescapeHtml } from '@/utilities/strings'
@@ -9,6 +9,7 @@ import { unescapeHtml } from '@/utilities/strings'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
+// TODO: Collect HTML tokens and render them as a single HTML node (?) (might need to figure out how to fix auto-closed tags if they are in the sanitized token)
 const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.TokensList | Token[]): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
   const baseElement = 'div'
@@ -95,7 +96,6 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   }
 
   if (type == 'heading') {
-    console.log(token)
     const { depth, text } = token
 
     if (depth < 2) {
@@ -117,8 +117,26 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
 }
 
 const getTableVNode = (token: Token & { type: 'table' }): VNode => {
+  console.log(token)
+  const { header, align, rows } = token
   const classList = [`${baseClass}__table`]
-  return h('table', { class: classList }, [token.raw])
+
+  const data: Record<string, unknown>[] = []
+  const columns = header.map(({ text }) => text)
+  rows.forEach((row) => {
+    const rowData: Record<string, unknown> = {}
+    columns.forEach((column, i) => {
+      rowData[column] = row[i].text
+    })
+    data.push(rowData)
+  })
+  // data: TableData[],
+  //   selected ?: TableData[],
+  //   columns ?: TableColumn[],
+  //   rowClasses ?: RowClassesMethod,
+  //   columnClasses ?: ColumnClassesMethod,
+
+  return h(PTable, { class: classList, data })
 }
 
 const getCheckboxVNode = (token: Token & { type: 'list_item' | 'checkbox' }): VNode => {

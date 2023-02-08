@@ -74,6 +74,10 @@
   inline
 }
 
+.markdown-renderer__table { @apply
+  m-2
+}
+
 .markdown-renderer__text--paragraph { @apply
   my-2
 }

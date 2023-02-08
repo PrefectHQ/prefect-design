@@ -16,6 +16,7 @@
           <PMarkdownRenderer :text="heading5" />
           <PMarkdownRenderer :text="heading6" />
           <PMarkdownRenderer :text="paragraph" />
+          <PMarkdownRenderer :text="table" />
 
           <PMarkdownRenderer :text="strikethrough" />
           <PMarkdownRenderer :text="emphasis" />
@@ -104,6 +105,18 @@
   const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
   const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
   const highlightedCodeBlock = '\n```py\nhighlighted_fenced = "code block"\n```\n'
+  const table = `**id**|**first_name**|**last_name**|**email**|**ip_address**
+:-----:|:-----:|:-----:|:-----:|:-----:
+1|Dunc|Sonner|dsonner0@princeton.edu|112.32.92.204
+2|Tammara|Paolinelli|tpaolinelli1@sogou.com|152.224.225.216
+3|Christel|Carver|ccarver2@google.cn|196.162.172.192
+4|Laureen|Lindwall|llindwall3@intel.com|38.127.177.6
+5|Kit|Portail|kportail4@phoca.cz|229.64.30.125
+6|Jerrie|Finch|jfinch5@businesswire.com|17.164.216.229
+7|Thor|Pechan|tpechan6@google.com.au|242.124.40.182
+8|Christophorus|Donat|cdonat7@w3.org|132.30.191.148
+9|Claudette|Lees|clees8@alibaba.com|115.110.216.108
+10|Jammal|Algar|jalgar9@addthis.com|245.156.39.173`
 
   const blockQuote = '> Block quote'
   const nestedBlockQuote = `
