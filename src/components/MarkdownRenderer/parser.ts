@@ -66,7 +66,7 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   }
 
   if (type == 'codespan') {
-    return h(PCode, { inline: true }, { default: () => token.text })
+    return h(PCode, { inline: true }, { default: () => unescapeHtml(token.text) })
   }
 
   if (type == 'table') {
@@ -95,6 +95,7 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   }
 
   if (type == 'heading') {
+    console.log(token)
     const { depth, text } = token
 
     if (depth < 2) {
@@ -141,7 +142,7 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
     return h(PCodeHighlight, { text, lang, class: classList })
   }
 
-  return h(PCode, { class: classList }, { default: () => text })
+  return h(PCode, { class: classList }, { default: () => unescapeHtml(text) })
 }
 
 export const getRootVNode = (tokens: marked.TokensList | [], options: ParserOptions): VNode => {

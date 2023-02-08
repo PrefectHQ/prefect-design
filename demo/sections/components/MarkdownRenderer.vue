@@ -6,15 +6,16 @@
       </p-code> is a component that renders a Vue component tree from markdown.
     </template>
 
-    <p-tabs v-model:selected="tab" :tabs="['Sections', 'Interactive', 'Live']">
-      <template #sections>
-        <p-content>
+    <p-tabs v-model:selected="tab" :tabs="['Tokens', 'Interactive', 'Live']">
+      <template #tokens>
+        <div>
           <PMarkdownRenderer :text="heading1" />
           <PMarkdownRenderer :text="heading2" />
           <PMarkdownRenderer :text="heading3" />
           <PMarkdownRenderer :text="heading4" />
           <PMarkdownRenderer :text="heading5" />
           <PMarkdownRenderer :text="heading6" />
+          <PMarkdownRenderer :text="paragraph" />
 
           <PMarkdownRenderer :text="strikethrough" />
           <PMarkdownRenderer :text="emphasis" />
@@ -22,6 +23,7 @@
           <PMarkdownRenderer :text="orderedList" />
           <PMarkdownRenderer :text="unorderedList" />
           <PMarkdownRenderer :text="taskList" />
+          <PMarkdownRenderer :text="checkbox" />
           <PMarkdownRenderer :text="inlineCode" />
           <PMarkdownRenderer :text="fencedCodeBlock" />
           <PMarkdownRenderer :text="highlightedCodeBlock" />
@@ -35,7 +37,7 @@
 
           <PMarkdownRenderer :text="blockQuote" />
           <PMarkdownRenderer :text="nestedBlockQuote" />
-        </p-content>
+        </div>
       </template>
 
       <template #live>
@@ -85,17 +87,19 @@
   const heading4 = '#### Heading 4'
   const heading5 = '##### Heading 5'
   const heading6 = '###### Heading 6'
+  const paragraph = 'paragraph\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
   const strikethrough = '~~strikethrough~~'
   const emphasis = '_emphasis_'
   const strong = '**strong**'
   const inlineCode = '`inline = "code block"`'
+  const checkbox = '- [x] checkbox'
   const unorderedList = '- unordered list item 1\n- unordered list item 2\n- unordered list item 3'
   const orderedList = '1. ordered list item 1\n2. ordered list item 2\n3. ordered list item 3'
   const taskList = '- [x] task list item 1\n- [ ] task list item 2\n- [ ] task list item 3'
   const link = '[google.com](https://google.com)'
   const lineBreak = 'line break before\nline break after'
-  const horizontalRule = 'horizontal rule before\n---\nhorizontal rule after'
+  const horizontalRule = '\nhorizontal rule before\n\n---\n\nhorizontal rule after\n'
   const anchor = '[anchor](#heading-1)'
   const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
   const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
@@ -103,13 +107,15 @@
 
   const blockQuote = '> Block quote'
   const nestedBlockQuote = `
+  > Rendering in block quotes:
+  > ${paragraph}
   > ${emphasis}
   > ${strong}
   > ${strikethrough}
   > ${inlineCode}
   > ${fencedCodeBlock}
   > ${highlightedCodeBlock}
-  > ${blockQuote} nested 
+  > ${blockQuote} nested
   > ${link}
   > ${anchor}
   > ${heading1}
@@ -120,10 +126,18 @@
   > ${heading6}
   > ${image}
   > ${lineBreak}
-  > ${horizontalRule}
-  > ${unorderedList}
-  > ${orderedList}
-  > ${taskList}
+  > horizontal rule before
+  > ---
+  > horizontal rule after
+  > - unordered list item 1
+  > - unordered list item 2
+  > - unordered list item 3
+  > 1. ordered list item 1
+  > 2. ordered list item 2
+  > 3. ordered list item 3
+  > - [x] task list item 1
+  > - [ ] task list item 2
+  > - [ ] task list item 
   `
 
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
@@ -135,7 +149,7 @@
     { label: 'Fiber', value: 'gofiber/fiber', url: 'https://raw.githubusercontent.com/gofiber/fiber/master/.github/README.md' },
   ]
   const selectedMarkdown = ref('developit/microbundle')
-  const tab = ref('Sections')
+  const tab = ref('Tokens')
   const liveTab = ref('Parsed')
 
   const user1 = 'xXXpossiblyviewerXXx'

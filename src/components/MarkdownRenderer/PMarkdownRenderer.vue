@@ -44,9 +44,6 @@
   overflow-auto
 }
 
-.markdown-renderer > * { @apply
-  mb-4
-}
 
 .markdown-renderer__html img { @apply
   inline
@@ -75,6 +72,10 @@
 .markdown-renderer__text--strong,
 .markdown-renderer__text--em { @apply
   inline
+}
+
+.markdown-renderer__text--paragraph { @apply
+  my-2
 }
 
 .markdown-renderer__text--del { @apply
@@ -108,6 +109,10 @@
 
 .markdown-renderer__divider { @apply
   h-1
+}
+
+.markdown-renderer__heading { @apply
+  my-2
 }
 
 .markdown-renderer__heading--h1,
