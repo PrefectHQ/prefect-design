@@ -21,6 +21,7 @@
   })
 
   const handleWorkerMessage = (message: ParseMessagePayload): void => {
+    console.log('message', message)
     tokens.value = message.tokens
   }
 
@@ -71,9 +72,14 @@
   overflow-auto
 }
 
+.markdown-renderer__text--del,
 .markdown-renderer__text--strong,
 .markdown-renderer__text--em { @apply
   inline
+}
+
+.markdown-renderer__text--del { @apply
+  line-through
 }
 
 .markdown-renderer__text--strong { @apply

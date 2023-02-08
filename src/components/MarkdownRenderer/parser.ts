@@ -26,7 +26,7 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   const props: Record<string, unknown> = { class: [`${baseClass}__token`] }
   const { type } = token
 
-  const textTypes: Token['type'][] = ['text', 'paragraph', 'strong', 'em']
+  const textTypes: Token['type'][] = ['text', 'paragraph', 'strong', 'em', 'del']
 
   if ('text' in token && textTypes.includes(type)) {
     // This is because text tokens can have embedded elements
@@ -65,7 +65,7 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
     return getCodeVNode(token)
   }
 
-  if (type == 'codespan' || type == 'del') {
+  if (type == 'codespan') {
     return h(PCode, { inline: true }, { default: () => token.text })
   }
 
