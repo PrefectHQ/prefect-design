@@ -78,6 +78,18 @@
   m-2
 }
 
+.markdown-renderer__table-column--center { @apply
+  text-center
+}
+
+.markdown-renderer__table-column--left { @apply
+  text-left
+}
+
+.markdown-renderer__table-column--right { @apply
+  text-right
+}
+
 .markdown-renderer__text--paragraph { @apply
   my-2
 }

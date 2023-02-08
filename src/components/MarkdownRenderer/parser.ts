@@ -4,15 +4,16 @@ import { VNode, h, createTextVNode as t } from 'vue'
 import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink, PTable } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
-import { unescapeHtml } from '@/utilities/strings'
+import { ColumnClassesMethod } from '@/types/tables'
+import { kebabCase, unescapeHtml } from '@/utilities/strings'
 
+const baseElement = 'div'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
 // TODO: Collect HTML tokens and render them as a single HTML node (?) (might need to figure out how to fix auto-closed tags if they are in the sanitized token)
 const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.TokensList | Token[]): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
-  const baseElement = 'div'
 
   const normalizeHref = (href: string): string => href.startsWith('http') ? href : `${baseLinkUrl}${href}`
 
@@ -71,7 +72,7 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   }
 
   if (type == 'table') {
-    return getTableVNode(token)
+    return getTableVNode(token, options)
   }
 
   if (type == 'list') {
@@ -116,27 +117,58 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   return h(baseElement, props, children)
 }
 
-const getTableVNode = (token: Token & { type: 'table' }): VNode => {
-  console.log(token)
+const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions): VNode => {
   const { header, align, rows } = token
   const classList = [`${baseClass}__table`]
 
-  const data: Record<string, unknown>[] = []
-  const columns = header.map(({ text }) => text)
+  type TableDataValue = unknown & { _markdownMetadata: { text: string, tokens: Token[] } }
+  type TableData = Record<string, TableDataValue>
+  const data: TableData[] = []
+  const columns: string[] = []
+  const slots: Record<string, unknown> = {}
+
+  header.forEach(({ text, tokens }, index) => {
+    const slotName = kebabCase(text)
+    columns.push(slotName)
+
+    const headerChildren = tokens.map((_t, i, arr) => getVNode(_t, options, i, arr))
+    const classList = [`${baseClass}__table-heading`]
+    const alignValue = align[index]
+    if (alignValue) {
+      classList.push(`${baseClass}__table-column--${alignValue}`)
+    }
+    slots[`${slotName}-heading`] = () => h(baseElement, { class: classList }, headerChildren)
+  })
+
   rows.forEach((row) => {
-    const rowData: Record<string, unknown> = {}
-    columns.forEach((column, i) => {
-      rowData[column] = row[i].text
+    const rowData: TableData = {}
+    row.forEach(({ text, tokens }, i) => {
+      const slotName = kebabCase(text)
+      rowData[columns[i]] = { [slotName]: text, _markdownMetadata: { text, tokens } }
     })
     data.push(rowData)
   })
-  // data: TableData[],
-  //   selected ?: TableData[],
-  //   columns ?: TableColumn[],
-  //   rowClasses ?: RowClassesMethod,
-  //   columnClasses ?: ColumnClassesMethod,
 
-  return h(PTable, { class: classList, data })
+  columns.forEach((column) => {
+    slots[column] = ({ value }: { value: TableDataValue }) => {
+      const { _markdownMetadata: { tokens } } = value
+      const cellChildren = tokens.map((_t, i, arr) => {
+        return getVNode(_t, options, i, arr)
+      })
+      return cellChildren
+    }
+  })
+
+  const columnClasses: ColumnClassesMethod = (column, value, index) => {
+    const alignValue = align[index]
+    const classList = [`${baseClass}__table-column`]
+    if (alignValue) {
+      classList.push(`${baseClass}__table-column--${alignValue}`)
+    }
+    return classList
+  }
+
+  return h(PTable, { class: classList, data, columnClasses }, slots)
 }
 
 const getCheckboxVNode = (token: Token & { type: 'list_item' | 'checkbox' }): VNode => {
