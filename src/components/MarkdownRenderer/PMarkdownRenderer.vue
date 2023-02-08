@@ -62,6 +62,14 @@
   shadow-sm
 }
 
+.markdown-renderer__code,
+.markdown-renderer__table,
+.markdown-renderer__codespan { @apply
+  font-normal
+  text-base
+  not-italic
+}
+
 .markdown-renderer__code { @apply
   p-4
   max-w-full

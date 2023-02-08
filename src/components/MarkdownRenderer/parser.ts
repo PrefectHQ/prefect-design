@@ -68,7 +68,8 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   }
 
   if (type == 'codespan') {
-    return h(PCode, { inline: true }, { default: () => unescapeHtml(token.text) })
+    const classList = [`${baseClass}__codespan`]
+    return h(PCode, { inline: true, class: classList }, { default: () => unescapeHtml(token.text) })
   }
 
   if (type == 'table') {
