@@ -19,6 +19,9 @@
           <PMarkdownRenderer :text="strikethrough" />
           <PMarkdownRenderer :text="emphasis" />
           <PMarkdownRenderer :text="strong" />
+          <PMarkdownRenderer :text="orderedList" />
+          <PMarkdownRenderer :text="unorderedList" />
+          <PMarkdownRenderer :text="taskList" />
           <PMarkdownRenderer :text="inlineCode" />
           <PMarkdownRenderer :text="fencedCodeBlock" />
           <PMarkdownRenderer :text="highlightedCodeBlock" />
@@ -87,6 +90,9 @@
   const emphasis = '_emphasis_'
   const strong = '**strong**'
   const inlineCode = '`inline = "code block"`'
+  const unorderedList = '- unordered list item 1\n- unordered list item 2\n- unordered list item 3'
+  const orderedList = '1. ordered list item 1\n2. ordered list item 2\n3. ordered list item 3'
+  const taskList = '- [x] task list item 1\n- [ ] task list item 2\n- [ ] task list item 3'
   const link = '[google.com](https://google.com)'
   const lineBreak = 'line break before\nline break after'
   const horizontalRule = 'horizontal rule before\n---\nhorizontal rule after'
@@ -115,6 +121,9 @@
   > ${image}
   > ${lineBreak}
   > ${horizontalRule}
+  > ${unorderedList}
+  > ${orderedList}
+  > ${taskList}
   `
 
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
