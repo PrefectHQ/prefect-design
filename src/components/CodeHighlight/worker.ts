@@ -51,7 +51,7 @@ const getLanguageFunctions = (lang: SupportedLanguage): Record<string, LanguageF
   }
 
   if (isGithubFlavoredMarkdownLanguageRef(lang) || isMarkdownLanguageRef(lang)) {
-    return { markdown, xml, css, python, javascript, vueLanguage }
+    return { 'gh-markdown': githubFlavoredMarkdownLanguage, markdown, xml, css, python, javascript, vueLanguage }
   }
 
   throw new Error(`Language ${lang} is not supported`)
