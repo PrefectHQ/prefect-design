@@ -6,7 +6,7 @@
       </p-code> is a component that renders a Vue component tree from markdown.
     </template>
 
-    <p-tabs v-model:selected="tab" :tabs="['Tokens', 'Interactive', 'Live']">
+    <p-tabs v-model:selected="tab" :tabs="['Tokens', 'Interactive', 'Live']" class="markdown-renderer__tabs">
       <template #tokens>
         <div>
           <PMarkdownRenderer :text="heading1" />
@@ -38,6 +38,9 @@
 
           <PMarkdownRenderer :text="blockQuote" />
           <PMarkdownRenderer :text="nestedBlockQuote" />
+
+          <PMarkdownRenderer :text="safeHtml" />
+          <PMarkdownRenderer :text="dangerousHtml" />
         </div>
       </template>
 
@@ -162,6 +165,23 @@
   > ${table}
   `
 
+  const safeHtml = `
+  <h2 class="text-3xl">Embedded HTML</h2>
+<p>
+    This is some embedded html; the color of <span class="text-amber-500">this text</span> should be orange
+and the color of <span class="text-success">this text</span> should be green
+</p>`
+
+  const dangerousHtml = `
+  <h2 class="text-3xl">Dangerous HTML💀💀💀💀</h2>
+  <script>alert('window alert')<\/script>
+<p>
+    This is some embedded html that contains dangerous scripts; the color of <span class="text-amber-500">this text</span> should be orange
+and the color of <span class="text-success">this text</span> should still be green.
+</p>
+<div class="text-3xl text-danger">NO WINDOW ALERT SHOULD HAVE FIRED</div>
+`
+
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
   const options: (SelectOptionNormalized & { url: string })[] = [
     { label: 'Prefect', value: 'prefecthq/prefect', url: 'https://raw.githubusercontent.com/PrefectHQ/prefect/main/README.md' },
@@ -230,6 +250,10 @@ _**${user3}** has changed their name to **${user1}**_
   mb-4
   max-w-sm
   ml-auto
+}
+
+.markdown-renderer__tabs { @apply
+  mb-8
 }
 
 .markdown-renderer__section-header { @apply
