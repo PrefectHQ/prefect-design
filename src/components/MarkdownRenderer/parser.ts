@@ -95,19 +95,14 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   }
 
   if (type == 'heading') {
-    const { depth } = token
+    const { depth, text } = token
 
     if (depth < 2) {
       children?.push(h(PDivider))
     }
 
     const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
-
-    if (!children?.length) {
-      return h(`h${depth}`, { class: classList }, children)
-    }
-
-    return h(baseElement, { class: [...classList, `${baseClass}__heading-wrapper`] }, children)
+    return h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
   }
 
   if (type == 'link') {

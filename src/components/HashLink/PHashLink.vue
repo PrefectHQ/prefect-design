@@ -1,54 +1,65 @@
 <template>
-  <span :id="hash" class="p-hash-link" @click="goToRoute">
-    <span class="p-hash-link__hash">
-      #
-    </span>
-    <span class="p-hash-link__text">
-      <slot />
-    </span>
-  </span>
+  <component :is="component" :id="kebabHash" class="p-hash-link" @click="goToRoute">
+    <slot />
+  </component>
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import { kebabCase } from '@/utilities'
 
   const props = defineProps<{
+    depth?: number,
     hash?: string,
   }>()
 
   const router = useRouter()
 
+  const kebabHash = computed(() => {
+    return kebabCase(props.hash ?? '')
+  })
+
   function goToRoute(): void {
-    const hash = props.hash ? `#${props.hash}` : undefined
+    const hash = props.hash ? `#${kebabHash.value}` : undefined
 
     router.push({ hash })
   }
+
+  const component = computed(() => {
+    if (props.depth) {
+      return `h${props.depth}`
+    }
+
+    return 'span'
+  })
 </script>
 
 <style>
 .p-hash-link { @apply
   cursor-pointer
-}
-
-.p-hash-link__hash { @apply
-  opacity-0
-  translate-x-2
-  absolute
-  text-prefect-600
+  relative
   transition-all
 }
 
-.p-hash-link__text { @apply
+.p-hash-link:before {
+  content: '#';
+}
+
+.p-hash-link:before { @apply
   inline-block
-  transition-transform
+  opacity-0
+  relative
+  text-prefect-600
+  top-0
+  left-0
+  transition-all
+  w-0
 }
 
-.p-hash-link:hover .p-hash-link__text { @apply
-  translate-x-4
-}
-
-.p-hash-link:hover .p-hash-link__hash { @apply
+.p-hash-link:hover.p-hash-link:before { @apply
   opacity-100
-  translate-x-0
+  mr-1
+  w-min
 }
 </style>
