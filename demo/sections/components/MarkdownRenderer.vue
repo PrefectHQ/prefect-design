@@ -97,7 +97,7 @@
   const unorderedList = '- unordered list item 1\n- unordered list item 2\n- unordered list item 3'
   const orderedList = '1. ordered list item 1\n2. ordered list item 2\n3. ordered list item 3'
   const taskList = '- [x] task list item 1\n- [ ] task list item 2\n- [ ] task list item 3'
-  const link = '[google.com](https://google.com)'
+  const link = '[link](https://google.com)'
   const lineBreak = 'line break before\nline break after'
   const horizontalRule = '\nhorizontal rule before\n\n---\n\nhorizontal rule after\n'
   const anchor = '[anchor](#heading-1)'
@@ -112,12 +112,19 @@
   > ${emphasis}
   > ${strong}
   > ${strikethrough}
-  > ${inlineCode}
-  > ${fencedCodeBlock}
-  > ${highlightedCodeBlock}
-  > ${blockQuote} nested
   > ${link}
   > ${anchor}
+  >
+  > ${inlineCode}
+  > \`\`\`
+  > fenced = "code block"
+  > \`\`\`
+  >
+  > \`\`\`py
+  > highlighted_fenced = "code block"
+  > \`\`\`
+  > ${blockQuote} nested
+  > 
   > ${heading1}
   > ${heading2}
   > ${heading3}
