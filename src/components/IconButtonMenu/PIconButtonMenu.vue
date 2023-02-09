@@ -10,7 +10,7 @@
     <template #target="{ toggle }">
       <PButton ref="button" :icon="icon" v-bind="attrs" inset @click="toggle" />
     </template>
-    <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="!preventCloseOnClick && close">
+    <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="close">
       <POverflowMenu>
         <slot v-bind="{ close }" />
       </POverflowMenu>
@@ -36,7 +36,7 @@
   import { Icon } from '@/types/icon'
   import { topRight, bottomRight, bottomLeft, topLeft } from '@/utilities/position'
 
-  withDefaults(defineProps<{
+  const props = withDefaults(defineProps<{
     icon?: Icon,
     placement?: PositionMethod | PositionMethod[],
     preventCloseOnClick?: boolean,
@@ -50,7 +50,7 @@
   const button = ref<typeof PButton>()
 
   function close(): void {
-    if (popOver.value) {
+    if (popOver.value && !props.preventCloseOnClick) {
       popOver.value.close()
     }
   }
