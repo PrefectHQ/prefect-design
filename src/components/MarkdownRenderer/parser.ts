@@ -11,8 +11,7 @@ const baseElement = 'div'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
-// TODO: Collect HTML tokens and render them as a single HTML node (?) (might need to figure out how to fix auto-closed tags if they are in the sanitized token)
-const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.TokensList | Token[]): VNode => {
+const getVNode = (token: Token, options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
 
   const normalizeHref = (href: string): string => href.startsWith('http') ? href : `${baseLinkUrl}${href}`
@@ -20,7 +19,7 @@ const getVNode = (token: Token, options: ParserOptions, i: number, arr: marked.T
   let children: VNodeChildren
 
   if ('tokens' in token) {
-    children = token.tokens?.map((_t, i, arr) => getVNode(_t, options, i, arr)) ?? undefined
+    children = token.tokens?.map((_t) => getVNode(_t, options)) ?? undefined
   } else {
     children = []
   }
@@ -132,7 +131,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
     const slotName = kebabCase(text)
     columns.push(slotName)
 
-    const headerChildren = tokens.map((_t, i, arr) => getVNode(_t, options, i, arr))
+    const headerChildren = tokens.map((_t) => getVNode(_t, options))
     const classList = [`${baseClass}__table-heading`]
     const alignValue = align[index]
     if (alignValue) {
@@ -153,8 +152,8 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
   columns.forEach((column) => {
     slots[column] = ({ value }: { value: TableDataValue }) => {
       const { _markdownMetadata: { tokens } } = value
-      const cellChildren = tokens.map((_t, i, arr) => {
-        return getVNode(_t, options, i, arr)
+      const cellChildren = tokens.map((_t) => {
+        return getVNode(_t, options)
       })
 
       if (!cellChildren.length) {
@@ -187,7 +186,7 @@ const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, c
   const { ordered, items } = token
   const base = ordered ? 'ol' : 'ul'
   const classList = [`${baseClass}__list`, `${baseClass}__list--${ordered ? 'ordered' : 'unordered'}`]
-  const listItems = items.map((item, i, arr) => getVNode(item, options, i, arr))
+  const listItems = items.map((item) => getVNode(item, options))
   return h(base, { class: classList }, [...children, ...listItems])
 }
 
@@ -202,6 +201,6 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
 }
 
 export const getRootVNode = (tokens: marked.TokensList | [], options: ParserOptions): VNode => {
-  const children: VNode[] = tokens.map((token, i, arr) => getVNode(token, options, i, arr))
+  const children: VNode[] = tokens.map((token) => getVNode(token, options))
   return h('article', { class: [baseClass] }, children)
 }
