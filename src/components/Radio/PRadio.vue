@@ -9,7 +9,6 @@
         </div>
       </template>
       <input
-        :id="id"
         v-bind="attrs"
         v-model="internalModelValue"
         type="radio"
@@ -34,7 +33,6 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'
-  import { randomId } from '@/utilities'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
@@ -50,7 +48,6 @@
 
   const slots = useSlots()
   const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
-  const id = randomId()
 
   const internalModelValue = computed({
     get() {
