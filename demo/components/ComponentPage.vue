@@ -1,6 +1,5 @@
 <template>
   <div class="component-page">
-    <!-- make sticky header -->
     <div class="component-page__heading">
       <p-hash-link class="component-page__heading-link" :hash="title">
         {{ title }}
