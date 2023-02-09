@@ -1,5 +1,5 @@
 <template>
-  <span class="p-html">
+  <span class="p-sanitize-html">
     <PUnwrap :html="sanitizedHtml" />
   </span>
 </template>
