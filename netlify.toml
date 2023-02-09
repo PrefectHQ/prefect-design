@@ -32,7 +32,7 @@
       form-action 'none'; \
       frame-ancestors 'none'; \
       frame-src 'none'; \
-      img-src 'self' data: https://via.placeholder.com; \
+      img-src 'self' data: https:; \
       manifest-src 'none'; \
       media-src 'none'; \
       object-src 'none'; \
