@@ -46,7 +46,7 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
     children = mapChildTokens(token.tokens, options)
   }
 
-  const props: Record<string, unknown> = { class: [`${baseClass}__token`] }
+  const props = { class: [`${baseClass}__token`] }
   const { type } = token
 
   if (isTextToken(token)) {
