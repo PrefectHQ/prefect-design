@@ -3,7 +3,26 @@ import { marked } from 'marked'
 import { VNode, h, createTextVNode as t } from 'vue'
 import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PSanitizeHtml, PHashLink, PTable } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
-import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
+import {
+  Token,
+  ParserOptions,
+  VNodeChildren,
+  hasChildren,
+  isCodeBlock,
+  isCodeSpan,
+  isTable,
+  isList,
+  isListItem,
+  isHeading,
+  isLink,
+  isImage,
+  isBlockquote,
+  isHtml,
+  isSpace,
+  isBreak,
+  isHorizontalRule,
+  isTextToken
+} from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
 import { randomId } from '@/utilities'
 import { isRouteExternal } from '@/utilities/router'
@@ -18,23 +37,19 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
 
   const normalizeHref = (href: string): string => isRouteExternal(href) ? href : `${baseLinkUrl}${href}`
 
-  let children: VNodeChildren
+  let children: VNodeChildren = []
 
-  if ('tokens' in token) {
-    children = token.tokens?.map((_t) => getVNode(_t, options)) ?? undefined
-  } else {
-    children = []
+  if (hasChildren(token)) {
+    children = token.tokens.map((_t) => getVNode(_t, options))
   }
 
   const props: Record<string, unknown> = { class: [`${baseClass}__token`] }
   const { type } = token
 
-  const textTypes: Token['type'][] = ['text', 'paragraph', 'strong', 'em', 'del']
-
-  if ('text' in token && textTypes.includes(type)) {
+  if (isTextToken(token)) {
     // This is because text tokens can have embedded elements
     // like links, images, etc. and text nodes can't have children
-    if (children?.length) {
+    if (children.length) {
       const classList = [`${baseClass}__text`, `${baseClass}__text--${type}`]
       return h(baseElement, { class: classList }, children)
     }
@@ -42,46 +57,46 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
     return t(unescapeHtml(token.text))
   }
 
-  if (type == 'br' || type == 'space') {
+  if (isSpace(token) || isBreak(token)) {
     const classList = [`${baseClass}__space`]
     return h(baseElement, { class: classList }, children)
   }
 
-  if (type == 'hr') {
+  if (isHorizontalRule(token)) {
     const classList = [`${baseClass}__divider`]
     return h(PDivider, { class: classList })
   }
 
-  if (type == 'image') {
+  if (isImage(token)) {
     const { href, text, title } = token
     const composedHref = normalizeHref(href)
     const classList = [`${baseClass}__image`]
     return h('img', { src: composedHref, alt: text, class: classList, title })
   }
 
-  if (type == 'html') {
+  if (isHtml(token)) {
     const { text } = token
     return h(PSanitizeHtml, { html: text, class: [`${baseClass}__html`] })
   }
 
-  if (type == 'code') {
+  if (isCodeBlock(token)) {
     return getCodeVNode(token)
   }
 
-  if (type == 'codespan') {
+  if (isCodeSpan(token)) {
     const classList = [`${baseClass}__codespan`]
     return h(PCode, { inline: true, class: classList }, { default: () => unescapeHtml(token.text) })
   }
 
-  if (type == 'table') {
+  if (isTable(token)) {
     return getTableVNode(token, options)
   }
 
-  if (type == 'list') {
+  if (isList(token)) {
     return getListVNode(token, options, children)
   }
 
-  if (type == 'list_item') {
+  if (isListItem(token)) {
     const { task, checked } = token
 
     if (task || typeof checked === 'boolean') {
@@ -93,23 +108,23 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
     return node
   }
 
-  if (type == 'blockquote') {
+  if (isBlockquote(token)) {
     const classList = [`${baseClass}__blockquote`]
     return h('blockquote', { class: classList }, children)
   }
 
-  if (type == 'heading') {
+  if (isHeading(token)) {
     const { depth, text } = token
 
     if (depth < 2) {
-      children?.push(h(PDivider))
+      children.push(h(PDivider))
     }
 
     const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
     return h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
   }
 
-  if (type == 'link') {
+  if (isLink(token)) {
     const { href, title } = token
     const classList = [`${baseClass}__link`]
     const composedHref = normalizeHref(href)
@@ -136,6 +151,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
     const headerChildren = tokens.map((_t) => getVNode(_t, options))
     const classList = [`${baseClass}__table-heading`]
     const alignValue = align[index]
+
     if (alignValue) {
       classList.push(`${baseClass}__table-column--${alignValue}`)
     }
@@ -144,16 +160,19 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
 
   rows.forEach((row) => {
     const rowData: TableData = {}
+
     row.forEach(({ text, tokens }, i) => {
       const slotName = randomId()
       rowData[columns[i]] = { [slotName]: text, _markdownMetadata: { text, tokens } }
     })
+
     data.push(rowData)
   })
 
   columns.forEach((column) => {
     slots[column] = ({ value }: { value: TableDataValue }) => {
       const { _markdownMetadata: { tokens } } = value
+
       const cellChildren = tokens.map((_t) => {
         return getVNode(_t, options)
       })
@@ -169,6 +188,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
   const columnClasses: ColumnClassesMethod = (column, value, index) => {
     const alignValue = align[index]
     const classList = [`${baseClass}__table-column`]
+
     if (alignValue) {
       classList.push(`${baseClass}__table-column--${alignValue}`)
     }
@@ -195,6 +215,7 @@ const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, c
 const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
   const classList = [`${baseClass}__code`]
   const { text, lang } = token
+
   if (isSupportedLanguage(lang)) {
     return h(PCodeHighlight, { text, lang, class: classList })
   }
