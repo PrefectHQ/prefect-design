@@ -17,6 +17,7 @@
           <PMarkdownRenderer :text="heading6" />
           <PMarkdownRenderer :text="paragraph" />
           <PMarkdownRenderer :text="table" />
+          <PMarkdownRenderer :text="overflowTable" />
 
           <PMarkdownRenderer :text="strikethrough" />
           <PMarkdownRenderer :text="emphasis" />
@@ -108,7 +109,17 @@
   const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
   const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
   const highlightedCodeBlock = '\n```py\nhighlighted_fenced = "code block"\n```\n'
-  const table = `**id**|**first\_name**|**last\_name**|**email**|**ip\_address**|**lat**|**lng**|**animal**|**animal\_scientific**
+
+  const table = `**id**|**animal**|**animal_scientific**
+:-----:|:-----:|:-----:|
+1|Nelson ground squirrel|Ammospermophilus nelsoni
+2|Verreaux's sifaka|Propithecus verreauxi
+3|Madagascar hawk owl|Ninox superciliaris
+4|Goliath heron|Ardea golieth
+5|Red-billed hornbill|Tockus erythrorhyncus
+`
+
+  const overflowTable = `**id**|**first_name**|**last_name**|**email**|**ip_address**|**lat**|**lng**|**animal**|**animal_scientific**
 :-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
 1|Nickolaus|Cowill|ncowill0@cbslocal.com|136.157.15.189| | |Nelson ground squirrel|Ammospermophilus nelsoni
 2|Erek|Erwin|eerwin1@dropbox.com|147.123.202.177| | |Verreaux's sifaka|Propithecus verreauxi

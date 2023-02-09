@@ -40,7 +40,6 @@
 .markdown-renderer { @apply
   text-base
   block
-  relative
   overflow-auto
 }
 
@@ -82,8 +81,27 @@
   inline
 }
 
+.markdown-renderer__table::-webkit-scrollbar {
+  display: none;
+}
+
+.markdown-renderer__table {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .markdown-renderer__table { @apply
   m-2
+  max-h-screen
+  !overflow-auto
+  overscroll-auto
+}
+
+.markdown-renderer__table .p-table-head { @apply
+  sticky
+  top-0
+  z-[1]
+  shadow
 }
 
 .markdown-renderer__table-column--center { @apply
@@ -98,18 +116,6 @@
   text-right
 }
 
-.markdown-renderer__table .p-table-head { @apply
-  sticky
-  top-0
-}
-
-.markdown-renderer__table .p-table__table { @apply
-  overflow-auto
-  max-h-96
-  overscroll-contain
-  block
-  max-w-full
-}
 
 .markdown-renderer__text--paragraph { @apply
   my-2

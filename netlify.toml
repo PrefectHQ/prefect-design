@@ -27,7 +27,7 @@
       default-src 'none'; \
       base-uri 'none'; \
       child-src 'none'; \
-      connect-src 'none'; \
+      connect-src 'none' https://raw.githubusercontent.com; \
       font-src 'self'; \
       form-action 'none'; \
       frame-ancestors 'none'; \

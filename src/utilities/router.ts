@@ -18,5 +18,14 @@ export function isRouteLocationNamedRaw(route: RouteLocationRaw): route is Route
 }
 
 export function isRouteExternal(route: RouteLocationRaw): boolean {
-  return typeof route === 'string' && route.startsWith('http')
+  if (typeof route !== 'string' || typeof window === 'undefined') {
+    return false
+  }
+
+  try {
+    const url = new URL(route)
+    return url.host !== window.location.host
+  } catch (error) {
+    return false
+  }
 }

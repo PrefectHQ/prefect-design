@@ -5,6 +5,7 @@ import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink, PT
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
+import { isRouteExternal } from '@/utilities/router'
 import { kebabCase, unescapeHtml } from '@/utilities/strings'
 
 const baseElement = 'div'
@@ -14,7 +15,7 @@ const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 't
 const getVNode = (token: Token, options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
 
-  const normalizeHref = (href: string): string => href.startsWith('http') ? href : `${baseLinkUrl}${href}`
+  const normalizeHref = (href: string): string => isRouteExternal(href) ? href : `${baseLinkUrl}${href}`
 
   let children: VNodeChildren
 
