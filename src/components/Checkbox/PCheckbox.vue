@@ -76,7 +76,8 @@
   text-foreground
 }
 
-.p-checkbox * { @apply
+.p-checkbox label,
+.p-checkbox input { @apply
   cursor-pointer
 }
 
@@ -111,10 +112,9 @@
 }
 
 
-.p-checkbox--disabled > * { @apply
+.p-checkbox--disabled label,
+.p-checkbox--disabled input { @apply
   opacity-50
-}
-.p-checkbox--disabled * { @apply
   cursor-not-allowed
 }
 
