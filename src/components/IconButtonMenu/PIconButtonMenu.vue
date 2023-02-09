@@ -4,13 +4,13 @@
     class="p-icon-button-menu"
     :class="classes"
     :style="styles"
-    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
+    :placement="placement"
     auto-close
   >
     <template #target="{ toggle }">
       <PButton ref="button" :icon="icon" v-bind="attrs" inset @click="toggle" />
     </template>
-    <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="close">
+    <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="!preventCloseOnClick && close">
       <POverflowMenu>
         <slot v-bind="{ close }" />
       </POverflowMenu>
@@ -32,13 +32,17 @@
   import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
+  import { PositionMethod } from '@/types'
   import { Icon } from '@/types/icon'
   import { topRight, bottomRight, bottomLeft, topLeft } from '@/utilities/position'
 
   withDefaults(defineProps<{
     icon?: Icon,
+    placement?: PositionMethod | PositionMethod[],
+    preventCloseOnClick?: boolean,
   }>(), {
     icon: 'DotsVerticalIcon',
+    placement: () => [bottomRight, topRight, bottomLeft, topLeft],
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()
