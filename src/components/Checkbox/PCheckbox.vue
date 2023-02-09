@@ -1,22 +1,21 @@
 <template>
-  <div class="p-checkbox" :class="classes" :style="attrStyles">
-    <label class="p-checkbox__label">
-      <template v-if="label || slots.label">
-        <div class="p-checkbox__label-text">
-          <slot name="label">
-            {{ label }}
-          </slot>
-        </div>
-      </template>
+  <PLabel class="p-checkbox" :class="classes" :style="attrStyles">
+    <template #label>
+      <slot name="label">
+        {{ label }}
+      </slot>
+    </template>
+    <template #default="{ id }">
       <input
+        :id="id"
+        v-bind="attrs"
         v-model="value"
         type="checkbox"
-        class="p-checkbox__control"
         :disabled="disabled"
-        v-bind="attrs"
+        class="p-checkbox__control"
       >
-    </label>
-  </div>
+    </template>
+  </PLabel>
 </template>
 
 <script lang="ts">
@@ -28,7 +27,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed, useSlots } from 'vue'
+  import { computed } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions'
   import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
@@ -44,7 +43,6 @@
     (event: 'update:modelValue', value: CheckboxModel): void,
   }>()
 
-  const slots = useSlots()
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
 
   const value = computed({
@@ -68,13 +66,18 @@
 </script>
 
 <style>
-.p-checkbox { @apply
+.p-checkbox.p-checkbox { @apply
   my-1
-  flex
+  inline-flex
+  flex-row-reverse
+  justify-end
+  items-center
+  gap-x-2
+  text-foreground
 }
 
-.p-checkbox--failed {
-  scroll-margin: var(--prefect-scroll-margin);
+.p-checkbox * { @apply
+  cursor-pointer
 }
 
 .p-checkbox__control { @apply
@@ -96,17 +99,8 @@
   dark:ring-offset-background-500
 }
 
-.p-checkbox__label { @apply
-  text-sm
-  flex
-  gap-x-2
-  items-center
-  cursor-pointer
-  text-foreground
-}
-
-.p-checkbox__label .p-checkbox__label-text { @apply
-  order-last
+.p-checkbox--failed {
+  scroll-margin: var(--prefect-scroll-margin);
 }
 
 .p-checkbox--failed .p-checkbox__control { @apply
@@ -114,6 +108,14 @@
   ring-danger
   focus-within:ring-2
   focus-within:ring-danger
+}
+
+
+.p-checkbox--disabled > * { @apply
+  opacity-50
+}
+.p-checkbox--disabled * { @apply
+  cursor-not-allowed
 }
 
 .p-checkbox--pending .p-checkbox__control { @apply
@@ -124,16 +126,5 @@
 
   dark:ring-primary-100
   dark:focus-within:ring-primary-100
-}
-
-.p-checkbox--disabled {
-  @apply opacity-50
-}
-
-.p-checkbox--disabled,
-.p-checkbox__control:disabled,
-.p-checkbox--disabled .p-checkbox__control,
-.p-checkbox--disabled .p-checkbox__label {
-  @apply cursor-not-allowed
 }
 </style>
