@@ -24,7 +24,7 @@
     tokens.value = message.tokens
   }
 
-  const worker: Worker = new MarkdownTokenWorker()
+  const worker = new MarkdownTokenWorker()
 
   worker.onmessage = (event: MessageEvent<ParseMessagePayload>) => handleWorkerMessage(event.data)
 
