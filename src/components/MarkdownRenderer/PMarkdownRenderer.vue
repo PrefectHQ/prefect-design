@@ -98,6 +98,19 @@
   text-right
 }
 
+.markdown-renderer__table .p-table-head { @apply
+  sticky
+  top-0
+}
+
+.markdown-renderer__table .p-table__table { @apply
+  overflow-auto
+  max-h-96
+  overscroll-contain
+  block
+  max-w-full
+}
+
 .markdown-renderer__text--paragraph { @apply
   my-2
 }

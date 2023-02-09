@@ -108,18 +108,109 @@
   const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
   const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
   const highlightedCodeBlock = '\n```py\nhighlighted_fenced = "code block"\n```\n'
-  const table = `**id**|**first_name**|**last_name**|**email**|**ip_address**
-:-----:|:-----:|:-----:|:-----:|:-----:
-1|Dunc|Sonner|dsonner0@princeton.edu|112.32.92.204
-2|Tammara|Paolinelli|tpaolinelli1@sogou.com|152.224.225.216
-3|Christel|Carver|ccarver2@google.cn|196.162.172.192
-4|Laureen|Lindwall|llindwall3@intel.com|38.127.177.6
-5|Kit|Portail|kportail4@phoca.cz|229.64.30.125
-6|Jerrie|Finch|jfinch5@businesswire.com|17.164.216.229
-7|Thor|Pechan|tpechan6@google.com.au|242.124.40.182
-8|Christophorus|Donat|cdonat7@w3.org|132.30.191.148
-9|Claudette|Lees|clees8@alibaba.com|115.110.216.108
-10|Jammal|Algar|jalgar9@addthis.com|245.156.39.173`
+  const table = `**id**|**first\_name**|**last\_name**|**email**|**ip\_address**|**lat**|**lng**|**animal**|**animal\_scientific**
+:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:
+1|Nickolaus|Cowill|ncowill0@cbslocal.com|136.157.15.189| | |Nelson ground squirrel|Ammospermophilus nelsoni
+2|Erek|Erwin|eerwin1@dropbox.com|147.123.202.177| | |Verreaux's sifaka|Propithecus verreauxi
+3|Sayer|Lambourne|slambourne2@alexa.com|214.98.166.227| | |"Openbill| asian"
+4|Mahala|Immer|mimmer3@blogtalkradio.com|228.89.210.237| | |Goliath heron|Ardea golieth
+5|Yule|Monckton|ymonckton4@slate.com|237.202.148.165| | |Red-billed hornbill|Tockus erythrorhyncus
+6|Deanna|Sinden|dsinden5@forbes.com|94.201.65.170| | |"Macaque| japanese"
+7|Elsbeth|Ferriman|eferriman6@rediff.com|56.60.38.166| | |Southern right whale|Eubalaena australis
+8|Barnabe|Wathen|bwathen7@taobao.com|42.251.160.255| | |"Anteater| australian spiny"
+9|Isidore|Tixall|itixall8@multiply.com|182.210.108.228| | |Madagascar hawk owl|Ninox superciliaris
+10|Ariella|Fleisch|afleisch9@jugem.jp|136.73.220.173| | |Hoffman's sloth|Choloepus hoffmani
+11|Jocko|Luckham|jluckhama@wiley.com|190.69.237.31| | |Sage hen|Centrocercus urophasianus
+12|Mickie|Horbart|mhorbartb@webmd.com|2.53.98.40| | |"Pie| rufous tree"
+13|Homer|Absolom|habsolomc@fastcompany.com|140.48.162.186| | |Tiger cat|Dasyurus maculatus
+14|Wright|MacLice|wmacliced@unblog.fr|60.233.57.123| | |South African hedgehog|Erinaceus frontalis
+15|Demetris|Brigman|dbrigmane@dmoz.org|239.124.107.44| | |Tawny eagle|Anitibyx armatus
+16|Corissa|Waterfield|cwaterfieldf@elpais.com|240.73.152.50| | |Black-crowned night heron|Nycticorax nycticorax
+17|Paolo|Itzhayek|pitzhayekg@ucsd.edu|71.42.92.1| | |"Kangaroo| eastern grey"
+18|Dirk|Philbin|dphilbinh@cargocollective.com|40.171.145.141| | |Little grebe|Tachybaptus ruficollis
+19|Merissa|Adamsen|madamseni@europa.eu|30.4.118.234| | |Coqui partridge|Francolinus coqui
+20|Katti|Matuszewski|kmatuszewskij@wunderground.com|234.210.162.94| | |"Sheep| american bighorn"
+21|Andriana|Petegrew|apetegrewk@nps.gov|127.76.209.135| | |Chimpanzee|Pan troglodytes
+22|Grove|Wint|gwintl@hostgator.com|111.31.6.83| | |"Skink| blue-tongued"
+23|Andonis|Ranscombe|aranscombem@tripadvisor.com|209.238.59.116| | |Grey fox|Vulpes cinereoargenteus
+24|Skippie|Castanie|scastanien@discuz.net|160.48.173.12| | |Tyrant flycatcher|Myiarchus tuberculifer
+25|Dael|Aleso|dalesoo@adobe.com|185.118.252.240| | |"Flicker| campo"
+26|Rochelle|Trobey|rtrobeyp@reddit.com|243.34.37.247| | |"Goose| spur-winged"
+27|Giustino|Stangoe|gstangoeq@yellowbook.com|158.190.111.77| | |"Skua| great"
+28|Mirabelle|Jerrard|mjerrardr@harvard.edu|151.255.62.109| | |Black spider monkey|Ateles paniscus
+29|Marvin|Ketley|mketleys@bbc.co.uk|242.227.157.101| | |"Starling| greater blue-eared"
+30|Murvyn|Belk|mbelkt@usa.gov|23.109.83.22| | |Brolga crane|Grus rubicundus
+31|L;urette|Goldsworthy|lgoldsworthyu@so-net.ne.jp|15.114.149.149| | |"Macaque| pig-tailed"
+32|Kaylee|Thornton-Dewhirst|kthorntondewhirstv@bbb.org|128.48.11.244| | |"Parrot| hawk-headed"
+33|Bernita|Capelen|bcapelenw@xrea.com|145.76.54.110| | |"Lemming| collared"
+34|Alberto|Petrovic|apetrovicx@cdbaby.com|8.50.88.8| | |Sable antelope|Hippotragus niger
+35|Nathanial|Astill|nastilly@merriam-webster.com|225.192.86.12| | |"Parakeet| rose-ringed"
+36|Tate|Aristide|taristidez@squarespace.com|55.6.205.182| | |African lynx|Felis caracal
+37|Bethanne|Conaboy|bconaboy10@pen.io|122.204.197.28| | |Two-banded monitor|Varanus salvator
+38|Ag|Townsend|atownsend11@columbia.edu|254.194.42.24| | |Common zorro|Dusicyon thous
+39|Hetti|Meriel|hmeriel12@imageshack.us|17.198.11.141| | |Elegant crested tinamou|Eudromia elegans
+40|Easter|Porte|eporte13@scientificamerican.com|84.193.231.159| | |Crab-eating fox|Dusicyon thous
+41|Rebeca|Doward|rdoward14@gnu.org|238.180.167.106| | |Australian sea lion|Neophoca cinerea
+42|Susannah|Ciotti|sciotti15@ovh.net|103.140.103.127| | |"Turtle| snake-necked"
+43|Eyde|Wormell|ewormell16@abc.net.au|67.243.65.88| | |Weeper capuchin|Cebus nigrivittatus
+44|Paulina|Ragate|pragate17@hud.gov|123.212.77.149| | |"Phalarope| grey"
+45|Alexa|Trubshawe|atrubshawe18@ning.com|82.9.110.13| | |Horned rattlesnake|Crotalus cerastes
+46|Karry|Kelsow|kkelsow19@illinois.edu|30.248.200.176| | |"Goose| cereopsis"
+47|Idette|Lampkin|ilampkin1a@hexun.com|81.71.240.90| | |"Cat| tiger"
+48|Lyman|Collisson|lcollisson1b@latimes.com|85.198.198.211| | |Woylie|Bettongia penicillata
+49|Sean|Jaynes|sjaynes1c@princeton.edu|99.7.236.59| | |"Hyena| brown"
+50|Chaddy|Strahan|cstrahan1d@europa.eu|45.213.51.1| | |American bighorn sheep|Ovis canadensis
+51|Delbert|Laird-Craig|dlairdcraig1e@hatena.ne.jp|127.176.245.250| | |Blackbuck|Antilope cervicapra
+52|Hall|O'Fielly|hofielly1f@nyu.edu|43.237.70.186| | |Small Indian mongoose|Herpestes javanicus
+53|Kele|Brodeau|kbrodeau1g@un.org|7.64.236.174| | |"Gull| lava"
+54|Kelli|Hornig|khornig1h@ameblo.jp|105.226.158.148| | |Northern phalarope|Phalaropus lobatus
+55|Aguste|Kettlestringe|akettlestringe1i@ca.gov|184.55.210.41| | |Currasow (unidentified)|Crax sp.
+56|Delaney|McClarence|dmcclarence1j@biblegateway.com|133.249.36.223| | |Jungle cat|Felis chaus
+57|Gabrila|Kupka|gkupka1k@answers.com|77.127.75.26| | |"Cat| cape wild"
+58|Colly|Hindrich|chindrich1l@booking.com|66.224.33.86| | |Eastern quoll|Dasyurus viverrinus
+59|York|Dinsey|ydinsey1m@indiatimes.com|161.40.99.73| | |Desert spiny lizard|Sceloporus magister
+60|Lyda|Willwood|lwillwood1n@hud.gov|136.248.77.5| | |Bonnet macaque|Macaca radiata
+61|Dayna|Aspole|daspole1o@uol.com.br|21.162.143.32| | |Common rhea|Rhea americana
+62|Curtis|Oda|coda1p@posterous.com|153.204.202.241| | |"Toucan| red-billed"
+63|Greggory|Stiven|gstiven1q@adobe.com|8.168.75.174| | |"Tortoise| burmese brown mountain"
+64|Bart|Simmill|bsimmill1r@theatlantic.com|231.19.225.162| | |Yellow-bellied marmot|Marmota flaviventris
+65|Jewelle|Turbat|jturbat1s@photobucket.com|169.19.19.114| | |"Bird| pied butcher"
+66|Theo|Stendell|tstendell1t@over-blog.com|3.124.90.157| | |"Pintail| white-cheeked"
+67|Jess|Glendenning|jglendenning1u@tripadvisor.com|163.209.144.85| | |Downy woodpecker|Picoides pubescens
+68|Jessamyn|Schroeder|jschroeder1v@geocities.jp|40.188.163.3| | |Grison|Galictis vittata
+69|Killie|Triggle|ktriggle1w@ezinearticles.com|125.143.12.229| | |Bonnet macaque|Macaca radiata
+70|Krispin|Foston|kfoston1x@technorati.com|219.108.171.174| | |Madagascar fruit bat|Pteropus rufus
+71|Milicent|Jinks|mjinks1y@addtoany.com|170.59.176.58| | |"Bulbul| black-fronted"
+72|Janette|Oloman|joloman1z@home.pl|210.250.128.255| | |"Roadrunner| greater"
+73|Muffin|Huguenet|mhuguenet20@quantcast.com|252.53.143.149| | |"Woodcock| american"
+74|Westbrook|Boggs|wboggs21@imdb.com|125.180.77.89| | |Mocking cliffchat|Thamnolaea cinnmomeiventris
+75|Carmella|Le Quesne|clequesne22@vinaora.com|77.66.21.221| | |Tasmanian devil|Sarcophilus harrisii
+76|Ernesta|Hewertson|ehewertson23@google.de|146.67.253.26| | |"Raccoon| common"
+77|Sidonnie|Larciere|slarciere24@deliciousdays.com|102.112.236.53| | |"Antechinus| brown"
+78|Foster|Setch|fsetch25@blogspot.com|46.220.216.38| | |Greater blue-eared starling|Lamprotornis chalybaeus
+79|Alasteir|Ottewell|aottewell26@goo.ne.jp|254.34.67.196| | |Silver-backed fox|Vulpes chama
+80|Haven|Stoodale|hstoodale27@utexas.edu|241.132.249.102| | |"Skink| african"
+81|Herb|Rowntree|hrowntree28@scribd.com|70.200.128.235| | |"Stork| openbill"
+82|Emery|Edworthye|eedworthye29@illinois.edu|186.226.92.224| | |Squirrel glider|Petaurus norfolcensis
+83|Stepha|Wellman|swellman2a@wikipedia.org|42.61.5.67| | |Baleen whale|Eubalaena australis
+84|Norbie|Manwell|nmanwell2b@a8.net|35.209.252.179| | |Greater kudu|Tragelaphus strepsiceros
+85|Miles|Chamberlin|mchamberlin2c@behance.net|194.33.55.38| | |Verreaux's sifaka|Propithecus verreauxi
+86|Gwen|Heaker|gheaker2d@redcross.org|111.94.78.13| | |"Iguana| land"
+87|Vincent|Speller|vspeller2e@yahoo.com|179.35.60.5| | |"Cormorant| large"
+88|Elysha|Bea|ebea2f@github.io|49.239.177.0| | |"Anteater| australian spiny"
+89|Cyndia|Wyke|cwyke2g@ca.gov|148.93.75.5| | |"Marshbird| brown and yellow"
+90|Pablo|Kerbey|pkerbey2h@ustream.tv|125.175.72.182| | |"Vulture| white-headed"
+91|Veronique|Gaylard|vgaylard2i@xrea.com|228.120.104.212| | |Red-breasted cockatoo|Eolophus roseicapillus
+92|Ernesto|Allanby|eallanby2j@biblegateway.com|235.60.249.83| | |"Avocet| pied"
+93|Kinny|Purrington|kpurrington2k@craigslist.org|211.110.157.178| | |White-winged tern|Chlidonias leucopterus
+94|Valene|Tosdevin|vtosdevin2l@epa.gov|188.149.135.187| | |"Whale| baleen"
+95|Erick|Shrubb|eshrubb2m@time.com|171.145.246.43| | |"Hedgehog| south african"
+96|Emili|Mullard|emullard2n@mail.ru|40.177.19.235| | |"Cockatoo| long-billed"
+97|Ash|Robillard|arobillard2o@ustream.tv|107.244.128.250| | |Greater sage grouse|Centrocercus urophasianus
+98|Nannie|Eccles|neccles2p@amazon.co.jp|44.131.239.105| | |"Parrot| hawk-headed"
+99|Claudetta|Sparkes|csparkes2q@t-online.de|36.224.226.229| | |"Brocket| red"
+100|Aggy|Sergean|asergean2r@facebook.com|201.182.36.125| | |"Anteater| giant"
+`
 
   const blockQuote = '> Block quote'
   const nestedBlockQuote = `
