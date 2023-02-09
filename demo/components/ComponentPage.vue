@@ -75,14 +75,24 @@
   const props = defineProps<{
     title: string,
     description?: string,
-    demos: DemoSection | DemoSection[],
+    demos?: DemoSection | DemoSection[],
   }>()
 
   const slots = useSlots()
   const route = useRoute()
 
   const validDemosArray = computed(() => {
-    return asArray(props.demos)
+    const demos = []
+
+    if (slots.default) {
+      demos.push({ title: 'default', slotKey: 'default' })
+    }
+
+    if (props.demos) {
+      demos.push(...asArray(props.demos))
+    }
+
+    return asArray(demos)
       .map(demo => ({
         ...demo,
         slotKey: kebabCase(demo.title),
