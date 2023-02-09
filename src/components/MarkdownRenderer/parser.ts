@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink, PTable } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PSanitizeHtml, PHashLink, PTable } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
@@ -61,7 +61,7 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
 
   if (type == 'html') {
     const { text } = token
-    return h(PHtml, { html: text, class: [`${baseClass}__html`] })
+    return h(PSanitizeHtml, { html: text, class: [`${baseClass}__html`] })
   }
 
   if (type == 'code') {

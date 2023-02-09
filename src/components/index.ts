@@ -27,7 +27,6 @@ import { PFrame, install as installPFrame } from '@/components/Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from '@/components/GlobalNavItem'
 import { PGlobalSidebar, install as installPGlobalSidebar } from '@/components/GlobalSidebar'
 import { PHashLink, install as installPHashLink } from '@/components/HashLink'
-import { PHtml, install as installPHtml } from '@/components/Html'
 import { PIcon, install as installPIcon } from '@/components/Icon'
 import { PIconButtonMenu, install as installPIconButtonMenu } from '@/components/IconButtonMenu'
 import { PIconText, install as installPIconText } from '@/components/IconText'
@@ -50,6 +49,7 @@ import { PPager, install as installPPager } from '@/components/Pager'
 import { PPopOver, install as installPPopOver } from '@/components/PopOver'
 import { PRadio, install as installPRadio } from '@/components/Radio'
 import { PRadioGroup, install as installPRadioGroup } from '@/components/RadioGroup'
+import { PSanitizeHtml, install as installPSanitizeHtml } from '@/components/SanitizeHtml'
 import { PSelect, install as installPSelect } from '@/components/Select'
 import { PSelectOption, install as installPSelectOption } from '@/components/SelectOption'
 import { PSelectOptionGroup, install as installPSelectOptionGroup } from '@/components/SelectOptionGroup'
@@ -103,7 +103,6 @@ export {
   PForm,
   PFrame,
   PHashLink,
-  PHtml,
   PGlobalNavItem,
   PGlobalSidebar,
   PIcon,
@@ -128,6 +127,7 @@ export {
   PPopOver,
   PRadio,
   PRadioGroup,
+  PSanitizeHtml,
   PSelect,
   PSelectOption,
   PSelectOptionGroup,
@@ -190,7 +190,6 @@ export const installs = [
   installPForm,
   installPFrame,
   installPHashLink,
-  installPHtml,
   installPGlobalNavItem,
   installPGlobalSidebar,
   installPIcon,
@@ -215,6 +214,7 @@ export const installs = [
   installPPopOver,
   installPRadio,
   installPRadioGroup,
+  installPSanitizeHtml,
   installPSelect,
   installPSelectOption,
   installPSelectOptionGroup,
@@ -271,7 +271,6 @@ declare module '@vue/runtime-core' {
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
     PHashLink: typeof PHashLink,
-    PHtml: typeof PHtml,
     PIcon: typeof PIcon,
     PIconButtonMenu: typeof PIconButtonMenu,
     PIconText: typeof PIconText,
@@ -294,6 +293,7 @@ declare module '@vue/runtime-core' {
     PPopOver: typeof PPopOver,
     PRadio: typeof PRadio,
     PRadioGroup: typeof PRadioGroup,
+    PSanitizeHtml: typeof PSanitizeHtml,
     PSelect: typeof PSelect,
     PSelectOption: typeof PSelectOption,
     PSelectOptionGroup: typeof PSelectOptionGroup,
