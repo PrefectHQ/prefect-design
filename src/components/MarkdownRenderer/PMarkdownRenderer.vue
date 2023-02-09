@@ -28,10 +28,9 @@
 
   worker.onmessage = (event: MessageEvent<ParseMessagePayload>) => handleWorkerMessage(event.data)
 
-  watch(() => [props.text], ([text]) => {
+  watch(() => props.text, (text) => {
     if (text) {
-      const message: MarkdownMessagePayload = { text }
-      worker.postMessage(message)
+      worker.postMessage({ text })
     }
   }, { immediate: true })
 </script>
