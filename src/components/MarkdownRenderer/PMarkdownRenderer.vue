@@ -55,7 +55,6 @@
 }
 
 .markdown-renderer__image { @apply
-  h-auto
   max-w-full
   rounded
   shadow-sm
@@ -95,6 +94,11 @@
   max-h-screen
   !overflow-auto
   overscroll-auto
+  max-w-min
+}
+
+.markdown-renderer__table .p-table-data img { @apply
+  max-w-none
 }
 
 .markdown-renderer__table .p-table-head { @apply

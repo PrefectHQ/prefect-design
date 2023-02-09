@@ -5,8 +5,9 @@ import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PHtml, PHashLink, PT
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import { Token, ParserOptions, VNodeChildren } from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
+import { randomId } from '@/utilities'
 import { isRouteExternal } from '@/utilities/router'
-import { kebabCase, unescapeHtml } from '@/utilities/strings'
+import { unescapeHtml } from '@/utilities/strings'
 
 const baseElement = 'div'
 const baseClass = 'markdown-renderer'
@@ -128,8 +129,8 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
   const columns: string[] = []
   const slots: Record<string, unknown> = {}
 
-  header.forEach(({ text, tokens }, index) => {
-    const slotName = kebabCase(text)
+  header.forEach(({ tokens }, index) => {
+    const slotName = randomId()
     columns.push(slotName)
 
     const headerChildren = tokens.map((_t) => getVNode(_t, options))
@@ -144,7 +145,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
   rows.forEach((row) => {
     const rowData: TableData = {}
     row.forEach(({ text, tokens }, i) => {
-      const slotName = kebabCase(text)
+      const slotName = randomId()
       rowData[columns[i]] = { [slotName]: text, _markdownMetadata: { text, tokens } }
     })
     data.push(rowData)
