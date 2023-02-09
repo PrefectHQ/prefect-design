@@ -122,7 +122,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
   const { header, align, rows } = token
   const classList = [`${baseClass}__table`]
 
-  type TableDataValue = unknown & { _markdownMetadata: { text: string, tokens: Token[] } }
+  type TableDataValue = Record<string, unknown> & { _markdownMetadata: { text: string, tokens: Token[] } }
   type TableData = Record<string, TableDataValue>
   const data: TableData[] = []
   const columns: string[] = []
@@ -156,6 +156,11 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
       const cellChildren = tokens.map((_t, i, arr) => {
         return getVNode(_t, options, i, arr)
       })
+
+      if (!cellChildren.length) {
+        return h(baseElement, { class: [`${baseClass}__table-cell`] }, { default: () => value[column] })
+      }
+
       return cellChildren
     }
   })
