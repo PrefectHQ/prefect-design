@@ -16,8 +16,6 @@
       </div>
     </template>
 
-    <slot />
-
     <template v-if="validDemosArray.length">
       <div class="component-page__demos">
         <template v-for="demo in validDemosArray" :key="demo.title">
@@ -32,9 +30,15 @@
               </div>
             </template>
 
-            <ResizableSection>
+            <template v-if="useResizable">
+              <ResizableSection>
+                <slot :name="demo.slotKey" />
+              </ResizableSection>
+            </template>
+
+            <template v-else>
               <slot :name="demo.slotKey" />
-            </ResizableSection>
+            </template>
           </div>
         </template>
       </div>
@@ -78,6 +82,7 @@
     title: string,
     description?: string,
     demos?: DemoSection | DemoSection[],
+    useResizable?: boolean,
   }>()
 
   const slots = useSlots()
