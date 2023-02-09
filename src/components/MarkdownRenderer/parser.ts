@@ -32,6 +32,9 @@ const baseElement = 'div'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
+
+const mapChildTokens = (tokens: Token[], options: ParserOptions): VNodeChildren => tokens.map((token) => getVNode(token, options))
+
 const getVNode = (token: Token, options: ParserOptions): VNode => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
 
@@ -40,7 +43,7 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
   let children: VNodeChildren = []
 
   if (hasChildren(token)) {
-    children = token.tokens.map((_t) => getVNode(_t, options))
+    children = mapChildTokens(token.tokens, options)
   }
 
   const props: Record<string, unknown> = { class: [`${baseClass}__token`] }
@@ -148,7 +151,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
     const slotName = randomId()
     columns.push(slotName)
 
-    const headerChildren = tokens.map((_t) => getVNode(_t, options))
+    const headerChildren = mapChildTokens(tokens, options)
     const classList = [`${baseClass}__table-heading`]
     const alignValue = align[index]
 
@@ -173,9 +176,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
     slots[column] = ({ value }: { value: TableDataValue }) => {
       const { _markdownMetadata: { tokens } } = value
 
-      const cellChildren = tokens.map((_t) => {
-        return getVNode(_t, options)
-      })
+      const cellChildren = mapChildTokens(tokens, options)
 
       if (!cellChildren.length) {
         return h(baseElement, { class: [`${baseClass}__table-cell`] }, { default: () => value[column] })
@@ -208,7 +209,7 @@ const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, c
   const { ordered, items } = token
   const base = ordered ? 'ol' : 'ul'
   const classList = [`${baseClass}__list`, `${baseClass}__list--${ordered ? 'ordered' : 'unordered'}`]
-  const listItems = items.map((item) => getVNode(item, options))
+  const listItems = mapChildTokens(items, options)
   return h(base, { class: classList }, [...children, ...listItems])
 }
 
@@ -224,6 +225,6 @@ const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
 }
 
 export const getRootVNode = (tokens: marked.TokensList | [], options: ParserOptions): VNode => {
-  const children: VNode[] = tokens.map((token) => getVNode(token, options))
+  const children = mapChildTokens(tokens, options)
   return h('article', { class: [baseClass] }, children)
 }

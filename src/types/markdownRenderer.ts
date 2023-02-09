@@ -2,7 +2,7 @@ import { marked } from 'marked'
 import { VNode, RendererNode, RendererElement } from 'vue'
 
 export type Token = ReturnType<typeof marked.lexer>[number]
-export type VNodeChildren = VNode<RendererNode, RendererElement, Record<string, unknown>>[] | undefined
+export type VNodeChildren = VNode<RendererNode, RendererElement, Record<string, unknown>>[]
 
 export type MarkdownMessagePayload = {
   text: string,
