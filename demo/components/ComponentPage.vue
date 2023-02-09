@@ -2,7 +2,9 @@
   <div class="component-page">
     <!-- make sticky header -->
     <div class="component-page__heading">
-      <HashLink>{{ title }}</HashLink>
+      <p-hash-link class="component-page__heading-link" :hash="title">
+        {{ title }}
+      </p-hash-link>
       <p-link to="https://www.prefect.io/">
         Documentation
       </p-link>
@@ -20,9 +22,9 @@
       <div class="component-page__demos">
         <template v-for="demo in validDemosArray" :key="demo.title">
           <div class="component-page__demo">
-            <HashLink v-if="demo.slotKey && validDemosArray.length > 1" :hash="demo.slotKey">
+            <p-hash-link v-if="demo.slotKey && validDemosArray.length > 1" class="component-page__heading-link" :hash="demo.slotKey">
               {{ demo.title }}
-            </HashLink>
+            </p-hash-link>
 
             <template v-if="demo.description">
               <div class="component-page__demo-description">
@@ -37,7 +39,9 @@
             </template>
 
             <template v-else>
-              <slot :name="demo.slotKey" />
+              <p-card class="component-page__demo-card">
+                <slot :name="demo.slotKey" />
+              </p-card>
             </template>
           </div>
         </template>
@@ -69,7 +73,6 @@
   import { asArray, kebabCase } from '@/utilities'
   import { computed, useSlots } from 'vue'
   import { useRoute } from 'vue-router'
-  import HashLink from '@/demo/components/HashLink.vue'
   import ResizableSection from '@/demo/components/ResizableSection.vue'
   import { getRouteRecordIndex, routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
@@ -115,15 +118,25 @@
 <style>
 .component-page { @apply
   max-w-full
+  relative
 }
 
 .component-page__heading { @apply
   flex
   justify-between
   text-sm
+  sticky
+  bg-background
+  dark:bg-background-400
+  top-16
+  lg:top-0
+  px-6
+  py-6
+  lg:px-8
+  z-10
 }
 
-.component-page__heading .hash-link { @apply
+.component-page__heading .component-page__heading-link { @apply
   text-2xl
 }
 
@@ -132,7 +145,7 @@
   text-lg
 }
 
-.component-page__demo .hash-link { @apply
+.component-page__heading-link { @apply
   text-base
 }
 
@@ -153,6 +166,20 @@
   text-foreground-300
   my-2
   text-sm
+}
+
+.component-page__demo,
+.component-page__description,
+.component-page__demo-description { @apply
+  max-w-full
+  mx-auto
+  py-6
+  px-6
+  lg:px-8
+}
+
+.component-page__demo-card { @apply
+  bg-transparent
 }
 
 .component-page__navigation { @apply

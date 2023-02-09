@@ -43,7 +43,6 @@
   overflow-auto
 }
 
-
 .markdown-renderer__html img { @apply
   inline
   max-w-full

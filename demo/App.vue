@@ -12,7 +12,7 @@
       </PGlobalSidebar>
     </template>
     <ContextSidebar v-if="showMenu" class="app__sidebar" />
-    <router-view class="w-full mx-auto py-10 px-6 lg:px-8" />
+    <router-view class="w-full" />
   </div>
 </template>
 
