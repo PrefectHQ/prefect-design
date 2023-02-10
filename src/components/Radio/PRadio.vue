@@ -1,7 +1,11 @@
 <template>
-  <PLabel :label="label" class="p-radio" :class="classes.label" :style="styles">
+  <PLabel class="p-radio" :class="classes" :style="styles">
     <template #label>
-      <slot name="label" :label="label" :value="value" />
+      <slot name="label">
+        <span class="p-radio__label">
+          {{ label }}
+        </span>
+      </slot>
     </template>
     <template #default="{ id }">
       <input
@@ -9,7 +13,6 @@
         v-bind="attrs"
         v-model="internalModelValue"
         type="radio"
-        :class="classes.input"
         :disabled="disabled"
         :value="value"
         class="p-radio__input"
@@ -28,7 +31,6 @@
 
   <script lang="ts" setup>
   import { computed } from 'vue'
-  import { PLabel } from '@/components/Label'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'
@@ -58,63 +60,73 @@
 
   const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
 
-  const classes = computed(() => ({
-    label: {
-      ...attrClasses,
+  const classes = computed(() => [
+    attrClasses.value, {
       'p-radio--disabled': props.disabled,
       'p-radio--failed': failed.value,
       'p-radio--pending': props.state?.pending,
     },
-    input: {
-      'p-radio__input--disabled': props.disabled,
-      'p-radio__input--failed': failed.value,
-      'p-radio__input--pending': props.state?.pending,
-    },
-  }))
+  ])
 </script>
 
 <style>
-.p-radio { @apply
+.p-radio.p-radio { @apply
   flex
-  flex-row
+  flex-row-reverse
+  justify-end
   items-center
-  gap-2
+  gap-x-2
+  text-foreground
+}
+
+.p-radio__label,
+.p-radio__control { @apply
+  cursor-pointer
+}
+
+.p-radio__input { @apply
+  h-4
+  w-4
+  transition-colors
+  ring-offset-2
+  focus-within:ring-2
+  block
+
+  text-primary-600
+  bg-background
+  focus:ring-primary-600
+
+  border-background-400
+  dark:text-primary-300
+  dark:border-foreground-200
+  dark:focus:ring-primary-400
+  dark:ring-offset-background-500
 }
 
 .p-radio--failed {
   scroll-margin: var(--prefect-scroll-margin);
 }
 
-.p-radio--disabled { @apply
-  opacity-50
+.p-radio--failed .p-radio__input { @apply
+  ring-1
+  ring-danger
+  focus-within:ring-2
+  focus-within:ring-danger
 }
 
-.p-radio--disabled,
-.p-radio--disabled .p-label__label,
-.p-radio__input--disabled { @apply
+.p-radio--disabled .p-radio__label,
+.p-radio--disabled .p-radio__input { @apply
+  opacity-50
   cursor-not-allowed
 }
 
-.p-radio .p-label__body { @apply
-  order-first
-}
-
-.p-radio__input { @apply
-  ring-offset-2
-  focus-within:ring-2
-}
-
-.p-radio__input--failed { @apply
-  ring-1
-  ring-danger-600
-  focus-within:ring-2
-  focus-within:ring-danger-600
-}
-
-.p-radio__input--pending { @apply
+.p-radio--pending .p-radio__input { @apply
   ring-1
   ring-primary-300
   focus-within:ring-2
   focus-within:ring-primary-300
+
+  dark:ring-primary-100
+  dark:focus-within:ring-primary-100
 }
 </style>
