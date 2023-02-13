@@ -199,13 +199,13 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
   return h(PTable, { class: classList, data, columnClasses }, slots)
 }
 
-const getCheckboxVNode = (token: Token & { type: 'list_item' | 'checkbox' }): VNode => {
+const getCheckboxVNode = (token: marked.Tokens.ListItem): VNode => {
   const { text, checked } = token
   const classList = [`${baseClass}__checkbox`]
   return h(PCheckbox, { modelValue: checked, disabled: true, label: text, checked, class: classList })
 }
 
-const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, children: VNodeChildren = []): VNode => {
+const getListVNode = (token: marked.Tokens.List, options: ParserOptions, children: VNodeChildren = []): VNode => {
   const { ordered, items } = token
   const base = ordered ? 'ol' : 'ul'
   const classList = [`${baseClass}__list`, `${baseClass}__list--${ordered ? 'ordered' : 'unordered'}`]
@@ -213,7 +213,7 @@ const getListVNode = (token: Token & { type: 'list' }, options: ParserOptions, c
   return h(base, { class: classList }, [...children, ...listItems])
 }
 
-const getCodeVNode = (token: Token & { type: 'code' }): VNode => {
+const getCodeVNode = (token: marked.Tokens.Code): VNode => {
   const classList = [`${baseClass}__code`]
   const { text, lang } = token
 

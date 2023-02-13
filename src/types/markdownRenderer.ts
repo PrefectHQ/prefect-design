@@ -17,87 +17,90 @@ export type ParserOptions = {
   baseLinkUrl?: string | null | undefined,
 }
 
-
-export function hasChildren(token: Token): token is Token & { tokens: Token[] } {
-  return 'tokens' in token
+export function isToken(token: unknown): token is Token {
+  return !!token && typeof token == 'object' && 'type' in token
 }
 
-export function isCodeBlock(token: Token): token is Token & { type: 'code' } {
-  return token.type === 'code'
+export function hasChildren(token: unknown): token is Token & { tokens: Token[] } {
+  return isToken(token) && 'tokens' in token
 }
 
-export function isCodeSpan(token: Token): token is Token & { type: 'codespan' } {
-  return token.type === 'codespan'
+export function isCodeBlock(token: unknown): token is marked.Tokens.Code {
+  return isToken(token) && token.type === 'code'
 }
 
-export function isCode(token: Token): token is Token & { type: 'code' | 'codespan' } {
+export function isCodeSpan(token: unknown): token is marked.Tokens.Codespan {
+  return isToken(token) && token.type === 'codespan'
+}
+
+export function isCode(token: unknown): token is marked.Tokens.Code | marked.Tokens.Codespan {
   return isCodeBlock(token) || isCodeSpan(token)
 }
 
-export function isTable(token: Token): token is Token & { type: 'table' } {
-  return token.type === 'table'
+export function isTable(token: unknown): token is marked.Tokens.Table {
+  return isToken(token) && token.type === 'table'
 }
 
-export function isList(token: Token): token is Token & { type: 'list' } {
-  return token.type === 'list'
+export function isList(token: unknown): token is marked.Tokens.List {
+  return isToken(token) && token.type === 'list'
 }
 
-export function isListItem(token: Token): token is Token & { type: 'list_item' } {
-  return token.type === 'list_item'
+export function isListItem(token: unknown): token is marked.Tokens.ListItem {
+  return isToken(token) && token.type === 'list_item'
 }
 
-export function isHeading(token: Token): token is Token & { type: 'heading' } {
-  return token.type === 'heading'
+export function isHeading(token: unknown): token is marked.Tokens.Heading {
+  return isToken(token) && token.type === 'heading'
 }
 
-export function isLink(token: Token): token is Token & { type: 'link' } {
-  return token.type === 'link'
+export function isLink(token: unknown): token is marked.Tokens.Link {
+  return isToken(token) && token.type === 'link'
 }
 
-export function isImage(token: Token): token is Token & { type: 'image' } {
-  return token.type === 'image'
+export function isImage(token: unknown): token is marked.Tokens.Image {
+  return isToken(token) && token.type === 'image'
 }
 
-export function isHtml(token: Token): token is Token & { type: 'html' } {
-  return token.type === 'html'
+export function isHtml(token: unknown): token is marked.Tokens.HTML {
+  return isToken(token) && token.type === 'html'
 }
 
-export function isBlockquote(token: Token): token is Token & { type: 'blockquote' } {
-  return token.type === 'blockquote'
+export function isBlockquote(token: unknown): token is marked.Tokens.Blockquote {
+  return isToken(token) && token.type === 'blockquote'
 }
 
-export function isHorizontalRule(token: Token): token is Token & { type: 'hr' } {
-  return token.type === 'hr'
+export function isHorizontalRule(token: unknown): token is marked.Tokens.Hr {
+  return isToken(token) && token.type === 'hr'
 }
 
-export function isSpace(token: Token): token is Token & { type: 'space' } {
-  return token.type === 'space'
+export function isSpace(token: unknown): token is marked.Tokens.Space {
+  return isToken(token) && token.type === 'space'
 }
 
-export function isBreak(token: Token): token is Token & { type: 'br' } {
-  return token.type === 'br'
+export function isBreak(token: unknown): token is marked.Tokens.Br {
+  return isToken(token) && token.type === 'br'
 }
 
-export function isText(token: Token): token is Token & { type: 'text' } {
-  return token.type === 'text'
+export function isText(token: unknown): token is marked.Tokens.Text {
+  return isToken(token) && token.type === 'text'
 }
 
-export function isParagraph(token: Token): token is Token & { type: 'paragraph' } {
-  return token.type === 'paragraph'
+export function isParagraph(token: unknown): token is marked.Tokens.Paragraph {
+  return isToken(token) && token.type === 'paragraph'
 }
 
-export function isStrong(token: Token): token is Token & { type: 'strong' } {
-  return token.type === 'strong'
+export function isStrong(token: unknown): token is marked.Tokens.Strong {
+  return isToken(token) && token.type === 'strong'
 }
 
-export function isEmphasis(token: Token): token is Token & { type: 'em' } {
-  return token.type === 'em'
+export function isEmphasis(token: unknown): token is marked.Tokens.Em {
+  return isToken(token) && token.type === 'em'
 }
 
-export function isDeleted(token: Token): token is Token & { type: 'del' } {
-  return token.type === 'del'
+export function isDeleted(token: unknown): token is marked.Tokens.Del {
+  return isToken(token) && token.type === 'del'
 }
 
-export function isTextToken(token: Token): token is Token & { type: 'text' | 'paragraph' | 'strong' | 'em' | 'del' } {
+export function isTextToken(token: unknown): token is marked.Tokens.Text | marked.Tokens.Em | marked.Tokens.Strong | marked.Tokens.Del {
   return isText(token) || isParagraph(token) || isStrong(token) || isEmphasis(token) || isDeleted(token)
 }
