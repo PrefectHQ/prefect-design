@@ -26,7 +26,7 @@
   text-slate-50
   rounded
   px-1
-  py-1
+  py-0
   inline-block
 }
 

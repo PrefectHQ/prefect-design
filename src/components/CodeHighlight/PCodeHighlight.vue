@@ -86,7 +86,7 @@
 }
 
 .p-code-highlight__line-numbers { @apply
-  pr-2
+  px-2
   py-1
 }
 

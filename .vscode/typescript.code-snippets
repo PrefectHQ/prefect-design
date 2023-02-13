@@ -1,0 +1,14 @@
+{
+	"Web worker": {
+		"prefix": "worker",
+		"body": [
+			"const handleMessage = (message: MessageEvent<unknown>): void => {",
+			"  self.postMessage(message)",
+			"}",
+			"",
+			"self.onmessage = handleMessage",
+			"export default {}"
+		],
+		"description": "Creates a basic web worker with snippets for receiving and posting messages to the main thread."
+	}
+}
