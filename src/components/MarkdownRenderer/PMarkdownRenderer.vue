@@ -7,7 +7,7 @@
   import { computed, ref, watch } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
   import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
-  import type { MarkdownMessagePayload, ParseMessagePayload } from '@/types/markdownRenderer'
+  import type { ParseMessagePayload } from '@/types/markdownRenderer'
 
   const props = defineProps<{
     text: string,
