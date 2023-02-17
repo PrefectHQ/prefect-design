@@ -2,9 +2,7 @@
   <PLabel class="p-checkbox" :class="classes" :style="attrStyles">
     <template #label>
       <slot name="label">
-        <span class="p-checkbox__label">
-          {{ label }}
-        </span>
+        {{ label }}
       </slot>
     </template>
     <template #default="{ id }">
@@ -14,7 +12,7 @@
         v-model="value"
         type="checkbox"
         :disabled="disabled"
-        class="p-checkbox__input"
+        class="p-checkbox__control"
       >
     </template>
   </PLabel>
@@ -70,7 +68,7 @@
 <style>
 .p-checkbox.p-checkbox { @apply
   my-1
-  flex
+  inline-flex
   flex-row-reverse
   justify-end
   items-center
@@ -78,19 +76,18 @@
   text-foreground
 }
 
-.p-checkbox__label,
-.p-checkbox__input { @apply
+.p-checkbox label,
+.p-checkbox input { @apply
   cursor-pointer
 }
 
-.p-checkbox__input { @apply
+.p-checkbox__control { @apply
   h-4
   w-4
   rounded
   transition-colors
   ring-offset-2
   focus-within:ring-2
-  block
 
   text-primary-600
   bg-background
@@ -107,20 +104,21 @@
   scroll-margin: var(--prefect-scroll-margin);
 }
 
-.p-checkbox--failed .p-checkbox__input { @apply
+.p-checkbox--failed .p-checkbox__control { @apply
   ring-1
   ring-danger
   focus-within:ring-2
   focus-within:ring-danger
 }
 
-.p-checkbox--disabled .p-radio__label,
-.p-checkbox--disabled .p-radio__input { @apply
+
+.p-checkbox--disabled label,
+.p-checkbox--disabled input { @apply
   opacity-50
   cursor-not-allowed
 }
 
-.p-checkbox--pending .p-checkbox__input { @apply
+.p-checkbox--pending .p-checkbox__control { @apply
   ring-1
   ring-primary-300
   focus-within:ring-2

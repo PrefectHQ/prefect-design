@@ -2,9 +2,7 @@
   <PLabel class="p-radio" :class="classes" :style="styles">
     <template #label>
       <slot name="label">
-        <span class="p-radio__label">
-          {{ label }}
-        </span>
+        {{ label }}
       </slot>
     </template>
     <template #default="{ id }">
@@ -71,7 +69,7 @@
 
 <style>
 .p-radio.p-radio { @apply
-  flex
+  inline-flex
   flex-row-reverse
   justify-end
   items-center
@@ -79,8 +77,8 @@
   text-foreground
 }
 
-.p-radio__label,
-.p-radio__control { @apply
+.p-radio label,
+.p-radio input { @apply
   cursor-pointer
 }
 
@@ -90,7 +88,6 @@
   transition-colors
   ring-offset-2
   focus-within:ring-2
-  block
 
   text-primary-600
   bg-background
@@ -114,8 +111,8 @@
   focus-within:ring-danger
 }
 
-.p-radio--disabled .p-radio__label,
-.p-radio--disabled .p-radio__input { @apply
+.p-radio--disabled label,
+.p-radio--disabled input { @apply
   opacity-50
   cursor-not-allowed
 }
