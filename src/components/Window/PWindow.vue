@@ -81,4 +81,12 @@
   px-5
   py-4
 }
+
+.p-window__body .p-code-highlight{
+  background-color: unset;
+}
+
+.p-window__body .p-code-highlight__code-wrapper {
+  color: unset;
+}
 </style>
