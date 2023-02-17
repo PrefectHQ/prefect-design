@@ -126,7 +126,7 @@
   dark:focus-within:ring-primary-100
 }
 
-.p-checkbox--disabled {
+.p-checkbox--disabled .p-checkbox__control {
   @apply opacity-50
 }
 
