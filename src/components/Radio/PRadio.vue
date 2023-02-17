@@ -77,8 +77,7 @@
   text-foreground
 }
 
-.p-radio label,
-.p-radio input { @apply
+.p-radio * { @apply
   cursor-pointer
 }
 
@@ -111,9 +110,10 @@
   focus-within:ring-danger
 }
 
-.p-radio--disabled label,
-.p-radio--disabled input { @apply
+.p-radio--disabled > * { @apply
   opacity-50
+}
+.p-radio--disabled * { @apply
   cursor-not-allowed
 }
 
