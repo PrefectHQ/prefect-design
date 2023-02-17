@@ -13,7 +13,7 @@
             Actions slot
           </p-button>
         </template>
-        window slot!
+        <p-code-highlight text="const works = true" lang="js" />
       </p-window>
     </template>
   </ComponentPage>
