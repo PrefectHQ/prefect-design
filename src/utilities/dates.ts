@@ -1,10 +1,10 @@
-import { isAfter, isBefore, isSameDay, isSameHour, isSameMinute, isSameMonth, isSameYear } from 'date-fns'
+import { isAfter, isBefore, isSameDay, isSameHour, isSameMinute, isSameMonth, isSameSecond, isSameYear } from 'date-fns'
 
 export type DateRange = {
   min?: Date | null | undefined,
   max?: Date | null | undefined,
 }
-export type Precision = 'minute' | 'hour' | 'day' | 'month' | 'year'
+export type Precision = 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year'
 
 export function keepDateInRange(date: Date | null, range: DateRange): Date | null {
   if (date && range.min && isBefore(date, range.min)) {
@@ -20,6 +20,8 @@ export function keepDateInRange(date: Date | null, range: DateRange): Date | nul
 
 export function isMatchingPrecision(dateLeft: Date, dateRight: Date, precision: Precision): boolean {
   switch (precision) {
+    case 'second':
+      return isSameSecond(dateLeft, dateRight)
     case 'minute':
       return isSameMinute(dateLeft, dateRight)
     case 'hour':
