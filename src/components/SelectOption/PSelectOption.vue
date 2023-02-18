@@ -122,9 +122,10 @@
   px-3
   font-normal
   text-sm
-  flex
   gap-2
   items-center
+  grid;
+  grid-template-columns: min-content 1fr;
 }
 
 .p-select-option--selected { @apply
@@ -138,6 +139,10 @@
 
 .p-select-option--selected.p-select-option--highlighted { @apply
   bg-primary-300
+}
+
+.p-select-option__checkbox { @apply
+  w-auto
 }
 
 .p-select-option__text { @apply
