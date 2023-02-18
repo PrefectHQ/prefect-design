@@ -122,9 +122,10 @@
   px-3
   font-normal
   text-sm
-  flex
   gap-2
   items-center
+  grid;
+  grid-template-columns: min-content 1fr;
 }
 
 .p-select-option--selected { @apply
