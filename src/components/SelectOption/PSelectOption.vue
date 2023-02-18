@@ -141,10 +141,6 @@
   bg-primary-300
 }
 
-.p-select-option__checkbox { @apply
-  w-auto
-}
-
 .p-select-option__text { @apply
   flex
   items-center
