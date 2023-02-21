@@ -1,6 +1,6 @@
 <template>
   <PLabel class="p-radio" :class="classes" :style="styles">
-    <template #label>
+    <template v-if="slots.label || isDefined(label)" #label>
       <slot name="label">
         <span class="p-radio__label">
           {{ label }}
@@ -30,10 +30,11 @@
 </script>
 
   <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'
+  import { isDefined } from '@/utilities'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,
@@ -46,6 +47,8 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | number | boolean | null): void,
   }>()
+
+  const slots = useSlots()
 
   const { classes: attrClasses, styles, attrs } = useAttrsStylesAndClasses()
 
@@ -76,6 +79,7 @@
   justify-end
   items-center
   gap-x-2
+  w-auto
   text-foreground
 }
 

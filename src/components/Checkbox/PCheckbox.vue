@@ -1,6 +1,6 @@
 <template>
   <PLabel class="p-checkbox" :class="classes" :style="attrStyles">
-    <template #label>
+    <template v-if="slots.label || isDefined(label)" #label>
       <slot name="label">
         <span class="p-checkbox__label">
           {{ label }}
@@ -29,10 +29,11 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions'
   import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
+  import { isDefined } from '@/utilities'
 
   const props = defineProps<{
     modelValue: CheckboxModel | null,
@@ -44,6 +45,8 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: CheckboxModel): void,
   }>()
+
+  const slots = useSlots()
 
   const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
 
@@ -75,6 +78,7 @@
   justify-end
   items-center
   gap-x-2
+  w-auto
   text-foreground
 }
 
