@@ -38,9 +38,9 @@
             </template>
 
             <template v-else>
-              <p-card class="component-page__demo-card">
+              <div class="component-page__demo-card">
                 <slot :name="demo.slotKey" />
-              </p-card>
+              </div>
             </template>
           </div>
         </template>
@@ -178,6 +178,12 @@
 }
 
 .component-page__demo-card { @apply
+  border
+  border-background-400
+  dark:border-background-600
+  border-dashed
+  rounded
+  p-4
   bg-transparent
 }
 
