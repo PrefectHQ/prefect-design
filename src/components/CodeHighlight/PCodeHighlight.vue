@@ -56,7 +56,6 @@
 
   @apply
   flex
-  bg-background-500
   rounded-md
   font-mono
   py-0
