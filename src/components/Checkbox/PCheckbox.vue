@@ -78,6 +78,7 @@
   justify-end
   items-center
   gap-x-2
+  w-auto
   text-foreground
 }
 
