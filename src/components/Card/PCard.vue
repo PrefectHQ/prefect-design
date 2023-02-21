@@ -6,7 +6,8 @@
 
 <style>
 .p-card { @apply
-  bg-background
+  dark:bg-background-500
+  bg-background-700
   text-foreground
   border
   border-background-400
@@ -16,14 +17,10 @@
   shadow-sm
 }
 
-.p-card .p-code-highlight { @apply
+.p-card .p-code-highlight:not(:only-child) { @apply
   px-4
   py-2
-  dark:bg-slate-600
-  bg-slate-200
-}
-
-.p-card .p-code-highlight__code-wrapper {
-  color: unset;
+  dark:bg-background-600
+  bg-background-500
 }
 </style>
