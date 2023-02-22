@@ -138,13 +138,14 @@
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2
+  focus:ring-primary
   focus:z-10
   font-medium
   inline-flex
   items-center
   rounded-md
   shadow-sm
-
+  text-foreground
   dark:ring-offset-background-400
 }
 
@@ -160,10 +161,7 @@
 .p-button--primary { @apply
   text-white
   bg-primary-600
-  focus:ring-primary-700
-
   dark:bg-primary-500
-  dark:focus:ring-primary-400
 }
 .p-button--primary:not(.p-button--disabled) { @apply
   hover:bg-primary-700
@@ -171,12 +169,8 @@
 }
 
 .p-button--secondary { @apply
-  text-primary-600
   bg-primary-100
-  focus:ring-primary-200
-
   dark:bg-primary-100
-  dark:focus:ring-primary-50
 }
 .p-button--secondary:not(.p-button--disabled) { @apply
   hover:bg-primary-200
@@ -186,26 +180,16 @@
 .p-button--inset { @apply
   border
   focus:border-transparent
-
-  text-foreground-300
   border-background-400
   bg-background-600
-  focus:ring-background-400
-
-  dark:text-foreground-400
   dark:bg-background-600
-  dark:focus:ring-background-500
 }
 .p-button--inset:not(.p-button--disabled) { @apply
   hover:bg-background-400
   dark:hover:bg-background-500
 }
 
-.p-button--flat { @apply
-  text-foreground-300
-  focus:ring-background-400
-  dark:focus:ring-background-500
-}
+
 .p-button--flat:not(.p-button--disabled) { @apply
   hover:bg-background-400
   dark:hover:bg-background-500
@@ -215,8 +199,6 @@
 .p-button--danger { @apply
   text-white
   bg-danger-600
-  focus:ring-danger-700
-  dark:focus:ring-danger-400
   dark:bg-danger-500
 }
 .p-button--danger:not(.p-button--disabled) { @apply
@@ -225,13 +207,8 @@
 }
 
 .p-button--danger--secondary { @apply
-  text-danger
   bg-danger-100
-  focus:ring-danger-200
-
-  dark:text-danger-700
   dark:bg-danger-200
-  dark:focus:ring-danger-200
 }
 .p-button--danger--secondary:not(.p-button--disabled) { @apply
   hover:bg-danger-200
