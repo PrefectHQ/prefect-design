@@ -179,7 +179,7 @@
   text-transparent
   top-0
   w-full
-  whitespace-nowrap
+  whitespace-pre-wrap
   z-0
 }
 
