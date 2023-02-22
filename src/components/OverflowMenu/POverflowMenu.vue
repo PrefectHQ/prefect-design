@@ -6,21 +6,20 @@
 
 <style>
 .p-overflow-menu { @apply
+  bg-background-500
+  dark:bg-background-600
   w-auto
-  inline-block
-  rounded-md
-  shadow-lg
-  bg-background-800
-  dark:bg-background-500
-  border-2
-  border-background-400
+  border
   dark:border-background-600
-  divide-y-2
-  divide-background-400
-  dark:divide-background-600
+  rounded
+  overflow-hidden
+  inline-flex
+  flex-col
+  gap-[1px]
 }
 
-.p-overflow-menu > a { @apply
+.p-overflow-menu > * { @apply
+  bg-background
   block
 }
 </style>
