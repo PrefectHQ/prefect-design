@@ -56,6 +56,7 @@
   top-0
   border-0
   bg-opacity-90
+  dark:bg-opacity-90
   bg-background-600
   dark:bg-background-400
   z-10
