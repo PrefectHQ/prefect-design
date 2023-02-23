@@ -31,7 +31,7 @@
             <template v-else-if="multiple">
               <PTagWrapper class="p-select-button__value" :tags="tags">
                 <template #tag="{ tag }">
-                  <slot name="tag" :label="tag.label" :value="tag" :dismiss="() => dismissTag(tag)">
+                  <slot name="tag" :label="tag.label" :value="tag.value" :dismiss="() => dismissTag(tag)">
                     <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">
                       <slot :label="tag.label" :value="tag.value" :option="getSelectOption(tag.value)">
                         {{ tag.label }}
