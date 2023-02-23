@@ -196,7 +196,17 @@
         event.preventDefault()
         break
       case keys.enter:
-        if (isOpen.value && !isUnselected(highlightedValue.value)) {
+        if (!isOpen.value) {
+          return
+        }
+
+        if (filteredSelectOptions.value.length === 1) {
+          const [first] = filteredSelectOptions.value
+
+          setValue(first.value)
+        }
+
+        if (!isUnselected(highlightedValue.value)) {
           setValue(highlightedValue.value)
           event.preventDefault()
         }
