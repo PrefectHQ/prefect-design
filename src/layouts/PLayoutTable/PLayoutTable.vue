@@ -54,11 +54,11 @@
 .p-layout-table__header--sticky { @apply
   sticky
   top-0
+  border-0
   bg-opacity-90
-  bg-background
+  dark:bg-opacity-90
+  bg-background-600
   dark:bg-background-400
-  rounded
-  md:rounded-lg
   z-10
 }
 

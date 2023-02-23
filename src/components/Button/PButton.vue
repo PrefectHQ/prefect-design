@@ -181,14 +181,16 @@
   border
   focus:border-transparent
   border-background-400
-  bg-background-600
-  dark:bg-background-600
+  bg-background
 }
 .p-button--inset:not(.p-button--disabled) { @apply
   hover:bg-background-400
   dark:hover:bg-background-500
 }
 
+.p-button--flat { @apply
+  bg-background
+}
 
 .p-button--flat:not(.p-button--disabled) { @apply
   hover:bg-background-400

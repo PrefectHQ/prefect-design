@@ -40,7 +40,7 @@
     content: {
       'dark': colorTheme.value === 'dark',
       'light': colorTheme.value === 'light',
-      'bg-background-700': colorTheme.value === 'light',
+      'bg-background-600': colorTheme.value === 'light',
       'bg-background-400': colorTheme.value === 'dark',
     },
     iframe: {

@@ -31,9 +31,7 @@
 <style>
 .p-empty-state { @apply
   border
-  border-background-400
-  dark:border-background-600
-  bg-background-500
+  bg-background
   rounded-lg
   shadow-sm
 }
