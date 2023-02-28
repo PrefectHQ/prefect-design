@@ -18,10 +18,10 @@
 <script lang="ts" setup>
   import { computed, withDefaults } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
-  import { SelectModelValue, ButtonGroupOption, Size } from '@/types'
+  import { SelectModelValue, ButtonGroupOption, Size, isButtonGroupOption } from '@/types'
 
   const props = withDefaults(defineProps<{
-    options: ButtonGroupOption[],
+    options: (ButtonGroupOption | string)[],
     modelValue: string | number | null | undefined,
     size?: Size,
   }>(), {
@@ -31,6 +31,19 @@
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue): void,
   }>()
+
+  const options = computed<ButtonGroupOption[]>(() => {
+    return props.options.map(option => {
+      if (isButtonGroupOption(option)) {
+        return option
+      }
+
+      return {
+        label: option,
+        value: option,
+      }
+    })
+  })
 
   const internalValue = computed({
     get() {
