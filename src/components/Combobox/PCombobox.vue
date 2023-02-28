@@ -147,11 +147,11 @@
   function displayValue(value: SelectModelValue): string {
     const option = getSelectOption(value)
 
-    if (option?.value) {
+    if (option) {
       return option.label
     }
 
-    if (!value) {
+    if (value === null) {
       return ''
     }
 
