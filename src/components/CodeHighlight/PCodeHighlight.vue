@@ -61,6 +61,7 @@
   font-mono
   py-0
   px-1
+  overflow-auto
 }
 
 .p-code-highlight--inline { @apply
