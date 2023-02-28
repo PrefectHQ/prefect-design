@@ -4,6 +4,7 @@
     :demos="[
       { title: 'Basic' },
       { title: 'Small' },
+      { title: 'Simple', description: 'Uses `string[]` for options' },
     ]"
   >
     <template #description>
@@ -19,12 +20,16 @@
     <template #small>
       <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" />
     </template>
+
+    <template #simple>
+      <p-button-group v-model="simpleValue" :options="simpleOptions" />
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
   import { ButtonGroupOption } from '@/types'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const preselectedItem = ref('email')
@@ -59,4 +64,7 @@
       disabled: true,
     },
   ]
+
+  const simpleValue = ref('Email')
+  const simpleOptions = computed(() => buttonGroup.map(({ label }) => label))
 </script>
