@@ -156,8 +156,7 @@
 }
 
 .component-page__description,
-.component-page__demos,
-.component-page__demo { @apply
+.component-page__demos { @apply
   mt-4
   mb-8
 }
@@ -186,6 +185,7 @@
 .component-page__navigation { @apply
   flex
   justify-between
+  px-8
 }
 
 .component-page__navigation-link { @apply
