@@ -33,9 +33,9 @@ const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
 
 
-const mapChildTokens = (tokens: Token[], options: ParserOptions): VNodeChildren => tokens.map((token) => getVNode(token, options))
+const mapChildTokens = (tokens: Token[], options: ParserOptions): VNodeChildren => tokens.flatMap((token) => getVNode(token, options))
 
-const getVNode = (token: Token, options: ParserOptions): VNode => {
+const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
 
   const normalizeHref = (href: string): string => isRouteExternal(href) ? href : `${baseLinkUrl}${href}`
@@ -118,13 +118,14 @@ const getVNode = (token: Token, options: ParserOptions): VNode => {
 
   if (isHeading(token)) {
     const { depth, text } = token
+    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
+    const heading = h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
 
     if (depth < 2) {
-      children.push(h(PDivider))
+      return [heading, h(PDivider)]
     }
 
-    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
-    return h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
+    return heading
   }
 
   if (isLink(token)) {
