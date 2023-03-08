@@ -2,7 +2,7 @@
   <div class="component-page">
     <div class="component-page__heading">
       <p-hash-link class="component-page__heading-link" :hash="title">
-        {{ title }}
+        <p-heading>{{ title }}</p-heading>
       </p-hash-link>
       <p-link to="https://www.prefect.io/">
         Documentation
@@ -20,9 +20,11 @@
     <template v-if="validDemosArray.length">
       <div class="component-page__demos">
         <template v-for="demo in validDemosArray" :key="demo.title">
-          <div class="component-page__demo">
+          <p-content class="component-page__demo">
             <p-hash-link v-if="demo.slotKey && validDemosArray.length > 1" class="component-page__heading-link" :hash="demo.slotKey">
-              {{ demo.title }}
+              <p-heading heading="2">
+                {{ demo.title }}
+              </p-heading>
             </p-hash-link>
 
             <template v-if="demo.description">
@@ -42,7 +44,7 @@
                 <slot :name="demo.slotKey" />
               </p-card>
             </template>
-          </div>
+          </p-content>
         </template>
       </div>
     </template>
@@ -94,7 +96,7 @@
     const demos = []
 
     if (slots.default) {
-      demos.push({ title: 'default', slotKey: 'default' })
+      demos.push({ title: 'Default', slotKey: 'default' })
     }
 
     if (props.demos) {

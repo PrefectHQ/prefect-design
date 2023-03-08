@@ -40,6 +40,7 @@
   cursor-pointer
   relative
   transition-all
+  flex
 }
 
 .p-hash-link:before {

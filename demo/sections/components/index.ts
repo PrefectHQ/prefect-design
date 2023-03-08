@@ -18,6 +18,7 @@ export const components: Section = {
   emptyState: () => import('./EmptyState.vue'),
   form: () => import('./Form.vue'),
   globalSidebar: () => import('./GlobalSidebar.vue'),
+  heading: () => import('./Heading.vue'),
   iconButtonMenu: () => import('./IconButtonMenu.vue'),
   iconText: () => import('./IconText.vue'),
   keyValue: () => import('./KeyValue.vue'),

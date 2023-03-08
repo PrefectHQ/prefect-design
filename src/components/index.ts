@@ -27,6 +27,7 @@ import { PFrame, install as installPFrame } from '@/components/Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from '@/components/GlobalNavItem'
 import { PGlobalSidebar, install as installPGlobalSidebar } from '@/components/GlobalSidebar'
 import { PHashLink, install as installPHashLink } from '@/components/HashLink'
+import { PHeading, install as installPHeading } from '@/components/Heading'
 import { PIcon, install as installPIcon } from '@/components/Icon'
 import { PIconButtonMenu, install as installPIconButtonMenu } from '@/components/IconButtonMenu'
 import { PIconText, install as installPIconText } from '@/components/IconText'
@@ -102,9 +103,10 @@ export {
   PEmptyState,
   PForm,
   PFrame,
-  PHashLink,
   PGlobalNavItem,
   PGlobalSidebar,
+  PHashLink,
+  PHeading,
   PIcon,
   PIconButtonMenu,
   PIconText,
@@ -140,8 +142,8 @@ export {
   PTableHead,
   PTableHeader,
   PTableRow,
-  PTabs,
   PTabNavigation,
+  PTabs,
   PTabSelect,
   PTag,
   PTags,
@@ -189,9 +191,10 @@ export const installs = [
   installPEmptyState,
   installPForm,
   installPFrame,
-  installPHashLink,
   installPGlobalNavItem,
   installPGlobalSidebar,
+  installPHashLink,
+  installPHeading,
   installPIcon,
   installPIconButtonMenu,
   installPIconText,
@@ -202,8 +205,8 @@ export const installs = [
   installPListItem,
   installPListItemInput,
   installPLoadingIcon,
-  installPMessage,
   installPMarkdownRenderer,
+  installPMessage,
   installPModal,
   installPNativeDateInput,
   installPNativeSelect,
@@ -235,8 +238,8 @@ export const installs = [
   installPToast,
   installPToggle,
   installPTypeAhead,
-  installPVirtualScroller,
   installPUnwrap,
+  installPVirtualScroller,
   installPWindow,
   installPWizard,
 ]
@@ -271,6 +274,7 @@ declare module '@vue/runtime-core' {
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
     PHashLink: typeof PHashLink,
+    PHeading: typeof PHeading,
     PIcon: typeof PIcon,
     PIconButtonMenu: typeof PIconButtonMenu,
     PIconText: typeof PIconText,
@@ -306,8 +310,8 @@ declare module '@vue/runtime-core' {
     PTableHead: typeof PTableHead,
     PTableHeader: typeof PTableHeader,
     PTableRow: typeof PTableRow,
-    PTabs: typeof PTabs,
     PTabNavigation: typeof PTabNavigation,
+    PTabs: typeof PTabs,
     PTabSelect: typeof PTabSelect,
     PTag: typeof PTag,
     PTags: typeof PTags,
@@ -321,8 +325,8 @@ declare module '@vue/runtime-core' {
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
-    PVirtualScroller: typeof PVirtualScroller,
     PUnwrap: typeof PUnwrap,
+    PVirtualScroller: typeof PVirtualScroller,
     PWindow: typeof PWindow,
     PWizard: typeof PWizard,
   }
