@@ -1,7 +1,8 @@
 <template>
-  <button
-    type="button"
+  <component
+    :is="component"
     class="p-menu-item"
+    v-bind="componentProps"
   >
     <PIcon v-if="icon" :icon="icon" class="p-menu-item__icon" />
 
@@ -12,17 +13,49 @@
     <div class="p-menu-item__after">
       <slot name="after" />
     </div>
-  </button>
+  </component>
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
+  import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
+  import { isRouteExternal } from '@/utilities/router'
 
-  defineProps<{
+  const props = defineProps<{
     label?: string,
     icon?: Icon,
+    to?: RouteLocationRaw,
   }>()
+
+  const component = computed(() => {
+    if (props.to) {
+      return isRouteExternal(props.to) ? 'a' : 'router-link'
+    }
+
+    return 'button'
+  })
+
+  const componentProps = computed(() => {
+    if (component.value === 'a') {
+      return {
+        role: 'button',
+        href: props.to,
+      }
+    }
+
+    if (component.value === 'button') {
+      return {
+        type: 'button',
+      }
+    }
+
+    return {
+      role: 'button',
+      to: props.to,
+    }
+  })
 </script>
 
 <style>

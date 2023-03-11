@@ -13,8 +13,8 @@
             <span class="text-prefect-500">3 INVITES</span>
           </template>
         </p-overflow-menu-item>
-        <p-overflow-menu-item label="Add Favorite" />
-        <p-overflow-menu-item label="Copy ID" />
+        <p-overflow-menu-item label="Google" to="https://www.google.com" />
+        <p-overflow-menu-item label="Icons" :to="{ name: 'icons' }" />
         <p-overflow-menu-item label="Settings" />
       </p-overflow-menu>
     </template>
