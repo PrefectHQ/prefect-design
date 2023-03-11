@@ -14,8 +14,8 @@
           </template>
         </p-overflow-menu-item>
         <p-overflow-menu-item label="Add Favorite" />
-        <p-overflow-menu-item label="Copy ID" />
-        <p-overflow-menu-item label="Settings" />
+        <p-overflow-menu-item label="Copy ID" to="https://www.google.com" />
+        <p-overflow-menu-item label="Settings" to="/p-button" />
       </p-overflow-menu>
     </template>
   </ComponentPage>
