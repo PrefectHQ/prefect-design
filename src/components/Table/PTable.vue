@@ -23,7 +23,7 @@
         </PTableHead>
         <PTableBody>
           <template v-for="(row, rowIndex) in data" :key="rowIndex">
-            <PTableRow :class="getRowClasses(row, rowIndex)">
+            <PTableRow :class="getRowClasses(row, rowIndex)" @click="emit('row:click', { row, rowIndex })">
               <template v-if="showMultiselect">
                 <PTableData class="p-table__checkbox-cell">
                   <p-checkbox v-model="internalSelectedRows" :value="row" :disabled="row.disabled" />
@@ -83,6 +83,7 @@
 
   const emit = defineEmits<{
     (event: 'update:selected', value: TableData[]): void,
+    (event: 'row:click', value: { row: TableData, rowIndex: number }): void,
   }>()
 
   const internalSelectedRows = computed({
