@@ -20,6 +20,7 @@
 .p-content { @apply
   grid
   gap-4
+  grid-cols-1
 }
 
 .p-content--secondary { @apply
