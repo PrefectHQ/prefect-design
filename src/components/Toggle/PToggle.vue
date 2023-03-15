@@ -150,6 +150,9 @@
 .p-toggle__slider { @apply
   w-5
   h-5
+  flex
+  justify-center
+  items-center
   text-primary-300
   relative
   rounded-full
