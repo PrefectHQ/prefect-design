@@ -6,7 +6,14 @@
       </slot>
     </button>
 
-    <label class="p-toggle__control" :class="classes.control">
+    <label
+      class="p-toggle__control"
+      tabindex="0"
+      role="switch"
+      :aria-checked="internalValue"
+      :class="classes.control"
+      @keypress.space="toggle"
+    >
       <input
         v-show="false"
         v-model="internalValue"
@@ -143,6 +150,9 @@
 .p-toggle__slider { @apply
   w-5
   h-5
+  flex
+  justify-center
+  items-center
   text-primary-300
   relative
   rounded-full
