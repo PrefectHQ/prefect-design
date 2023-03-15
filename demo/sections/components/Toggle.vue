@@ -11,7 +11,7 @@
     <template #toggle>
       <p-label label="Toggle">
         <div class="flex flex-col gap-2">
-          <p-toggle v-model="exampleBoolean" :disabled="disabled" :state="exampleState" :append="exampleBoolean?.toString() ?? 'null'" />
+          <p-toggle v-model="exampleBoolean" :disabled="disabled" :state="exampleState" />
           <p-toggle
             v-model="exampleSecondBoolean"
             class="color-toggle"
