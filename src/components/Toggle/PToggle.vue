@@ -6,7 +6,14 @@
       </slot>
     </button>
 
-    <label class="p-toggle__control" :class="classes.control">
+    <label
+      class="p-toggle__control"
+      tabindex="0"
+      role="switch"
+      :aria-checked="internalValue"
+      :class="classes.control"
+      @keypress.space="toggle"
+    >
       <input
         v-show="false"
         v-model="internalValue"
