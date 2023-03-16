@@ -68,7 +68,6 @@
     showModal: boolean,
     title?: string,
     icon?: Icon,
-    preventFocus?: boolean,
     autoClose?: boolean,
   }>()
 
@@ -124,7 +123,7 @@
   }
 
   watch(() => props.showModal, value => {
-    if (value && !props.preventFocus) {
+    if (value) {
       nextTick(focusOnFirstFocusable)
     }
 
