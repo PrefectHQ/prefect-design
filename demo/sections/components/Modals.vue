@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Modals" :demos="[{ title: 'Modals' }]">
+  <ComponentPage title="Modals" :demos="[{ title: 'Modals' }, { title: 'Auto-Close' }]">
     <template #description>
       This is where we add a short description of <p-code inline>
         p-modals
@@ -23,6 +23,24 @@
         </template>
       </p-modal>
     </template>
+
+    <template #auto-close>
+      <p-button @click="showAutoCloseModal = true">
+        Open Modal
+      </p-button>
+
+      <p-modal v-model:showModal="showAutoCloseModal" title="Auto-Close Modal" icon="CakeIcon" auto-close>
+        <p class="text-sm text-foreground">
+          Click on modal mask to automatically dismiss modal
+        </p> :modelValue=
+
+        <template #actions>
+          <p-button @click="showAutoCloseModal = false">
+            Submit
+          </p-button>
+        </template>
+      </p-modal>
+    </template>
   </ComponentPage>
 </template>
 
@@ -31,4 +49,5 @@
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const showModal = ref(false)
+  const showAutoCloseModal = ref(false)
 </script>
