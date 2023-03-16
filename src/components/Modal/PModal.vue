@@ -13,7 +13,7 @@
         @keydown="handleKeydown"
       >
         <div class="p-modal__container">
-          <div class="p-modal__background" aria-hidden="true" />
+          <div class="p-modal__background" aria-hidden="true" @click="handleMaskClick" />
           <div class="p-modal__card">
             <div class="p-modal__header" :class="classes.header">
               <div class="p-modal__tile-icon-group">
@@ -68,6 +68,8 @@
     showModal: boolean,
     title?: string,
     icon?: Icon,
+    preventFocus?: boolean,
+    autoClose?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -115,8 +117,14 @@
     firstFocusable?.focus()
   }
 
+  function handleMaskClick(): void {
+    if (props.autoClose) {
+      closeModal()
+    }
+  }
+
   watch(() => props.showModal, value => {
-    if (value) {
+    if (value && !props.preventFocus) {
       nextTick(focusOnFirstFocusable)
     }
 
