@@ -68,10 +68,10 @@
 .p-calendar__dates { @apply
   grid
   grid-cols-7
-  grid-rows-6
   gap-y-2
   gap-x-3
-  flex-grow
+  flex-grow;
+  grid-auto-rows: minmax(0, 1fr)
 }
 
 .p-calendar__date { @apply
