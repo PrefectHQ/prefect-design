@@ -21,7 +21,7 @@
           <PNativeDateInput
             v-model="internalModelValue"
             class="p-date-input__native"
-            v-bind="{ min, max, disabled }"
+            v-bind="{ min, max, disabled, showTime }"
           />
         </template>
       </slot>
@@ -150,7 +150,6 @@
 .p-date-input__date-picker { @apply
   bg-background
   my-1
-  rounded-md
   shadow-lg
   rounded
   dark:border-foreground-300
