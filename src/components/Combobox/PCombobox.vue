@@ -17,7 +17,7 @@
       <div class="p-combobox__search-option">
         <input
           ref="textInput"
-          v-model="typedValue"
+          v-model="search"
           type="search"
           :placeholder="placeholder"
           class="p-combobox__text-input"
@@ -40,9 +40,9 @@
     <template #options-empty="scope">
       <div class="p-combobox__options-empty">
         <slot name="combobox-options-empty" v-bind="scope">
-          <template v-if="typedValue">
-            <span>No matches for "{{ typedValue }}"</span>
-            <PButton secondary size="sm" @click.stop="typedValue = null">
+          <template v-if="search">
+            <span>No matches for "{{ search }}"</span>
+            <PButton secondary size="sm" @click.stop="clearSearch">
               See All Options
             </PButton>
           </template>
@@ -69,13 +69,16 @@
     allowUnknownValue?: boolean,
     emptyMessage?: string,
     placeholder?: string,
+    search?: string,
   }>(), {
     emptyMessage: undefined,
     placeholder: 'Search',
+    search: undefined,
   })
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
+    (event: 'update:search', value: string | null): void,
   }>()
 
   const modelValue = computed({
@@ -120,19 +123,19 @@
       options.push(...unknownSelectOptions)
     }
 
-    if (typedValue.value && props.allowUnknownValue && !optionsIncludeValue(options, typedValue.value)) {
-      options.push({ label: `${typedValue.value}`, value: typedValue.value })
+    if (search.value && props.allowUnknownValue && !optionsIncludeValue(options, search.value)) {
+      options.push({ label: `${search.value}`, value: search.value })
     }
 
     return options
   })
 
   const filteredSelectOptions = computed(() => {
-    if (!typedValue.value) {
+    if (!search.value) {
       return selectOptionsWithUnknown.value
     }
 
-    return filterOptionsOrOptionGroups(selectOptionsWithUnknown.value, typedValue.value)
+    return filterOptionsOrOptionGroups(selectOptionsWithUnknown.value, search.value)
   })
 
   const classes = computed(() => ({
@@ -141,7 +144,17 @@
     },
   }))
 
-  const typedValue = ref<string | null>(null)
+  const backupSearch = ref<string | null>(null)
+  const search = computed({
+    get() {
+      return props.search ?? backupSearch.value
+    },
+    set(value) {
+      backupSearch.value = value
+      emit('update:search', value)
+    },
+  })
+
   const textInput = ref<HTMLInputElement>()
 
   function displayValue(value: SelectModelValue): string {
@@ -181,7 +194,7 @@
   }
 
   function resetTypedValue(): void {
-    typedValue.value = null
+    search.value = null
   }
 
   function handleComboboxKeydown(event: KeyboardEvent): void {
@@ -208,6 +221,10 @@
 
   function handleFocus(): void {
     textInput.value?.select()
+  }
+
+  function clearSearch(): void {
+    search.value = null
   }
 </script>
 
