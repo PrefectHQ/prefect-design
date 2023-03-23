@@ -15,7 +15,6 @@
         <template v-if="dismissible">
           <p-button
             class="p-message__dismiss"
-            :class="classes.dismiss"
             icon="XIcon"
             flat
             @click="emit('dismiss')"
@@ -71,12 +70,6 @@
       'p-message__icon--error': props.error,
       'p-message__icon--success': props.success,
     },
-    dismiss: {
-      'p-message__dismiss--info': props.info,
-      'p-message__dismiss--warning': props.warning,
-      'p-message__dismiss--error': props.error,
-      'p-message__dismiss--success': props.success,
-    },
   }))
 </script>
 
@@ -107,54 +100,30 @@
 }
 
 .p-message--info { @apply
-  bg-primary-50
+  bg-primary-100
   text-primary-800
 }
 
 .p-message--warning { @apply
-  bg-orange-50
+  bg-orange-100
   text-orange-800
 }
 
 .p-message--error { @apply
-  bg-danger-50
+  bg-danger-100
   text-danger-900
 }
 
 .p-message--success { @apply
-  bg-success-50
+  bg-success-100
   text-success-900
 }
 
-.p-message__dismiss--info,
-.p-message__icon--info { @apply
+.p-message__dismiss { @apply
   text-primary-800
 }
-.p-message__dismiss--info:not(.p-button--disabled) { @apply
+
+.p-message__dismiss:not(.p-button--disabled) { @apply
   hover:bg-primary-100
-}
-
-.p-message__dismiss--warning,
-.p-message__icon--warning { @apply
-  text-orange-800
-}
-.p-message__dismiss--warning:not(.p-button--disabled) { @apply
-  hover:bg-orange-100
-}
-
-.p-message__dismiss--error,
-.p-message__icon--error { @apply
-  text-danger-900
-}
-.p-message__dismiss--error:not(.p-button--disabled) { @apply
-  hover:bg-danger-100
-}
-
-.p-message__dismiss--success,
-.p-message__icon--success { @apply
-  text-success-900
-}
-.p-message__dismiss--success:not(.p-button--disabled) { @apply
-  hover:bg-success-100
 }
 </style>
