@@ -31,6 +31,7 @@ export const components: Section = {
   nativeDateInput: () => import('./NativeDateInput.vue'),
   nativeSelect: () => import('./NativeSelect.vue'),
   numberInput: () => import('./NumberInput.vue'),
+  orderedList: () => import('./OrderedList.vue'),
   overflowMenu: () => import('./OverflowMenu.vue'),
   pager: () => import('./Pager.vue'),
   popOver: () => import('./PopOver.vue'),

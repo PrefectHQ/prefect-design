@@ -44,6 +44,7 @@ import { PModal, install as installPModal } from '@/components/Modal'
 import { PNativeDateInput, install as installPNativeDateInput } from '@/components/NativeDateInput'
 import { PNativeSelect, install as installPNativeSelect } from '@/components/NativeSelect'
 import { PNumberInput, install as installPNumberInput } from '@/components/NumberInput'
+import { POrderedList, install as installPOrderedList } from '@/components/OrderedList'
 import { POverflowMenu, install as installPOverflowMenu } from '@/components/OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from '@/components/OverflowMenuItem'
 import { PPager, install as installPPager } from '@/components/Pager'
@@ -123,6 +124,7 @@ export {
   PNativeDateInput,
   PNativeSelect,
   PNumberInput,
+  POrderedList,
   POverflowMenu,
   POverflowMenuItem,
   PPager,
@@ -211,6 +213,7 @@ export const installs = [
   installPNativeDateInput,
   installPNativeSelect,
   installPNumberInput,
+  installPOrderedList,
   installPOverflowMenu,
   installPOverflowMenuItem,
   installPPager,
@@ -291,6 +294,7 @@ declare module '@vue/runtime-core' {
     PNativeDateInput: typeof PNativeDateInput,
     PNativeSelect: typeof PNativeSelect,
     PNumberInput: typeof PNumberInput,
+    POrderedList: typeof POrderedList,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
     PPager: typeof PPager,
