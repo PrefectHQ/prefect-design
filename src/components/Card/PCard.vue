@@ -38,7 +38,7 @@
 }
 
 .p-card .p-card--flat { @apply
-  border-none
+  border-transparent
   shadow-none
   bg-transparent
 }
