@@ -77,7 +77,6 @@ const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void =
   const { text, lang } = message.data
   const { language, code, illegal, relevance, value } = highlightText(text, lang)
 
-  console.log({ language, code, illegal, relevance, value })
   self.postMessage({
     unformatted: code,
     formatted: value,
