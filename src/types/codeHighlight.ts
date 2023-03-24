@@ -1,23 +1,25 @@
-const PythonLanguageRefs = ['python', 'py'] as const
-const JavascriptLanguageRefs = ['javascript', 'js'] as const
-const JsonLanguageRefs = ['json'] as const
-const VueLanguageRefs = ['vue'] as const
-const MarkdownLanguageRefs = ['markdown', 'md'] as const
+const CssLanguageRefs = ['css'] as const
 const GithubFlavoredMarkdownLanguageRefs = ['gh-markdown'] as const
 const HtmlLanguageRefs = ['html', 'xml'] as const
-const CssLanguageRefs = ['css'] as const
+const JavascriptLanguageRefs = ['javascript', 'js'] as const
 const JinjaLanguageRefs = ['jinja'] as const
+const JsonLanguageRefs = ['json'] as const
+const MarkdownLanguageRefs = ['markdown', 'md'] as const
+const PythonLanguageRefs = ['python', 'py'] as const
+const VueLanguageRefs = ['vue'] as const
+const YamlLanguageRefs = ['yaml', 'yml'] as const
 
 export const SupportedLanguages = [
-  ...PythonLanguageRefs,
-  ...JavascriptLanguageRefs,
-  ...JsonLanguageRefs,
-  ...VueLanguageRefs,
-  ...MarkdownLanguageRefs,
+  ...CssLanguageRefs,
   ...GithubFlavoredMarkdownLanguageRefs,
   ...HtmlLanguageRefs,
-  ...CssLanguageRefs,
+  ...JavascriptLanguageRefs,
   ...JinjaLanguageRefs,
+  ...JsonLanguageRefs,
+  ...MarkdownLanguageRefs,
+  ...PythonLanguageRefs,
+  ...VueLanguageRefs,
+  ...YamlLanguageRefs,
 ] as const
 
 export type SupportedLanguage = typeof SupportedLanguages[number]
@@ -73,4 +75,8 @@ export function isCssLanguageRef(lang: SupportedLanguage): lang is typeof CssLan
 
 export function isJinjaLanguageRef(lang: SupportedLanguage): lang is typeof JinjaLanguageRefs[number] {
   return JinjaLanguageRefs.includes(lang as typeof JinjaLanguageRefs[number])
+}
+
+export function isYamlLanguageRef(lang: SupportedLanguage): lang is typeof YamlLanguageRefs[number] {
+  return YamlLanguageRefs.includes(lang as typeof YamlLanguageRefs[number])
 }

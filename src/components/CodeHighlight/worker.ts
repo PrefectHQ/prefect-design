@@ -5,6 +5,7 @@ import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
 import python from 'highlight.js/lib/languages/python'
 import xml from 'highlight.js/lib/languages/xml'
+import yaml from 'highlight.js/lib/languages/yaml'
 import { githubFlavoredMarkdownLanguage } from '@/components/CodeHighlight/languages/markdown'
 import { vueLanguage } from '@/components/CodeHighlight/languages/vue'
 import {
@@ -17,6 +18,7 @@ import {
   isGithubFlavoredMarkdownLanguageRef,
   isMarkdownLanguageRef,
   isVueLanguageRef,
+  isYamlLanguageRef,
   SupportedLanguage,
   UnformattedMessagePayload
 } from '@/types/codeHighlight'
@@ -35,6 +37,10 @@ const getLanguageFunctions = (lang: SupportedLanguage): Record<string, LanguageF
 
   if (isPythonLanguageRef(lang)) {
     return { python }
+  }
+
+  if (isYamlLanguageRef(lang)) {
+    return { yaml }
   }
 
   if (isCssLanguageRef(lang)) {
@@ -71,6 +77,7 @@ const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void =
   const { text, lang } = message.data
   const { language, code, illegal, relevance, value } = highlightText(text, lang)
 
+  console.log({ language, code, illegal, relevance, value })
   self.postMessage({
     unformatted: code,
     formatted: value,
