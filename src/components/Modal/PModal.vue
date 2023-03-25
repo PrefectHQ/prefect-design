@@ -127,7 +127,11 @@
       nextTick(focusOnFirstFocusable)
     }
 
-    document.body.classList.toggle('p-modal__stop-bg-scroll', value)
+    if (value) {
+      document.body.classList.add('p-modal__stop-bg-scroll')
+    } else {
+      document.body.classList.remove('p-modal__stop-bg-scroll')
+    }
   }, { immediate: true })
 </script>
 
