@@ -122,10 +122,6 @@
     }
   }
 
-  function disableBackgroundScroll(): void {
-    document.body.classList.add('p-modal__stop-bg-scroll')
-  }
-
   function enableBackgroundScroll(): void {
     document.body.classList.remove('p-modal__stop-bg-scroll')
   }
@@ -137,11 +133,7 @@
       nextTick(focusOnFirstFocusable)
     }
 
-    if (value) {
-      disableBackgroundScroll()
-    } else {
-      enableBackgroundScroll()
-    }
+    document.body.classList.toggle('p-modal__stop-bg-scroll', value)
   }, { immediate: true })
 </script>
 
