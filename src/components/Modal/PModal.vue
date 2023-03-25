@@ -57,7 +57,7 @@
 </script>
 
 <script setup lang="ts">
-  import { nextTick, computed, ref, useSlots, watch } from 'vue'
+  import { nextTick, computed, ref, useSlots, watch, onBeforeUnmount } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
@@ -122,15 +122,25 @@
     }
   }
 
+  function disableBackgroundScroll(): void {
+    document.body.classList.add('p-modal__stop-bg-scroll')
+  }
+
+  function enableBackgroundScroll(): void {
+    document.body.classList.remove('p-modal__stop-bg-scroll')
+  }
+
+  onBeforeUnmount(enableBackgroundScroll)
+
   watch(() => props.showModal, value => {
     if (value) {
       nextTick(focusOnFirstFocusable)
     }
 
     if (value) {
-      document.body.classList.add('p-modal__stop-bg-scroll')
+      disableBackgroundScroll()
     } else {
-      document.body.classList.remove('p-modal__stop-bg-scroll')
+      enableBackgroundScroll()
     }
   }, { immediate: true })
 </script>
