@@ -1,12 +1,12 @@
 <template>
-  <PListItem class="list-item-input" v-on="{ mouseenter, mouseleave }">
-    <div class="list-item-input__control" :class="classes.control" @click.stop>
-      <label class="list-item-input__checkbox">
+  <PListItem class="p-list-item-input" v-on="{ mouseenter, mouseleave }">
+    <div class="p-list-item-input__control" :class="classes.control" @click.stop>
+      <label class="p-list-item-input__checkbox">
         <PCheckbox v-model="model" v-bind="{ value, disabled }" />
       </label>
     </div>
 
-    <div class="list-item-input__content">
+    <div class="p-list-item-input__content">
       <slot />
     </div>
   </PListItem>
@@ -53,7 +53,7 @@
 
   const classes = computed(() => ({
     control: {
-      'list-item-input__control--visible': show.value,
+      'p-list-item-input__control--visible': show.value,
     },
   }))
 
@@ -71,7 +71,7 @@
 </script>
 
 <style>
-.list-item-input { @apply
+.p-list-item-input { @apply
   bg-background
   shadow
   rounded-lg
@@ -80,7 +80,7 @@
   p-0
 }
 
-.list-item-input__content { @apply
+.p-list-item-input__content { @apply
   flex-grow
   py-3
   pl-3
@@ -88,7 +88,7 @@
   min-w-0
 }
 
-.list-item-input__control { @apply
+.p-list-item-input__control { @apply
   flex-grow-0
   flex-shrink-0
   flex
@@ -99,12 +99,12 @@
   transition-all
 }
 
-.list-item-input__control:focus-within,
-.list-item-input__control--visible { @apply
+.p-list-item-input__control:focus-within,
+.p-list-item-input__control--visible { @apply
   w-10
 }
 
-.list-item-input__checkbox { @apply
+.p-list-item-input__checkbox { @apply
   justify-center
   items-start
   sm:items-center
