@@ -1,6 +1,6 @@
 <template>
   <PListItem class="list-item-input" v-on="{ mouseenter, mouseleave }">
-    <div class="list-item-input__control" :class="classes.control">
+    <div class="list-item-input__control" :class="classes.control" @click.stop>
       <label class="list-item-input__checkbox">
         <PCheckbox v-model="model" v-bind="{ value, disabled }" />
       </label>
