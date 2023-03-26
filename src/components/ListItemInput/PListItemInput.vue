@@ -1,12 +1,12 @@
 <template>
   <PListItem class="p-list-item-input" v-on="{ mouseenter, mouseleave }">
-    <div class="p-list-item-input__control" :class="classes.control" @click.stop>
+    <div class="p-list-item-input__control" :class="classes.control">
       <label class="p-list-item-input__checkbox">
         <PCheckbox v-model="model" v-bind="{ value, disabled }" />
       </label>
     </div>
 
-    <div class="p-list-item-input__content">
+    <div class="p-list-item-input__content" v-on="{ click }">
       <slot />
     </div>
   </PListItem>
@@ -27,6 +27,7 @@
 
   const emit = defineEmits<{
     (event: 'update:selected', value: Selected): void,
+    (event: 'click', value: unknown): void,
   }>()
 
   const model = computed({
@@ -66,6 +67,12 @@
   function mouseleave(): void {
     if (!props.disabled) {
       hover.value = false
+    }
+  }
+
+  function click(): void {
+    if (!props.disabled) {
+      emit('click', props.value)
     }
   }
 </script>
