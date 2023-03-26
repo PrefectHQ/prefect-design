@@ -6,7 +6,7 @@
       </label>
     </div>
 
-    <div class="p-list-item-input__content" v-on="{ click }">
+    <div class="p-list-item-input__content">
       <slot />
     </div>
   </PListItem>
@@ -27,7 +27,6 @@
 
   const emit = defineEmits<{
     (event: 'update:selected', value: Selected): void,
-    (event: 'click', value: unknown): void,
   }>()
 
   const model = computed({
@@ -67,12 +66,6 @@
   function mouseleave(): void {
     if (!props.disabled) {
       hover.value = false
-    }
-  }
-
-  function click(): void {
-    if (!props.disabled) {
-      emit('click', props.value)
     }
   }
 </script>
