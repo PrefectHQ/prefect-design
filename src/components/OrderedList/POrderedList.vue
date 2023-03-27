@@ -1,42 +1,40 @@
 <template>
-  <div class="p-ordered-list">
-    <ol class="p-ordered-list__ol">
-      <li v-for="(item, index) in items" :key="index" class="p-ordered-list__item">
-        <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <div class="p-ordered-list__left-container">
-            <div class="p-ordered-list__left">
-              <slot name="li-left" v-bind="{ item, index }">
-                <slot :name="getListItemLeftSlotName(item, index)" />
-              </slot>
-            </div>
+  <ol class="p-ordered-list">
+    <li v-for="(item, index) in items" :key="index" class="p-ordered-list__item">
+      <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
+        <div class="p-ordered-list__left-container">
+          <div class="p-ordered-list__left">
+            <slot name="li-left" v-bind="{ item, index }">
+              <slot :name="getListItemLeftSlotName(item, index)" />
+            </slot>
           </div>
+        </div>
 
-          <div class="p-ordered-list__center-container">
-            <div class="p-ordered-list__node-container">
-              <slot name="li-node" v-bind="{ item, index }">
-                <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
-                  <div class="p-ordered-list__node">
-                    <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
-                      <p-icon v-if="item.icon" :icon="item.icon" />
-                    </slot>
-                  </div>
-                </slot>
+        <div class="p-ordered-list__center-container">
+          <div class="p-ordered-list__node-container">
+            <slot name="li-node" v-bind="{ item, index }">
+              <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
+                <div class="p-ordered-list__node">
+                  <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
+                    <p-icon v-if="item.icon" :icon="item.icon" solid />
+                  </slot>
+                </div>
               </slot>
-            </div>
+            </slot>
           </div>
+        </div>
 
 
-          <div class="p-ordered-list__right-container">
-            <div class="p-ordered-list__right">
-              <slot name="li-right" v-bind="{ item, index }">
-                <slot :name="getListItemRightSlotName(item, index)" />
-              </slot>
-            </div>
+        <div class="p-ordered-list__right-container">
+          <div class="p-ordered-list__right">
+            <slot name="li-right" v-bind="{ item, index }">
+              <slot :name="getListItemRightSlotName(item, index)" />
+            </slot>
           </div>
-        </slot>
-      </li>
-    </ol>
-  </div>
+        </div>
+      </slot>
+    </li>
+  </ol>
 </template>
 
 <script lang="ts">
@@ -87,10 +85,6 @@
 
 <style scoped>
 .p-ordered-list { @apply
-  p-6
-}
-
-.p-ordered-list__ol { @apply
   list-none
   p-0
   m-0
@@ -147,7 +141,7 @@
   w-px
   h-full
   -translate-x-1/2
-  bg-danger
+  bg-foreground-200
   z-0
   ;
 
@@ -156,10 +150,11 @@
 
 .p-ordered-list__node { @apply
   rounded-full
-  bg-prefect-900
-  text-white
+  bg-background
+  text-foreground-400
   p-2
   text-center
+  shadow
   z-[1]
 }
 

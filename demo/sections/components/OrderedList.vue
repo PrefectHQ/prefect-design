@@ -49,10 +49,10 @@
     </template>
 
     <template #custom-node>
-      <POrderedList :items="itemsReversed">
+      <POrderedList :items="itemsReversed" class="ordered-list__custom-node">
         <template #li-node="{ item }">
-          <div class="ordered-list__node">
-            <p-icon v-if="item.icon" :icon="item.icon" />
+          <div class="ordered-list__ninja-node">
+            <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
         </template>
       </POrderedList>
@@ -138,14 +138,34 @@
   border-sky-500
 }
 
-.ordered-list__node { @apply
+.ordered-list__ninja-node { @apply
   flex
   items-center
   justify-center
   p-2
   rounded-md
-  bg-slate-500
+  shadow-sm
+  hover:shadow-lg
   text-white
-  /* z-[1] */
+}
+
+.ordered-list__custom-node .p-ordered-list__item:nth-of-type(1) .ordered-list__ninja-node { @apply
+  bg-[#995AA0]
+}
+
+.ordered-list__custom-node .p-ordered-list__item:nth-of-type(2) .ordered-list__ninja-node { @apply
+  bg-[#EA9500]
+}
+
+.ordered-list__custom-node .p-ordered-list__item:nth-of-type(3) .ordered-list__ninja-node { @apply
+  bg-[#4C9C23]
+}
+
+.ordered-list__custom-node .p-ordered-list__item:nth-of-type(4) .ordered-list__ninja-node { @apply
+  bg-[#00AAE6]
+}
+
+.ordered-list__custom-node .p-ordered-list__item:nth-of-type(5) .ordered-list__ninja-node { @apply
+  bg-[#E3331C]
 }
 </style>
