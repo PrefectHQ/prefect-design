@@ -138,7 +138,9 @@
   w-px
   h-full
   -translate-x-1/2
-  bg-danger;
+  bg-danger
+  z-0
+  ;
 
   content: '';
 }
@@ -149,6 +151,7 @@
   text-white
   p-2
   text-center
+  z-[1]
 }
 
 .p-ordered-list__left-container,
