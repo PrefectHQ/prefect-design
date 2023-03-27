@@ -6,13 +6,13 @@
 
     <template #left-and-right>
       <POrderedList :items="itemsReversed">
-        <template #li-left="{ item }">
+        <template #left="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
 
-        <template #li-right="{ item }">
+        <template #right="{ item }">
           <p-heading heading="6">
             {{ item.title }}
           </p-heading>
@@ -50,7 +50,7 @@
 
     <template #custom-node>
       <POrderedList :items="itemsReversed" class="ordered-list__custom-node">
-        <template #li-node="{ item }">
+        <template #node="{ item }">
           <div class="ordered-list__ninja-node">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
@@ -60,7 +60,7 @@
 
     <template #custom-side>
       <POrderedList :items="itemsReversed" class="ordered-list__custom-side">
-        <template #li-right="{ item }: { item: OrderedListItem }">
+        <template #right="{ item }: { item: OrderedListItem }">
           <p-card
             :flat="!expandedList.includes(item.id)"
             class="ordered-list__custom-side__card"
@@ -81,7 +81,7 @@
 
     <template #target-a-specific-slot>
       <POrderedList :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
-        <template #li-left="{ item }: { item: OrderedListItem }">
+        <template #left="{ item }: { item: OrderedListItem }">
           <p-heading heading="6" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
           </p-heading>
@@ -130,13 +130,13 @@
     },
   ]
 
-  const side = ref<'li-left' | 'li-right'>('li-left')
+  const side = ref<'left' | 'right'>('left')
   const sideToggleValue = computed({
     get() {
-      return side.value === 'li-right'
+      return side.value === 'right'
     },
     set(value) {
-      side.value = value ? 'li-right' : 'li-left'
+      side.value = value ? 'right' : 'left'
     },
   })
 
@@ -189,7 +189,7 @@
   const hoveredItem = ref<string | null>(null)
   const hoveredItemSlotKey = computed<string>(() => {
     if (hoveredItem.value) {
-      return `li-${hoveredItem.value}-right`
+      return `li-${hoveredItem.value}__right`
     }
 
     return ''
