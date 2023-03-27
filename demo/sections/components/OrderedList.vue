@@ -2,13 +2,13 @@
   <ComponentPage title="OrderedList">
     <template #description>
       <POrderedList :items="items">
-        <template #left="{ item }">
+        <template #li-left="{ item }">
           <div>
             {{ item.date }}
           </div>
         </template>
 
-        <template #right="{ item }">
+        <template #li-right="{ item }">
           <div>
             {{ item.body }}
           </div>
@@ -20,9 +20,10 @@
 
 <script lang="ts" setup>
   import POrderedList from '@/components/OrderedList/POrderedList.vue'
+  import { OrderedListItem } from '@/types/orderedList'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const items = [
+  const items: OrderedListItem[] = [
     {
       id: 1,
       icon: 'AcademicCapIcon',

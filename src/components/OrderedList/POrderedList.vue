@@ -1,14 +1,29 @@
 <template>
   <div class="p-ordered-list">
-    <ol class="p-ordered-list__list">
+    <ol class="p-ordered-list__ol">
       <li v-for="(item, index) in items" :key="index" class="p-ordered-list__item">
-        <div class="p-ordered-list__left">
-          <slot name="left" :item="item" />
-        </div>
-        <div class="p-ordered-list__node" />
-        <div class="p-ordered-list__right">
-          <slot name="right" :item="item" />
-        </div>
+        <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
+          <slot name="li-left" v-bind="{ item, index }">
+            <div class="p-ordered-list__left">
+              <slot :name="getListItemLeftSlotName(item, index)" />
+            </div>
+          </slot>
+
+          <slot name="li-node" v-bind="{ item, index }">
+            <div class="p-ordered-list__node">
+              <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
+                <p-icon v-if="item.icon" :icon="item.icon" />
+              </slot>
+            </div>
+          </slot>
+
+
+          <slot name="li-right" v-bind="{ item, index }">
+            <div class="p-ordered-list__right">
+              <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
+            </div>
+          </slot>
+        </slot>
       </li>
     </ol>
   </div>
@@ -16,15 +31,43 @@
 
 <script lang="ts">
   export default {
-    name: 'PCode',
+    name: 'POrderedList',
     expose: [],
   }
 </script>
 
 <script lang="ts" setup>
-  defineProps<{
-    items: unknown[],
+  import { OrderedListItem } from '@/types/orderedList'
+  import { kebabCase } from '@/utilities/strings'
+
+  const props = defineProps<{
+    items: OrderedListItem[],
+    itemIdKey?: string,
   }>()
+
+  function getBaseSlotName(item: OrderedListItem, index: number): string {
+    return props.itemIdKey ? `${kebabCase(item[props.itemIdKey])}` : `${index}`
+  }
+
+  function getListItemSlotName(item: OrderedListItem, index: number): string {
+    const base = getBaseSlotName(item, index)
+    return props.itemIdKey ? `li-${base}` : `li-${base}`
+  }
+
+  function getListItemNodeSlotName(item: OrderedListItem, index: number): string {
+    const base = getBaseSlotName(item, index)
+    return props.itemIdKey ? `li-${base}-node` : `li-${base}-node`
+  }
+
+  function getListItemLeftSlotName(item: OrderedListItem, index: number): string {
+    const base = getBaseSlotName(item, index)
+    return props.itemIdKey ? `li-${base}-left` : `li-${base}-left`
+  }
+
+  function getListItemRightSlotName(item: OrderedListItem, index: number): string {
+    const base = getBaseSlotName(item, index)
+    return props.itemIdKey ? `li-${base}-right` : `li-${base}-right`
+  }
 </script>
 
 <style scoped>
@@ -32,7 +75,7 @@
   p-6
 }
 
-.p-ordered-list__list { @apply
+.p-ordered-list__ol { @apply
   list-none
   p-0
   m-0
