@@ -3,26 +3,26 @@
     <ol class="p-ordered-list__ol">
       <li v-for="(item, index) in items" :key="index" class="p-ordered-list__item">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <slot name="li-left" v-bind="{ item, index }">
-            <div class="p-ordered-list__left">
+          <div class="p-ordered-list__left">
+            <slot name="li-left" v-bind="{ item, index }">
               <slot :name="getListItemLeftSlotName(item, index)" />
-            </div>
-          </slot>
+            </slot>
+          </div>
 
-          <slot name="li-node" v-bind="{ item, index }">
-            <div class="p-ordered-list__node">
+          <div class="p-ordered-list__node">
+            <slot name="li-node" v-bind="{ item, index }">
               <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
                 <p-icon v-if="item.icon" :icon="item.icon" />
               </slot>
-            </div>
-          </slot>
+            </slot>
+          </div>
 
 
-          <slot name="li-right" v-bind="{ item, index }">
-            <div class="p-ordered-list__right">
+          <div class="p-ordered-list__right">
+            <slot name="li-right" v-bind="{ item, index }">
               <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
-            </div>
-          </slot>
+            </slot>
+          </div>
         </slot>
       </li>
     </ol>
