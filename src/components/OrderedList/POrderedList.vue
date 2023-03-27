@@ -11,17 +11,20 @@
             </div>
           </div>
 
-          <div class="p-ordered-list__node-container">
-            <slot name="li-node" v-bind="{ item, index }">
-              <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
-                <div class="p-ordered-list__node">
-                  <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
-                    <p-icon v-if="item.icon" :icon="item.icon" />
-                  </slot>
-                </div>
+          <div class="p-ordered-list__center-container">
+            <div class="p-ordered-list__node-container">
+              <slot name="li-node" v-bind="{ item, index }">
+                <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
+                  <div class="p-ordered-list__node">
+                    <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
+                      <p-icon v-if="item.icon" :icon="item.icon" />
+                    </slot>
+                  </div>
+                </slot>
               </slot>
-            </slot>
+            </div>
           </div>
+
 
           <div class="p-ordered-list__right-container">
             <div class="p-ordered-list__right">
@@ -118,6 +121,7 @@
   self-center
 }
 
+.p-ordered-list__center-container,
 .p-ordered-list__node-container { @apply
   self-stretch
   shrink
@@ -126,12 +130,16 @@
   flex-row
   items-start
   justify-center
-  pt-1
   mx-4
-  min-w-[2.5rem]
 }
 
-.p-ordered-list__node-container::before { @apply
+.p-ordered-list__node-container { @apply
+  pt-1
+  min-w-[2.5rem]
+  z-[1]
+}
+
+.p-ordered-list__center-container::before { @apply
   absolute
   top-0
   left-1/2

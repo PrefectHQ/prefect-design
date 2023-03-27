@@ -47,6 +47,16 @@
         </template>
       </POrderedList>
     </template>
+
+    <template #custom-node>
+      <POrderedList :items="itemsReversed">
+        <template #li-node="{ item }">
+          <div class="ordered-list__node">
+            <p-icon v-if="item.icon" :icon="item.icon" />
+          </div>
+        </template>
+      </POrderedList>
+    </template>
   </ComponentPage>
 </template>
 
@@ -60,6 +70,10 @@
     {
       title: 'No Slots',
       description: 'This is the default state of the component.',
+    },
+    {
+      title: 'Custom Node',
+      description: 'Add a custom node to the list item.',
     },
     {
       title: 'Left and Right',
@@ -104,7 +118,6 @@
     {
       id: crypto.randomUUID(),
       title: 'Got a cat',
-      date: '2020-03-12',
       body: 'Her name is Luna.',
     },
     {
@@ -123,5 +136,16 @@
 .ordered-list .p-toggle__control { @apply
   bg-sky-500
   border-sky-500
+}
+
+.ordered-list__node { @apply
+  flex
+  items-center
+  justify-center
+  p-2
+  rounded-md
+  bg-slate-500
+  text-white
+  /* z-[1] */
 }
 </style>
