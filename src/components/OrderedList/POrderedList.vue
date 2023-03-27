@@ -23,10 +23,12 @@
             </slot>
           </div>
 
-          <div class="p-ordered-list__right">
-            <slot name="li-right" v-bind="{ item, index }">
-              <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
-            </slot>
+          <div class="p-ordered-list__right-container">
+            <div class="p-ordered-list__right">
+              <slot name="li-right" v-bind="{ item, index }">
+                <slot :name="getListItemRightSlotName(item, index)" />
+              </slot>
+            </div>
           </div>
         </slot>
       </li>
@@ -93,33 +95,60 @@
 
 .p-ordered-list__item { @apply
   flex
-  items-center
-  mb-8
+  items-start
   relative
+  justify-center
+  py-4
+  box-content
 }
 
 .p-ordered-list__left { @apply
-  flex-shrink-0
+  text-right
+}
+
+.p-ordered-list__right { @apply
+  text-left
+}
+
+.p-ordered-list__right-container { @apply
+  self-center
 }
 
 .p-ordered-list__node-container { @apply
-  flex-shrink-0
+  self-stretch
+  shrink
+  grow-0
+  flex
+  flex-row
+  items-start
+  justify-center
+  px-4
+  pt-1
+}
+
+.p-ordered-list__node-container::before { @apply
+  absolute
+  top-0
+  left-1/2
+  bottom-0
+  w-px
+  h-full
+  -translate-x-1/2
+  bg-danger;
+
+  content: '';
 }
 
 .p-ordered-list__node { @apply
   rounded-full
-  bg-primary
+  bg-prefect-900
   text-white
   p-2
-  mx-4
   text-center
 }
 
-.p-ordered-list__right { @apply
+.p-ordered-list__left-container,
+.p-ordered-list__right-container { @apply
   flex-1
-}
-
-.p-ordered-list { @apply
-  p-6
 }
 </style>

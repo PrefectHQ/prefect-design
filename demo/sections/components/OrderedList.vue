@@ -1,21 +1,21 @@
 <template>
   <ComponentPage title="OrderedList" :demos="demos">
     <template #no-slots>
-      <POrderedList :items="items" />
+      <POrderedList :items="itemsReversed" />
     </template>
 
     <template #left-and-right>
-      <POrderedList :items="items">
+      <POrderedList :items="itemsReversed">
         <template #li-left="{ item }">
-          <div>
+          <div v-if="item.date">
             {{ item.date }}
           </div>
         </template>
 
         <template #li-right="{ item }">
-          <div>
-            {{ item.body }}
-          </div>
+          <p-heading heading="6">
+            {{ item.title }}
+          </p-heading>
         </template>
       </POrderedList>
     </template>
@@ -40,25 +40,32 @@
 
   const items: OrderedListItem[] = [
     {
-      id: 1,
+      id: crypto.randomUUID(),
+      title: 'Borned',
+      body: 'I was borned a long time ago.',
+    },
+    {
+      id: crypto.randomUUID(),
       icon: 'AcademicCapIcon',
       title: 'Graduated from the University of Michigan',
-      date: '2019-05-01',
+      date: '2018-05-01',
       body: 'I graduated from the University of Michigan with a degree in Computer Science and a minor in Mathematics.',
     },
     {
-      id: 2,
+      id: crypto.randomUUID(),
       icon: 'BriefcaseIcon',
       title: 'Joined Prefect',
-      date: '2019-05-01',
+      date: '2019-08-01',
       body: 'I joined Prefect as a Software Engineer. I worked on the Prefect Core team, building out the Prefect Cloud and Prefect Server products.',
     },
     {
-      id: 3,
+      id: crypto.randomUUID(),
       icon: 'BriefcaseIcon',
       title: 'Joined Shopify',
-      date: '2020-05-01',
+      date: '2022-12-15',
       body: 'I joined Shopify as a Software Engineer. I work on the Shopify Core team, building out the Shopify Core product.',
     },
   ]
+
+  const itemsReversed = [...items].reverse()
 </script>
