@@ -96,17 +96,23 @@
     },
     {
       id: crypto.randomUUID(),
-      icon: 'BriefcaseIcon',
+      icon: 'PrefectGradient',
       title: 'Joined Prefect',
       date: '2019-08-01',
       body: 'I joined Prefect as a Software Engineer. I worked on the Prefect Core team, building out the Prefect Cloud and Prefect Server products.',
     },
     {
       id: crypto.randomUUID(),
-      icon: 'BriefcaseIcon',
-      title: 'Joined Shopify',
+      title: 'Got a cat',
+      date: '2020-03-12',
+      body: 'Her name is Luna.',
+    },
+    {
+      id: crypto.randomUUID(),
+      icon: 'Slack',
+      title: 'Joined Slack',
       date: '2022-12-15',
-      body: 'I joined Shopify as a Software Engineer. I work on the Shopify Core team, building out the Shopify Core product.',
+      body: 'I joined Slack as a Software Engineer. I work on the Slack Core team, building out the Slack product.',
     },
   ]
 

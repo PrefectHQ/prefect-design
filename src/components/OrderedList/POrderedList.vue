@@ -126,8 +126,9 @@
   flex-row
   items-start
   justify-center
-  px-4
   pt-1
+  mx-4
+  min-w-[2.5rem]
 }
 
 .p-ordered-list__node-container::before { @apply
