@@ -28,39 +28,44 @@
 </script>
 
 <style scoped>
-.p-ordered-list {
-  @apply p-6;
+.p-ordered-list { @apply
+  p-6
 }
 
-.p-ordered-list__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.p-ordered-list__list { @apply
+  list-none
+  p-0
+  m-0
 }
 
-.p-ordered-list__item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-  position: relative;
+.p-ordered-list__item { @apply
+  flex
+  items-center
+  mb-8
+  relative
 }
 
-.p-ordered-list__left {
-  flex: 0 0 auto;
-  margin-right: 2rem;
+.p-ordered-list__left { @apply
+  flex-shrink-0
+  mr-8
 }
 
-.p-ordered-list__node {
-  position: absolute;
-  top: 1.25rem;
-  left: calc(50% - 0.25rem);
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--color-primary);
+.p-ordered-list__node { @apply
+  absolute
+  top-5
+  left-1/2
+  w-2.5
+  h-2.5
+  rounded-full
+  bg-primary
+  transform -translate-x-1/2
 }
 
-.p-ordered-list__right {
-  flex: 1 1 auto;
+.p-ordered-list__right { @apply
+  flex-1
+}
+
+.p-ordered-list { @apply
+  p-6
 }
 </style>
