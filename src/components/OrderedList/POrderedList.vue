@@ -5,7 +5,7 @@
         <div class="p-ordered-list__left-container">
           <div class="p-ordered-list__left">
             <slot name="li-left" v-bind="{ item, index }">
-              <slot :name="getListItemLeftSlotName(item, index)" />
+              <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
             </slot>
           </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="p-ordered-list__right-container">
           <div class="p-ordered-list__right">
             <slot name="li-right" v-bind="{ item, index }">
-              <slot :name="getListItemRightSlotName(item, index)" />
+              <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
             </slot>
           </div>
         </div>

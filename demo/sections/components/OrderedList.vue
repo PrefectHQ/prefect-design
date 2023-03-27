@@ -78,6 +78,22 @@
         </template>
       </POrderedList>
     </template>
+
+    <template #target-a-specific-slot>
+      <POrderedList :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
+        <template #li-left="{ item }: { item: OrderedListItem }">
+          <p-heading heading="6" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
+            {{ item.title }}
+          </p-heading>
+        </template>
+
+        <template v-if="hoveredItemSlotKey" #[hoveredItemSlotKey]="{ item }: { item: OrderedListItem }">
+          <template v-if="item.date">
+            <span class="ordered-list__date">{{ item.date }}</span>
+          </template>
+        </template>
+      </POrderedList>
+    </template>
   </ComponentPage>
 </template>
 
@@ -94,11 +110,11 @@
     },
     {
       title: 'Custom Node',
-      description: 'Add a custom node to the list item.',
+      description: 'Override the default node item.',
     },
     {
       title: 'Left and Right',
-      description: 'Add some data to both sides of the list item.',
+      description: 'Use left and right slots.',
     },
     {
       title: 'One side',
@@ -107,6 +123,10 @@
     {
       title: 'Custom side',
       description: 'A slightly more complicated example.',
+    },
+    {
+      title: 'Target a specific slot',
+      description: 'Target a specific slot to add some functionality; note that this is easiest when you pass the `itemIdKey` prop.',
     },
   ]
 
@@ -165,6 +185,23 @@
       expandedList.value = [...expandedList.value, item.id]
     }
   }
+
+  const hoveredItem = ref<string | null>(null)
+  const hoveredItemSlotKey = computed<string>(() => {
+    if (hoveredItem.value) {
+      return `li-${hoveredItem.value}-right`
+    }
+
+    return ''
+  })
+
+  const handleMouseoverItem = (item: OrderedListItem): void => {
+    hoveredItem.value = item.id
+  }
+
+  const handleMouseoutItem = (): void => {
+    hoveredItem.value = null
+  }
 </script>
 
 <style>
@@ -221,6 +258,7 @@
   py-4
 }
 
+.ordered-list__target-specific .p-ordered-list__item:hover .p-ordered-list__node,
 .ordered-list__custom-side .p-ordered-list__item:hover .p-ordered-list__node { @apply
   transition-all
   scale-125
