@@ -112,6 +112,7 @@
   bg-primary
   text-white
   p-2
+  mx-4
   text-center
 }
 
