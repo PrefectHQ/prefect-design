@@ -3,16 +3,22 @@
     <ol class="p-ordered-list__ol">
       <li v-for="(item, index) in items" :key="index" class="p-ordered-list__item">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <div class="p-ordered-list__left">
-            <slot name="li-left" v-bind="{ item, index }">
-              <slot :name="getListItemLeftSlotName(item, index)" />
-            </slot>
+          <div class="p-ordered-list__left-container">
+            <div class="p-ordered-list__left">
+              <slot name="li-left" v-bind="{ item, index }">
+                <slot :name="getListItemLeftSlotName(item, index)" />
+              </slot>
+            </div>
           </div>
 
-          <div class="p-ordered-list__node">
+          <div class="p-ordered-list__node-container">
             <slot name="li-node" v-bind="{ item, index }">
               <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
-                <p-icon v-if="item.icon" :icon="item.icon" />
+                <div class="p-ordered-list__node">
+                  <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
+                    <p-icon v-if="item.icon" :icon="item.icon" />
+                  </slot>
+                </div>
               </slot>
             </slot>
           </div>
@@ -55,18 +61,23 @@
   }
 
   function getListItemNodeSlotName(item: OrderedListItem, index: number): string {
-    const base = getBaseSlotName(item, index)
-    return props.itemIdKey ? `li-${base}-node` : `li-${base}-node`
+    const base = getListItemSlotName(item, index)
+    return props.itemIdKey ? `${base}-node` : `${base}-node`
+  }
+
+  function getListItemNodeContentSlotName(item: OrderedListItem, index: number): string {
+    const base = getListItemSlotName(item, index)
+    return props.itemIdKey ? `${base}-node-content` : `${base}-node-content`
   }
 
   function getListItemLeftSlotName(item: OrderedListItem, index: number): string {
-    const base = getBaseSlotName(item, index)
-    return props.itemIdKey ? `li-${base}-left` : `li-${base}-left`
+    const base = getListItemSlotName(item, index)
+    return props.itemIdKey ? `${base}-left` : `${base}-left`
   }
 
   function getListItemRightSlotName(item: OrderedListItem, index: number): string {
-    const base = getBaseSlotName(item, index)
-    return props.itemIdKey ? `li-${base}-right` : `li-${base}-right`
+    const base = getListItemSlotName(item, index)
+    return props.itemIdKey ? `${base}-right` : `${base}-right`
   }
 </script>
 
@@ -90,18 +101,18 @@
 
 .p-ordered-list__left { @apply
   flex-shrink-0
-  mr-8
+}
+
+.p-ordered-list__node-container { @apply
+  flex-shrink-0
 }
 
 .p-ordered-list__node { @apply
-  absolute
-  top-5
-  left-1/2
-  w-2.5
-  h-2.5
   rounded-full
   bg-primary
-  transform -translate-x-1/2
+  text-white
+  p-2
+  text-center
 }
 
 .p-ordered-list__right { @apply
