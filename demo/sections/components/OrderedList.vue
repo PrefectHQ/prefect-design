@@ -1,6 +1,10 @@
 <template>
-  <ComponentPage title="OrderedList">
-    <template #description>
+  <ComponentPage title="OrderedList" :demos="demos">
+    <template #no-slots>
+      <POrderedList :items="items" />
+    </template>
+
+    <template #left-and-right>
       <POrderedList :items="items">
         <template #li-left="{ item }">
           <div>
@@ -22,6 +26,17 @@
   import POrderedList from '@/components/OrderedList/POrderedList.vue'
   import { OrderedListItem } from '@/types/orderedList'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const demos = [
+    {
+      title: 'No Slots',
+      description: 'This is the default state of the component.',
+    },
+    {
+      title: 'Left and Right',
+      description: 'Add some data to both sides of the list item.',
+    },
+  ]
 
   const items: OrderedListItem[] = [
     {

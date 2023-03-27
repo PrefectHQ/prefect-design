@@ -23,7 +23,6 @@
             </slot>
           </div>
 
-
           <div class="p-ordered-list__right">
             <slot name="li-right" v-bind="{ item, index }">
               <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />

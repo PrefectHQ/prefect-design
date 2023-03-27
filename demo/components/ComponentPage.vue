@@ -169,8 +169,7 @@
 }
 
 .component-page__demo,
-.component-page__description,
-.component-page__demo-description { @apply
+.component-page__description { @apply
   max-w-full
   mx-auto
   py-6
