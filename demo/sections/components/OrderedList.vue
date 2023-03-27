@@ -19,12 +19,41 @@
         </template>
       </POrderedList>
     </template>
+
+    <template #one-side-description>
+      <p-toggle v-model="sideToggleValue" class="p-theme-toggle">
+        <template #prepend>
+          Left
+        </template>
+
+        <template #append>
+          Right
+        </template>
+      </p-toggle>
+    </template>
+
+    <template #one-side>
+      <POrderedList :items="itemsReversed">
+        <template #[side]="{ item }">
+          <template v-if="sideToggleValue">
+            <p-heading heading="6">
+              {{ item.title }}
+            </p-heading>
+          </template>
+
+          <template v-else>
+            {{ item.date }}
+          </template>
+        </template>
+      </POrderedList>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
   import POrderedList from '@/components/OrderedList/POrderedList.vue'
   import { OrderedListItem } from '@/types/orderedList'
+  import { ref, computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const demos = [
@@ -36,7 +65,21 @@
       title: 'Left and Right',
       description: 'Add some data to both sides of the list item.',
     },
+    {
+      title: 'One side',
+      description: 'Add some data to just one side of the list item.',
+    },
   ]
+
+  const side = ref<'li-left' | 'li-right'>('li-left')
+  const sideToggleValue = computed({
+    get() {
+      return side.value === 'li-right'
+    },
+    set(value) {
+      side.value = value ? 'li-right' : 'li-left'
+    },
+  })
 
   const items: OrderedListItem[] = [
     {
@@ -69,3 +112,10 @@
 
   const itemsReversed = [...items].reverse()
 </script>
+
+<style>
+.ordered-list .p-toggle__control { @apply
+  bg-sky-500
+  border-sky-500
+}
+</style>

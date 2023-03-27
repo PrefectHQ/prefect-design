@@ -114,6 +114,10 @@
   self-center
 }
 
+.p-ordered-list__left-container { @apply
+  self-center
+}
+
 .p-ordered-list__node-container { @apply
   self-stretch
   shrink

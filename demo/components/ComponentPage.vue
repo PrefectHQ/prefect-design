@@ -29,7 +29,9 @@
 
             <template v-if="demo.description">
               <div class="component-page__demo-description">
-                {{ demo.description }}
+                <slot :name="`${demo.slotKey}-description`">
+                  {{ demo.description }}
+                </slot>
               </div>
             </template>
 
