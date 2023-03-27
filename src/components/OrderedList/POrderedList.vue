@@ -50,12 +50,12 @@
     itemIdKey?: string,
   }>()
 
-  function getBaseSlotName(item: OrderedListItem, index: number): string {
-    return props.itemIdKey ? `${kebabCase(item[props.itemIdKey])}` : `${index}`
+  function getItemSlotKey(item: OrderedListItem, index: number): string | number {
+    return props.itemIdKey ? kebabCase(item[props.itemIdKey]) : index
   }
 
   function getListItemSlotName(item: OrderedListItem, index: number): string {
-    const base = getBaseSlotName(item, index)
+    const base = getItemSlotKey(item, index)
     return props.itemIdKey ? `li-${base}` : `li-${base}`
   }
 
