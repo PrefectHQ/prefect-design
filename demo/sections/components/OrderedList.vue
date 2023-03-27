@@ -21,7 +21,7 @@
     </template>
 
     <template #one-side-description>
-      <p-toggle v-model="sideToggleValue" class="p-theme-toggle">
+      <p-toggle v-model="sideToggleValue">
         <template #prepend>
           Left
         </template>
@@ -57,6 +57,27 @@
         </template>
       </POrderedList>
     </template>
+
+    <template #custom-side>
+      <POrderedList :items="itemsReversed" class="ordered-list__custom-side">
+        <template #li-right="{ item }: { item: OrderedListItem }">
+          <p-card
+            :flat="!expandedList.includes(item.id)"
+            class="ordered-list__custom-side__card"
+            :class="{ 'ordered-list__custom-side__card--expanded': expandedList.includes(item.id) }"
+            @click="expand(item)"
+          >
+            <p-heading heading="6">
+              {{ item.title }}
+            </p-heading>
+
+            <template v-if="expandedList.includes(item.id) && item.body">
+              <p-markdown-renderer :text="item.body" />
+            </template>
+          </p-card>
+        </template>
+      </POrderedList>
+    </template>
   </ComponentPage>
 </template>
 
@@ -82,6 +103,10 @@
     {
       title: 'One side',
       description: 'Add some data to just one side of the list item.',
+    },
+    {
+      title: 'Custom side',
+      description: 'A slightly more complicated example.',
     },
   ]
 
@@ -130,6 +155,16 @@
   ]
 
   const itemsReversed = [...items].reverse()
+
+  const expandedList = ref<string[]>([])
+
+  function expand(item: OrderedListItem): void {
+    if (expandedList.value.includes(item.id)) {
+      expandedList.value = expandedList.value.filter((id) => id !== item.id)
+    } else {
+      expandedList.value = [...expandedList.value, item.id]
+    }
+  }
 </script>
 
 <style>
@@ -174,5 +209,20 @@
 
 .ordered-list__custom-node .p-ordered-list__item:nth-of-type(5) .ordered-list__ninja-node { @apply
   border-[#E3331C]
+}
+
+.ordered-list__custom-side__card { @apply
+  cursor-pointer
+  transition-all
+  py-1
+}
+
+.ordered-list__custom-side__card--expanded { @apply
+  py-4
+}
+
+.ordered-list__custom-side .p-ordered-list__item:hover .p-ordered-list__node { @apply
+  transition-all
+  scale-125
 }
 </style>

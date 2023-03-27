@@ -33,6 +33,7 @@
 
 .p-card--flat { @apply
   border-transparent
+  dark:border-transparent
   shadow-none
   bg-transparent
 }
