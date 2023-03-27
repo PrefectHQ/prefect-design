@@ -57,7 +57,7 @@
 </script>
 
 <script setup lang="ts">
-  import { nextTick, computed, ref, useSlots, watch } from 'vue'
+  import { nextTick, computed, ref, useSlots, watch, onBeforeUnmount } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
@@ -121,6 +121,12 @@
       closeModal()
     }
   }
+
+  function enableBackgroundScroll(): void {
+    document.body.classList.remove('p-modal__stop-bg-scroll')
+  }
+
+  onBeforeUnmount(enableBackgroundScroll)
 
   watch(() => props.showModal, value => {
     if (value) {

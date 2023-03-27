@@ -1,11 +1,11 @@
 <template>
-  <div class="list-item">
+  <div class="p-list-item">
     <slot />
   </div>
 </template>
 
 <style>
-.list-item { @apply
+.p-list-item { @apply
   bg-background
   shadow
   rounded-lg

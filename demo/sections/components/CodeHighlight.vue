@@ -11,6 +11,7 @@
       { title: 'Jinja' },
       { title: 'HTML' },
       { title: 'CSS' },
+      { title: 'YAML' },
       { title: 'Long lines' },
     ]"
   >
@@ -42,6 +43,10 @@
 
     <template #python>
       <PCodeHighlight :text="pythonContent" lang="python" :show-line-numbers="showLineNumbers" />
+    </template>
+
+    <template #yaml>
+      <PCodeHighlight :text="yamlContent" lang="yaml" :show-line-numbers="showLineNumbers" />
     </template>
 
     <template #jinja>
@@ -177,4 +182,24 @@ State message: {{ flow_run.state.message }}
 `
 
   const long = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
+  const yamlContent = `---
+doe: "a deer, a female deer"
+ray: "a drop of golden sun"
+pi: 3.14159
+xmas: true
+french-hens: 3
+calling-birds:
+  - huey
+  - dewey
+  - louie
+  - fred
+xmas-fifth-day:
+  calling-birds: four
+  french-hens: 3
+  golden-rings: 5
+  partridges:
+    count: 1
+    location: "a pear tree"
+  turtle-doves: two`
 </script>
