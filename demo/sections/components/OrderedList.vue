@@ -7,9 +7,9 @@
     <template #left-and-right>
       <POrderedList :items="itemsReversed">
         <template #li-left="{ item }">
-          <div v-if="item.date">
-            {{ item.date }}
-          </div>
+          <template v-if="item.date">
+            <span class="ordered-list__date">{{ item.date }}</span>
+          </template>
         </template>
 
         <template #li-right="{ item }">
@@ -42,7 +42,7 @@
           </template>
 
           <template v-else>
-            {{ item.date }}
+            <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
       </POrderedList>
@@ -138,34 +138,41 @@
   border-sky-500
 }
 
+.ordered-list__date { @apply
+  text-sm
+  text-gray-500
+}
+
 .ordered-list__ninja-node { @apply
   flex
   items-center
   justify-center
-  p-2
-  rounded-md
+  p-1
+  rounded
   shadow-sm
   hover:shadow-lg
-  text-white
+  text-foreground
+  bg-background
+  border-2
 }
 
 .ordered-list__custom-node .p-ordered-list__item:nth-of-type(1) .ordered-list__ninja-node { @apply
-  bg-[#995AA0]
+  border-[#995AA0]
 }
 
 .ordered-list__custom-node .p-ordered-list__item:nth-of-type(2) .ordered-list__ninja-node { @apply
-  bg-[#EA9500]
+  border-[#EA9500]
 }
 
 .ordered-list__custom-node .p-ordered-list__item:nth-of-type(3) .ordered-list__ninja-node { @apply
-  bg-[#4C9C23]
+  border-[#4C9C23]
 }
 
 .ordered-list__custom-node .p-ordered-list__item:nth-of-type(4) .ordered-list__ninja-node { @apply
-  bg-[#00AAE6]
+  border-[#00AAE6]
 }
 
 .ordered-list__custom-node .p-ordered-list__item:nth-of-type(5) .ordered-list__ninja-node { @apply
-  bg-[#E3331C]
+  border-[#E3331C]
 }
 </style>

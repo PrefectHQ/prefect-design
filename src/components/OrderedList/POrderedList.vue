@@ -99,6 +99,12 @@
   box-content
 }
 
+.p-ordered-list__right-container,
+.p-ordered-list__left-container { @apply
+  self-center
+  flex-1
+}
+
 .p-ordered-list__left { @apply
   text-right
 }
@@ -107,13 +113,6 @@
   text-left
 }
 
-.p-ordered-list__right-container { @apply
-  self-center
-}
-
-.p-ordered-list__left-container { @apply
-  self-center
-}
 
 .p-ordered-list__center-container,
 .p-ordered-list__node-container { @apply
@@ -142,6 +141,7 @@
   h-full
   -translate-x-1/2
   bg-foreground-200
+  dark:bg-foreground-300
   z-0
   ;
 
@@ -151,15 +151,12 @@
 .p-ordered-list__node { @apply
   rounded-full
   bg-background
+  border
+  dark:border-foreground-100
   text-foreground-400
   p-2
   text-center
   shadow
   z-[1]
-}
-
-.p-ordered-list__left-container,
-.p-ordered-list__right-container { @apply
-  flex-1
 }
 </style>
