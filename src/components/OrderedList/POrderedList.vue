@@ -7,7 +7,7 @@
     <template #default="{ item, index }: { item: OrderedListItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <POrderedListItem v-bind="{ item }">
+          <POrderedListItem>
             <template #left>
               <slot name="left" v-bind="{ item, index }">
                 <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
