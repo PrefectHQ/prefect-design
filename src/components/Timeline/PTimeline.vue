@@ -7,7 +7,7 @@
     <template #default="{ item, index }: { item: TimelineItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <PTimelineItem>
+          <PTimelineItem v-bind="{ align, layout }">
             <template #left>
               <slot name="left" v-bind="{ item, index }">
                 <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
@@ -44,12 +44,14 @@
   import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
   import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { TimelineItem } from '@/types/timeline'
+  import { TimelineAlignment, TimelineItem, TimelineLayout } from '@/types/timeline'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
     items: TimelineItem[],
     itemKey?: string,
+    align?: TimelineAlignment,
+    layout?: TimelineLayout,
   }>()
 
   function getItemId(item: TimelineItem, index: number): string | number {

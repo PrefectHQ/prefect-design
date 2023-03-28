@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Timeline" :demos="demos" use-resizable>
+  <ComponentPage title="Timeline" :demos="demos">
     <template #no-icons>
       <p-timeline :items="itemsNoData" />
     </template>
@@ -8,8 +8,15 @@
       <p-timeline :items="itemsReversed" />
     </template>
 
+    <template #left-and-right-description>
+      <p-content>
+        <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
+        <p-button-group v-if="layout == 'stacked'" v-model="align" size="sm" :options="['left', 'right', 'center']" />
+      </p-content>
+    </template>
+
     <template #left-and-right>
-      <p-timeline :items="itemsReversed">
+      <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
         <template #left="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
@@ -124,11 +131,25 @@
         </template>
       </p-timeline>
     </template>
+
+    <template #responsive>
+      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller">
+        <template #left="{ index }">
+          {{ index }}
+        </template>
+
+        <template #right="{ item }">
+          <p-heading heading="6">
+            {{ item.title }}
+          </p-heading>
+        </template>
+      </p-timeline>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
-  import { TimelineItem } from '@/types/timeline'
+  import { TimelineAlignment, TimelineItem, TimelineLayout } from '@/types/timeline'
   import { ref, computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
@@ -171,6 +192,8 @@
     },
   ]
 
+  const layout = ref<TimelineLayout>('stacked')
+  const align = ref<TimelineAlignment>('right')
   const side = ref<'left' | 'right'>('left')
   const sideToggleValue = computed({
     get() {
