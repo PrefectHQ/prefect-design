@@ -110,6 +110,20 @@
         </template>
       </POrderedList>
     </template>
+
+    <template #virtual-scroller>
+      <POrderedList :items="itemsManyData">
+        <template #left="{ index }">
+          {{ index }}
+        </template>
+
+        <template #right="{ item }">
+          <p-heading heading="6">
+            {{ item.title }}
+          </p-heading>
+        </template>
+      </POrderedList>
+    </template>
   </ComponentPage>
 </template>
 
@@ -151,6 +165,10 @@
     {
       title: 'Target a specific slot',
       description: 'Target a specific slot to add some functionality; note that this is easiest when you pass the `itemIdKey` prop.',
+    },
+    {
+      title: 'Virtual Scroller',
+      description: 'Uses `PVirtualScroller` under the hood for safety when rendering large lists.',
     },
   ]
 
@@ -203,6 +221,11 @@
   ]
 
   const itemsReversed = [...items].reverse()
+
+  const itemsManyData: OrderedListItem[] = Array.from({ length: 1000 }, (item, index) => ({
+    id: crypto.randomUUID(),
+    title: `Item ${index}`,
+  }))
 
   const expandedList = ref<string[]>([])
 
