@@ -4,7 +4,7 @@
     class="p-ordered-list"
     element="ol"
   >
-    <template #default="{ item, index }: { item: OrderedListItem, index:number }">
+    <template #default="{ item, index }: { item: OrderedListItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
           <POrderedListItem v-bind="{ item }">
