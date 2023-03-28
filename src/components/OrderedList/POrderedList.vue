@@ -5,6 +5,7 @@
       :item-key="itemKey"
       :item-estimate-height="itemEstimateHeight"
       :chunk-size="chunkSize"
+      :observer-options="observerOptions"
       @bottom="emit('bottom')"
     >
       <template #default="{ item, index }: { item: OrderedListItem, index:number }">
@@ -56,6 +57,7 @@
     itemKey?: string,
     itemEstimateHeight?: number,
     chunkSize?: number,
+    observerOptions?: IntersectionObserverInit,
   }>()
 
   const emit = defineEmits<{
