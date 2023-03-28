@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Timeline" :demos="demos">
+  <ComponentPage title="Timeline" :demos="demos" use-resizable>
     <template #no-icons>
       <p-timeline :items="itemsNoData" />
     </template>
