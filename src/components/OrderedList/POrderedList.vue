@@ -16,7 +16,10 @@
               <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
                 <div class="p-ordered-list__node">
                   <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
-                    <p-icon v-if="item.icon" :icon="item.icon" solid />
+                    <slot name="node-content" v-bind="{ item, index }">
+                      {{ getListItemNodeContentSlotName(item, index) }}
+                      <p-icon v-if="item.icon" :icon="item.icon" solid />
+                    </slot>
                   </slot>
                 </div>
               </slot>
@@ -54,7 +57,7 @@
   }>()
 
   function getItemSlotKey(item: OrderedListItem, index: number): string | number {
-    return props.itemIdKey ? kebabCase(item[props.itemIdKey]) : index
+    return props.itemIdKey ? kebabCase(`${item[props.itemIdKey]}`) : index
   }
 
   function getListItemSlotName(item: OrderedListItem, index: number): string {

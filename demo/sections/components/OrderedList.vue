@@ -64,6 +64,16 @@
       </POrderedList>
     </template>
 
+    <template #custom-node-content>
+      <POrderedList :items="itemsReversed">
+        <template #node-content="{ item }: { item: OrderedListItem }">
+          <template v-if="item.title">
+            <div class="ordered-list__custom-node-content" />
+          </template>
+        </template>
+      </POrderedList>
+    </template>
+
     <template #custom-side>
       <POrderedList :items="itemsReversed" class="ordered-list__custom-side">
         <template #right="{ item }: { item: OrderedListItem }">
@@ -123,6 +133,10 @@
       description: 'Override the default node item.',
     },
     {
+      title: 'Custom Node Content',
+      description: 'Override the default node content.',
+    },
+    {
       title: 'Left and Right',
       description: 'Use left and right slots.',
     },
@@ -157,7 +171,7 @@
 
   const items: OrderedListItem[] = [
     {
-      id: crypto.randomUUID(),
+      id: 0,
       title: 'Born',
       body: 'I was born in Shangzhou, China.',
     },
@@ -283,5 +297,17 @@
   w-full
   h-full
   py-4
+}
+
+.ordered-list__custom-node-content { @apply
+  p-2
+  bg-amber-500
+  rounded-full
+  border-4
+  border-danger
+}
+
+.ordered-list__custom-node-content--custom { @apply
+  !bg-sky-700
 }
 </style>
