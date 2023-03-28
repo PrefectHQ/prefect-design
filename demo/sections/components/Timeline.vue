@@ -1,18 +1,22 @@
 <template>
-  <ComponentPage title="Timeline" :demos="demos">
+  <ComponentPage title="Timeline" :demos="demos" use-resizable>
+    <template #description>
+      <p-content>
+        <p-label label="Layout">
+          <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
+        </p-label>
+        <p-label v-if="layout !== 'default'" label="alignment">
+          <p-button-group v-model="align" size="sm" :options="['left', 'center', 'right']" />
+        </p-label>
+      </p-content>
+    </template>
+
     <template #no-icons>
-      <p-timeline :items="itemsNoData" />
+      <p-timeline :items="itemsNoData" v-bind="{ layout, align }" />
     </template>
 
     <template #no-slots>
-      <p-timeline :items="itemsReversed" />
-    </template>
-
-    <template #left-and-right-description>
-      <p-content>
-        <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
-        <p-button-group v-if="layout == 'stacked'" v-model="align" size="sm" :options="['left', 'right', 'center']" />
-      </p-content>
+      <p-timeline :items="itemsReversed" v-bind="{ layout, align }" />
     </template>
 
     <template #left-and-right>
@@ -46,7 +50,7 @@
     </template>
 
     <template #one-side>
-      <p-timeline :items="itemsReversed">
+      <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
         <template #[side]="{ item }">
           <template v-if="sideToggleValue">
             <p-heading heading="6">
@@ -62,7 +66,7 @@
     </template>
 
     <template #custom-point>
-      <p-timeline :items="itemsReversed" class="ordered-list__custom-point">
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-point" v-bind="{ layout, align }">
         <template #point="{ item }">
           <div class="ordered-list__ninja-point">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
@@ -72,7 +76,7 @@
     </template>
 
     <template #custom-point-content>
-      <p-timeline :items="itemsReversed">
+      <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
         <template #point-content>
           <div class="ordered-list__custom-point-content" />
         </template>
@@ -80,7 +84,7 @@
     </template>
 
     <template #custom-side>
-      <p-timeline :items="itemsReversed" class="ordered-list__custom-side">
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-side" v-bind="{ layout, align }">
         <template #right="{ item }: { item: TimelineItem }">
           <p-card
             :flat="!expandedList.includes(item.id)"
@@ -101,7 +105,7 @@
     </template>
 
     <template #target-a-specific-slot>
-      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id">
+      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id" v-bind="{ layout, align }">
         <template #left="{ item }: { item: TimelineItem }">
           <div class="ordered-list__target-specific__left" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
@@ -117,21 +121,7 @@
     </template>
 
     <template #virtual-scroller>
-      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller">
-        <template #left="{ index }">
-          {{ index }}
-        </template>
-
-        <template #right="{ item }">
-          <p-heading heading="6">
-            {{ item.title }}
-          </p-heading>
-        </template>
-      </p-timeline>
-    </template>
-
-    <template #responsive>
-      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller">
+      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller" v-bind="{ layout, align }">
         <template #left="{ index }">
           {{ index }}
         </template>
@@ -190,8 +180,8 @@
     },
   ]
 
-  const layout = ref<TimelineLayout>('stacked')
-  const align = ref<TimelineAlignment>('right')
+  const layout = ref<TimelineLayout>('default')
+  const align = ref<TimelineAlignment>('left')
   const side = ref<'left' | 'right'>('left')
   const sideToggleValue = computed({
     get() {
