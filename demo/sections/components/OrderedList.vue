@@ -1,15 +1,15 @@
 <template>
   <ComponentPage title="OrderedList" :demos="demos">
     <template #no-icons>
-      <POrderedList :items="itemsNoData" />
+      <p-ordered-list :items="itemsNoData" />
     </template>
 
     <template #no-slots>
-      <POrderedList :items="itemsReversed" />
+      <p-ordered-list :items="itemsReversed" />
     </template>
 
     <template #left-and-right>
-      <POrderedList :items="itemsReversed">
+      <p-ordered-list :items="itemsReversed">
         <template #left="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
@@ -23,7 +23,7 @@
 
           <p-markdown-renderer :text="item.body" />
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
 
     <template #one-side-description>
@@ -39,7 +39,7 @@
     </template>
 
     <template #one-side>
-      <POrderedList :items="itemsReversed">
+      <p-ordered-list :items="itemsReversed">
         <template #[side]="{ item }">
           <template v-if="sideToggleValue">
             <p-heading heading="6">
@@ -51,31 +51,31 @@
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
 
     <template #custom-node>
-      <POrderedList :items="itemsReversed" class="ordered-list__custom-node">
+      <p-ordered-list :items="itemsReversed" class="ordered-list__custom-node">
         <template #node="{ item }">
           <div class="ordered-list__ninja-node">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
 
     <template #custom-node-content>
-      <POrderedList :items="itemsReversed">
+      <p-ordered-list :items="itemsReversed">
         <template #node-content="{ item }: { item: OrderedListItem }">
           <template v-if="item.title">
             <div class="ordered-list__custom-node-content" />
           </template>
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
 
     <template #custom-side>
-      <POrderedList :items="itemsReversed" class="ordered-list__custom-side">
+      <p-ordered-list :items="itemsReversed" class="ordered-list__custom-side">
         <template #right="{ item }: { item: OrderedListItem }">
           <p-card
             :flat="!expandedList.includes(item.id)"
@@ -92,11 +92,11 @@
             </template>
           </p-card>
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
 
     <template #target-a-specific-slot>
-      <POrderedList :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
+      <p-ordered-list :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
         <template #left="{ item }: { item: OrderedListItem }">
           <div class="ordered-list__target-specific__left" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
@@ -108,11 +108,11 @@
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
 
     <template #virtual-scroller>
-      <POrderedList :items="itemsManyData">
+      <p-ordered-list :items="itemsManyData">
         <template #left="{ index }">
           {{ index }}
         </template>
@@ -122,7 +122,7 @@
             {{ item.title }}
           </p-heading>
         </template>
-      </POrderedList>
+      </p-ordered-list>
     </template>
   </ComponentPage>
 </template>
