@@ -7,7 +7,7 @@
     <template #default="{ item, index }: { item: OrderedListItem, index:number }">
       <slot v-bind="{ item, index }">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <POrderedListItem v-bind="{ item }" class="p-ordered-list__item">
+          <POrderedListItem v-bind="{ item }">
             <template #left>
               <slot name="left" v-bind="{ item, index }">
                 <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
@@ -87,13 +87,5 @@
   list-none
   p-0
   m-0
-}
-
-.p-ordered-list__item { @apply
-  flex
-  items-start
-  relative
-  justify-center
-  py-4
 }
 </style>
