@@ -8,7 +8,7 @@
       </PTabNavigation>
     </template>
     <template v-else>
-      <PTabSelect v-model:selected="selected" class="p-tabs--mobile" :tabs="tabs">
+      <PTabSelect v-model:selected="selected" :tabs="tabs">
         <template v-for="(index, name) in $slots" #[name]="data">
           <slot :name="name" v-bind="data" />
         </template>
