@@ -239,7 +239,7 @@
   const hoveredItem = ref<string | null>(null)
   const hoveredItemSlotKey = computed<string>(() => {
     if (hoveredItem.value) {
-      return `item-${hoveredItem.value}__right`
+      return `item-${hoveredItem.value}-right`
     }
 
     return ''

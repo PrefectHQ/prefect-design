@@ -63,22 +63,22 @@
 
   function getListItemNodeSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
-    return `${base}__node`
+    return `${base}-node`
   }
 
   function getListItemNodeContentSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
-    return `${base}__node-content`
+    return `${base}-node-content`
   }
 
   function getListItemLeftSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
-    return `${base}__left`
+    return `${base}-left`
   }
 
   function getListItemRightSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
-    return `${base}__right`
+    return `${base}-right`
   }
 </script>
 
