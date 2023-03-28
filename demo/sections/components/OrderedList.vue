@@ -1,5 +1,9 @@
 <template>
   <ComponentPage title="OrderedList" :demos="demos">
+    <template #no-icons>
+      <POrderedList :items="itemsNoData" />
+    </template>
+
     <template #no-slots>
       <POrderedList :items="itemsReversed" />
     </template>
@@ -16,6 +20,8 @@
           <p-heading heading="6">
             {{ item.title }}
           </p-heading>
+
+          <p-markdown-renderer :text="item.body" />
         </template>
       </POrderedList>
     </template>
@@ -105,8 +111,12 @@
 
   const demos = [
     {
-      title: 'No Slots',
+      title: 'No Icons',
       description: 'This is the default state of the component.',
+    },
+    {
+      title: 'No Slots',
+      description: 'This is the default state of the component (when there are icons in the data).',
     },
     {
       title: 'Custom Node',
@@ -140,11 +150,16 @@
     },
   })
 
+  const itemsNoData: OrderedListItem[] = Array.from({ length: 5 }, (_, i) => ({
+    id: crypto.randomUUID(),
+    title: `Item ${i + 1}`,
+  }))
+
   const items: OrderedListItem[] = [
     {
       id: crypto.randomUUID(),
-      title: 'Borned',
-      body: 'I was borned a long time ago.',
+      title: 'Born',
+      body: 'I was born in Shangzhou, China.',
     },
     {
       id: crypto.randomUUID(),
