@@ -14,6 +14,5 @@
   p-2
   text-center
   shadow
-  z-[1]
 }
 </style>
