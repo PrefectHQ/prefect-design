@@ -1,11 +1,11 @@
 <template>
-  <div class="p-ordered-list-node">
+  <div class="p-timeline-node">
     <slot />
   </div>
 </template>
 
 <style>
-.p-ordered-list-node { @apply
+.p-timeline-node { @apply
   rounded-full
   bg-background
   border

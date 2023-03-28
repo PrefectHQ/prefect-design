@@ -1,13 +1,13 @@
 <template>
   <PVirtualScroller
     v-bind="{ items, itemKey }"
-    class="p-ordered-list"
+    class="p-timeline"
     element="ol"
   >
-    <template #default="{ item, index }: { item: OrderedListItem, index: number }">
+    <template #default="{ item, index }: { item: TimelineItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-          <POrderedListItem>
+          <PTimelineItem>
             <template #left>
               <slot name="left" v-bind="{ item, index }">
                 <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
@@ -17,13 +17,13 @@
             <template #node>
               <slot name="node" v-bind="{ item, index }">
                 <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
-                  <POrderedListNode>
+                  <PTimelinePoint>
                     <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
                       <slot name="node-content" v-bind="{ item, index }">
                         <p-icon v-if="item.icon" :icon="item.icon" solid />
                       </slot>
                     </slot>
-                  </POrderedListNode>
+                  </PTimelinePoint>
                 </slot>
               </slot>
             </template>
@@ -33,7 +33,7 @@
                 <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
-          </POrderedListItem>
+          </PTimelineItem>
         </slot>
       </slot>
     </template>
@@ -41,49 +41,49 @@
 </template>
 
 <script lang="ts" setup>
-  import POrderedListItem from '@/components/OrderedList/POrderedListItem.vue'
-  import POrderedListNode from '@/components/OrderedList/POrderedListNode.vue'
+  import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
+  import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { OrderedListItem } from '@/types/orderedList'
+  import { TimelineItem } from '@/types/timeline'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    items: OrderedListItem[],
+    items: TimelineItem[],
     itemKey?: string,
   }>()
 
-  function getItemId(item: OrderedListItem, index: number): string | number {
+  function getItemId(item: TimelineItem, index: number): string | number {
     return props.itemKey ? kebabCase(`${item[props.itemKey]}`) : index
   }
 
-  function getListItemSlotName(item: OrderedListItem, index: number): string {
+  function getListItemSlotName(item: TimelineItem, index: number): string {
     const base = getItemId(item, index)
     return `item-${base}`
   }
 
-  function getListItemNodeSlotName(item: OrderedListItem, index: number): string {
+  function getListItemNodeSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
     return `${base}__node`
   }
 
-  function getListItemNodeContentSlotName(item: OrderedListItem, index: number): string {
+  function getListItemNodeContentSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
     return `${base}__node-content`
   }
 
-  function getListItemLeftSlotName(item: OrderedListItem, index: number): string {
+  function getListItemLeftSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
     return `${base}__left`
   }
 
-  function getListItemRightSlotName(item: OrderedListItem, index: number): string {
+  function getListItemRightSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
     return `${base}__right`
   }
 </script>
 
 <style>
-.p-ordered-list { @apply
+.p-timeline { @apply
   list-none
   p-0
   m-0

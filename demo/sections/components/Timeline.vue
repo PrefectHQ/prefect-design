@@ -1,15 +1,15 @@
 <template>
-  <ComponentPage title="OrderedList" :demos="demos">
+  <ComponentPage title="Timeline" :demos="demos">
     <template #no-icons>
-      <p-ordered-list :items="itemsNoData" />
+      <p-timeline :items="itemsNoData" />
     </template>
 
     <template #no-slots>
-      <p-ordered-list :items="itemsReversed" />
+      <p-timeline :items="itemsReversed" />
     </template>
 
     <template #left-and-right>
-      <p-ordered-list :items="itemsReversed">
+      <p-timeline :items="itemsReversed">
         <template #left="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
@@ -23,7 +23,7 @@
 
           <p-markdown-renderer :text="item.body" />
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
 
     <template #one-side-description>
@@ -39,7 +39,7 @@
     </template>
 
     <template #one-side>
-      <p-ordered-list :items="itemsReversed">
+      <p-timeline :items="itemsReversed">
         <template #[side]="{ item }">
           <template v-if="sideToggleValue">
             <p-heading heading="6">
@@ -51,32 +51,32 @@
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
 
     <template #custom-node>
-      <p-ordered-list :items="itemsReversed" class="ordered-list__custom-node">
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-node">
         <template #node="{ item }">
           <div class="ordered-list__ninja-node">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
 
     <template #custom-node-content>
-      <p-ordered-list :items="itemsReversed">
-        <template #node-content="{ item }: { item: OrderedListItem }">
+      <p-timeline :items="itemsReversed">
+        <template #node-content="{ item }: { item: TimelineItem }">
           <template v-if="item.title">
             <div class="ordered-list__custom-node-content" />
           </template>
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
 
     <template #custom-side>
-      <p-ordered-list :items="itemsReversed" class="ordered-list__custom-side">
-        <template #right="{ item }: { item: OrderedListItem }">
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-side">
+        <template #right="{ item }: { item: TimelineItem }">
           <p-card
             :flat="!expandedList.includes(item.id)"
             class="ordered-list__custom-side__card"
@@ -92,27 +92,27 @@
             </template>
           </p-card>
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
 
     <template #target-a-specific-slot>
-      <p-ordered-list :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
-        <template #left="{ item }: { item: OrderedListItem }">
+      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
+        <template #left="{ item }: { item: TimelineItem }">
           <div class="ordered-list__target-specific__left" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
           </div>
         </template>
 
-        <template v-if="hoveredItemSlotKey" #[hoveredItemSlotKey]="{ item }: { item: OrderedListItem }">
+        <template v-if="hoveredItemSlotKey" #[hoveredItemSlotKey]="{ item }: { item: TimelineItem }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
 
     <template #virtual-scroller>
-      <p-ordered-list :items="itemsManyData" class="ordered-list__virtual-scroller">
+      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller">
         <template #left="{ index }">
           {{ index }}
         </template>
@@ -122,13 +122,13 @@
             {{ item.title }}
           </p-heading>
         </template>
-      </p-ordered-list>
+      </p-timeline>
     </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
-  import { OrderedListItem } from '@/types/orderedList'
+  import { TimelineItem } from '@/types/timeline'
   import { ref, computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
@@ -181,11 +181,11 @@
     },
   })
 
-  const itemsNoData: OrderedListItem[] = Array.from({ length: 3 }, () => ({
+  const itemsNoData: TimelineItem[] = Array.from({ length: 3 }, () => ({
     id: crypto.randomUUID(),
   }))
 
-  const items: OrderedListItem[] = [
+  const items: TimelineItem[] = [
     {
       id: 0,
       title: 'Born',
@@ -221,14 +221,14 @@
 
   const itemsReversed = [...items].reverse()
 
-  const itemsManyData: OrderedListItem[] = Array.from({ length: 1000 }, (item, index) => ({
+  const itemsManyData: TimelineItem[] = Array.from({ length: 1000 }, (item, index) => ({
     id: crypto.randomUUID(),
     title: `Item ${index}`,
   }))
 
   const expandedList = ref<string[]>([])
 
-  function expand(item: OrderedListItem): void {
+  function expand(item: TimelineItem): void {
     if (expandedList.value.includes(item.id)) {
       expandedList.value = expandedList.value.filter((id) => id !== item.id)
     } else {
@@ -245,7 +245,7 @@
     return ''
   })
 
-  const handleMouseoverItem = (item: OrderedListItem): void => {
+  const handleMouseoverItem = (item: TimelineItem): void => {
     hoveredItem.value = item.id
   }
 
@@ -278,23 +278,23 @@
   border-2
 }
 
-.ordered-list__custom-node .p-ordered-list__item:nth-of-type(1) .ordered-list__ninja-node { @apply
+.ordered-list__custom-node .p-timeline__item:nth-of-type(1) .ordered-list__ninja-node { @apply
   border-[#995AA0]
 }
 
-.ordered-list__custom-node .p-ordered-list__item:nth-of-type(2) .ordered-list__ninja-node { @apply
+.ordered-list__custom-node .p-timeline__item:nth-of-type(2) .ordered-list__ninja-node { @apply
   border-[#EA9500]
 }
 
-.ordered-list__custom-node .p-ordered-list__item:nth-of-type(3) .ordered-list__ninja-node { @apply
+.ordered-list__custom-node .p-timeline__item:nth-of-type(3) .ordered-list__ninja-node { @apply
   border-[#4C9C23]
 }
 
-.ordered-list__custom-node .p-ordered-list__item:nth-of-type(4) .ordered-list__ninja-node { @apply
+.ordered-list__custom-node .p-timeline__item:nth-of-type(4) .ordered-list__ninja-node { @apply
   border-[#00AAE6]
 }
 
-.ordered-list__custom-node .p-ordered-list__item:nth-of-type(5) .ordered-list__ninja-node { @apply
+.ordered-list__custom-node .p-timeline__item:nth-of-type(5) .ordered-list__ninja-node { @apply
   border-[#E3331C]
 }
 
@@ -308,8 +308,8 @@
   py-4
 }
 
-.ordered-list__target-specific .p-ordered-list__item:hover .p-ordered-list__node,
-.ordered-list__custom-side .p-ordered-list__item:hover .p-ordered-list__node { @apply
+.ordered-list__target-specific .p-timeline__item:hover .p-timeline__node,
+.ordered-list__custom-side .p-timeline__item:hover .p-timeline__node { @apply
   transition-all
   scale-125
 }

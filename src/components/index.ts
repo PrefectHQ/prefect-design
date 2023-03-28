@@ -44,7 +44,6 @@ import { PModal, install as installPModal } from '@/components/Modal'
 import { PNativeDateInput, install as installPNativeDateInput } from '@/components/NativeDateInput'
 import { PNativeSelect, install as installPNativeSelect } from '@/components/NativeSelect'
 import { PNumberInput, install as installPNumberInput } from '@/components/NumberInput'
-import { POrderedList, POrderedListItem, POrderedListNode, install as installPOrderedList } from '@/components/OrderedList'
 import { POverflowMenu, install as installPOverflowMenu } from '@/components/OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from '@/components/OverflowMenuItem'
 import { PPager, install as installPPager } from '@/components/Pager'
@@ -69,6 +68,7 @@ import { PTextarea, install as installPTextarea } from '@/components/Textarea'
 import { PTextInput, install as installPTextInput } from '@/components/TextInput'
 import { PTextTruncate, install as installPTextTruncate } from '@/components/TextTruncate'
 import { PThemeToggle, install as installPThemeToggle } from '@/components/ThemeToggle'
+import { PTimeline, PTimelineItem, PTimelinePoint, install as installPTimeline } from '@/components/Timeline'
 import { PToast, install as installPToast } from '@/components/Toast'
 import { PToggle, install as installPToggle } from '@/components/Toggle'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
@@ -124,9 +124,6 @@ export {
   PNativeDateInput,
   PNativeSelect,
   PNumberInput,
-  POrderedList,
-  POrderedListItem,
-  POrderedListNode,
   POverflowMenu,
   POverflowMenuItem,
   PPager,
@@ -159,6 +156,9 @@ export {
   PTextInput,
   PTextTruncate,
   PThemeToggle,
+  PTimeline,
+  PTimelineItem,
+  PTimelinePoint,
   PToast,
   PToggle,
   PTypeAhead,
@@ -215,7 +215,6 @@ export const installs = [
   installPNativeDateInput,
   installPNativeSelect,
   installPNumberInput,
-  installPOrderedList,
   installPOverflowMenu,
   installPOverflowMenuItem,
   installPPager,
@@ -240,6 +239,7 @@ export const installs = [
   installPTextInput,
   installPTextTruncate,
   installPThemeToggle,
+  installPTimeline,
   installPToast,
   installPToggle,
   installPTypeAhead,
@@ -296,9 +296,6 @@ declare module '@vue/runtime-core' {
     PNativeDateInput: typeof PNativeDateInput,
     PNativeSelect: typeof PNativeSelect,
     PNumberInput: typeof PNumberInput,
-    POrderedList: typeof POrderedList,
-    POrderedListItem: typeof POrderedListItem,
-    POrderedListNode: typeof POrderedListNode,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
     PPager: typeof PPager,
@@ -330,6 +327,9 @@ declare module '@vue/runtime-core' {
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,
     PTextTruncate: typeof PTextTruncate,
+    PTimeline: typeof PTimeline,
+    PTimelineItem: typeof PTimelineItem,
+    PTimelinePoint: typeof PTimelinePoint,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,
