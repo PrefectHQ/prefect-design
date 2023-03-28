@@ -128,7 +128,6 @@
 </template>
 
 <script lang="ts" setup>
-  import POrderedList from '@/components/OrderedList/POrderedList.vue'
   import { OrderedListItem } from '@/types/orderedList'
   import { ref, computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
