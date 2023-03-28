@@ -82,9 +82,9 @@
     <template #target-a-specific-slot>
       <POrderedList :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
         <template #left="{ item }: { item: OrderedListItem }">
-          <p-heading heading="6" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
+          <div class="ordered-list__target-specific__left" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
-          </p-heading>
+          </div>
         </template>
 
         <template v-if="hoveredItemSlotKey" #[hoveredItemSlotKey]="{ item }: { item: OrderedListItem }">
@@ -189,7 +189,7 @@
   const hoveredItem = ref<string | null>(null)
   const hoveredItemSlotKey = computed<string>(() => {
     if (hoveredItem.value) {
-      return `li-${hoveredItem.value}__right`
+      return `item-${hoveredItem.value}__right`
     }
 
     return ''
@@ -262,5 +262,11 @@
 .ordered-list__custom-side .p-ordered-list__item:hover .p-ordered-list__node { @apply
   transition-all
   scale-125
+}
+
+.ordered-list__target-specific__left { @apply
+  w-full
+  h-full
+  py-4
 }
 </style>

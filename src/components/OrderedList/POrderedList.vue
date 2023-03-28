@@ -11,8 +11,8 @@
         </div>
 
         <div class="p-ordered-list__center-container">
-          <slot name="node" v-bind="{ item, index }">
-            <div class="p-ordered-list__node-container">
+          <div class="p-ordered-list__node-container">
+            <slot name="node" v-bind="{ item, index }">
               <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
                 <div class="p-ordered-list__node">
                   <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
@@ -20,8 +20,8 @@
                   </slot>
                 </div>
               </slot>
-            </div>
-          </slot>
+            </slot>
+          </div>
         </div>
 
 
@@ -59,7 +59,7 @@
 
   function getListItemSlotName(item: OrderedListItem, index: number): string {
     const base = getItemSlotKey(item, index)
-    return props.itemIdKey ? `li-${base}` : `li-${base}`
+    return props.itemIdKey ? `item-${base}` : `item-${base}`
   }
 
   function getListItemNodeSlotName(item: OrderedListItem, index: number): string {
@@ -105,11 +105,11 @@
   flex-1
 }
 
-.p-ordered-list__left { @apply
+.p-ordered-list__left-container { @apply
   text-right
 }
 
-.p-ordered-list__right { @apply
+.p-ordered-list__right-container { @apply
   text-left
 }
 
@@ -121,7 +121,7 @@
   grow-0
   flex
   flex-row
-  items-start
+  items-center
   justify-center
   mx-4
 }
