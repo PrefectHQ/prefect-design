@@ -67,19 +67,19 @@
 
 <style>
 .p-timeline-item {
-  --timeline-item-gap: 1rem;
+  --p-timeline-item-gap: 1rem;
 }
 
 .p-timeline-item { @apply
   flex
   items-start
   relative
-  py-[var(--timeline-item-gap)]
+  py-[var(--p-timeline-item-gap)]
   box-content
 }
 
 .p-timeline-item--layout-stacked { @apply
-  py-[var(--timeline-item-gap)]
+  py-[var(--p-timeline-item-gap)]
 }
 
 .p-timeline-item__right-container,
@@ -170,12 +170,17 @@
 }
 
 .p-timeline-item__center-container--layout-stacked.p-timeline-item__center-container--align-center { @apply
-  mb-[var(--timeline-item-gap)]
+  mb-[var(--p-timeline-item-gap)]
 }
 
 .p-timeline-item__center-container--layout-stacked::before { @apply
-  -top-[var(--timeline-item-gap)]
-  -bottom-[var(--timeline-item-gap)]
+  -top-[var(--p-timeline-item-gap)]
+  -bottom-[var(--p-timeline-item-gap)]
+}
+
+.p-timeline-item__center-container--align-center::before { @apply
+  -top-0
+  -bottom-0
 }
 
 .p-timeline-item__center-container--layout-stacked {
@@ -223,7 +228,7 @@
 .p-timeline-item__point-container { @apply
   pt-1
   min-w-[2.5rem]
-  mx-[var(--timeline-item-gap)]
+  mx-[var(--p-timeline-item-gap)]
   z-[1]
 }
 </style>
