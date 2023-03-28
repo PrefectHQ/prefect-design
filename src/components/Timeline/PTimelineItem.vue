@@ -86,6 +86,7 @@
 .p-timeline-item__left-container { @apply
   self-center
   flex-1
+  z-[1]
 }
 
 .p-timeline-item__left-container { @apply
@@ -187,6 +188,11 @@
 
 .p-timeline-item__right-container--layout-stacked {
   grid-area: right;
+}
+
+.p-timeline-item__left-container--layout-stacked,
+.p-timeline-item__right-container--layout-stacked { @apply
+  z-[1]
 }
 
 .p-timeline-item--align-left {
