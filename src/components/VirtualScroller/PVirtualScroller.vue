@@ -1,5 +1,5 @@
 <template>
-  <div class="p-virtual-scroller">
+  <component :is="element" class="p-virtual-scroller">
     <template v-for="(chunk, chunkIndex) in chunks" :key="chunkIndex">
       <VirtualScrollerChunk :height="itemEstimateHeight * chunk.length" v-bind="{ observerOptions }">
         <template v-for="(item, itemChunkIndex) in chunk" :key="item[itemKey]">
@@ -9,7 +9,7 @@
       </VirtualScrollerChunk>
     </template>
     <div ref="bottom" class="p-virtual-scroller__bottom" />
-  </div>
+  </component>
 </template>
 
 <script lang="ts" setup>
@@ -25,10 +25,12 @@
     itemKey?: string,
     chunkSize?: number,
     observerOptions?: IntersectionObserverInit,
+    element?: string,
   }>(), {
     itemEstimateHeight: 50,
     itemKey: 'id',
     chunkSize: 50,
+    element: 'div',
     observerOptions: () => ({
       rootMargin: '200px',
     }),

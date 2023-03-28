@@ -1,48 +1,43 @@
 <template>
-  <ol class="p-ordered-list">
-    <PVirtualScroller
-      :items="items"
-      :item-key="itemKey"
-      :item-estimate-height="itemEstimateHeight"
-      :chunk-size="chunkSize"
-      :observer-options="observerOptions"
-      @bottom="emit('bottom')"
-    >
-      <template #default="{ item, index }: { item: OrderedListItem, index:number }">
-        <slot v-bind="{ item, index }">
-          <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
-            <POrderedListItem v-bind="{ item }" class="p-ordered-list__item">
-              <template #left>
-                <slot name="left" v-bind="{ item, index }">
-                  <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
-                </slot>
-              </template>
+  <PVirtualScroller
+    v-bind="{ items, itemKey }"
+    class="p-ordered-list"
+    element="ol"
+  >
+    <template #default="{ item, index }: { item: OrderedListItem, index:number }">
+      <slot v-bind="{ item, index }">
+        <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
+          <POrderedListItem v-bind="{ item }" class="p-ordered-list__item">
+            <template #left>
+              <slot name="left" v-bind="{ item, index }">
+                <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
+              </slot>
+            </template>
 
-              <template #node>
-                <slot name="node" v-bind="{ item, index }">
-                  <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
-                    <POrderedListNode>
-                      <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
-                        <slot name="node-content" v-bind="{ item, index }">
-                          <p-icon v-if="item.icon" :icon="item.icon" solid />
-                        </slot>
+            <template #node>
+              <slot name="node" v-bind="{ item, index }">
+                <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
+                  <POrderedListNode>
+                    <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
+                      <slot name="node-content" v-bind="{ item, index }">
+                        <p-icon v-if="item.icon" :icon="item.icon" solid />
                       </slot>
-                    </POrderedListNode>
-                  </slot>
+                    </slot>
+                  </POrderedListNode>
                 </slot>
-              </template>
+              </slot>
+            </template>
 
-              <template #right>
-                <slot name="right" v-bind="{ item, index }">
-                  <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
-                </slot>
-              </template>
-            </POrderedListItem>
-          </slot>
+            <template #right>
+              <slot name="right" v-bind="{ item, index }">
+                <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
+              </slot>
+            </template>
+          </POrderedListItem>
         </slot>
-      </template>
-    </PVirtualScroller>
-  </ol>
+      </slot>
+    </template>
+  </PVirtualScroller>
 </template>
 
 <script lang="ts" setup>
@@ -55,13 +50,6 @@
   const props = defineProps<{
     items: OrderedListItem[],
     itemKey?: string,
-    itemEstimateHeight?: number,
-    chunkSize?: number,
-    observerOptions?: IntersectionObserverInit,
-  }>()
-
-  const emit = defineEmits<{
-    (event: 'bottom'): void,
   }>()
 
   function getItemId(item: OrderedListItem, index: number): string | number {
