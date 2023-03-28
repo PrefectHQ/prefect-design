@@ -112,7 +112,7 @@
     </template>
 
     <template #virtual-scroller>
-      <p-ordered-list :items="itemsManyData">
+      <p-ordered-list :items="itemsManyData" class="ordered-list__virtual-scroller">
         <template #left="{ index }">
           {{ index }}
         </template>
@@ -326,5 +326,10 @@
   rounded-full
   border-4
   border-danger
+}
+
+.ordered-list__virtual-scroller { @apply
+  h-96
+  overflow-auto
 }
 </style>
