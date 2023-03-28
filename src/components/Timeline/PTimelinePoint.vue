@@ -1,11 +1,11 @@
 <template>
-  <div class="p-timeline-node">
+  <div class="p-timeline-point">
     <slot />
   </div>
 </template>
 
 <style>
-.p-timeline-node { @apply
+.p-timeline-point { @apply
   rounded-full
   bg-background
   border

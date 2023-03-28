@@ -6,7 +6,7 @@
       </div>
 
       <div class="p-timeline-item__center-container">
-        <div class="p-timeline-item__node-container">
+        <div class="p-timeline-item__point-container">
           <slot name="node">
             <PTimelinePoint />
           </slot>
@@ -47,7 +47,7 @@
 
 
 .p-timeline-item__center-container,
-.p-timeline-item__node-container { @apply
+.p-timeline-item__point-container { @apply
   self-stretch
   shrink
   grow-0
@@ -57,7 +57,7 @@
   justify-center
 }
 
-.p-timeline-item__node-container { @apply
+.p-timeline-item__point-container { @apply
   pt-1
   min-w-[2.5rem]
   mx-4
