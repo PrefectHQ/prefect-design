@@ -17,7 +17,6 @@
                 <div class="p-ordered-list__node">
                   <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
                     <slot name="node-content" v-bind="{ item, index }">
-                      {{ getListItemNodeContentSlotName(item, index) }}
                       <p-icon v-if="item.icon" :icon="item.icon" solid />
                     </slot>
                   </slot>
