@@ -5,7 +5,7 @@
         <p-label label="Layout">
           <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
         </p-label>
-        <p-label v-if="layout !== 'default'" label="alignment">
+        <p-label v-if="layout == 'stacked'" label="alignment">
           <p-button-group v-model="align" size="sm" :options="['left', 'center', 'right']" />
         </p-label>
       </p-content>

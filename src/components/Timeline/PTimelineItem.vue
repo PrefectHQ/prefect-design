@@ -1,7 +1,7 @@
 <template>
   <li class="p-timeline-item" :class="classes.root">
     <slot>
-      <div class="p-timeline-item__left-container" :class="classes.leftContainer">
+      <div v-if="slots.left" class="p-timeline-item__left-container" :class="classes.leftContainer">
         <slot name="left" />
       </div>
 
@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <div class="p-timeline-item__right-container" :class="classes.rightContainer">
+      <div v-if="slots.right" class="p-timeline-item__right-container" :class="classes.rightContainer">
         <slot name="right" />
       </div>
     </slot>
@@ -21,8 +21,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
   import { TimelineAlignment, TimelineLayout } from '@/types/timeline'
+
+  const slots = useSlots()
 
   const props = defineProps<{
     align?: TimelineAlignment,
