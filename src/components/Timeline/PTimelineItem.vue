@@ -7,7 +7,7 @@
 
       <div class="p-timeline-item__center-container" :class="classes.centerContainer">
         <div class="p-timeline-item__point-container">
-          <slot name="node">
+          <slot name="point">
             <PTimelinePoint />
           </slot>
         </div>

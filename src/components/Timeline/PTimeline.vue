@@ -14,12 +14,12 @@
               </slot>
             </template>
 
-            <template #node>
-              <slot name="node" v-bind="{ item, index }">
-                <slot :name="getListItemNodeSlotName(item, index)" v-bind="{ item, index }">
+            <template #point>
+              <slot name="point" v-bind="{ item, index }">
+                <slot :name="getListItemPointSlotName(item, index)" v-bind="{ item, index }">
                   <PTimelinePoint>
-                    <slot :name="getListItemNodeContentSlotName(item, index)" v-bind="{ item, index }">
-                      <slot name="node-content" v-bind="{ item, index }">
+                    <slot :name="getListItemPointContentSlotName(item, index)" v-bind="{ item, index }">
+                      <slot name="point-content" v-bind="{ item, index }">
                         <p-icon v-if="item.icon" :icon="item.icon" solid />
                       </slot>
                     </slot>
@@ -63,14 +63,14 @@
     return `item-${base}`
   }
 
-  function getListItemNodeSlotName(item: TimelineItem, index: number): string {
+  function getListItemPointSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
-    return `${base}-node`
+    return `${base}-point`
   }
 
-  function getListItemNodeContentSlotName(item: TimelineItem, index: number): string {
+  function getListItemPointContentSlotName(item: TimelineItem, index: number): string {
     const base = getListItemSlotName(item, index)
-    return `${base}-node-content`
+    return `${base}-point-content`
   }
 
   function getListItemLeftSlotName(item: TimelineItem, index: number): string {

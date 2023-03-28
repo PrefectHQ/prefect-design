@@ -61,22 +61,20 @@
       </p-timeline>
     </template>
 
-    <template #custom-node>
-      <p-timeline :items="itemsReversed" class="ordered-list__custom-node">
-        <template #node="{ item }">
-          <div class="ordered-list__ninja-node">
+    <template #custom-point>
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-point">
+        <template #point="{ item }">
+          <div class="ordered-list__ninja-point">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
         </template>
       </p-timeline>
     </template>
 
-    <template #custom-node-content>
+    <template #custom-point-content>
       <p-timeline :items="itemsReversed">
-        <template #node-content="{ item }: { item: TimelineItem }">
-          <template v-if="item.title">
-            <div class="ordered-list__custom-node-content" />
-          </template>
+        <template #point-content>
+          <div class="ordered-list__custom-point-content" />
         </template>
       </p-timeline>
     </template>
@@ -103,7 +101,7 @@
     </template>
 
     <template #target-a-specific-slot>
-      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-id-key="id">
+      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id">
         <template #left="{ item }: { item: TimelineItem }">
           <div class="ordered-list__target-specific__left" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
@@ -155,23 +153,23 @@
 
   const demos = [
     {
-      title: 'No Icons',
+      title: 'No icons',
       description: 'This is the default state of the component.',
     },
     {
-      title: 'No Slots',
+      title: 'No slots',
       description: 'This is the default state of the component (when there are icons in the data).',
     },
     {
-      title: 'Custom Node',
-      description: 'Override the default node item.',
+      title: 'Custom point',
+      description: 'Override the default point item.',
     },
     {
-      title: 'Custom Node Content',
-      description: 'Override the default node content.',
+      title: 'Custom point content',
+      description: 'Override the default point content.',
     },
     {
-      title: 'Left and Right',
+      title: 'Left and right',
       description: 'Use left and right slots.',
     },
     {
@@ -187,7 +185,7 @@
       description: 'Target a specific slot to add some functionality; note that this is easiest when you pass the `itemIdKey` prop.',
     },
     {
-      title: 'Virtual Scroller',
+      title: 'Virtual scroller',
       description: 'Uses `PVirtualScroller` under the hood for safety when rendering large lists.',
     },
   ]
@@ -261,6 +259,7 @@
 
   const hoveredItem = ref<string | null>(null)
   const hoveredItemSlotKey = computed<string>(() => {
+    console.log(hoveredItem.value)
     if (hoveredItem.value) {
       return `item-${hoveredItem.value}-right`
     }
@@ -288,7 +287,7 @@
   text-gray-500
 }
 
-.ordered-list__ninja-node { @apply
+.ordered-list__ninja-point { @apply
   flex
   items-center
   justify-center
@@ -301,23 +300,23 @@
   border-2
 }
 
-.ordered-list__custom-node .p-timeline__item:nth-of-type(1) .ordered-list__ninja-node { @apply
+.ordered-list__custom-point .p-timeline-item:nth-of-type(1) .ordered-list__ninja-point { @apply
   border-[#995AA0]
 }
 
-.ordered-list__custom-node .p-timeline__item:nth-of-type(2) .ordered-list__ninja-node { @apply
+.ordered-list__custom-point .p-timeline-item:nth-of-type(2) .ordered-list__ninja-point { @apply
   border-[#EA9500]
 }
 
-.ordered-list__custom-node .p-timeline__item:nth-of-type(3) .ordered-list__ninja-node { @apply
+.ordered-list__custom-point .p-timeline-item:nth-of-type(3) .ordered-list__ninja-point { @apply
   border-[#4C9C23]
 }
 
-.ordered-list__custom-node .p-timeline__item:nth-of-type(4) .ordered-list__ninja-node { @apply
+.ordered-list__custom-point .p-timeline-item:nth-of-type(4) .ordered-list__ninja-point { @apply
   border-[#00AAE6]
 }
 
-.ordered-list__custom-node .p-timeline__item:nth-of-type(5) .ordered-list__ninja-node { @apply
+.ordered-list__custom-point .p-timeline-item:nth-of-type(5) .ordered-list__ninja-point { @apply
   border-[#E3331C]
 }
 
@@ -331,8 +330,8 @@
   py-4
 }
 
-.ordered-list__target-specific .p-timeline__item:hover .p-timeline__node,
-.ordered-list__custom-side .p-timeline__item:hover .p-timeline__node { @apply
+.ordered-list__target-specific .p-timeline-item:hover .p-timeline-point,
+.ordered-list__custom-side .p-timeline-item:hover .p-timeline-point { @apply
   transition-all
   scale-125
 }
@@ -340,10 +339,9 @@
 .ordered-list__target-specific__left { @apply
   w-full
   h-full
-  py-4
 }
 
-.ordered-list__custom-node-content { @apply
+.ordered-list__custom-point-content { @apply
   p-2
   bg-amber-500
   rounded-full
