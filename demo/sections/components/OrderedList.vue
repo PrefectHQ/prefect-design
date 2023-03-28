@@ -164,9 +164,8 @@
     },
   })
 
-  const itemsNoData: OrderedListItem[] = Array.from({ length: 5 }, (_, i) => ({
+  const itemsNoData: OrderedListItem[] = Array.from({ length: 3 }, () => ({
     id: crypto.randomUUID(),
-    title: `Item ${i + 1}`,
   }))
 
   const items: OrderedListItem[] = [
@@ -305,9 +304,5 @@
   rounded-full
   border-4
   border-danger
-}
-
-.ordered-list__custom-node-content--custom { @apply
-  !bg-sky-700
 }
 </style>
