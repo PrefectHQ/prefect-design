@@ -34,34 +34,6 @@
       </p-timeline>
     </template>
 
-    <template #one-side-description>
-      <p-toggle v-model="sideToggleValue">
-        <template #prepend>
-          Date
-        </template>
-
-        <template #append>
-          Content
-        </template>
-      </p-toggle>
-    </template>
-
-    <template #one-side>
-      <p-timeline :items="itemsReversed" v-bind="{ layout }">
-        <template #[side]="{ item }">
-          <template v-if="sideToggleValue">
-            <p-heading heading="6">
-              {{ item.title }}
-            </p-heading>
-          </template>
-
-          <template v-else>
-            <span class="ordered-list__date">{{ item.date }}</span>
-          </template>
-        </template>
-      </p-timeline>
-    </template>
-
     <template #custom-point>
       <p-timeline :items="itemsReversed" class="ordered-list__custom-point" v-bind="{ layout }">
         <template #point="{ item }">
@@ -179,10 +151,6 @@
       description: 'Use the date and content slots.',
     },
     {
-      title: 'One side',
-      description: 'Add some data to just one side of the list item.',
-    },
-    {
       title: 'Custom side',
       description: 'A slightly more complicated example.',
     },
@@ -195,16 +163,6 @@
       description: 'Uses `PVirtualScroller` under the hood for safety when rendering large lists.',
     },
   ]
-
-  const side = ref<'content' | 'date'>('date')
-  const sideToggleValue = computed({
-    get() {
-      return side.value === 'content'
-    },
-    set(value) {
-      side.value = value ? 'content' : 'date'
-    },
-  })
 
   const itemsNoData: TimelineItem[] = Array.from({ length: 3 }, () => ({
     id: crypto.randomUUID(),

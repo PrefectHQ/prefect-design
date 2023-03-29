@@ -98,6 +98,6 @@
 .p-timeline { @apply
   list-none
   p-0
-  m-0;
+  m-0
 }
 </style>
