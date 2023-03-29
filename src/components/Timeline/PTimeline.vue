@@ -7,10 +7,10 @@
     <template #default="{ item, index }: { item: TimelineItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getItemSlotName(item, index)" v-bind="{ item, index }">
-          <PTimelineItem v-bind="{ align }" :stacked="layout == 'stacked'">
+          <PTimelineItem v-bind="getItemLayout(index)">
             <template #date>
-              <slot :name="getDateOuterSlotName(index)" v-bind="{ item, index }">
-                <slot :name="getDateInnerSlotName(item, index)" v-bind="{ item, index }" />
+              <slot name="date" v-bind="{ item, index }">
+                <slot :name="getDateSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
 
@@ -29,8 +29,8 @@
             </template>
 
             <template #content>
-              <slot :name="getContentOuterSlotName(index)" v-bind="{ item, index }">
-                <slot :name="getContentInnerSlotName(item, index)" v-bind="{ item, index }" />
+              <slot name="content" v-bind="{ item, index }">
+                <slot :name="getContentSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
           </PTimelineItem>
@@ -45,7 +45,7 @@
   import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
   import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { TimelineAlignment, TimelineItem, TimelineLayout } from '@/types/timeline'
+  import { TimelineAlignment, TimelineItem, TimelineItemLayout, TimelineLayout } from '@/types/timeline'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
@@ -54,6 +54,9 @@
     align?: TimelineAlignment,
     layout?: TimelineLayout,
   }>()
+
+  const layout = computed(() => props.layout ?? 'default')
+  const align = computed(() => props.align ?? 'left')
 
   function getItemId(item: TimelineItem, index: number): string | number {
     return props.itemKey ? kebabCase(`${item[props.itemKey]}`) : index
@@ -84,42 +87,27 @@
     return `${base}-content`
   }
 
-  const alternate = computed(() => props.layout === 'alternate')
+  function getItemLayout(index: number): { layout: TimelineItemLayout, align: TimelineAlignment } {
+    if (layout.value === 'alternate') {
+      const even = index % 2 !== 0
 
-  function getDateInnerSlotName(item: TimelineItem, index: number): string {
-    const even = index % 2 !== 0
-    if (alternate.value && !even) {
-      return getContentSlotName(item, index)
+      if (even) {
+        return {
+          layout: 'default',
+          align: 'left',
+        }
+      }
+
+      return {
+        layout: 'default',
+        align: 'right',
+      }
     }
 
-    return getDateSlotName(item, index)
-  }
-
-  function getDateOuterSlotName(index: number): string {
-    const odd = index % 2 !== 0
-    if (alternate.value && odd) {
-      return 'content'
+    return {
+      layout: layout.value,
+      align: align.value,
     }
-
-    return 'date'
-  }
-
-  function getContentInnerSlotName(item: TimelineItem, index: number): string {
-    const odd = index % 2 !== 0
-    if (alternate.value && odd) {
-      return getDateSlotName(item, index)
-    }
-
-    return getContentSlotName(item, index)
-  }
-
-  function getContentOuterSlotName(index: number): string {
-    const odd = index % 2 !== 0
-    if (alternate.value && odd) {
-      return 'date'
-    }
-
-    return 'content'
   }
 </script>
 
@@ -127,6 +115,6 @@
 .p-timeline { @apply
   list-none
   p-0
-  m-0
+  m-0;
 }
 </style>

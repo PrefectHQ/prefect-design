@@ -9,3 +9,4 @@ export type TimelineItem = {
 
 export type TimelineAlignment = 'left' | 'right' | 'center'
 export type TimelineLayout = 'default' | 'alternate' | 'stacked'
+export type TimelineItemLayout = 'default' | 'stacked'

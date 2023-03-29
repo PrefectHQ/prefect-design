@@ -4,12 +4,10 @@
       <slot name="date" />
     </div>
 
-    <div class="p-timeline-item__center" :class="classes.center">
-      <div class="p-timeline-item__point">
-        <slot name="point">
-          <PTimelinePoint />
-        </slot>
-      </div>
+    <div class="p-timeline-item__point" :class="classes.point">
+      <slot name="point">
+        <PTimelinePoint />
+      </slot>
     </div>
 
     <div v-if="slots.content" class="p-timeline-item__content" :class="classes.content">
@@ -19,186 +17,160 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots } from 'vue'
-  import { TimelineAlignment } from '@/types/timeline'
+  import { computed, toRefs, useSlots } from 'vue'
+  import { TimelineAlignment, TimelineItemLayout } from '@/types/timeline'
 
   const slots = useSlots()
 
   const props = defineProps<{
-    align?: TimelineAlignment,
-    stacked?: boolean,
+    layout: TimelineItemLayout,
+    align: TimelineAlignment,
   }>()
 
-  const align = computed(() => props.align)
+  const { layout, align } = toRefs(props)
 
   const classes = computed(() => {
     return {
-      root: {
-        [`p-timeline-item--align-${align.value}`]: !!align.value,
-        'p-timeline-item--stacked': props.stacked,
-      },
-      center: {
-        [`p-timeline-item__center--align-${align.value}`]: !!align.value,
-        'p-timeline-item__center--stacked': props.stacked,
-      },
-      date: {
-        [`p-timeline-item__date--align-${align.value}`]: !!align.value,
-        'p-timeline-item__date--stacked': props.stacked,
-      },
-      content: {
-        [`p-timeline-item__content--align-${align.value}`]: !!align.value,
-        'p-timeline-item__content--stacked': props.stacked,
-      },
+      root: [`p-timeline-item--${layout.value}`, `p-timeline-item--${layout.value}-${align.value}`],
+      point: [`p-timeline-item__point--${layout.value}`, `p-timeline-item__point--${layout.value}-${align.value}`],
+      date: [`p-timeline-item__date--${layout.value}`, `p-timeline-item__date--${layout.value}-${align.value}`],
+      content: [`p-timeline-item__content--${layout.value}`, `p-timeline-item__content--${layout.value}-${align.value}`],
     }
   })
 </script>
 
 <style>
 .p-timeline-item {
-  --p-timeline-item-gap: 1rem;
+  --gap: var(--p-timeline-item-gap, 1rem);
+  --point-width: var(--p-timeline-item-point-width, 2.5rem);
+  --content-width: var(--p-timeline-item-content-width, 1fr);
+  --date-width: var(--p-timeline-item-date-width, 1fr);
 }
 
 .p-timeline-item { @apply
-  flex
+  grid
   items-start
   relative
-  py-[var(--p-timeline-item-gap)]
+  py-[var(--gap)]
   box-content
 }
 
+.p-timeline-item--default { @apply
+  gap-[var(--gap)]
+}
+
 .p-timeline-item--stacked { @apply
-  grid
-  py-[var(--p-timeline-item-gap)]
+  gap-x-[var(--gap)]
 }
 
-.p-timeline-item__content,
-.p-timeline-item__date { @apply
-  flex-1
-  z-[1]
+.p-timeline-item--default-left,
+.p-timeline-item--default-center {
+  grid-template-columns: var(--date-width) var(--point-width) var(--content-width);
+  grid-template-areas: 'date point content';
 }
 
-.p-timeline-item__date { @apply
-  text-right
+.p-timeline-item--default-right {
+  grid-template-columns: var(--content-width) var(--point-width) var(--date-width);
+  grid-template-areas: 'content point date';
 }
 
-.p-timeline-item__content { @apply
-  text-left
+.p-timeline-item--stacked-left {
+  grid-template-columns: var(--point-width) 1fr;
+  grid-template-areas: 'point date'
+                       'point content';
 }
 
-.p-timeline-item__center { @apply
-  flex
+.p-timeline-item--stacked-center { @apply
   text-center
-  self-start
-  justify-center
+  justify-center;
+
+  grid-template-areas: 'point'
+                       'date'
+                       'content';
 }
 
-.p-timeline-item__center::before { @apply
+.p-timeline-item--stacked-right {
+  grid-template-columns: 1fr var(--point-width);
+  grid-template-areas: 'date point'
+                       'content point';
+}
+
+.p-timeline-item__date {
+  grid-area: date;
+}
+
+.p-timeline-item__point {
+  grid-area: point;
+}
+
+.p-timeline-item__content {
+  grid-area: content;
+}
+
+.p-timeline-item__point { @apply
+  flex
+  items-start
+  justify-center
+  relative
+  z-[1]
+  h-full
+  w-full
+}
+
+.p-timeline-item__point--stacked-center { @apply
+  static
+  mb-[var(--gap)]
+}
+
+.p-timeline-item__point::before { @apply
   absolute
-  top-0
+  -top-[var(--gap)]
   left-1/2
-  bottom-0
+  -bottom-[var(--gap)]
   w-px
   -translate-x-1/2
   bg-foreground-200
   dark:bg-foreground-300
-  z-0
-  ;
+  -z-[1];
 
   content: '';
 }
 
-.p-timeline-item--align-right,
-.p-timeline-item__date--align-right,
-.p-timeline-item__content--align-right { @apply
+.p-timeline-item__point--stacked-center::before { @apply
+  top-0
+  bottom-0
+}
+
+.p-timeline-item__date--default-left,
+.p-timeline-item__date--default-center { @apply
   text-right
-  justify-end
 }
 
-.p-timeline-item--align-center,
-.p-timeline-item__date--align-center,
-.p-timeline-item__content--align-center { @apply
-  text-center
-  justify-center
-}
-
-.p-timeline-item--align-left,
-.p-timeline-item__date--align-left,
-.p-timeline-item__content--align-left { @apply
+.p-timeline-item__date--default-right { @apply
   text-left
-  justify-start
 }
 
-.p-timeline-item__center--stacked { @apply
-  relative
-  h-full
-  items-start
+.p-timeline-item__content--default-left,
+.p-timeline-item__content--default-center { @apply
+  text-left
 }
 
-.p-timeline-item__center--align-center { @apply
-  h-auto
-  static
+.p-timeline-item__content--default-right { @apply
+  text-right
 }
 
-.p-timeline-item__center--stacked.p-timeline-item__center--align-center { @apply
-  mb-[var(--p-timeline-item-gap)]
+.p-timeline-item__date--stacked-left,
+.p-timeline-item__content--stacked-left { @apply
+  text-left
 }
 
-.p-timeline-item__center--stacked::before { @apply
-  -top-[var(--p-timeline-item-gap)]
-  -bottom-[var(--p-timeline-item-gap)]
+.p-timeline-item__date--stacked-center,
+.p-timeline-item__content--stacked-center { @apply
+  text-center
 }
 
-.p-timeline-item__center--align-center::before { @apply
-  -top-0
-  -bottom-0
-}
-
-.p-timeline-item__center--stacked {
-  grid-area: center;
-}
-
-.p-timeline-item__date--stacked {
-  grid-area: date;
-}
-
-.p-timeline-item__content--stacked {
-  grid-area: content;
-}
-
-.p-timeline-item__date--stacked,
-.p-timeline-item__content--stacked { @apply
-  z-[1]
-}
-
-.p-timeline-item--align-left {
-  grid-template-areas:
-    "center date"
-    "center content";
-}
-
-.p-timeline-item--align-right {
-  grid-template-areas:
-    "date center"
-    "content center";
-}
-
-.p-timeline-item--align-center {
-   grid-template-areas:
-    "center"
-    "date"
-    "content";
-}
-
-.p-timeline-item__point { @apply
-  flex
-  items-center
-  justify-center
-}
-
-.p-timeline-item__point { @apply
-  pt-1
-  min-w-[2.5rem]
-  mx-[var(--p-timeline-item-gap)]
-  z-[1]
+.p-timeline-item__date--stacked-right,
+.p-timeline-item__content--stacked-right { @apply
+  text-right
 }
 </style>

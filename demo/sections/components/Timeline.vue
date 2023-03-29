@@ -5,8 +5,8 @@
         <p-label label="Layout">
           <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
         </p-label>
-        <p-label v-if="layout == 'stacked'" label="alignment">
-          <p-button-group v-model="alignInternal" size="sm" :options="['left', 'center', 'right']" />
+        <p-label v-if="layout !== 'alternate'">
+          <p-button-group v-model="align" size="sm" :options="['left', 'center', 'right']" />
         </p-label>
       </p-content>
     </template>
@@ -182,14 +182,7 @@
 
   const layout = ref<TimelineLayout>('default')
 
-  const alignInternal = ref<TimelineAlignment>('left')
-  const align = computed(() => {
-    if (layout.value !== 'stacked') {
-      return undefined
-    }
-
-    return alignInternal.value
-  })
+  const align = ref<TimelineAlignment>('left')
   const side = ref<'content' | 'date'>('date')
   const sideToggleValue = computed({
     get() {
