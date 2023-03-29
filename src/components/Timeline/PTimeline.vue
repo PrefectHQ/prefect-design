@@ -6,19 +6,19 @@
   >
     <template #default="{ item, index }: { item: TimelineItem, index: number }">
       <slot v-bind="{ item, index }">
-        <slot :name="getListItemSlotName(item, index)" v-bind="{ item, index }">
+        <slot :name="getItemSlotName(item, index)" v-bind="{ item, index }">
           <PTimelineItem v-bind="{ align, layout }">
-            <template #left>
-              <slot name="left" v-bind="{ item, index }">
-                <slot :name="getListItemLeftSlotName(item, index)" v-bind="{ item, index }" />
+            <template #date>
+              <slot name="date" v-bind="{ item, index }">
+                <slot :name="getDateSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
 
             <template #point>
               <slot name="point" v-bind="{ item, index }">
-                <slot :name="getListItemPointSlotName(item, index)" v-bind="{ item, index }">
+                <slot :name="getPointSlotName(item, index)" v-bind="{ item, index }">
                   <PTimelinePoint>
-                    <slot :name="getListItemPointContentSlotName(item, index)" v-bind="{ item, index }">
+                    <slot :name="getPointContentSlotName(item, index)" v-bind="{ item, index }">
                       <slot name="point-content" v-bind="{ item, index }">
                         <p-icon v-if="item.icon" :icon="item.icon" solid />
                       </slot>
@@ -28,9 +28,9 @@
               </slot>
             </template>
 
-            <template #right>
-              <slot name="right" v-bind="{ item, index }">
-                <slot :name="getListItemRightSlotName(item, index)" v-bind="{ item, index }" />
+            <template #content>
+              <slot name="content" v-bind="{ item, index }">
+                <slot :name="getContentSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
           </PTimelineItem>
@@ -58,29 +58,29 @@
     return props.itemKey ? kebabCase(`${item[props.itemKey]}`) : index
   }
 
-  function getListItemSlotName(item: TimelineItem, index: number): string {
+  function getItemSlotName(item: TimelineItem, index: number): string {
     const base = getItemId(item, index)
     return `item-${base}`
   }
 
-  function getListItemPointSlotName(item: TimelineItem, index: number): string {
-    const base = getListItemSlotName(item, index)
+  function getPointSlotName(item: TimelineItem, index: number): string {
+    const base = getItemSlotName(item, index)
     return `${base}-point`
   }
 
-  function getListItemPointContentSlotName(item: TimelineItem, index: number): string {
-    const base = getListItemSlotName(item, index)
+  function getPointContentSlotName(item: TimelineItem, index: number): string {
+    const base = getItemSlotName(item, index)
     return `${base}-point-content`
   }
 
-  function getListItemLeftSlotName(item: TimelineItem, index: number): string {
-    const base = getListItemSlotName(item, index)
-    return `${base}-left`
+  function getDateSlotName(item: TimelineItem, index: number): string {
+    const base = getItemSlotName(item, index)
+    return `${base}-date`
   }
 
-  function getListItemRightSlotName(item: TimelineItem, index: number): string {
-    const base = getListItemSlotName(item, index)
-    return `${base}-right`
+  function getContentSlotName(item: TimelineItem, index: number): string {
+    const base = getItemSlotName(item, index)
+    return `${base}-content`
   }
 </script>
 

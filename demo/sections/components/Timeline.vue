@@ -21,13 +21,13 @@
 
     <template #left-and-right>
       <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
-        <template #left="{ item }">
+        <template #date="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
         </template>
 
-        <template #right="{ item }">
+        <template #left="{ item }">
           <p-heading heading="6">
             {{ item.title }}
           </p-heading>
@@ -40,11 +40,11 @@
     <template #one-side-description>
       <p-toggle v-model="sideToggleValue">
         <template #prepend>
-          Left
+          Date
         </template>
 
         <template #append>
-          Right
+          Content
         </template>
       </p-toggle>
     </template>
@@ -85,7 +85,7 @@
 
     <template #custom-side>
       <p-timeline :items="itemsReversed" class="ordered-list__custom-side" v-bind="{ layout, align }">
-        <template #right="{ item }: { item: TimelineItem }">
+        <template #content="{ item }: { item: TimelineItem }">
           <p-card
             :flat="!expandedList.includes(item.id)"
             class="ordered-list__custom-side__card"
@@ -106,8 +106,8 @@
 
     <template #target-a-specific-slot>
       <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id" v-bind="{ layout, align }">
-        <template #left="{ item }: { item: TimelineItem }">
-          <div class="ordered-list__target-specific__left" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
+        <template #date="{ item }: { item: TimelineItem }">
+          <div class="ordered-list__target-specific__content" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
           </div>
         </template>
@@ -122,11 +122,11 @@
 
     <template #virtual-scroller>
       <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller" v-bind="{ layout, align }">
-        <template #left="{ index }">
+        <template #date="{ index }">
           {{ index }}
         </template>
 
-        <template #right="{ item }">
+        <template #content="{ item }">
           <p-heading heading="6">
             {{ item.title }}
           </p-heading>
@@ -159,8 +159,8 @@
       description: 'Override the default point content.',
     },
     {
-      title: 'Left and right',
-      description: 'Use left and right slots.',
+      title: 'Date and content',
+      description: 'Use the date and content slots.',
     },
     {
       title: 'One side',
@@ -172,7 +172,7 @@
     },
     {
       title: 'Target a specific slot',
-      description: 'Target a specific slot to add some functionality; note that this is easiest when you pass the `itemIdKey` prop.',
+      description: 'Target a specific slot to add some functionality; note that this is easiest when you pass the `itemKey` prop.',
     },
     {
       title: 'Virtual scroller',
@@ -182,13 +182,13 @@
 
   const layout = ref<TimelineLayout>('default')
   const align = ref<TimelineAlignment>('left')
-  const side = ref<'left' | 'right'>('left')
+  const side = ref<'content' | 'date'>('date')
   const sideToggleValue = computed({
     get() {
-      return side.value === 'right'
+      return side.value === 'content'
     },
     set(value) {
-      side.value = value ? 'right' : 'left'
+      side.value = value ? 'content' : 'date'
     },
   })
 
@@ -251,7 +251,7 @@
   const hoveredItemSlotKey = computed<string>(() => {
     console.log(hoveredItem.value)
     if (hoveredItem.value) {
-      return `item-${hoveredItem.value}-right`
+      return `item-${hoveredItem.value}-content`
     }
 
     return ''
@@ -326,7 +326,7 @@
   scale-125
 }
 
-.ordered-list__target-specific__left { @apply
+.ordered-list__target-specific__content { @apply
   w-full
   h-full
 }
