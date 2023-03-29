@@ -46,6 +46,7 @@ export const components: Section = {
   textarea: () => import('./Textarea.vue'),
   textInput: () => import('./TextInput.vue'),
   textTruncate: () => import('./TextTruncate.vue'),
+  timeline: () => import('./Timeline.vue'),
   toast: () => import('./Toast.vue'),
   toggle: () => import('./Toggle.vue'),
   typeAhead: () => import('./TypeAhead.vue'),

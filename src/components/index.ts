@@ -68,6 +68,7 @@ import { PTextarea, install as installPTextarea } from '@/components/Textarea'
 import { PTextInput, install as installPTextInput } from '@/components/TextInput'
 import { PTextTruncate, install as installPTextTruncate } from '@/components/TextTruncate'
 import { PThemeToggle, install as installPThemeToggle } from '@/components/ThemeToggle'
+import { PTimeline, PTimelineItem, PTimelinePoint, install as installPTimeline } from '@/components/Timeline'
 import { PToast, install as installPToast } from '@/components/Toast'
 import { PToggle, install as installPToggle } from '@/components/Toggle'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
@@ -155,6 +156,9 @@ export {
   PTextInput,
   PTextTruncate,
   PThemeToggle,
+  PTimeline,
+  PTimelineItem,
+  PTimelinePoint,
   PToast,
   PToggle,
   PTypeAhead,
@@ -235,6 +239,7 @@ export const installs = [
   installPTextInput,
   installPTextTruncate,
   installPThemeToggle,
+  installPTimeline,
   installPToast,
   installPToggle,
   installPTypeAhead,
@@ -322,6 +327,9 @@ declare module '@vue/runtime-core' {
     PTextarea: typeof PTextarea,
     PTextInput: typeof PTextInput,
     PTextTruncate: typeof PTextTruncate,
+    PTimeline: typeof PTimeline,
+    PTimelineItem: typeof PTimelineItem,
+    PTimelinePoint: typeof PTimelinePoint,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
     PTypeAhead: typeof PTypeAhead,

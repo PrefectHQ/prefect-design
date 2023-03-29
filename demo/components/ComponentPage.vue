@@ -29,7 +29,9 @@
 
             <template v-if="demo.description">
               <div class="component-page__demo-description">
-                {{ demo.description }}
+                <slot :name="`${demo.slotKey}-description`">
+                  {{ demo.description }}
+                </slot>
               </div>
             </template>
 
@@ -169,8 +171,7 @@
 }
 
 .component-page__demo,
-.component-page__description,
-.component-page__demo-description { @apply
+.component-page__description { @apply
   max-w-full
   mx-auto
   py-6
