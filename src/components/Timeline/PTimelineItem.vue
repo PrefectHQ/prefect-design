@@ -18,23 +18,22 @@
 
 <script lang="ts" setup>
   import { computed, toRefs, useSlots } from 'vue'
-  import { TimelineAlignment, TimelineItemLayout } from '@/types/timeline'
+  import { TimelineLayout } from '@/types/timeline'
 
   const slots = useSlots()
 
   const props = defineProps<{
-    layout: TimelineItemLayout,
-    align: TimelineAlignment,
+    layout: TimelineLayout,
   }>()
 
-  const { layout, align } = toRefs(props)
+  const { layout } = toRefs(props)
 
   const classes = computed(() => {
     return {
-      root: [`p-timeline-item--${layout.value}`, `p-timeline-item--${layout.value}-${align.value}`],
-      point: [`p-timeline-item__point--${layout.value}`, `p-timeline-item__point--${layout.value}-${align.value}`],
-      date: [`p-timeline-item__date--${layout.value}`, `p-timeline-item__date--${layout.value}-${align.value}`],
-      content: [`p-timeline-item__content--${layout.value}`, `p-timeline-item__content--${layout.value}-${align.value}`],
+      root: `p-timeline-item--${layout.value}`,
+      point: `p-timeline-item__point--${layout.value}`,
+      date: `p-timeline-item__date--${layout.value}`,
+      content: `p-timeline-item__content--${layout.value}`,
     }
   })
 </script>
@@ -55,21 +54,23 @@
   box-content
 }
 
-.p-timeline-item--default { @apply
+.p-timeline-item--date-left,
+.p-timeline-item--date-right { @apply
   gap-[var(--gap)]
 }
 
-.p-timeline-item--stacked { @apply
+.p-timeline-item--stacked-left,
+.p-timeline-item--stacked-center,
+.p-timeline-item--stacked-right { @apply
   gap-x-[var(--gap)]
 }
 
-.p-timeline-item--default-left,
-.p-timeline-item--default-center {
+.p-timeline-item--date-left {
   grid-template-columns: var(--date-width) var(--point-width) var(--content-width);
   grid-template-areas: 'date point content';
 }
 
-.p-timeline-item--default-right {
+.p-timeline-item--date-right {
   grid-template-columns: var(--content-width) var(--point-width) var(--date-width);
   grid-template-areas: 'content point date';
 }
@@ -141,21 +142,19 @@
   bottom-0
 }
 
-.p-timeline-item__date--default-left,
-.p-timeline-item__date--default-center { @apply
+.p-timeline-item__date--date-left { @apply
   text-right
 }
 
-.p-timeline-item__date--default-right { @apply
+.p-timeline-item__date--date-right { @apply
   text-left
 }
 
-.p-timeline-item__content--default-left,
-.p-timeline-item__content--default-center { @apply
+.p-timeline-item__content--date-left { @apply
   text-left
 }
 
-.p-timeline-item__content--default-right { @apply
+.p-timeline-item__content--date-right { @apply
   text-right
 }
 

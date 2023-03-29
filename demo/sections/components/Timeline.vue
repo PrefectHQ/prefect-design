@@ -1,26 +1,23 @@
 <template>
-  <ComponentPage title="Timeline" :demos="demos" use-resizable>
+  <ComponentPage title="Timeline" :demos="demos">
     <template #description>
       <p-content>
         <p-label label="Layout">
-          <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
-        </p-label>
-        <p-label v-if="layout !== 'alternate'">
-          <p-button-group v-model="align" size="sm" :options="['left', 'center', 'right']" />
+          <p-button-group v-model="selectedLayout" size="sm" :options="layoutOptions" />
         </p-label>
       </p-content>
     </template>
 
     <template #no-icons>
-      <p-timeline :items="itemsNoData" v-bind="{ layout, align }" />
+      <p-timeline :items="itemsNoData" v-bind="{ layout }" />
     </template>
 
     <template #no-slots>
-      <p-timeline :items="itemsReversed" v-bind="{ layout, align }" />
+      <p-timeline :items="itemsReversed" v-bind="{ layout }" />
     </template>
 
     <template #date-and-content>
-      <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
+      <p-timeline :items="itemsReversed" v-bind="{ layout }">
         <template #date="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
@@ -50,7 +47,7 @@
     </template>
 
     <template #one-side>
-      <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
+      <p-timeline :items="itemsReversed" v-bind="{ layout }">
         <template #[side]="{ item }">
           <template v-if="sideToggleValue">
             <p-heading heading="6">
@@ -66,7 +63,7 @@
     </template>
 
     <template #custom-point>
-      <p-timeline :items="itemsReversed" class="ordered-list__custom-point" v-bind="{ layout, align }">
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-point" v-bind="{ layout }">
         <template #point="{ item }">
           <div class="ordered-list__ninja-point">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
@@ -76,7 +73,7 @@
     </template>
 
     <template #custom-point-content>
-      <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
+      <p-timeline :items="itemsReversed" v-bind="{ layout }">
         <template #point-content>
           <div class="ordered-list__custom-point-content" />
         </template>
@@ -84,7 +81,7 @@
     </template>
 
     <template #custom-side>
-      <p-timeline :items="itemsReversed" class="ordered-list__custom-side" v-bind="{ layout, align }">
+      <p-timeline :items="itemsReversed" class="ordered-list__custom-side" v-bind="{ layout }">
         <template #content="{ item }: { item: TimelineItem }">
           <p-card
             :flat="!expandedList.includes(item.id)"
@@ -105,7 +102,7 @@
     </template>
 
     <template #target-a-specific-slot>
-      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id" v-bind="{ layout, align }">
+      <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id" v-bind="{ layout }">
         <template #date="{ item }: { item: TimelineItem }">
           <div class="ordered-list__target-specific__content" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
@@ -121,7 +118,7 @@
     </template>
 
     <template #virtual-scroller>
-      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller" v-bind="{ layout, align }">
+      <p-timeline :items="itemsManyData" class="ordered-list__virtual-scroller" v-bind="{ layout }">
         <template #date="{ index }">
           {{ index }}
         </template>
@@ -137,9 +134,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { TimelineAlignment, TimelineItem, TimelineLayout } from '@/types/timeline'
+  import { TimelineItem, TimelineLayout, TimelineLayoutFunction, timelineLayouts } from '@/types/timeline'
   import { ref, computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const customLayout: TimelineLayoutFunction = (item, index) => {
+    const even = index % 2 === 0
+    if (even) {
+      return 'date-left'
+    }
+
+    return 'date-right'
+  }
+
+  const selectedLayout = ref<TimelineLayout | 'custom'>('date-left')
+  const layoutOptions = computed(() => [...timelineLayouts, 'custom'])
+  const layout = computed(() => {
+    if (selectedLayout.value === 'custom') {
+      return customLayout
+    }
+
+    return selectedLayout.value
+  })
 
   const demos = [
     {
@@ -180,9 +196,6 @@
     },
   ]
 
-  const layout = ref<TimelineLayout>('default')
-
-  const align = ref<TimelineAlignment>('left')
   const side = ref<'content' | 'date'>('date')
   const sideToggleValue = computed({
     get() {

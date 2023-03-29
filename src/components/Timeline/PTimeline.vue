@@ -7,7 +7,7 @@
     <template #default="{ item, index }: { item: TimelineItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getItemSlotName(item, index)" v-bind="{ item, index }">
-          <PTimelineItem v-bind="getItemLayout(index)">
+          <PTimelineItem :layout="getItemLayout(item, index)">
             <template #date>
               <slot name="date" v-bind="{ item, index }">
                 <slot :name="getDateSlotName(item, index)" v-bind="{ item, index }" />
@@ -45,18 +45,16 @@
   import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
   import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { TimelineAlignment, TimelineItem, TimelineItemLayout, TimelineLayout } from '@/types/timeline'
+  import { TimelineItem, TimelineLayout, TimelineLayoutFunction } from '@/types/timeline'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
     items: TimelineItem[],
     itemKey?: string,
-    align?: TimelineAlignment,
-    layout?: TimelineLayout,
+    layout?: TimelineLayout | TimelineLayoutFunction,
   }>()
 
-  const layout = computed(() => props.layout ?? 'default')
-  const align = computed(() => props.align ?? 'left')
+  const layout = computed(() => props.layout ?? 'date-left')
 
   function getItemId(item: TimelineItem, index: number): string | number {
     return props.itemKey ? kebabCase(`${item[props.itemKey]}`) : index
@@ -87,27 +85,12 @@
     return `${base}-content`
   }
 
-  function getItemLayout(index: number): { layout: TimelineItemLayout, align: TimelineAlignment } {
-    if (layout.value === 'alternate') {
-      const even = index % 2 !== 0
-
-      if (even) {
-        return {
-          layout: 'default',
-          align: 'left',
-        }
-      }
-
-      return {
-        layout: 'default',
-        align: 'right',
-      }
+  function getItemLayout(item: TimelineItem, index: number): TimelineLayout {
+    if (typeof layout.value === 'function') {
+      return layout.value(item, index)
     }
 
-    return {
-      layout: layout.value,
-      align: align.value,
-    }
+    return layout.value
   }
 </script>
 
