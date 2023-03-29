@@ -20,46 +20,34 @@
 
 <script lang="ts" setup>
   import { computed, useSlots } from 'vue'
-  import { TimelineAlignment, TimelineLayout } from '@/types/timeline'
+  import { TimelineAlignment } from '@/types/timeline'
 
   const slots = useSlots()
 
   const props = defineProps<{
     align?: TimelineAlignment,
-    layout?: TimelineLayout,
+    stacked?: boolean,
   }>()
 
-  const align = computed(() => props.align ?? 'left')
-  const layout = computed(() => props.layout ?? 'default')
+  const align = computed(() => props.align)
 
   const classes = computed(() => {
-    const stacked = layout.value === 'stacked'
     return {
       root: {
-        'p-timeline-item--align-left': align.value === 'left',
-        'p-timeline-item--align-right': align.value === 'right',
-        'p-timeline-item--align-center': align.value === 'center',
-        'p-timeline-item--layout-default': layout.value === 'default',
-        'p-timeline-item--layout-stacked': stacked,
-        'p-timeline-item--layout-alternate': layout.value === 'alternate',
+        [`p-timeline-item--align-${align.value}`]: !!align.value,
+        'p-timeline-item--stacked': props.stacked,
       },
       center: {
-        'p-timeline-item__center--layout-stacked': stacked,
-        'p-timeline-item__center--align-right': stacked && align.value === 'right',
-        'p-timeline-item__center--align-center': stacked && align.value === 'center',
-        'p-timeline-item__center--align-left': stacked && align.value === 'left',
+        [`p-timeline-item__center--align-${align.value}`]: !!align.value,
+        'p-timeline-item__center--stacked': props.stacked,
       },
       date: {
-        'p-timeline-item__date--layout-stacked': stacked,
-        'p-timeline-item__date--align-right': stacked && align.value === 'right',
-        'p-timeline-item__date--align-center': stacked && align.value === 'center',
-        'p-timeline-item__date--align-left': stacked && align.value === 'left',
+        [`p-timeline-item__date--align-${align.value}`]: !!align.value,
+        'p-timeline-item__date--stacked': props.stacked,
       },
       content: {
-        'p-timeline-item__content--layout-stacked': stacked,
-        'p-timeline-item__content--align-right': stacked && align.value === 'right',
-        'p-timeline-item__content--align-center': stacked && align.value === 'center',
-        'p-timeline-item__content--align-left': stacked && align.value === 'left',
+        [`p-timeline-item__content--align-${align.value}`]: !!align.value,
+        'p-timeline-item__content--stacked': props.stacked,
       },
     }
   })
@@ -78,13 +66,13 @@
   box-content
 }
 
-.p-timeline-item--layout-stacked { @apply
+.p-timeline-item--stacked { @apply
+  grid
   py-[var(--p-timeline-item-gap)]
 }
 
 .p-timeline-item__content,
 .p-timeline-item__date { @apply
-  self-center
   flex-1
   z-[1]
 }
@@ -119,26 +107,9 @@
   content: '';
 }
 
-.p-timeline-item--layout-alternate:nth-child(odd) { @apply
-  flex-row-reverse
-}
-
-.p-timeline-item--layout-alternate:nth-child(even) { @apply
-  flex-row
-}
-
-.p-timeline-item--layout-default { @apply
-  flex-row
-}
-
-.p-timeline-item--layout-stacked { @apply
-  grid
-}
-
 .p-timeline-item--align-right,
 .p-timeline-item__date--align-right,
-.p-timeline-item__content--align-right,
-.p-timeline-item--layout-alternate:nth-child(odd) .p-timeline-item__content { @apply
+.p-timeline-item__content--align-right { @apply
   text-right
   justify-end
 }
@@ -152,13 +123,12 @@
 
 .p-timeline-item--align-left,
 .p-timeline-item__date--align-left,
-.p-timeline-item__content--align-left,
-.p-timeline-item--layout-alternate:nth-child(odd) .p-timeline-item__date { @apply
+.p-timeline-item__content--align-left { @apply
   text-left
   justify-start
 }
 
-.p-timeline-item__center--layout-stacked { @apply
+.p-timeline-item__center--stacked { @apply
   relative
   h-full
   items-start
@@ -169,11 +139,11 @@
   static
 }
 
-.p-timeline-item__center--layout-stacked.p-timeline-item__center--align-center { @apply
+.p-timeline-item__center--stacked.p-timeline-item__center--align-center { @apply
   mb-[var(--p-timeline-item-gap)]
 }
 
-.p-timeline-item__center--layout-stacked::before { @apply
+.p-timeline-item__center--stacked::before { @apply
   -top-[var(--p-timeline-item-gap)]
   -bottom-[var(--p-timeline-item-gap)]
 }
@@ -183,20 +153,20 @@
   -bottom-0
 }
 
-.p-timeline-item__center--layout-stacked {
+.p-timeline-item__center--stacked {
   grid-area: center;
 }
 
-.p-timeline-item__date--layout-stacked {
+.p-timeline-item__date--stacked {
   grid-area: date;
 }
 
-.p-timeline-item__content--layout-stacked {
+.p-timeline-item__content--stacked {
   grid-area: content;
 }
 
-.p-timeline-item__date--layout-stacked,
-.p-timeline-item__content--layout-stacked { @apply
+.p-timeline-item__date--stacked,
+.p-timeline-item__content--stacked { @apply
   z-[1]
 }
 

@@ -7,10 +7,10 @@
     <template #default="{ item, index }: { item: TimelineItem, index: number }">
       <slot v-bind="{ item, index }">
         <slot :name="getItemSlotName(item, index)" v-bind="{ item, index }">
-          <PTimelineItem v-bind="{ align, layout }">
+          <PTimelineItem v-bind="{ align }" :stacked="layout == 'stacked'">
             <template #date>
-              <slot name="date" v-bind="{ item, index }">
-                <slot :name="getDateSlotName(item, index)" v-bind="{ item, index }" />
+              <slot :name="getDateOuterSlotName(index)" v-bind="{ item, index }">
+                <slot :name="getDateInnerSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
 
@@ -29,8 +29,8 @@
             </template>
 
             <template #content>
-              <slot name="content" v-bind="{ item, index }">
-                <slot :name="getContentSlotName(item, index)" v-bind="{ item, index }" />
+              <slot :name="getContentOuterSlotName(index)" v-bind="{ item, index }">
+                <slot :name="getContentInnerSlotName(item, index)" v-bind="{ item, index }" />
               </slot>
             </template>
           </PTimelineItem>
@@ -41,6 +41,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
   import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
@@ -81,6 +82,44 @@
   function getContentSlotName(item: TimelineItem, index: number): string {
     const base = getItemSlotName(item, index)
     return `${base}-content`
+  }
+
+  const alternate = computed(() => props.layout === 'alternate')
+
+  function getDateInnerSlotName(item: TimelineItem, index: number): string {
+    const even = index % 2 !== 0
+    if (alternate.value && !even) {
+      return getContentSlotName(item, index)
+    }
+
+    return getDateSlotName(item, index)
+  }
+
+  function getDateOuterSlotName(index: number): string {
+    const odd = index % 2 !== 0
+    if (alternate.value && odd) {
+      return 'content'
+    }
+
+    return 'date'
+  }
+
+  function getContentInnerSlotName(item: TimelineItem, index: number): string {
+    const odd = index % 2 !== 0
+    if (alternate.value && odd) {
+      return getDateSlotName(item, index)
+    }
+
+    return getContentSlotName(item, index)
+  }
+
+  function getContentOuterSlotName(index: number): string {
+    const odd = index % 2 !== 0
+    if (alternate.value && odd) {
+      return 'date'
+    }
+
+    return 'content'
   }
 </script>
 

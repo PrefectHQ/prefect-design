@@ -6,7 +6,7 @@
           <p-button-group v-model="layout" size="sm" :options="['default', 'stacked', 'alternate']" />
         </p-label>
         <p-label v-if="layout == 'stacked'" label="alignment">
-          <p-button-group v-model="align" size="sm" :options="['left', 'center', 'right']" />
+          <p-button-group v-model="alignInternal" size="sm" :options="['left', 'center', 'right']" />
         </p-label>
       </p-content>
     </template>
@@ -19,7 +19,7 @@
       <p-timeline :items="itemsReversed" v-bind="{ layout, align }" />
     </template>
 
-    <template #left-and-right>
+    <template #date-and-content>
       <p-timeline :items="itemsReversed" v-bind="{ layout, align }">
         <template #date="{ item }">
           <template v-if="item.date">
@@ -27,7 +27,7 @@
           </template>
         </template>
 
-        <template #left="{ item }">
+        <template #content="{ item }">
           <p-heading heading="6">
             {{ item.title }}
           </p-heading>
@@ -181,7 +181,15 @@
   ]
 
   const layout = ref<TimelineLayout>('default')
-  const align = ref<TimelineAlignment>('left')
+
+  const alignInternal = ref<TimelineAlignment>('left')
+  const align = computed(() => {
+    if (layout.value !== 'stacked') {
+      return undefined
+    }
+
+    return alignInternal.value
+  })
   const side = ref<'content' | 'date'>('date')
   const sideToggleValue = computed({
     get() {
@@ -249,7 +257,6 @@
 
   const hoveredItem = ref<string | null>(null)
   const hoveredItemSlotKey = computed<string>(() => {
-    console.log(hoveredItem.value)
     if (hoveredItem.value) {
       return `item-${hoveredItem.value}-content`
     }
