@@ -1,22 +1,20 @@
 <template>
   <li class="p-timeline-item" :class="classes.root">
-    <slot>
-      <div v-if="slots.date" class="p-timeline-item__date" :class="classes.date">
-        <slot name="date" />
-      </div>
+    <div v-if="slots.date" class="p-timeline-item__date" :class="classes.date">
+      <slot name="date" />
+    </div>
 
-      <div class="p-timeline-item__center" :class="classes.center">
-        <div class="p-timeline-item__point">
-          <slot name="point">
-            <PTimelinePoint />
-          </slot>
-        </div>
+    <div class="p-timeline-item__center" :class="classes.center">
+      <div class="p-timeline-item__point">
+        <slot name="point">
+          <PTimelinePoint />
+        </slot>
       </div>
+    </div>
 
-      <div v-if="slots.content" class="p-timeline-item__content" :class="classes.content">
-        <slot name="content" />
-      </div>
-    </slot>
+    <div v-if="slots.content" class="p-timeline-item__content" :class="classes.content">
+      <slot name="content" />
+    </div>
   </li>
 </template>
 
