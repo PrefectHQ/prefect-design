@@ -37,20 +37,20 @@
   }>()
 
   const visible = ref(false)
+  const attrs = useAttrs()
+  const container = ref<Element>()
+
+  const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
+  const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
 
   defineExpose({
     open,
     close,
     toggle,
     visible,
+    target,
+    content,
   })
-
-  const attrs = useAttrs()
-
-  const container = ref<Element>()
-
-  const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
-  const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
 
   onMounted(() => {
     if (props.autoClose) {
