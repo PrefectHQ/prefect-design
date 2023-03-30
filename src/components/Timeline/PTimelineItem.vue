@@ -96,6 +96,11 @@
                        'content point';
 }
 
+.p-timeline-item__content,
+.p-timeline-item__date { @apply
+  min-w-0
+}
+
 .p-timeline-item__date {
   grid-area: date;
 }
