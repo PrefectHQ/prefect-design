@@ -73,6 +73,7 @@
   flex-col
   gap-y-1
   leading-6
+  items-start
 }
 
 .p-key-value__label {
@@ -94,9 +95,6 @@
   @apply
   text-xs
   leading-4
-  flex
-  flex-col
-  gap-y-1
   font-normal
 }
 
