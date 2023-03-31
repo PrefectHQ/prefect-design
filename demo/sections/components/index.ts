@@ -49,6 +49,7 @@ export const components: Section = {
   timeline: () => import('./Timeline.vue'),
   toast: () => import('./Toast.vue'),
   toggle: () => import('./Toggle.vue'),
+  tooltip: () => import('./Tooltip.vue'),
   typeAhead: () => import('./TypeAhead.vue'),
   typography: () => import('./Typography.vue'),
   virtualScroller: () => import('./VirtualScroller.vue'),

@@ -71,6 +71,7 @@ import { PThemeToggle, install as installPThemeToggle } from '@/components/Theme
 import { PTimeline, PTimelineItem, PTimelinePoint, install as installPTimeline } from '@/components/Timeline'
 import { PToast, install as installPToast } from '@/components/Toast'
 import { PToggle, install as installPToggle } from '@/components/Toggle'
+import { PTooltip, install as installPTooltip } from '@/components/Tooltip'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
 import { PUnwrap, install as installPUnwrap } from '@/components/Unwrap'
 import { PVirtualScroller, install as installPVirtualScroller } from '@/components/VirtualScroller'
@@ -161,6 +162,7 @@ export {
   PTimelinePoint,
   PToast,
   PToggle,
+  PTooltip,
   PTypeAhead,
   PUnwrap,
   PVirtualScroller,
@@ -242,6 +244,7 @@ export const installs = [
   installPTimeline,
   installPToast,
   installPToggle,
+  installPTooltip,
   installPTypeAhead,
   installPUnwrap,
   installPVirtualScroller,
@@ -332,6 +335,7 @@ declare module '@vue/runtime-core' {
     PTimelinePoint: typeof PTimelinePoint,
     PToast: typeof PToast,
     PToggle: typeof PToggle,
+    PTooltip: typeof PTooltip,
     PTypeAhead: typeof PTypeAhead,
     PUnwrap: typeof PUnwrap,
     PVirtualScroller: typeof PVirtualScroller,
