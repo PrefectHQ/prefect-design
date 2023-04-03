@@ -1,7 +1,7 @@
 <template>
   <PPopOver ref="popover" class="p-tooltip" v-bind="{ placement, to }">
     <template #target>
-      <span class="p-tooltip__target" @pointerenter="open">
+      <span class="p-tooltip__target" @pointerenter="open" @focusin="open">
         <slot />
       </span>
     </template>
@@ -21,7 +21,7 @@
   import { computed, onUnmounted, ref } from 'vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { PositionMethod } from '@/types/position'
-  import { isDefined, isHtmlElement } from '@/utilities'
+  import { isNotNullish, isHtmlElement } from '@/utilities'
   import { top, bottom, left, right } from '@/utilities/position'
 
   const props = defineProps<{
@@ -30,40 +30,55 @@
     to?: string | Element,
   }>()
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-arguments
-  const popover = ref<InstanceType<typeof PPopOver>>()
+  const popover = ref<InstanceType<typeof PPopOver> | null>(null)
   const placement = computed(() => props.placement ?? [top, right, bottom, left])
+  const timeout = ref<ReturnType<typeof setTimeout> | null>(null)
+
+  onUnmounted(() => {
+    document.removeEventListener('pointerover', onCloseEvent)
+  })
 
   function open(): void {
-    popover.value?.open()
-    document.addEventListener('pointerover', onPointerOver)
+    timeout.value = setTimeout(() => popover.value?.open(), 500)
+
+    document.addEventListener('pointerover', onCloseEvent)
+    document.addEventListener('focusin', onCloseEvent)
+    document.addEventListener('keydown', onKeyDown)
   }
 
   function close(): void {
     popover.value?.close()
-    document.removeEventListener('pointerover', onPointerOver)
+    document.removeEventListener('pointerover', onCloseEvent)
+    document.removeEventListener('keydown', onKeyDown)
+    document.removeEventListener('focusin', onCloseEvent)
   }
 
-  onUnmounted(() => {
-    document.removeEventListener('pointerover', onPointerOver)
-  })
-
-  function onPointerOver(event: PointerEvent): void {
+  function onCloseEvent(event: PointerEvent | FocusEvent): void {
     if (!isHtmlElement(event.target)) {
       return
     }
 
     const { target, content } = popover.value ?? {}
 
-    if (isDefined(target) && target.contains(event.target)) {
+    if (isNotNullish(target) && target.contains(event.target)) {
       return
     }
 
-    if (isDefined(content) && content.contains(event.target)) {
+    if (isNotNullish(content) && content.contains(event.target)) {
       return
+    }
+
+    if (timeout.value) {
+      clearTimeout(timeout.value)
     }
 
     close()
+  }
+
+  function onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      close()
+    }
   }
 </script>
 
