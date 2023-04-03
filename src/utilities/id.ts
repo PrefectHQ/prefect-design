@@ -1,9 +1,3 @@
-declare global {
-  interface Crypto {
-    randomUUID: () => string,
-  }
-}
-
 // https://stackoverflow.com/a/62557418/3511012
 function globalExists(varName: string): boolean {
   const globalEval = eval
