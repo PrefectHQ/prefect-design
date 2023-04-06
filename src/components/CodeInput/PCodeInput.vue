@@ -146,7 +146,6 @@
   justify-start
   min-h-[inherit]
   overflow-auto
-  overscroll-contain
   p-0
   relative
   rounded-lg
