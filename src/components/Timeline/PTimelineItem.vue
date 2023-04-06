@@ -164,6 +164,12 @@
 }
 
 .p-timeline-item__date--stacked-left,
+.p-timeline-item__date--stacked-center,
+.p-timeline-item__date--stacked-right { @apply
+  mb-[var(--gap)]
+}
+
+.p-timeline-item__date--stacked-left,
 .p-timeline-item__content--stacked-left { @apply
   text-left
 }
