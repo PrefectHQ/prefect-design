@@ -101,6 +101,10 @@
   min-w-0
 }
 
+.p-timeline-item__date:empty { @apply
+  hidden
+}
+
 .p-timeline-item__date {
   grid-area: date;
 }
