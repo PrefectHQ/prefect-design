@@ -99,6 +99,7 @@
   text-sm
   rounded-sm
   border-[1px]
-  border-slate-600
+  border-background-400
+  dark:border-foreground-200
 }
 </style>
