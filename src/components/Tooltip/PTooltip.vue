@@ -93,7 +93,7 @@
 }
 
 .p-tooltip__content { @apply
-  bg-slate-800
+  bg-background
   px-2
   py-1
   text-sm
