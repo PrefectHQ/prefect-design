@@ -93,12 +93,13 @@
 }
 
 .p-tooltip__content { @apply
-  bg-slate-800
+  bg-background
   px-2
   py-1
   text-sm
   rounded-sm
   border-[1px]
-  border-slate-600
+  border-background-400
+  dark:border-foreground-200
 }
 </style>
