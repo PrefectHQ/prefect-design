@@ -181,6 +181,7 @@
   border
   focus:border-transparent
   border-background-400
+  dark:border-background-600
   bg-background
 }
 .p-button--inset:not(.p-button--disabled) { @apply
