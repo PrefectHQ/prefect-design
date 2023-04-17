@@ -72,7 +72,7 @@
     "@tailwindcss/typography": "^0.5.2",
     "@types/lodash.debounce": "4.0.7",
     "date-fns": "2.29.3",
-    "dompurify": "3.0.1",
+    "dompurify": "3.0.2",
     "highlight.js": "11.7.0",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0"
