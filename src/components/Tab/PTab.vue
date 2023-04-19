@@ -20,7 +20,7 @@
 
 <style>
 .p-tab { @apply
-  px-10
+  px-5
   py-4
   text-center
   font-medium
