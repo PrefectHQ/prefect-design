@@ -14,7 +14,7 @@
         </template>
       </PTabSelect>
     </template>
-    <template v-for="tab in tabs" :key="tab">
+    <template v-for="tab in tabs" :key="tab.label">
       <template v-if="selected === tab.label">
         <section
           :id="`${kebabCase(tab.label)}-content`"
