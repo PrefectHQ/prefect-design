@@ -18,7 +18,7 @@
 
 <style>
 .p-context-sidebar { @apply
-  bg-slate-800
+  bg-background-50
   text-slate-300
   fixed
   lg:sticky
@@ -33,8 +33,11 @@
   lg:w-64
 }
 
+
+
 .p-context-sidebar {
   z-index: var(--p-context-sidebar-z-index, 20)
+
 }
 
 .p-context-sidebar__header,
@@ -61,5 +64,17 @@
   border-t-2
   flex-shrink-0
   border-slate-600
+}
+
+.dark .context-sidebar {
+  background: #15213D;
+}
+
+.p-context-sidebar__footer{
+  border-top: solid 1px rgba(106,126,156,0.19);
+}
+
+.p-context-sidebar__header{
+  border-bottom: solid 1px rgba(106,126,156,0.19);
 }
 </style>

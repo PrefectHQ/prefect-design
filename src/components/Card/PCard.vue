@@ -21,14 +21,12 @@
   bg-background
   text-foreground
   border
-  border-background-400
-  dark:border-foreground-200
   p-6
   rounded-lg
   shadow-sm
   transition-all;
-
   transition-property: border border-color background-color;
+  border-color: rgba(204, 204, 204, 0.2); 
 }
 
 .p-card--flat { @apply
@@ -37,4 +35,6 @@
   shadow-none
   bg-transparent
 }
+
+
 </style>

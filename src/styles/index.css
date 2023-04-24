@@ -9,75 +9,84 @@
   color-scheme: light dark;
 }
 
+/* Smooth Fonts */
+body{
+  -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+
+
 :root {
   /* Neutral palette for foreground / background */
-  /* #f8fafc; */
-  --50: 210deg 40% 98%;
-  /* #f1f5f9; */
-  --100: 210deg 44% 96%;
-  /* #e2e8f0; */
-  --200: 214deg 32% 91%;
-  /* #cbd5e1; */
-  --300: 213deg 27% 84%;
-  /* #94a3b8; */
-  --400: 215deg 20% 65%;
-  /* #64748b; */
-  --500: 215deg 16% 47%;
-  /* #475569; */
-  --600: 215deg 19% 35%;
-  /* --700: #334155; */
-  --700: 215deg 25% 27%;
-  /* #1e293b; */
-  --800: 217deg 33% 17%;
-  /* #0f172a; */
-  --900: 222deg 47% 11%;
-  /* #ffffff */
+  /* 1      #f8fafc; */
+  --50:   0deg 0% 97%;
+  /* 2      #f1f5f9; */
+  --100:  0deg 0% 97%;
+  /* 3      #e2e8f0; */
+  --200: 216deg 24% 90%;
+  /* 4      #cbd5e1; */
+  --300: 216deg 24% 90%;
+  /* 5      #94a3b8; */
+  --400: 216deg 24% 90%;
+  /* 6      #64748b; */
+  --500: 216deg 24% 90%;
+  /* 7      #475569; */
+  --600: 215deg 20% 51%;
+  /* 8    --700: #334155; */
+  --700: 222deg 49% 16%;
+  /* 9      #1e293b; */
+  --800: 232deg 40% 12%;
+  /* 10     #0f172a; */
+  --900: 234deg 42% 9%;
+  /* 11     #ffffff */
   --white: 0deg 0% 100%;
 
 
-  /* Primary default palette */
-  /* #F2F6FF */
-  --primary-default-50:  222deg 100% 97%;
-  /* #E6EDFF */
-  --primary-default-100: 223deg 100% 95%;
-  /* #C0D3FF */
-  --primary-default-200: 222deg 100% 88%;
-  /* #9AB8FE */
-  --primary-default-300: 222deg 98% 80%;
-  /* #4E82FE */
-  --primary-default-400: 222deg 99% 65%;
-  /* #024DFD */
-  --primary-default-500: 222deg 98% 50%;
-  /* #0245E4 */
-  --primary-default-600: 222deg 98% 45%;
-  /* #023ABE */
-  --primary-default-700: 222deg 98% 38%;
-  /* #012E98 */
-  --primary-default-800: 222deg 99% 30%;
-  /* #01267C */
-  --primary-default-900: 222deg 98% 25%;
+  /* Primary default palette (blues) */
+  /* 12     #F2F6FF */
+  --primary-default-50:  202deg 100% 89%;
+  /* 13     #E6EDFF */
+  --primary-default-100: 202deg 100% 89%;
+  /* 14     #C0D3FF */
+  --primary-default-200: 201deg 100% 77%;
+  /* 15     #9AB8FE */
+  --primary-default-300: 201deg 100% 77%;
+  /* 16     #4E82FE */
+  --primary-default-400: 221deg 92% 57%;
+  /* 17     #024DFD */
+  --primary-default-500: 221deg 92% 57%;
+  /* 18     #0245E4 */
+  --primary-default-600: 227deg 79% 38%;
+  /* 19     #023ABE */
+  --primary-default-700: 227deg 79% 38%;
+  /* 20     #012E98 */
+  --primary-default-800: 227deg 79% 38%;
+  /* 21     #01267C */
+  --primary-default-900: 227deg 79% 38%;;
 
   /* Danger default palette */
   /* #fdf2f8 */
-  --danger-default-50: 327deg 73% 97%;
+  --danger-default-50: 2deg 100% 95%;
   /* #ffe4e6 */
-  --danger-default-100: 356deg 100% 95%;
+  --danger-default-100: 2deg 100% 95%;
   /* #fecdd3 */
-  --danger-default-200: 353deg 96% 90%;
+  --danger-default-200: 2deg 100% 87%;
   /* #fda4af */
-  --danger-default-300: 353deg 96% 82%;
+  --danger-default-300: 2deg 100% 87%;
   /* #fb7185 */
-  --danger-default-400: 351deg 95% 71%;
+  --danger-default-400: 5deg 86% 62%;
   /* #f43f5e */
-  --danger-default-500: 350deg 89% 60%;
+  --danger-default-500: 5deg 86% 62%;
   /* #e11d48 */
-  --danger-default-600: 347deg 77% 50%;
+  --danger-default-600: 5deg 86% 62%;
   /* #be123c */
-  --danger-default-700: 345deg 83% 41%;
+  --danger-default-700: 4deg 69% 29%;
   /* #9f1239 */
-  --danger-default-800: 343deg 80% 35%;
+  --danger-default-800: 4deg 69% 29%;
   /* #881337 */
-  --danger-default-900: 342deg 75% 30%;
+  --danger-default-900: 4deg 69% 29%;
 
   /* Success default palette */
   /* #ecfdf5 */
@@ -131,6 +140,7 @@
   }
 
   .dark {
+
     color-scheme: dark;
 
     --foreground: var(--200);
@@ -193,6 +203,8 @@
     --success-700: var(--success-default-300);
     --success-800: var(--success-default-200);
     --success-900: var(--success-default-100);
+
+
   }
 
   .light {
@@ -258,6 +270,7 @@
     --success-800: var(--success-default-800);
     --success-900: var(--success-default-900);
   }
+
 }
 
 html {
@@ -268,4 +281,9 @@ html {
   --duration: 50ms;
   --timing: ease;
   transition: background-color var(--duration) var(--timing), color var(--duration) var(--timing);   
+
+}
+
+.welcome-page__logo-icon{
+  margin-top: 100px;
 }

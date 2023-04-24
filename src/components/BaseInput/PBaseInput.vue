@@ -137,4 +137,21 @@
   h-5
   mr-2
 }
+
+.dark .p-base-input{
+  border: 1px solid rgba(106,126,156,0.0);
+  background: rgba(106,126,156,0.20);
+}
+
+.dark .p-base-input__prepend{
+  border-right: 1px solid rgba(106,126,156,0.19);
+}
+.dark .p-base-input__append{
+  border-left: 1px solid rgba(106,126,156,0.19);
+}
+
+.light .p-base-input{
+  border: 1px solid rgba(106,126,156,0.25) ;
+}
+
 </style>

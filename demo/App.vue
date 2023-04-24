@@ -38,7 +38,7 @@
 .app { @apply
   text-foreground
   bg-background-600
-  dark:bg-background-400
+  dark:bg-background-50
 }
 
 .app__prefect-icon { @apply

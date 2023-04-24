@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-page">
     <component :is="CirclesIcon" class="welcome-page__circles" />
-    <p-icon class="welcome-page__logo-icon" icon="PrefectGradient" />
+    <p-icon class="welcome-page__logo-icon" icon="PrefectGradientWelcome" />
     <div class="welcome-page__intro">
       <p class="welcome-page__title">
         Prefect Design
