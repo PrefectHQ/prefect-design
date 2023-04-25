@@ -217,6 +217,7 @@
   bg-transparent
   overflow-hidden
   min-h-full
+  select-none
   p-0
   text-foreground
 }
