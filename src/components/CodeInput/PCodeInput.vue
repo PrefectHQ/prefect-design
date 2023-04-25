@@ -128,7 +128,7 @@
   bg-background-500
   font-mono
   min-h-[100px]
-  overflow-auto
+  overflow-hidden
   p-0
   relative
 }
@@ -159,12 +159,9 @@
   justify-start
   min-h-[inherit]
   overflow-auto
-  p-0
   relative
   rounded-lg
-  pl-4
-  pt-4
-  pr-4
+  p-4
   z-[1]
 }
 
@@ -185,7 +182,7 @@
   left-0
   m-0
   min-h-full
-  min-w-[1.5rem]
+  min-w-full
   overflow-hidden
   p-0
   resize-none
@@ -207,6 +204,7 @@
   overflow-hidden
   pointer-events-none
   min-h-full
+  min-w-full
   z-0
 }
 
