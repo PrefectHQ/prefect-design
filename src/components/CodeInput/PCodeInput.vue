@@ -31,12 +31,13 @@
             :lang="lang"
             :text="internalValue"
             class="p-code-input__view"
+            :style="styles.view"
             v-bind="ctrlAttrs"
           />
         </template>
 
         <template v-else>
-          <PCode class="p-code-input__view" v-bind="ctrlAttrs">
+          <PCode class="p-code-input__view" :style="styles.view" v-bind="ctrlAttrs">
             {{ internalValue }}
           </PCode>
         </template>
@@ -109,9 +110,10 @@
   }))
 
   const updateTextAreaWidth = (): void => {
-    console.log('updateTextAreaWidth')
     if (textarea.value && source.value) {
-      textAreaWidth.value = Math.max(textarea.value.scrollWidth, source.value.scrollWidth)
+      const { scrollWidth: sourceScrollWidth, clientWidth: sourceClientWidth } = source.value
+      const { scrollWidth: textareaScrollWidth, clientWidth: textareaClientWidth } = textarea.value
+      textAreaWidth.value = Math.max(textareaScrollWidth, sourceScrollWidth, sourceClientWidth, textareaClientWidth)
     }
   }
 
@@ -125,6 +127,10 @@
   const styles = computed(() => {
     return {
       textarea: {
+        height: `${lineHeight.value * lines.value}px`,
+        width: `${textAreaWidth.value}px`,
+      },
+      view: {
         height: `${lineHeight.value * lines.value}px`,
         width: `${textAreaWidth.value}px`,
       },
@@ -146,10 +152,16 @@
 .p-code-input,
 .p-code-input__view,
 .p-code-input__control,
-.p-code-input__textarea {
+.p-code-input__textarea,
+.p-code-input__line-numbers-wrapper {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
+}
+
+.p-code-input__control  {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
 }
 
 .p-code-input__textarea,
@@ -168,13 +180,17 @@
 }
 
 .p-code-input__line-numbers-wrapper { @apply
+  border-background-400
+  border-r
+  dark:border-foreground-200
   grow-0
+  overflow-hidden
   h-full
   max-h-full
-  overflow-hidden
   px-[var(--gap)]
   py-4
   relative
+  rounded-r-none
   self-start
   shrink-0
   w-min
@@ -192,18 +208,11 @@
   min-h-[inherit]
   overflow-auto
   p-0
-  py-4
+  pt-4
   relative
   rounded-lg
   self-stretch
   z-[1]
-}
-
-.p-code-input__control--show-line-numbers { @apply
-  border-background-400
-  border-l
-  dark:border-foreground-200
-  rounded-l-none
 }
 
 .p-code-input__textarea { @apply
@@ -235,7 +244,7 @@
   p-0
   pointer-events-none
   px-[var(--gap)]
-  py-4
+  pt-4
   select-none
   text-foreground
   top-0
