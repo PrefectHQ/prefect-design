@@ -111,9 +111,7 @@
 
   const updateTextAreaWidth = (): void => {
     if (textarea.value && source.value) {
-      const { scrollWidth: sourceScrollWidth, clientWidth: sourceClientWidth } = source.value
-      const { scrollWidth: textareaScrollWidth, clientWidth: textareaClientWidth } = textarea.value
-      textAreaWidth.value = Math.max(textareaScrollWidth, sourceScrollWidth, sourceClientWidth, textareaClientWidth)
+      textAreaWidth.value = Math.max(textarea.value.scrollWidth, source.value.scrollWidth)
     }
   }
 
