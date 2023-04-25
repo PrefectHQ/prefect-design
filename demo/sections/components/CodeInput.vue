@@ -25,7 +25,7 @@
     </template>
 
     <template #placeholder>
-      <PCodeInput v-model="placeholderInput" :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)" class="code-input__input" :show-line-numbers="showLineNumbers" />
+      <PCodeInput v-model="placeholderInput" :min-lines="25" :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)" class="code-input__input" :show-line-numbers="showLineNumbers" />
     </template>
 
     <template #unstyled>
