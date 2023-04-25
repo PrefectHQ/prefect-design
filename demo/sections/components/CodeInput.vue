@@ -149,7 +149,7 @@ And sighs that waft to heav'n
 .code-input__input { @apply
   resize
   max-w-full
-  min-h-[200px]
+  min-h-[48px]
   min-w-[200px]
   max-h-96
 }
