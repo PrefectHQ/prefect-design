@@ -2,7 +2,7 @@
   <ComponentPage
     title="CodeInput"
     :demos="[
-      { title: 'Placeholder' },
+      { title: 'Stateful' },
       { title: 'Unstyled' },
       { title: 'Markdown' },
       { title: 'Python' },
@@ -26,13 +26,13 @@
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
-    <template #placeholder>
-      <p-label label="Stateful demo">
+    <template #stateful>
+      <p-label label="Code input label">
         <PCodeInput
           v-model="placeholderInput"
           :state="exampleState"
           :min-lines="25"
-          :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)"
+          :placeholder="markdownInput"
           class="code-input__input"
           :show-line-numbers="showLineNumbers"
           :disabled="disabled"

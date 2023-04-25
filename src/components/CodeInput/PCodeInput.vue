@@ -182,8 +182,6 @@
   dark:border-foreground-200
   grow-0
   overflow-hidden
-  h-full
-  max-h-full
   px-[var(--gap)]
   py-4
   relative
