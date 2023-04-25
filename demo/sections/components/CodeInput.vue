@@ -22,10 +22,21 @@
       <div>
         <p-checkbox v-model="showLineNumbers" label="Show line numbers" />
       </div>
+
+      <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
     <template #placeholder>
-      <PCodeInput v-model="placeholderInput" :min-lines="25" :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)" class="code-input__input" :show-line-numbers="showLineNumbers" />
+      <p-label label="State demo">
+        <PCodeInput
+          v-model="placeholderInput"
+          :state="exampleState"
+          :min-lines="25"
+          :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)"
+          class="code-input__input"
+          :show-line-numbers="showLineNumbers"
+        />
+      </p-label>
     </template>
 
     <template #unstyled>
@@ -52,8 +63,13 @@
 // in a <\/script> tag (try removing the one in this comment lol)
   import { PCode } from '@/components'
   import PCodeInput from '@/components/CodeInput/PCodeInput.vue'
+  import { State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+  import DemoState from '@/demo/components/DemoState.vue'
+
+  const exampleState = ref<State>()
+  const disabled = ref(false)
 
   const showLineNumbers = ref(true)
 
