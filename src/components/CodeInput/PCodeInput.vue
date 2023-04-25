@@ -194,6 +194,11 @@
   z-0
 }
 
+.p-code-input__textarea::selection { @apply
+  bg-foreground-200
+  bg-opacity-50
+}
+
 .p-code-input__textarea-view-container { @apply
   min-h-full
   min-w-full
