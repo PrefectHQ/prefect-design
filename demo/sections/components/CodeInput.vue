@@ -133,8 +133,8 @@ And sighs that waft to heav'n
   resize
   max-w-full
   h-64
-  /* min-h-[200px]
-  min-w-[200px] */
+  min-h-[200px]
+  min-w-[200px]
 }
 
 .code-input__input-textarea { @apply
