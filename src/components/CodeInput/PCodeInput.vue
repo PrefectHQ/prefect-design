@@ -19,7 +19,7 @@
             spellcheck="false"
             class="p-code-input__textarea"
             :placeholder="placeholder"
-            :rows="rows"
+            :rows="lines"
             :class="classes.textArea"
             v-bind="ctrlAttrs"
           />
@@ -67,19 +67,19 @@
   const textarea = ref()
   const { source, target } = useScrollLinking()
 
+  const lineSplitRegex = /\r|\r\n|\n/
   const valueLines = computed(() => {
     if (internalValue.value !== '') {
-      return internalValue.value.split(/\r|\r\n|\n/)
+      return internalValue.value.split(lineSplitRegex)
     }
 
     if (props.placeholder) {
-      return props.placeholder.split(/\r|\r\n|\n/)
+      return props.placeholder.split(lineSplitRegex)
     }
 
     return []
   })
   const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
-  const rows = computed(() => valueLines.value.length)
 
   const internalValue = computed({
     get() {
