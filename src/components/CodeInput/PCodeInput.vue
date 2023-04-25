@@ -22,8 +22,7 @@
           :class="classes.textArea"
           :style="styles.textarea"
           v-bind="ctrlAttrs"
-          @keyup="updateTextAreaWidth"
-          @paste="updateTextAreaWidth"
+          @input="updateTextAreaWidth"
         />
 
         <template v-if="lang">
@@ -189,7 +188,7 @@
   py-4
   relative
   rounded-r-none
-  self-start
+  self-stretch
   shrink-0
   w-min
 }
