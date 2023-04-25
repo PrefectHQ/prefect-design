@@ -118,8 +118,7 @@
   text-right
 }
 
-
-.markdown-renderer__text--paragraph { @apply
+.markdown-renderer__text--paragraph:not(:first-child):not(:last-child) { @apply
   my-2
 }
 
@@ -157,8 +156,12 @@
   my-2
 }
 
-.markdown-renderer__heading { @apply
-  my-2
+.markdown-renderer__heading:not(:first-child) { @apply
+  mt-2
+}
+
+.markdown-renderer__heading:not(:last-child) { @apply
+  mb-2
 }
 
 .markdown-renderer__heading--h1,
