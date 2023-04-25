@@ -139,6 +139,10 @@
 </script>
 
 <style>
+.p-code-input {
+  --gap: var(--p-code-input-gap, 0.5rem);
+}
+
 .p-code-input,
 .p-code-input__view,
 .p-code-input__control,
@@ -168,7 +172,7 @@
   h-full
   max-h-full
   overflow-hidden
-  px-2
+  px-[var(--gap)]
   py-4
   relative
   self-start
@@ -211,6 +215,7 @@
   min-w-full
   overflow-hidden
   p-0
+  px-[var(--gap)]
   resize-none
   text-transparent
   whitespace-pre
@@ -229,6 +234,7 @@
   overflow-hidden
   p-0
   pointer-events-none
+  px-[var(--gap)]
   py-4
   select-none
   text-foreground
