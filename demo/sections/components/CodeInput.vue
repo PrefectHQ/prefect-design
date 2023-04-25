@@ -2,6 +2,7 @@
   <ComponentPage
     title="CodeInput"
     :demos="[
+      { title: 'Placeholder' },
       { title: 'Unstyled' },
       { title: 'Markdown' },
       { title: 'Python' },
@@ -21,6 +22,10 @@
       <div>
         <p-checkbox v-model="showLineNumbers" label="Show line numbers" />
       </div>
+    </template>
+
+    <template #placeholder>
+      <PCodeInput v-model="placeholderInput" :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)" class="code-input__input" :show-line-numbers="showLineNumbers" />
     </template>
 
     <template #unstyled>
@@ -51,6 +56,8 @@
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const showLineNumbers = ref(true)
+
+  const placeholderInput = ref()
 
   const vueInput = ref(`<template>
   <div class="p-card">
@@ -126,8 +133,8 @@ And sighs that waft to heav'n
   resize
   max-w-full
   h-64
-  min-h-[200px]
-  min-w-[200px]
+  /* min-h-[200px]
+  min-w-[200px] */
 }
 
 .code-input__input-textarea { @apply

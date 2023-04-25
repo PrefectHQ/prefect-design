@@ -18,6 +18,7 @@
             v-model="internalValue"
             spellcheck="false"
             class="p-code-input__textarea"
+            :placeholder="placeholder"
             :rows="rows"
             :class="classes.textArea"
             v-bind="ctrlAttrs"
@@ -52,9 +53,11 @@
   import { SupportedLanguage } from '@/types/codeHighlight'
 
   const props = defineProps<{
-    modelValue: string | null | undefined,
+    modelValue?: string | null | undefined,
     lang?: SupportedLanguage,
     showLineNumbers?: boolean,
+    placeholder?: string,
+    minLines?: number,
   }>()
 
   const emit = defineEmits<{
@@ -64,8 +67,18 @@
   const textarea = ref()
   const { source, target } = useScrollLinking()
 
-  const valueLines = computed(() => internalValue.value.split(/\r|\r\n|\n/))
-  const lines = computed(() => Math.max(valueLines.value.length, 1))
+  const valueLines = computed(() => {
+    if (internalValue.value !== '') {
+      return internalValue.value.split(/\r|\r\n|\n/)
+    }
+
+    if (props.placeholder) {
+      return props.placeholder.split(/\r|\r\n|\n/)
+    }
+
+    return []
+  })
+  const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
   const rows = computed(() => valueLines.value.length)
 
   const internalValue = computed({
@@ -149,6 +162,9 @@
   p-0
   relative
   rounded-lg
+  pl-4
+  pt-4
+  pr-4
   z-[1]
 }
 
@@ -166,10 +182,9 @@
   box-content
   caret-foreground-500
   grow
-  h-min
   left-0
   m-0
-  min-h-[1.5rem]
+  min-h-full
   min-w-[1.5rem]
   overflow-hidden
   p-0
@@ -183,10 +198,9 @@
 }
 
 .p-code-input__textarea-view-container { @apply
+  min-h-full
+  min-w-full
   relative
-  ml-4
-  mt-4
-  pr-4
 }
 
 .p-code-input__view-container { @apply
