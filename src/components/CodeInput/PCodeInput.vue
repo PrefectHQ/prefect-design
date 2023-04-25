@@ -143,7 +143,8 @@
 
 <style>
 .p-code-input {
-  --gap: var(--p-code-input-gap, 0.5rem);
+  --gap-x: var(--p-code-input-gap-x, 0.5rem);
+  --gap-y: var(--p-code-input-gap-y, 1rem);
 }
 
 .p-code-input,
@@ -182,8 +183,8 @@
   dark:border-foreground-200
   grow-0
   overflow-hidden
-  px-[var(--gap)]
-  py-4
+  px-[var(--gap-x)]
+  py-[var(--gap-y)]
   relative
   rounded-r-none
   self-stretch
@@ -204,7 +205,7 @@
   min-h-[inherit]
   overflow-auto
   p-0
-  pt-4
+  pt-[var(--gap-y)]
   relative
   rounded-lg
   self-stretch
@@ -220,7 +221,7 @@
   min-w-full
   overflow-hidden
   p-0
-  px-[var(--gap)]
+  px-[var(--gap-x)]
   resize-none
   text-transparent
   whitespace-pre
@@ -243,8 +244,8 @@
   overflow-hidden
   p-0
   pointer-events-none
-  px-[var(--gap)]
-  pt-4
+  px-[var(--gap-x)]
+  pt-[var(--gap-y)]
   select-none
   text-foreground
   top-0
