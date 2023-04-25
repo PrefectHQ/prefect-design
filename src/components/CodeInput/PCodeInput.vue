@@ -227,6 +227,10 @@
   whitespace-pre
 }
 
+.p-code-input__textarea:disabled { @apply
+  cursor-not-allowed
+}
+
 .p-code-input__textarea::selection { @apply
   bg-foreground-200
   bg-opacity-50

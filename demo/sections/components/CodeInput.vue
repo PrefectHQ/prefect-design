@@ -27,7 +27,7 @@
     </template>
 
     <template #placeholder>
-      <p-label label="State demo">
+      <p-label label="Stateful demo">
         <PCodeInput
           v-model="placeholderInput"
           :state="exampleState"
@@ -35,6 +35,7 @@
           :placeholder="JSON.stringify([1, 2, 3, 4], undefined, 2)"
           class="code-input__input"
           :show-line-numbers="showLineNumbers"
+          :disabled="disabled"
         />
       </p-label>
     </template>
