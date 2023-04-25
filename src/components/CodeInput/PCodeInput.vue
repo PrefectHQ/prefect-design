@@ -12,42 +12,42 @@
 
     <template #control="{ attrs: ctrlAttrs }">
       <div ref="source" class="p-code-input__control" :class="classes.inputControl" @click.self="handleInputControlClick">
-        <div class="p-code-input__textarea-view-container">
-          <textarea
-            ref="textarea"
-            v-model="internalValue"
-            spellcheck="false"
-            class="p-code-input__textarea"
-            :placeholder="placeholder"
-            :rows="lines"
-            :class="classes.textArea"
+        <textarea
+          ref="textarea"
+          v-model="internalValue"
+          spellcheck="false"
+          class="p-code-input__textarea"
+          :placeholder="placeholder"
+          :rows="lines"
+          :class="classes.textArea"
+          :style="styles.textarea"
+          v-bind="ctrlAttrs"
+          @keyup="updateTextAreaWidth"
+          @paste="updateTextAreaWidth"
+        />
+
+        <template v-if="lang">
+          <PCodeHighlight
+            :lang="lang"
+            :text="internalValue"
+            class="p-code-input__view"
             v-bind="ctrlAttrs"
           />
+        </template>
 
-          <div class="p-code-input__view-container">
-            <template v-if="lang">
-              <PCodeHighlight
-                :lang="lang"
-                :text="internalValue"
-                class="p-code-input__view"
-                v-bind="ctrlAttrs"
-              />
-            </template>
-
-            <template v-else>
-              <PCode class="p-code-input__view" v-bind="ctrlAttrs">
-                {{ internalValue }}
-              </PCode>
-            </template>
-          </div>
-        </div>
+        <template v-else>
+          <PCode class="p-code-input__view" v-bind="ctrlAttrs">
+            {{ internalValue }}
+          </PCode>
+        </template>
       </div>
     </template>
   </p-base-input>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import { useResizeObserver } from '@prefecthq/vue-compositions'
+  import { computed, onMounted, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
   import { SupportedLanguage } from '@/types/codeHighlight'
@@ -80,6 +80,15 @@
     return []
   })
   const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
+  const lineHeight = computed(() => {
+    if (textarea.value) {
+      return parseFloat(getComputedStyle(textarea.value).lineHeight)
+    }
+
+    return 0
+  })
+
+  const textAreaWidth = ref(0)
 
   const internalValue = computed({
     get() {
@@ -99,6 +108,29 @@
     },
   }))
 
+  const updateTextAreaWidth = (): void => {
+    console.log('updateTextAreaWidth')
+    if (textarea.value && source.value) {
+      textAreaWidth.value = Math.max(textarea.value.scrollWidth, source.value.scrollWidth)
+    }
+  }
+
+  const { observe } = useResizeObserver(updateTextAreaWidth)
+
+  onMounted(() => {
+    observe(textarea)
+    observe(source)
+  })
+
+  const styles = computed(() => {
+    return {
+      textarea: {
+        height: `${lineHeight.value * lines.value}px`,
+        width: `${textAreaWidth.value}px`,
+      },
+    }
+  })
+
   const handleInputControlClick = (): void => {
     if (textarea.value) {
       textarea.value.focus()
@@ -110,8 +142,7 @@
 .p-code-input,
 .p-code-input__view,
 .p-code-input__control,
-.p-code-input__textarea,
-.p-code-input__textarea-view-container {
+.p-code-input__textarea {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
@@ -127,7 +158,6 @@
 .p-code-input { @apply
   bg-background-500
   font-mono
-  min-h-[100px]
   overflow-hidden
   p-0
   relative
@@ -138,60 +168,52 @@
   h-full
   max-h-full
   overflow-hidden
+  px-2
+  py-4
   relative
+  self-start
   shrink-0
   w-min
 }
 
 .p-code-input__line-numbers { @apply
-  px-3
-  py-4
   w-full
 }
 
 .p-code-input__control { @apply
   bg-background
   cursor-text
-  flex
   grow
   h-full
-  items-start
-  justify-start
   min-h-[inherit]
   overflow-auto
+  p-0
+  py-4
   relative
   rounded-lg
-  p-4
+  self-stretch
   z-[1]
 }
 
 .p-code-input__control--show-line-numbers { @apply
-  border-l
   border-background-400
+  border-l
   dark:border-foreground-200
   rounded-l-none
 }
 
 .p-code-input__textarea { @apply
-  absolute
   bg-transparent
   block
-  box-content
   caret-foreground-500
-  grow
-  left-0
   m-0
   min-h-full
   min-w-full
   overflow-hidden
   p-0
   resize-none
-  right-0
   text-transparent
-  top-0
-  w-full
-  whitespace-pre-wrap
-  z-0
+  whitespace-pre
 }
 
 .p-code-input__textarea::selection { @apply
@@ -199,26 +221,18 @@
   bg-opacity-50
 }
 
-.p-code-input__textarea-view-container { @apply
-  min-h-full
-  min-w-full
-  relative
-}
-
-.p-code-input__view-container { @apply
-  overflow-hidden
-  pointer-events-none
-  min-h-full
-  min-w-full
-  z-0
-}
-
 .p-code-input__view { @apply
+  absolute
   bg-transparent
-  overflow-hidden
+  left-0
   min-h-full
-  select-none
+  overflow-hidden
   p-0
+  pointer-events-none
+  py-4
+  select-none
   text-foreground
+  top-0
+  z-0
 }
 </style>

@@ -41,7 +41,7 @@
     </template>
 
     <template #long-lines>
-      <PCodeHighlight :text="long" lang="md" :show-line-numbers="showLineNumbers" />
+      <PCodeInput v-model="longInput" lang="md" :show-line-numbers="showLineNumbers" />
     </template>
   </ComponentPage>
 </template>
@@ -124,7 +124,7 @@ And sighs that waft to heav'n
  *[Alexander Pope](https://www.poetryfoundation.org/poems/44892/eloisa-to-abelard)*
 `)
 
-  const long = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+  const longInput = ref('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
 </script>
 
 <style>
@@ -132,16 +132,7 @@ And sighs that waft to heav'n
 .code-input__input { @apply
   resize
   max-w-full
-  h-64
   min-h-[200px]
   min-w-[200px]
-}
-
-.code-input__input-textarea { @apply
-  bg-background
-  text-foreground
-  block
-  my-2
-  w-full
 }
 </style>
