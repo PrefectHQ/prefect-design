@@ -151,5 +151,6 @@ And sighs that waft to heav'n
   max-w-full
   min-h-[200px]
   min-w-[200px]
+  max-h-96
 }
 </style>

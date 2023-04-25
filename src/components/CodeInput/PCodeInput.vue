@@ -119,6 +119,7 @@
   onMounted(() => {
     observe(textarea)
     observe(source)
+    updateTextAreaWidth()
   })
 
   const styles = computed(() => {
@@ -200,6 +201,7 @@
   cursor-text
   grow
   h-full
+  max-h-[inherit]
   min-h-[inherit]
   overflow-auto
   p-0
