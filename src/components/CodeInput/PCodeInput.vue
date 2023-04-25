@@ -22,7 +22,7 @@
           :class="classes.textArea"
           :style="styles.textarea"
           v-bind="ctrlAttrs"
-          @input="updateTextAreaWidth"
+          @input="updateViewWidth"
         />
 
         <template v-if="lang">
@@ -66,6 +66,7 @@
 
   const textarea = ref()
   const { source, target } = useScrollLinking()
+  const viewWidth = ref(0)
 
   const lineSplitRegex = /\r|\r\n|\n/
   const valueLines = computed(() => {
@@ -88,8 +89,6 @@
     return 0
   })
 
-  const textAreaWidth = ref(0)
-
   const internalValue = computed({
     get() {
       return props.modelValue ?? ''
@@ -108,38 +107,38 @@
     },
   }))
 
-  const updateTextAreaWidth = (): void => {
-    if (textarea.value && source.value) {
-      textAreaWidth.value = Math.max(textarea.value.scrollWidth, source.value.scrollWidth)
-    }
-  }
-
-  const { observe } = useResizeObserver(updateTextAreaWidth)
-
-  onMounted(() => {
-    observe(textarea)
-    observe(source)
-    updateTextAreaWidth()
-  })
-
   const styles = computed(() => {
     return {
       textarea: {
         height: `${lineHeight.value * lines.value}px`,
-        width: `${textAreaWidth.value}px`,
+        width: `${viewWidth.value}px`,
       },
       view: {
         height: `${lineHeight.value * lines.value}px`,
-        width: `${textAreaWidth.value}px`,
+        width: `${viewWidth.value}px`,
       },
     }
   })
+
+  const updateViewWidth = (): void => {
+    if (textarea.value && source.value) {
+      viewWidth.value = Math.max(textarea.value.scrollWidth, source.value.scrollWidth)
+    }
+  }
 
   const handleInputControlClick = (): void => {
     if (textarea.value) {
       textarea.value.focus()
     }
   }
+
+  const { observe } = useResizeObserver(updateViewWidth)
+
+  onMounted(() => {
+    observe(textarea)
+    observe(source)
+    updateViewWidth()
+  })
 </script>
 
 <style>
