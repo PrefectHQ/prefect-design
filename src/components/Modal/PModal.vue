@@ -26,7 +26,7 @@
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <PButton class="p-modal__x-button" size="lg" icon="XIcon" flat @click="closeModal" />
+              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="closeModal" />
             </div>
 
             <div ref="modalBody" class="p-modal__body">

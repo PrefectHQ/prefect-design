@@ -12,7 +12,7 @@
       class="p-tag__dismiss"
       @click.stop="emits('dismiss', tagValue)"
     >
-      <PIcon icon="XIcon" class="p-tag__icon p-tag__icon--dismiss" />
+      <PIcon icon="XMarkIcon" class="p-tag__icon p-tag__icon--dismiss" />
     </button>
   </span>
 </template>

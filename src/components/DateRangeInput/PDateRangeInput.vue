@@ -10,7 +10,7 @@
         >
           <div class="p-date-range-input__target">
             {{ displayStartDate }}
-            <p-icon icon="ArrowSmRightIcon" class="p-date-range-input__target-icon" />
+            <p-icon icon="ChevronRightIcon" class="p-date-range-input__target-icon" />
             {{ displayEndDate }}
           </div>
         </PDateButton>

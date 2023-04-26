@@ -3,7 +3,7 @@
     <template #actions>
       <PButton size="xs" inset class="p-terminal__copy-button" @click="copy">
         <span class="p-terminal__copy-text">Copy</span>
-        <p-icon icon="DuplicateIcon" />
+        <p-icon icon="ClipboardDocumentIcon" />
       </PButton>
     </template>
 

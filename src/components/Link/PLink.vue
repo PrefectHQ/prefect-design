@@ -2,7 +2,7 @@
   <component :is="component" v-bind="componentProps" class="p-link">
     <slot />
     <template v-if="isExternal">
-      <PIcon class="p-link__external-icon" icon="ExternalLinkIcon" />
+      <PIcon class="p-link__external-icon" icon="ArrowTopRightOnSquareIcon" />
     </template>
   </component>
 </template>

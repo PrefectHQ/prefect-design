@@ -15,7 +15,7 @@
         <template v-if="dismissible">
           <p-button
             class="p-message__dismiss"
-            icon="XIcon"
+            icon="XMarkIcon"
             flat
             @click="emit('dismiss')"
           />

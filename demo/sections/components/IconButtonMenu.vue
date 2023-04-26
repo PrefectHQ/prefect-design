@@ -10,10 +10,10 @@
       <div class="icon-button-menu__container">
         <p-icon-button-menu>
           <template #default="{ close }">
-            <p-overflow-menu-item icon="ArchiveIcon" label="Archive" @click="close" />
-            <p-overflow-menu-item icon="ArrowCircleDownIcon" label="Move Down" @click="close" />
-            <p-overflow-menu-item icon="ArrowCircleUpIcon" label="Move Up" @click="close" />
-            <p-overflow-menu-item icon="ArrowCircleRightIcon" label="Move Right" @click="close" />
+            <p-overflow-menu-item icon="ArchiveBoxArrowDownIcon" label="Archive" @click="close" />
+            <p-overflow-menu-item icon="ArrowDownCircleIcon" label="Move Down" @click="close" />
+            <p-overflow-menu-item icon="ArrowUpCircleIcon" label="Move Up" @click="close" />
+            <p-overflow-menu-item icon="ArrowRightCircleIcon" label="Move Right" @click="close" />
           </template>
         </p-icon-button-menu>
       </div>

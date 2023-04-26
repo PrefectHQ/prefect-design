@@ -18,7 +18,7 @@
     </template>
     <template #append>
       <span class="p-select-button__icon">
-        <PIcon icon="SelectorIcon" />
+        <PIcon icon="ChevronUpDownIcon" />
       </span>
     </template>
   </PBaseInput>

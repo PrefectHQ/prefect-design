@@ -5,7 +5,7 @@
         <PButton
           class="p-date-picker__close-icon"
           flat
-          icon="XIcon"
+          icon="XMarkIcon"
           size="sm"
           @click="closeOverlay"
         />

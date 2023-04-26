@@ -41,7 +41,7 @@
     placement?: PositionMethod | PositionMethod[],
     preventCloseOnClick?: boolean,
   }>(), {
-    icon: 'DotsVerticalIcon',
+    icon: 'EllipsisVerticalIcon',
     placement: () => [bottomRight, topRight, bottomLeft, topLeft],
   })
 
