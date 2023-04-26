@@ -23,7 +23,6 @@
           :style="styles.textarea"
           v-bind="ctrlAttrs"
         />
-        <!-- @input="updateViewWidth" -->
 
         <template v-if="lang">
           <PCodeHighlight
@@ -46,8 +45,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useResizeObserver, useComputedStyle } from '@prefecthq/vue-compositions'
-  import { computed, onMounted, ref } from 'vue'
+  import { useComputedStyle } from '@prefecthq/vue-compositions'
+  import { computed, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
   import { SupportedLanguage } from '@/types/codeHighlight'
@@ -68,7 +67,6 @@
   const textareaStyle = useComputedStyle(textarea)
 
   const { source, target } = useScrollLinking()
-  const viewWidth = ref(0)
 
   const lineSplitRegex = /\r|\r\n|\n/
   const valueLines = computed(() => {
@@ -125,14 +123,6 @@
       textarea.value.focus()
     }
   }
-
-  // const { observe } = useResizeObserver(updateViewWidth)
-
-  // onMounted(() => {
-  //   observe(textarea)
-  //   observe(source)
-  //   // updateViewWidth()
-  // })
 </script>
 
 <style>
