@@ -12,40 +12,40 @@
 
     <template #control="{ attrs: ctrlAttrs }">
       <div ref="source" class="p-code-input__control" :class="classes.inputControl" @click.self="handleInputControlClick">
-        <div class="p-code-input__textarea-view-container">
-          <textarea
-            ref="textarea"
-            v-model="internalValue"
-            spellcheck="false"
-            class="p-code-input__textarea"
-            :rows="rows"
-            :class="classes.textArea"
+        <textarea
+          ref="textarea"
+          v-model="internalValue"
+          spellcheck="false"
+          class="p-code-input__textarea"
+          :placeholder="placeholder"
+          :rows="lines"
+          :class="classes.textArea"
+          :style="styles.textarea"
+          v-bind="ctrlAttrs"
+        />
+
+        <template v-if="lang">
+          <PCodeHighlight
+            :lang="lang"
+            :text="internalValue"
+            class="p-code-input__view"
+            :style="styles.view"
             v-bind="ctrlAttrs"
           />
+        </template>
 
-          <div class="p-code-input__view-container">
-            <template v-if="lang">
-              <PCodeHighlight
-                :lang="lang"
-                :text="internalValue"
-                class="p-code-input__view"
-                v-bind="ctrlAttrs"
-              />
-            </template>
-
-            <template v-else>
-              <PCode class="p-code-input__view" v-bind="ctrlAttrs">
-                {{ internalValue }}
-              </PCode>
-            </template>
-          </div>
-        </div>
+        <template v-else>
+          <PCode class="p-code-input__view" :style="styles.view" v-bind="ctrlAttrs">
+            {{ internalValue }}
+          </PCode>
+        </template>
       </div>
     </template>
   </p-base-input>
 </template>
 
 <script lang="ts" setup>
+  import { useComputedStyle } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
@@ -55,6 +55,8 @@
     modelValue: string | null | undefined,
     lang?: SupportedLanguage,
     showLineNumbers?: boolean,
+    placeholder?: string,
+    minLines?: number,
   }>()
 
   const emit = defineEmits<{
@@ -62,11 +64,30 @@
   }>()
 
   const textarea = ref()
+  const textareaStyle = useComputedStyle(textarea)
+
   const { source, target } = useScrollLinking()
 
-  const valueLines = computed(() => internalValue.value.split(/\r|\r\n|\n/))
-  const lines = computed(() => Math.max(valueLines.value.length, 1))
-  const rows = computed(() => valueLines.value.length)
+  const lineSplitRegex = /\r|\r\n|\n/
+  const valueLines = computed(() => {
+    if (internalValue.value !== '') {
+      return internalValue.value.split(lineSplitRegex)
+    }
+
+    if (props.placeholder) {
+      return props.placeholder.split(lineSplitRegex)
+    }
+
+    return []
+  })
+  const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
+  const lineHeight = computed(() => {
+    if (textareaStyle.value) {
+      return parseFloat(textareaStyle.value.lineHeight)
+    }
+
+    return 0
+  })
 
   const internalValue = computed({
     get() {
@@ -86,6 +107,17 @@
     },
   }))
 
+  const styles = computed(() => {
+    return {
+      textarea: {
+        height: `${lineHeight.value * lines.value}px`,
+      },
+      view: {
+        height: `${lineHeight.value * lines.value}px`,
+      },
+    }
+  })
+
   const handleInputControlClick = (): void => {
     if (textarea.value) {
       textarea.value.focus()
@@ -94,14 +126,24 @@
 </script>
 
 <style>
+.p-code-input {
+  --gap-x: var(--p-code-input-gap-x, 0.5rem);
+  --gap-y: var(--p-code-input-gap-y, 1rem);
+}
+
 .p-code-input,
 .p-code-input__view,
 .p-code-input__control,
 .p-code-input__textarea,
-.p-code-input__textarea-view-container {
+.p-code-input__line-numbers-wrapper {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
+}
+
+.p-code-input__control  {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
 }
 
 .p-code-input__textarea,
@@ -114,93 +156,84 @@
 .p-code-input { @apply
   bg-background-500
   font-mono
-  min-h-[100px]
-  overflow-auto
+  overflow-hidden
   p-0
   relative
 }
 
 .p-code-input__line-numbers-wrapper { @apply
+  border-background-400
+  border-r
+  dark:border-foreground-200
   grow-0
-  h-full
-  max-h-full
   overflow-hidden
+  px-[var(--gap-x)]
+  py-[var(--gap-y)]
   relative
+  rounded-r-none
+  self-stretch
   shrink-0
   w-min
 }
 
 .p-code-input__line-numbers { @apply
-  px-3
-  py-4
   w-full
 }
 
 .p-code-input__control { @apply
   bg-background
   cursor-text
-  flex
   grow
   h-full
-  items-start
-  justify-start
+  max-h-[inherit]
   min-h-[inherit]
   overflow-auto
   p-0
+  pt-[var(--gap-y)]
   relative
   rounded-lg
+  self-stretch
   z-[1]
 }
 
-.p-code-input__control--show-line-numbers { @apply
-  border-l
-  border-background-400
-  dark:border-foreground-200
-  rounded-l-none
-}
-
 .p-code-input__textarea { @apply
-  absolute
   bg-transparent
   block
-  box-content
   caret-foreground-500
-  grow
-  h-min
-  left-0
   m-0
-  min-h-[1.5rem]
-  min-w-[1.5rem]
+  min-h-full
+  min-w-full
   overflow-hidden
   p-0
+  px-[var(--gap-x)]
   resize-none
-  right-0
   text-transparent
-  top-0
-  w-full
-  whitespace-pre-wrap
-  z-0
+  whitespace-pre
 }
 
-.p-code-input__textarea-view-container { @apply
-  relative
-  ml-4
-  mt-4
-  pr-4
+.p-code-input__textarea:disabled { @apply
+  cursor-not-allowed
 }
 
-.p-code-input__view-container { @apply
-  overflow-hidden
-  pointer-events-none
-  min-h-full
-  z-0
+.p-code-input__textarea::selection { @apply
+  bg-foreground-200
+  bg-opacity-50
 }
 
 .p-code-input__view { @apply
+  absolute
   bg-transparent
-  overflow-hidden
+  left-0
   min-h-full
+  min-w-full
+  overflow-hidden
   p-0
+  pointer-events-none
+  px-[var(--gap-x)]
+  pt-[var(--gap-y)]
+  select-none
   text-foreground
+  top-0
+  z-0
 }
 </style>
