@@ -12,7 +12,7 @@
       <p-global-sidebar class="global-sidebar__sidebar">
         <template #upper-links>
           <router-link :to="link">
-            <p-icon icon="PrefectGradient" class="global-sidebar__prefect-icon" />
+            <p-icon icon="Prefect" class="global-sidebar__prefect-icon" />
           </router-link>
           <router-link :to="link">
             <p-icon icon="HeartIcon" solid />

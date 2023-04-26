@@ -17,7 +17,7 @@
         @selected="selectedSearchTerm"
       >
         <template #append>
-          <p-icon icon="SearchIcon" class="mr-2" />
+          <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
         </template>
       </p-type-ahead>
     </template>

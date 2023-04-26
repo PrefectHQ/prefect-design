@@ -3,11 +3,11 @@
     <template v-if="!media.lg">
       <PGlobalSidebar class="app__mobile-menu">
         <template #upper-links>
-          <p-icon icon="PrefectGradient" class="app__prefect-icon" />
+          <p-icon icon="Prefect" class="app__prefect-icon" />
           <span class="text-slate-200">Prefect</span>
         </template>
         <template #bottom-links>
-          <PIcon icon="MenuIcon" class="app__menu-icon" @click="toggle" />
+          <PIcon icon="Bars3Icon" class="app__menu-icon" @click="toggle" />
         </template>
       </PGlobalSidebar>
     </template>

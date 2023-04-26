@@ -26,7 +26,7 @@
         </template>
         <template #append>
           <span class="h-5 w-5 text-gray-500 mx-2">
-            <p-icon icon="ArchiveIcon" />
+            <p-icon icon="ArchiveBoxIcon" />
           </span>
         </template>
       </p-text-input>
@@ -36,7 +36,7 @@
       <p-text-input v-model="exampleSearch" :disabled="disabled" type="search" placeholder="search..." :state="exampleState">
         <template #prepend>
           <span class="h-5 w-5 text-gray-500 ml-2">
-            <p-icon icon="SearchIcon" />
+            <p-icon icon="MagnifyingGlassIcon" />
           </span>
         </template>
       </p-text-input>

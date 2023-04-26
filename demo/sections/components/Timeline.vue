@@ -183,7 +183,7 @@
     },
     {
       id: crypto.randomUUID(),
-      icon: 'PrefectGradient',
+      icon: 'Prefect',
       title: 'Joined Prefect',
       date: '2019-08-01',
       body: 'I joined Prefect as a Software Engineer. I worked on the Prefect Core team, building out the Prefect Cloud and Prefect Server products.',

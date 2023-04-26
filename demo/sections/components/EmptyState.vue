@@ -9,8 +9,8 @@
     <template #empty-state>
       <p-empty-state>
         <template #icon>
-          <p-icon icon="ViewGridIcon" />
-          <p-icon icon="DotsHorizontalIcon" />
+          <p-icon icon="Squares2X2Icon" />
+          <p-icon icon="EllipsisHorizontalIcon" />
           <p-icon icon="UserIcon" />
         </template>
 
