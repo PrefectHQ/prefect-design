@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-page">
     <component :is="CirclesIcon" class="welcome-page__circles" />
-    <p-icon class="welcome-page__logo-icon" icon="PrefectGradient" />
+    <p-icon class="welcome-page__logo-icon" icon="PrefectLight" />
     <div class="welcome-page__intro">
       <p class="welcome-page__title">
         Prefect Design
@@ -23,7 +23,7 @@
         </p-button>
       </a>
       <p-link :to="routeRecordsFlat[firstComponent]">
-        <p-button secondary icon="ArrowNarrowRightIcon">
+        <p-button secondary icon="ArrowRightIcon">
           Get Started
         </p-button>
       </p-link>

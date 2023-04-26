@@ -4,8 +4,8 @@
 
 
 <script lang="ts" setup>
-  import * as outlinedHeroIcons from '@heroicons/vue/outline'
-  import * as solidHeroIcons from '@heroicons/vue/solid'
+  import * as outlinedHeroIcons from '@heroicons/vue/24/outline'
+  import * as solidHeroIcons from '@heroicons/vue/24/solid'
   import { computed } from 'vue'
   import * as prefectIcons from '@/components/Icon/icons'
   import { Icon, PrefectIcon } from '@/types/icon'

@@ -1,5 +1,5 @@
-import * as outlinedHeroIcons from '@heroicons/vue/outline'
-import * as solidHeroIcons from '@heroicons/vue/solid'
+import * as outlinedHeroIcons from '@heroicons/vue/24/outline'
+import * as solidHeroIcons from '@heroicons/vue/24/solid'
 import * as prefectIcons from '@/components/Icon/icons'
 
 export type SolidHeroIcon = keyof typeof solidHeroIcons

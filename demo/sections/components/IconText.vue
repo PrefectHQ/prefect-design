@@ -12,7 +12,7 @@
 
     <template #icon-text-inside-link>
       <PLink>
-        <PIconText icon="LocationMarkerIcon" text="happy-gazelle" />
+        <PIconText icon="MapPinIcon" text="happy-gazelle" />
       </PLink>
     </template>
   </ComponentPage>

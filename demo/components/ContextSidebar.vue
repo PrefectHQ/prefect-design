@@ -3,7 +3,7 @@
     <template #header>
       <template v-if="!mobileMenuOpen">
         <div class="context-sidebar__header">
-          <p-icon class="context-sidebar__icon" icon="PrefectGradient" />
+          <p-icon class="context-sidebar__icon" icon="PrefectLight" />
           <span class="context-sidebar__heading">Prefect Design</span>
         </div>
       </template>
@@ -17,7 +17,7 @@
         @selected="selectedSearchTerm"
       >
         <template #append>
-          <p-icon icon="SearchIcon" class="mr-2" />
+          <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
         </template>
       </p-type-ahead>
     </template>

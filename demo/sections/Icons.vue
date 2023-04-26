@@ -9,7 +9,7 @@
     <template #icons>
       <PTextInput v-model="searchTerm" placeholder="Filter Icons">
         <template #append>
-          <PIcon icon="SearchIcon" class="mr-2" />
+          <PIcon icon="MagnifyingGlassIcon" class="mr-2" />
         </template>
       </PTextInput>
 
@@ -22,7 +22,7 @@
 
         <template v-if="noResults">
           <div class="icons-doc__no-results">
-            Sorry, nothing for "{{ searchDebounced }}" <PIcon icon="EmojiSadIcon" class="icons-doc__no-results-icon" />
+            Sorry, nothing for "{{ searchDebounced }}" <PIcon icon="FaceFrownIcon" class="icons-doc__no-results-icon" />
           </div>
         </template>
       </div>
@@ -52,7 +52,7 @@
   import { PRadioGroup, PLabel, PIcon, PLink, PTextInput } from '@/components'
   import * as prefectIcons from '@/components/Icon/icons'
   import { HeroIcon, PrefectIcon } from '@/types'
-  import * as heroIcons from '@heroicons/vue/solid'
+  import * as heroIcons from '@heroicons/vue/24/outline'
   import { useDebouncedRef } from '@prefecthq/vue-compositions'
   import { ref, computed } from 'vue'
   import CodeBlock from '@/demo/components/CodeBlock.vue'

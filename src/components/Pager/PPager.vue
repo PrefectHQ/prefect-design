@@ -10,10 +10,10 @@
     </p>
     <div class="p-pager__buttons">
       <p-button inset size="sm" :disabled="!showPrevious" @click="previous">
-        <p-icon icon="ArrowSmLeftIcon" /> Previous
+        <p-icon icon="ChevronLeftIcon" size="small" /> Previous
       </p-button>
       <p-button inset size="sm" :disabled="!showNext" @click="next">
-        Next <p-icon icon="ArrowSmRightIcon" />
+        Next <p-icon icon="ChevronRightIcon" size="small" />
       </p-button>
     </div>
   </div>

@@ -38,7 +38,7 @@
     {
       label: 'Email',
       value: 'email',
-      icon: 'MailIcon',
+      icon: 'EnvelopeIcon',
     },
     {
       label: 'Slack',
