@@ -22,8 +22,8 @@
           :class="classes.textArea"
           :style="styles.textarea"
           v-bind="ctrlAttrs"
-          @input="updateViewWidth"
         />
+        <!-- @input="updateViewWidth" -->
 
         <template v-if="lang">
           <PCodeHighlight
@@ -113,20 +113,12 @@
     return {
       textarea: {
         height: `${lineHeight.value * lines.value}px`,
-        width: `${viewWidth.value}px`,
       },
       view: {
         height: `${lineHeight.value * lines.value}px`,
-        width: `${viewWidth.value}px`,
       },
     }
   })
-
-  const updateViewWidth = (): void => {
-    if (textarea.value && source.value) {
-      viewWidth.value = Math.max(textarea.value.scrollWidth, source.value.scrollWidth)
-    }
-  }
 
   const handleInputControlClick = (): void => {
     if (textarea.value) {
@@ -134,13 +126,13 @@
     }
   }
 
-  const { observe } = useResizeObserver(updateViewWidth)
+  // const { observe } = useResizeObserver(updateViewWidth)
 
-  onMounted(() => {
-    observe(textarea)
-    observe(source)
-    updateViewWidth()
-  })
+  // onMounted(() => {
+  //   observe(textarea)
+  //   observe(source)
+  //   // updateViewWidth()
+  // })
 </script>
 
 <style>
@@ -243,6 +235,7 @@
   bg-transparent
   left-0
   min-h-full
+  min-w-full
   overflow-hidden
   p-0
   pointer-events-none
