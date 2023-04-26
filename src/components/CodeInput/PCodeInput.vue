@@ -53,7 +53,7 @@
   import { SupportedLanguage } from '@/types/codeHighlight'
 
   const props = defineProps<{
-    modelValue?: string | null | undefined,
+    modelValue?: string | null,
     lang?: SupportedLanguage,
     showLineNumbers?: boolean,
     placeholder?: string,
