@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useResizeObserver } from '@prefecthq/vue-compositions'
+  import { useResizeObserver, useComputedStyle } from '@prefecthq/vue-compositions'
   import { computed, onMounted, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
@@ -65,6 +65,8 @@
   }>()
 
   const textarea = ref()
+  const textareaStyle = useComputedStyle(textarea)
+
   const { source, target } = useScrollLinking()
   const viewWidth = ref(0)
 
@@ -82,8 +84,8 @@
   })
   const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
   const lineHeight = computed(() => {
-    if (textarea.value) {
-      return parseFloat(getComputedStyle(textarea.value).lineHeight)
+    if (textareaStyle.value) {
+      return parseFloat(textareaStyle.value.lineHeight)
     }
 
     return 0
