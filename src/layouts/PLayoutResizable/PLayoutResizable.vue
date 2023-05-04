@@ -68,9 +68,8 @@
 
     const asideBounds = aside.value.getBoundingClientRect()
     asideLeft = asideBounds.left
-    document.body.style.cursor = 'col-resize'
     dragging.value = true
-    document.body.style.userSelect = 'none'
+    document.body.classList.add('p-layout-resizable--resizing')
     window.addEventListener('mouseup', stop)
     window.addEventListener('mousemove', drag)
   }
@@ -78,9 +77,8 @@
   const stop = (): void => {
     window.removeEventListener('mousemove', drag)
     window.removeEventListener('mouseup', stop)
-    document.body.style.userSelect = 'auto'
     dragging.value = false
-    document.body.style.removeProperty('cursor')
+    document.body.classList.remove('p-layout-resizable--resizing')
   }
 
   const handleAsideClick = (): void => {
@@ -107,6 +105,11 @@
   --aside-width: var(--p-layout-resizable-aside-width, min-content);
   --aside-max-width: var(--p-layout-resizable-aside-max-width, theme(width.80));
   --aside-min-width: var(--p-layout-resizable-aside-min-width, theme(width.20));
+}
+
+.p-layout-resizable--resizing { @apply
+  select-none
+  cursor-col-resize
 }
 
 .p-layout-resizable { @apply
