@@ -1,23 +1,11 @@
 <template>
   <div class="max-w-full min-h-full app">
-    <template v-if="!media.lg">
-      <!--
-        <PGlobalSidebar class="app__mobile-menu">
-        <template #upper-links>
-        <p-icon icon="Prefect" class="app__prefect-icon" />
-        <span class="text-slate-200">Prefect</span>
-        </template>
-        <template #bottom-links>
-        <PIcon icon="Bars3Icon" class="app__menu-icon" @click="toggle" />
-        </template>
-        </PGlobalSidebar>
-      -->
-
+    <template v-if="media.lg">
       <AppNavigationBar horizontal class="app__sidebar" />
     </template>
 
     <p-layout-resizable :disabled="!media.sm" class="app__layout">
-      <template v-if="media.lg" #aside>
+      <template v-if="!media.lg" #aside>
         <AppNavigationBar class="app__sidebar" />
       </template>
 
@@ -93,12 +81,5 @@
 .app__router-view-fade-enter-from,
 .app__router-view-fade-leave-to {
   opacity: 0;
-}
-
-@screen lg {
-  .app {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 </style>

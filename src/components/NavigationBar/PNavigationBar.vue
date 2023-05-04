@@ -5,7 +5,7 @@
         <slot name="leading" />
       </div>
     </template>
-    <div class="p-navigation-bar__content">
+    <div class="p-navigation-bar__content" :class="classes.content">
       <slot />
     </div>
     <template v-if="$slots.trailing">
@@ -27,12 +27,16 @@
     root: {
       'p-navigation-bar--horizontal': props.horizontal,
     },
+    content: {
+      'p-navigation-bar__content--horizontal': props.horizontal,
+    },
   }))
 </script>
 
 <style>
 .p-navigation-bar { @apply
   grid
+  overflow-hidden
   h-full
   w-64
 }
@@ -54,5 +58,9 @@
 
 .p-navigation-bar__content { @apply
   self-stretch
+}
+
+.p-navigation-bar__content--horizontal { @apply
+  flex
 }
 </style>
