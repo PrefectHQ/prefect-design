@@ -1,17 +1,17 @@
 <template>
-  <p-context-sidebar class="context-sidebar">
-    <template #header>
+  <p-navigation-bar class="app-navigation-bar">
+    <template #leading>
       <template v-if="!mobileMenuOpen">
-        <div class="context-sidebar__header">
-          <p-icon class="context-sidebar__icon" icon="PrefectLight" />
-          <span class="context-sidebar__heading">Prefect Design</span>
+        <div class="app-navigation-bar__header">
+          <p-icon class="app-navigation-bar__icon" icon="PrefectLight" />
+          <span class="app-navigation-bar__heading">Prefect Design</span>
         </div>
       </template>
 
 
       <p-type-ahead
         v-model="searchTerm"
-        class="context-sidebar__search-box"
+        class="app-navigation-bar__search-box"
         placeholder="Search"
         :options="Object.keys(routeRecordsFlat)"
         @selected="selectedSearchTerm"
@@ -26,12 +26,12 @@
       <component :is="getComponentForRecord(record)" v-bind="getContextProps(record)" />
     </template>
 
-    <template #footer>
-      <div class="context-sidebar__footer">
+    <template #trailing>
+      <div class="app-navigation-bar__footer">
         <p-theme-toggle />
       </div>
     </template>
-  </p-context-sidebar>
+  </p-navigation-bar>
 </template>
 
 <script lang="ts" setup>
@@ -84,37 +84,37 @@
 </script>
 
 <style>
-.context-sidebar { @apply
+.app-navigation-bar { @apply
   z-50
 }
 
-.context-sidebar__header { @apply
+.app-navigation-bar__header { @apply
   flex
   gap-1
   items-center
   mb-5
 }
 
-.context-sidebar__icon { @apply
+.app-navigation-bar__icon { @apply
   h-10
   w-10
 }
 
-.context-sidebar__heading { @apply
+.app-navigation-bar__heading { @apply
   font-normal
   text-xl
 }
 
-.context-sidebar__search-box { @apply
+.app-navigation-bar__search-box { @apply
   text-foreground-600
 }
 
-.context-sidebar .p-context-accordion-item__title,
-.context-sidebar .p-context-nav-item { @apply
+.app-navigation-bar .p-context-accordion-item__title,
+.app-navigation-bar .p-context-nav-item { @apply
   capitalize
 }
 
-.context-sidebar__footer { @apply
+.app-navigation-bar__footer { @apply
   min-h-[36px]
   flex
   justify-center
