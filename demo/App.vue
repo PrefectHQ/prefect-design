@@ -11,8 +11,16 @@
         </template>
       </PGlobalSidebar>
     </template>
-    <ContextSidebar v-if="showMenu" class="app__sidebar" />
-    <router-view class="w-full" />
+
+    <p-layout-resizable :disabled="!media.sm" class="app__layout">
+      <template v-if="media.sm" #aside>
+        <ContextSidebar v-if="showMenu" class="app__sidebar" />
+      </template>
+
+      <suspense>
+        <router-view class="app__router-view" />
+      </suspense>
+    </p-layout-resizable>
   </div>
 </template>
 
@@ -41,6 +49,12 @@
   dark:bg-background-400
 }
 
+.app__layout {
+  --p-layout-resizable-aside-width: 256px;
+  --p-layout-resizable-aside-max-width: 50vw;
+  --p-layout-resizable-aside-min-width: 256px;
+}
+
 .app__prefect-icon { @apply
   w-6
   h-6
@@ -53,8 +67,17 @@
   cursor-pointer
 }
 
+.app__sidebar { @apply
+  w-full
+}
+
 .app__router-view { @apply
   relative
+  h-full
+  max-h-screen
+  pb-4
+  overflow-auto
+  w-full
   z-0
 }
 
@@ -71,7 +94,7 @@
 @screen lg {
   .app {
     display: grid;
-    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 </style>
