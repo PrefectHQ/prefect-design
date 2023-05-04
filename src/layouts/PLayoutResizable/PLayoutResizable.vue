@@ -40,7 +40,7 @@
       'p-layout-resizable__aside--collapsed': collapsed.value,
     },
     divider: {
-      'p-layout-resizable__divider--resizable': props.resizable,
+      'p-layout-resizable__divider--resizable': props.resizable && !dragging.value,
       'p-layout-resizable__divider--collapsed': collapsed.value,
     },
     main: {
