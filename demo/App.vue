@@ -13,7 +13,7 @@
     </template>
 
     <p-layout-resizable :disabled="!media.sm" class="app__layout">
-      <template v-if="media.sm" #aside>
+      <template v-if="media.lg" #aside>
         <ContextSidebar v-if="showMenu" class="app__sidebar" />
       </template>
 
