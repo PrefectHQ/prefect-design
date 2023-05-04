@@ -11,7 +11,7 @@
     </template>
 
     <template #collapse-point>
-      <p-layout-resizable :collapse-point="50" class="layout-resizable">
+      <p-layout-resizable :collapse-point="100" class="layout-resizable layout-resizable__collapsible">
         <template #aside="{ collapsed }">
           <div class="layout-resizable__aside" :class="{ 'layout-resizable__aside--collapsed': collapsed }" />
         </template>
@@ -52,8 +52,12 @@
   bg-background-900
 }
 
+.layout-resizable__collapsible {
+  --p-layout-resizable-aside-min-width: 256px;
+}
+
 .layout-resizable__aside--collapsed { @apply
-  w-0
+  w-16
 }
 </style>
 
