@@ -14,7 +14,7 @@
 
     <p-layout-resizable :disabled="!media.sm" class="app__layout">
       <template v-if="media.lg" #aside>
-        <ContextSidebar v-if="showMenu" class="app__sidebar" />
+        <AppNavigationBar class="app__sidebar" />
       </template>
 
       <suspense>
@@ -28,7 +28,7 @@
   import { useColorTheme } from '@/compositions'
   import { media } from '@/utilities/media'
   import { computed, watchEffect } from 'vue'
-  import ContextSidebar from '@/demo/components/ContextSidebar.vue'
+  import AppNavigationBar from '@/demo/components/AppNavigationBar.vue'
   import { mobileMenuOpen, toggle } from '@/demo/router/menu'
 
   const showMenu = computed(() => media.lg || mobileMenuOpen.value)
