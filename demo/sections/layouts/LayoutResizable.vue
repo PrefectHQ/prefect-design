@@ -1,6 +1,6 @@
 <template>
   <ComponentPage title="Resizable Layout" :demos="demos">
-    <p-layout-resizable resizable class="layout-resizable">
+    <p-layout-resizable class="layout-resizable">
       <template #aside>
         <div class="layout-resizable__aside" />
       </template>

@@ -23,7 +23,7 @@
 
   const props = defineProps<{
     collapsePoint?: number,
-    resizable?: boolean,
+    disabled?: boolean,
   }>()
 
   const slots = useSlots()
@@ -40,7 +40,7 @@
       'p-layout-resizable__aside--collapsed': collapsed.value,
     },
     divider: {
-      'p-layout-resizable__divider--resizable': props.resizable && !dragging.value,
+      'p-layout-resizable__divider--resizable': !props.disabled && !dragging.value,
       'p-layout-resizable__divider--collapsed': collapsed.value,
     },
     main: {
@@ -50,7 +50,7 @@
 
   let asideLeft = 0
   const drag = (event: MouseEvent): void => {
-    if (!container.value || !props.resizable || !aside.value) {
+    if (props.disabled || !container.value || !aside.value) {
       return
     }
 
@@ -62,7 +62,7 @@
   }
 
   const start = (): void => {
-    if (!container.value || !props.resizable || !aside.value) {
+    if (props.disabled || !container.value || !aside.value) {
       return
     }
 
@@ -84,7 +84,7 @@
   }
 
   const handleAsideClick = (): void => {
-    if (props.resizable && collapsed.value) {
+    if (!props.disabled && collapsed.value) {
       collapsed.value = false
     }
   }

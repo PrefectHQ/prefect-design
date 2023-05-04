@@ -12,7 +12,7 @@
       </PGlobalSidebar>
     </template>
 
-    <p-layout-resizable :resizable="media.sm" class="app__layout">
+    <p-layout-resizable :disabled="!media.sm" class="app__layout">
       <template v-if="media.sm" #aside>
         <ContextSidebar v-if="showMenu" class="app__sidebar" />
       </template>
