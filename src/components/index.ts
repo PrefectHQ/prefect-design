@@ -43,6 +43,7 @@ import { PMessage, install as installPMessage } from '@/components/Message'
 import { PModal, install as installPModal } from '@/components/Modal'
 import { PNativeDateInput, install as installPNativeDateInput } from '@/components/NativeDateInput'
 import { PNativeSelect, install as installPNativeSelect } from '@/components/NativeSelect'
+import { PNavigationBar, install as installPNavigationBar } from '@/components/NavigationBar'
 import { PNumberInput, install as installPNumberInput } from '@/components/NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from '@/components/OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from '@/components/OverflowMenuItem'
@@ -124,6 +125,7 @@ export {
   PModal,
   PNativeDateInput,
   PNativeSelect,
+  PNavigationBar,
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
@@ -216,6 +218,7 @@ export const installs = [
   installPModal,
   installPNativeDateInput,
   installPNativeSelect,
+  installPNavigationBar,
   installPNumberInput,
   installPOverflowMenu,
   installPOverflowMenuItem,
@@ -298,6 +301,7 @@ declare module '@vue/runtime-core' {
     PModal: typeof PModal,
     PNativeDateInput: typeof PNativeDateInput,
     PNativeSelect: typeof PNativeSelect,
+    PNavigationBar: typeof PNavigationBar,
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,
