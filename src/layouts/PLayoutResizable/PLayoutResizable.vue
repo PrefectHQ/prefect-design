@@ -1,7 +1,7 @@
 <template>
   <section ref="container" class="p-layout-resizable">
     <aside v-if="slots.aside" ref="aside" class="p-layout-resizable__aside" :class="classes.aside">
-      <slot name="aside" :collapsed="collapsed" />
+      <slot name="aside" v-bind="{ collapsed, expand, collapse, toggle }" />
     </aside>
 
     <div
@@ -13,7 +13,7 @@
     />
 
     <main v-if="slots.default" class="p-layout-resizable__main" :class="classes.main">
-      <slot />
+      <slot v-bind="{ collapsed, expand, collapse, toggle }" />
     </main>
   </section>
 </template>
@@ -85,8 +85,20 @@
 
   const handleAsideClick = (): void => {
     if (!props.disabled && collapsed.value) {
-      collapsed.value = false
+      expand()
     }
+  }
+
+  const expand = (): void => {
+    collapsed.value = false
+  }
+
+  const collapse = (): void => {
+    collapsed.value = true
+  }
+
+  const toggle = (): void => {
+    collapsed.value = !collapsed.value
   }
 </script>
 
