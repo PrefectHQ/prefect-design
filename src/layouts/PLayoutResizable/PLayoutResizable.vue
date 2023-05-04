@@ -119,7 +119,7 @@
   relative
   h-full
   overflow-auto
-  min-w-[theme(width.72)]
+  min-w-min
   w-[theme(width.80)]
   max-w-lg
 }

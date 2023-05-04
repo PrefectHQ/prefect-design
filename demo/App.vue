@@ -11,8 +11,16 @@
         </template>
       </PGlobalSidebar>
     </template>
-    <ContextSidebar v-if="showMenu" class="app__sidebar" />
-    <router-view class="w-full" />
+
+    <p-layout-resizable :collapse-point="124" :resizable="media.sm" class="w-full grow">
+      <template v-if="media.sm" #aside>
+        <ContextSidebar v-if="showMenu" class="app__sidebar" />
+      </template>
+
+      <suspense>
+        <router-view class="w-full" />
+      </suspense>
+    </p-layout-resizable>
   </div>
 </template>
 
@@ -53,6 +61,10 @@
   cursor-pointer
 }
 
+.app__sidebar { @apply
+  w-full
+}
+
 .app__router-view { @apply
   relative
   z-0
@@ -71,7 +83,7 @@
 @screen lg {
   .app {
     display: grid;
-    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 </style>
