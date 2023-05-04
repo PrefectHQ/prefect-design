@@ -27,7 +27,7 @@
 
   const demos = [
     { title: 'Basic' },
-    { title: 'Collapse point' },
+    { title: 'Collapse point', description: 'Collapse the aside when the divider is dragged to the left of the 100px mark.' },
   ]
 </script>
 
