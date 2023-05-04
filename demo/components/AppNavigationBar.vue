@@ -1,22 +1,21 @@
 <template>
   <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
     <template #leading>
-      <div class="app-navigation-bar__leading" :class="classes.leading">
-        <p-icon class="app-navigation-bar__icon" icon="PrefectLight" />
+      <p-button rounded class="app-navigation-bar__logo-button" icon="PrefectLight" flat>
         <span v-if="!horizontal" class="app-navigation-bar__heading">Prefect Design</span>
+      </p-button>
 
-        <p-type-ahead
-          v-model="searchTerm"
-          class="app-navigation-bar__search-box"
-          placeholder="Search"
-          :options="Object.keys(routeRecordsFlat)"
-          @selected="selectedSearchTerm"
-        >
-          <template #append>
-            <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
-          </template>
-        </p-type-ahead>
-      </div>
+      <p-type-ahead
+        v-model="searchTerm"
+        class="app-navigation-bar__search-box"
+        placeholder="Search"
+        :options="Object.keys(routeRecordsFlat)"
+        @selected="selectedSearchTerm"
+      >
+        <template #append>
+          <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
+        </template>
+      </p-type-ahead>
     </template>
 
     <template v-for="record in routeRecords" :key="record.name">
@@ -24,7 +23,7 @@
     </template>
 
     <template #trailing>
-      <div class="app-navigation-bar__trailing" :class="classes.trailing">
+      <div class="app-navigation-bar__trailing">
         <p-theme-toggle />
       </div>
     </template>
@@ -86,12 +85,6 @@
     root: {
       'app-navigation-bar--horizontal': props.horizontal,
     },
-    leading: {
-      'app-navigation-bar__leading--horizontal': props.horizontal,
-    },
-    trailing: {
-      'app-navigation-bar__trailing--horizontal': props.horizontal,
-    },
   }))
 </script>
 
@@ -107,23 +100,13 @@
   px-4
 }
 
-.app-navigation-bar__leading { @apply
-  flex
-  flex-col
-  gap-1
-  items-center
-  mb-5
+.app-navigation-bar__logo-button { @apply
+  p-2
 }
 
-.app-navigation-bar__leading--horizontal { @apply
-  flex-row
-  items-start
-  mb-0
-}
-
-.app-navigation-bar__icon { @apply
-  h-10
-  w-10
+.app-navigation-bar__logo-button .p-icon { @apply
+  h-8
+  w-8
 }
 
 .app-navigation-bar__heading { @apply
