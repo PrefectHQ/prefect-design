@@ -1,24 +1,22 @@
 <template>
-  <p-navigation-bar class="app-navigation-bar" v-bind="{ horizontal }">
+  <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
     <template #leading>
-      <template v-if="!mobileMenuOpen">
-        <div class="app-navigation-bar__header">
-          <p-icon class="app-navigation-bar__icon" icon="PrefectLight" />
-          <span class="app-navigation-bar__heading">Prefect Design</span>
-        </div>
-      </template>
+      <div class="app-navigation-bar__leading" :class="classes.leading">
+        <p-icon class="app-navigation-bar__icon" icon="PrefectLight" />
+        <span v-if="!horizontal" class="app-navigation-bar__heading">Prefect Design</span>
 
-      <p-type-ahead
-        v-model="searchTerm"
-        class="app-navigation-bar__search-box"
-        placeholder="Search"
-        :options="Object.keys(routeRecordsFlat)"
-        @selected="selectedSearchTerm"
-      >
-        <template #append>
-          <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
-        </template>
-      </p-type-ahead>
+        <p-type-ahead
+          v-model="searchTerm"
+          class="app-navigation-bar__search-box"
+          placeholder="Search"
+          :options="Object.keys(routeRecordsFlat)"
+          @selected="selectedSearchTerm"
+        >
+          <template #append>
+            <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
+          </template>
+        </p-type-ahead>
+      </div>
     </template>
 
     <template v-for="record in routeRecords" :key="record.name">
@@ -26,7 +24,7 @@
     </template>
 
     <template #trailing>
-      <div class="app-navigation-bar__footer">
+      <div class="app-navigation-bar__trailing" :class="classes.trailing">
         <p-theme-toggle />
       </div>
     </template>
@@ -36,13 +34,12 @@
 <script lang="ts" setup>
   import { PContextAccordionItem, PContextNavItem } from '@/components'
   import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { RouteLocationRaw, RouteRecordRaw, useRouter } from 'vue-router'
   import { routeRecords } from '@/demo/router'
-  import { mobileMenuOpen } from '@/demo/router/menu'
   import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
-  defineProps<{
+  const props = defineProps<{
     horizontal?: boolean,
   }>()
 
@@ -84,20 +81,44 @@
       router.push(routeRecordsFlat[value])
     }
   }
+
+  const classes = computed(() => ({
+    root: {
+      'app-navigation-bar--horizontal': props.horizontal,
+    },
+    leading: {
+      'app-navigation-bar__leading--horizontal': props.horizontal,
+    },
+    trailing: {
+      'app-navigation-bar__trailing--horizontal': props.horizontal,
+    },
+  }))
 </script>
 
 <style>
 .app-navigation-bar { @apply
-  h-full
   py-4
   px-2
+  w-full
 }
 
-.app-navigation-bar__header { @apply
+.app-navigation-bar--horizontal { @apply
+  py-2
+  px-4
+}
+
+.app-navigation-bar__leading { @apply
   flex
+  flex-col
   gap-1
   items-center
   mb-5
+}
+
+.app-navigation-bar__leading--horizontal { @apply
+  flex-row
+  items-start
+  mb-0
 }
 
 .app-navigation-bar__icon { @apply
@@ -119,7 +140,7 @@
   capitalize
 }
 
-.app-navigation-bar__footer { @apply
+.app-navigation-bar__trailing { @apply
   min-h-[36px]
   flex
   justify-center

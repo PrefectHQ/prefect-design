@@ -33,6 +33,13 @@
 <style>
 .p-navigation-bar { @apply
   grid
+  h-full
+  w-64
+}
+
+.p-navigation-bar--horizontal { @apply
+  h-16
+  w-full
 }
 
 .p-navigation-bar {

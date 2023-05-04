@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-full min-h-full app">
-    <template v-if="media.lg">
+    <template v-if="!media.lg">
       <!--
         <PGlobalSidebar class="app__mobile-menu">
         <template #upper-links>
@@ -17,7 +17,7 @@
     </template>
 
     <p-layout-resizable :disabled="!media.sm" class="app__layout">
-      <template v-if="!media.lg" #aside>
+      <template v-if="media.lg" #aside>
         <AppNavigationBar class="app__sidebar" />
       </template>
 
