@@ -91,6 +91,12 @@
 </script>
 
 <style>
+.p-layout-resizable {
+  --aside-width: var(--p-layout-resizable-aside-width, min-content);
+  --aside-max-width: var(--p-layout-resizable-aside-max-width, theme(width.80));
+  --aside-min-width: var(--p-layout-resizable-aside-min-width, theme(width.20));
+}
+
 .p-layout-resizable { @apply
   flex
   overflow-hidden
@@ -121,9 +127,9 @@
   relative
   h-full
   overflow-auto
-  min-w-min
-  w-[theme(width.80)]
-  max-w-lg
+  min-w-[var(--aside-min-width)]
+  w-[var(--aside-width)]
+  max-w-[var(--aside-max-width)]
 }
 
 .p-layout-resizable__aside--collapsed { @apply

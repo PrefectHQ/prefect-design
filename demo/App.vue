@@ -12,7 +12,7 @@
       </PGlobalSidebar>
     </template>
 
-    <p-layout-resizable :resizable="media.sm" class="w-full grow">
+    <p-layout-resizable :resizable="media.sm" class="app__layout">
       <template v-if="media.sm" #aside>
         <ContextSidebar v-if="showMenu" class="app__sidebar" />
       </template>
@@ -47,6 +47,12 @@
   text-foreground
   bg-background-600
   dark:bg-background-400
+}
+
+.app__layout {
+  --p-layout-resizable-aside-width: 256px;
+  --p-layout-resizable-aside-max-width: 50vw;
+  --p-layout-resizable-aside-min-width: 256px;
 }
 
 .app__prefect-icon { @apply
