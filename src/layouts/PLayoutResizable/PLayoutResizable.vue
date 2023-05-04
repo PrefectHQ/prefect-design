@@ -165,6 +165,7 @@
   -ml-1
   h-full
   w-full
+  min-w-0
   z-0
 }
 
