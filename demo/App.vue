@@ -18,7 +18,7 @@
       </template>
 
       <suspense>
-        <router-view class="w-full" />
+        <router-view class="app__router-view" />
       </suspense>
     </p-layout-resizable>
   </div>
@@ -67,6 +67,11 @@
 
 .app__router-view { @apply
   relative
+  h-full
+  max-h-screen
+  pb-4
+  overflow-auto
+  w-full
   z-0
 }
 
