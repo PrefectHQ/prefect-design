@@ -1,5 +1,5 @@
 <template>
-  <p-navigation-bar class="app-navigation-bar">
+  <p-navigation-bar class="app-navigation-bar" v-bind="{ horizontal }">
     <template #leading>
       <template v-if="!mobileMenuOpen">
         <div class="app-navigation-bar__header">
@@ -7,7 +7,6 @@
           <span class="app-navigation-bar__heading">Prefect Design</span>
         </div>
       </template>
-
 
       <p-type-ahead
         v-model="searchTerm"
@@ -42,6 +41,10 @@
   import { routeRecords } from '@/demo/router'
   import { mobileMenuOpen } from '@/demo/router/menu'
   import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
+
+  defineProps<{
+    horizontal?: boolean,
+  }>()
 
   function getComponentForRecord(record: RouteRecordRaw): typeof PContextAccordionItem | typeof PContextNavItem {
     if (record.children) {
@@ -85,7 +88,9 @@
 
 <style>
 .app-navigation-bar { @apply
-  z-50
+  h-full
+  py-4
+  px-2
 }
 
 .app-navigation-bar__header { @apply
