@@ -1,25 +1,25 @@
 <template>
   <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
     <template #leading>
-      <p-button rounded class="app-navigation-bar__logo-button" icon="PrefectLight" flat>
-        <span v-if="!horizontal" class="app-navigation-bar__heading">Prefect Design</span>
-      </p-button>
-
-      <p-type-ahead
-        v-model="searchTerm"
-        class="app-navigation-bar__search-box"
-        placeholder="Search"
-        :options="Object.keys(routeRecordsFlat)"
-        @selected="selectedSearchTerm"
-      >
-        <template #append>
-          <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
-        </template>
-      </p-type-ahead>
+      <slot name="leading" v-bind="{ horizontal }">
+        <AppNavigationBarLeading v-bind="{ horizontal }" />
+      </slot>
     </template>
 
-    <template v-for="record in routeRecords" :key="record.name">
-      <component :is="getComponentForRecord(record)" v-bind="getContextProps(record)" />
+    <template v-if="horizontal">
+      <teleport to="body">
+        <AppNavigationBar class="app-navigation-bar__mobile">
+          <template #leading>
+            <AppNavigationBarLeading horizontal />
+          </template>
+        </AppNavigationBar>
+      </teleport>
+    </template>
+
+    <template v-else>
+      <template v-for="record in routeRecords" :key="record.name">
+        <component :is="getComponentForRecord(record)" v-bind="getContextProps(record)" />
+      </template>
     </template>
 
     <template #trailing>
@@ -33,10 +33,10 @@
 <script lang="ts" setup>
   import { PContextAccordionItem, PContextNavItem } from '@/components'
   import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
-  import { computed, ref } from 'vue'
-  import { RouteLocationRaw, RouteRecordRaw, useRouter } from 'vue-router'
+  import { computed } from 'vue'
+  import { RouteLocationRaw, RouteRecordRaw } from 'vue-router'
+  import AppNavigationBarLeading from '@/demo/components/AppNavigationBarLeading.vue'
   import { routeRecords } from '@/demo/router'
-  import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
   const props = defineProps<{
     horizontal?: boolean,
@@ -70,16 +70,6 @@
     }
   }
 
-  const router = useRouter()
-  const searchTerm = ref('')
-
-  function selectedSearchTerm(value: string | null): void {
-    searchTerm.value = ''
-
-    if (value && routeRecordsFlat[value]) {
-      router.push(routeRecordsFlat[value])
-    }
-  }
 
   const classes = computed(() => ({
     root: {
@@ -95,27 +85,19 @@
   w-full
 }
 
+.app-navigation-bar__mobile { @apply
+  fixed
+  bg-black
+  top-0
+  left-0
+  z-50
+  w-full
+  max-w-[theme(screens.sm)]
+}
+
 .app-navigation-bar--horizontal { @apply
   py-2
   px-4
-}
-
-.app-navigation-bar__logo-button { @apply
-  p-2
-}
-
-.app-navigation-bar__logo-button .p-icon { @apply
-  h-8
-  w-8
-}
-
-.app-navigation-bar__heading { @apply
-  font-normal
-  text-xl
-}
-
-.app-navigation-bar__search-box { @apply
-  text-foreground-600
 }
 
 .app-navigation-bar .p-context-accordion-item__title,
