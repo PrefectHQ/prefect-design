@@ -1,12 +1,24 @@
 <template>
   <ComponentPage title="Resizable Layout" :demos="demos">
-    <p-layout-resizable class="layout-resizable">
-      <template #aside>
-        <div class="layout-resizable__aside" />
-      </template>
+    <template #basic>
+      <p-layout-resizable class="layout-resizable">
+        <template #aside>
+          <div class="layout-resizable__aside" />
+        </template>
 
-      <div class="layout-resizable__main" />
-    </p-layout-resizable>
+        <div class="layout-resizable__main" />
+      </p-layout-resizable>
+    </template>
+
+    <template #collapse-point>
+      <p-layout-resizable :collapse-point="50" class="layout-resizable">
+        <template #aside="{ collapsed }">
+          <div class="layout-resizable__aside" :class="{ 'layout-resizable__aside--collapsed': collapsed }" />
+        </template>
+
+        <div class="layout-resizable__main" />
+      </p-layout-resizable>
+    </template>
   </ComponentPage>
 </template>
 
@@ -38,6 +50,10 @@
 
 .layout-resizable__aside { @apply
   bg-background-900
+}
+
+.layout-resizable__aside--collapsed { @apply
+  w-0
 }
 </style>
 

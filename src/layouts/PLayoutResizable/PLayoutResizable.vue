@@ -55,7 +55,7 @@
     }
 
     if (props.collapsePoint) {
-      collapsed.value = event.clientX < props.collapsePoint
+      collapsed.value = event.clientX - asideLeft < props.collapsePoint
     }
 
     aside.value.style.width = `${event.clientX - asideLeft}px`
