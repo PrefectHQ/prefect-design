@@ -21,7 +21,7 @@
     (event: 'update:modelValue', value: boolean): void,
   }>()
 
-  const internalValue = ref(false)
+  const internalValue = ref(props.modelValue)
   const modelValue = computed<boolean>({
     get() {
       return props.modelValue && internalValue.value

@@ -1,21 +1,18 @@
 <template>
-  <div class="app-navigation-bar-leading">
-    <p-button rounded class="app-navigation-bar-leading__logo-button" icon="PrefectLight" flat>
-      <span v-if="!horizontal" class="app-navigation-bar-leading__heading">Prefect Design</span>
-    </p-button>
+  <p-button rounded class="app-navigation-bar-leading__logo-button" icon="PrefectLight" flat @click="handleClick" />
+  <span v-if="showHeading" class="app-navigation-bar-leading__heading">Prefect Design</span>
 
-    <p-type-ahead
-      v-model="searchTerm"
-      class="app-navigation-bar-leading__search-box"
-      placeholder="Search"
-      :options="Object.keys(routeRecordsFlat)"
-      @selected="selectedSearchTerm"
-    >
-      <template #append>
-        <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
-      </template>
-    </p-type-ahead>
-  </div>
+  <p-type-ahead
+    v-model="searchTerm"
+    class="app-navigation-bar-leading__search-box"
+    placeholder="Search"
+    :options="Object.keys(routeRecordsFlat)"
+    @selected="selectedSearchTerm"
+  >
+    <template #append>
+      <p-icon icon="MagnifyingGlassIcon" class="mr-2" />
+    </template>
+  </p-type-ahead>
 </template>
 
 <script lang="ts" setup>
@@ -24,8 +21,16 @@
   import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
 
   defineProps<{
-    horizontal?: boolean,
+    showHeading?: boolean,
   }>()
+
+  const emit = defineEmits<{
+    (event: 'logoClick'): void,
+  }>()
+
+  const handleClick = (): void => {
+    emit('logoClick')
+  }
 
   const router = useRouter()
   const searchTerm = ref('')

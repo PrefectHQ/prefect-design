@@ -2,18 +2,18 @@
   <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
     <template #leading>
       <slot name="leading" v-bind="{ horizontal }">
-        <AppNavigationBarLeading v-bind="{ horizontal }" />
+        <AppNavigationBarLeading :show-heading="!horizontal" @logo-click="handleLogoClick" />
       </slot>
     </template>
 
     <template v-if="horizontal">
-      <teleport to="body">
-        <AppNavigationBar class="app-navigation-bar__mobile">
+      <p-drawer v-model="showDrawer">
+        <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
-            <AppNavigationBarLeading horizontal />
+            <AppNavigationBarLeading show-heading horizontal @logo-click="handleLogoClick" />
           </template>
         </AppNavigationBar>
-      </teleport>
+      </p-drawer>
     </template>
 
     <template v-else>
@@ -33,7 +33,7 @@
 <script lang="ts" setup>
   import { PContextAccordionItem, PContextNavItem } from '@/components'
   import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import { RouteLocationRaw, RouteRecordRaw } from 'vue-router'
   import AppNavigationBarLeading from '@/demo/components/AppNavigationBarLeading.vue'
   import { routeRecords } from '@/demo/router'
@@ -41,6 +41,8 @@
   const props = defineProps<{
     horizontal?: boolean,
   }>()
+
+  const showDrawer = ref(true)
 
   function getComponentForRecord(record: RouteRecordRaw): typeof PContextAccordionItem | typeof PContextNavItem {
     if (record.children) {
@@ -76,6 +78,11 @@
       'app-navigation-bar--horizontal': props.horizontal,
     },
   }))
+
+  const handleLogoClick = (): void => {
+    console.log('logo clicked')
+    showDrawer.value = !showDrawer.value
+  }
 </script>
 
 <style>
@@ -85,19 +92,15 @@
   w-full
 }
 
-.app-navigation-bar__mobile { @apply
-  fixed
-  bg-black
-  top-0
-  left-0
-  z-50
-  w-full
-  max-w-[theme(screens.sm)]
-}
-
 .app-navigation-bar--horizontal { @apply
   py-2
   px-4
+}
+
+.app-navigation-bar__drawer { @apply
+  bg-black
+  w-full
+  max-w-[theme(screens.sm)]
 }
 
 .app-navigation-bar .p-context-accordion-item__title,
