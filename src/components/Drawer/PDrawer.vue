@@ -1,30 +1,47 @@
 <template>
-  <slot name="activator" v-bind="{ show, hide, toggle }">
-    <p-button icon="Bars3Icon" @click="toggle" />
-  </slot>
+  <slot name="activator" v-bind="{ show, hide, toggle }" />
 
   <teleport to="body">
-    <aside class="p-drawer">
-      <slot v-bind="{ show, hide, toggle }" />
-    </aside>
+    <template v-if="modelValue">
+      <aside class="p-drawer">
+        <slot v-bind="{ show, hide, toggle }" />
+      </aside>
+    </template>
   </teleport>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
 
-  const visible = ref(false)
+  const props = defineProps<{
+    modelValue?: boolean,
+  }>()
+
+  const emit = defineEmits<{
+    (event: 'update:modelValue', value: boolean): void,
+  }>()
+
+  const internalValue = ref(false)
+  const modelValue = computed<boolean>({
+    get() {
+      return props.modelValue && internalValue.value
+    },
+    set(value) {
+      internalValue.value = value
+      emit('update:modelValue', value)
+    },
+  })
 
   const hide = (): void => {
-    visible.value = false
+    internalValue.value = false
   }
 
   const toggle = (): void => {
-    visible.value = !visible.value
+    internalValue.value = !internalValue.value
   }
 
   const show = (): void => {
-    visible.value = true
+    internalValue.value = true
   }
 </script>
 

@@ -5,9 +5,11 @@
         <slot name="leading" />
       </div>
     </template>
+
     <div class="p-navigation-bar__content" :class="classes.content">
       <slot />
     </div>
+
     <template v-if="$slots.trailing">
       <div class="p-navigation-bar__trailing">
         <slot name="trailing" />
