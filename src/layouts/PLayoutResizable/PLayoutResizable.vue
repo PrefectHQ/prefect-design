@@ -1,30 +1,32 @@
 <template>
   <section ref="container" class="p-layout-resizable">
-    <aside v-if="$slots.aside" ref="aside" class="p-layout-resizable__aside" :class="classes.aside">
+    <aside v-if="slots.aside" ref="aside" class="p-layout-resizable__aside" :class="classes.aside">
       <slot name="aside" :collapsed="collapsed" />
     </aside>
 
     <div
-      v-if="$slots.default && $slots.aside"
+      v-if="slots.default && slots.aside"
       class="p-layout-resizable__divider"
       :class="classes.divider"
       @mousedown="start"
       @mouseup="handleAsideClick"
     />
 
-    <main v-if="$slots.default" class="p-layout-resizable__main" :class="classes.main">
+    <main v-if="slots.default" class="p-layout-resizable__main" :class="classes.main">
       <slot />
     </main>
   </section>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import { computed, ref, useSlots } from 'vue'
 
   const props = defineProps<{
     collapsePoint?: number,
     resizable?: boolean,
   }>()
+
+  const slots = useSlots()
 
   const container = ref<HTMLDivElement>()
   const aside = ref<HTMLDivElement>()
