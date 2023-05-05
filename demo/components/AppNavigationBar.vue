@@ -3,7 +3,7 @@
     <template #leading>
       <slot name="leading" v-bind="{ horizontal }">
         <template v-if="horizontal">
-          <p-button class="app-navigation-bar__drawer-button" flat size="sm" icon="Bars3Icon" @click="toggleDrawer" />
+          <p-button class="app-navigation-bar__drawer-button" inset size="sm" icon="Bars3Icon" @click="toggleDrawer" />
         </template>
         <template v-else>
           <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />
@@ -15,7 +15,7 @@
     </template>
 
     <template v-if="horizontal">
-      <p-drawer v-model="showDrawer">
+      <p-drawer v-model="showDrawer" resizable>
         <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
             <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />
@@ -79,8 +79,8 @@
 }
 
 .app-navigation-bar__drawer-button .p-icon { @apply
-  h-6
-  w-6
+  h-5
+  w-5
 }
 
 .app-navigation-bar__logo { @apply

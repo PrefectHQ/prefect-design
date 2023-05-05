@@ -1,22 +1,18 @@
 <template>
-  <slot name="activator" v-bind="{ show, hide, toggle }" />
-
   <teleport to="body">
-    <keep-alive>
-      <template v-if="modelValue">
-        <PLayoutResizable :disabled="!resizable" class="p-drawer">
-          <template #aside>
-            <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
-              <slot v-bind="{ show, hide, toggle }" />
-            </div>
-          </template>
+    <transition name="p-drawer__slide" :duration="150">
+      <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root">
+        <template #aside>
+          <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
+            <slot v-bind="{ show, hide, toggle }" />
+          </div>
+        </template>
 
-          <slot name="overlay" v-bind="{ show, hide, toggle }">
-            <div class="p-drawer__overlay" @click="toggle" />
-          </slot>
-        </PLayoutResizable>
-      </template>
-    </keep-alive>
+        <slot name="overlay" v-bind="{ show, hide, toggle }">
+          <div class="p-drawer__overlay" @click="toggle" />
+        </slot>
+      </PLayoutResizable>
+    </transition>
   </teleport>
 </template>
 
@@ -34,14 +30,19 @@
   import { useAttrsStylesClassesAndListeners } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
 
+  export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
+
   const props = defineProps<{
     modelValue?: boolean,
     resizable?: boolean,
+    placement?: PDrawerPlacement,
   }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: boolean): void,
   }>()
+
+  const placement = computed(() => props.placement ?? 'left')
 
   const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
 
@@ -67,6 +68,12 @@
   const show = (): void => {
     modelValue.value = true
   }
+
+  const classes = computed(() => ({
+    root: {
+      [`p-drawer--${placement.value}`]: !!placement.value,
+    },
+  }))
 </script>
 
 <style>
@@ -104,10 +111,18 @@
 }
 
 .p-drawer__overlay { @apply
-  top-0
-  left-0
   w-full
   h-full
   z-0
+}
+
+.p-drawer__slide-enter-active .p-drawer__aside,
+.p-drawer__slide-leave-active .p-drawer__aside {
+  transition: all 150ms ease-in-out;
+}
+
+.p-drawer__slide-enter-from .p-drawer__aside,
+.p-drawer__slide-leave-to .p-drawer__aside {
+  transform: translateX(-100%);
 }
 </style>
