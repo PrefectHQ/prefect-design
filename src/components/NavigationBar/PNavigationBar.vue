@@ -49,7 +49,8 @@
   grid
   gap-4
   overflow-hidden
-  bg-background
+  bg-primary-100
+  dark:bg-background-50
   h-screen
   w-64
   rounded-r-2xl

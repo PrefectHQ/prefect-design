@@ -2,17 +2,23 @@
   <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
     <template #leading>
       <slot name="leading" v-bind="{ horizontal }">
-        <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="handleLogoClick" />
-        <span v-if="!horizontal" class="app-navigation-bar__heading">Prefect Design</span>
+        <template v-if="horizontal">
+          <p-button class="app-navigation-bar__drawer-button" flat size="sm" icon="Bars3Icon" @click="toggleDrawer" />
+        </template>
+        <template v-else>
+          <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />
+          <span class="app-navigation-bar__heading">Prefect Design</span>
+        </template>
+
         <AppSearch />
       </slot>
     </template>
 
     <template v-if="horizontal">
-      <p-drawer v-model="showDrawer" class="test-class" data-test="hello-attr">
+      <p-drawer v-model="showDrawer">
         <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
-            <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="handleLogoClick" />
+            <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />
             <span class="app-navigation-bar__heading">Prefect Design</span>
           </template>
         </AppNavigationBar>
@@ -25,6 +31,7 @@
 
     <template v-if="!horizontal" #trailing>
       <div class="app-navigation-bar__trailing">
+        <p-divider />
         <p-theme-toggle />
       </div>
     </template>
@@ -49,8 +56,7 @@
     },
   }))
 
-  const handleLogoClick = (): void => {
-    console.log('logo clicked')
+  const toggleDrawer = (): void => {
     showDrawer.value = !showDrawer.value
   }
 </script>
@@ -63,9 +69,18 @@
 }
 
 .app-navigation-bar { @apply
-  py-4
+  pt-4
   px-2
   w-full
+}
+
+.app-navigation-bar__drawer-button { @apply
+  shadow-none
+}
+
+.app-navigation-bar__drawer-button .p-icon { @apply
+  h-6
+  w-6
 }
 
 .app-navigation-bar__logo { @apply
@@ -84,7 +99,6 @@
 }
 
 .app-navigation-bar__drawer { @apply
-  bg-black
   w-full
   max-w-[theme(screens.sm)]
 }
@@ -96,7 +110,9 @@
 
 .app-navigation-bar__trailing { @apply
   flex
+  flex-col
   items-center
+  w-full
   py-4
 }
 </style>
