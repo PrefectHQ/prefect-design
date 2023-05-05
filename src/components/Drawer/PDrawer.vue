@@ -3,15 +3,24 @@
 
   <teleport to="body">
     <template v-if="modelValue">
-      <aside class="p-drawer">
+      <aside class="p-drawer" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
         <slot v-bind="{ show, hide, toggle }" />
       </aside>
     </template>
   </teleport>
 </template>
 
+<script lang="ts">
+  export default {
+    name: 'PDrawer',
+    expose: [],
+    inheritAttrs: false,
+  }
+</script>
+
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
+  import { useAttrsStylesClassesAndListeners } from '@/compositions'
 
   const props = defineProps<{
     modelValue?: boolean,
@@ -21,10 +30,12 @@
     (event: 'update:modelValue', value: boolean): void,
   }>()
 
+  const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
+
   const internalValue = ref(props.modelValue)
   const modelValue = computed<boolean>({
     get() {
-      return props.modelValue && internalValue.value
+      return props.modelValue || internalValue.value
     },
     set(value) {
       internalValue.value = value
@@ -33,15 +44,15 @@
   })
 
   const hide = (): void => {
-    internalValue.value = false
+    modelValue.value = false
   }
 
   const toggle = (): void => {
-    internalValue.value = !internalValue.value
+    modelValue.value = !modelValue.value
   }
 
   const show = (): void => {
-    internalValue.value = true
+    modelValue.value = true
   }
 </script>
 

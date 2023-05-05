@@ -2,75 +2,43 @@
   <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
     <template #leading>
       <slot name="leading" v-bind="{ horizontal }">
-        <AppNavigationBarLeading :show-heading="!horizontal" @logo-click="handleLogoClick" />
+        <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="handleLogoClick" />
+        <span v-if="!horizontal" class="app-navigation-bar__heading">Prefect Design</span>
+        <AppSearch />
       </slot>
     </template>
 
     <template v-if="horizontal">
-      <p-drawer v-model="showDrawer">
+      <p-drawer v-model="showDrawer" class="test-class" data-test="hello-attr">
         <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
-            <AppNavigationBarLeading show-heading horizontal @logo-click="handleLogoClick" />
+            <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="handleLogoClick" />
+            <span class="app-navigation-bar__heading">Prefect Design</span>
           </template>
         </AppNavigationBar>
       </p-drawer>
     </template>
 
     <template v-else>
-      <template v-for="record in routeRecords" :key="record.name">
-        <component :is="getComponentForRecord(record)" v-bind="getContextProps(record)" />
-      </template>
+      <AppComponentNavigationItems />
     </template>
 
-    <template #trailing>
-      <div class="app-navigation-bar__trailing">
-        <p-theme-toggle />
-      </div>
+    <template v-if="!horizontal" #trailing>
+      <p-theme-toggle />
     </template>
   </p-navigation-bar>
 </template>
 
 <script lang="ts" setup>
-  import { PContextAccordionItem, PContextNavItem } from '@/components'
-  import { ContextAccordionChildItem } from '@/types/contextAccordionChildItem'
   import { computed, ref } from 'vue'
-  import { RouteLocationRaw, RouteRecordRaw } from 'vue-router'
-  import AppNavigationBarLeading from '@/demo/components/AppNavigationBarLeading.vue'
-  import { routeRecords } from '@/demo/router'
+  import AppComponentNavigationItems from '@/demo/components/AppComponentNavigationItems.vue'
+  import AppSearch from '@/demo/components/AppSearch.vue'
 
   const props = defineProps<{
     horizontal?: boolean,
   }>()
 
-  const showDrawer = ref(true)
-
-  function getComponentForRecord(record: RouteRecordRaw): typeof PContextAccordionItem | typeof PContextNavItem {
-    if (record.children) {
-      return PContextAccordionItem
-    }
-
-    return PContextNavItem
-  }
-
-  function getContextProps(record: RouteRecordRaw): { title: string, children: ContextAccordionChildItem[] } | { title: string, to: RouteLocationRaw } {
-    const title = record.name?.toString() ?? ''
-
-    if (!record.children) {
-      const to = { name: record.name }
-      return {
-        title,
-        to,
-      }
-    }
-
-    return {
-      title,
-      children: record.children.map(({ name, path }) => ({
-        title: `p-${path}`,
-        to: { name },
-      })),
-    }
-  }
+  const showDrawer = ref(false)
 
 
   const classes = computed(() => ({
@@ -92,6 +60,16 @@
   w-full
 }
 
+.app-navigation-bar__logo { @apply
+  h-10
+  w-10
+}
+
+.app-navigation-bar__heading { @apply
+  font-normal
+  text-xl
+}
+
 .app-navigation-bar--horizontal { @apply
   py-2
   px-4
@@ -106,12 +84,5 @@
 .app-navigation-bar .p-context-accordion-item__title,
 .app-navigation-bar .p-context-nav-item { @apply
   capitalize
-}
-
-.app-navigation-bar__trailing { @apply
-  min-h-[36px]
-  flex
-  justify-center
-  items-center
 }
 </style>

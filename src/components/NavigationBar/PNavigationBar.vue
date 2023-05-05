@@ -39,29 +39,26 @@
 </script>
 
 <style>
-.p-timeline-item {
-  --gap: var(--p-timeline-item-gap, 1rem);
-  --point-width: var(--p-timeline-item-point-width, 2.5rem);
-  --content-width: var(--p-timeline-item-content-width, 1fr);
-  --date-width: var(--p-timeline-item-date-width, 1fr);
-}
-
 .p-navigation-bar {
-  --leading-gap: var(--p-navigation-bar--leading-gap, theme(gap.1));
-  --trailing-gap: var(--p-navigation-bar--trailing-gap, theme(gap.1));
-  --content-gap: var(--p-navigation-bar--content-gap, theme(gap.1));
+  --leading-gap: var(--p-navigation-bar--leading-gap, theme(gap.4));
+  --trailing-gap: var(--p-navigation-bar--trailing-gap, theme(gap.4));
+  --content-gap: var(--p-navigation-bar--content-gap, theme(gap.4));
 }
 
 .p-navigation-bar { @apply
   grid
   overflow-hidden
+  bg-black
   h-full
   w-64
+  rounded-r-2xl
 }
 
 .p-navigation-bar--horizontal { @apply
   h-16
   w-full
+  rounded-none
+  rounded-b-lg
 }
 
 .p-navigation-bar {
@@ -100,5 +97,6 @@
 .p-navigation-bar__leading--horizontal,
 .p-navigation-bar__trailing--horizontal { @apply
   flex-row
+  justify-center
 }
 </style>

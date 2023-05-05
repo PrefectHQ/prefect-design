@@ -1,11 +1,11 @@
 <template>
   <div class="max-w-full min-h-full app">
-    <template v-if="media.lg">
+    <template v-if="!media.lg">
       <AppNavigationBar horizontal class="app__sidebar" />
     </template>
 
     <p-layout-resizable :disabled="!media.sm" class="app__layout">
-      <template v-if="!media.lg" #aside>
+      <template v-if="media.lg" #aside>
         <AppNavigationBar class="app__sidebar" />
       </template>
 
@@ -21,7 +21,7 @@
   import { media } from '@/utilities/media'
   import { computed, watchEffect } from 'vue'
   import AppNavigationBar from '@/demo/components/AppNavigationBar.vue'
-  import { mobileMenuOpen, toggle } from '@/demo/router/menu'
+  import { mobileMenuOpen } from '@/demo/router/menu'
 
   const showMenu = computed(() => media.lg || mobileMenuOpen.value)
 
@@ -39,6 +39,7 @@
   text-foreground
   bg-background-600
   dark:bg-background-400
+  grid
 }
 
 .app__layout {
@@ -46,6 +47,19 @@
   --p-layout-resizable-aside-max-width: 50vw;
   --p-layout-resizable-aside-min-width: 256px;
 }
+
+.app {
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+}
+
+@screen lg {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+}
+
 
 .app__prefect-icon { @apply
   w-6
