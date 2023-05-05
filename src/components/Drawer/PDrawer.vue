@@ -4,7 +4,7 @@
   <teleport to="body">
     <keep-alive>
       <template v-if="modelValue">
-        <PLayoutResizable class="p-drawer">
+        <PLayoutResizable :disabled="!resizable" class="p-drawer">
           <template #aside>
             <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
               <slot v-bind="{ show, hide, toggle }" />
@@ -36,6 +36,7 @@
 
   const props = defineProps<{
     modelValue?: boolean,
+    resizable?: boolean,
   }>()
 
   const emit = defineEmits<{
