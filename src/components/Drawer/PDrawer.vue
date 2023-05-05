@@ -82,6 +82,7 @@
   top-0
   left-0
   w-full
+  z-50
 }
 
 .p-drawer::before {
@@ -100,7 +101,6 @@
 
 .p-drawer__aside { @apply
   h-full
-  z-50
 }
 
 .p-drawer__overlay { @apply
@@ -108,6 +108,6 @@
   left-0
   w-full
   h-full
-  z-40
+  z-0
 }
 </style>
