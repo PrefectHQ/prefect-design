@@ -19,13 +19,7 @@
 <script lang="ts" setup>
   import { useColorTheme } from '@/compositions'
   import { media } from '@/utilities/media'
-  import { computed, watchEffect } from 'vue'
   import AppNavigationBar from '@/demo/components/AppNavigationBar.vue'
-  import { mobileMenuOpen } from '@/demo/router/menu'
-
-  const showMenu = computed(() => media.lg || mobileMenuOpen.value)
-
-  watchEffect(() => document.body.classList.toggle('body-scrolling-disabled', showMenu.value && !media.lg))
 
   useColorTheme()
 </script>
@@ -40,6 +34,7 @@
   bg-background-600
   dark:bg-background-400
   grid
+  max-h-screen
 }
 
 .app__layout {
@@ -60,7 +55,6 @@
   }
 }
 
-
 .app__prefect-icon { @apply
   w-6
   h-6
@@ -80,7 +74,6 @@
 .app__router-view { @apply
   relative
   h-full
-  max-h-screen
   pb-4
   overflow-auto
   w-full

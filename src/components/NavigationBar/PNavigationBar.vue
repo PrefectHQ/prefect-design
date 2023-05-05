@@ -47,9 +47,10 @@
 
 .p-navigation-bar { @apply
   grid
+  gap-4
   overflow-hidden
-  bg-black
-  h-full
+  bg-background
+  h-screen
   w-64
   rounded-r-2xl
 }
@@ -73,6 +74,7 @@
 
 .p-navigation-bar__content { @apply
   self-stretch
+  overflow-auto
 }
 
 .p-navigation-bar__content--horizontal { @apply

@@ -24,7 +24,9 @@
     </template>
 
     <template v-if="!horizontal" #trailing>
-      <p-theme-toggle />
+      <div class="app-navigation-bar__trailing">
+        <p-theme-toggle />
+      </div>
     </template>
   </p-navigation-bar>
 </template>
@@ -84,5 +86,11 @@
 .app-navigation-bar .p-context-accordion-item__title,
 .app-navigation-bar .p-context-nav-item { @apply
   capitalize
+}
+
+.app-navigation-bar__trailing { @apply
+  flex
+  items-center
+  py-4
 }
 </style>
