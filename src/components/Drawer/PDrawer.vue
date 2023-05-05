@@ -1,17 +1,19 @@
 <template>
   <teleport to="body">
     <transition name="p-drawer__slide" :duration="350">
-      <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root">
-        <template #aside>
-          <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
-            <slot v-bind="{ show, hide, toggle }" />
-          </div>
-        </template>
+      <keep-alive>
+        <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root">
+          <template #aside>
+            <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
+              <slot v-bind="{ show, hide, toggle }" />
+            </div>
+          </template>
 
-        <slot name="overlay" v-bind="{ show, hide, toggle }">
-          <div class="p-drawer__overlay" @click="toggle" />
-        </slot>
-      </PLayoutResizable>
+          <slot name="overlay" v-bind="{ show, hide, toggle }">
+            <div class="p-drawer__overlay" @click="toggle" />
+          </slot>
+        </PLayoutResizable>
+      </keep-alive>
     </transition>
   </teleport>
 </template>
