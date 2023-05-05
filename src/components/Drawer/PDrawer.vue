@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <transition name="p-drawer__slide" :duration="150">
+    <transition name="p-drawer__slide" :duration="350">
       <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root">
         <template #aside>
           <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
@@ -124,5 +124,15 @@
 .p-drawer__slide-enter-from .p-drawer__aside,
 .p-drawer__slide-leave-to .p-drawer__aside {
   transform: translateX(-100%);
+}
+
+.p-drawer__slide-enter-active::before ,
+.p-drawer__slide-leave-active::before {
+  transition: all 300ms 50ms ease-in-out;
+}
+
+.p-drawer__slide-enter-from::before ,
+.p-drawer__slide-leave-to::before { @apply
+  opacity-0
 }
 </style>
