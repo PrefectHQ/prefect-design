@@ -5,7 +5,7 @@
     </template>
 
     <template #basic>
-      <p-button @click="toggle('basic')">
+      <p-button size="sm" @click="toggle('basic')">
         Open
       </p-button>
 
@@ -15,13 +15,29 @@
     </template>
 
     <template #advanced>
-      <p-button @click="toggle('advanced')">
+      <p-button size="sm" @click="toggle('advanced')">
         Open
       </p-button>
 
-      <p-drawer v-model="drawers.advanced" :position="position">
-        <p-navigation-bar>
-          Advanced drawer
+      <p-drawer v-model="drawers.advanced" :position="position" resizable>
+        <p-navigation-bar class="drawer__navigation-bar">
+          <template #leading>
+            <p-heading :heading="5">
+              Advanced drawer
+            </p-heading>
+          </template>
+
+          <p-drawer v-model="drawers.nested" resizable :position="position">
+            <p-navigation-bar class="drawer__navigation-bar">
+              Nested drawer
+            </p-navigation-bar>
+          </p-drawer>
+
+          <template #trailing>
+            <p-button size="sm" class="my-2" @click="toggle('nested')">
+              Open nested
+            </p-button>
+          </template>
         </p-navigation-bar>
       </p-drawer>
     </template>
@@ -37,6 +53,9 @@
       title: 'Basic',
     },
     {
+      title: 'Nested',
+    },
+    {
       title: 'Advanced',
     },
   ]
@@ -46,6 +65,7 @@
 
   const drawers = reactive({
     basic: false,
+    nested: false,
     advanced: false,
   })
 
@@ -53,3 +73,9 @@
     drawers[name] = !drawers[name]
   }
 </script>
+
+<style>
+.drawer__navigation-bar { @apply
+  w-full
+}
+</style>
