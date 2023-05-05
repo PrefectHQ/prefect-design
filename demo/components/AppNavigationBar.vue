@@ -6,7 +6,7 @@
           <p-button class="app-navigation-bar__drawer-button" inset size="sm" icon="Bars3Icon" @click="toggleDrawer" />
         </template>
         <template v-else>
-          <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />
+          <p-icon class="app-navigation-bar__logo" icon="Prefect" @click="toggleDrawer" />
           <span class="app-navigation-bar__heading">Prefect Design</span>
         </template>
 

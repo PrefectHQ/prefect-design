@@ -50,7 +50,7 @@
   gap-4
   overflow-hidden
   bg-primary-100
-  dark:bg-background-50
+  dark:bg-background-500
   h-screen
   w-64
   rounded-r-2xl
