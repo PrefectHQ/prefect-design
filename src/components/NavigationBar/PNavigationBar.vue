@@ -54,6 +54,7 @@
   h-screen
   w-64
   rounded-r-2xl
+  shadow
 }
 
 .p-navigation-bar--horizontal { @apply
