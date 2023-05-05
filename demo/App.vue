@@ -1,11 +1,11 @@
 <template>
   <div class="max-w-full min-h-full app">
-    <template v-if="!media.lg">
+    <template v-if="mobileNav">
       <AppNavigationBar horizontal class="app__sidebar" />
     </template>
 
-    <p-layout-resizable :disabled="!media.sm" class="app__layout">
-      <template v-if="media.lg" #aside>
+    <p-layout-resizable class="app__layout">
+      <template v-if="!mobileNav" #aside>
         <AppNavigationBar class="app__sidebar" />
       </template>
 
@@ -19,9 +19,12 @@
 <script lang="ts" setup>
   import { useColorTheme } from '@/compositions'
   import { media } from '@/utilities/media'
+  import { computed } from 'vue'
   import AppNavigationBar from '@/demo/components/AppNavigationBar.vue'
 
   useColorTheme()
+
+  const mobileNav = computed(() => !media.lg)
 </script>
 
 <style>

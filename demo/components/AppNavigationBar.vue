@@ -56,6 +56,12 @@
 </script>
 
 <style>
+.app-navigation-bar {
+  --p-layout-resizable-aside-width: 256px;
+  --p-layout-resizable-aside-max-width: 512px;
+  --p-layout-resizable-aside-min-width: 256px;
+}
+
 .app-navigation-bar { @apply
   py-4
   px-2
