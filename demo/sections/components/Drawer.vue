@@ -1,7 +1,7 @@
 <template>
   <ComponentPage title="Drawer" :demos="demos">
     <template #description>
-      <p-select v-model="position" :options="positions" />
+      <p-select v-model="placement" :options="placements" />
     </template>
 
     <template #basic>
@@ -9,7 +9,7 @@
         Open
       </p-button>
 
-      <p-drawer v-model="drawers.basic" :position="position">
+      <p-drawer v-model="drawers.basic" :placement="placement">
         Basic drawer
       </p-drawer>
     </template>
@@ -19,7 +19,7 @@
         Open
       </p-button>
 
-      <p-drawer v-model="drawers.advanced" :position="position" resizable>
+      <p-drawer v-model="drawers.advanced" :placement="placement" resizable>
         <p-navigation-bar class="drawer__navigation-bar">
           <template #leading>
             <p-heading :heading="5">
@@ -27,7 +27,7 @@
             </p-heading>
           </template>
 
-          <p-drawer v-model="drawers.nested" resizable :position="position">
+          <p-drawer v-model="drawers.nested" resizable :placement="placement">
             <p-navigation-bar class="drawer__navigation-bar">
               Nested drawer
             </p-navigation-bar>
@@ -45,6 +45,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { PDrawerPlacement } from '@/components/Drawer/PDrawer.vue'
   import { reactive, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
@@ -60,8 +61,8 @@
     },
   ]
 
-  const position = ref('left')
-  const positions = ['left', 'right', 'top', 'bottom']
+  const placement = ref<PDrawerPlacement>('left')
+  const placements: PDrawerPlacement[] = ['left', 'right', 'top', 'bottom']
 
   const drawers = reactive({
     basic: false,
