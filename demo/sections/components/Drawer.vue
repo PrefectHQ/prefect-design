@@ -9,7 +9,7 @@
         Open
       </p-button>
 
-      <p-drawer v-model="drawers.basic" :placement="placement">
+      <p-drawer v-model="drawers.basic" class="drawer__basic" :placement="placement">
         Basic drawer
       </p-drawer>
     </template>
@@ -77,6 +77,29 @@
 
 <style>
 .drawer__navigation-bar { @apply
+  h-full
+  rounded-none
   w-full
+}
+
+.drawer__basic {@apply
+  text-white
+  bg-green-500
+}
+
+.p-drawer--right .drawer__navigation-bar { @apply
+  rounded-l-2xl
+}
+
+.p-drawer--left .drawer__navigation-bar { @apply
+  rounded-r-2xl
+}
+
+.p-drawer--top .drawer__navigation-bar { @apply
+  rounded-b-xl
+}
+
+.p-drawer--bottom .drawer__navigation-bar { @apply
+  rounded-t-xl
 }
 </style>

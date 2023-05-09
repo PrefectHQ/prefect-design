@@ -153,6 +153,11 @@
   transition: all 150ms ease-in-out;
 }
 
+.p-drawer__slide-enter-active .p-layout-resizable__aside,
+.p-drawer__slide-leave-active .p-layout-resizable__aside { @apply
+  overflow-hidden
+}
+
 .p-drawer__slide-enter-from .p-drawer__aside,
 .p-drawer__slide-leave-to .p-drawer__aside {
   transform: var(--p-drawer-slide-transform);
