@@ -2,7 +2,7 @@
   <teleport to="body">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
-        <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root">
+        <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
           <template #aside>
             <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
               <slot v-bind="{ show, hide, toggle }" />
@@ -85,6 +85,22 @@
   --p-layout-resizable-aside-min-size: var(--p-drawer-min-size, 256px);
 }
 
+.p-drawer--top {
+  --p-drawer-slide-transform: translate3d(0, -100%, 0);
+}
+
+.p-drawer--left {
+  --p-drawer-slide-transform: translate3d(-100%, 0, 0);
+}
+
+.p-drawer--right {
+  --p-drawer-slide-transform: translate3d(100%, 0, 0);
+}
+
+.p-drawer--bottom {
+  --p-drawer-slide-transform: translate3d(0, 100%, 0);
+}
+
 .p-drawer { @apply
   h-full
   fixed
@@ -92,6 +108,7 @@
   z-50
 }
 
+.p-drawer--top,
 .p-drawer--left { @apply
   left-0
   top-0
@@ -100,6 +117,11 @@
 .p-drawer--right { @apply
   right-0
   top-0
+}
+
+.p-drawer--bottom { @apply
+  left-0
+  bottom-0
 }
 
 .p-drawer::before {
@@ -133,7 +155,7 @@
 
 .p-drawer__slide-enter-from .p-drawer__aside,
 .p-drawer__slide-leave-to .p-drawer__aside {
-  transform: translateX(-100%);
+  transform: var(--p-drawer-slide-transform);
 }
 
 .p-drawer__slide-enter-active::before ,

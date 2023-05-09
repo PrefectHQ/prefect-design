@@ -61,13 +61,13 @@
     },
   ]
 
-  const placement = ref<PDrawerPlacement>('left')
+  const placement = ref<PDrawerPlacement>('bottom')
   const placements: PDrawerPlacement[] = ['left', 'right', 'top', 'bottom']
 
   const drawers = reactive({
     basic: false,
     nested: false,
-    advanced: false,
+    advanced: true,
   })
 
   const toggle = (name: keyof typeof drawers): void => {
