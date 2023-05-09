@@ -63,9 +63,10 @@
 
 <style>
 .app-navigation-bar {
-  --p-layout-resizable-aside-width: 256px;
-  --p-layout-resizable-aside-max-width: 512px;
-  --p-layout-resizable-aside-min-width: 256px;
+  --p-layout-resizable-aside-size: 256px;
+  --p-layout-resizable-aside-max-size: 512px;
+  --p-layout-resizable-aside-min-size: 256px;
+  --p-drawer-min-size: 256px;
 }
 
 .app-navigation-bar { @apply

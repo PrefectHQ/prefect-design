@@ -80,9 +80,9 @@
 
 <style>
 .p-drawer {
-  --p-layout-resizable-aside-width: var(--p-drawer-width, 256px);
-  --p-layout-resizable-aside-max-width: var(--p-drawer-max-width, 512px);
-  --p-layout-resizable-aside-min-width: var(--p-drawer-min-width, 256px);
+  --p-layout-resizable-aside-size: var(--p-drawer-size, 256px);
+  --p-layout-resizable-aside-max-size: var(--p-drawer-max-size, 512px);
+  --p-layout-resizable-aside-min-size: var(--p-drawer-min-size, 256px);
 }
 
 .p-drawer { @apply
