@@ -7,8 +7,8 @@ type UseShow = {
   toggle: () => void,
 }
 
-export function useShow(): UseShow {
-  const show = ref(false)
+export function useShow(initialValue?: boolean): UseShow {
+  const show = ref(initialValue ?? false)
 
   function open(): void {
     show.value = true
