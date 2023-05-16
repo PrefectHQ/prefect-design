@@ -19,7 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { useElementRect } from '@prefecthq/vue-compositions'
   import { computed, ref, useSlots, watch } from 'vue'
 
   export type PLayoutResizablePlacement = 'left' | 'right' | 'top' | 'bottom'
@@ -36,16 +35,13 @@
   const container = ref<HTMLDivElement>()
   const aside = ref<HTMLDivElement>()
 
-  const containerRect = useElementRect(container)
-  const asideRect = useElementRect(aside)
-
   const dragging = ref(false)
   const collapsed = ref(false)
 
   const placement = computed(() => props.placement ?? 'left')
 
   const classes = computed(() => {
-    const resizable = !props.disabled && !collapsed.value
+    const resizable = !props.disabled
 
     return {
       root: {
@@ -77,42 +73,45 @@
       return
     }
 
+    // We can't use the useElementRect composition here because it doesn't update the rect see https://github.com/PrefectHQ/vue-compositions/issues/250
+    const containerRect = container.value.getBoundingClientRect()
+
     const isHorizontal = placement.value === 'left' || placement.value === 'right'
     const cursorPosition = isHorizontal ? event.clientX : event.clientY
 
-    let size = 0
-    const collapsedValue = false
     const collapsePoint = props.collapsePoint ?? 0
+
+    let size = 0
     switch (placement.value) {
       case 'left':
-        size = cursorPosition - asideRect.x.value
-        // collapsedValue = cursorPosition < collapsePoint
+        size = cursorPosition - containerRect.x
+        collapsed.value = cursorPosition - containerRect.x < collapsePoint
         break
       case 'right':
-        size = asideRect.x.value + asideRect.width.value - cursorPosition
-        // collapsedValue = cursorPosition > containerRect.width.value - collapsePoint
+        size = containerRect.x + containerRect.width - cursorPosition
+        collapsed.value = cursorPosition > containerRect.x + containerRect.width - collapsePoint
         break
       case 'top':
-        size = cursorPosition - asideRect.y.value
-        // collapsedValue = cursorPosition < collapsePoint
+        size = cursorPosition - containerRect.y
+        collapsed.value = cursorPosition < containerRect.y + collapsePoint
         break
       case 'bottom':
-        size = asideRect.y.value + asideRect.height.value - cursorPosition
-        // collapsedValue = cursorPosition > containerRect.height.value - collapsePoint
+        size = containerRect.y + containerRect.height - cursorPosition
+        collapsed.value = cursorPosition > containerRect.y + containerRect.height - collapsePoint
         break
       default:
         break
     }
 
+    const maxHeight = containerRect.height - 4
+    const maxWidth = containerRect.width - 4
+
+    size = Math.min(Math.max(size, 0), isHorizontal ? maxWidth : maxHeight)
+
     if (isHorizontal) {
-      // reset height to auto
       aside.value.style.width = `${size}px`
     } else {
       aside.value.style.height = `${size}px`
-    }
-
-    if (props.collapsePoint) {
-      collapsed.value = collapsedValue
     }
   }
 
@@ -285,14 +284,22 @@
   max-h-[var(--aside-max-size)]
 }
 
-.p-layout-resizable__aside--collapsed { @apply
+.p-layout-resizable__aside-left.p-layout-resizable__aside--collapsed,
+.p-layout-resizable__aside-right.p-layout-resizable__aside--collapsed { @apply
   min-w-min
   max-w-min
+}
+
+.p-layout-resizable__aside-top.p-layout-resizable__aside--collapsed,
+.p-layout-resizable__aside-bottom.p-layout-resizable__aside--collapsed { @apply
+  max-h-min
+  min-h-min
 }
 
 .p-layout-resizable__divider { @apply
   border-none
   justify-center
+  bg-red-500
   flex
   relative
   z-[1]
@@ -317,6 +324,7 @@
   justify-self-stretch
   h-full
   w-full
+  min-h-0
   min-w-0
   z-0
 }

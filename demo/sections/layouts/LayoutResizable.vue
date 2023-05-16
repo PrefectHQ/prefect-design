@@ -20,7 +20,9 @@
       <div class="layout-resizable__container">
         <p-layout-resizable :placement="placement" :collapse-point="100" class="layout-resizable__collapsible">
           <template #aside="{ collapsed }">
-            <div class="layout-resizable__aside" :class="{ 'layout-resizable__aside--collapsed': collapsed }" />
+            <div class="layout-resizable__aside" :class="{ [`layout-resizable__aside--collapsed-${placement}`]: collapsed }">
+              {{ collapsed }}
+            </div>
           </template>
 
           <div class="layout-resizable__main" />
@@ -86,7 +88,7 @@
 
   const demos = [
     { title: 'Basic' },
-    { title: 'Collapse point', description: 'Collapse the aside when the divider is dragged to the left of the 100px mark.' },
+    { title: 'Collapse point', description: 'Collapse the aside when the cursor is below the collapse-point threshold.' },
     {
       title: 'Advanced',
     },
@@ -145,8 +147,8 @@
 }
 
 .layout-resizable__aside { @apply
-  bg-background-50
-  dark:bg-background-900
+  bg-cyan-600
+  text-foreground-50
   flex
   flex-col
 }
@@ -154,6 +156,11 @@
 .layout-resizable__collapsible {
   --p-layout-resizable-aside-min-size: 256px;
 }
+
+/* .layout-resizable__aside--collapsed-top,
+.layout-resizable__aside--collapsed-bottom { @apply
+
+} */
 
 .layout-resizable__aside--collapsed-right,
 .layout-resizable__aside--collapsed-left { @apply
