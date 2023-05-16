@@ -15,7 +15,7 @@
     </template>
 
     <template v-if="layout == 'horizontal'">
-      <p-drawer v-model="showDrawer" resizable>
+      <p-drawer v-model:open="showDrawer" resizable>
         <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
             <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />

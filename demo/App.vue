@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-full min-h-full app">
     <template v-if="mobileNav">
-      <AppNavigationBar horizontal class="app__sidebar" />
+      <AppNavigationBar layout="horizontal" class="app__sidebar" />
     </template>
 
     <p-layout-resizable class="app__layout">
