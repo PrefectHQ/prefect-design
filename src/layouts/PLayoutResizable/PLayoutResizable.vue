@@ -80,33 +80,35 @@
     const cursorPosition = isHorizontal ? event.clientX : event.clientY
 
     const collapsePoint = props.collapsePoint ?? 0
+    let passedCollapsePoint = false
 
     let size = 0
     switch (placement.value) {
       case 'left':
         size = cursorPosition - containerRect.x
-        collapsed.value = cursorPosition - containerRect.x < collapsePoint
+        passedCollapsePoint = cursorPosition - containerRect.x < collapsePoint
         break
       case 'right':
         size = containerRect.x + containerRect.width - cursorPosition
-        collapsed.value = cursorPosition > containerRect.x + containerRect.width - collapsePoint
+        passedCollapsePoint = cursorPosition > containerRect.x + containerRect.width - collapsePoint
         break
       case 'top':
         size = cursorPosition - containerRect.y
-        collapsed.value = cursorPosition < containerRect.y + collapsePoint
+        passedCollapsePoint = cursorPosition < containerRect.y + collapsePoint
         break
       case 'bottom':
         size = containerRect.y + containerRect.height - cursorPosition
-        collapsed.value = cursorPosition > containerRect.y + containerRect.height - collapsePoint
+        passedCollapsePoint = cursorPosition > containerRect.y + containerRect.height - collapsePoint
         break
       default:
         break
     }
 
-    const maxHeight = containerRect.height - 4
-    const maxWidth = containerRect.width - 4
+    collapsed.value = !!props.collapsePoint && passedCollapsePoint
 
-    size = Math.min(Math.max(size, 0), isHorizontal ? maxWidth : maxHeight)
+    // TODO: Use a passed handle size
+    size = Math.max(size, 4)
+    size = Math.min(size, isHorizontal ? containerRect.width : containerRect.height)
 
     if (isHorizontal) {
       aside.value.style.width = `${size}px`
@@ -120,6 +122,7 @@
       return
     }
 
+    // TODO: Use ratio to calculate the new size, take min and max sizes into account
     const horizontalNewVal = newVal === 'left' || newVal === 'right'
     const horizontalOldVal = oldVal === 'left' || oldVal === 'right'
 
@@ -333,18 +336,22 @@
   flex: 1 1 0%;
 }
 
+.p-layout-resizable__divider--left,
 .p-layout-resizable__main--left { @apply
   -ml-1
 }
 
+.p-layout-resizable__divider--right,
 .p-layout-resizable__main--right { @apply
   -mr-1
 }
 
+.p-layout-resizable__divider--top,
 .p-layout-resizable__main--top { @apply
   -mt-1
 }
 
+.p-layout-resizable__divider--bottom,
 .p-layout-resizable__main--bottom { @apply
   -mb-1
 }
