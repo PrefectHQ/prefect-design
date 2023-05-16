@@ -35,8 +35,6 @@
   const container = ref<HTMLDivElement>()
   const aside = ref<HTMLDivElement>()
 
-  let containerStyles: CSSStyleDeclaration | undefined
-
   const dragging = ref(false)
   const collapsed = ref(false)
   const asideSize = ref<number | undefined>(undefined)
@@ -83,7 +81,6 @@
 
     // We can't use the useElementRect composition here because it doesn't update the rect see https://github.com/PrefectHQ/vue-compositions/issues/250
     const containerRect = container.value.getBoundingClientRect()
-    const minHandleSize = parseInt(containerStyles?.getPropertyValue('--handle-size') ?? '0')
 
     const collapsePoint = props.collapsePoint ?? 0
     let passedCollapsePoint = false
@@ -112,7 +109,7 @@
 
     collapsed.value = !!props.collapsePoint && passedCollapsePoint
 
-    size = Math.max(size, minHandleSize)
+    size = Math.max(size, 0)
     size = Math.min(size, horizontal.value ? containerRect.width : containerRect.height)
 
     return size
@@ -163,7 +160,6 @@
 
     dragging.value = true
     document.body.classList.add(`p-layout-resizable--resizing-${placement.value}`)
-    containerStyles = getComputedStyle(container.value)
     window.addEventListener('mouseup', stop)
     window.addEventListener('mousemove', drag)
   }
