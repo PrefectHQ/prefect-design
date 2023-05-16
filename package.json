@@ -42,7 +42,7 @@
   "devDependencies": {
     "@fontsource/inconsolata": "^4.5.7",
     "@fontsource/inter": "^4.5.12",
-    "@prefecthq/eslint-config": "1.0.25",
+    "@prefecthq/eslint-config": "1.0.26",
     "@types/dompurify": "^3.0.1",
     "@types/marked": "^4.0.8",
     "@types/node": "^20.1.6",
