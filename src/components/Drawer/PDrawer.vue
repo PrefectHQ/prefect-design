@@ -4,7 +4,7 @@
       <keep-alive>
         <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
           <template #aside>
-            <div class="p-drawer__aside" :style="styles" :class="attrClasses" v-bind="{ ...listeners, ...attrs }">
+            <div class="p-drawer__aside" v-bind="attrs">
               <slot v-bind="{ show, hide, toggle }" />
             </div>
           </template>
@@ -28,8 +28,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
-  import { useAttrsStylesClassesAndListeners } from '@/compositions'
+  import { computed, ref, useAttrs } from 'vue'
   import { PLayoutResizable } from '@/layouts'
 
   export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
@@ -46,7 +45,7 @@
 
   const placement = computed(() => props.placement ?? 'left')
 
-  const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
+  const attrs = useAttrs()
 
   const internalValue = ref(props.open)
   const modelValue = computed<boolean>({
