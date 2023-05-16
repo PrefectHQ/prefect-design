@@ -30,13 +30,13 @@
 
   const classes = computed(() => ({
     root: {
-      [`p-navigation-bar--${layout.value}`]: !!props.layout,
+      [`p-navigation-bar--${layout.value}`]: true,
     },
     leading: {
-      [`p-navigation-bar__leading--${layout.value}`]: !!props.layout,
+      [`p-navigation-bar__leading--${layout.value}`]: true,
     },
     content: {
-      [`p-navigation-bar__content--${layout.value}`]: !!props.layout,
+      [`p-navigation-bar__content--${layout.value}`]: true,
     },
   }))
 </script>

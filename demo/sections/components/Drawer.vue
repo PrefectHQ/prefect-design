@@ -42,7 +42,7 @@
               </template>
 
               <p-drawer v-model:open="drawers.nestedBottom" resizable placement="bottom">
-                <p-navigation-bar horizontal class="drawer__navigation-bar">
+                <p-navigation-bar layout="horizontal" class="drawer__navigation-bar">
                   <template #leading>
                     <p-heading :heading="5">
                       Nested drawer

@@ -1,8 +1,8 @@
 <template>
-  <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ horizontal }">
+  <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ layout }">
     <template #leading>
-      <slot name="leading" v-bind="{ horizontal }">
-        <template v-if="horizontal">
+      <slot name="leading" v-bind="{ layout }">
+        <template v-if="layout == 'horizontal'">
           <p-button class="app-navigation-bar__drawer-button" inset size="sm" icon="Bars3Icon" @click="toggleDrawer" />
         </template>
         <template v-else>
@@ -14,7 +14,7 @@
       </slot>
     </template>
 
-    <template v-if="horizontal">
+    <template v-if="layout == 'horizontal'">
       <p-drawer v-model="showDrawer" resizable>
         <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
@@ -29,7 +29,7 @@
       <AppComponentNavigationItems />
     </template>
 
-    <template v-if="!horizontal" #trailing>
+    <template v-if="layout == 'vertical'" #trailing>
       <div class="app-navigation-bar__trailing">
         <p-divider />
         <p-theme-toggle />
@@ -39,20 +39,22 @@
 </template>
 
 <script lang="ts" setup>
+  import { NavigationBarLayout } from '@/types/navigationBar'
   import { computed, ref } from 'vue'
   import AppComponentNavigationItems from '@/demo/components/AppComponentNavigationItems.vue'
   import AppSearch from '@/demo/components/AppSearch.vue'
 
   const props = defineProps<{
-    horizontal?: boolean,
+    layout?: NavigationBarLayout,
   }>()
 
   const showDrawer = ref(false)
 
 
+  const layout = computed(() => props.layout ?? 'vertical')
   const classes = computed(() => ({
     root: {
-      'app-navigation-bar--horizontal': props.horizontal,
+      [`app-navigation-bar--${layout.value}`]: true,
     },
   }))
 
