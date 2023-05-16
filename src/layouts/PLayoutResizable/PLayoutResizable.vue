@@ -140,7 +140,8 @@
       return
     }
 
-    // TODO: Use ratio to calculate the new size, take min and max sizes into account
+    // TODO: Use the ratio of the previous aside/container size to calculate the new size
+    // and whether it should be collapsed or not
     const horizontalNewVal = isHorizontal(newVal)
     const horizontalOldVal = isHorizontal(oldVal)
 
@@ -311,6 +312,7 @@
   max-h-[var(--aside-max-size)]
 }
 
+/* TODO: We can bounce this animation a little to make it feel less harsh */
 .p-layout-resizable__aside-left.p-layout-resizable__aside--collapsed,
 .p-layout-resizable__aside-right.p-layout-resizable__aside--collapsed { @apply
   min-w-[var(--collapsed-size)]
