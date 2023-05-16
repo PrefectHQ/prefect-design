@@ -328,7 +328,6 @@
 .p-layout-resizable__handle { @apply
   border-none
   justify-center
-  bg-red-500
   flex
   relative
   z-[1]
@@ -360,25 +359,5 @@
 
 .p-layout-resizable__main {
   flex: 1 1 0%;
-}
-
-.p-layout-resizable__handle--left,
-.p-layout-resizable__main--left { @apply
-  -ml-1
-}
-
-.p-layout-resizable__handle--right,
-.p-layout-resizable__main--right { @apply
-  -mr-1
-}
-
-.p-layout-resizable__handle--top,
-.p-layout-resizable__main--top { @apply
-  -mt-1
-}
-
-.p-layout-resizable__handle--bottom,
-.p-layout-resizable__main--bottom { @apply
-  -mb-1
 }
 </style>
