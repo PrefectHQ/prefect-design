@@ -42,8 +42,6 @@
                 </template>
               </div>
 
-              <p-divider />
-
               <div class="layout-resizable__aside-item" :class="{ 'layout-resizable__aside-item--collapsed': collapsed }">
                 <p-icon icon="UserIcon" />
                 <template v-if="!collapsed">
@@ -67,9 +65,7 @@
 
 
               <div class="layout-resizable__aside-footer">
-                <div class="layout-resizable__aside-item" :class="{ 'layout-resizable__aside-item--collapsed': collapsed }">
-                  <p-button :icon="collapsed ? 'ArrowRightOnRectangleIcon' : 'ArrowLeftOnRectangleIcon'" inset @click="toggle" />
-                </div>
+                <p-button :icon="collapsed ? 'ArrowRightOnRectangleIcon' : 'ArrowLeftOnRectangleIcon'" inset @click="toggle" />
               </div>
             </div>
           </template>
@@ -94,14 +90,16 @@
     },
   ]
 
-  const placement = ref<PLayoutResizablePlacement>('left')
+  const placement = ref<PLayoutResizablePlacement>('right')
   const placements: PLayoutResizablePlacement[] = ['left', 'right', 'top', 'bottom']
 
   const classes = computed(() => {
     return {
       aside: (collapsed: boolean) => {
         return {
-          [`layout-resizable__aside--${collapsed ? 'collapsed-' : ''}${placement.value}`]: !!placement.value,
+          'layout-resizable__aside--collapsed': collapsed,
+          [`layout-resizable__aside-${placement.value}`]: !!placement.value,
+          [`layout-resizable__aside--collapsed-${placement.value}`]: collapsed,
         }
       },
     }
@@ -168,23 +166,28 @@
   text-foreground
 }
 
-.layout-resizable__aside-header { @apply
-  flex
-  items-center
-  p-4
-  gap-4
-  justify-start
-}
-
 .layout-resizable__advanced .layout-resizable__aside { @apply
   dark:bg-background
   text-slate-50
+  flex
+}
+
+.layout-resizable__aside-top,
+.layout-resizable__aside-bottom { @apply
+  flex-row
+}
+
+.layout-resizable__aside-left,
+.layout-resizable__aside-right { @apply
+  flex-col
 }
 
 .layout-resizable__advanced .layout-resizable__main { @apply
   dark:bg-background-100
 }
 
+.layout-resizable__aside-header,
+.layout-resizable__aside-footer,
 .layout-resizable__aside-item { @apply
   flex
   items-center
@@ -197,8 +200,36 @@
   justify-center
 }
 
-.layout-resizable__aside-footer { @apply
+.layout-resizable__aside-left  .layout-resizable__aside-footer,
+.layout-resizable__aside-right  .layout-resizable__aside-footer { @apply
   mt-auto
+  ml-0
+}
+
+.layout-resizable__aside-top  .layout-resizable__aside-footer,
+.layout-resizable__aside-bottom  .layout-resizable__aside-footer { @apply
+  mt-0
+  ml-auto
+}
+
+.layout-resizable__aside--collapsed .layout-resizable__aside-header,
+.layout-resizable__aside--collapsed .layout-resizable__aside-footer { @apply
+  justify-center
+  p-0
+}
+
+.layout-resizable__aside--collapsed-left .layout-resizable__aside-header,
+.layout-resizable__aside--collapsed-right .layout-resizable__aside-header,
+.layout-resizable__aside--collapsed-left .layout-resizable__aside-footer,
+.layout-resizable__aside--collapsed-right .layout-resizable__aside-footer { @apply
+  py-4
+}
+
+.layout-resizable__aside--collapsed-top .layout-resizable__aside-header,
+.layout-resizable__aside--collapsed-bottom .layout-resizable__aside-header,
+.layout-resizable__aside--collapsed-top .layout-resizable__aside-footer,
+.layout-resizable__aside--collapsed-bottom .layout-resizable__aside-footer { @apply
+  px-4
 }
 </style>
 
