@@ -18,7 +18,7 @@
       <p-drawer v-model:open="showDrawer" resizable>
         <AppNavigationBar class="app-navigation-bar__drawer">
           <template #leading>
-            <p-icon class="app-navigation-bar__logo" icon="PrefectLight" @click="toggleDrawer" />
+            <p-icon class="app-navigation-bar__logo" icon="Prefect" @click="toggleDrawer" />
             <span class="app-navigation-bar__heading">Prefect Design</span>
           </template>
         </AppNavigationBar>
