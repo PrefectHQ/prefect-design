@@ -35,27 +35,27 @@
   export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
 
   const props = defineProps<{
-    modelValue?: boolean,
+    open?: boolean,
     resizable?: boolean,
     placement?: PDrawerPlacement,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:modelValue', value: boolean): void,
+    (event: 'update:open', value: boolean): void,
   }>()
 
   const placement = computed(() => props.placement ?? 'left')
 
   const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
 
-  const internalValue = ref(props.modelValue)
+  const internalValue = ref(props.open)
   const modelValue = computed<boolean>({
     get() {
-      return props.modelValue || internalValue.value
+      return props.open || internalValue.value
     },
     set(value) {
       internalValue.value = value
-      emit('update:modelValue', value)
+      emit('update:open', value)
     },
   })
 

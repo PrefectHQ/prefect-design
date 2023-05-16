@@ -9,7 +9,7 @@
         Open
       </p-button>
 
-      <p-drawer v-model="drawers.basic" class="drawer__basic" :placement="placement">
+      <p-drawer v-model:open="drawers.basic" class="drawer__basic" :placement="placement">
         Basic drawer
       </p-drawer>
     </template>
@@ -19,7 +19,7 @@
         Open
       </p-button>
 
-      <p-drawer v-model="drawers.advanced" :placement="placement" resizable>
+      <p-drawer v-model:open="drawers.advanced" :placement="placement" resizable>
         <p-navigation-bar class="drawer__navigation-bar">
           <template #leading>
             <p-heading :heading="5">
@@ -27,9 +27,29 @@
             </p-heading>
           </template>
 
-          <p-drawer v-model="drawers.nested" resizable :placement="placement">
+          <p-drawer v-model:open="drawers.nested" resizable :placement="placement">
             <p-navigation-bar class="drawer__navigation-bar">
-              Nested drawer
+              <template #leading>
+                <p-heading :heading="5">
+                  Nested drawer
+                </p-heading>
+              </template>
+
+              <template #trailing>
+                <p-button size="sm" class="my-2" @click="toggle('nestedBottom')">
+                  Open nested
+                </p-button>
+              </template>
+
+              <p-drawer v-model:open="drawers.nestedBottom" resizable placement="bottom">
+                <p-navigation-bar horizontal class="drawer__navigation-bar">
+                  <template #leading>
+                    <p-heading :heading="5">
+                      Nested drawer
+                    </p-heading>
+                  </template>
+                </p-navigation-bar>
+              </p-drawer>
             </p-navigation-bar>
           </p-drawer>
 
@@ -61,13 +81,14 @@
     },
   ]
 
-  const placement = ref<PDrawerPlacement>('bottom')
+  const placement = ref<PDrawerPlacement>('left')
   const placements: PDrawerPlacement[] = ['left', 'right', 'top', 'bottom']
 
   const drawers = reactive({
     basic: false,
     nested: false,
-    advanced: true,
+    nestedBottom: false,
+    advanced: false,
   })
 
   const toggle = (name: keyof typeof drawers): void => {
