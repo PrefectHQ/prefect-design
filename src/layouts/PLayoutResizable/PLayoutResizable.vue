@@ -35,10 +35,17 @@
   const container = ref<HTMLDivElement>()
   const aside = ref<HTMLDivElement>()
 
+  let containerStyles: CSSStyleDeclaration | undefined
+
   const dragging = ref(false)
   const collapsed = ref(false)
 
   const placement = computed(() => props.placement ?? 'left')
+
+  function isHorizontal(placement: PLayoutResizablePlacement): boolean {
+    return placement === 'left' || placement === 'right'
+  }
+  const horizontal = computed(() => isHorizontal(placement.value))
 
   const classes = computed(() => {
     const resizable = !props.disabled
@@ -68,16 +75,14 @@
     }
   })
 
-  const drag = (event: MouseEvent): void => {
+  const getAsideSize = (cursorPosition: number = 0): number | undefined => {
     if (props.disabled || !container.value || !aside.value) {
       return
     }
 
     // We can't use the useElementRect composition here because it doesn't update the rect see https://github.com/PrefectHQ/vue-compositions/issues/250
     const containerRect = container.value.getBoundingClientRect()
-
-    const isHorizontal = placement.value === 'left' || placement.value === 'right'
-    const cursorPosition = isHorizontal ? event.clientX : event.clientY
+    const minHandleSize = parseInt(containerStyles?.getPropertyValue('--handle-size') ?? '0')
 
     const collapsePoint = props.collapsePoint ?? 0
     let passedCollapsePoint = false
@@ -106,11 +111,23 @@
 
     collapsed.value = !!props.collapsePoint && passedCollapsePoint
 
-    // TODO: Use a passed handle size
-    size = Math.max(size, 4)
-    size = Math.min(size, isHorizontal ? containerRect.width : containerRect.height)
+    size = Math.max(size, minHandleSize)
+    size = Math.min(size, horizontal.value ? containerRect.width : containerRect.height)
 
-    if (isHorizontal) {
+    return size
+  }
+
+
+  const drag = (event: MouseEvent): void => {
+    if (props.disabled || !container.value || !aside.value) {
+      return
+    }
+
+    const cursorPosition = horizontal.value ? event.clientX : event.clientY
+
+    const size = getAsideSize(cursorPosition)
+
+    if (horizontal.value) {
       aside.value.style.width = `${size}px`
     } else {
       aside.value.style.height = `${size}px`
@@ -123,8 +140,8 @@
     }
 
     // TODO: Use ratio to calculate the new size, take min and max sizes into account
-    const horizontalNewVal = newVal === 'left' || newVal === 'right'
-    const horizontalOldVal = oldVal === 'left' || oldVal === 'right'
+    const horizontalNewVal = isHorizontal(newVal)
+    const horizontalOldVal = isHorizontal(oldVal)
 
     if (horizontalNewVal && !horizontalOldVal) {
       aside.value.style.height = '100%'
@@ -144,6 +161,7 @@
 
     dragging.value = true
     document.body.classList.add(`p-layout-resizable--resizing-${placement.value}`)
+    containerStyles = getComputedStyle(container.value)
     window.addEventListener('mouseup', stop)
     window.addEventListener('mousemove', drag)
   }
@@ -175,6 +193,10 @@
 </script>
 
 <style>
+.p-layout-resizable {
+  --handle-size: var(--p-layout-resizable-handle-size, 4px);
+}
+
 .p-layout-resizable--right,
 .p-layout-resizable--left {
   --aside-size: var(--p-layout-resizable-aside-size, min-content);
