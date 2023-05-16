@@ -1,7 +1,7 @@
 <template>
   <section ref="container" class="p-layout-resizable" :class="classes.root">
     <aside v-if="slots.aside" ref="aside" class="p-layout-resizable__aside" :class="classes.aside">
-      <slot name="aside" v-bind="{ collapsed, expand, collapse, toggle }" />
+      <slot name="aside" v-bind="{ collapsed, expand, collapse, toggle, size: asideSize }" />
     </aside>
 
     <div
@@ -13,7 +13,7 @@
     />
 
     <main v-if="slots.default" class="p-layout-resizable__main" :class="classes.main">
-      <slot v-bind="{ collapsed, expand, collapse, toggle }" />
+      <slot v-bind="{ collapsed, expand, collapse, toggle, asideSize }" />
     </main>
   </section>
 </template>
@@ -39,6 +39,7 @@
 
   const dragging = ref(false)
   const collapsed = ref(false)
+  const asideSize = ref<number | undefined>(undefined)
 
   const placement = computed(() => props.placement ?? 'left')
 
@@ -125,12 +126,12 @@
 
     const cursorPosition = horizontal.value ? event.clientX : event.clientY
 
-    const size = getAsideSize(cursorPosition)
+    asideSize.value = getAsideSize(cursorPosition)
 
     if (horizontal.value) {
-      aside.value.style.width = `${size}px`
+      aside.value.style.width = `${asideSize.value}px`
     } else {
-      aside.value.style.height = `${size}px`
+      aside.value.style.height = `${asideSize.value}px`
     }
   }
 
@@ -195,6 +196,7 @@
 <style>
 .p-layout-resizable {
   --handle-size: var(--p-layout-resizable-handle-size, 4px);
+  --collapsed-size: var(--p-layout-resizable-aside-collapsed-size, 0);
 }
 
 .p-layout-resizable--right,
@@ -311,14 +313,14 @@
 
 .p-layout-resizable__aside-left.p-layout-resizable__aside--collapsed,
 .p-layout-resizable__aside-right.p-layout-resizable__aside--collapsed { @apply
-  min-w-min
-  max-w-min
+  min-w-[var(--collapsed-size)]
+  max-w-[var(--collapsed-size)]
 }
 
 .p-layout-resizable__aside-top.p-layout-resizable__aside--collapsed,
 .p-layout-resizable__aside-bottom.p-layout-resizable__aside--collapsed { @apply
-  max-h-min
-  min-h-min
+  max-h-[var(--collapsed-size)]
+  min-h-[var(--collapsed-size)]
 }
 
 .p-layout-resizable__divider { @apply

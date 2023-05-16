@@ -21,7 +21,7 @@
         <p-layout-resizable :placement="placement" :collapse-point="100" class="layout-resizable__collapsible">
           <template #aside="{ collapsed }">
             <div class="layout-resizable__aside" :class="{ [`layout-resizable__aside--collapsed-${placement}`]: collapsed }">
-              {{ collapsed }}
+              {{ collapsed ? 'Collapsed' : 'Expanded' }}
             </div>
           </template>
 
@@ -94,7 +94,7 @@
     },
   ]
 
-  const placement = ref<PLayoutResizablePlacement>('bottom')
+  const placement = ref<PLayoutResizablePlacement>('left')
   const placements: PLayoutResizablePlacement[] = ['left', 'right', 'top', 'bottom']
 
   const classes = computed(() => {
@@ -126,6 +126,7 @@
 .layout-resizable__advanced,
 .layout-resizable {
   --p-layout-resizable-aside-size: 256px;
+  --p-layout-resizable-aside-collapsed-size: 4rem;
   --p-layout-resizable-aside-max-size: 100%;
   --p-layout-resizable-aside-min-size: 0%;
 }
@@ -149,29 +150,13 @@
 .layout-resizable__aside { @apply
   bg-cyan-600
   text-foreground-50
-  flex
-  flex-col
+  text-ellipsis
+  overflow-hidden
+  p-2
 }
 
 .layout-resizable__collapsible {
   --p-layout-resizable-aside-min-size: 256px;
-}
-
-/* .layout-resizable__aside--collapsed-top,
-.layout-resizable__aside--collapsed-bottom { @apply
-
-} */
-
-.layout-resizable__aside--collapsed-right,
-.layout-resizable__aside--collapsed-left { @apply
-  h-full
-  w-16
-}
-
-.layout-resizable__aside--collapsed-top,
-.layout-resizable__aside--collapsed-bottom { @apply
-  h-16
-  w-full
 }
 
 .layout-resizable__advanced {
