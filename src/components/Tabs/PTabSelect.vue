@@ -15,10 +15,10 @@
         {{ option.label }}
       </slot>
     </template>
-    <template #default="{ label }">
+    <template #default="{ option, label }">
       <slot
         :name="`${kebabCase(label)}-heading`"
-        v-bind="{ tab: label, index: options.findIndex(tab => tab.label === label) }"
+        v-bind="{ tab: option, index: options.findIndex(tab => tab.label === label) }"
       />
     </template>
   </PSelect>

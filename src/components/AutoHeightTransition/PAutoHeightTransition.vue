@@ -10,7 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-  function enter(element: HTMLElement): void {
+  import { isHtmlElement } from '@/utilities'
+
+  function enter(element: Element): void {
+    if (!isHtmlElement(element)) {
+      return
+    }
+
     const { width } = getComputedStyle(element)
 
     element.style.width = width
@@ -29,11 +35,19 @@
     setHeightAfterAnimation(element, height)
   }
 
-  function afterEnter(element: HTMLElement): void {
+  function afterEnter(element: Element): void {
+    if (!isHtmlElement(element)) {
+      return
+    }
+
     element.style.height = 'auto'
   }
 
-  function leave(element: HTMLElement): void {
+  function leave(element: Element): void {
+    if (!isHtmlElement(element)) {
+      return
+    }
+
     const { height } = getComputedStyle(element)
 
     element.style.height = height

@@ -2,19 +2,19 @@
   <section class="p-tabs">
     <template v-if="media.sm">
       <PTabNavigation v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
-        <template v-for="(index, name) in $slots" #[name]="data">
+        <template v-for="(index, name) in slots" #[name]="data">
           <slot :name="name" v-bind="data" />
         </template>
       </PTabNavigation>
     </template>
     <template v-else>
       <PTabSelect v-model:selected="selected" :tabs="tabs">
-        <template v-for="(index, name) in $slots" #[name]="data">
+        <template v-for="(index, name) in slots" #[name]="data">
           <slot :name="name" v-bind="data" />
         </template>
       </PTabSelect>
     </template>
-    <template v-for="tab in tabs" :key="tab.label">
+    <template v-for="(tab, index) in tabs" :key="tab.label">
       <template v-if="selected === tab.label">
         <section
           :id="`${kebabCase(tab.label)}-content`"
@@ -22,7 +22,7 @@
           role="tabpanel"
           :aria-labelledby="`${kebabCase(tab.label)}`"
         >
-          <slot :name="kebabCase(tab.label)" />
+          <slot :name="kebabCase(tab.label)" v-bind="{ tab, index }" />
         </section>
       </template>
     </template>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import { computed, ref, useSlots } from 'vue'
   import PTabNavigation from '@/components/Tabs/PTabNavigation.vue'
   import PTabSelect from '@/components/Tabs/PTabSelect.vue'
   import { Tab, normalizeTab } from '@/types/tabs'
@@ -46,6 +46,7 @@
     (event: 'update:selected', value: string): void,
   }>()
 
+  const slots = useSlots()
   const tabs = computed(() => props.tabs.map(normalizeTab))
 
   const backupSelected = ref<string>()

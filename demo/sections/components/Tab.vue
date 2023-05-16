@@ -7,7 +7,7 @@
     </template>
 
     <template #tab>
-      <p-tabs v-model:selected="selectedTab" :tabs="tabs">
+      <PTabs v-model:selected="selectedTab" :tabs="tabs">
         <template #tab-one-heading="{ tab }">
           <p-icon icon="Prefect" class="w-4 h-4 mr-2" />
           <span>{{ tab }}</span>
@@ -30,7 +30,7 @@
             Content Three
           </div>
         </template>
-      </p-tabs>
+      </PTabs>
 
       <p-button size="sm" class="mt-2" @click="changeToTab(tabs[2])">
         Switch to third tab
