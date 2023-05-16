@@ -6,8 +6,8 @@
 
     <div
       v-if="slots.default && slots.aside"
-      class="p-layout-resizable__divider"
-      :class="classes.divider"
+      class="p-layout-resizable__handle"
+      :class="classes.handle"
       @mousedown="start"
       @mouseup="handleAsideClick"
     />
@@ -60,14 +60,14 @@
         'p-layout-resizable__aside--collapsed': collapsed.value,
         [`p-layout-resizable__aside-${placement.value}`]: !!placement.value,
       },
-      divider: {
-        'p-layout-resizable__divider--resizable': resizable,
-        'p-layout-resizable__divider--collapsed': collapsed.value,
-        'p-layout-resizable__divider--e-resizable': resizable && placement.value === 'left',
-        'p-layout-resizable__divider--w-resizable': resizable && placement.value === 'right',
-        'p-layout-resizable__divider--s-resizable': resizable && placement.value === 'top',
-        'p-layout-resizable__divider--n-resizable': resizable && placement.value === 'bottom',
-        [`p-layout-resizable__divider--${placement.value}`]: !!placement.value,
+      handle: {
+        'p-layout-resizable__handle--resizable': resizable,
+        'p-layout-resizable__handle--collapsed': collapsed.value,
+        'p-layout-resizable__handle--e-resizable': resizable && placement.value === 'left',
+        'p-layout-resizable__handle--w-resizable': resizable && placement.value === 'right',
+        'p-layout-resizable__handle--s-resizable': resizable && placement.value === 'top',
+        'p-layout-resizable__handle--n-resizable': resizable && placement.value === 'bottom',
+        [`p-layout-resizable__handle--${placement.value}`]: !!placement.value,
       },
       main: {
         'p-layout-resizable--events-none': dragging.value,
@@ -256,33 +256,33 @@
   flex-col-reverse
 }
 
-.p-layout-resizable__divider {
+.p-layout-resizable__handle {
   filter: drop-shadow(0 0 0.15rem rgba(0, 0, 0, 0.2));
 }
 
-.p-layout-resizable__divider--e-resizable,
-.p-layout-resizable__divider--w-resizable { @apply
+.p-layout-resizable__handle--e-resizable,
+.p-layout-resizable__handle--w-resizable { @apply
   cursor-ew-resize
 }
 
-.p-layout-resizable__divider--n-resizable,
-.p-layout-resizable__divider--s-resizable { @apply
+.p-layout-resizable__handle--n-resizable,
+.p-layout-resizable__handle--s-resizable { @apply
   cursor-ns-resize
 }
 
-.p-layout-resizable__divider--e-resizable.p-layout-resizable__divider--collapsed { @apply
+.p-layout-resizable__handle--e-resizable.p-layout-resizable__handle--collapsed { @apply
   cursor-e-resize
 }
 
-.p-layout-resizable__divider--w-resizable.p-layout-resizable__divider--collapsed { @apply
+.p-layout-resizable__handle--w-resizable.p-layout-resizable__handle--collapsed { @apply
   cursor-w-resize
 }
 
-.p-layout-resizable__divider--n-resizable.p-layout-resizable__divider--collapsed { @apply
+.p-layout-resizable__handle--n-resizable.p-layout-resizable__handle--collapsed { @apply
   cursor-n-resize
 }
 
-.p-layout-resizable__divider--s-resizable.p-layout-resizable__divider--collapsed { @apply
+.p-layout-resizable__handle--s-resizable.p-layout-resizable__handle--collapsed { @apply
   cursor-s-resize
 }
 
@@ -325,7 +325,7 @@
   min-h-[var(--collapsed-size)]
 }
 
-.p-layout-resizable__divider { @apply
+.p-layout-resizable__handle { @apply
   border-none
   justify-center
   bg-red-500
@@ -334,14 +334,14 @@
   z-[1]
 }
 
-.p-layout-resizable__divider--left,
-.p-layout-resizable__divider--right { @apply
+.p-layout-resizable__handle--left,
+.p-layout-resizable__handle--right { @apply
   h-full
   w-1
 }
 
-.p-layout-resizable__divider--top,
-.p-layout-resizable__divider--bottom { @apply
+.p-layout-resizable__handle--top,
+.p-layout-resizable__handle--bottom { @apply
   h-1
   w-full
 }
@@ -362,22 +362,22 @@
   flex: 1 1 0%;
 }
 
-.p-layout-resizable__divider--left,
+.p-layout-resizable__handle--left,
 .p-layout-resizable__main--left { @apply
   -ml-1
 }
 
-.p-layout-resizable__divider--right,
+.p-layout-resizable__handle--right,
 .p-layout-resizable__main--right { @apply
   -mr-1
 }
 
-.p-layout-resizable__divider--top,
+.p-layout-resizable__handle--top,
 .p-layout-resizable__main--top { @apply
   -mt-1
 }
 
-.p-layout-resizable__divider--bottom,
+.p-layout-resizable__handle--bottom,
 .p-layout-resizable__main--bottom { @apply
   -mb-1
 }
