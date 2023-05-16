@@ -20,20 +20,23 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
+  import { NavigationBarLayout } from '@/types/navigationBar'
 
   const props = defineProps<{
-    horizontal?: boolean,
+    layout?: NavigationBarLayout,
   }>()
+
+  const layout = computed(() => props.layout ?? 'vertical')
 
   const classes = computed(() => ({
     root: {
-      'p-navigation-bar--horizontal': props.horizontal,
+      [`p-navigation-bar--${layout.value}`]: !!props.layout,
     },
     leading: {
-      'p-navigation-bar__leading--horizontal': props.horizontal,
+      [`p-navigation-bar__leading--${layout.value}`]: !!props.layout,
     },
     content: {
-      'p-navigation-bar__content--horizontal': props.horizontal,
+      [`p-navigation-bar__content--${layout.value}`]: !!props.layout,
     },
   }))
 </script>
