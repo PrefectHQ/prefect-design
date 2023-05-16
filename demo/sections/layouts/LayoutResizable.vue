@@ -90,7 +90,7 @@
     },
   ]
 
-  const placement = ref<PLayoutResizablePlacement>('right')
+  const placement = ref<PLayoutResizablePlacement>('left')
   const placements: PLayoutResizablePlacement[] = ['left', 'right', 'top', 'bottom']
 
   const classes = computed(() => {
