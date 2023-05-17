@@ -1,6 +1,7 @@
 import { onMounted, onUnmounted } from 'vue'
 
 type UseGlobalEventListener = {
+  add: () => void,
   remove: () => void,
 }
 
@@ -10,13 +11,17 @@ export function useGlobalEventListener<K extends keyof DocumentEventMap>(
   options?: boolean | AddEventListenerOptions,
 ): UseGlobalEventListener {
 
+  const add = (): void => {
+    document.addEventListener(type, callback, options)
+  }
+
   const remove = (): void => {
     document.removeEventListener(type, callback, options)
   }
 
-  onMounted(() => document.addEventListener(type, callback, options))
+  onMounted(add)
   onUnmounted(remove)
 
-  return { remove }
+  return { add, remove }
 }
 
