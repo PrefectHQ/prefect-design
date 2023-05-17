@@ -1,3 +1,4 @@
+// TODO: Replace this with the implementation in vue-compositions: https://github.com/PrefectHQ/vue-compositions/pull/252
 import { onMounted, onUnmounted } from 'vue'
 
 type UseGlobalEventListener = {
