@@ -10,17 +10,24 @@ type UseDrawer = {
 }
 
 /**
- * The useDrawer composition takes a boolean ref and returns a set of methods
- * for controlling the state of the drawer. The isOpen ref is computed from the
- * provided value ref.
+ * `useDrawer` is a utility composition for managing the state of the `PDrawer` component.
+ * It returns an object with `value`, `isOpen`, `open`, `close`, and `toggle` properties.
  *
- * @param value Ref<boolean>
- * @returns UseDrawer
+ * @param {Ref<boolean>} [valueRef] - Optional parameter. A Vue ref object that holds the initial state of the drawer.
+ *
+ * @returns {UseDrawer} - An object with the following properties:
+ *                        `value`: a Vue ref object that holds the current state of the drawer.
+ *                        `isOpen`: a computed property that reflects the current state of the drawer.
+ *                        `open`: a method to open the drawer.
+ *                        `close`: a method to close the drawer.
+ *                        `toggle`: a method to toggle the state of the drawer.
+ *
  * @example
- *  const drawerOpen = ref(false)
- *  const { isOpen, open, close, toggle } = useDrawer(drawerOpen)
- *
-**/
+ * const { open, close, isOpen } = useDrawer()
+ * open() // open the drawer
+ * close() // close the drawer
+ * console.log(isOpen.value); // check if the drawer is open
+ */
 export function useDrawer(valueRef?: Ref<boolean>): UseDrawer {
   const { value, toggle, setTrue, setFalse } = useBooleanToggle(valueRef)
 
