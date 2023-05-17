@@ -43,9 +43,9 @@
 
 <style>
 .p-navigation-bar {
-  --leading-gap: var(--p-navigation-bar--leading-gap, theme(gap.4));
-  --trailing-gap: var(--p-navigation-bar--trailing-gap, theme(gap.4));
-  --content-gap: var(--p-navigation-bar--content-gap, theme(gap.4));
+  --leading-gap: var(--p-navigation-bar-leading-gap, theme(gap.4));
+  --trailing-gap: var(--p-navigation-bar-trailing-gap, theme(gap.4));
+  --content-gap: var(--p-navigation-bar-content-gap, theme(gap.4));
 }
 
 .p-navigation-bar { @apply
