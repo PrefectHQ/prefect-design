@@ -1,27 +1,21 @@
 import { computed, Ref } from 'vue'
 import { useBooleanToggle } from '@/compositions/useBooleanToggle'
-import { keys } from '@/types'
 
 type UseDrawer = {
+  value: Ref<boolean>,
   isVisble: Ref<boolean>,
   open: () => void,
   close: () => void,
   show: () => void,
   hide: () => void,
   toggle: () => void,
-  closeOnEscape: (event: KeyboardEvent) => void,
 }
 
-export function useModal(value: Ref<boolean>): UseDrawer {
-  const { toggle, setTrue, setFalse } = useBooleanToggle(value)
+export function useModal(valueRef?: Ref<boolean>): UseDrawer {
+  const { value, toggle, setTrue, setFalse } = useBooleanToggle(valueRef)
 
   const isVisble = computed<boolean>(() => value.value)
 
-  const closeOnEscape = (event: KeyboardEvent): void => {
-    if (event.key === keys.escape) {
-      setFalse()
-    }
-  }
-  return { isVisble, open: setTrue, close: setFalse, show: setTrue, hide: setFalse, toggle, closeOnEscape }
+  return { value, isVisble, open: setTrue, close: setFalse, show: setTrue, hide: setFalse, toggle }
 }
 

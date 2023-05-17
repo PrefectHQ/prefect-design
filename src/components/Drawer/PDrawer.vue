@@ -31,6 +31,8 @@
   import { computed, useAttrs, ref } from 'vue'
   import { useDrawer, useGlobalEventListener } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
+  import { keys } from '@/types'
+  import { isKeyEvent } from '@/utilities'
 
   export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
 
@@ -59,7 +61,12 @@
     },
   })
 
-  const { toggle, open, close, closeOnEscape } = useDrawer(modelValue)
+  const { toggle, open, close } = useDrawer(modelValue)
+  function closeOnEscape(event: KeyboardEvent): void {
+    if (isKeyEvent(keys.escape, event)) {
+      close()
+    }
+  }
   useGlobalEventListener('keyup', closeOnEscape)
 
   const classes = computed(() => ({

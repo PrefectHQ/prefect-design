@@ -1,26 +1,31 @@
-import { computed, Ref } from 'vue'
+import { computed, ref, Ref } from 'vue'
 import { useBooleanToggle } from '@/compositions/useBooleanToggle'
-import { keys } from '@/types'
 
 type UseDrawer = {
+  value: Ref<boolean>,
   isOpen: Ref<boolean>,
   open: () => void,
   close: () => void,
   toggle: () => void,
-  closeOnEscape: (event: KeyboardEvent) => void,
 }
 
-export function useDrawer(value: Ref<boolean>): UseDrawer {
-  const { toggle, setTrue, setFalse } = useBooleanToggle(value)
+/**
+ * The useDrawer composition takes a boolean ref and returns a set of methods
+ * for controlling the state of the drawer. The isOpen ref is computed from the
+ * provided value ref.
+ *
+ * @param value Ref<boolean>
+ * @returns UseDrawer
+ * @example
+ *  const drawerOpen = ref(false)
+ *  const { isOpen, open, close, toggle } = useDrawer(drawerOpen)
+ *
+**/
+export function useDrawer(valueRef?: Ref<boolean>): UseDrawer {
+  const { value, toggle, setTrue, setFalse } = useBooleanToggle(valueRef)
 
   const isOpen = computed<boolean>(() => value.value)
 
-  const closeOnEscape = (event: KeyboardEvent): void => {
-    if (event.key === keys.escape) {
-      setFalse()
-    }
-  }
-
-  return { isOpen, open: setTrue, close: setFalse, toggle, closeOnEscape }
+  return { value, isOpen, open: setTrue, close: setFalse, toggle }
 }
 

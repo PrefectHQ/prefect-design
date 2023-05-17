@@ -61,7 +61,9 @@
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useGlobalEventListener, useModal } from '@/compositions'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
+  import { keys } from '@/types'
   import { Icon } from '@/types/icon'
+  import { isKeyEvent } from '@/utilities'
 
   const props = defineProps<{
     showModal?: boolean,
@@ -84,7 +86,7 @@
       emit('update:showModal', value)
     },
   })
-  const { toggle, open, close, show, hide, closeOnEscape } = useModal(modelValue)
+  const { toggle, open, close, show, hide } = useModal(modelValue)
 
   const modalRoot = ref<HTMLDivElement>()
   const modalBody = ref<HTMLDivElement>()
@@ -114,12 +116,12 @@
     }
   }
 
-  function handleKeyup(event: KeyboardEvent): void {
-    if (props.autoClose) {
-      closeOnEscape(event)
+  function closeOnEscape(event: KeyboardEvent): void {
+    if (props.autoClose && isKeyEvent(keys.escape, event)) {
+      close()
     }
   }
-  useGlobalEventListener('keyup', handleKeyup)
+  useGlobalEventListener('keyup', closeOnEscape)
 
 
   function enableBackgroundScroll(): void {
