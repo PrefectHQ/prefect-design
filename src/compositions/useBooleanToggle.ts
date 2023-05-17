@@ -2,6 +2,8 @@ import { Ref } from 'vue'
 
 type UseBooleanToggle = {
   toggle: () => void,
+  setTrue: () => void,
+  setFalse: () => void,
 }
 
 export function useBooleanToggle(value: Ref<boolean>): UseBooleanToggle {
@@ -9,6 +11,14 @@ export function useBooleanToggle(value: Ref<boolean>): UseBooleanToggle {
     value.value = !value.value
   }
 
-  return { toggle }
+  const setTrue = (): void => {
+    value.value = true
+  }
+
+  const setFalse = (): void => {
+    value.value = false
+  }
+
+  return { toggle, setTrue, setFalse }
 }
 
