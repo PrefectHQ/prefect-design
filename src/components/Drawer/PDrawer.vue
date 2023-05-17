@@ -5,11 +5,11 @@
         <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
-              <slot v-bind="{ show, hide, toggle }" />
+              <slot v-bind="{ open, close, toggle }" />
             </div>
           </template>
 
-          <slot name="overlay" v-bind="{ show, hide, toggle }">
+          <slot name="overlay" v-bind="{ open, close, toggle }">
             <div class="p-drawer__overlay" @click="toggle" />
           </slot>
         </PLayoutResizable>
@@ -28,7 +28,8 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed, ref, useAttrs } from 'vue'
+  import { computed, useAttrs, ref } from 'vue'
+  import { useDrawer } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
 
   export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
@@ -47,7 +48,7 @@
 
   const attrs = useAttrs()
 
-  const internalValue = ref(props.open)
+  const internalValue = ref<boolean>(false)
   const modelValue = computed<boolean>({
     get() {
       return props.open || internalValue.value
@@ -58,17 +59,7 @@
     },
   })
 
-  const hide = (): void => {
-    modelValue.value = false
-  }
-
-  const toggle = (): void => {
-    modelValue.value = !modelValue.value
-  }
-
-  const show = (): void => {
-    modelValue.value = true
-  }
+  const { toggle, open, close } = useDrawer(modelValue)
 
   const classes = computed(() => ({
     root: {
