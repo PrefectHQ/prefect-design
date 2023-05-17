@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
   import { computed, useAttrs, ref } from 'vue'
-  import { useDrawer } from '@/compositions'
+  import { useDrawer, useGlobalEventListener } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
 
   export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
@@ -59,7 +59,8 @@
     },
   })
 
-  const { toggle, open, close } = useDrawer(modelValue)
+  const { toggle, open, close, closeOnEscape } = useDrawer(modelValue)
+  useGlobalEventListener('keyup', closeOnEscape)
 
   const classes = computed(() => ({
     root: {
