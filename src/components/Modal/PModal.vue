@@ -85,7 +85,6 @@
     },
   })
   const { toggle, open, close, show, hide, closeOnEscape } = useModal(modelValue)
-  useGlobalEventListener('keyup', closeOnEscape)
 
   const modalRoot = ref<HTMLDivElement>()
   const modalBody = ref<HTMLDivElement>()
@@ -114,6 +113,14 @@
       close()
     }
   }
+
+  function handleKeyup(event: KeyboardEvent): void {
+    if (props.autoClose) {
+      closeOnEscape(event)
+    }
+  }
+  useGlobalEventListener('keyup', handleKeyup)
+
 
   function enableBackgroundScroll(): void {
     document.body.classList.remove('p-modal__stop-bg-scroll')
