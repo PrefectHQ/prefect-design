@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, withDefaults } from 'vue'
+  import { computed } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import { SelectModelValue, ButtonGroupOption, Size, isButtonGroupOption } from '@/types'
 

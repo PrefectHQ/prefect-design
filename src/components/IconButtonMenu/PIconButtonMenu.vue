@@ -27,7 +27,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { ref, withDefaults } from 'vue'
+  import { ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
