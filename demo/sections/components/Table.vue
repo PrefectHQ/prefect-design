@@ -90,16 +90,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
   import PTable from '@/components/Table/PTable.vue'
   import PTableBody from '@/components/Table/PTableBody.vue'
   import PTableData from '@/components/Table/PTableData.vue'
   import PTableHead from '@/components/Table/PTableHead.vue'
   import PTableHeader from '@/components/Table/PTableHeader.vue'
-  import ComponentPage from '@/demo/components/ComponentPage.vue'
   import { ClassValue } from '@/types/attributes'
   import { TableColumn, TableData } from '@/types/tables'
   import { media } from '@/utilities'
+  import { computed, ref } from 'vue'
+  import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const data = [
     {
