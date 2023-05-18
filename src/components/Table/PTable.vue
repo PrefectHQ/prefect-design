@@ -31,9 +31,9 @@
               </template>
 
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
-                <PTableData :class="getColumnClasses(column, getValue(row, column), columnIndex, row, rowIndex)">
-                  <slot :name="kebabCase(column.label)" :value="getValue(row, column)" v-bind="{ column, row }">
-                    {{ getValue(row, column) }}
+                <PTableData :class="getColumnClasses(column, getValue(row, column.property), columnIndex, row, rowIndex)">
+                  <slot :name="kebabCase(column.label)" :value="getValue(row, column.property)" v-bind="{ column, row }">
+                    {{ getValue(row, column.property) }}
                   </slot>
                 </PTableData>
               </template>
@@ -57,7 +57,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" generic="const TData extends TableData, const TColumn extends TableColumn<TData>" setup>
   import { computed, StyleValue, useSlots } from 'vue'
   import PTableBody from '@/components/Table/PTableBody.vue'
   import PTableData from '@/components/Table/PTableData.vue'
@@ -68,22 +68,22 @@
   import { ClassValue } from '@/types/attributes'
   import { ColumnClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
   import { isEven, isOdd } from '@/utilities'
-  import { asArray, isStrings } from '@/utilities/arrays'
+  import { asArray } from '@/utilities/arrays'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    data: TableData[],
-    selected?: TableData[],
-    columns?: TableColumn[],
-    rowClasses?: RowClassesMethod,
-    columnClasses?: ColumnClassesMethod,
+    data: TData[],
+    selected?: TData[],
+    columns?: TColumn[],
+    rowClasses?: RowClassesMethod<TData>,
+    columnClasses?: ColumnClassesMethod<TData>,
   }>()
 
   const slots = useSlots()
 
   const emit = defineEmits<{
-    (event: 'update:selected', value: TableData[]): void,
-    (event: 'row:click', value: { row: TableData, rowIndex: number }): void,
+    (event: 'update:selected', value: TData[]): void,
+    (event: 'row:click', value: { row: TData, rowIndex: number }): void,
   }>()
 
   const internalSelectedRows = computed({
@@ -108,12 +108,8 @@
 
   const showMultiselect = computed(() => props.selected !== undefined && selectableRows.value.length > 0)
 
-  const columns = computed<TableColumn[]>(() => {
+  const columns = computed<TColumn[]>(() => {
     if (props.columns) {
-      if (isStrings(props.columns)) {
-        return convertStringsToTableColumns(props.columns)
-      }
-
       return props.columns
     }
 
@@ -126,9 +122,9 @@
     return []
   })
 
-  const visibleColumns = computed<TableColumn[]>(() => columns.value.filter(column => column.visible ?? true))
+  const visibleColumns = computed<TColumn[]>(() => columns.value.filter(column => column.visible ?? true))
 
-  function getColumnStyle(column: TableColumn): StyleValue {
+  function getColumnStyle(column: TColumn): StyleValue {
     if (column.width === undefined) {
       return ''
     }
@@ -138,19 +134,19 @@
     }
   }
 
-  function convertStringsToTableColumns(columns: string[]): TableColumn[] {
-    return columns.map(property => ({ label: property, property }))
+  function convertStringsToTableColumns(columns: string[]): TColumn[] {
+    return columns.map(property => ({ label: property, property })) as TColumn[]
   }
 
-  function getValue(row: TableData, column: TableColumn): unknown {
-    if (column.property) {
-      return row[column.property]
+  function getValue<P extends keyof TData>(row: TData, property: P | undefined): any {
+    if (property) {
+      return row[property]
     }
 
-    return ''
+    return undefined
   }
 
-  function getRowClasses(row: TableData, index: number): ClassValue {
+  function getRowClasses(row: TData, index: number): ClassValue {
     const custom = asArray(props.rowClasses?.(row, index))
 
     return [
@@ -165,7 +161,7 @@
   }
 
   // eslint-disable-next-line max-params
-  function getColumnClasses(column: TableColumn, value: unknown, index: number, row: TableData, rowIndex: number): ClassValue {
+  function getColumnClasses(column: TableColumn<TData>, value: unknown, index: number, row: TData, rowIndex: number): ClassValue {
     const custom = asArray(props.columnClasses?.(column, value, index, row, rowIndex))
 
     return [
