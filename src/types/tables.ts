@@ -12,8 +12,4 @@ export type TableColumn<T extends TableData = Record<never, never>> = {
 }
 
 export type RowClassesMethod<T extends TableData> = (row: T, index: number) => ClassValue
-<<<<<<< Updated upstream
 export type ColumnClassesMethod<T extends TableData = Record<never, never>> = (column: TableColumn<T>, value: unknown, index: number, row: TableData, rowIndex: number) => ClassValue
-=======
-export type ColumnClassesMethod<T extends TableData> = (column: TableColumn<T>, value: unknown, index: number, row: TableData, rowIndex: number) => ClassValue
->>>>>>> Stashed changes
