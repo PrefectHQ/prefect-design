@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
-  import { computed, onMounted, ref, watch, withDefaults } from 'vue'
+  import { computed, onMounted, ref, watch } from 'vue'
   import VirtualScrollerChunk from '@/components/VirtualScroller/PVirtualScrollerChunk.vue'
 
   const props = withDefaults(defineProps<{

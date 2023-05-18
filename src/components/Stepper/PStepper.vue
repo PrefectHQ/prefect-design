@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, withDefaults } from 'vue'
+  import { computed } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
 
   const props = withDefaults(defineProps<{
