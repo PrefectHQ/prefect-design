@@ -19,7 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { withDefaults } from 'vue'
   import PTableData from '@/components/Table/PTableData.vue'
   import PTableRow from '@/components/Table/PTableRow.vue'
   import { TableColumn, TableData } from '@/types/tables'

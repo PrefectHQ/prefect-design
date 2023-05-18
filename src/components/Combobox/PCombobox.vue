@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, nextTick, withDefaults } from 'vue'
+  import { computed, ref, nextTick } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { keys } from '@/types/keyEvent'
