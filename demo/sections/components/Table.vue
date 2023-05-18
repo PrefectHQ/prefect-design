@@ -131,8 +131,11 @@
 
   type Data = (typeof data)[number]
 
+<<<<<<< Updated upstream
   const emptyDate: Data[] = []
 
+=======
+>>>>>>> Stashed changes
   const columns = computed<TableColumn<Data>[]>(() => [
     {
       property: 'first_name',
