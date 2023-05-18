@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, withDefaults } from 'vue'
+  import { computed } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PCard from '@/components/Card/PCard.vue'
   import PWizardHeaders from '@/components/Wizard/PWizardHeaders.vue'
