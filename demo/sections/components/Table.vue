@@ -28,7 +28,7 @@
     </template>
 
     <template #using-columns>
-      <p-table :data="data" :columns="columns" :row-classes="rowClasses" :column-classes="columnClasses">
+      <p-table v-bind="{ data, columns, rowClasses, columnClasses }">
         <template #action-heading>
           My Actions
         </template>
