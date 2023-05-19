@@ -138,6 +138,9 @@
     return columns.map(property => ({ label: property, property })) as TColumn[]
   }
 
+  // using any here for backwards compatibility and also because defineSlots
+  // isn't able to produce the correct types that are expected here
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function getValue<P extends keyof TData>(row: TData, property: P | undefined): any {
     if (property) {
       return row[property]
