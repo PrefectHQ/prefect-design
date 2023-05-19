@@ -14,7 +14,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed, ref, withDefaults } from 'vue'
+  import { computed, ref } from 'vue'
 
   const props = withDefaults(defineProps<{
     text: string,

@@ -74,7 +74,7 @@
     </template>
 
     <template #empty-states>
-      <p-table :data="[]" :columns="columns">
+      <p-table :data="emptyDate" :columns="columns">
         <template #empty-state>
           <p-empty-results>
             <template #actions>
@@ -127,9 +127,13 @@
       'email': 'mtomicki3@hatena.ne.jp',
       'ip_address': '57.215.223.191',
     },
-  ]
+  ] satisfies TableData
 
-  const columns = computed<TableColumn<typeof data[number]>[]>(() => [
+  type Data = (typeof data)[number]
+
+  const emptyDate: Data[] = []
+
+  const columns = computed<TableColumn<Data>[]>(() => [
     {
       property: 'first_name',
       label: 'First Name',
@@ -151,16 +155,16 @@
     },
   ])
 
-  const selectedRows = ref<TableData[]>([])
+  const selectedRows = ref<Data[]>([])
 
-  function rowClasses(row: TableData, index: number): ClassValue {
+  function rowClasses(row: Data, index: number): ClassValue {
     return {
       'custom-row-class': row.id == 2,
       'custom-row-class--index': index === 3,
     }
   }
 
-  function columnClasses(column: TableColumn, value: unknown, index: number): ClassValue {
+  function columnClasses(column: TableColumn<Data>, value: unknown, index: number): ClassValue {
     return {
       'custom-column-class': column.label === 'Last Name',
       'custom-column-class--index': index === 3,

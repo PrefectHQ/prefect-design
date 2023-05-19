@@ -18,21 +18,21 @@
   </tbody>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" generic="T extends TableData" setup>
   import PTableData from '@/components/Table/PTableData.vue'
   import PTableRow from '@/components/Table/PTableRow.vue'
   import { TableColumn, TableData } from '@/types/tables'
   import { kebabCase } from '@/utilities/strings'
 
   withDefaults(defineProps<{
-    data?: TableData[],
-    columns?: TableColumn[],
+    data?: T[],
+    columns?: TableColumn<T>[],
   }>(), {
     data: () => [],
     columns: () => [],
   })
 
-  function getValue(row: TableData, column: TableColumn): unknown {
+  function getValue(row: T, column: TableColumn<T>): unknown {
     if (column.property) {
       return row[column.property]
     }
