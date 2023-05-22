@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, withDefaults } from 'vue'
+  import { computed } from 'vue'
   import PCombobox from '@/components/Combobox/PCombobox.vue'
 
   const props = withDefaults(defineProps<{

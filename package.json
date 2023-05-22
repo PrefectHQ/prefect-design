@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "1.8.1",
+  "version": "1.8.3",
   "description": "",
   "repository": {
     "type": "git",
@@ -42,12 +42,12 @@
   "devDependencies": {
     "@fontsource/inconsolata": "^4.5.7",
     "@fontsource/inter": "^4.5.12",
-    "@prefecthq/eslint-config": "1.0.25",
+    "@prefecthq/eslint-config": "1.0.27",
     "@types/dompurify": "^3.0.1",
     "@types/marked": "^4.0.8",
-    "@types/node": "^18.7.13",
+    "@types/node": "^20.1.6",
     "@types/tailwindcss": "^3.0.10",
-    "@vitejs/plugin-vue": "4.1.0",
+    "@vitejs/plugin-vue": "4.2.3",
     "auto-changelog": "^2.4.0",
     "autoprefixer": "^10.4.6",
     "eslint": "^8.6.0",
@@ -55,24 +55,24 @@
     "tailwindcss": "^3.0.24",
     "ts-node": "^10.7.0",
     "tsc-alias": "1.8.6",
-    "typescript": "4.9.5",
-    "vite": "4.2.1",
+    "typescript": "5.0.4",
+    "vite": "4.3.8",
     "vite-svg-loader": "4.0.0",
-    "vue-tsc": "1.0.14"
+    "vue-tsc": "1.6.5"
   },
   "peerDependencies": {
-    "vue": "^3.2.41",
+    "vue": "^3.3.4",
     "vue-router": "^4.1.6"
   },
   "dependencies": {
     "@heroicons/vue": "2.0.17",
-    "@prefecthq/vue-compositions": "1.4.3",
+    "@prefecthq/vue-compositions": "1.5.2",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "@types/lodash.debounce": "4.0.7",
-    "date-fns": "2.29.3",
-    "dompurify": "3.0.2",
+    "date-fns": "2.30.0",
+    "dompurify": "3.0.3",
     "highlight.js": "11.8.0",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0"

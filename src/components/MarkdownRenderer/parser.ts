@@ -187,7 +187,7 @@ const getTableVNode = (token: Token & { type: 'table' }, options: ParserOptions)
     }
   })
 
-  const columnClasses: ColumnClassesMethod = (column, value, index) => {
+  const columnClasses: ColumnClassesMethod<TableData> = (column, value, index) => {
     const alignValue = align[index]
     const classList = [`${baseClass}__table-column`]
 

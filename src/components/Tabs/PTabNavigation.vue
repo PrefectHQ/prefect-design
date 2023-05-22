@@ -11,7 +11,7 @@
       >
         <slot
           :name="`${kebabCase(tab.label)}-heading`"
-          v-bind="{ tab: tab.label, index }"
+          v-bind="{ tab, index }"
         >
           {{ tab.label }}
         </slot>

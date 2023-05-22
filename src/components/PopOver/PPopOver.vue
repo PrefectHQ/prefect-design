@@ -18,7 +18,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { withDefaults, ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
+  import { ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
   import { useMostVisiblePositionStyles } from '@/compositions/position'
   import { PositionMethod } from '@/types/position'
   import { left, right, bottom, top } from '@/utilities/position'
