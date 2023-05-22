@@ -16,26 +16,26 @@
           <div class="p-modal__card">
             <div class="p-modal__header" :class="classes.header">
               <div class="p-modal__tile-icon-group">
-                <slot name="icon" v-bind="{ toggle, open, close, show, hide }">
+                <slot name="icon" v-bind="modalScope">
                   <template v-if="icon">
                     <PIcon :icon="icon" class="p-modal__icon" />
                   </template>
                 </slot>
-                <slot name="title" v-bind="{ toggle, open, close, show, hide }">
+                <slot name="title" v-bind="modalScope">
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="close" />
+              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="modalScope.close" />
             </div>
 
             <div ref="modalBody" class="p-modal__body">
-              <slot v-bind="{ toggle, open, close, show, hide }" />
+              <slot v-bind="modalScope" />
             </div>
 
             <div class="p-modal__footer">
-              <slot name="actions" v-bind="{ toggle, open, close, show, hide }" />
-              <slot name="cancel" v-bind="{ toggle, open, close, show, hide }">
-                <PButton inset class="p-modal__close-button" @click="close">
+              <slot name="actions" v-bind="modalScope" />
+              <slot name="cancel" v-bind="modalScope">
+                <PButton inset class="p-modal__close-button" @click="modalScope.close">
                   Cancel
                 </PButton>
               </slot>
@@ -86,7 +86,7 @@
       emit('update:showModal', value)
     },
   })
-  const { toggle, open, close, show, hide } = useModal(modelValue)
+  const modalScope = useModal(modelValue)
 
   const modalRoot = ref<HTMLDivElement>()
   const modalBody = ref<HTMLDivElement>()
