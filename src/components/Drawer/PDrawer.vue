@@ -22,7 +22,6 @@
   export default {
     name: 'PDrawer',
     expose: [],
-    components: { PLayoutResizable },
     inheritAttrs: false,
   }
 </script>
