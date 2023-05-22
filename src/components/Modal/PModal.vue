@@ -117,7 +117,7 @@
   }
 
   function closeOnEscape(event: KeyboardEvent): void {
-    if (props.autoClose && isKeyEvent(keys.escape, event)) {
+    if (modelValue.value && props.autoClose && isKeyEvent(keys.escape, event)) {
       close()
     }
   }
