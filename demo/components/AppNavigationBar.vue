@@ -1,7 +1,7 @@
 <template>
   <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ layout }">
-    <template #leading>
-      <slot name="leading" v-bind="{ layout }">
+    <template #prepend>
+      <slot name="prepend" v-bind="{ layout }">
         <template v-if="layout == 'horizontal'">
           <p-button class="app-navigation-bar__drawer-button" inset size="sm" icon="Bars3Icon" @click="toggleDrawer" />
         </template>
@@ -17,7 +17,7 @@
     <template v-if="layout == 'horizontal'">
       <p-drawer v-model:open="showDrawer" resizable>
         <AppNavigationBar class="app-navigation-bar__drawer">
-          <template #leading>
+          <template #prepend>
             <p-icon class="app-navigation-bar__logo" icon="Prefect" @click="toggleDrawer" />
             <span class="app-navigation-bar__heading">Prefect Design</span>
           </template>
@@ -29,8 +29,8 @@
       <AppComponentNavigationItems />
     </template>
 
-    <template v-if="layout == 'vertical'" #trailing>
-      <div class="app-navigation-bar__trailing">
+    <template v-if="layout == 'vertical'" #append>
+      <div class="app-navigation-bar__append">
         <p-divider />
         <p-theme-toggle />
       </div>
@@ -111,7 +111,7 @@
   capitalize
 }
 
-.app-navigation-bar__trailing { @apply
+.app-navigation-bar__append { @apply
   flex
   flex-col
   items-center

@@ -1,8 +1,8 @@
 <template>
   <div class="p-navigation-bar" :class="classes.root">
-    <template v-if="$slots.leading">
-      <div class="p-navigation-bar__leading" :class="classes.leading">
-        <slot name="leading" />
+    <template v-if="$slots.prepend">
+      <div class="p-navigation-bar__prepend" :class="classes.prepend">
+        <slot name="prepend" />
       </div>
     </template>
 
@@ -10,9 +10,9 @@
       <slot />
     </div>
 
-    <template v-if="$slots.trailing">
-      <div class="p-navigation-bar__trailing">
-        <slot name="trailing" />
+    <template v-if="$slots.append">
+      <div class="p-navigation-bar__append">
+        <slot name="append" />
       </div>
     </template>
   </div>
@@ -32,8 +32,8 @@
     root: {
       [`p-navigation-bar--${layout.value}`]: true,
     },
-    leading: {
-      [`p-navigation-bar__leading--${layout.value}`]: true,
+    prepend: {
+      [`p-navigation-bar__prepend--${layout.value}`]: true,
     },
     content: {
       [`p-navigation-bar__content--${layout.value}`]: true,
@@ -43,8 +43,8 @@
 
 <style>
 .p-navigation-bar {
-  --leading-gap: var(--p-navigation-bar-leading-gap, theme(gap.4));
-  --trailing-gap: var(--p-navigation-bar-trailing-gap, theme(gap.4));
+  --prepend-gap: var(--p-navigation-bar-prepend-gap, theme(gap.4));
+  --append-gap: var(--p-navigation-bar-append-gap, theme(gap.4));
   --content-gap: var(--p-navigation-bar-content-gap, theme(gap.4));
 }
 
@@ -86,23 +86,23 @@
   flex
 }
 
-.p-navigation-bar__leading,
-.p-navigation-bar__trailing { @apply
+.p-navigation-bar__prepend,
+.p-navigation-bar__append { @apply
   flex
   flex-col
   items-center
 }
 
-.p-navigation-bar__leading { @apply
-  gap-[var(--leading-gap)]
+.p-navigation-bar__prepend { @apply
+  gap-[var(--prepend-gap)]
 }
 
-.p-navigation-bar__trailing { @apply
-  gap-[var(--trailing-gap)]
+.p-navigation-bar__append { @apply
+  gap-[var(--append-gap)]
 }
 
-.p-navigation-bar__leading--horizontal,
-.p-navigation-bar__trailing--horizontal { @apply
+.p-navigation-bar__prepend--horizontal,
+.p-navigation-bar__append--horizontal { @apply
   flex-row
   justify-center
 }

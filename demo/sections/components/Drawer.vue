@@ -21,7 +21,7 @@
 
       <p-drawer v-model:open="drawers.advanced" :placement="placement" resizable>
         <p-navigation-bar class="drawer__navigation-bar">
-          <template #leading>
+          <template #prepend>
             <p-heading :heading="5">
               Advanced drawer
             </p-heading>
@@ -29,13 +29,13 @@
 
           <p-drawer v-model:open="drawers.nested" resizable :placement="placement">
             <p-navigation-bar class="drawer__navigation-bar">
-              <template #leading>
+              <template #prepend>
                 <p-heading :heading="5">
                   Nested drawer
                 </p-heading>
               </template>
 
-              <template #trailing>
+              <template #append>
                 <p-button size="sm" class="my-2" @click="toggle('nestedBottom')">
                   Open nested
                 </p-button>
@@ -43,7 +43,7 @@
 
               <p-drawer v-model:open="drawers.nestedBottom" resizable placement="bottom">
                 <p-navigation-bar layout="horizontal" class="drawer__navigation-bar">
-                  <template #leading>
+                  <template #prepend>
                     <p-heading :heading="5">
                       Nested drawer
                     </p-heading>
@@ -53,7 +53,7 @@
             </p-navigation-bar>
           </p-drawer>
 
-          <template #trailing>
+          <template #append>
             <p-button size="sm" class="my-2" @click="toggle('nested')">
               Open nested
             </p-button>
