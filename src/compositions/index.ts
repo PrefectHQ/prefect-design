@@ -1,6 +1,5 @@
 export * from './attributes'
 export * from './position'
-export * from './useBooleanToggle'
 export * from './useColorTheme'
 export * from './useDrawer'
 export * from './useGlobalEventListener'

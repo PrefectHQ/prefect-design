@@ -1,5 +1,5 @@
+import { useBoolean } from '@prefecthq/vue-compositions'
 import { computed, Ref } from 'vue'
-import { useBooleanToggle } from '@/compositions/useBooleanToggle'
 
 type UseDrawer = {
   value: Ref<boolean>,
@@ -29,7 +29,7 @@ type UseDrawer = {
  * console.log(isOpen.value); // check if the drawer is open
  */
 export function useDrawer(valueRef?: Ref<boolean>): UseDrawer {
-  const { value, toggle, setTrue, setFalse } = useBooleanToggle(valueRef)
+  const { value, toggle, setTrue, setFalse } = useBoolean(valueRef)
 
   const isOpen = computed<boolean>(() => value.value)
 

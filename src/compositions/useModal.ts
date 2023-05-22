@@ -1,5 +1,5 @@
+import { useBoolean } from '@prefecthq/vue-compositions'
 import { computed, Ref } from 'vue'
-import { useBooleanToggle } from '@/compositions/useBooleanToggle'
 
 type UseDrawer = {
   value: Ref<boolean>,
@@ -29,7 +29,7 @@ type UseDrawer = {
  * console.log(isVisible.value) // check if the modal is visible
  */
 export function useModal(valueRef?: Ref<boolean>): UseDrawer {
-  const { value, toggle, setTrue, setFalse } = useBooleanToggle(valueRef)
+  const { value, toggle, setTrue, setFalse } = useBoolean(valueRef)
 
   const isVisble = computed<boolean>(() => value.value)
 
