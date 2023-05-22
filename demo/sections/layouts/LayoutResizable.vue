@@ -98,7 +98,7 @@
       aside: (collapsed: boolean) => {
         return {
           'layout-resizable__aside--collapsed': collapsed,
-          [`layout-resizable__aside-${placement.value}`]: !!placement.value,
+          [`layout-resizable__aside-${placement.value}`]: true,
           [`layout-resizable__aside--collapsed-${placement.value}`]: collapsed,
         }
       },
