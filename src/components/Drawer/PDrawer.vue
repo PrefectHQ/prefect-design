@@ -5,12 +5,12 @@
         <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
-              <slot v-bind="{ open, close, toggle }" />
+              <slot v-bind="drawerScope" />
             </div>
           </template>
 
-          <slot name="overlay" v-bind="{ open, close, toggle }">
-            <div class="p-drawer__overlay" @click="toggle" />
+          <slot name="overlay" v-bind="drawerScope">
+            <div class="p-drawer__overlay" @click="drawerScope.close" />
           </slot>
         </PLayoutResizable>
       </keep-alive>
@@ -61,7 +61,7 @@
     },
   })
 
-  const { toggle, open, close } = useDrawer(modelValue)
+  const drawerScope = useDrawer(modelValue)
   function closeOnEscape(event: KeyboardEvent): void {
     if (isKeyEvent(keys.escape, event)) {
       close()
