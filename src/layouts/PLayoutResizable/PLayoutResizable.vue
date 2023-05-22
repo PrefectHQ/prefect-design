@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, useSlots, watch } from 'vue'
-  import { PLayoutResizablePlacement } from '@/types/layoutResizable'
+  import { PLayoutResizablePlacement, isHorizontalPlacement } from '@/types/layoutResizable'
 
 
   const props = defineProps<{
@@ -41,10 +41,7 @@
 
   const placement = computed(() => props.placement ?? 'left')
 
-  function isHorizontal(placement: PLayoutResizablePlacement): boolean {
-    return placement === 'left' || placement === 'right'
-  }
-  const horizontal = computed(() => isHorizontal(placement.value))
+  const horizontal = computed(() => isHorizontalPlacement(placement.value))
 
   const classes = computed(() => {
     const resizable = !props.disabled
@@ -139,8 +136,8 @@
 
     // TODO: Use the ratio of the previous aside/container size to calculate the new size
     // and whether it should be collapsed or not
-    const horizontalNewVal = isHorizontal(newVal)
-    const horizontalOldVal = isHorizontal(oldVal)
+    const horizontalNewVal = isHorizontalPlacement(newVal)
+    const horizontalOldVal = isHorizontalPlacement(oldVal)
 
     if (horizontalNewVal && !horizontalOldVal) {
       aside.value.style.height = '100%'
