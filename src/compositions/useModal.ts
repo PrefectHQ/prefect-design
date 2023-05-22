@@ -6,8 +6,6 @@ type UseDrawer = {
   isVisble: Ref<boolean>,
   open: () => void,
   close: () => void,
-  show: () => void,
-  hide: () => void,
   toggle: () => void,
 }
 
@@ -20,8 +18,8 @@ type UseDrawer = {
  * @returns {UseDrawer} - An object with the following properties:
  *                        `value`: a Vue ref object that holds the current state of the modal.
  *                        `isVisible`: a computed property that reflects the current state of the modal.
- *                        `open` and `show`: methods to open or show the modal.
- *                        `close` and `hide`: methods to close or hide the modal.
+ *                        `open`: open the modal.
+ *                        `close`: close the modal.
  *                        `toggle`: a method to toggle the state of the modal.
  *
  * @example
@@ -35,6 +33,6 @@ export function useModal(valueRef?: Ref<boolean>): UseDrawer {
 
   const isVisble = computed<boolean>(() => value.value)
 
-  return { value, isVisble, open: setTrue, close: setFalse, show: setTrue, hide: setFalse, toggle }
+  return { value, isVisble, open: setTrue, close: setFalse, toggle }
 }
 
