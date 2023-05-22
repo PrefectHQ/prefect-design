@@ -3,8 +3,7 @@
     <template v-for="(chunk, chunkIndex) in chunks" :key="chunkIndex">
       <VirtualScrollerChunk :height="itemEstimateHeight * chunk.length" v-bind="{ observerOptions }">
         <template v-for="(item, itemChunkIndex) in chunk" :key="item[itemKey]">
-          <!-- eslint-disable-next-line vue/no-extra-parens (breaks syntax highlighting) -->
-          <slot :item="(item as any)" :index="getItemIndex(chunkIndex, itemChunkIndex)" />
+          <slot :item="item" :index="getItemIndex(chunkIndex, itemChunkIndex)" />
         </template>
       </VirtualScrollerChunk>
     </template>
@@ -12,17 +11,15 @@
   </component>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends Record<string, unknown>">
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
   import { computed, onMounted, ref, watch } from 'vue'
   import VirtualScrollerChunk from '@/components/VirtualScroller/PVirtualScrollerChunk.vue'
 
   const props = withDefaults(defineProps<{
-    // any is the correct type here
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    items: Record<string, any>[],
+    items: T[],
     itemEstimateHeight?: number,
-    itemKey?: string,
+    itemKey?: keyof T,
     chunkSize?: number,
     observerOptions?: IntersectionObserverInit,
     element?: string,
