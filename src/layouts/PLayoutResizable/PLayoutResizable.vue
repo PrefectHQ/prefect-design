@@ -20,8 +20,8 @@
 
 <script lang="ts" setup>
   import { computed, ref, useSlots, watch } from 'vue'
+  import { PLayoutResizablePlacement } from '@/types/layoutResizable'
 
-  export type PLayoutResizablePlacement = 'left' | 'right' | 'top' | 'bottom'
 
   const props = defineProps<{
     collapsePoint?: number,
