@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useVisibilityObserver } from '@prefecthq/vue-compositions'
+  import { UseVisibilityObserverOptions, useVisibilityObserver } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
@@ -85,10 +85,12 @@
 
   const root = ref<HTMLDivElement>()
   const end = ref<HTMLDivElement>()
-  const { visible: endVisible } = useVisibilityObserver(end, computed(() => ({
-    root,
+  const visibilityOptions = computed<UseVisibilityObserverOptions>(() => ({
+    root: root.value,
     disconnectWhenVisible: false,
-  })))
+  }))
+
+  const { visible: endVisible } = useVisibilityObserver(end, visibilityOptions)
 
   const classes = computed(() => ({
     root: {
