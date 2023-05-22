@@ -40,7 +40,7 @@
   ],
   "types": "./dist/types/src/index.d.ts",
   "devDependencies": {
-    "@fontsource/inconsolata": "^4.5.7",
+    "@fontsource/inconsolata": "^5.0.0",
     "@fontsource/inter": "^4.5.12",
     "@prefecthq/eslint-config": "1.0.27",
     "@types/dompurify": "^3.0.1",
