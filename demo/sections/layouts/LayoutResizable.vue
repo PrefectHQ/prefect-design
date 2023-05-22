@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PLayoutResizablePlacement } from '@/layouts/PLayoutResizable/PLayoutResizable.vue'
+  import { PLayoutResizablePlacement } from '@/types'
   import { computed, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
