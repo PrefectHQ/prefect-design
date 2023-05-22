@@ -70,9 +70,7 @@
   useGlobalEventListener('keyup', closeOnEscape)
 
   const classes = computed(() => ({
-    root: {
-      [`p-drawer--${placement.value}`]: !!placement.value,
-    },
+    root: `p-drawer--${placement.value}`,
   }))
 </script>
 
