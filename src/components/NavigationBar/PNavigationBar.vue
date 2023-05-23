@@ -1,6 +1,6 @@
 <template>
   <div class="p-navigation-bar" :class="classes.root">
-    <template v-if="$slots.prepend">
+    <template v-if="slots.prepend">
       <div class="p-navigation-bar__prepend" :class="classes.prepend">
         <slot name="prepend" />
       </div>
@@ -10,7 +10,7 @@
       <slot />
     </div>
 
-    <template v-if="$slots.append">
+    <template v-if="slots.append">
       <div class="p-navigation-bar__append">
         <slot name="append" />
       </div>
@@ -19,12 +19,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, useSlots } from 'vue'
   import { NavigationBarLayout } from '@/types/navigationBar'
 
   const props = defineProps<{
     layout?: NavigationBarLayout,
   }>()
+
+  const slots = useSlots()
 
   const layout = computed(() => props.layout ?? 'vertical')
 

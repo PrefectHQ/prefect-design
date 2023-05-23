@@ -2,7 +2,7 @@
   <teleport to="body">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
-        <PLayoutResizable v-if="modelValue" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
+        <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
               <slot v-bind="drawerScope" />
@@ -49,18 +49,18 @@
 
   const attrs = useAttrs()
 
-  const internalValue = ref<boolean>(false)
-  const modelValue = computed<boolean>({
+  const internalOpen = ref<boolean>(false)
+  const open = computed<boolean>({
     get() {
-      return props.open || internalValue.value
+      return props.open || internalOpen.value
     },
     set(value) {
-      internalValue.value = value
+      internalOpen.value = value
       emit('update:open', value)
     },
   })
 
-  const drawerScope = useDrawer(modelValue)
+  const drawerScope = useDrawer(open)
   function closeOnEscape(event: KeyboardEvent): void {
     if (isKeyEvent(keys.escape, event)) {
       close()

@@ -76,17 +76,17 @@
     (event: 'update:showModal', value: boolean): void,
   }>()
 
-  const internalValue = ref<boolean>(false)
-  const modelValue = computed<boolean>({
+  const internalOpen = ref<boolean>(false)
+  const open = computed<boolean>({
     get() {
-      return props.showModal || internalValue.value
+      return props.showModal || internalOpen.value
     },
     set(value) {
-      internalValue.value = value
+      internalOpen.value = value
       emit('update:showModal', value)
     },
   })
-  const modalScope = useModal(modelValue)
+  const modalScope = useModal(open)
 
   const modalRoot = ref<HTMLDivElement>()
   const modalBody = ref<HTMLDivElement>()
@@ -117,7 +117,7 @@
   }
 
   function closeOnEscape(event: KeyboardEvent): void {
-    if (modelValue.value && props.autoClose && isKeyEvent(keys.escape, event)) {
+    if (open.value && props.autoClose && isKeyEvent(keys.escape, event)) {
       close()
     }
   }
