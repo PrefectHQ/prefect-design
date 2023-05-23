@@ -10,33 +10,32 @@
         aria-modal="true"
         tabindex="0"
         v-bind="$attrs"
-        @keydown="handleKeydown"
       >
         <div class="p-modal__container">
           <div class="p-modal__background" aria-hidden="true" @click="handleMaskClick" />
           <div class="p-modal__card">
             <div class="p-modal__header" :class="classes.header">
               <div class="p-modal__tile-icon-group">
-                <slot name="icon" :close="closeModal">
+                <slot name="icon" v-bind="modalScope">
                   <template v-if="icon">
                     <PIcon :icon="icon" class="p-modal__icon" />
                   </template>
                 </slot>
-                <slot name="title" :close="closeModal">
+                <slot name="title" v-bind="modalScope">
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="closeModal" />
+              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="modalScope.close" />
             </div>
 
             <div ref="modalBody" class="p-modal__body">
-              <slot :close="closeModal" />
+              <slot v-bind="modalScope" />
             </div>
 
             <div class="p-modal__footer">
-              <slot name="actions" :close="closeModal" />
-              <slot name="cancel" :close="closeModal">
-                <PButton inset class="p-modal__close-button" @click="closeModal">
+              <slot name="actions" v-bind="modalScope" />
+              <slot name="cancel" v-bind="modalScope">
+                <PButton inset class="p-modal__close-button" @click="modalScope.close">
                   Cancel
                 </PButton>
               </slot>
@@ -60,29 +59,34 @@
   import { nextTick, computed, ref, useSlots, watch, onBeforeUnmount } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import { useGlobalEventListener, useModal } from '@/compositions'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
   import { keys } from '@/types'
   import { Icon } from '@/types/icon'
+  import { isKeyEvent } from '@/utilities'
 
   const props = defineProps<{
-    showModal: boolean,
+    showModal?: boolean,
     title?: string,
     icon?: Icon,
     autoClose?: boolean,
   }>()
 
-  const emits = defineEmits<{
+  const emit = defineEmits<{
     (event: 'update:showModal', value: boolean): void,
   }>()
 
-  const internalValue = computed({
+  const internalOpen = ref<boolean>(false)
+  const open = computed<boolean>({
     get() {
-      return props.showModal
+      return props.showModal || internalOpen.value
     },
     set(value) {
-      emits('update:showModal', value)
+      internalOpen.value = value
+      emit('update:showModal', value)
     },
   })
+  const modalScope = useModal(open)
 
   const modalRoot = ref<HTMLDivElement>()
   const modalBody = ref<HTMLDivElement>()
@@ -93,16 +97,6 @@
       'p-modal__header--no-title': props.title === undefined && slots.title === undefined,
     },
   }))
-
-  function closeModal(): void {
-    internalValue.value = false
-  }
-
-  function handleKeydown(event: KeyboardEvent): void {
-    if (event.key === keys.escape) {
-      closeModal()
-    }
-  }
 
   function findFirstFocusable(): HTMLElement | undefined {
     const focusable = useFocusableElements(modalBody)
@@ -118,9 +112,17 @@
 
   function handleMaskClick(): void {
     if (props.autoClose) {
-      closeModal()
+      close()
     }
   }
+
+  function closeOnEscape(event: KeyboardEvent): void {
+    if (open.value && props.autoClose && isKeyEvent(keys.escape, event)) {
+      close()
+    }
+  }
+  useGlobalEventListener('keyup', closeOnEscape)
+
 
   function enableBackgroundScroll(): void {
     document.body.classList.remove('p-modal__stop-bg-scroll')

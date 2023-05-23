@@ -99,15 +99,13 @@
   font-medium
   w-full
   text-left
-  hover:bg-primary-800
-  dark:hover:bg-primary-200
-  active:bg-primary-700
-  dark:active:bg-primary-300
+  hover:text-primary
+  active:text-primary-600
 }
 
 .p-context-accordion-item__header--highlighted { @apply
-  bg-primary-900
-  dark:bg-primary-100
+  hover:text-primary
+  active:text-primary-600
 }
 
 .p-context-accordion-item__icon { @apply
@@ -124,10 +122,8 @@
   flex
   flex-col
   rounded-md
-  bg-foreground-600
-  dark:bg-background-400
+  pl-4
   gap-1
-  p-1
 }
 
 .p-context-accordion-item__content-child { @apply
@@ -140,17 +136,12 @@
   select-none
   font-medium
   cursor-pointer
-  hover:bg-primary-800
-  dark:hover:bg-primary-200
-  active:bg-primary-700
-  dark:active:bg-primary-300
-  focus:bg-primary-800
-  dark:focus:bg-primary-200
+  hover:text-primary
+  active:text-primary-600
 }
 
 .p-context-accordion-item__content-child--active { @apply
-  bg-primary-900
-  dark:bg-primary-100
+  text-primary
 }
 
 .p-context-accordion-item__indicator { @apply

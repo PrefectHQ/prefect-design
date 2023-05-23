@@ -20,6 +20,7 @@ import { PDateInput, install as installPDateInput } from '@/components/DateInput
 import { PDatePicker, install as installPDatePicker } from '@/components/DatePicker'
 import { PDateRangeInput, install as installPDateRangeInput } from '@/components/DateRangeInput'
 import { PDivider, install as installPDivider } from '@/components/Divider'
+import { PDrawer, install as installPDrawer } from '@/components/Drawer'
 import { PEmptyResults, install as installPEmptyResults } from '@/components/EmptyResults'
 import { PEmptyState, install as installPEmptyState } from '@/components/EmptyState'
 import { PForm, install as installPForm } from '@/components/Form'
@@ -43,6 +44,7 @@ import { PMessage, install as installPMessage } from '@/components/Message'
 import { PModal, install as installPModal } from '@/components/Modal'
 import { PNativeDateInput, install as installPNativeDateInput } from '@/components/NativeDateInput'
 import { PNativeSelect, install as installPNativeSelect } from '@/components/NativeSelect'
+import { PNavigationBar, install as installPNavigationBar } from '@/components/NavigationBar'
 import { PNumberInput, install as installPNumberInput } from '@/components/NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from '@/components/OverflowMenu'
 import { POverflowMenuItem, install as installPOverflowMenuItem } from '@/components/OverflowMenuItem'
@@ -101,6 +103,7 @@ export {
   PDatePicker,
   PDateRangeInput,
   PDivider,
+  PDrawer,
   PEmptyResults,
   PEmptyState,
   PForm,
@@ -124,6 +127,7 @@ export {
   PModal,
   PNativeDateInput,
   PNativeSelect,
+  PNavigationBar,
   PNumberInput,
   POverflowMenu,
   POverflowMenuItem,
@@ -193,6 +197,7 @@ export const installs = [
   installPDatePicker,
   installPDateRangeInput,
   installPDivider,
+  installPDrawer,
   installPEmptyResults,
   installPEmptyState,
   installPForm,
@@ -216,6 +221,7 @@ export const installs = [
   installPModal,
   installPNativeDateInput,
   installPNativeSelect,
+  installPNavigationBar,
   installPNumberInput,
   installPOverflowMenu,
   installPOverflowMenuItem,
@@ -275,6 +281,7 @@ declare module '@vue/runtime-core' {
     PDatePicker: typeof PDatePicker,
     PDateRangeInput: typeof PDateRangeInput,
     PDivider: typeof PDivider,
+    PDrawer: typeof PDrawer,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PForm: typeof PForm,
@@ -298,6 +305,7 @@ declare module '@vue/runtime-core' {
     PModal: typeof PModal,
     PNativeDateInput: typeof PNativeDateInput,
     PNativeSelect: typeof PNativeSelect,
+    PNavigationBar: typeof PNavigationBar,
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,
     POverflowMenuItem: typeof POverflowMenuItem,

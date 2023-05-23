@@ -1,20 +1,12 @@
 <template>
   <div class="max-w-full min-h-full app">
-    <template v-if="!media.lg">
-      <PGlobalSidebar class="app__mobile-menu">
-        <template #upper-links>
-          <p-icon icon="Prefect" class="app__prefect-icon" />
-          <span class="text-slate-200">Prefect</span>
-        </template>
-        <template #bottom-links>
-          <PIcon icon="Bars3Icon" class="app__menu-icon" @click="toggle" />
-        </template>
-      </PGlobalSidebar>
+    <template v-if="mobileNav">
+      <AppNavigationBar layout="horizontal" class="app__sidebar" />
     </template>
 
-    <p-layout-resizable :disabled="!media.sm" class="app__layout">
-      <template v-if="media.sm" #aside>
-        <ContextSidebar v-if="showMenu" class="app__sidebar" />
+    <p-layout-resizable class="app__layout">
+      <template v-if="!mobileNav" #aside>
+        <AppNavigationBar class="app__sidebar" />
       </template>
 
       <suspense>
@@ -27,15 +19,12 @@
 <script lang="ts" setup>
   import { useColorTheme } from '@/compositions'
   import { media } from '@/utilities/media'
-  import { computed, watchEffect } from 'vue'
-  import ContextSidebar from '@/demo/components/ContextSidebar.vue'
-  import { mobileMenuOpen, toggle } from '@/demo/router/menu'
-
-  const showMenu = computed(() => media.lg || mobileMenuOpen.value)
-
-  watchEffect(() => document.body.classList.toggle('body-scrolling-disabled', showMenu.value && !media.lg))
+  import { computed } from 'vue'
+  import AppNavigationBar from '@/demo/components/AppNavigationBar.vue'
 
   useColorTheme()
+
+  const mobileNav = computed(() => !media.lg)
 </script>
 
 <style>
@@ -45,14 +34,28 @@
 
 .app { @apply
   text-foreground
-  bg-background-600
-  dark:bg-background-400
+  bg-background-900
+  dark:bg-background-50
+  grid
+  max-h-screen
 }
 
 .app__layout {
-  --p-layout-resizable-aside-width: 256px;
-  --p-layout-resizable-aside-max-width: 50vw;
-  --p-layout-resizable-aside-min-width: 256px;
+  --p-layout-resizable-aside-size: 256px;
+  --p-layout-resizable-aside-max-size: 50vw;
+  --p-layout-resizable-aside-min-size: 256px;
+}
+
+.app {
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+}
+
+@screen lg {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 }
 
 .app__prefect-icon { @apply
@@ -74,7 +77,6 @@
 .app__router-view { @apply
   relative
   h-full
-  max-h-screen
   pb-4
   overflow-auto
   w-full
@@ -89,12 +91,5 @@
 .app__router-view-fade-enter-from,
 .app__router-view-fade-leave-to {
   opacity: 0;
-}
-
-@screen lg {
-  .app {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 </style>

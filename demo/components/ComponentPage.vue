@@ -131,8 +131,6 @@
   sticky
   bg-background
   dark:bg-background-400
-  top-16
-  lg:top-0
   px-6
   py-6
   lg:px-8

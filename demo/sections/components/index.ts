@@ -15,6 +15,7 @@ export const components: Section = {
   dateInput: () => import('./DateInput.vue'),
   dateRangeInput: () => import('./DateRangeInput.vue'),
   divider: () => import('./Divider.vue'),
+  drawer: () => import('./Drawer.vue'),
   emptyState: () => import('./EmptyState.vue'),
   form: () => import('./Form.vue'),
   globalSidebar: () => import('./GlobalSidebar.vue'),
