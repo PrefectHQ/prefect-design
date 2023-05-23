@@ -1,9 +1,9 @@
 <template>
-  <div class="p-select-options" role="listbox">
+  <div ref="root" class="p-select-options" :class="classes.root" role="listbox">
     <slot name="pre-options" />
     <template v-if="options.length">
       <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option, index }: { item: SelectOptionNormalized | SelectOptionGroupNormalized, index:number }">
+        <template #default="{ item: option, index }">
           <template v-if="isSelectOptionGroup(option)">
             <PSelectOptionGroup :group="option">
               <template #default="scope">
@@ -25,6 +25,9 @@
             </PSelectOption>
           </template>
         </template>
+        <template #bottom>
+          <div ref="end" />
+        </template>
       </PVirtualScroller>
     </template>
     <template v-else>
@@ -39,7 +42,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { UseVisibilityObserverOptions, useVisibilityObserver } from '@prefecthq/vue-compositions'
+  import { computed, ref } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
@@ -79,6 +83,21 @@
     },
   })
 
+  const root = ref<HTMLDivElement>()
+  const end = ref<HTMLDivElement>()
+  const visibilityOptions = computed<UseVisibilityObserverOptions>(() => ({
+    root: root.value,
+    disconnectWhenVisible: false,
+  }))
+
+  const { visible: endVisible } = useVisibilityObserver(end, visibilityOptions)
+
+  const classes = computed(() => ({
+    root: {
+      'p-select-options--end': endVisible.value,
+    },
+  }))
+
   function flattenGroupsAndOptions(value: SelectOptionNormalized | SelectOptionGroupNormalized): (SelectOptionNormalized | SelectOptionGroupNormalized)[] {
     if (isSelectOptionGroup(value)) {
       return [
@@ -95,6 +114,7 @@
 
 <style>
 .p-select-options { @apply
+  relative
   my-1
   bg-background
   border
@@ -106,6 +126,25 @@
   ring-black
   ring-opacity-5
   focus:outline-none
+}
+
+.p-select-options::after { @apply
+  transition-opacity
+  opacity-100
+  absolute
+  bottom-0
+  left-0
+  right-0
+  h-12
+  bg-gradient-to-t
+  from-background
+  to-transparent
+  pointer-events-none;
+  content: '';
+}
+
+.p-select-options--end::after { @apply
+  opacity-0
 }
 
 .p-select-options__options { @apply

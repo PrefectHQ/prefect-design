@@ -7,6 +7,7 @@
         </template>
       </VirtualScrollerChunk>
     </template>
+    <slot name="bottom" />
     <div ref="bottom" class="p-virtual-scroller__bottom" />
   </component>
 </template>
