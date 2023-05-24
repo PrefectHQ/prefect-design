@@ -186,13 +186,13 @@
 }
 .p-button--inset:not(.p-button--disabled) { @apply
   hover:bg-background-400
-  dark:hover:bg-background-500
+  dark:hover:bg-background-600
 }
 
 .p-button--flat { @apply
-  bg-background
+  bg-transparent
+  shadow-none
 }
-
 .p-button--flat:not(.p-button--disabled) { @apply
   hover:bg-background-400
   dark:hover:bg-background-500
