@@ -1,7 +1,7 @@
 import { useBoolean } from '@prefecthq/vue-compositions'
-import { computed, Ref } from 'vue'
+import { computed, MaybeRef, Ref } from 'vue'
 
-type UseDrawer = {
+type UseModal = {
   value: Ref<boolean>,
   isOpen: Ref<boolean>,
   open: () => void,
@@ -15,7 +15,7 @@ type UseDrawer = {
  *
  * @param {Ref<boolean>} [valueRef] - Optional parameter. A Vue ref object that holds the initial state of the modal.
  *
- * @returns {UseDrawer} - An object with the following properties:
+ * @returns {UseModal} - An object with the following properties:
  *                        `value`: a Vue ref object that holds the current state of the modal.
  *                        `isOpen`: a computed property that reflects the current state of the modal.
  *                        `open`: open the modal.
@@ -28,7 +28,7 @@ type UseDrawer = {
  * close() // close the modal
  * console.log(isOpen.value) // check if the modal is open
  */
-export function useModal(valueRef?: Ref<boolean>): UseDrawer {
+export function useModal(valueRef?: MaybeRef<boolean>): UseModal {
   const { value, toggle, setTrue, setFalse } = useBoolean(valueRef)
 
   const isOpen = computed<boolean>(() => value.value)
