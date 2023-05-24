@@ -191,8 +191,8 @@
 
 .p-button--flat { @apply
   bg-transparent
+  shadow-none
 }
-
 .p-button--flat:not(.p-button--disabled) { @apply
   hover:bg-background-400
   dark:hover:bg-background-500
