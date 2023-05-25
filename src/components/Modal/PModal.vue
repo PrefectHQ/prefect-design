@@ -144,7 +144,6 @@
   fixed
   z-10
   inset-0
-  overflow-y-auto
 }
 
 .p-modal__container { @apply
@@ -152,9 +151,7 @@
   justify-center
   items-center
   min-h-screen
-  pt-4
-  px-4
-  pb-20
+  p-4
 }
 
 .p-modal__background { @apply
@@ -167,13 +164,15 @@
 
 .p-modal__card { @apply
   relative
-  inline-block
+  flex
+  flex-col
   bg-background-500
   rounded-lg
   shadow-xl
   transition-all
   sm:max-w-lg
-  sm:w-full
+  sm:w-full;
+  max-height: calc(100vh - theme('spacing.8'))
 }
 
 .p-modal__header { @apply
@@ -208,6 +207,8 @@
   p-5
   sm:py-6
   sm:gap-4
+  flex-shrink
+  overflow-auto
 }
 
 .p-modal__footer { @apply
