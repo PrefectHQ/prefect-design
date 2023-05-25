@@ -30,39 +30,11 @@
       </p-button>
 
       <p-modal v-model:showModal="showLongContentModal" title="Modal Title" icon="CakeIcon">
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
-        <p class="text-sm text-foreground">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
-        </p>
+        <template v-for="i in 10" :key="i">
+          <p class="text-sm text-foreground">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
+          </p>
+        </template>
 
         <template #actions>
           <p-button @click="showLongContentModal = false">
