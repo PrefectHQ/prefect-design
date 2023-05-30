@@ -30,10 +30,8 @@
   import { computed, useAttrs, ref } from 'vue'
   import { useDrawer, useGlobalEventListener } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
-  import { keys } from '@/types'
+  import { PDrawerPlacement, keys } from '@/types'
   import { isKeyEvent } from '@/utilities'
-
-  export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
 
   const props = defineProps<{
     open?: boolean,
