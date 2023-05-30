@@ -11,7 +11,7 @@
     </div>
 
     <template v-if="slots.append">
-      <div class="p-navigation-bar__append">
+      <div class="p-navigation-bar__append" :class="classes.append">
         <slot name="append" />
       </div>
     </template>
@@ -36,6 +36,9 @@
     },
     prepend: {
       [`p-navigation-bar__prepend--${layout.value}`]: true,
+    },
+    append: {
+      [`p-navigation-bar__append--${layout.value}`]: true,
     },
     content: {
       [`p-navigation-bar__content--${layout.value}`]: true,
