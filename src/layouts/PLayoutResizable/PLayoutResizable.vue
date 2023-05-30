@@ -20,13 +20,13 @@
 
 <script lang="ts" setup>
   import { computed, ref, useSlots, watch } from 'vue'
-  import { PLayoutResizablePlacement, isHorizontalPlacement } from '@/types/layoutResizable'
+  import { LayoutResizablePlacement, isHorizontalPlacement } from '@/types/layoutResizable'
 
 
   const props = defineProps<{
     collapsePoint?: number,
     disabled?: boolean,
-    placement?: PLayoutResizablePlacement,
+    placement?: LayoutResizablePlacement,
   }>()
 
 
