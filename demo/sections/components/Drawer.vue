@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PDrawerPlacement } from '@/components/Drawer/PDrawer.vue'
+  import { PDrawerPlacement } from '@/types'
   import { reactive, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
