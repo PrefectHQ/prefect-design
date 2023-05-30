@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PLayoutResizablePlacement } from '@/types'
+  import { LayoutResizablePlacement } from '@/types'
   import { computed, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
@@ -90,8 +90,8 @@
     },
   ]
 
-  const placement = ref<PLayoutResizablePlacement>('left')
-  const placements: PLayoutResizablePlacement[] = ['left', 'right', 'top', 'bottom']
+  const placement = ref<LayoutResizablePlacement>('left')
+  const placements: LayoutResizablePlacement[] = ['left', 'right', 'top', 'bottom']
 
   const classes = computed(() => {
     return {
