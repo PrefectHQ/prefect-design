@@ -12,7 +12,7 @@
   </component>
 </template>
 
-<script lang="ts" setup generic="T extends Record<string, unknown>">
+<script lang="ts" setup generic="T extends Record<string, any>">
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
   import { computed, onMounted, ref, watch } from 'vue'
   import VirtualScrollerChunk from '@/components/VirtualScroller/PVirtualScrollerChunk.vue'
