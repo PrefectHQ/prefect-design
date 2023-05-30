@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { PDrawerPlacement } from '@/types'
+  import { DrawerPlacement } from '@/types'
   import { reactive, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
@@ -81,8 +81,8 @@
     },
   ]
 
-  const placement = ref<PDrawerPlacement>('left')
-  const placements: PDrawerPlacement[] = ['left', 'right', 'top', 'bottom']
+  const placement = ref<DrawerPlacement>('left')
+  const placements: DrawerPlacement[] = ['left', 'right', 'top', 'bottom']
 
   const drawers = reactive({
     basic: false,

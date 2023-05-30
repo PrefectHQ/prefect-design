@@ -1,1 +1,1 @@
-export type PDrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
+export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
