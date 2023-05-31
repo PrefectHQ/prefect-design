@@ -10,6 +10,44 @@
         </template>
       </PListTruncate>
     </template>
+
+    <template #custom-button-text>
+      <PListTruncate :items="items" button-text="Load more books">
+        <template #default="{ item }">
+          <div>{{ item.title }}</div>
+        </template>
+      </PListTruncate>
+    </template>
+
+    <template #custom-increment>
+      <PListTruncate :items="items" :increment="1">
+        <template #default="{ item }">
+          <div>{{ item.title }}</div>
+        </template>
+      </PListTruncate>
+    </template>
+
+    <template #show-fewer>
+      <PListTruncate :items="items" :decrement="5">
+        <template #default="{ item }">
+          <div>{{ item.title }}</div>
+        </template>
+
+        <template #bottom="{ showLess, canShowLess, canShowMore, showMore }">
+          <template v-if="canShowLess">
+            <p-button class="p-list-truncate__button" size="sm" inset @click="showLess">
+              Show fewer
+            </p-button>
+          </template>
+
+          <template v-if="canShowMore">
+            <p-button class="p-list-truncate__button" size="sm" inset @click="showMore">
+              Show more
+            </p-button>
+          </template>
+        </template>
+      </PListTruncate>
+    </template>
   </ComponentPage>
 </template>
 
@@ -22,7 +60,7 @@
     { title: 'Basic' },
     { title: 'Custom button text' },
     { title: 'Custom increment' },
-    { title: 'Custom decrement' },
+    { title: 'Show fewer' },
   ]
 
   const books = [
