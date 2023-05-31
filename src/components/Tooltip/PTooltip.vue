@@ -97,14 +97,13 @@
   backdrop-blur-[1px]
   bg-slate-300
   dark:bg-slate-950
-  bg-opacity-30
-  dark:bg-opacity-50
+  bg-opacity-50
+  dark:bg-opacity-70
   text-foreground
   px-2
   py-1
   rounded
   shadow
   dark:shadow-md
-  text-xs
 }
 </style>
