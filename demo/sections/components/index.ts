@@ -26,6 +26,7 @@ export const components: Section = {
   label: () => import('./Label.vue'),
   links: () => import('./Links.vue'),
   listItems: () => import('./ListItems.vue'),
+  listTruncate: () => import('./ListTruncate.vue'),
   markdownRenderer: () => import('./MarkdownRenderer.vue'),
   message: () => import('./Message.vue'),
   modals: () => import('./Modals.vue'),
