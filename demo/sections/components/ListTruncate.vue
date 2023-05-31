@@ -48,6 +48,27 @@
         </template>
       </PListTruncate>
     </template>
+
+    <template #async>
+      <PListTruncate :items="asyncItems" :shown="Infinity">
+        <template #default="{ item }">
+          <div>{{ item.title }}</div>
+        </template>
+
+        <template #bottom>
+          <p-button
+            v-if="asyncItems.length < items.length"
+            class="p-list-truncate__button"
+            size="sm"
+            :loading="loading"
+            inset
+            @click="loadMore"
+          >
+            Load more
+          </p-button>
+        </template>
+      </PListTruncate>
+    </template>
   </ComponentPage>
 </template>
 
@@ -61,6 +82,7 @@
     { title: 'Custom button text' },
     { title: 'Custom increment' },
     { title: 'Show fewer' },
+    { title: 'Async' },
   ]
 
   const books = [
@@ -87,4 +109,17 @@
   ]
 
   const items = ref(Array.from({ length: 20 }, (_, i) => ({ id: i, title: books[i] })))
+
+  const asyncItems = ref(Array.from({ length: 5 }, (_, i) => ({ id: i, title: books[i] })))
+
+  const loading = ref(false)
+
+  const loadMore = async (): Promise<void> => {
+    loading.value = true
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    const startingLength = asyncItems.value.length
+    asyncItems.value = Array.from({ length: startingLength + 5 }, (_, i) => ({ id: i, title: books[i] }))
+    loading.value = false
+  }
 </script>
