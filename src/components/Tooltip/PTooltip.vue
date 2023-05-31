@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onUnmounted, ref } from 'vue'
+  import { computed, onMounted, onUnmounted, ref } from 'vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { PositionMethod } from '@/types/position'
   import { isNotNullish, isHtmlElement, randomId } from '@/utilities'
@@ -81,6 +81,10 @@
       close()
     }
   }
+
+  onMounted(() => {
+    open()
+  })
 </script>
 
 <style>
@@ -90,6 +94,7 @@
 
 .p-tooltip__tooltip { @apply
   p-2
+  max-w-xs
 }
 
 .p-tooltip__content { @apply
@@ -97,9 +102,9 @@
   px-2
   py-1
   text-sm
-  rounded-sm
-  border-[1px]
-  border-background-400
-  dark:border-foreground-200
+  rounded
+  shadow-sm
+  bg-opacity-50
+  backdrop-blur-[1px]
 }
 </style>
