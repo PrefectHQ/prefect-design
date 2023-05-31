@@ -38,6 +38,7 @@ import { PLineNumbers, install as installPLineNumbers } from '@/components/LineN
 import { PLink, install as installPLink } from '@/components/Link'
 import { PListItem, install as installPListItem } from '@/components/ListItem'
 import { PListItemInput, install as installPListItemInput } from '@/components/ListItemInput'
+import { PListTruncate, install as installPListTruncate } from '@/components/ListTruncate'
 import { PLoadingIcon, install as installPLoadingIcon } from '@/components/LoadingIcon'
 import { PMarkdownRenderer, install as installPMarkdownRenderer } from '@/components/MarkdownRenderer'
 import { PMessage, install as installPMessage } from '@/components/Message'
@@ -121,6 +122,7 @@ export {
   PLink,
   PListItem,
   PListItemInput,
+  PListTruncate,
   PLoadingIcon,
   PMarkdownRenderer,
   PMessage,
@@ -215,6 +217,7 @@ export const installs = [
   installPLink,
   installPListItem,
   installPListItemInput,
+  installPListTruncate,
   installPLoadingIcon,
   installPMarkdownRenderer,
   installPMessage,
@@ -299,6 +302,7 @@ declare module '@vue/runtime-core' {
     PLink: typeof PLink,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
+    PListTruncate: typeof PListTruncate,
     PLoadingIcon: typeof PLoadingIcon,
     PMarkdownRenderer: typeof PMarkdownRenderer,
     PMessage: typeof PMessage,
