@@ -8,7 +8,7 @@
       <slot name="bottom" v-bind="{ shown, showMore, showLess, canShowMore, canShowLess }">
         <template v-if="canShowMore">
           <p-button class="p-list-truncate__button" size="sm" inset @click="showMore">
-            {{ buttonText ?? 'Show more' }}
+            {{ buttonLabel ?? 'Show more' }}
           </p-button>
         </template>
       </slot>
@@ -24,7 +24,7 @@
     shown?: number,
     increment?: number,
     decrement?: number,
-    buttonText?: string,
+    buttonLabel?: string,
   }>()
 
   const DEFAULT_INCREMENT = 5

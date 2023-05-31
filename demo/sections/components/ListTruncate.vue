@@ -11,8 +11,8 @@
       </PListTruncate>
     </template>
 
-    <template #custom-button-text>
-      <PListTruncate :items="items" button-text="Load more books">
+    <template #custom-button-label>
+      <PListTruncate :items="items" button-label="Load more books">
         <template #default="{ item }">
           <div>{{ item.title }}</div>
         </template>
@@ -79,7 +79,7 @@
 
   const demos = [
     { title: 'Basic' },
-    { title: 'Custom button text' },
+    { title: 'Custom button label' },
     { title: 'Custom increment' },
     { title: 'Show fewer' },
     { title: 'Async' },
