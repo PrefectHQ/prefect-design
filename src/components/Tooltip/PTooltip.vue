@@ -99,6 +99,7 @@
   dark:bg-slate-950
   bg-opacity-30
   dark:bg-opacity-50
+  text-foreground
   px-2
   py-1
   rounded
