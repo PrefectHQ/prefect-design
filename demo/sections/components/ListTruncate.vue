@@ -20,7 +20,7 @@
     </template>
 
     <template #custom-increment>
-      <PListTruncate :items="items" :increment="1">
+      <PListTruncate :items="items" :shown="1" :increment="1">
         <template #default="{ item }">
           <div>{{ item.title }}</div>
         </template>
