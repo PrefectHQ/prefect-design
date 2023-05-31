@@ -81,10 +81,6 @@
       close()
     }
   }
-
-  onMounted(() => {
-    open()
-  })
 </script>
 
 <style>
@@ -98,13 +94,16 @@
 }
 
 .p-tooltip__content { @apply
-  bg-background
+  backdrop-blur-[1px]
+  bg-slate-300
+  dark:bg-slate-950
+  bg-opacity-30
+  dark:bg-opacity-50
   px-2
   py-1
-  text-sm
   rounded
-  shadow-sm
-  bg-opacity-50
-  backdrop-blur-[1px]
+  shadow
+  dark:shadow-md
+  text-xs
 }
 </style>
