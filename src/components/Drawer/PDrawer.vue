@@ -61,7 +61,7 @@
   const drawerScope = useDrawer(open)
   function closeOnEscape(event: KeyboardEvent): void {
     if (isKeyEvent(keys.escape, event)) {
-      close()
+      drawerScope.close()
     }
   }
   useGlobalEventListener('keyup', closeOnEscape)
