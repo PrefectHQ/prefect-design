@@ -30,9 +30,8 @@
 
 <style>
 .p-empty-state { @apply
-  border
   bg-background
-  rounded-lg
+  rounded-xl
   shadow-sm
 }
 

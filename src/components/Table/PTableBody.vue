@@ -45,7 +45,7 @@
 .p-table-body { @apply
   divide-y
   bg-background
-  divide-background-400
-  dark:divide-background-900
+  divide-background-500
+  dark:divide-background-700
 }
 </style>

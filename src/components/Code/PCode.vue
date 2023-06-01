@@ -22,9 +22,9 @@
 
 <style>
 .p-code-container { @apply
-  bg-slate-700
+  bg-slate-800
   text-slate-50
-  rounded
+  rounded-xl
   px-1
   py-0
   inline-block
