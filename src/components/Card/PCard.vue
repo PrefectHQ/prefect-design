@@ -20,11 +20,8 @@
 .p-card { @apply
   bg-background
   text-foreground
-  border
-  border-background-400
-  dark:border-foreground-200
-  p-6
-  rounded-lg
+  p-4
+  rounded-xl
   shadow-sm
   transition-all;
 
@@ -32,8 +29,6 @@
 }
 
 .p-card--flat { @apply
-  border-transparent
-  dark:border-transparent
   shadow-none
   bg-transparent
 }

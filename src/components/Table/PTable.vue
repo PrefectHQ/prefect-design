@@ -183,26 +183,22 @@
 .p-table { @apply
   overflow-hidden
   overflow-x-auto
-  shadow
-  ring-1
-  ring-black
-  ring-opacity-5
-  rounded
-  md:rounded-lg
-  dark:ring-background-600
+  shadow-sm
+  rounded-xl
 }
 
 .p-table__table { @apply
   min-w-full
   divide-y
-  divide-background-400
-  dark:divide-background-900
+  divide-background-500
+  dark:divide-background-700
 }
 
 .p-table__checkbox-cell { @apply
   flex
   justify-center
   items-center
-  px-1
+  pl-2
+  pr-0
 }
 </style>
