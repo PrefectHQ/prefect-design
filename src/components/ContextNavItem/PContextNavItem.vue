@@ -48,6 +48,6 @@
 }
 
 .p-context-nav-item--active { @apply
-  text-primary
+  text-prefect-400
 }
 </style>
