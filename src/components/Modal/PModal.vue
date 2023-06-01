@@ -157,7 +157,7 @@
 .p-modal__background { @apply
   fixed
   inset-0
-  bg-background-600
+  bg-background-100
   bg-opacity-75
   transition-opacity
 }
@@ -166,7 +166,7 @@
   relative
   flex
   flex-col
-  bg-background-500
+  bg-background
   rounded-lg
   shadow-xl
   transition-all
