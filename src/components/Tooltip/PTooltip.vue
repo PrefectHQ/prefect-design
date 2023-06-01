@@ -90,16 +90,20 @@
 
 .p-tooltip__tooltip { @apply
   p-2
+  max-w-xs
 }
 
 .p-tooltip__content { @apply
-  bg-background
+  backdrop-blur-[1px]
+  bg-slate-300
+  dark:bg-slate-950
+  bg-opacity-50
+  dark:bg-opacity-70
+  text-foreground
   px-2
   py-1
-  text-sm
-  rounded-sm
-  border-[1px]
-  border-background-400
-  dark:border-foreground-200
+  rounded
+  shadow
+  dark:shadow-md
 }
 </style>
