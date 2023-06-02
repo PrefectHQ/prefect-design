@@ -21,7 +21,8 @@ import {
   isSpace,
   isBreak,
   isHorizontalRule,
-  isTextToken
+  isTextToken,
+  isEscape
 } from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
 import { randomId } from '@/utilities'
@@ -48,6 +49,10 @@ const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
 
   const props = { class: [`${baseClass}__token`] }
   const { type } = token
+
+  if (isEscape(token)) {
+    return t(unescapeHtml(token.text))
+  }
 
   if (isTextToken(token)) {
     // This is because text tokens can have embedded elements

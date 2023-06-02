@@ -104,3 +104,7 @@ export function isDeleted(token: unknown): token is marked.Tokens.Del {
 export function isTextToken(token: unknown): token is marked.Tokens.Text | marked.Tokens.Em | marked.Tokens.Strong | marked.Tokens.Del {
   return isText(token) || isParagraph(token) || isStrong(token) || isEmphasis(token) || isDeleted(token)
 }
+
+export function isEscape(token: unknown): token is marked.Tokens.Escape {
+  return isToken(token) && token.type === 'escape'
+}
