@@ -3,7 +3,7 @@
     <div v-if="slots.header" class="p-layout-default__header">
       <slot name="header" />
     </div>
-    <div class="p-layout-default__content">
+    <div v-if="slots.default" class="p-layout-default__content">
       <slot />
     </div>
   </div>
