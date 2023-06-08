@@ -75,7 +75,7 @@
             </p-heading>
             <div class="flex gap-2 items-center flex-wrap">
               <template v-for="i in 5" :key="i">
-                <p-pop-over :group="group" :placement="top" auto-close>
+                <p-pop-over :group="group" :placement="top">
                   <template #target="{ open }">
                     <p-button @mouseover="open">
                       Open {{ i }}
