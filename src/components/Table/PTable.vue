@@ -67,6 +67,7 @@
   import PTableRow from '@/components/Table/PTableRow.vue'
   import { ClassValue } from '@/types/attributes'
   import { ColumnClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
+  import { NoInfer } from '@/types/utilities'
   import { isEven, isOdd } from '@/utilities'
   import { asArray } from '@/utilities/arrays'
   import { kebabCase } from '@/utilities/strings'
@@ -75,8 +76,8 @@
     data: TData[],
     selected?: TData[],
     columns?: TColumn[],
-    rowClasses?: RowClassesMethod<TData>,
-    columnClasses?: ColumnClassesMethod<TData>,
+    rowClasses?: RowClassesMethod<NoInfer<TData>>,
+    columnClasses?: ColumnClassesMethod<NoInfer<TData>>,
   }>()
 
   const slots = useSlots()
