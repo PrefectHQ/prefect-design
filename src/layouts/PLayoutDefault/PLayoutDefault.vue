@@ -1,7 +1,7 @@
 <template>
   <div class="p-layout-default">
-    <div class="p-layout-default__header">
-      <slot name="header" class="p-layout-default__header" />
+    <div v-if="slots.header" class="p-layout-default__header">
+      <slot name="header" />
     </div>
     <div class="p-layout-default__content">
       <slot />
@@ -9,11 +9,14 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+  import { useSlots } from 'vue'
+
+  const slots = useSlots()
+</script>
+
 <style>
-.p-layout-default {
-  @apply
-  p-4
-  lg:p-8
+.p-layout-default { @apply
   grid
   grid-rows-[max-content_max-content]
   gap-4
@@ -21,8 +24,7 @@
   w-full
 }
 
-.p-layout-default__content {
-  @apply
+.p-layout-default__content { @apply
   grid
   grid-cols-[minmax(0,1fr)]
   gap-4
