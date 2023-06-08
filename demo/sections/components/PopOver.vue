@@ -69,23 +69,25 @@
     <template #grouped>
       <p-content>
         <template v-for="group in ['Group 1', 'Group 2']" :key="group">
-          <p-heading heading="3">
-            {{ group }}
-          </p-heading>
-          <div class="flex gap-2 items-center flex-wrap">
-            <template v-for="i in 5" :key="i">
-              <p-pop-over :group="group" :placement="top" auto-close>
-                <template #target="{ open }">
-                  <p-button @mouseover="open">
-                    Open {{ i }}
-                  </p-button>
-                </template>
+          <div @mouseleave="close">
+            <p-heading heading="3">
+              {{ group }}
+            </p-heading>
+            <div class="flex gap-2 items-center flex-wrap">
+              <template v-for="i in 5" :key="i">
+                <p-pop-over :group="group" :placement="top" auto-close>
+                  <template #target="{ open }">
+                    <p-button @mouseover="open">
+                      Open {{ i }}
+                    </p-button>
+                  </template>
 
-                <p-card>
-                  Hello there {{ i }}
-                </p-card>
-              </p-pop-over>
-            </template>
+                  <p-card>
+                    Hello there {{ i }}
+                  </p-card>
+                </p-pop-over>
+              </template>
+            </div>
           </div>
         </template>
       </p-content>
@@ -95,6 +97,7 @@
 
 <script lang="ts" setup>
   import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/position'
+  import { usePopOverGroup } from '@/compositions/usePopOverGroup'
   import { left, right, top } from '@/utilities/position'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
@@ -117,4 +120,12 @@
     container: dynamicContainer,
     styles: dynamicStyles,
   } = useMostVisiblePositionStyles(positions)
+
+  const { close: closeGroupOne } = usePopOverGroup('Group 1')
+  const { close: closeGroupTwo } = usePopOverGroup('Group 2')
+
+  function close(): void {
+    closeGroupOne()
+    closeGroupTwo()
+  }
 </script>
