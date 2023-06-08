@@ -1,6 +1,7 @@
 import { Section } from '@/demo/router/routeRecords'
 
 export const components: Section = {
+  accordion: () => import('./Accordion.vue'),
   baseInput: () => import('./BaseInput.vue'),
   breadCrumbs: () => import('./BreadCrumbs.vue'),
   button: () => import('./Buttons.vue'),
