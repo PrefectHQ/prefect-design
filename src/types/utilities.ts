@@ -1,8 +1,3 @@
-import { Ref } from 'vue'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type TypeGuard<T> = (value: any) => value is T
-
-export function refTypeGuard<T>(guard: TypeGuard<T>, ref: Ref<unknown>): ref is Ref<T> {
-  return guard(ref.value)
-}
+// https://stackoverflow.com/questions/73732549/narrow-number-argument-of-function-to-be-literal-type?noredirect=1#comment130199140_73732549
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type NoInfer<T> = T & {}

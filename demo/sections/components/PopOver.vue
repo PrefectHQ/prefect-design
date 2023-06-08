@@ -6,6 +6,7 @@
     :demos="[
       { title: 'Manual' },
       { title: 'Dynamic' },
+      { title: 'Grouped' },
     ]"
   >
     <template #description>
@@ -64,13 +65,37 @@
       </div>
       {{ dynamicStyles }}
     </template>
+
+    <template #grouped>
+      <p-content>
+        <template v-for="group in ['Group 1', 'Group 2']" :key="group">
+          <p-heading heading="3">
+            {{ group }}
+          </p-heading>
+          <div class="flex gap-2 items-center flex-wrap">
+            <template v-for="i in 5" :key="i">
+              <p-pop-over :group="group" :placement="top" auto-close>
+                <template #target="{ open }">
+                  <p-button @mouseover="open">
+                    Open {{ i }}
+                  </p-button>
+                </template>
+
+                <p-card>
+                  Hello there {{ i }}
+                </p-card>
+              </p-pop-over>
+            </template>
+          </div>
+        </template>
+      </p-content>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
-  import PToggle from '@/components/Toggle/PToggle.vue'
   import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/position'
-  import { left, right } from '@/utilities/position'
+  import { left, right, top } from '@/utilities/position'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import PositionSelect from '@/demo/components/PositionSelect.vue'

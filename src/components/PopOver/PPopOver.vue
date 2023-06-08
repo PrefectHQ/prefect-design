@@ -19,6 +19,7 @@
 
 <script lang="ts" setup>
   import { ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
+  import { usePopOverGroup } from '@/components/PopOver/compositions/usePopOverGroup'
   import { useMostVisiblePositionStyles } from '@/compositions/position'
   import { PositionMethod } from '@/types/position'
   import { left, right, bottom, top } from '@/utilities/position'
@@ -27,9 +28,11 @@
     placement?: PositionMethod | PositionMethod[],
     autoClose?: boolean,
     to?: string | Element,
+    group?: string,
   }>(), {
     placement: () => [right, bottom, top, left],
     to: 'body',
+    group: () => crypto.randomUUID(),
   })
 
   const emit = defineEmits<{
@@ -39,6 +42,7 @@
   const visible = ref(false)
   const attrs = useAttrs()
   const container = ref<Element>()
+  const { setGroupCloseMethod } = usePopOverGroup()
 
   const placements = computed(() => Array.isArray(props.placement) ? props.placement : [props.placement])
   const { target, content, styles } = useMostVisiblePositionStyles(placements, { container })
@@ -81,6 +85,8 @@
   }
 
   function open(): void {
+    setGroupCloseMethod(props.group, close)
+
     container.value = getContainer()
     visible.value = true
   }
