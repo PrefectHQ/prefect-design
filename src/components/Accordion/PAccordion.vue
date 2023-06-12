@@ -3,11 +3,7 @@
     <template v-for="section in sections" :key="section">
       <div class="p-accordion__section">
         <div class="p-accordion__header">
-          <!-- dynamic slot names don't work great yet -->
-          <!-- @vue-ignore -->
           <slot :name="`${section}-heading`">
-            <!-- dynamic slot names don't work great yet -->
-            <!-- @vue-ignore -->
             <slot name="heading" :section="section">
               {{ section }}
             </slot>
@@ -28,11 +24,7 @@
             <div class="p-accordion__content">
               <!-- this is needed because PAutoHeightTransition does not animate an elements padding correctly -->
               <div class="p-accordion__content-padding">
-                <!-- dynamic slot names don't work great yet -->
-                <!-- @vue-ignore -->
                 <slot :name="`${section}-content`">
-                  <!-- dynamic slot names don't work great yet -->
-                  <!-- @vue-ignore -->
                   <slot name="content" :section="section" />
                 </slot>
               </div>
@@ -46,14 +38,11 @@
 
 <script lang="ts" setup generic="const T extends Readonly<string[]>">
   import { Ref, ref } from 'vue'
-  import { AccordionSlots } from '@/components/Accordion/types'
   import { PAutoHeightTransition } from '@/components/AutoHeightTransition'
 
   const props = defineProps<{
     sections: T,
   }>()
-
-  defineSlots<AccordionSlots<T>>()
 
   const open: Ref<T[number] | null> = ref(props.sections[0])
 
@@ -89,7 +78,7 @@
 }
 
 .p-accordion__content-padding { @apply
-  pb-2
+  pb-3
 }
 
 .p-accordion__button { @apply
