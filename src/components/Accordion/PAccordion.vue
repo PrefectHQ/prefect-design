@@ -26,6 +26,7 @@
         <PAutoHeightTransition>
           <template v-if="isOpen(String(section))">
             <div class="p-accordion__content">
+              <!-- this is needed because PAutoHeightTransition does not animate an elements padding correctly -->
               <div class="p-accordion__content-padding">
                 <!-- dynamic slot names don't work great yet -->
                 <!-- @vue-ignore -->
