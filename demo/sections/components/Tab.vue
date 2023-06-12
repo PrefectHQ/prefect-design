@@ -10,7 +10,7 @@
       <PTabs v-model:selected="selectedTab" :tabs="tabs">
         <template #tab-one-heading="{ tab }">
           <p-icon icon="Prefect" class="w-4 h-4 mr-2" />
-          <span>{{ tab }}</span>
+          <span>{{ tab?.label }}</span>
         </template>
 
         <template #tab-one>
@@ -30,6 +30,14 @@
             Content Three
           </div>
         </template>
+
+        <template #heading="{ tab }">
+          {{ tab?.label }} Heading
+        </template>
+
+        <template #content="{ tab }">
+          This is the content for {{ tab.label }}
+        </template>
       </PTabs>
 
       <p-button size="sm" class="mt-2" @click="changeToTab(tabs[2])">
@@ -44,7 +52,7 @@
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const tabs = ['Tab One', 'Tab Two', 'Tab Three']
+  const tabs = ['Tab One', 'Tab Two', 'Tab Three', 'Tab Four']
 
   const selectedTab = ref()
   const changeToTab = (tab: string): void => {
