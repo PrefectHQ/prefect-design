@@ -22,7 +22,9 @@
           role="tabpanel"
           :aria-labelledby="`${kebabCase(tab.label)}`"
         >
-          <slot :name="kebabCase(tab.label)" v-bind="{ tab, index }" />
+          <slot :name="kebabCase(tab.label)" v-bind="{ tab, index }">
+            <slot name="content" v-bind="{ tab, index }" />
+          </slot>
         </section>
       </template>
     </template>
