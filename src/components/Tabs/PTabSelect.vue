@@ -12,14 +12,18 @@
         :name="`${kebabCase(option.label)}-heading`"
         v-bind="{ tab: option.label, index }"
       >
-        {{ option.label }}
+        <slot name="heading" v-bind="{ tab: option.label, index }">
+          {{ option.label }}
+        </slot>
       </slot>
     </template>
     <template #default="{ option, label }">
       <slot
         :name="`${kebabCase(label)}-heading`"
         v-bind="{ tab: option, index: options.findIndex(tab => tab.label === label) }"
-      />
+      >
+        <slot name="heading" v-bind="{ tab: option, index: options.findIndex(tab => tab.label === label) }" />
+      </slot>
     </template>
   </PSelect>
 </template>
