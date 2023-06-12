@@ -1,15 +1,18 @@
 <template>
   <ComponentPage title="Accordion" :demos="[{ title: 'Accordion' }]">
     <template #accordion>
-      <PAccordion :sections="['one', 'two']">
+      <PAccordion :sections="['one', 'two', 'three', 'four']">
         <template #one-heading>
-          test
+          This is one using a slot
         </template>
         <template #one-content>
-          test
+          This is the content for number one
         </template>
         <template #two-content>
-          test two!
+          This is the content for number two
+        </template>
+        <template #content="{ section }">
+          This is the default content for section {{ section }}
         </template>
       </PAccordion>
     </template>

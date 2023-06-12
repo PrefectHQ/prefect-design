@@ -6,7 +6,11 @@
           <!-- dynamic slot names don't work great yet -->
           <!-- @vue-ignore -->
           <slot :name="`${section}-heading`">
-            {{ section }}
+            <!-- dynamic slot names don't work great yet -->
+            <!-- @vue-ignore -->
+            <slot name="heading" :section="section">
+              {{ section }}
+            </slot>
           </slot>
           <p-button
             size="sm"
@@ -25,7 +29,11 @@
               <div class="p-accordion__content-padding">
                 <!-- dynamic slot names don't work great yet -->
                 <!-- @vue-ignore -->
-                <slot :name="`${section}-content`" />
+                <slot :name="`${section}-content`">
+                  <!-- dynamic slot names don't work great yet -->
+                  <!-- @vue-ignore -->
+                  <slot name="content" :section="section" />
+                </slot>
               </div>
             </div>
           </template>
@@ -37,21 +45,12 @@
 
 <script lang="ts" setup generic="const T extends Readonly<string[]>">
   import { Ref, ref } from 'vue'
+  import { AccordionSlots } from '@/components/Accordion/types'
   import { PAutoHeightTransition } from '@/components/AutoHeightTransition'
 
   const props = defineProps<{
     sections: T,
   }>()
-
-  type AccordionSlots<T extends Readonly<string[]>> = {
-    // this is the type vue wants sadly
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    [K in T[number] as `${K}-heading`]?: (props: {}) => unknown
-  } & {
-    // this is the type vue wants sadly
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    [K in T[number] as `${K}-content`]: (props: {}) => unknown
-  }
 
   defineSlots<AccordionSlots<T>>()
 
