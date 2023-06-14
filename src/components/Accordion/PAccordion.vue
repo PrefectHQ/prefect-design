@@ -2,23 +2,33 @@
   <div class="p-accordion">
     <template v-for="section in sections" :key="section">
       <div class="p-accordion__section">
-        <button
+        <slot
           :id="getHeadingId(section)"
-          type="button"
-          :aria-expanded="isSelected(section)"
-          :aria-controls="getContentId(section)"
-          class="p-accordion__header"
-          @click="toggleSection(section)"
+          name="header"
+          :section="section"
+          :content="getContentId(section)"
+          :toggle="() => toggleSection(section)"
         >
-          <span class="p-accordion__heading">
-            <slot :name="getHeadingId(section)">
-              <slot name="heading" :section="section">
-                {{ section }}
+          <button
+            :id="getHeadingId(section)"
+            type="button"
+            :aria-expanded="isSelected(section)"
+            :aria-controls="getContentId(section)"
+            class="p-accordion__header"
+            @click="toggleSection(section)"
+          >
+            <span class="p-accordion__heading">
+              <slot :name="getHeadingId(section)">
+                <slot name="heading" :section="section">
+                  {{ section }}
+                </slot>
               </slot>
+            </span>
+            <slot name="icon" :section="section">
+              <p-icon size="small" icon="ChevronDownIcon" class="p-accordion__icon" :class="getIconClass(section)" />
             </slot>
-          </span>
-          <p-icon size="small" icon="ChevronDownIcon" class="p-accordion__icon" :class="getIconClass(section)" />
-        </button>
+          </button>
+        </slot>
 
         <PAutoHeightTransition>
           <template v-if="isSelected(section)">
