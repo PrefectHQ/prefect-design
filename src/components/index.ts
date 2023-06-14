@@ -1,3 +1,4 @@
+import { PAccordion, install as installPAccordion } from '@/components/Accordion'
 import { PAutoHeightTransition, install as installPAutoHeightTransition } from '@/components/AutoHeightTransition'
 import { PBaseInput, install as installPBaseInput } from '@/components/BaseInput'
 import { PBreadCrumbs, install as installPBreadCrumbs } from '@/components/BreadCrumbs'
@@ -82,6 +83,7 @@ import { PWindow, install as installPWindow } from '@/components/Window'
 import { PWizard, install as installPWizard } from '@/components/Wizard'
 
 export {
+  PAccordion,
   PAutoHeightTransition,
   PBaseInput,
   PBreadCrumbs,
@@ -177,6 +179,7 @@ export {
 }
 
 export const installs = [
+  installPAccordion,
   installPAutoHeightTransition,
   installPBaseInput,
   installPBreadCrumbs,
@@ -263,6 +266,7 @@ export const installs = [
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    PAccordion: typeof PAccordion,
     PAutoHeightTransition: typeof PAutoHeightTransition,
     PBaseInput: typeof PBaseInput,
     PBreadCrumbs: typeof PBreadCrumbs,
