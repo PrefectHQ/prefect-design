@@ -13,7 +13,9 @@
     </template>
 
     <template #inline>
-      This is an <p-code inline>
+      This <p-code inline>
+        is
+      </p-code> an <p-code inline>
         inline
       </p-code> code block.
     </template>
