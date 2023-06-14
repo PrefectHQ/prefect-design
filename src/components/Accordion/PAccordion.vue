@@ -2,29 +2,35 @@
   <div class="p-accordion">
     <template v-for="section in sections" :key="section">
       <div class="p-accordion__section">
-        <div class="p-accordion__header">
-          <slot :name="`${section}-heading`">
-            <slot name="heading" :section="section">
-              {{ section }}
+        <button
+          :id="getHeadingId(section)"
+          type="button"
+          :aria-expanded="isSelected(section)"
+          :aria-controls="getContentId(section)"
+          class="p-accordion__header"
+          @click="toggleSection(section)"
+        >
+          <span class="p-accordion__heading">
+            <slot :name="getHeadingId(section)">
+              <slot name="heading" :section="section">
+                {{ section }}
+              </slot>
             </slot>
-          </slot>
-          <p-button
-            size="sm"
-            icon="ChevronDownIcon"
-            flat
-            rounded
-            class="p-accordion__button"
-            :class="getButtonClass(String(section))"
-            @click="toggleSection(String(section))"
-          />
-        </div>
+          </span>
+          <p-icon size="small" icon="ChevronDownIcon" class="p-accordion__icon" :class="getIconClass(section)" />
+        </button>
 
         <PAutoHeightTransition>
-          <template v-if="isOpen(String(section))">
-            <div class="p-accordion__content">
+          <template v-if="isSelected(section)">
+            <div
+              :id="getContentId(section)"
+              class="p-accordion__content"
+              role="region"
+              :aria-labelledby="getHeadingId(section)"
+            >
               <!-- this is needed because PAutoHeightTransition does not animate an elements padding correctly -->
               <div class="p-accordion__content-padding">
-                <slot :name="`${section}-content`">
+                <slot :name="getContentId(section)">
                   <slot name="content" :section="section" />
                 </slot>
               </div>
@@ -36,56 +42,91 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="const T extends Readonly<string[]>">
-  import { Ref, ref } from 'vue'
+<script lang="ts" setup generic="const T extends string">
+  import { Ref, computed, ref } from 'vue'
   import { PAutoHeightTransition } from '@/components/AutoHeightTransition'
+  import { kebabCase } from '@/utilities'
 
   const props = defineProps<{
-    sections: T,
+    sections: T[],
+    selected?: T | null,
   }>()
 
-  const open: Ref<T[number] | null> = ref(props.sections[0])
+  const emit = defineEmits<{
+    (event: 'update:selected', value: T | null): void,
+  }>()
 
-  function toggleSection(section: string): void {
-    if (isOpen(section)) {
-      open.value = null
+  const backupSelected: Ref<T | null> = ref(null)
+
+  const selected = computed({
+    get() {
+      if (props.selected) {
+        return props.selected
+      }
+
+      if (backupSelected.value) {
+        return backupSelected.value
+      }
+
+      return null
+    },
+    set(selected: T | null) {
+      backupSelected.value = selected
+
+      emit('update:selected', selected)
+    },
+  })
+
+  function toggleSection(section: T): void {
+    if (isSelected(section)) {
+      selected.value = null
       return
     }
 
-    open.value = section
+    selected.value = section
   }
 
-  function isOpen(section: string): boolean {
-    return open.value === section
+  function isSelected(section: T): boolean {
+    return selected.value === section
   }
 
-  function getButtonClass(section: string): string | undefined {
-    if (isOpen(section)) {
-      return 'p-accordion__button--open'
+  function getIconClass(section: T): string | undefined {
+    if (isSelected(section)) {
+      return 'p-accordion__icon--open'
     }
+  }
+
+  function getHeadingId(section: T): string {
+    return `${kebabCase(section)}-heading`
+  }
+
+  function getContentId(section: T): string {
+    return `${kebabCase(section)}-content`
   }
 </script>
 
 <style>
 .p-accordion__header { @apply
-  text-base
+  w-full
+  flex
+  gap-2
+  items-center
+  justify-between
   py-2
+  text-base
   border-t
   border-foreground-200
-  flex
-  justify-between
-  items-center
 }
 
 .p-accordion__content-padding { @apply
-  pb-3
+  pb-2
 }
 
-.p-accordion__button { @apply
+.p-accordion__icon { @apply
   transition-transform
 }
 
-.p-accordion__button--open { @apply
+.p-accordion__icon--open { @apply
   rotate-180
 }
 </style>
