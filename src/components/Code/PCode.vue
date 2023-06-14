@@ -24,7 +24,7 @@
 .p-code-container { @apply
   bg-slate-800
   text-slate-50
-  rounded-xl
+  rounded
   px-1
   py-0
   inline-block
@@ -34,5 +34,6 @@
   px-2
   py-2
   block
+  rounded-xl
 }
 </style>
