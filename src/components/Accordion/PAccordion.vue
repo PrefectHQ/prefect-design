@@ -42,7 +42,7 @@
               <!-- this is needed because PAutoHeightTransition does not animate an elements padding correctly -->
               <div class="p-accordion__content-padding">
                 <slot :name="getContentId(section)">
-                  <slot name="content" :section="section" />
+                  <slot name="content" :section="section" :selected="isSelected(section)" />
                 </slot>
               </div>
             </div>
