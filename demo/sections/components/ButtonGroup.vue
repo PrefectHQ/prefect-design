@@ -5,6 +5,7 @@
       { title: 'Basic' },
       { title: 'Small' },
       { title: 'Simple', description: 'Uses `string[]` for options' },
+      { title: 'Booleans', description: 'Uses `boolean[]` for options' },
     ]"
   >
     <template #description>
@@ -23,6 +24,10 @@
 
     <template #simple>
       <p-button-group v-model="simpleValue" :options="simpleOptions" />
+    </template>
+
+    <template #booleans>
+      <p-button-group v-model="booleanValue" :options="[true, false]" />
     </template>
   </ComponentPage>
 </template>
@@ -67,4 +72,6 @@
 
   const simpleValue = ref('Email')
   const simpleOptions = computed(() => buttonGroup.map(({ label }) => label))
+
+  const booleanValue = ref(true)
 </script>
