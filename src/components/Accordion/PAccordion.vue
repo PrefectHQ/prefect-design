@@ -6,6 +6,7 @@
           :id="getHeadingId(section)"
           name="header"
           :section="section"
+          :selected="isSelected(section)"
           :content="getContentId(section)"
           :toggle="() => toggleSection(section)"
         >
@@ -19,7 +20,7 @@
           >
             <span class="p-accordion__heading">
               <slot :name="getHeadingId(section)">
-                <slot name="heading" :section="section">
+                <slot name="heading" :section="section" :selected="isSelected(section)">
                   {{ section }}
                 </slot>
               </slot>
