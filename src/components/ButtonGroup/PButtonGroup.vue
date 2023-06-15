@@ -21,8 +21,8 @@
   import { SelectModelValue, ButtonGroupOption, Size, isButtonGroupOption } from '@/types'
 
   const props = withDefaults(defineProps<{
-    options: (ButtonGroupOption | string)[],
-    modelValue: string | number | null | undefined,
+    options: (ButtonGroupOption | SelectModelValue)[],
+    modelValue: SelectModelValue | undefined,
     size?: Size,
   }>(), {
     size: 'md',
@@ -39,7 +39,7 @@
       }
 
       return {
-        label: option,
+        label: String(option),
         value: option,
       }
     })

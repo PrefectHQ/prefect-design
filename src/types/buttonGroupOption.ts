@@ -8,6 +8,6 @@ export type ButtonGroupOption = {
   icon?: Icon,
 }
 
-export function isButtonGroupOption(input: string | number | ButtonGroupOption): input is ButtonGroupOption {
+export function isButtonGroupOption(input: SelectModelValue | ButtonGroupOption): input is ButtonGroupOption {
   return typeof input === 'object'
 }
