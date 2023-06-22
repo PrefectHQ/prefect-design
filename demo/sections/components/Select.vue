@@ -67,6 +67,18 @@
     {
       label: 'Three', value: '3',
     },
+    {
+      label: 'Four', value: '4',
+    },
+    {
+      label: 'Five', value: '5',
+    },
+    {
+      label: 'Six', value: '6',
+    },
+    {
+      label: 'Seven', value: '7',
+    },
   ]
 
   const exampleOptionsGrouped = [

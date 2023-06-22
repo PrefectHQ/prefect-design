@@ -17,6 +17,7 @@
               v-model="internalValue"
               v-model:highlightedValue="highlightedValue"
               :option="option"
+              :options="optionsOnly"
               :multiple="multiple"
             >
               <template #default="scope">
@@ -47,7 +48,7 @@
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { isSelectOptionGroup, SelectModelValue, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
+  import { isSelectOptionGroup, isSelectOptionNormalized, SelectModelValue, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
@@ -110,6 +111,7 @@
   }
 
   const flattened = computed(() => props.options.flatMap(option => flattenGroupsAndOptions(option)))
+  const optionsOnly = computed(() => props.options.filter(isSelectOptionNormalized))
 </script>
 
 <style>

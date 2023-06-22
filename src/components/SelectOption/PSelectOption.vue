@@ -2,7 +2,7 @@
   <div
     class="p-select-option"
     role="option"
-    :class="classes"
+    :class="classes.root"
     @click="handleClick"
     @mouseenter="handleMouseEnter"
   >
@@ -18,6 +18,24 @@
         {{ option.label }}
       </slot>
     </span>
+    <template v-if="!option.disabled">
+      <div class="p-select-option__actions" :class="classes.actions">
+        <p-button
+          title="Select only this value"
+          flat
+          size="xs"
+          icon="Target"
+          @click.stop="selectOnly"
+        />
+        <p-button
+          title="Select all except this value"
+          flat
+          size="xs"
+          icon="NoSymbolIcon"
+          @click.stop="selectOthers"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -30,6 +48,7 @@
     modelValue: string | number | boolean | null | SelectModelValue[],
     highlightedValue: string | number | boolean | null | symbol,
     option: SelectOptionNormalized,
+    options: SelectOptionNormalized[],
     multiple?: boolean,
   }>()
 
@@ -55,6 +74,7 @@
 
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const multiple = computed(() => props.multiple || Array.isArray(modelValue.value))
+  const highlighted = computed(() => props.highlightedValue === option.value.value)
 
   const selected = computed(() => {
     if (Array.isArray(modelValue.value)) {
@@ -74,9 +94,14 @@
   })
 
   const classes = computed(() => ({
-    'p-select-option--selected': selected.value,
-    'p-select-option--highlighted': highlightedValue.value === option.value.value,
-    'p-select-option--disabled': option.value.disabled,
+    root: {
+      'p-select-option--selected': selected.value,
+      'p-select-option--highlighted': highlighted.value,
+      'p-select-option--disabled': option.value.disabled,
+    },
+    actions: {
+      'p-select-option__actions--visible': highlighted.value,
+    },
   }))
 
   function handleClick(): void {
@@ -86,6 +111,14 @@
     }
 
     setValue()
+  }
+
+  function selectOnly(): void {
+    modelValue.value = [option.value.value]
+  }
+
+  function selectOthers(): void {
+    modelValue.value = props.options.filter(option => option.value !== props.option.value && !option.disabled).map(option => option.value)
   }
 
   function handleMouseEnter(): void {
@@ -169,5 +202,15 @@
 
 .p-select-option--disabled .p-checkbox { @apply
   opacity-100
+}
+
+.p-select-option__actions { @apply
+  opacity-0
+  ml-auto
+  flex
+}
+
+.p-select-option__actions--visible { @apply
+ opacity-100
 }
 </style>
