@@ -22,6 +22,7 @@
   import { useMostVisiblePositionStyles } from '@/compositions/position'
   import { usePopOverGroup } from '@/compositions/usePopOverGroup'
   import { PositionMethod } from '@/types/position'
+  import { randomId } from '@/utilities'
   import { left, right, bottom, top } from '@/utilities/position'
 
   const props = withDefaults(defineProps<{
@@ -32,7 +33,7 @@
   }>(), {
     placement: () => [right, bottom, top, left],
     to: 'body',
-    group: () => crypto.randomUUID(),
+    group: () => randomId(),
   })
 
   const emit = defineEmits<{
