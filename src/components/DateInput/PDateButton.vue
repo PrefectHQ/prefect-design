@@ -33,16 +33,26 @@
 
   const props = defineProps<{
     date: Date | null | undefined,
+    showTime?: boolean,
   }>()
 
   const buttonElement = ref<HTMLButtonElement>()
   const el = computed(() => buttonElement.value)
-  const displayValue = computed(() => {
-    if (props.date) {
-      return format(props.date, 'MM/dd/yyyy')
+
+  const dateTimeFormat = computed(() => {
+    if (props.showTime) {
+      return 'MMM do, yyyy \'at\' h:mm a'
     }
 
-    return 'mm/dd/yyyy'
+    return 'MMM do, yyyy'
+  })
+
+  const displayValue = computed(() => {
+    if (props.date) {
+      return format(props.date, dateTimeFormat.value)
+    }
+
+    return props.showTime ? 'Select a date and time' : 'Select a date'
   })
 
   defineExpose({ el })

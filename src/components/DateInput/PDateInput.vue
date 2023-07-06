@@ -13,7 +13,7 @@
           <PDateButton
             :date="internalModelValue"
             :class="classes.control"
-            :disabled="disabled"
+            v-bind="{ showTime, disabled }"
             @click="openPicker"
           />
         </template>
