@@ -9,9 +9,7 @@
           @click="openPicker"
         >
           <div class="p-date-range-input__target">
-            {{ displayStartDate }}
-            <p-icon icon="ChevronRightIcon" class="p-date-range-input__target-icon" />
-            {{ displayEndDate }}
+            {{ displayValue }}
           </div>
         </PDateButton>
       </template>
@@ -53,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { format, isSameDay } from 'date-fns'
+  import { format, isSameDay, startOfDay, endOfDay } from 'date-fns'
   import { computed } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'
@@ -72,6 +70,8 @@
     (event: 'update:viewingDate', value: Date | undefined): void,
   }>()
 
+  const dateFormat = 'MMM do, yyyy'
+
   const internalStartDate = computed({
     get() {
       return props.startDate ?? null
@@ -79,14 +79,6 @@
     set(value) {
       emit('update:startDate', value)
     },
-  })
-
-  const displayStartDate = computed(() => {
-    if (internalStartDate.value) {
-      return format(internalStartDate.value, 'MM/dd/yyyy')
-    }
-
-    return 'mm/dd/yyyy'
   })
 
   const internalEndDate = computed({
@@ -98,12 +90,12 @@
     },
   })
 
-  const displayEndDate = computed(() => {
-    if (internalEndDate.value) {
-      return format(internalEndDate.value, 'MM/dd/yyyy')
+  const displayValue = computed(() => {
+    if (internalStartDate.value && internalEndDate.value) {
+      return `${format(internalStartDate.value, dateFormat)} - ${format(internalEndDate.value, dateFormat)}`
     }
 
-    return 'mm/dd/yyyy'
+    return 'Select dates'
   })
 
   const rangeValue = computed({
@@ -116,22 +108,22 @@
       }
 
       if (internalStartDate.value && isDateBefore(value, internalStartDate.value)) {
-        internalEndDate.value = internalEndDate.value ? null : internalStartDate.value
-        internalStartDate.value = value
+        setEndDate(internalEndDate.value ? null : internalStartDate.value)
+        setStartDate(value)
 
         return
       }
 
       if (!internalStartDate.value) {
-        return internalStartDate.value = value
+        return setStartDate(value)
       }
 
       if (!internalEndDate.value) {
-        return internalEndDate.value = value
+        return setEndDate(value)
       }
 
-      internalStartDate.value = value
-      internalEndDate.value = null
+      setStartDate(value)
+      setEndDate(null)
     },
   })
 
@@ -167,6 +159,14 @@
     return isDateInRange(date, { min: internalStartDate.value, max: internalEndDate.value })
   }
 
+  function setStartDate(value: Date | null): void {
+    internalStartDate.value = value ? startOfDay(value) : value
+  }
+
+  function setEndDate(value: Date | null): void {
+    internalEndDate.value = value ? endOfDay(value) : value
+  }
+
   function clear(): void {
     internalStartDate.value = null
     internalEndDate.value = null
@@ -191,10 +191,6 @@
   ring-1
   ring-primary-500
   border-primary-500
-}
-
-.p-date-range-input__target-icon { @apply
-  text-foreground-400
 }
 
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected) { @apply
