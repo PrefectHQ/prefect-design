@@ -52,7 +52,7 @@
       return format(props.date, dateTimeFormat.value)
     }
 
-    return props.showTime ? 'Select a date and time' : 'Select a date'
+    return props.showTime ? 'Select date and time' : 'Select date'
   })
 
   defineExpose({ el })
