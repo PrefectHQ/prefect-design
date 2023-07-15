@@ -105,5 +105,6 @@
   rounded
   shadow
   dark:shadow-md
+  max-w-xs
 }
 </style>
