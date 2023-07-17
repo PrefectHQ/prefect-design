@@ -44,7 +44,7 @@
     "@fontsource/inter": "^4.5.12",
     "@prefecthq/eslint-config": "1.0.27",
     "@types/dompurify": "^3.0.1",
-    "@types/marked": "^4.0.8",
+    "@types/marked": "^5.0.1",
     "@types/node": "^20.1.6",
     "@types/tailwindcss": "^3.0.10",
     "@vitejs/plugin-vue": "4.2.3",
@@ -75,6 +75,6 @@
     "dompurify": "3.0.5",
     "highlight.js": "11.8.0",
     "lodash.debounce": "4.0.8",
-    "marked": "4.3.0"
+    "marked": "5.1.1"
   }
 }
