@@ -54,7 +54,7 @@
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24",
     "ts-node": "^10.7.0",
-    "tsc-alias": "1.8.6",
+    "tsc-alias": "1.8.7",
     "typescript": "5.1.6",
     "vite": "4.4.4",
     "vite-svg-loader": "4.0.0",
