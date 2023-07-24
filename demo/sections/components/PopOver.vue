@@ -33,7 +33,7 @@
         </div>
         <template v-if="showManual">
           <div ref="manualContent" class="bg-primary text-white p-2" :style="manualStyles">
-            <span>Manual Composition Content</span>
+            <span>Manual <br> Composition Content</span>
           </div>
         </template>
       </div>

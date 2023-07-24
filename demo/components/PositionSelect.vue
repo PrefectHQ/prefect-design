@@ -7,58 +7,40 @@
 <script lang="ts" setup>
   import PSelect from '@/components/Select/PSelect.vue'
   import { PositionMethod } from '@/types/position'
-  import { left, right, bottom, top, topRight, bottomRight, topLeft, bottomLeft } from '@/utilities/position'
+
+  /*  eslint import/namespace: ['error', { allowComputed: true }] */
+  import * as positions from '@/utilities/position'
   import { computed } from 'vue'
+
+  type PositionsKey = keyof typeof positions
 
   const props = defineProps<{
     // using any because vue's type warnings for props is dumb...
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    position: any,
+    position: PositionMethod | PositionMethod[],
   }>()
 
   const emit = defineEmits<{
     (event: 'update:position', value: PositionMethod | PositionMethod[]): void,
   }>()
 
-  const keyToFunction = new Map([
-    ['left', left],
-    ['right', right],
-    ['bottom', bottom],
-    ['top', top],
-    ['top right', topRight],
-    ['bottom right', bottomRight],
-    ['top left', topLeft],
-    ['bottom left', bottomLeft],
-  ])
-
-  const functionToKey = new Map([
-    [left, 'left'],
-    [right, 'right'],
-    [bottom, 'bottom'],
-    [top, 'top'],
-    [topRight, 'top right'],
-    [bottomRight, 'bottom right'],
-    [topLeft, 'top left'],
-    [bottomLeft, 'bottom left'],
-  ])
-
-  const options = Array.from(keyToFunction.keys())
+  const options = Object.keys(positions)
 
   const selected = computed({
     get: (): string | string[] => {
       if (Array.isArray(props.position)) {
-        return props.position.map(key => functionToKey.get(key)!)
+        return props.position.map(position => position.name)
       }
 
-      return functionToKey.get(props.position)!
+      return props.position.name
     },
     set: (value: string | string[]): void => {
       if (typeof value === 'string') {
-        emit('update:position', keyToFunction.get(value)!)
+        emit('update:position', positions[value as PositionsKey])
       } else {
         // eslint-disable-next-line id-length
         const sorted = [...value].sort((a, b) => options.indexOf(a) - options.indexOf(b))
-        const selected = sorted.map(key => keyToFunction.get(key)!)
+        const selected = sorted.map(key => positions[key as PositionsKey])
 
         emit('update:position', selected)
       }
