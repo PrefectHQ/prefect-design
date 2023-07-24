@@ -15,8 +15,6 @@
   type PositionsKey = keyof typeof positions
 
   const props = defineProps<{
-    // using any because vue's type warnings for props is dumb...
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     position: PositionMethod | PositionMethod[],
   }>()
 
