@@ -95,10 +95,8 @@
 
 .p-tooltip__content { @apply
   backdrop-blur-[1px]
-  bg-slate-300
-  dark:bg-slate-950
-  bg-opacity-50
-  dark:bg-opacity-70
+  bg-floating
+  bg-opacity-90
   text-foreground
   px-2
   py-1

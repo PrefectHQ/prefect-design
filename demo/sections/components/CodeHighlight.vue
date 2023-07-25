@@ -73,7 +73,7 @@
   const inlineContent = 'const javascript = "variable"'
 
   const markdownContent = `# Heading 1
-  
+
 ## Heading 2
 
 ### Heading 3
@@ -143,7 +143,7 @@ for i in range(10):
 
 
   const vueContent = `<template>
-  <div class="p-card">
+  <div class="p-card p-background">
     <slot />
   </div>
 </template>
@@ -158,11 +158,7 @@ for i in range(10):
 
 <style>
 .p-card { @apply
-  bg-background
   text-foreground
-  border
-  border-background-400
-  dark:border-foreground-200
   p-6
   rounded-lg
   shadow-sm

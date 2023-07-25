@@ -1,5 +1,5 @@
 <template>
-  <div class="p-card" :class="classes">
+  <div class="p-card p-background" :class="classes">
     <slot />
   </div>
 </template>
@@ -18,7 +18,6 @@
 
 <style>
 .p-card { @apply
-  bg-background
   text-foreground
   p-4
   rounded-xl

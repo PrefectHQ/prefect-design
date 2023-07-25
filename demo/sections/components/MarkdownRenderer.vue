@@ -59,7 +59,7 @@
             </template>
 
             <template #raw>
-              <p-code-highlight :text="markdownRef" class="markdown-renderer__raw" show-line-numbers lang="markdown" />
+              <p-code-highlight :text="markdownRef" class="markdown-renderer__raw p-background" show-line-numbers lang="markdown" />
             </template>
           </p-tabs>
         </p-card>
@@ -242,7 +242,7 @@
   > highlighted_fenced = "code block"
   > \`\`\`
   > ${blockQuote} nested
-  > 
+  >
   > ${heading1}
   > ${heading2}
   > ${heading3}
@@ -262,8 +262,8 @@
   > 3. ordered list item 3
   > - [x] task list item 1
   > - [ ] task list item 2
-  > - [ ] task list item 
-  > 
+  > - [ ] task list item
+  >
   > ${table}
   `
 
@@ -366,18 +366,12 @@ _**${user3}** has changed their name to **${user1}**_
   font-semibold
 }
 
-.markdown-renderer__live { @apply
-  bg-background-400
-}
-
 .markdown-renderer__interactive,
 .markdown-renderer__live { @apply
   my-12
 }
 
 .markdown-renderer__raw { @apply
-  bg-background-600
-  dark:bg-background-400
   overflow-auto
   pl-0
   max-w-full
