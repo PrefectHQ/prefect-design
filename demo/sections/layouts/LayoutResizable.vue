@@ -141,12 +141,12 @@
 }
 
 .layout-resizable__main { @apply
-  bg-background-500
-  dark:bg-background
+  bg-blue-400
+  dark:bg-blue-800
 }
 
 .layout-resizable__aside { @apply
-  bg-cyan-600
+  bg-blue-600
   text-foreground-50
   text-ellipsis
   overflow-hidden
@@ -167,7 +167,6 @@
 }
 
 .layout-resizable__advanced .layout-resizable__aside { @apply
-  dark:bg-background
   text-slate-50
   flex
 }
@@ -180,10 +179,6 @@
 .layout-resizable__aside-left,
 .layout-resizable__aside-right { @apply
   flex-col
-}
-
-.layout-resizable__advanced .layout-resizable__main { @apply
-  dark:bg-background-100
 }
 
 .layout-resizable__aside-header,

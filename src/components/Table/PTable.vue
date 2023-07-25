@@ -185,7 +185,6 @@
   overflow-hidden
   overflow-x-auto
   shadow-sm
-  rounded-xl
 }
 
 .p-table__table { @apply
