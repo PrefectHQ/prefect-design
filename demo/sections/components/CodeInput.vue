@@ -77,7 +77,7 @@
   const placeholderInput = ref()
 
   const vueInput = ref(`<template>
-  <div class="p-card">
+  <div class="p-card p-background">
     <slot />
   </div>
 </template>
@@ -92,11 +92,7 @@
 
 <style>
 .p-card { @apply
-  bg-background
   text-foreground
-  border
-  border-background-400
-  dark:border-foreground-200
   p-6
   rounded-lg
   shadow-sm
@@ -109,16 +105,16 @@
 
 by Alexender Pope
 -----------
- 
+
 ### &#169; 1717
- 
-How happy is the blameless vestal's lot! 
+
+How happy is the blameless vestal's lot!
 The world forgetting---by the world forgot.
 
-Eternal sunshine of the   
+Eternal sunshine of the
 spotless mind!
 
-Each *pray'r accepted*, each **wish resign'd**, 
+Each *pray'r accepted*, each **wish resign'd**,
 \`Labour\`, and ~~rest~~ .
 
 That equal periods keep:

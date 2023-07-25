@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="resizable-section">
+  <div ref="container" class="resizable-section p-background">
     <p-frame v-if="show" :style="styles.iframe" :class="classes.iframe" :body-class="classes.content">
       <div class="resizable-section__content">
         <slot />
@@ -12,7 +12,7 @@
       </div>
 
       <transition name="fade">
-        <div v-if="dragging" class="resizable-section__px">
+        <div v-if="dragging" class="resizable-section__px p-background">
           {{ contentWidth }}px
         </div>
       </transition>
@@ -40,8 +40,7 @@
     content: {
       'dark': colorTheme.value === 'dark',
       'light': colorTheme.value === 'light',
-      'bg-background-600': colorTheme.value === 'light',
-      'bg-background-400': colorTheme.value === 'dark',
+      'p-background': true,
     },
     iframe: {
       'pointer-events-none': dragging.value,
@@ -107,7 +106,6 @@
 }
 
 .resizable-section__aside { @apply
-  bg-background-500
   grow
 }
 
@@ -125,8 +123,6 @@
 
 .resizable-section__px { @apply
   select-none
-  bg-opacity-70
-  bg-background
   text-foreground
   rounded
   px-2

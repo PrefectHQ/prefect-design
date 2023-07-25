@@ -34,8 +34,6 @@
 
 .app { @apply
   text-foreground
-  bg-background-900
-  dark:bg-background-50
   grid
   max-h-screen
 }

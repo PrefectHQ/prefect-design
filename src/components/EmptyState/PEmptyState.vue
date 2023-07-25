@@ -1,5 +1,5 @@
 <template>
-  <div class="p-empty-state">
+  <div class="p-empty-state p-background">
     <div class="p-empty-state__corner-label">
       <slot name="corner-label" />
     </div>
@@ -30,7 +30,6 @@
 
 <style>
 .p-empty-state { @apply
-  bg-background
   rounded-xl
   shadow-sm
 }
