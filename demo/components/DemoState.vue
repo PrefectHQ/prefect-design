@@ -1,5 +1,5 @@
 <template>
-  <p-label label="Validation State" class="demo-state">
+  <p-label label="Validation State" class="demo-state p-background">
     <p-checkbox v-model="state.valid" label="valid" />
     <p-checkbox v-model="state.validated" label="validated" />
     <p-checkbox v-model="state.pending" label="pending" />
@@ -45,7 +45,6 @@
   px-8
   py-4
   my-4
-  bg-background
   rounded
 }
 </style>

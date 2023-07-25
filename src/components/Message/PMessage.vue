@@ -1,5 +1,5 @@
 <template>
-  <div class="p-message" :class="classes.message">
+  <div class="p-message p-background" :class="classes.message">
     <slot name="icon">
       <template v-if="icon">
         <p-icon class="p-message__icon" :class="classes.icon" :icon="icon" />
@@ -78,7 +78,6 @@
   flex
   gap-2
   items-center
-  bg-background
   p-4
   rounded-md
   text-sm
@@ -94,9 +93,6 @@
 
 .p-message__dismiss  { @apply
   !p-1
-}
-.p-message__dismiss:not(.p-button--disabled) { @apply
-  hover:bg-background-200
 }
 
 .p-message--info { @apply
@@ -121,9 +117,5 @@
 
 .p-message__dismiss { @apply
   text-primary-800
-}
-
-.p-message__dismiss:not(.p-button--disabled) { @apply
-  hover:bg-primary-100
 }
 </style>

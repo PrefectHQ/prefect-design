@@ -1,5 +1,5 @@
 <template>
-  <div class="p-global-sidebar">
+  <div class="p-global-sidebar p-background">
     <div class="p-global-sidebar__nav-links">
       <slot name="upper-links" />
     </div>
@@ -12,7 +12,6 @@
 
 <style>
 .p-global-sidebar { @apply
-  bg-slate-800
   sticky
   top-0
   h-16
