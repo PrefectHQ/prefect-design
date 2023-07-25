@@ -37,7 +37,7 @@
     <template #custom-point>
       <p-timeline :items="itemsReversed" class="ordered-list__custom-point" v-bind="{ layout }">
         <template #point="{ item }">
-          <div class="ordered-list__ninja-point">
+          <div class="ordered-list__ninja-point p-background">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
         </template>
@@ -257,7 +257,6 @@
   shadow-sm
   hover:shadow-lg
   text-foreground
-  bg-background
   border-2
 }
 

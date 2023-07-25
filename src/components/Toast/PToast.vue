@@ -103,8 +103,7 @@
 .p-toast__card { @apply
   max-w-sm
   w-full
-  bg-background-400
-  dark:bg-background-600
+  bg-floating
   shadow-lg
   rounded-lg
   pointer-events-auto
@@ -144,15 +143,14 @@
 }
 
 .p-toast__close-btn { @apply
-  bg-foreground-200
   relative
   rounded-full
   inline-flex
   justify-center
   items-center
-  text-background-600
+  text-background-100
+  dark:text-background-900
   hover:text-background-700
-  hover:bg-foreground-300
   focus:outline-none
   focus:ring-2
   focus:ring-offset-2

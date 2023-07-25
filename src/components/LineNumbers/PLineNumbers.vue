@@ -16,7 +16,6 @@
 
   @apply
   text-right
-  bg-background-500
   relative
   text-foreground-100
   min-w-max

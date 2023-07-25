@@ -1,5 +1,5 @@
 <template>
-  <div class="code-block">
+  <div class="code-block p-background">
     <pre>
     <!-- eslint-disable-next-line vue/no-v-html -->
     <code multiline v-html="highlighted" />
