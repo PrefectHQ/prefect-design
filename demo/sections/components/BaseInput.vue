@@ -2,6 +2,7 @@
   <ComponentPage
     title="Base Input"
     :demos="[
+      { title: 'Basic' },
       { title: 'Prepend and Append Props' },
       { title: 'Prepend and Append Slots' },
       { title: 'Search Input' },
@@ -13,6 +14,10 @@
       </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
+    </template>
+
+    <template #basic>
+      <p-text-input v-model="basic" placeholder="Placeholder" :disabled="disabled" :state="exampleState" />
     </template>
 
     <template #prepend-and-append-props>
@@ -53,6 +58,7 @@
   const exampleState = ref<State>()
   const disabled = ref(false)
 
+  const basic = ref('')
   const exampleUrl = ref('')
   const exampleDollars = ref(0)
   const exampleSearch = ref('')
