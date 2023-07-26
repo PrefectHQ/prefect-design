@@ -18,12 +18,24 @@ const generateColorPalette = (base) => {
 
 const colors = () => {
   return {
+    background: generateColorPalette('background'),
+    divider: 'var(--p-color-divider)',
+    active: 'var(--p-color-active)',
+    focus: 'var(--p-color-focus)',
+    awaiting: 'var(--p-color-awaiting)',
+    live: 'var(--p-color-live)',
+    event: 'var(--p-color-event)',
+    'event-dense': 'var(--p-color-event-dense)',
+    'sentiment-positive': 'var(--p-color-sentiment-positive)',
+    'sentiment-neutral': 'var(--p-color-sentiment-neutral)',
+    'sentiment-negative': 'var(--p-color-sentiment-negative)',
+
+    /* Legacy imports – to be removed before releasing v2.0 */
     prefect: generateColorPalette('prefect'),
     primary: generateColorPalette('primary'),
     danger: generateColorPalette('danger'),
     success: generateColorPalette('success'),
     foreground: generateColorPalette('foreground'),
-    background: generateColorPalette('background'),
   }
 }
 
