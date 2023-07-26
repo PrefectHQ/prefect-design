@@ -18,7 +18,6 @@ const generateColorPalette = (base) => {
 
 const colors = () => {
   return {
-    background: generateColorPalette('background'),
     divider: 'var(--p-color-divider)',
     active: 'var(--p-color-active)',
     focus: 'var(--p-color-focus)',
@@ -31,6 +30,7 @@ const colors = () => {
     'sentiment-negative': 'var(--p-color-sentiment-negative)',
 
     /* Legacy imports – to be removed before releasing v2.0 */
+    background: generateColorPalette('background'),
     prefect: generateColorPalette('prefect'),
     primary: generateColorPalette('primary'),
     danger: generateColorPalette('danger'),
