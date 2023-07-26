@@ -31,7 +31,6 @@
 
     <template v-if="layout == 'vertical'" #append>
       <div class="app-navigation-bar__append">
-        <p-divider />
         <p-theme-toggle />
       </div>
     </template>
@@ -116,6 +115,6 @@
   flex-col
   items-center
   w-full
-  py-4
+  pb-4
 }
 </style>
