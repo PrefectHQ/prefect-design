@@ -139,6 +139,29 @@
     --p-color-bg-2: var(--p-color-bg-0);
     --p-color-bg-floating: #393942;
 
+    /* Root Tokens */
+    --p-color-divider: #51525C;
+
+    --p-color-active: #1F647A;
+    --p-color-focus: #175CD3;
+
+    --p-color-awaiting: #F79008;
+    --p-color-live: #4B5CFF;
+
+    --p-color-event: #7210EF;
+    --p-color-event-dense: #A564F9;
+
+    --p-color-sentiment-positive: #22C55E;
+    --p-color-sentiment-neutral: #70707B;
+    --p-color-sentiment-negative: #D92D21;
+
+    /* Text */
+    --p-color-text-default: #FFFFFF;
+    --p-color-text-subdued: #ADADAD;
+    --p-color-text-inverse: #171717;
+    --p-color-text-link: #53B1FD;
+
+    /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
     --background: var(--800);
     --primary: var(--primary-default-400);
@@ -210,6 +233,29 @@
     --p-color-bg-2: var(--p-color-bg-0);
     --p-color-bg-floating: #F8F8F9;
 
+    /* Root Tokens */
+    --p-color-divider: #BFBFCC;
+
+    --p-color-active: #9DDDF1;
+    --p-color-focus: #1470EF;
+
+    --p-color-awaiting: #F79008;
+    --p-color-live: #4B5CFF;
+
+    --p-color-event: #B073FF;
+    --p-color-event-dense: #CDA7FE;
+
+    --p-color-sentiment-positive: #22C55E;
+    --p-color-sentiment-neutral: #70707B;
+    --p-color-sentiment-negative: #D92D21;
+
+    /* Text */
+    --p-color-text-default: #171717;
+    --p-color-text-subdued: #70707B;
+    --p-color-text-inverse: #FFFFFF;
+    --p-color-text-link: #1470EF;
+
+    /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
     --background: var(--white);
     --primary: var(--primary-default-500);
@@ -275,6 +321,26 @@
 @layer components {
   .bg-floating {
     background-color: var(--p-color-bg-floating);
+  }
+
+  .border-default {
+    border-color: var(--p-color-divider);
+  }
+
+  .text-default {
+    color: var(--p-color-text-default);
+  }
+
+  .text-subdued {
+    color: var(--p-color-text-subdued);
+  }
+
+  .text-inverse {
+   color: var(--p-color-text-inverse);
+  }
+
+  .text-link {
+    color: var(--p-color-text-link);
   }
 }
 
