@@ -175,9 +175,9 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-activated-bg: var(--p-color-active);
-    --p-color-input-activated-border: var(--p-color-active);
-    --p-color-input-activated-text: var(--p-color-text-default);
+    --p-color-input-checked-bg: var(--p-color-active);
+    --p-color-input-checked-border: var(--p-color-active);
+    --p-color-input-checked-text: var(--p-color-text-default);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
@@ -284,9 +284,9 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-activated-bg: var(--p-color-active);
-    --p-color-input-activated-border: var(--p-color-active);
-    --p-color-input-activated-text: var(--p-color-text-default);
+    --p-color-input-checked-bg: var(--p-color-active);
+    --p-color-input-checked-border: var(--p-color-active);
+    --p-color-input-checked-text: var(--p-color-text-default);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
