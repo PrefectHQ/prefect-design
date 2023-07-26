@@ -125,8 +125,9 @@
   justify-between
   py-2
   text-base
+  text-default
   border-t
-  border-foreground-200
+  border-default
 }
 
 .p-accordion__content-padding { @apply
