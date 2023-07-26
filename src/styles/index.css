@@ -158,7 +158,7 @@
     /* Text */
     --p-color-text-default: #FFFFFF;
     --p-color-text-subdued: #ADADAD;
-    --p-color-text-inverse: var(--p-color-bg-0);
+    --p-color-text-inverse: #171717;
     --p-color-text-link: #53B1FD;
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
@@ -252,7 +252,7 @@
     /* Text */
     --p-color-text-default: #171717;
     --p-color-text-subdued: #70707B;
-    --p-color-text-inverse: var(--p-color-bg-0);
+    --p-color-text-inverse: #FFFFFF;
     --p-color-text-link: #1470EF;
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
@@ -330,12 +330,15 @@
   .text-default {
     color: var(--p-color-text-default);
   }
+
   .text-subdued {
     color: var(--p-color-text-subdued);
   }
+
   .text-inverse {
    color: var(--p-color-text-inverse);
   }
+
   .text-link {
     color: var(--p-color-text-link);
   }
