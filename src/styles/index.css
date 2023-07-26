@@ -111,6 +111,9 @@
 
 @layer base {
   :root {
+    --p-spacing-focus-halo: 2px;
+
+    /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
     --background: var(--100);
     --primary: var(--primary-default-400);
@@ -144,6 +147,7 @@
 
     --p-color-active: #1F647A;
     --p-color-focus: #175CD3;
+    --p-color-focus-halo: rgba(23, 92, 211, 0.4);
 
     --p-color-awaiting: #F79008;
     --p-color-live: #4B5CFF;
@@ -160,6 +164,20 @@
     --p-color-text-subdued: #ADADAD;
     --p-color-text-inverse: #171717;
     --p-color-text-link: #53B1FD;
+
+    /* Input */
+    --p-color-input-bg: var(--p-color-bg-0);
+    --p-color-input-border: #70707B;
+    --p-color-input-text: var(--p-color-text-default);
+    --p-color-input-placeholder: var(--p-color-text-subdued);
+
+    --p-color-input-bg-invalid: var(--p-color-input-bg);
+    --p-color-input-border-invalid: var(--p-color-sentiment-negative);
+    --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
+
+    --p-color-input-checked-bg: var(--p-color-active);
+    --p-color-input-checked-border: var(--p-color-active);
+    --p-color-input-checked-text: var(--p-color-text-default);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
@@ -238,6 +256,7 @@
 
     --p-color-active: #9DDDF1;
     --p-color-focus: #1470EF;
+    --p-color-focus-halo: rgba(23, 92, 211, 0.4);
 
     --p-color-awaiting: #F79008;
     --p-color-live: #4B5CFF;
@@ -254,6 +273,20 @@
     --p-color-text-subdued: #70707B;
     --p-color-text-inverse: #FFFFFF;
     --p-color-text-link: #1470EF;
+
+    /* Input */
+    --p-color-input-bg: var(--p-color-bg-0);
+    --p-color-input-border: #70707B;
+    --p-color-input-text: var(--p-color-text-default);
+    --p-color-input-placeholder: var(--p-color-text-subdued);
+
+    --p-color-input-bg-invalid: var(--p-color-input-bg);
+    --p-color-input-border-invalid: var(--p-color-sentiment-negative);
+    --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
+
+    --p-color-input-checked-bg: var(--p-color-active);
+    --p-color-input-checked-border: var(--p-color-active);
+    --p-color-input-checked-text: var(--p-color-text-default);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);

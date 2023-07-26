@@ -21,6 +21,7 @@ const colors = () => {
     divider: 'var(--p-color-divider)',
     active: 'var(--p-color-active)',
     focus: 'var(--p-color-focus)',
+    'focus-halo': 'var(--p-color-focus-halo)',
     awaiting: 'var(--p-color-awaiting)',
     live: 'var(--p-color-live)',
     event: 'var(--p-color-event)',
@@ -39,11 +40,24 @@ const colors = () => {
   }
 }
 
+const spacing = {
+  'spacing-focus-halo': 'var(--p-spacing-focus-halo)',
+}
+
+const ringWidth = {
+  'spacing-focus-halo': 'var(--p-spacing-focus-halo)',
+}
+
 const fontFamily = {
   sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
   mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],
 }
-const extend = { colors, fontFamily }
+const extend = {
+  colors,
+  spacing,
+  ringWidth,
+  fontFamily,
+}
 const plugins = [forms]
 const darkMode = 'class'
 
