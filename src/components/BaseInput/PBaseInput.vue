@@ -69,8 +69,8 @@
   items-center
   border
   focus-within:border-focus
-  focus-within:ring-spacing-focus-hue
-  focus-within:ring-focus-hue
+  focus-within:ring-spacing-focus-halo
+  focus-within:ring-focus-halo
   rounded-md
   font-normal;
   background-color: var(--p-color-input-bg);
