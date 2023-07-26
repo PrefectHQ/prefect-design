@@ -4,7 +4,7 @@
       <div class="layout-table-section__box layout-table--scrollable ">
         <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
-        <p-layout-table class="bg-background-400">
+        <p-layout-table class="p-background">
           <template v-if="useFullSlots" #header>
             <div class="bg-fuchsia-500 layout-table-section__box">
               header
@@ -23,7 +23,7 @@
             </div>
           </template>
 
-          <div class="bg-rose-500 layout-table-section__box layout-table__main">
+          <div class="bg-blue-200 dark:bg-blue-800 layout-table-section__box layout-table__main">
             main
           </div>
 
@@ -52,7 +52,7 @@
       <div class="layout-table-section__box layout-table--scrollable ">
         <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
-        <p-layout-table class="bg-background-400" sticky>
+        <p-layout-table class="p-background" sticky>
           <template v-if="useFullSlots" #header>
             <div class="bg-fuchsia-500 layout-table-section__box">
               header
@@ -72,7 +72,7 @@
           </template>
 
 
-          <div class="bg-rose-500 layout-table-section__box layout-table__main">
+          <div class="bg-blue-200 dark:bg-blue-800 layout-table-section__box layout-table__main">
             main
           </div>
 

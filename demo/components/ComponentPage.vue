@@ -42,9 +42,7 @@
             </template>
 
             <template v-else>
-              <p-card class="component-page__demo-card">
-                <slot :name="demo.slotKey" />
-              </p-card>
+              <slot :name="demo.slotKey" />
             </template>
           </p-content>
         </template>
@@ -129,8 +127,6 @@
   justify-between
   text-sm
   sticky
-  bg-background
-  dark:bg-background-400
   px-6
   py-6
   lg:px-8
@@ -175,10 +171,6 @@
   py-6
   px-6
   lg:px-8
-}
-
-.component-page__demo-card { @apply
-  bg-transparent
 }
 
 .component-page__navigation { @apply

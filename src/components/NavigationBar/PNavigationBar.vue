@@ -57,11 +57,8 @@
   grid
   gap-4
   overflow-hidden
-  bg-primary-100
-  dark:bg-background-500
   h-screen
   w-64
-  rounded-r-2xl
   shadow
 }
 
@@ -83,6 +80,9 @@
 }
 
 .p-navigation-bar__content { @apply
+  border-t
+  border-b
+  border-slate-400
   self-stretch
   overflow-auto
 }

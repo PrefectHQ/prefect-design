@@ -1,5 +1,5 @@
 <template>
-  <div class="p-code-highlight" :lines="lines" :class="classes.root">
+  <div class="p-code-highlight p-background" :lines="lines" :class="classes.root">
     <template v-if="showLineNumbers">
       <PLineNumbers class="p-code-highlight__line-numbers" :lines="lines" />
     </template>
@@ -56,7 +56,6 @@
 
   @apply
   flex
-  bg-background
   shadow
   rounded-lg
   font-mono

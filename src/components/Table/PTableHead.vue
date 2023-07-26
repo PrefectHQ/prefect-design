@@ -11,9 +11,3 @@
 <script lang="ts" setup>
   import PTableRow from '@/components/Table/PTableRow.vue'
 </script>
-
-<style>
-.p-table-head { @apply
-  bg-background
-}
-</style>
