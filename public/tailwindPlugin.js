@@ -20,8 +20,8 @@ const colors = () => {
   return {
     divider: 'var(--p-color-divider)',
     active: 'var(--p-color-active)',
-    focus: 'var(--p-color-focus)',
-    'focus-halo': 'var(--p-color-focus-halo)',
+    'focus-ring': 'var(--p-color-focus-ring)',
+    'focus-ring-offset': 'var(--p-color-focus-ring-offset)',
     awaiting: 'var(--p-color-awaiting)',
     live: 'var(--p-color-live)',
     event: 'var(--p-color-event)',
@@ -41,11 +41,15 @@ const colors = () => {
 }
 
 const spacing = {
-  'spacing-focus-halo': 'var(--p-spacing-focus-halo)',
+  'spacing-focus-ring': 'var(--p-spacing-focus-ring)',
 }
 
 const ringWidth = {
-  'spacing-focus-halo': 'var(--p-spacing-focus-halo)',
+  'spacing-focus-ring': 'var(--p-spacing-focus-ring)',
+}
+
+const ringOffsetWidth = {
+  'focus-ring': 'var(--p-spacing-focus-ring-offset)',
 }
 
 const fontFamily = {
@@ -56,6 +60,7 @@ const extend = {
   colors,
   spacing,
   ringWidth,
+  ringOffsetWidth,
   fontFamily,
 }
 const plugins = [forms]
