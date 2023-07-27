@@ -4,12 +4,9 @@
     :demos="[
       { title: 'Default button', description: 'Your go-to button for interactions.' },
       { title: 'Primary button', description: 'For a button that progresses the current journey. Only one per screen.' },
-      { title: 'Default danger button', description: 'To initiate a destructive action' },
-      { title: 'Primary danger button', description: 'To confirm a destructive action.' },
       { title: 'Icon only', description: 'When an icon is provided with no text.' },
       { title: 'Flat icon only', description: 'While any button can technically be made flat, this style is intended to be used with icon only buttons.' },
       { title: 'Loading', description: 'A soothing loading indicator for when a button is working on it.' },
-      { title: 'Activated', description: 'This style is intended for use only with default buttons, specifically in button groups.' },
     ]"
   >
     <template #description>
@@ -27,67 +24,41 @@
         <p-button icon-append="PlusIcon">
           Appended Icon
         </p-button>
+        <p-button dangerous>
+          Dangerous
+        </p-button>
         <p-button disabled>
           Disabled
         </p-button>
+      </div>
+      <div class="flex gap-4 items-center flex-wrap">
         <p-button small>
-          Small
+          Button
         </p-button>
         <p-button small icon="PlusIcon">
-          Small With Icon
+          With Icon
         </p-button>
         <p-button small icon-append="PlusIcon">
-          Small Appended Icon
+          Appended Icon
         </p-button>
       </div>
     </template>
 
     <template #primary-button>
       <div class="flex gap-4 items-center flex-wrap">
-        <p-button kind="primary">
+        <p-button primary>
           Button
         </p-button>
-        <p-button kind="primary" icon="PlusIcon">
+        <p-button primary icon="PlusIcon">
           With Icon
         </p-button>
-        <p-button disabled kind="primary">
+        <p-button disabled primary>
           Disabled
         </p-button>
-        <p-button kind="primary" small>
-          Small
+        <p-button dangerous primary>
+          Dangerous
         </p-button>
-      </div>
-    </template>
-
-    <template #default-danger-button>
-      <div class="flex gap-4 items-center flex-wrap">
-        <p-button kind="danger">
-          Button
-        </p-button>
-        <p-button kind="danger" icon="PlusIcon">
-          With Icon
-        </p-button>
-        <p-button disabled kind="danger">
-          Disabled
-        </p-button>
-        <p-button kind="danger" small>
-          Small
-        </p-button>
-      </div>
-    </template>
-
-    <template #primary-danger-button>
-      <div class="flex gap-4 items-center flex-wrap">
-        <p-button kind="primary--danger">
-          Button
-        </p-button>
-        <p-button kind="primary--danger" icon="PlusIcon">
-          With Icon
-        </p-button>
-        <p-button disabled kind="primary--danger">
-          Disabled
-        </p-button>
-        <p-button kind="primary--danger" small>
+        <p-button primary small>
           Small
         </p-button>
       </div>
@@ -96,21 +67,22 @@
     <template #icon-only>
       <div class="flex gap-4 items-center flex-wrap">
         <p-button icon="PlusIcon" />
-        <p-button icon="RocketLaunchIcon" kind="primary" />
-        <p-button icon="TrashIcon" kind="danger" />
+        <p-button icon="RocketLaunchIcon" primary />
+        <p-button icon="TrashIcon" dangerous />
       </div>
       <div class="flex gap-4 items-center flex-wrap">
         <p-button small icon="PlusIcon" />
-        <p-button small icon="RocketLaunchIcon" kind="primary" />
-        <p-button small icon="TrashIcon" kind="danger" />
+        <p-button small icon="RocketLaunchIcon" primary />
+        <p-button small icon="TrashIcon" dangerous />
       </div>
     </template>
 
     <template #flat-icon-only>
       <div class="flex gap-4 items-center flex-wrap">
-        <p-button icon="PlusIcon" kind="flat" />
-        <p-button icon="PlusIcon" kind="flat" small />
-        <p-button icon="PlusIcon" kind="flat" disabled />
+        <p-button icon="PlusIcon" flat />
+        <p-button icon="TrashIcon" flat dangerous />
+        <p-button icon="PlusIcon" flat small />
+        <p-button icon="PlusIcon" flat disabled />
       </div>
     </template>
 
@@ -119,28 +91,21 @@
         <p-button :loading="buttonLoading">
           Button
         </p-button>
-        <p-button :loading="buttonLoading" kind="primary">
+        <p-button :loading="buttonLoading" primary>
           Button
         </p-button>
-        <p-button :loading="buttonLoading" kind="danger">
+        <p-button :loading="buttonLoading" dangerous>
           Button
         </p-button>
-        <p-button :loading="buttonLoading" kind="primary--danger">
+        <p-button :loading="buttonLoading" primary dangerous>
           Button
         </p-button>
         <p-button :loading="buttonLoading" icon="PlusIcon" />
-        <p-button :loading="buttonLoading" icon="PlusIcon" kind="flat" />
+        <p-button :loading="buttonLoading" icon="PlusIcon" flat />
+        <p-button :loading="buttonLoading" icon="PlusIcon" flat dangerous />
       </div>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
-    </template>
-
-    <template #activated>
-      <div class="flex gap-4 flex-wrap">
-        <p-button activated>
-          Button
-        </p-button>
-      </div>
     </template>
   </ComponentPage>
 </template>
