@@ -1,6 +1,5 @@
 export * from './attributes'
 export * from './breadcrumbs'
-export * from './button'
 export * from './buttonGroupOption'
 export * from './checkbox'
 export * from './drawer'
