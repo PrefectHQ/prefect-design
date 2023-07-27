@@ -2,153 +2,145 @@
   <ComponentPage
     title="Button"
     :demos="[
-      { title: 'Simple Buttons', description: 'here is some useful info' },
-      { title: 'With Icons', description: 'here is some useful info' },
-      { title: 'Icons Only', description: 'here is some useful info' },
-      { title: 'Icons Round', description: 'here is some useful info' },
-      { title: 'Button Sizes', description: 'here is some useful info' },
-      { title: 'Round Button Sizes', description: 'here is some useful info' },
-      { title: 'Disabled', description: 'here is some useful info' },
-      { title: 'Loading', description: 'here is some useful info' },
+      { title: 'Default button', description: 'Your go-to button for interactions.' },
+      { title: 'Primary button', description: 'For a button that progresses the current journey. Only one per screen.' },
+      { title: 'Default danger button', description: 'To initiate a destructive action' },
+      { title: 'Primary danger button', description: 'To confirm a destructive action.' },
+      { title: 'Icon only', description: 'When an icon is provided with no text.' },
+      { title: 'Flat icon only', description: 'While any button can technically be made flat, this style is intended to be used with icon only buttons.' },
+      { title: 'Loading', description: 'A soothing loading indicator for when a button is working on it.' },
+      { title: 'Activated', description: 'This style is intended for use only with default buttons, specifically in button groups.' },
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code inline>
-        p-button
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      Buttons. The 'DON'T PANIC' signs of the internet, assuring us there's always something we're allowed to click.
     </template>
 
-    <template #simple-buttons>
-      <div class="flex gap-1 flex-wrap">
+    <template #default-button>
+      <div class="flex gap-4 items-center flex-wrap">
         <p-button>
-          something
+          Button
         </p-button>
-
-        <p-button secondary>
-          secondary
+        <p-button icon="PlusIcon">
+          With Icon
         </p-button>
-
-        <p-button inset>
-          inset
+        <p-button icon-append="PlusIcon">
+          Appended Icon
         </p-button>
-
-        <p-button flat>
-          flat
-        </p-button>
-
-        <p-button danger>
-          danger
-        </p-button>
-
-        <p-button secondary danger>
-          secondary danger
-        </p-button>
-      </div>
-    </template>
-
-    <template #with-icons>
-      <div class="flex gap-1 flex-wrap">
-        <p-button icon="BeakerIcon">
-          icon with text
-        </p-button>
-
-        <p-button secondary icon="BeakerIcon">
-          icon with text
-        </p-button>
-
-        <p-button inset icon="BeakerIcon">
-          icon with text
-        </p-button>
-
-        <p-button flat icon="BeakerIcon">
-          icon with text
-        </p-button>
-
-        <p-button danger icon="BeakerIcon">
-          icon with text
-        </p-button>
-
-        <p-button secondary danger icon="BeakerIcon">
-          icon with text
-        </p-button>
-      </div>
-    </template>
-
-    <template #icons-only>
-      <div class="flex gap-1 flex-wrap">
-        <p-button icon="BeakerIcon" />
-        <p-button secondary icon="BeakerIcon" />
-        <p-button inset icon="BeakerIcon" />
-        <p-button flat icon="BeakerIcon" />
-        <p-button danger icon="BeakerIcon" />
-        <p-button secondary danger icon="BeakerIcon" />
-      </div>
-    </template>
-
-    <template #icons-round>
-      <div class="flex gap-1 flex-wrap">
-        <p-button rounded icon="BeakerIcon" />
-        <p-button secondary rounded icon="BeakerIcon" />
-        <p-button inset rounded icon="BeakerIcon" />
-        <p-button flat rounded icon="BeakerIcon" />
-        <p-button danger rounded icon="BeakerIcon" />
-        <p-button secondary danger rounded icon="BeakerIcon" />
-      </div>
-    </template>
-
-    <template #button-sizes>
-      <div class="flex items-start gap-1">
-        <p-button size="xs">
-          size xs
-        </p-button>
-        <p-button size="sm">
-          size sm
-        </p-button>
-        <p-button size="md">
-          size md
-        </p-button>
-        <p-button size="lg">
-          size lg
-        </p-button>
-        <p-button size="xl">
-          size xl
-        </p-button>
-      </div>
-    </template>
-
-    <template #round-button-sizes>
-      <div class="flex items-start gap-1">
-        <p-button size="xs" rounded icon="BeakerIcon" />
-        <p-button size="sm" rounded icon="BeakerIcon" />
-        <p-button size="md" rounded icon="BeakerIcon" />
-        <p-button size="lg" rounded icon="BeakerIcon" />
-        <p-button size="xl" rounded icon="BeakerIcon" />
-      </div>
-    </template>
-
-    <template #disabled>
-      <div class="flex gap-1 flex-wrap">
         <p-button disabled>
-          disabled
+          Disabled
         </p-button>
-        <p-button disabled secondary icon="BeakerIcon">
-          disabled secondary with icon
+        <p-button small>
+          Small
         </p-button>
-        <p-button disabled inset icon="BeakerIcon" />
-        <p-button disabled flat icon="BeakerIcon" />
-        <p-button disabled danger icon="BeakerIcon" />
-        <p-button secondary disabled danger icon="BeakerIcon" />
+        <p-button small icon="PlusIcon">
+          Small With Icon
+        </p-button>
+        <p-button small icon-append="PlusIcon">
+          Small Appended Icon
+        </p-button>
+      </div>
+    </template>
+
+    <template #primary-button>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button kind="primary">
+          Button
+        </p-button>
+        <p-button kind="primary" icon="PlusIcon">
+          With Icon
+        </p-button>
+        <p-button disabled kind="primary">
+          Disabled
+        </p-button>
+        <p-button kind="primary" small>
+          Small
+        </p-button>
+      </div>
+    </template>
+
+    <template #default-danger-button>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button kind="danger">
+          Button
+        </p-button>
+        <p-button kind="danger" icon="PlusIcon">
+          With Icon
+        </p-button>
+        <p-button disabled kind="danger">
+          Disabled
+        </p-button>
+        <p-button kind="danger" small>
+          Small
+        </p-button>
+      </div>
+    </template>
+
+    <template #primary-danger-button>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button kind="primary--danger">
+          Button
+        </p-button>
+        <p-button kind="primary--danger" icon="PlusIcon">
+          With Icon
+        </p-button>
+        <p-button disabled kind="primary--danger">
+          Disabled
+        </p-button>
+        <p-button kind="primary--danger" small>
+          Small
+        </p-button>
+      </div>
+    </template>
+
+    <template #icon-only>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button icon="PlusIcon" />
+        <p-button icon="RocketLaunchIcon" kind="primary" />
+        <p-button icon="TrashIcon" kind="danger" />
+      </div>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button small icon="PlusIcon" />
+        <p-button small icon="RocketLaunchIcon" kind="primary" />
+        <p-button small icon="TrashIcon" kind="danger" />
+      </div>
+    </template>
+
+    <template #flat-icon-only>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button icon="PlusIcon" kind="flat" />
+        <p-button icon="PlusIcon" kind="flat" small />
+        <p-button icon="PlusIcon" kind="flat" disabled />
       </div>
     </template>
 
     <template #loading>
-      <div class="flex gap-1 flex-wrap">
-        <p-button :loading="buttonLoading" icon="BeakerIcon">
-          Loading Button
+      <div class="flex gap-4 flex-wrap">
+        <p-button :loading="buttonLoading">
+          Button
         </p-button>
+        <p-button :loading="buttonLoading" kind="primary">
+          Button
+        </p-button>
+        <p-button :loading="buttonLoading" kind="danger">
+          Button
+        </p-button>
+        <p-button :loading="buttonLoading" kind="primary--danger">
+          Button
+        </p-button>
+        <p-button :loading="buttonLoading" icon="PlusIcon" />
+        <p-button :loading="buttonLoading" icon="PlusIcon" kind="flat" />
       </div>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
+    </template>
+
+    <template #activated>
+      <div class="flex gap-4 flex-wrap">
+        <p-button activated>
+          Button
+        </p-button>
+      </div>
     </template>
   </ComponentPage>
 </template>
