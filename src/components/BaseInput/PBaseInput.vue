@@ -68,14 +68,20 @@
   flex
   items-center
   border
-  focus-within:border-focus
-  focus-within:ring-spacing-focus-halo
-  focus-within:ring-focus-halo
+  focus-within:ring-spacing-focus-ring
+  focus-within:ring-focus-ring
+  focus-within:ring-offset-focus-ring
+  focus-within:ring-offset-focus-ring-offset
   rounded-md
   font-normal;
   background-color: var(--p-color-input-bg);
   border-color: var(--p-color-input-border);
   color: var(--p-color-input-text);
+}
+
+.p-base-input:focus-within {
+  background-color: var(--p-color-input-bg-focus);
+  border-color: var(--p-color-input-border-focus);
 }
 
 .p-base-input input::placeholder {
