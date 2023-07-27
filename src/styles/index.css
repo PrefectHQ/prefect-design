@@ -227,7 +227,7 @@
 
     --p-color-button-flat-bg: transparent;
     --p-color-button-flat-border: transparent;
-    --p-color-button-flat-text: var(--p-color-text-subdued);
+    --p-color-button-flat-text: var(--p-color-text-default);
     --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
@@ -371,7 +371,7 @@
 
     --p-color-button-primary-bg: #175CD3;
     --p-color-button-primary-border: transparent;
-    --p-color-button-primary-text: var(--p-color-text-default);
+    --p-color-button-primary-text: var(--p-color-text-inverse);
     --p-color-button-primary-bg-hover: #1D6CF3;
     --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
     --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
@@ -401,7 +401,7 @@
 
     --p-color-button-flat-bg: transparent;
     --p-color-button-flat-border: transparent;
-    --p-color-button-flat-text: var(--p-color-text-subdued);
+    --p-color-button-flat-text: var(--p-color-text-default);
     --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
