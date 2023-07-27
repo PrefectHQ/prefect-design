@@ -9,11 +9,11 @@
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="small ? 'small' : 'large'" :icon="icon" class="p-button__icon" />
+        <PIcon :size="iconSize" :icon="icon" class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="small ? 'small' : 'large'" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="iconSize" :icon="iconAppend" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -23,36 +23,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots, PropType, ref } from 'vue'
+  import { computed, useSlots, ref } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
-  import { Icon, ButtonKind } from '@/types'
+  import { Icon } from '@/types'
   import { isRouteExternal } from '@/utilities/router'
 
-
-  const props = defineProps({
-    kind: {
-      type: String as PropType<ButtonKind>,
-      default: 'default',
-    },
-    icon: {
-      type: String as PropType<Icon>,
-      default: undefined,
-    },
-    iconAppend: {
-      type: String as PropType<Icon>,
-      default: undefined,
-    },
-    to: {
-      type: [String, Object] as PropType<RouteLocationRaw>,
-      default: undefined,
-    },
-    small: Boolean,
-    activated: Boolean,
-    disabled: Boolean,
-    loading: Boolean,
-  })
+  const props = defineProps<{
+    primary?: boolean,
+    flat?: boolean,
+    icon?: Icon,
+    iconAppend?: Icon,
+    dangerous?: boolean,
+    to?: RouteLocationRaw,
+    small?: boolean,
+    disabled?: boolean,
+    loading?: boolean,
+  }>()
 
   const slots = useSlots()
   const el = ref<HTMLButtonElement>()
@@ -91,17 +79,17 @@
 
   const classes = computed(() => ({
     'p-button--icon-only': props.icon && !slots.default,
-    'p-button--primary': props.kind === 'primary',
-    'p-button--danger': props.kind === 'danger',
-    'p-button--primary--danger': props.kind === 'primary--danger',
-    'p-button--flat': props.kind === 'flat',
+    'p-button--primary': props.primary,
+    'p-button--danger': props.dangerous,
+    'p-button--flat': props.flat,
     'p-button--small': props.small,
     'p-button--icon-prepend': props.icon && slots.default,
     'p-button--icon-append': props.iconAppend && slots.default,
-    'p-button--activated': props.activated,
     'p-button--disabled': props.disabled || props.loading,
     'p-button--loading': props.loading,
   }))
+
+  const iconSize = props.small ? 'small' : 'large'
 </script>
 
 <style>
@@ -192,17 +180,17 @@
   color: var(--p-color-button-danger-text-active);
 }
 
-.p-button--primary--danger {
+.p-button--primary.p-button--danger {
   background-color: var(--p-color-button-primary-danger-bg);
   border-color: var(--p-color-button-primary-danger-border);
   color: var(--p-color-button-primary-danger-text);
 }
-.p-button--primary--danger:not(:disabled):hover {
+.p-button--primary.p-button--danger:not(:disabled):hover {
   background-color: var(--p-color-button-primary-danger-bg-hover);
   border-color: var(--p-color-button-primary-danger-border-hover);
   color: var(--p-color-button-primary-danger-text-hover);
 }
-.p-button--primary--danger:not(:disabled):active {
+.p-button--primary.p-button--danger:not(:disabled):active {
   background-color: var(--p-color-button-primary-danger-bg-active);
   border-color: var(--p-color-button-primary-danger-border-active);
   color: var(--p-color-button-primary-danger-text-active);
@@ -222,6 +210,22 @@
   background-color: var(--p-color-button-flat-bg-active);
   border-color: var(--p-color-button-flat-border-active);
   color: var(--p-color-button-flat-text-active);
+}
+
+.p-button--flat.p-button--danger {
+  background-color: var(--p-color-button-flat-danger-bg);
+  border-color: var(--p-color-button-flat-danger-border);
+  color: var(--p-color-button-flat-danger-text);
+}
+.p-button--flat.p-button--danger:not(:disabled):hover {
+  background-color: var(--p-color-button-flat-danger-bg-hover);
+  border-color: var(--p-color-button-flat-danger-border-hover);
+  color: var(--p-color-button-flat-danger-text-hover);
+}
+.p-button--flat.p-button--danger:not(:disabled):active {
+  background-color: var(--p-color-button-flat-danger-bg-active);
+  border-color: var(--p-color-button-flat-danger-border-active);
+  color: var(--p-color-button-flat-danger-text-active);
 }
 
 .p-button--small { @apply
@@ -259,14 +263,5 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.p-button--activated,
-.p-button--activated:not(:disabled):hover,
-.p-button--activated:not(:disabled):active { @apply
-  cursor-default;
-  background-color: var(--p-color-button-activated-bg);
-  border-color: var(--p-color-button-activated-border);
-  color: var(--p-color-button-activated-text);
 }
 </style>
