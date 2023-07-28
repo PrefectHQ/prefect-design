@@ -236,8 +236,8 @@
 }
 
 .p-button--small .p-button__icon { @apply
-  max-w-[20px]
-  max-h-[20px]
+  max-w-[1.25rem]
+  max-h-[1.25rem]
 }
 
 .p-button--icon-prepend.p-button--small { @apply

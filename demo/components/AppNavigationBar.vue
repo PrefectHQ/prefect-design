@@ -1,5 +1,5 @@
 <template>
-  <p-navigation-bar class="app-navigation-bar p-background" :class="classes.root" v-bind="{ layout }">
+  <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ layout }">
     <template #prepend>
       <slot name="prepend" v-bind="{ layout }">
         <template v-if="layout == 'horizontal'">
