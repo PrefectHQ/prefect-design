@@ -245,6 +245,10 @@
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
+    --p-color-button-activated-bg: var(--p-color-active);
+    --p-color-button-activated-border: transparent;
+    --p-color-button-activated-text: var(--p-color-text-default);
+
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
     --background: var(--800);
@@ -418,6 +422,10 @@
     --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
+
+    --p-color-button-activated-bg: var(--p-color-active);
+    --p-color-button-activated-border: transparent;
+    --p-color-button-activated-text: var(--p-color-text-default);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
