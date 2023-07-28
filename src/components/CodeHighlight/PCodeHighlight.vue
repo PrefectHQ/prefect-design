@@ -1,5 +1,5 @@
 <template>
-  <div class="p-code-highlight p-background" :lines="lines" :class="classes.root">
+  <div class="p-code-highlight" :lines="lines" :class="classes.root">
     <template v-if="showLineNumbers">
       <PLineNumbers class="p-code-highlight__line-numbers" :lines="lines" />
     </template>
@@ -55,9 +55,9 @@
   hyphens: none;
 
   @apply
+  bg-code
   flex
-  shadow
-  rounded-lg
+  rounded-md
   font-mono
   py-0
   px-1
@@ -74,15 +74,14 @@
   @apply
   p-0
   bg-transparent
-  text-foreground-300
+  text-code
 }
 
 .p-code-highlight__code-wrapper--show-line-numbers { @apply
   pl-2
   rounded-l-none
   border-l
-  border-background-400
-  dark:border-foreground-200
+  border-divider
   py-1
 }
 
@@ -91,20 +90,18 @@
   py-1
 }
 
-/* TODO: It'd be great to move each of these to CSS variables that could be themed more easily */
 .p-code-highlight__code-wrapper .hljs-subst,
 .p-code-highlight__code-wrapper .hljs { @apply
-  text-foreground-300
+  text-code
 }
 
 /* Comment */
-.p-code-highlight__code-wrapper .hljs-comment { @apply
-  text-foreground-200
+.p-code-highlight__code-wrapper .hljs-comment {
+  color: var(--p-color-syntax-comment);
 }
 
 /* Quote */
 .p-code-highlight__code-wrapper .hljs-quote { @apply
-  text-foreground-200
   italic
 }
 
@@ -116,8 +113,8 @@
 .p-code-highlight__code-wrapper .hljs-selector-id,
 .p-code-highlight__code-wrapper .hljs-selector-class,
 .p-code-highlight__code-wrapper .hljs-regexp,
-.p-code-highlight__code-wrapper .hljs-deletion { @apply
-  text-rose-500
+.p-code-highlight__code-wrapper .hljs-deletion {
+  color: var(--p-color-syntax-selector);
 }
 
 /* Orange */
@@ -127,34 +124,34 @@
 .p-code-highlight__code-wrapper .hljs-type,
 .p-code-highlight__code-wrapper .hljs-params,
 .p-code-highlight__code-wrapper .hljs-meta,
-.p-code-highlight__code-wrapper .hljs-link { @apply
-  text-orange-500
+.p-code-highlight__code-wrapper .hljs-link {
+  color: var(--p-color-syntax-parameter);
 }
 
 /* Yellow */
 .p-code-highlight__code-wrapper .hljs-attr,
-.p-code-highlight__code-wrapper .hljs-attribute { @apply
-  text-amber-500
+.p-code-highlight__code-wrapper .hljs-attribute {
+  color: var(--p-color-syntax-attribute);
 }
 
 /* Green */
 .p-code-highlight__code-wrapper .hljs-string,
 .p-code-highlight__code-wrapper .hljs-symbol,
 .p-code-highlight__code-wrapper .hljs-bullet,
-.p-code-highlight__code-wrapper .hljs-addition { @apply
-  text-emerald-500
+.p-code-highlight__code-wrapper .hljs-addition {
+  color: var(--p-color-syntax-symbol);
 }
 
 /* Blue */
 .p-code-highlight__code-wrapper .hljs-title,
-.p-code-highlight__code-wrapper .hljs-section { @apply
-  text-sky-500
+.p-code-highlight__code-wrapper .hljs-section {
+  color: var(--p-color-syntax-title);
 }
 
 /* Purple */
 .p-code-highlight__code-wrapper .hljs-keyword,
-.p-code-highlight__code-wrapper .hljs-selector-tag { @apply
-  text-fuchsia-500
+.p-code-highlight__code-wrapper .hljs-selector-tag {
+  color: var(--p-color-syntax-keyword);
 }
 
 .p-code-highlight__code-wrapper .hljs-code { @apply
