@@ -138,10 +138,10 @@
 }
 
 .p-code-input,
-.p-code-input__view,
-.p-code-input__control,
-.p-code-input__textarea,
-.p-code-input__line-numbers-wrapper {
+.p-code-input .p-code-input__view,
+.p-code-input .p-code-input__control,
+.p-code-input .p-code-input__textarea,
+.p-code-input .p-code-input__line-numbers-wrapper {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
