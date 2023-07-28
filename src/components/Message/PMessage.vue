@@ -16,6 +16,7 @@
           <p-button
             class="p-message__dismiss"
             icon="XMarkIcon"
+            small
             flat
             @click="emit('dismiss')"
           />
@@ -91,10 +92,6 @@
   flex-grow
 }
 
-.p-message__dismiss  { @apply
-  !p-1
-}
-
 .p-message--info { @apply
   bg-primary-100
   text-primary-800
@@ -113,9 +110,5 @@
 .p-message--success { @apply
   bg-success-100
   text-success-900
-}
-
-.p-message__dismiss { @apply
-  text-primary-800
 }
 </style>
