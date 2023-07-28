@@ -19,7 +19,7 @@
     </template>
 
     <template #small>
-      <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" />
+      <p-button-group v-model="preselectedItem" small :options="buttonGroup" />
     </template>
 
     <template #simple>
