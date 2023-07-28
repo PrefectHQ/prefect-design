@@ -341,6 +341,10 @@ body {
   background-color: var(--p-color-text-selection);
 }
 
+*::selection {
+  background-color: var(--p-color-selection);
+}
+
 .p-background {
   background-color: var(--p-color-bg-1);
 }
