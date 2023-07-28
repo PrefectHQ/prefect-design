@@ -14,7 +14,7 @@
     </template>
 
     <template #default-button>
-      <div class="flex gap-4 items-center flex-wrap">
+      <div class="flex gap-4 items-center flex-wrap mb-4">
         <p-button>
           Button
         </p-button>
@@ -65,7 +65,7 @@
     </template>
 
     <template #icon-only>
-      <div class="flex gap-4 items-center flex-wrap">
+      <div class="flex gap-4 items-center flex-wrap mb-4">
         <p-button icon="PlusIcon" />
         <p-button icon="RocketLaunchIcon" primary />
         <p-button icon="TrashIcon" dangerous />
@@ -87,7 +87,7 @@
     </template>
 
     <template #loading>
-      <div class="flex gap-4 flex-wrap">
+      <div class="flex gap-4 flex-wrap mb-4">
         <p-button :loading="buttonLoading">
           Button
         </p-button>

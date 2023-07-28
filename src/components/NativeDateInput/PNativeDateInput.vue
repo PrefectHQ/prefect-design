@@ -36,8 +36,7 @@
       <template v-if="showTime">
         <p-button
           class="p-native-date-input__mode-toggle"
-          size-sm
-          rounded
+          small
           flat
           icon="ClockIcon"
           @click="dateMode = !dateMode"
@@ -129,11 +128,6 @@
   pointer-events-none
 }
 
-.p-native-date-input__icon .p-icon { @apply
-  w-4
-  h-4
-}
-
 .p-native-date-input__control { @apply
   bg-transparent
   absolute
@@ -167,7 +161,6 @@
 }
 
 .p-native-date-input__mode-toggle { @apply
-  !p-0
   mr-2
 }
 

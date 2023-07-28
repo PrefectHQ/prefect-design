@@ -1,9 +1,9 @@
 <template>
-  <p-navigation-bar class="app-navigation-bar" :class="classes.root" v-bind="{ layout }">
+  <p-navigation-bar class="app-navigation-bar p-background" :class="classes.root" v-bind="{ layout }">
     <template #prepend>
       <slot name="prepend" v-bind="{ layout }">
         <template v-if="layout == 'horizontal'">
-          <p-button class="app-navigation-bar__drawer-button" inset size="sm" icon="Bars3Icon" @click="toggleDrawer" />
+          <p-button icon="Bars3Icon" @click="toggleDrawer" />
         </template>
         <template v-else>
           <p-icon class="app-navigation-bar__logo" icon="Prefect" @click="toggleDrawer" />
@@ -74,15 +74,6 @@
   pt-4
   px-2
   w-full
-}
-
-.app-navigation-bar__drawer-button { @apply
-  shadow-none
-}
-
-.app-navigation-bar__drawer-button .p-icon { @apply
-  h-5
-  w-5
 }
 
 .app-navigation-bar__logo { @apply

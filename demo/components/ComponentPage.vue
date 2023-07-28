@@ -42,7 +42,9 @@
             </template>
 
             <template v-else>
-              <slot :name="demo.slotKey" />
+              <div class="component-page__demo-card">
+                <slot :name="demo.slotKey" />
+              </div>
             </template>
           </p-content>
         </template>
@@ -159,7 +161,7 @@
 
 .component-page__description,
 .component-page__demo-description { @apply
-  text-foreground-300
+  text-subdued
   my-2
   text-sm
 }
@@ -171,6 +173,10 @@
   py-6
   px-6
   lg:px-8
+}
+
+.component-page__demo-card { @apply
+  my-2
 }
 
 .component-page__navigation { @apply

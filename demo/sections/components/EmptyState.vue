@@ -24,9 +24,8 @@
         </template>
 
         <template #actions>
-          <p-button>
+          <p-button icon="PlusIcon">
             Create Workspace
-            <p-icon icon="PlusIcon" class="ml-1 w-4 h-4" />
           </p-button>
         </template>
       </p-empty-state>
