@@ -3,7 +3,7 @@
     <template #description>
       <p-content>
         <p-label label="Layout">
-          <p-button-group v-model="selectedLayout" size="sm" :options="layoutOptions" />
+          <p-button-group v-model="selectedLayout" small :options="layoutOptions" />
         </p-label>
       </p-content>
     </template>
