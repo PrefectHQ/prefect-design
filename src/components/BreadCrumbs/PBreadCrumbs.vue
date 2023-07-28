@@ -45,14 +45,13 @@
 
 .p-bread-crumbs__crumb:not(:first-child) { @apply
   before:content-['\00a0\/\00a0']
-  before:text-foreground-300
+  before:text-subdued
   before:font-normal
 }
 
 .p-bread-crumb__crumb--link { @apply
-  text-primary-500
+  text-link
   cursor-pointer
   hover:underline
-  active:text-primary-700
 }
 </style>

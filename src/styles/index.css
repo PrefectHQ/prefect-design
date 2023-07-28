@@ -111,7 +111,8 @@
 
 @layer base {
   :root {
-    --p-spacing-focus-halo: 2px;
+    --p-spacing-focus-ring: 2px;
+    --p-spacing-focus-ring-offset: 1px;
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
@@ -146,8 +147,8 @@
     --p-color-divider: #51525C;
 
     --p-color-active: #1F647A;
-    --p-color-focus: #175CD3;
-    --p-color-focus-halo: rgba(23, 92, 211, 0.4);
+    --p-color-focus-ring: #276EE7;
+    --p-color-focus-ring-offset: var(--p-color-bg-0);
 
     --p-color-awaiting: #F79008;
     --p-color-live: #4B5CFF;
@@ -171,6 +172,9 @@
     --p-color-input-text: var(--p-color-text-default);
     --p-color-input-placeholder: var(--p-color-text-subdued);
 
+    --p-color-input-bg-focus: var(--p-color-input-bg);
+    --p-color-input-border-focus: var(--p-color-text-subdued);
+
     --p-color-input-bg-invalid: var(--p-color-input-bg);
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
@@ -178,6 +182,68 @@
     --p-color-input-checked-bg: var(--p-color-active);
     --p-color-input-checked-border: var(--p-color-active);
     --p-color-input-checked-text: var(--p-color-text-default);
+
+    /* Button */
+    --p-color-button-default-bg: transparent;
+    --p-color-button-default-border: #70707B;
+    --p-color-button-default-text: var(--p-color-text-default);
+    --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
+    --p-color-button-default-border-hover: var(--p-color-text-subdued);
+    --p-color-button-default-text-hover: var(--p-color-button-default-text);
+    --p-color-button-default-bg-active: #141517;
+    --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
+    --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
+
+
+    --p-color-button-primary-bg: #175CD3;
+    --p-color-button-primary-border: transparent;
+    --p-color-button-primary-text: var(--p-color-text-default);
+    --p-color-button-primary-bg-hover: #1D6CF3;
+    --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
+    --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
+    --p-color-button-primary-bg-active: #0A4BBA;
+    --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
+    --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
+
+    --p-color-button-danger-bg: transparent;
+    --p-color-button-danger-border: var(--p-color-sentiment-negative);
+    --p-color-button-danger-text: var(--p-color-text-default);
+    --p-color-button-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-danger-border-hover: var(--p-color-button-danger-border);
+    --p-color-button-danger-text-hover: var(--p-color-button-danger-text);
+    --p-color-button-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-danger-border-active: var(--p-color-button-danger-border-hover);
+    --p-color-button-danger-text-active: var(--p-color-button-danger-text-hover);
+
+    --p-color-button-primary-danger-bg: var(--p-color-sentiment-negative);
+    --p-color-button-primary-danger-border: transparent;
+    --p-color-button-primary-danger-text: var(--p-color-text-default);
+    --p-color-button-primary-danger-bg-hover: #FE4134;
+    --p-color-button-primary-danger-border-hover: var(--p-color-button-primary-danger-border);
+    --p-color-button-primary-danger-text-hover: var(--p-color-button-primary-danger-text);
+    --p-color-button-primary-danger-bg-active: #C11F13;
+    --p-color-button-primary-danger-border-active: var(--p-color-button-primary-danger-border-hover);
+    --p-color-button-primary-danger-text-active: var(--p-color-button-primary-danger-text-hover);
+
+    --p-color-button-flat-bg: transparent;
+    --p-color-button-flat-border: transparent;
+    --p-color-button-flat-text: var(--p-color-text-default);
+    --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
+    --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
+    --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
+    --p-color-button-flat-bg-active: rgba(112, 112, 123, 0.8);
+    --p-color-button-flat-border-active: var(--p-color-button-flat-border-hover);
+    --p-color-button-flat-text-active: var(--p-color-button-flat-text-hover);
+
+    --p-color-button-flat-danger-bg: transparent;
+    --p-color-button-flat-danger-border: transparent;
+    --p-color-button-flat-danger-text: var(--p-color-sentiment-negative);
+    --p-color-button-flat-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-flat-danger-border-hover: var(--p-color-button-flat-danger-border);
+    --p-color-button-flat-danger-text-hover: var(--p-color-button-flat-danger-text);
+    --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
+    --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
@@ -280,6 +346,9 @@
     --p-color-input-text: var(--p-color-text-default);
     --p-color-input-placeholder: var(--p-color-text-subdued);
 
+    --p-color-input-bg-focus: var(--p-color-input-bg);
+    --p-color-input-border-focus: var(--p-color-text-subdued);
+
     --p-color-input-bg-invalid: var(--p-color-input-bg);
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
@@ -287,6 +356,68 @@
     --p-color-input-checked-bg: var(--p-color-active);
     --p-color-input-checked-border: var(--p-color-active);
     --p-color-input-checked-text: var(--p-color-text-default);
+
+    /* Button */
+    --p-color-button-default-bg: transparent;
+    --p-color-button-default-border: #70707B;
+    --p-color-button-default-text: var(--p-color-text-default);
+    --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
+    --p-color-button-default-border-hover: var(--p-color-text-subdued);
+    --p-color-button-default-text-hover: var(--p-color-button-default-text);
+    --p-color-button-default-bg-active: #E7E7EC;
+    --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
+    --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
+
+
+    --p-color-button-primary-bg: #175CD3;
+    --p-color-button-primary-border: transparent;
+    --p-color-button-primary-text: var(--p-color-text-inverse);
+    --p-color-button-primary-bg-hover: #1D6CF3;
+    --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
+    --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
+    --p-color-button-primary-bg-active: #0A4BBA;
+    --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
+    --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
+
+    --p-color-button-danger-bg: transparent;
+    --p-color-button-danger-border: var(--p-color-sentiment-negative);
+    --p-color-button-danger-text: var(--p-color-text-default);
+    --p-color-button-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-danger-border-hover: var(--p-color-button-danger-border);
+    --p-color-button-danger-text-hover: var(--p-color-button-danger-text);
+    --p-color-button-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-danger-border-active: var(--p-color-button-danger-border-hover);
+    --p-color-button-danger-text-active: var(--p-color-button-danger-text-hover);
+
+    --p-color-button-primary-danger-bg: var(--p-color-sentiment-negative);
+    --p-color-button-primary-danger-border: transparent;
+    --p-color-button-primary-danger-text: var(--p-color-text-inverse);
+    --p-color-button-primary-danger-bg-hover: #FE4134;
+    --p-color-button-primary-danger-border-hover: var(--p-color-button-primary-danger-border);
+    --p-color-button-primary-danger-text-hover: var(--p-color-button-primary-danger-text);
+    --p-color-button-primary-danger-bg-active: #C11F13;
+    --p-color-button-primary-danger-border-active: var(--p-color-button-primary-danger-border-hover);
+    --p-color-button-primary-danger-text-active: var(--p-color-button-primary-danger-text-hover);
+
+    --p-color-button-flat-bg: transparent;
+    --p-color-button-flat-border: transparent;
+    --p-color-button-flat-text: var(--p-color-text-default);
+    --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
+    --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
+    --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
+    --p-color-button-flat-bg-active: rgba(112, 112, 123, 0.8);
+    --p-color-button-flat-border-active: var(--p-color-button-flat-border-hover);
+    --p-color-button-flat-text-active: var(--p-color-button-flat-text-hover);
+
+    --p-color-button-flat-danger-bg: transparent;
+    --p-color-button-flat-danger-border: transparent;
+    --p-color-button-flat-danger-text: var(--p-color-sentiment-negative);
+    --p-color-button-flat-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-flat-danger-border-hover: var(--p-color-button-flat-danger-border);
+    --p-color-button-flat-danger-text-hover: var(--p-color-button-flat-danger-text);
+    --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
+    --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
