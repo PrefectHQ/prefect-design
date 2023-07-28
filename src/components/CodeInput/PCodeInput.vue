@@ -132,18 +132,19 @@
 }
 
 .p-code-input,
-.p-code-input__view,
-.p-code-input__control,
-.p-code-input__textarea,
-.p-code-input__line-numbers-wrapper {
+.p-code-input .p-code-input__view,
+.p-code-input .p-code-input__control,
+.p-code-input .p-code-input__textarea,
+.p-code-input .p-code-input__line-numbers-wrapper {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
 }
 
-.p-code-input__control  {
+.p-code-input .p-code-input__control  {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
+  border-radius: 0px;
 }
 
 .p-code-input__textarea,
@@ -154,7 +155,8 @@
 }
 
 .p-code-input { @apply
-  bg-background-500
+  bg-code
+  text-code
   font-mono
   overflow-hidden
   p-0
@@ -162,9 +164,9 @@
 }
 
 .p-code-input__line-numbers-wrapper { @apply
-  border-background-400
+  bg-transparent
+  border-divider
   border-r
-  dark:border-foreground-200
   grow-0
   overflow-hidden
   px-[var(--gap-x)]
@@ -181,7 +183,7 @@
 }
 
 .p-code-input__control { @apply
-  bg-background
+  bg-code
   cursor-text
   grow
   h-full
@@ -199,7 +201,7 @@
 .p-code-input__textarea { @apply
   bg-transparent
   block
-  caret-foreground-500
+  caret-default
   m-0
   min-h-full
   min-w-full
@@ -215,9 +217,8 @@
   cursor-not-allowed
 }
 
-.p-code-input__textarea::selection { @apply
-  bg-foreground-200
-  bg-opacity-50
+.p-code-input__textarea::selection {
+  background-color: var(--p-color-selection);
 }
 
 .p-code-input__view { @apply
@@ -232,7 +233,7 @@
   px-[var(--gap-x)]
   pt-[var(--gap-y)]
   select-none
-  text-foreground
+  text-code
   top-0
   z-0
 }
