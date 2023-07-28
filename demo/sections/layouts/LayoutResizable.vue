@@ -65,7 +65,7 @@
 
 
               <div class="layout-resizable__aside-footer">
-                <p-button :icon="collapsed ? 'ArrowRightOnRectangleIcon' : 'ArrowLeftOnRectangleIcon'" inset @click="toggle" />
+                <p-button flat :icon="collapsed ? 'ArrowRightOnRectangleIcon' : 'ArrowLeftOnRectangleIcon'" @click="toggle" />
               </div>
             </div>
           </template>
