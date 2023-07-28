@@ -17,8 +17,9 @@
   @apply
   text-right
   relative
-  text-subdued
+  text-foreground-100
   min-w-max
+  dark:text-foreground-200
   overflow-hidden
 }
 
