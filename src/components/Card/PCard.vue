@@ -20,15 +20,13 @@
 .p-card { @apply
   text-foreground
   p-4
-  rounded-xl
-  shadow-sm
+  rounded-md
   transition-all;
 
-  transition-property: border border-color background-color;
+  transition-property: background-color;
 }
 
 .p-card--flat { @apply
-  shadow-none
   bg-transparent
 }
 </style>
