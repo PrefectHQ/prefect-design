@@ -17,7 +17,7 @@
         </p>
 
         <template #actions>
-          <p-button @click="showModal = false">
+          <p-button primary @click="showModal = false">
             Submit
           </p-button>
         </template>
@@ -37,7 +37,7 @@
         </template>
 
         <template #actions>
-          <p-button @click="showLongContentModal = false">
+          <p-button primary @click="showLongContentModal = false">
             Submit
           </p-button>
         </template>
@@ -55,7 +55,7 @@
         </p> :modelValue=
 
         <template #actions>
-          <p-button @click="showAutoCloseModal = false">
+          <p-button primary @click="showAutoCloseModal = false">
             Submit
           </p-button>
         </template>

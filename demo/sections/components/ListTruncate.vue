@@ -35,13 +35,13 @@
 
         <template #bottom="{ showLess, canShowLess, canShowMore, showMore }">
           <template v-if="canShowLess">
-            <p-button class="p-list-truncate__button" size="sm" inset @click="showLess">
+            <p-button class="p-list-truncate__button" @click="showLess">
               Show fewer
             </p-button>
           </template>
 
           <template v-if="canShowMore">
-            <p-button class="p-list-truncate__button" size="sm" inset @click="showMore">
+            <p-button class="p-list-truncate__button" @click="showMore">
               Show more
             </p-button>
           </template>
@@ -59,9 +59,7 @@
           <p-button
             v-if="asyncItems.length < items.length"
             class="p-list-truncate__button"
-            size="sm"
             :loading="loading"
-            inset
             @click="loadMore"
           >
             Load more

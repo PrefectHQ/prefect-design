@@ -9,7 +9,7 @@
     <template #window>
       <p-window title="title.prop-or-slot.py">
         <template #actions>
-          <p-button inset size="xs">
+          <p-button small>
             Actions slot
           </p-button>
         </template>
