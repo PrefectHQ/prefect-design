@@ -235,6 +235,11 @@
   py-1
 }
 
+.p-button--small .p-button__icon { @apply
+  max-w-[1.25rem]
+  max-h-[1.25rem]
+}
+
 .p-button--icon-prepend.p-button--small { @apply
   pl-1
 }

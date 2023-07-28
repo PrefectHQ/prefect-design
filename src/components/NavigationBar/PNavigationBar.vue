@@ -82,13 +82,14 @@
 .p-navigation-bar__content { @apply
   border-t
   border-b
-  border-slate-400
+  border-divider
   self-stretch
   overflow-auto
 }
 
 .p-navigation-bar__content--horizontal { @apply
   flex
+  border-transparent
 }
 
 .p-navigation-bar__prepend,

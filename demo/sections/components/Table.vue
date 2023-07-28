@@ -78,7 +78,7 @@
         <template #empty-state>
           <p-empty-results>
             <template #actions>
-              <p-button size="sm">
+              <p-button small>
                 Show all
               </p-button>
             </template>
