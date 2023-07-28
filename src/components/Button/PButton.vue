@@ -89,7 +89,7 @@
     'p-button--loading': props.loading,
   }))
 
-  const iconSize = props.small ? 'small' : 'large'
+  const iconSize = props.small ? undefined : 'large'
 </script>
 
 <style>
@@ -112,7 +112,8 @@
 }
 
 .p-button:focus:not(:focus-visible) { @apply
-  focus-within:ring-transparent;
+  ring-transparent
+  ring-offset-transparent
 }
 
 .p-button:not(:disabled):hover {
@@ -229,7 +230,7 @@
 }
 
 .p-button--small { @apply
-  text-xs
+  text-sm
   px-2
   py-1
 }
