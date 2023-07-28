@@ -30,9 +30,7 @@
         </div>
         {{ { minMaxValue } }}
         <p-button
-          inset
           class="stepper__value-reset-button"
-          size="xs"
           :disabled="minMaxValue === null"
           @click="minMaxValue = null"
         >
@@ -55,9 +53,7 @@
         </div>
         {{ { stepValue } }}
         <p-button
-          inset
           class="stepper__value-reset-button"
-          size="xs"
           :disabled="stepValue === null"
           @click="stepValue = null"
         >

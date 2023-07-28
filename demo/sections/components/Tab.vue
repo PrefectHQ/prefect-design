@@ -40,7 +40,7 @@
         </template>
       </PTabs>
 
-      <p-button size="sm" class="mt-2" @click="changeToTab(tabs[2])">
+      <p-button class="mt-2" @click="changeToTab(tabs[2])">
         Switch to third tab
       </p-button>
     </template>

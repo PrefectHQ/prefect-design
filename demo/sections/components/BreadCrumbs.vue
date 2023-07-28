@@ -18,7 +18,7 @@
           </p-label>
           <p-checkbox v-model="newCrumb.link" label="make it a link" />
           <template #footer>
-            <p-button secondary @click="crumbs = []">
+            <p-button @click="crumbs = []">
               Remove all
             </p-button>
             <p-button type="submit">
