@@ -6,7 +6,7 @@
         v-bind="attrs"
         :label="option.label"
         :value="option.value"
-        :disabled="option.disabled"
+        :disabled="disabled || option.disabled"
       >
         <template #label>
           <slot name="label" :option="option" />
