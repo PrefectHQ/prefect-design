@@ -111,6 +111,7 @@
     return {
       textarea: {
         height: `${lineHeight.value * lines.value}px`,
+        width: '100000px',
       },
       view: {
         height: `${lineHeight.value * lines.value}px`,
