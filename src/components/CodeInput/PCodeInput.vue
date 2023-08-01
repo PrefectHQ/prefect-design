@@ -80,6 +80,7 @@
 
     return []
   })
+
   const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
   const lineHeight = computed(() => {
     if (textareaStyle.value) {
@@ -111,7 +112,7 @@
     return {
       textarea: {
         height: `${lineHeight.value * lines.value}px`,
-        width: '100000px',
+        width: `${internalValue.value.length * 8 + 10}px`,
       },
       view: {
         height: `${lineHeight.value * lines.value}px`,
