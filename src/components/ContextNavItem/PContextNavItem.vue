@@ -26,28 +26,30 @@
 <style>
 .p-context-nav-item { @apply
   flex
-  py-2.5
-  px-3
+  py-2
+  px-2
   rounded-md
   items-center
   transition
   duration-200
   ease-linear
-  gap-3
+  gap-2
   text-sm
   leading-5
   select-none
   font-medium
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-to-active-hover
+  active:bg-active
 }
 
 .p-context-nav-item__icon { @apply
-  h-6
-  w-6
+  h-5
+  w-5
 }
 
 .p-context-nav-item--active { @apply
-  text-prefect-400
+  font-semibold
+  bg-active
+  hover:bg-active
 }
 </style>
