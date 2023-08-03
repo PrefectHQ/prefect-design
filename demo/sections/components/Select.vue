@@ -98,7 +98,6 @@
 <style>
   .select__demo {
     @apply
-    h-80
     flex
     flex-col
     gap-4
