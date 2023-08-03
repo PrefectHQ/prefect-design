@@ -149,7 +149,7 @@
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: #1F647A;
-    --p-color-selectable-hover: var(--p-color-bg-2);
+    --p-color-selectable-hover: #415258;
     --p-color-focus-ring: #276EE7;
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
@@ -340,7 +340,7 @@
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: #9DDDF1;
-    --p-color-selectable-hover: #DDDDDD;
+    --p-color-selectable-hover: #DDE2E3;
     --p-color-focus: #1470EF;
     --p-color-focus-halo: rgba(23, 92, 211, 0.4);
 
