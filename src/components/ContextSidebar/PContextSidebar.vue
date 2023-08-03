@@ -18,8 +18,6 @@
 
 <style>
 .p-context-sidebar { @apply
-  bg-slate-800
-  text-slate-300
   fixed
   lg:sticky
   top-16
@@ -29,6 +27,7 @@
   w-screen
   flex
   flex-col
+  px-4
   lg:h-screen
   lg:w-64
 }
@@ -40,13 +39,13 @@
 .p-context-sidebar__header,
 .p-context-sidebar__body,
 .p-context-sidebar__footer { @apply
-  p-3
+  py-4
   overflow-y-auto
 }
 
 .p-context-sidebar__header { @apply
-  border-b-2
-  border-slate-600
+  border-b
+  border-divider
   flex-shrink-0
 }
 
@@ -58,8 +57,8 @@
 
 .p-context-sidebar__footer { @apply
   mt-auto
-  border-t-2
+  border-t
   flex-shrink-0
-  border-slate-600
+  border-divider
 }
 </style>
