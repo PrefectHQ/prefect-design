@@ -128,16 +128,16 @@
 }
 
 .p-select-option--selected { @apply
-  font-semibold;
-  background-color: var(--p-color-input-select-option-bg-selected);
+  font-semibold
+  bg-active
 }
 
-.p-select-option--highlighted {
-  background-color: var(--p-color-input-select-option-bg-hover);
+.p-select-option--highlighted { @apply
+  bg-to-active-hover
 }
 
-.p-select-option--selected.p-select-option--highlighted {
-  background-color: var(--p-color-input-select-option-bg-selected);
+.p-select-option--selected.p-select-option--highlighted { @apply
+  bg-active
 }
 
 .p-select-option__text { @apply
