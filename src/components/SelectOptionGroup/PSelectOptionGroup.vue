@@ -20,8 +20,9 @@
 .p-select-option-group { @apply
   py-2
   border-t
-  border-foreground/50
-  text-foreground/50
+  border-divider
+  text-subdued
+  text-sm
 }
 
 .p-select-option-group:first-child { @apply
