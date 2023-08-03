@@ -14,7 +14,6 @@
         <PSelectButton
           ref="buttonElement"
           v-model="modelValue"
-          class="p-select__custom"
           :class="classes.control"
           :disabled="disabled"
           v-bind="attrs"
@@ -313,23 +312,3 @@
     }
   }
 </script>
-
-<style>
-.p-select { @apply
-  relative
-  text-base
-  rounded-md
-}
-
-.p-select--open { @apply
-  outline-none
-  ring-1
-  ring-primary-500
-  border-primary-500
-}
-
-.p-select__custom { @apply
-  w-full
-  rounded-md
-}
-</style>

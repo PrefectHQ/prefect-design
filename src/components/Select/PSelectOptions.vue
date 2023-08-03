@@ -116,15 +116,10 @@
 .p-select-options { @apply
   relative
   my-1
-  bg-background
-  border
-  border-background-400
+  bg-floating
   overflow-hidden
   rounded-md
   shadow-lg
-  ring-1
-  ring-black
-  ring-opacity-5
   focus:outline-none
 }
 
@@ -136,11 +131,9 @@
   left-0
   right-0
   h-12
-  bg-gradient-to-t
-  from-background
-  to-transparent
   pointer-events-none;
   content: '';
+  background-image: linear-gradient(transparent, var(--p-color-bg-floating));
 }
 
 .p-select-options--end::after { @apply
@@ -157,6 +150,7 @@
   py-2
   italic
   text-sm
+  text-subdued
 }
 
 @media (hover: hover) {
