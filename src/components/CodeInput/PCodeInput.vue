@@ -132,19 +132,13 @@
 }
 
 .p-code-input,
-.p-code-input .p-code-input__view,
-.p-code-input .p-code-input__control,
-.p-code-input .p-code-input__textarea,
-.p-code-input .p-code-input__line-numbers-wrapper {
+.p-code-input__view,
+.p-code-input__control,
+.p-code-input__textarea,
+.p-code-input__line-numbers-wrapper {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
-}
-
-.p-code-input .p-code-input__control  {
-  scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  border-radius: 0px;
 }
 
 .p-code-input__textarea,
@@ -193,9 +187,10 @@
   p-0
   pt-[var(--gap-y)]
   relative
-  rounded-lg
   self-stretch
-  z-[1]
+  z-[1];
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
 }
 
 .p-code-input__textarea { @apply
