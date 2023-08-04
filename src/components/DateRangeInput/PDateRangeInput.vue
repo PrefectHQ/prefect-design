@@ -190,7 +190,7 @@
 
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected),
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected):hover { @apply
-  bg-to-active-hover
+  bg-selectable-hover
 }
 
 .p-date-range-input__date--out-of-month:not(:disabled) { @apply
