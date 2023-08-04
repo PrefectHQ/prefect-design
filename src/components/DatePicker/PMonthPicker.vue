@@ -2,17 +2,17 @@
   <div class="p-month-picker">
     <template v-for="(option) in monthOptions" :key="option.value">
       <div class="p-month-picker__month">
-        <PButton
-          size="xs"
+        <p-button
+          small
           class="p-month-picker__month-button"
+          :selected="isSelected(option.value)"
           :disabled="isDisabled(option.value)"
-          :flat="!isSelected(option.value)"
           @click="updateSelectedDate(option.value)"
         >
           <span ref="monthElements" :data-month="option.value">
             {{ option.label }}
           </span>
-        </PButton>
+        </p-button>
       </div>
     </template>
   </div>
@@ -83,13 +83,12 @@
   grid-cols-3
   grid-rows-4
   gap-4
+  justify-around
 }
 
 .p-month-picker__month { @apply
-  text-center
-}
-
-.p-month-picker__month-button { @apply
+  flex
+  items-center
   justify-center
 }
 </style>

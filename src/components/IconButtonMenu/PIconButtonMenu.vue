@@ -8,7 +8,7 @@
     auto-close
   >
     <template #target="{ toggle }">
-      <PButton ref="button" :icon="icon" v-bind="attrs" inset @click="toggle" />
+      <p-button ref="button" :icon="icon" v-bind="attrs" flat @click="toggle" />
     </template>
     <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="closeOnClick">
       <POverflowMenu>

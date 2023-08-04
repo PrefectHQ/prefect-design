@@ -59,6 +59,10 @@
 </script>
 
 <style>
+.p-date-button { @apply
+  cursor-pointer
+}
+
 .p-date-button__control { @apply
   w-full
   h-full
@@ -66,7 +70,6 @@
   px-3
   text-left
   text-base
-  cursor-default
   outline-none
   border-none
   ring-0
