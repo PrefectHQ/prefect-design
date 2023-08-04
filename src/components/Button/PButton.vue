@@ -276,9 +276,9 @@
 .p-button--selected,
 .p-button--selected:not(:disabled):hover,
 .p-button--selected:not(:disabled):active {
-  background-color: var(--p-color-button-activated-bg);
-  border-color: var(--p-color-button-activated-border);
-  color: var(--p-color-button-activated-text);
+  background-color: var(--p-color-button-selected-bg);
+  border-color: var(--p-color-button-selected-border);
+  color: var(--p-color-button-selected-text);
   cursor: default;
 }
 </style>
