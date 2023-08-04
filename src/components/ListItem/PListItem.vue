@@ -6,7 +6,7 @@
 
 <style>
 .p-list-item { @apply
-  rounded-lg
+  rounded-md
   flex
   py-3
   px-4
