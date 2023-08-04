@@ -92,23 +92,27 @@
   flex-grow
 }
 
-.p-message--info { @apply
-  bg-primary-100
-  text-primary-800
+.p-message--info {
+  background-color: var(--p-color-message-info-bg);
+  color: var(--p-color-message-info-text);
 }
 
-.p-message--warning { @apply
-  bg-orange-100
-  text-orange-800
+.p-message--warning {
+  background-color: var(--p-color-message-warning-bg);
+  color: var(--p-color-message-warning-text);
 }
 
-.p-message--error { @apply
-  bg-danger-100
-  text-danger-900
+.p-message--error {
+  background-color: var(--p-color-message-error-bg);
+  color: var(--p-color-message-error-text);
 }
 
-.p-message--success { @apply
-  bg-success-100
-  text-success-900
+.p-message--success {
+  background-color: var(--p-color-message-success-bg);
+  color: var(--p-color-message-success-text);
+}
+
+.p-message__dismiss { @apply
+  text-current
 }
 </style>
