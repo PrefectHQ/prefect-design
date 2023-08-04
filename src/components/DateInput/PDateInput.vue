@@ -148,17 +148,18 @@
 
 <style>
 .p-date-input__date-picker { @apply
-  bg-background
+  bg-floating
   my-1
+  rounded-md
   shadow-lg
-  rounded
-  dark:border-foreground-300
 }
 
 .p-date-input--open { @apply
-  outline-none
-  ring-1
-  ring-prefect-500
-  border-prefect-500
+  ring-spacing-focus-ring
+  ring-focus-ring
+  ring-offset-focus-ring
+  ring-offset-focus-ring-offset;
+  background-color: var(--p-color-input-bg-focus);
+  border-color: var(--p-color-input-border-focus);
 }
 </style>
