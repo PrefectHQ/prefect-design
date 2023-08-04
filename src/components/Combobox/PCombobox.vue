@@ -41,9 +41,9 @@
         <slot name="combobox-options-empty" v-bind="scope">
           <template v-if="search">
             <span>No matches for "{{ search }}"</span>
-            <PButton secondary size="sm" @click.stop="clearSearch">
+            <p-button secondary small @click.stop="clearSearch">
               See All Options
-            </PButton>
+            </p-button>
           </template>
         </slot>
       </div>

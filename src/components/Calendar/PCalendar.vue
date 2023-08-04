@@ -58,7 +58,7 @@
   grid-cols-7
   gap-x-3
   text-xs
-  text-gray-500
+  text-subdued
 }
 
 .p-calendar__day-of-week { @apply

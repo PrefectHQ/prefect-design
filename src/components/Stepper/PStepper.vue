@@ -1,22 +1,20 @@
 <template>
   <p-number-input v-model="internalValue" class="p-stepper">
     <template #prepend>
-      <PButton
+      <p-button
         class="p-stepper__step p-stepper__step--down"
-        inset
-        rounded
-        size="xs"
+        flat
+        small
         icon="MinusIcon"
         :disabled="!canDecrease"
         @click="internalValue -= step"
       />
     </template>
     <template #append>
-      <PButton
+      <p-button
         class="p-stepper__step p-stepper__step--up"
-        inset
-        rounded
-        size="xs"
+        flat
+        small
         icon="PlusIcon"
         :disabled="!canIncrease"
         @click="internalValue += step"
