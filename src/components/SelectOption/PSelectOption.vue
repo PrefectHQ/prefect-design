@@ -129,15 +129,15 @@
 
 .p-select-option--selected { @apply
   font-semibold
-  bg-active
+  bg-selected
 }
 
 .p-select-option--highlighted { @apply
-  bg-to-active-hover
+  bg-selectable-hover
 }
 
 .p-select-option--selected.p-select-option--highlighted { @apply
-  bg-active
+  bg-selected
 }
 
 .p-select-option__text { @apply
