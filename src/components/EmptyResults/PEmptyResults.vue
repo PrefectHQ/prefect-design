@@ -22,6 +22,6 @@
 }
 
 .p-empty-results__message { @apply
-  text-foreground-400
+  text-subdued
 }
 </style>
