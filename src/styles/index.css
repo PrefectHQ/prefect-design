@@ -143,6 +143,7 @@
     --p-color-bg-2: var(--p-color-bg-0);
     --p-color-bg-floating: #393942;
     --p-color-bg-code: #121317;
+    --p-color-bg-fullscreen-cover: rgba(0, 0, 0, 0.5);
 
     /* Root Tokens */
     --p-color-divider: #51525C;
@@ -333,6 +334,7 @@
     --p-color-bg-2: var(--p-color-bg-0);
     --p-color-bg-floating: #F8F8F9;
     --p-color-bg-code: #DEDEE2;
+    --p-color-bg-fullscreen-cover: rgba(0, 0, 0, 0.5);
 
     /* Root Tokens */
     --p-color-divider: #BFBFCC;
@@ -517,6 +519,8 @@
 @layer components {
   .bg-floating { background-color: var(--p-color-bg-floating);}
   .bg-code { background-color: var(--p-color-bg-code);}
+  .bg-fullscreen-cover { background-color: var(--p-color-bg-fullscreen-cover);}
+
   .border-default { border-color: var(--p-color-divider);}
 
   .text-default { color: var(--p-color-text-default);}
