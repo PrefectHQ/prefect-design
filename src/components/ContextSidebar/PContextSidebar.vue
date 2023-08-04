@@ -27,7 +27,6 @@
   w-screen
   flex
   flex-col
-  px-4
   lg:h-screen
   lg:w-64
 }
@@ -40,6 +39,7 @@
 .p-context-sidebar__body,
 .p-context-sidebar__footer { @apply
   py-4
+  px-4
   overflow-y-auto
 }
 
