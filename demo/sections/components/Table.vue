@@ -22,7 +22,15 @@
 
     <template #in-a-card>
       <p-card>
-        <p-table :data="data" />
+        <p-table :data="data">
+          <template #footer>
+            <PTableRow>
+              <PTableData class="text-center" colspan="5">
+                Footer
+              </PTableData>
+            </PTableRow>
+          </template>
+        </p-table>
       </p-card>
     </template>
 
