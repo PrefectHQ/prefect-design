@@ -19,8 +19,8 @@ const generateColorPalette = (base) => {
 const colors = () => {
   return {
     divider: 'var(--p-color-divider)',
-    active: 'var(--p-color-active)',
-    'to-active-hover': 'var(--p-color-to-active-hover)',
+    selected: 'var(--p-color-selected)',
+    'selectable-hover': 'var(--p-color-selectable-hover)',
     'focus-ring': 'var(--p-color-focus-ring)',
     'focus-ring-offset': 'var(--p-color-focus-ring-offset)',
     awaiting: 'var(--p-color-awaiting)',
