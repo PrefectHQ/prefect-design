@@ -7,6 +7,7 @@
       { title: 'Icon only', description: 'When an icon is provided with no text.' },
       { title: 'Flat icon only', description: 'While any button can technically be made flat, this style is intended to be used with icon only buttons.' },
       { title: 'Loading', description: 'A soothing loading indicator for when a button is working on it.' },
+      { title: 'Selected', description: 'Indicates that a button is the active selection in a group.' },
     ]"
   >
     <template #description>
@@ -106,6 +107,12 @@
       </div>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
+    </template>
+
+    <template #selected>
+      <p-button selected>
+        Button
+      </p-button>
     </template>
   </ComponentPage>
 </template>

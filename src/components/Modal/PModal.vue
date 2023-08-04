@@ -25,7 +25,7 @@
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="modalScope.close" />
+              <p-button class="p-modal__x-button" icon="XMarkIcon" flat @click="modalScope.close" />
             </div>
 
             <div ref="modalBody" class="p-modal__body">
@@ -35,9 +35,9 @@
             <div class="p-modal__footer">
               <slot name="actions" v-bind="modalScope" />
               <slot name="cancel" v-bind="modalScope">
-                <PButton inset class="p-modal__close-button" @click="modalScope.close">
+                <p-button class="p-modal__close-button" @click="modalScope.close">
                   Cancel
-                </PButton>
+                </p-button>
               </slot>
             </div>
           </div>

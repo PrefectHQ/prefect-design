@@ -154,7 +154,7 @@
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
     --p-color-awaiting: #F79008;
-    --p-color-live: #4B5CFF;
+    --p-color-live: #6272FF;
 
     --p-color-event: #7210EF;
     --p-color-event-dense: #A564F9;
@@ -206,7 +206,6 @@
     --p-color-button-default-bg-active: #141517;
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
-
 
     --p-color-button-primary-bg: #175CD3;
     --p-color-button-primary-border: transparent;
@@ -397,7 +396,6 @@
     --p-color-button-default-bg-active: #E7E7EC;
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
-
 
     --p-color-button-primary-bg: #175CD3;
     --p-color-button-primary-border: transparent;
