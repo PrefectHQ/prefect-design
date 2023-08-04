@@ -38,8 +38,8 @@
   leading-5
   select-none
   font-medium
-  hover:bg-to-active-hover
-  active:bg-active
+  hover:bg-selectable-hover
+  active:bg-selected
 }
 
 .p-context-nav-item__icon { @apply
@@ -49,7 +49,7 @@
 
 .p-context-nav-item--active { @apply
   font-semibold
-  bg-active
-  hover:bg-active
+  bg-selected
+  hover:bg-selected
 }
 </style>
