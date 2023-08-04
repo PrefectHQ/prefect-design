@@ -22,8 +22,8 @@
 .p-global-nav-item__icon {
   @apply
   w-6
-  text-foreground-400
-  hover:text-foreground
+  text-subdued
+  hover:text-default
   transition
   duration-200
   ease-linear
