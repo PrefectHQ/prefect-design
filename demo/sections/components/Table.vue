@@ -190,17 +190,21 @@
 <style>
 .custom-row-class { @apply
   bg-rose-400
+  dark:bg-rose-900
 }
 
 .custom-row-class--index { @apply
   bg-teal-200
+  dark:bg-teal-900
 }
 
 .custom-column-class { @apply
   bg-emerald-200
+  dark:bg-emerald-900
 }
 
 .custom-column-class--index { @apply
   bg-amber-200
+  dark:bg-amber-900
 }
 </style>
