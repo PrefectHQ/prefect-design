@@ -41,8 +41,7 @@
 
 <style>
 .p-link { @apply
-  text-primary
-  font-semibold
+  text-link
   cursor-pointer
   hover:underline
 }
