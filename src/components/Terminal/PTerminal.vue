@@ -1,10 +1,10 @@
 <template>
   <PWindow class="p-terminal">
     <template #actions>
-      <PButton size="xs" inset class="p-terminal__copy-button" @click="copy">
+      <p-button small class="p-terminal__copy-button" @click="copy">
         <span class="p-terminal__copy-text">Copy</span>
         <p-icon icon="ClipboardDocumentIcon" />
-      </PButton>
+      </p-button>
     </template>
 
     <div class="p-terminal__code">

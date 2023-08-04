@@ -24,16 +24,16 @@
       <div class="p-wizard__footer">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
           <template v-if="showCancel">
-            <PButton inset @click="emit('cancel')">
+            <p-button @click="emit('cancel')">
               Cancel
-            </PButton>
+            </p-button>
           </template>
-          <PButton secondary :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
+          <p-button :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
             Previous
-          </PButton>
-          <PButton primary :loading="loading" @click="handleNextButtonClick">
+          </p-button>
+          <p-button primary :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
-          </PButton>
+          </p-button>
         </slot>
       </div>
     </PCard>
