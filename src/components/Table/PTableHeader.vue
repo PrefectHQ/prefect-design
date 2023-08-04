@@ -10,7 +10,6 @@
   py-3.5
   text-sm
   font-semibold
-  text-foreground-900
   whitespace-nowrap
   text-left
 }

@@ -1,5 +1,5 @@
 <template>
-  <thead class="p-table-head">
+  <thead class="p-table-head p-background">
     <slot>
       <PTableRow>
         <slot name="row" />

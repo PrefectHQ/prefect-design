@@ -3,6 +3,7 @@
     title="Tables"
     :demos="[
       { title: 'Basic' },
+      { title: 'In a card' },
       { title: 'With Multiselect' },
       { title: 'Using Columns' },
       { title: 'Custom Slots' },
@@ -17,6 +18,12 @@
 
     <template #basic>
       <p-table :data="data" />
+    </template>
+
+    <template #in-a-card>
+      <p-card>
+        <p-table :data="data" />
+      </p-card>
     </template>
 
     <template #with-multiselect>
