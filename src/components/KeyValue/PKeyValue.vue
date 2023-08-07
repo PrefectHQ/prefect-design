@@ -88,7 +88,7 @@
 
 .p-key-value__empty {
   @apply
-  text-foreground-100
+  text-subdued
 }
 
 .p-key-value--alt {
@@ -96,10 +96,5 @@
   text-xs
   leading-4
   font-normal
-}
-
-.p-key-value__label--alt {
-  @apply
-  text-foreground-800
 }
 </style>

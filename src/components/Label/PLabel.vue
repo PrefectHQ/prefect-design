@@ -71,7 +71,6 @@
   w-full
   text-sm
   font-medium
-  text-foreground
   flex
   flex-col
   gap-y-1
@@ -90,16 +89,17 @@
 
 .p-label__description { @apply
   text-sm
-  text-foreground-400
+  text-subdued
   font-normal
 }
 
 .p-label__message { @apply
   text-sm
-  text-foreground-400
+  font-normal
+  text-subdued
 }
 
 .p-label__message--failed { @apply
-  text-danger
+  text-invalid
 }
 </style>
