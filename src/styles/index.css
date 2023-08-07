@@ -146,9 +146,10 @@
 
     /* Root Tokens */
     --p-color-divider: #51525C;
-    --p-color-selection: rgba(69, 156, 255, 0.4);
+    --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
-    --p-color-active: #1F647A;
+    --p-color-selected: #1F647A;
+    --p-color-selectable-hover: var(--p-color-bg-2);
     --p-color-focus-ring: #276EE7;
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
@@ -191,8 +192,8 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: var(--p-color-active);
-    --p-color-input-checked-border: var(--p-color-active);
+    --p-color-input-checked-bg: var(--p-color-selected);
+    --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
     /* Button */
@@ -257,7 +258,7 @@
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
-    --p-color-button-activated-bg: var(--p-color-active);
+    --p-color-button-activated-bg: var(--p-color-selected);
     --p-color-button-activated-border: transparent;
     --p-color-button-activated-text: var(--p-color-text-default);
 
@@ -336,9 +337,10 @@
 
     /* Root Tokens */
     --p-color-divider: #BFBFCC;
-    --p-color-selection: rgba(69, 156, 255, 0.4);
+    --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
-    --p-color-active: #9DDDF1;
+    --p-color-selected: #9DDDF1;
+    --p-color-selectable-hover: #DDDDDD;
     --p-color-focus: #1470EF;
     --p-color-focus-halo: rgba(23, 92, 211, 0.4);
 
@@ -381,8 +383,8 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: var(--p-color-active);
-    --p-color-input-checked-border: var(--p-color-active);
+    --p-color-input-checked-bg: var(--p-color-selected);
+    --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
     /* Button */
@@ -447,7 +449,7 @@
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
-    --p-color-button-activated-bg: var(--p-color-active);
+    --p-color-button-activated-bg: var(--p-color-selected);
     --p-color-button-activated-border: transparent;
     --p-color-button-activated-text: var(--p-color-text-default);
 
@@ -545,7 +547,7 @@ body {
 }
 
 *::selection {
-  background-color: var(--p-color-selection);
+  background-color: var(--p-color-text-selection);
 }
 
 .p-background {
