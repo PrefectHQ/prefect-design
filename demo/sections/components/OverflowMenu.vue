@@ -10,7 +10,7 @@
       <p-overflow-menu>
         <p-overflow-menu-item label="Share">
           <template #after>
-            <span class="text-prefect-500">3 INVITES</span>
+            <span class="text-subdued">3 INVITES</span>
           </template>
         </p-overflow-menu-item>
         <p-overflow-menu-item label="Google" to="https://www.google.com" />
