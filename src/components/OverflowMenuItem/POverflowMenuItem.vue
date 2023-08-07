@@ -62,13 +62,10 @@
 .p-menu-item { @apply
   p-3
   font-normal
-  text-foreground
-  text-sm
   flex
   items-center
   w-full
-  hover:bg-background-500
-  dark:hover:bg-background-600
+  hover:bg-selectable-hover
 }
 
 .p-menu-item__icon { @apply

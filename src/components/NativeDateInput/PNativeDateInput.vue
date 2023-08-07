@@ -151,8 +151,9 @@
   w-full
 }
 
-.p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
-  background: none;
+.p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator { @apply
+  cursor-pointer
+  bg-none
 }
 
 .p-native-date-input .p-native-date-input__control--placeholder::-webkit-calendar-picker-indicator {
