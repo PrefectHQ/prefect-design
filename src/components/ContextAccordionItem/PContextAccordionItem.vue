@@ -99,13 +99,13 @@
   font-medium
   w-full
   text-left
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-selectable-hover
+  active:bg-selected
 }
 
 .p-context-accordion-item__header--highlighted { @apply
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-selectable-hover
+  active:bg-selected
 }
 
 .p-context-accordion-item__icon { @apply
@@ -136,12 +136,13 @@
   select-none
   font-medium
   cursor-pointer
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-selectable-hover
+  active:bg-selected
 }
 
 .p-context-accordion-item__content-child--active { @apply
-  text-primary
+  bg-selected
+  hover:bg-selected
 }
 
 .p-context-accordion-item__indicator { @apply
