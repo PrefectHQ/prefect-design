@@ -5,7 +5,7 @@
         :disabled="button.disabled"
         :small="small"
         class="p-button-group__button"
-        :class="getButtonClass(button.value)"
+        :selected="button.value === modelValue"
         :icon="button.icon"
         @click="select(button.value)"
       >
@@ -54,12 +54,6 @@
 
   const select = (value: SelectModelValue): void => {
     internalValue.value = value
-  }
-
-  const getButtonClass = (value: SelectModelValue): string[] | null => {
-    return value === internalValue.value
-      ? ['p-button-group__button--selected']
-      : null
   }
 </script>
 
