@@ -1,6 +1,6 @@
 <template>
-  <ComponentPage title="Accordion" :demos="[{ title: 'Accordion' }]">
-    <template #accordion>
+  <ComponentPage title="Context Sidebar" :demos="[{ title: 'Context Sidebar' }]">
+    <template #context-sidebar>
       <PContextSidebar>
         <template #header>
           Header
