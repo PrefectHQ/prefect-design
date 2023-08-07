@@ -33,6 +33,7 @@
   const props = defineProps<{
     primary?: boolean,
     flat?: boolean,
+    selected?: boolean,
     icon?: Icon,
     iconAppend?: Icon,
     dangerous?: boolean,
@@ -87,6 +88,7 @@
     'p-button--icon-append': props.iconAppend && slots.default,
     'p-button--disabled': props.disabled || props.loading,
     'p-button--loading': props.loading,
+    'p-button--selected': props.selected,
   }))
 
   const iconSize = props.small ? undefined : 'large'
@@ -269,5 +271,14 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.p-button--selected,
+.p-button--selected:not(:disabled):hover,
+.p-button--selected:not(:disabled):active {
+  background-color: var(--p-color-button-selected-bg);
+  border-color: var(--p-color-button-selected-border);
+  color: var(--p-color-button-selected-text);
+  cursor: default;
 }
 </style>

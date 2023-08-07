@@ -1,16 +1,16 @@
 <template>
   <div class="p-button-group">
     <template v-for="button in options" :key="button.label">
-      <PButton
+      <p-button
         :disabled="button.disabled"
         :small="small"
         class="p-button-group__button"
-        :class="getButtonClass(button.value)"
+        :selected="button.value === modelValue"
         :icon="button.icon"
         @click="select(button.value)"
       >
         {{ button.label }}
-      </PButton>
+      </p-button>
     </template>
   </div>
 </template>
@@ -55,12 +55,6 @@
   const select = (value: SelectModelValue): void => {
     internalValue.value = value
   }
-
-  const getButtonClass = (value: SelectModelValue): string[] | null => {
-    return value === internalValue.value
-      ? ['p-button-group__button--selected']
-      : null
-  }
 </script>
 
 <style>
@@ -78,14 +72,5 @@
 
 .p-button-group__button:last-child {@apply
   rounded-l-none
-}
-
-.p-button-group__button--selected,
-.p-button-group__button--selected:not(:disabled):hover,
-.p-button-group__button--selected:not(:disabled):active { @apply
-  cursor-default;
-  background-color: var(--p-color-button-activated-bg);
-  border-color: var(--p-color-button-activated-border);
-  color: var(--p-color-button-activated-text);
 }
 </style>
