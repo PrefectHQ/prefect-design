@@ -79,7 +79,6 @@
   items-center
   gap-x-2
   w-auto
-  text-foreground
 }
 
 .p-checkbox__label,
