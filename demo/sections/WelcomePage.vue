@@ -93,7 +93,6 @@
   absolute
   left-1/2
   origin-center
-  text-subdued
   opacity-20
   top-1/2
   select-none
