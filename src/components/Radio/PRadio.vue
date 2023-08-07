@@ -80,11 +80,10 @@
   items-center
   gap-x-2
   w-auto
-  text-foreground
 }
 
 .p-radio__label,
-.p-radio__control { @apply
+.p-radio__input { @apply
   cursor-pointer
 }
 
@@ -92,30 +91,45 @@
   h-4
   w-4
   transition-colors
-  ring-offset-2
-  focus-within:ring-2
   block
-
-  text-primary-600
-  bg-background
-  focus:ring-primary-600
-
-  border-background-400
-  dark:text-primary-300
-  dark:border-foreground-200
-  dark:focus:ring-primary-400
-  dark:ring-offset-background-500
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-offset-focus-ring
+  focus:ring-offset-focus-ring-offset;
+  background-color: var(--p-color-input-bg);
+  border-color: var(--p-color-input-border);
+  color: var(--p-color-input-text)
 }
+
+.p-radio__input:focus:not(:focus-visible) { @apply
+  ring-transparent
+  ring-offset-transparent
+}
+
+.p-radio__input:not(:disabled):hover {
+  background-color: var(--p-color-input-bg);
+  border-color: var(--p-color-input-border-focus);
+  color: var(--p-color-input-text);
+}
+
+.p-radio__input:checked,
+.p-radio__input:checked:hover,
+.p-radio__input:checked:focus {
+  background-color: var(--p-color-input-checked-bg);
+  border-color: var(--p-color-input-checked-border);
+  color: var(--p-color-input-checked-text);
+}
+
 
 .p-radio--failed {
   scroll-margin: var(--prefect-scroll-margin);
 }
 
-.p-radio--failed .p-radio__input { @apply
-  ring-1
-  ring-danger
-  focus-within:ring-2
-  focus-within:ring-danger
+.p-radio--failed .p-radio__input,
+.p-radio--failed .p-radio__input:hover,
+.p-radio--failed .p-radio__input:focus {
+  background-color: var(--p-color-input-bg-invalid);
+  border-color: var(--p-color-input-border-invalid);
 }
 
 .p-radio--disabled .p-radio__label,
@@ -125,12 +139,6 @@
 }
 
 .p-radio--pending .p-radio__input { @apply
-  ring-1
-  ring-primary-300
-  focus-within:ring-2
-  focus-within:ring-primary-300
-
-  dark:ring-primary-100
-  dark:focus-within:ring-primary-100
+  animate-pulse
 }
 </style>
