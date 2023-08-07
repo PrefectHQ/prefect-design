@@ -7,6 +7,7 @@
 <style>
 .p-overflow-menu { @apply
   bg-floating
+  shadow-lg
   w-auto
   rounded
   overflow-hidden
