@@ -1,5 +1,5 @@
 <template>
-  <tbody class="p-table-body">
+  <tbody class="p-table-body p-background">
     <slot>
       <template v-for="(row, index) in data" :key="index">
         <PTableRow>
@@ -44,7 +44,6 @@
 <style>
 .p-table-body { @apply
   divide-y
-  divide-background-500
-  dark:divide-background-700
+  divide-divider
 }
 </style>

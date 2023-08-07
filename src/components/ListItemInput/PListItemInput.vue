@@ -1,5 +1,5 @@
 <template>
-  <PListItem class="p-list-item-input">
+  <PListItem class="p-list-item-input p-background">
     <div class="p-list-item-input__control">
       <label class="p-list-item-input__checkbox">
         <PCheckbox v-model="model" v-bind="{ value, disabled }" />
@@ -41,9 +41,7 @@
 
 <style>
 .p-list-item-input { @apply
-  bg-background
-  shadow
-  rounded-lg
+  rounded-md
   overflow-hidden
   flex
   p-0

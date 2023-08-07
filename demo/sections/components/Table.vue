@@ -3,6 +3,7 @@
     title="Tables"
     :demos="[
       { title: 'Basic' },
+      { title: 'In a card' },
       { title: 'With Multiselect' },
       { title: 'Using Columns' },
       { title: 'Custom Slots' },
@@ -17,6 +18,20 @@
 
     <template #basic>
       <p-table :data="data" />
+    </template>
+
+    <template #in-a-card>
+      <p-card>
+        <p-table :data="data">
+          <template #footer>
+            <PTableRow>
+              <PTableData class="text-center" colspan="5">
+                Footer
+              </PTableData>
+            </PTableRow>
+          </template>
+        </p-table>
+      </p-card>
     </template>
 
     <template #with-multiselect>
@@ -175,17 +190,21 @@
 <style>
 .custom-row-class { @apply
   bg-rose-400
+  dark:bg-rose-900
 }
 
 .custom-row-class--index { @apply
   bg-teal-200
+  dark:bg-teal-900
 }
 
 .custom-column-class { @apply
   bg-emerald-200
+  dark:bg-emerald-900
 }
 
 .custom-column-class--index { @apply
   bg-amber-200
+  dark:bg-amber-900
 }
 </style>

@@ -48,13 +48,12 @@
 }
 
 .markdown-renderer__html a[href] { @apply
-  text-primary-500
-  hover:text-primary-600
+  text-link
 }
 
 .markdown-renderer__image { @apply
   max-w-full
-  rounded
+  rounded-md
   shadow-sm
 }
 
@@ -133,7 +132,7 @@
 .markdown-renderer__blockquote { @apply
   italic
   border-l-4
-  border-background-600
+  border-divider
   pl-4
   ml-2
 }
