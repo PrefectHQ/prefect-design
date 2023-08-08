@@ -32,7 +32,7 @@
 
   const props = defineProps<{
     command: string | string[],
-    output: string | string[],
+    output?: string | string[] | null | undefined,
   }>()
 
   const commands = computed(() => asArray(props.command))
