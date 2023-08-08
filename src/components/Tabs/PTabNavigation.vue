@@ -66,8 +66,7 @@
 <style>
 .p-tab-navigation { @apply
   border-b
-  border-background-400
-  dark:border-background-600
+  border-divider
   flex
   items-center
   -mb-px
