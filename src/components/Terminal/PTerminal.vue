@@ -44,12 +44,6 @@
 
     showToast('Copied!', 'success')
   }
-
-  async function copyLine(index: string): Promise<void> {
-    await navigator.clipboard.writeText(commands.value[index])
-
-    showToast('Copied!', 'success')
-  }
 </script>
 
 <style>
