@@ -139,8 +139,7 @@
   -bottom-[var(--gap)]
   w-px
   -translate-x-1/2
-  bg-foreground-200
-  dark:bg-foreground-300
+  bg-divider
   -z-[1];
 
   content: '';
