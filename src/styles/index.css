@@ -199,6 +199,11 @@
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
+    /* Toggle */
+    --p-color-toggle-bg: var(--p-color-divider);
+    --p-color-toggle-trigger: var(--p-color-input-text);
+    --p-color-toggle-bg-checked: var(--p-color-sentiment-positive);
+
     /* Button */
     --p-color-button-default-bg: transparent;
     --p-color-button-default-border: #70707B;
@@ -409,6 +414,11 @@
     --p-color-input-checked-bg: var(--p-color-selected);
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
+
+    /* Toggle */
+    --p-color-toggle-bg: var(--p-color-input-border);
+    --p-color-toggle-trigger: var(--p-color-text-inverse);
+    --p-color-toggle-bg-checked: var(--p-color-sentiment-positive);
 
     /* Button */
     --p-color-button-default-bg: transparent;
