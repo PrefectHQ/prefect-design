@@ -13,7 +13,6 @@
       <PTextInput
         ref="inputElement"
         v-model="modelValue"
-        :class="classes.control"
         :disabled="disabled"
         v-bind="attrs"
         :options="filteredSelectOptions"
@@ -100,12 +99,6 @@
   })
 
   const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(filteredSelectOptions)
-
-  const classes = computed(() => ({
-    control: {
-      'p-type-ahead--open': isOpen.value,
-    },
-  }))
 
   const styles = computed(() => ({
     option: {
@@ -217,18 +210,3 @@
     }
   }
 </script>
-
-<style>
-.p-type-ahead { @apply
-  relative
-  text-base
-  rounded-md
-}
-
-.p-type-ahead--open { @apply
-  outline-none
-  ring-1
-  ring-primary-500
-  border-primary-500
-}
-</style>
