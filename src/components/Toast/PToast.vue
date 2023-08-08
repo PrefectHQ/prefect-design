@@ -47,10 +47,10 @@
   const animationDuration = ref(props.timeout ? `${props.timeout / 1000}s` : '5s')
   const animationPlayState = ref('running')
 
-  const iconMap: Record<string, string> = {
+  const iconMap: Record<string, Icon> = {
     default: 'InformationCircleIcon',
-    success: 'CheckCircleIcon',
-    error: 'XCircleIcon',
+    success: 'CheckIcon',
+    error: 'ExclamationTriangleIcon',
   }
   const icon = computed(() => iconMap[props.type] as Icon)
 
@@ -92,12 +92,12 @@
 <style>
 /* TODO: This should be responsive to global CVD settings */
 .p-toast__icon--success { @apply
-  text-success
+  text-sentiment-positive
 }
 
 /* TODO: This should be responsive to global CVD settings */
 .p-toast__icon--error { @apply
-  text-danger
+  text-sentiment-negative
 }
 
 .p-toast__card { @apply
@@ -105,11 +105,8 @@
   w-full
   bg-floating
   shadow-lg
-  rounded-lg
+  rounded-md
   pointer-events-auto
-  ring-1
-  ring-black
-  ring-opacity-5
   overflow-hidden
   p-4
 }
@@ -133,13 +130,13 @@
 
 .p-toast__message { @apply
   text-sm
-  text-foreground
 }
 
 .p-toast__close { @apply
  ml-4
  flex-shrink-0
  flex
+ items-center
 }
 
 .p-toast__close-btn { @apply
@@ -148,15 +145,20 @@
   inline-flex
   justify-center
   items-center
-  text-background-100
-  dark:text-background-900
-  hover:text-background-700
-  focus:outline-none
-  focus:ring-2
-  focus:ring-offset-2
-  focus:ring-primary-500
+  text-subdued
+  hover:text-default
+  outline-none
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-offset-focus-ring
+  focus:ring-offset-focus-ring-offset
   h-5
   w-5
+}
+
+.p-toast__close-btn:focus:not(:focus-visible) { @apply
+  ring-transparent
+  ring-offset-transparent
 }
 
 .p-toast__close-icon { @apply
@@ -170,9 +172,9 @@
 }
 
 .p-toast__svg-circle {  @apply
-  stroke-success
   fill-transparent;
 
+  stroke: var(--p-color-button-default-border);
   stroke-dasharray: 290px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
@@ -189,12 +191,12 @@
 
 @keyframes countdown {
   from { @apply
-    stroke-success;
+    stroke-sentiment-positive;
 
     stroke-dashoffset: 0px;
   }
   to { @apply
-    stroke-danger;
+    stroke-sentiment-negative;
 
     stroke-dashoffset: 290px;
   }
