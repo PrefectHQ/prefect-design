@@ -171,6 +171,7 @@
     --p-color-text-link: #53B1FD;
     --p-color-text-code: #C1C4CE;
     --p-color-text-invalid: var(--p-color-sentiment-negative);
+    --p-color-text-active: #3fa2c3;
 
     /* Syntax Highlighting */
     --p-color-syntax-comment: #686D7E;
@@ -359,7 +360,7 @@
     --p-color-divider: #BFBFCC;
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
-    --p-color-selected: #9DDDF1;
+    --p-color-selected: #92d1e5;
     --p-color-selectable-hover: #DDE2E3;
     --p-color-focus: #1470EF;
     --p-color-focus-halo: rgba(23, 92, 211, 0.4);
@@ -381,6 +382,7 @@
     --p-color-text-link: #1470EF;
     --p-color-text-code: #3D3D3D;
     --p-color-text-invalid: var(--p-color-sentiment-negative);
+    --p-color-text-active: #2D758B;
 
     /* Syntax Highlighting */
     --p-color-syntax-comment: #686D7E;
@@ -567,6 +569,7 @@
   .text-link { color: var(--p-color-text-link); }
   .text-code { color: var(--p-color-text-code); }
   .text-invalid { color: var(--p-color-text-invalid); }
+  .text-active { color: var(--p-color-text-active); }
 
   .caret-default { caret-color: var(--p-color-text-default); }
 }
