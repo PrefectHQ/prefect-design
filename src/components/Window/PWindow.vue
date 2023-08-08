@@ -31,7 +31,7 @@
 .p-window { @apply
   max-w-2xl
   overflow-hidden
-  rounded
+  rounded-md
   w-full
 }
 
@@ -42,7 +42,7 @@
   justify-between
   items-center
   border-b
-  border-slate-400
+  border-divider
 }
 
 .p-window__file-name { @apply
@@ -77,7 +77,7 @@
 }
 
 .p-window__body { @apply
-  text-slate-200
+  bg-code
   px-5
   py-4
 }
