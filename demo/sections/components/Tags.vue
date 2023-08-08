@@ -14,15 +14,19 @@
     </template>
 
     <template #basic>
-      <p-tag v-for="index in 3" :key="index">
-        {{ index }}
-      </p-tag>
+      <div class="tags__list">
+        <p-tag v-for="index in 3" :key="index">
+          {{ index }}
+        </p-tag>
+      </div>
     </template>
 
     <template #using-slot>
-      <p-tag v-for="item in classes" :key="item.name" :class="item.className" class="tag" icon="TagIcon">
-        {{ item.name }}
-      </p-tag>
+      <div class="tags__list">
+        <p-tag v-for="item in classes" :key="item.name" :class="item.className" class="tag" icon="TagIcon">
+          {{ item.name }}
+        </p-tag>
+      </div>
     </template>
 
     <template #using-p-tag-wrapper>
@@ -80,15 +84,17 @@
   --scheduled: #FCD14E;
 }
 
-.tag {@apply
- rounded-md
+.tags__list { @apply
+  flex
+  gap-1
 }
+
 .tag:is(.tag--completed,.tag--cancelled, .tag--failed, .tag--running) {@apply
-  text-slate-50
+  text-default
 }
 
 .tag:is(.tag--pending,.tag--scheduled) {@apply
-  text-slate-800
+  text-inverse
 }
 
 .tag.tag--completed {
