@@ -44,12 +44,12 @@
 </script>
 
 <style>
-.p-text-truncate {
-  @apply inline;
+.p-text-truncate { @apply
+  inline
 }
-.p-text-truncate--action-text {
-  @apply cursor-pointer
-  underline
-  text-primary;
+.p-text-truncate--action-text { @apply
+  cursor-pointer
+  text-link
+  hover:underline
 }
 </style>

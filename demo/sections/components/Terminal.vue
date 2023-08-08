@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Terminal" :demos="[{ title: 'Terminal' }]">
+  <ComponentPage title="Terminal" :demos="[{ title: 'Terminal' }, { title: 'In a card' }]">
     <template #description>
       This is where we add a short description of <p-code inline>
         p-terminal
@@ -8,6 +8,12 @@
 
     <template #terminal>
       <p-terminal command="perfect config set PREFECT_API_URL" />
+    </template>
+
+    <template #in-a-card>
+      <p-card>
+        <p-terminal command="perfect config set PREFECT_API_URL" />
+      </p-card>
     </template>
   </ComponentPage>
 </template>
