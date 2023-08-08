@@ -276,6 +276,11 @@
     --p-color-message-success-bg: var(--p-color-sentiment-positive);
     --p-color-message-success-text: var(--p-color-text-default);
 
+    /* Tag */
+    --p-color-tag-bg: var(--p-color-divider);
+    --p-color-tag-border: transparent;
+    --p-color-tag-text: var(--p-color-text-default);
+
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
     --background: var(--800);
@@ -480,6 +485,11 @@
 
     --p-color-message-success-bg: var(--p-color-sentiment-positive);
     --p-color-message-success-text: var(--p-color-text-inverse);
+
+    /* Tag */
+    --p-color-tag-bg: var(--p-color-divider);
+    --p-color-tag-border: transparent;
+    --p-color-tag-text: var(--p-color-text-default);
 
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
