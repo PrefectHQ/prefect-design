@@ -10,8 +10,13 @@
     <div class="p-terminal__code">
       <template v-for="(line, index) in commands" :key="index">
         <p class="p-terminal__code-line">
-          {{ line }}
+          $ {{ line }}
           <span class="p-terminal__cursor" />
+        </p>
+      </template>
+      <template v-for="(line, index) in outputs" :key="index">
+        <p class="p-terminal__code-line">
+          {{ line }}
         </p>
       </template>
     </div>
@@ -27,13 +32,21 @@
 
   const props = defineProps<{
     command: string | string[],
+    output: string | string[],
   }>()
 
   const commands = computed(() => asArray(props.command))
+  const outputs = computed(() => asArray(props.output))
 
   async function copy(): Promise<void> {
     const copyText = commands.value.join(' && ')
     await navigator.clipboard.writeText(copyText)
+
+    showToast('Copied!', 'success')
+  }
+
+  async function copyLine(index: string): Promise<void> {
+    await navigator.clipboard.writeText(commands.value[index])
 
     showToast('Copied!', 'success')
   }

@@ -7,7 +7,7 @@
     </template>
 
     <template #terminal>
-      <p-terminal command="perfect config set PREFECT_API_URL" />
+      <p-terminal command="prefect config set PREFECT_API_URL" output="Set 'PREFECT_API_URL' to 'test'." />
     </template>
   </ComponentPage>
 </template>
