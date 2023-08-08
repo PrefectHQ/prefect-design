@@ -31,20 +31,17 @@
 }
 
 .p-tab__active { @apply
-  border-b-2
-  border-primary-600
-  text-primary-600
+  border-b-4
+  border-selected
+  text-default
 }
 
 .p-tab:not(.p-tab__active) { @apply
-  border-b-2
+  border-b-4
   border-transparent
-  hover:border-background-400
-  hover:dark:border-foreground-300
-
-  text-foreground-200
-  hover:text-foreground-400
-  hover:dark:text-foreground-300
+  text-subdued
+  hover:border-selectable-hover
+  hover:text-default
 }
 
 .p-tab__disabled { @apply
