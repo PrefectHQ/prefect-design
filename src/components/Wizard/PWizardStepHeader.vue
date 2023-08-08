@@ -64,6 +64,6 @@
 }
 
 .p-wizard-step-header--current { @apply
-  text-active
+  text-selected
 }
 </style>
