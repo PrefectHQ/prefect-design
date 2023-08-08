@@ -8,8 +8,7 @@
 .p-timeline-point { @apply
   rounded-full
   border
-  dark:border-foreground-100
-  text-foreground-400
+  border-divider
   p-2
   text-center
   shadow
