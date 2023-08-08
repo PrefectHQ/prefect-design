@@ -7,8 +7,9 @@
 <style>
 .p-overflow-menu { @apply
   bg-floating
+  shadow-lg
   w-auto
-  rounded
+  rounded-md
   overflow-hidden
   inline-flex
   flex-col

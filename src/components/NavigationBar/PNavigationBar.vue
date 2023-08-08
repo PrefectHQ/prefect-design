@@ -66,7 +66,7 @@
   h-16
   w-full
   rounded-none
-  rounded-b-lg
+  rounded-b-md
 }
 
 .p-navigation-bar {
