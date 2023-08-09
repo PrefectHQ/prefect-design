@@ -47,7 +47,7 @@
 
 <style>
 .p-tag { @apply
-  gap-2
+  gap-1
   inline-flex
   items-center
   rounded-md
@@ -59,8 +59,7 @@
   color: var(--p-color-tag-text);
 }
 
-.p-tag__icon,
-.p-tag__icon svg { @apply
+.p-tag__icon { @apply
   w-4
   h-4
 }
