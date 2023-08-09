@@ -271,7 +271,7 @@
   <h2 class="text-3xl">Embedded HTML</h2>
 <p>
     This is some embedded html; the color of <span class="text-amber-500">this text</span> should be orange
-and the color of <span class="text-success">this text</span> should be green
+and the color of <span class="text-sentiment-positive">this text</span> should be green
 </p>`
 
   const dangerousHtml = `
@@ -279,9 +279,9 @@ and the color of <span class="text-success">this text</span> should be green
   <script>alert('window alert')<\/script>
 <p>
     This is some embedded html that contains dangerous scripts; the color of <span class="text-amber-500">this text</span> should be orange
-and the color of <span class="text-success">this text</span> should still be green.
+and the color of <span class="text-sentiment-positive">this text</span> should still be green.
 </p>
-<div class="text-3xl text-danger">NO WINDOW ALERT SHOULD HAVE FIRED</div>
+<div class="text-3xl text-sentiment-negative">NO WINDOW ALERT SHOULD HAVE FIRED</div>
 `
 
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
@@ -361,7 +361,7 @@ _**${user3}** has changed their name to **${user1}**_
 .markdown-renderer__section-header { @apply
   mb-4
   border-b
-  border-b-foreground-200
+  border-b-divider
   text-2xl
   font-semibold
 }
