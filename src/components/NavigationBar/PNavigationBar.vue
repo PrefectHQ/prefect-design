@@ -84,6 +84,7 @@
   border-b
   border-divider
   self-stretch
+  py-2
   overflow-auto
 }
 
