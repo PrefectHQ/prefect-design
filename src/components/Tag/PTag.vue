@@ -1,7 +1,7 @@
 <template>
   <span class="p-tag" :class="classes.root">
     <div v-if="icon" class="p-tag__icon">
-      <PIcon :icon="icon" />
+      <PIcon :icon="icon" size="small" />
     </div>
 
     <slot>{{ tagValue.label }}</slot>
@@ -12,7 +12,7 @@
       class="p-tag__dismiss"
       @click.stop="emits('dismiss', tagValue)"
     >
-      <PIcon icon="XMarkIcon" class="p-tag__icon p-tag__icon--dismiss" />
+      <PIcon icon="XMarkIcon" size="small" class="p-tag__icon p-tag__icon--dismiss" />
     </button>
   </span>
 </template>
@@ -57,11 +57,6 @@
   background-color: var(--p-color-tag-bg);
   border-color: var(--p-color-tag-border);
   color: var(--p-color-tag-text);
-}
-
-.p-tag__icon { @apply
-  w-4
-  h-4
 }
 
 .p-tag--dismissible { @apply
