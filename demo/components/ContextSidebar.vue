@@ -105,10 +105,6 @@
   text-xl
 }
 
-.context-sidebar__search-box { @apply
-  text-foreground-600
-}
-
 .context-sidebar .p-context-accordion-item__title,
 .context-sidebar .p-context-nav-item { @apply
   capitalize

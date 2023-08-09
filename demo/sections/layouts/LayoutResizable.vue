@@ -147,7 +147,7 @@
 
 .layout-resizable__aside { @apply
   bg-blue-600
-  text-foreground-50
+  text-blue-50
   text-ellipsis
   overflow-hidden
   p-2
@@ -160,10 +160,6 @@
 .layout-resizable__advanced {
   --p-layout-resizable-aside-min-size: 196px;
   --p-layout-resizable-aside-max-size: 512px;
-}
-
-.layout-resizable__advanced { @apply
-  text-foreground
 }
 
 .layout-resizable__advanced .layout-resizable__aside { @apply

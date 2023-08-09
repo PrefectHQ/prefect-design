@@ -32,7 +32,7 @@
           target
         </div>
         <template v-if="showManual">
-          <div ref="manualContent" class="bg-primary text-white p-2" :style="manualStyles">
+          <div ref="manualContent" class="bg-floating text-white p-2" :style="manualStyles">
             <span>Manual <br> Composition Content</span>
           </div>
         </template>
@@ -58,7 +58,7 @@
           target
         </div>
         <template v-if="showDynamic">
-          <div ref="dynamicContent" class="bg-primary text-white p-20" :style="dynamicStyles">
+          <div ref="dynamicContent" class="bg-floating text-white p-20" :style="dynamicStyles">
             <span>Dynamic Composition Content</span>
           </div>
         </template>

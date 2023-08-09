@@ -102,7 +102,6 @@
   max-w-full
   min-w-[200px]
   p-4
-  text-foreground
 }
 
 .resizable-section__aside { @apply
@@ -110,8 +109,6 @@
 }
 
 .resizable-section__handle { @apply
-  bg-background-600
-  text-foreground-300
   w-[v-bind(handleWidthPx)]
   h-full
   flex
@@ -123,7 +120,6 @@
 
 .resizable-section__px { @apply
   select-none
-  text-foreground
   rounded
   px-2
   py-0.5

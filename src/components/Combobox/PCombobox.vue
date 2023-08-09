@@ -233,7 +233,7 @@
   flex
   justify-between
   items-center
-  text-foreground-400
+  text-subdued
   text-sm
   italic
   p-2
