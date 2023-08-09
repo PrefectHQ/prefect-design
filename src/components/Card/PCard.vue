@@ -18,7 +18,6 @@
 
 <style>
 .p-card { @apply
-  text-foreground
   p-4
   rounded-md
   transition-all;

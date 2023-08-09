@@ -77,8 +77,6 @@
 
 .p-stepper:has(.p-stepper__step:focus) {@apply
   focus-within:ring-0
-  focus-within:border-background-300
-  dark:focus-within:border-foreground-400
 }
 
 .p-stepper__step { @apply
