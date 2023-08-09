@@ -256,7 +256,6 @@
   rounded
   shadow-sm
   hover:shadow-lg
-  text-foreground
   border-2
 }
 
@@ -306,7 +305,7 @@
   bg-amber-500
   rounded-full
   border-4
-  border-danger
+  border-sentiment-negative
 }
 
 .ordered-list__virtual-scroller { @apply

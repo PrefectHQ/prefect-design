@@ -7,7 +7,7 @@
     </p-frame>
 
     <div class="resizable-section__aside">
-      <div class="resizable-section__handle" @mousedown="start" @mouseup="stop">
+      <div class="resizable-section__handle p-background" @mousedown="start" @mouseup="stop">
         <component :is="ResizeIcon" />
       </div>
 
@@ -90,10 +90,10 @@
   flex
   relative
   border
+  border-divider
   overflow-hidden
   bg-transparent
   rounded
-  dark:border-background-600
 }
 
 .resizable-section__content { @apply
