@@ -50,7 +50,7 @@
           </template>
 
           <template #overflow-tags="{ overflowedChildren }">
-            <div class="text-prefect-600">
+            <div class="text-subdued">
               +{{ overflowedChildren }}
             </div>
           </template>

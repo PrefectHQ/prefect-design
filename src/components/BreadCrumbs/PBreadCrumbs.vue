@@ -35,7 +35,6 @@
   flex-wrap
   font-bold
   text-xl
-  text-foreground
 }
 
 .p-bread-crumbs__crumb { @apply

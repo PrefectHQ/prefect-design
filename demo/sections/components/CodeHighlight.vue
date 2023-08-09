@@ -158,7 +158,6 @@ for i in range(10):
 
 <style>
 .p-card { @apply
-  text-foreground
   p-6
   rounded-lg
   shadow-sm

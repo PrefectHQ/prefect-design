@@ -92,7 +92,6 @@
 
 <style>
 .p-card { @apply
-  text-foreground
   p-6
   rounded-lg
   shadow-sm
