@@ -44,8 +44,6 @@
 .p-icon { @apply
   w-5
   h-5
-  max-w-full
-  max-h-full
 }
 
 .p-icon--small { @apply
