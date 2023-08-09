@@ -171,6 +171,7 @@
     --p-color-text-link: #53B1FD;
     --p-color-text-code: #C1C4CE;
     --p-color-text-invalid: var(--p-color-sentiment-negative);
+    --p-color-text-selected: #3fa2c3;
 
     /* Syntax Highlighting */
     --p-color-syntax-comment: #686D7E;
@@ -276,6 +277,11 @@
     --p-color-message-success-bg: var(--p-color-sentiment-positive);
     --p-color-message-success-text: var(--p-color-text-default);
 
+    /* Tag */
+    --p-color-tag-bg: var(--p-color-divider);
+    --p-color-tag-border: transparent;
+    --p-color-tag-text: var(--p-color-text-default);
+
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--200);
     --background: var(--800);
@@ -354,7 +360,7 @@
     --p-color-divider: #BFBFCC;
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
-    --p-color-selected: #9DDDF1;
+    --p-color-selected: #92d1e5;
     --p-color-selectable-hover: #DDE2E3;
     --p-color-focus: #1470EF;
     --p-color-focus-halo: rgba(23, 92, 211, 0.4);
@@ -376,6 +382,7 @@
     --p-color-text-link: #1470EF;
     --p-color-text-code: #3D3D3D;
     --p-color-text-invalid: var(--p-color-sentiment-negative);
+    --p-color-text-selected: #2D758B;
 
     /* Syntax Highlighting */
     --p-color-syntax-comment: #686D7E;
@@ -481,6 +488,11 @@
     --p-color-message-success-bg: var(--p-color-sentiment-positive);
     --p-color-message-success-text: var(--p-color-text-inverse);
 
+    /* Tag */
+    --p-color-tag-bg: var(--p-color-divider);
+    --p-color-tag-border: transparent;
+    --p-color-tag-text: var(--p-color-text-default);
+
     /* Legacy Tokens – To be removed before releasing version 2.0 */
     --foreground: var(--800);
     --background: var(--white);
@@ -548,8 +560,10 @@
   .bg-floating { background-color: var(--p-color-bg-floating); }
   .bg-code { background-color: var(--p-color-bg-code); }
   .bg-fullscreen-cover { background-color: var(--p-color-bg-fullscreen-cover); }
+  .bg-selected { background-color: var(--p-color-selected); }
 
   .border-default { border-color: var(--p-color-divider); }
+  .border-selected { border-color: var(--p-color-selected); }
 
   .text-default { color: var(--p-color-text-default); }
   .text-subdued { color: var(--p-color-text-subdued); }
@@ -557,6 +571,7 @@
   .text-link { color: var(--p-color-text-link); }
   .text-code { color: var(--p-color-text-code); }
   .text-invalid { color: var(--p-color-text-invalid); }
+  .text-selected { color: var(--p-color-text-selected); }
 
   .caret-default { caret-color: var(--p-color-text-default); }
 }

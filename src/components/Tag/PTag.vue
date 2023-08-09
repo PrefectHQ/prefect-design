@@ -1,5 +1,5 @@
 <template>
-  <span class="p-tag">
+  <span class="p-tag" :class="classes.root">
     <div v-if="icon" class="p-tag__icon">
       <PIcon :icon="icon" />
     </div>
@@ -37,6 +37,12 @@
   const tagValue = computed(() => {
     return normalize(props.value ?? props.label ?? '')
   })
+
+  const classes = computed(() => ({
+    root: {
+      'p-tag--dismissible': props.dismissible,
+    },
+  }))
 </script>
 
 <style>
@@ -44,13 +50,13 @@
   gap-1
   inline-flex
   items-center
-  rounded-full
-  bg-background-400
-  text-foreground
-  dark:bg-background-600
+  rounded-md
   px-2.5
   py-0.5
-  text-sm
+  text-sm;
+  background-color: var(--p-color-tag-bg);
+  border-color: var(--p-color-tag-border);
+  color: var(--p-color-tag-text);
 }
 
 .p-tag__icon { @apply
@@ -58,8 +64,11 @@
   h-4
 }
 
-.p-tag__dismiss { @apply
-  text-foreground-600
-  hover:text-foreground-300
+.p-tag--dismissible { @apply
+  pr-1.5
+}
+
+.p-tag__dismiss {
+  color: var(--p-color-tag-text);
 }
 </style>
