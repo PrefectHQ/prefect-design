@@ -5,17 +5,6 @@ const forms = require('@tailwindcss/forms')
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 
-const COLOR_PALETTE_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
-
-// Think of foreground/background palette scales as scales of intensity from a starting color
-const generateColorPalette = (base) => {
-  const colors = {
-    DEFAULT: `hsl(var(--${base}) / <alpha-value>)`,
-  }
-  COLOR_PALETTE_KEYS.forEach((key) => colors[key] = `hsl(var(--${base}-${key}) / <alpha-value>)`)
-  return colors
-}
-
 const colors = () => {
   return {
     divider: 'var(--p-color-divider)',
@@ -26,14 +15,6 @@ const colors = () => {
     'sentiment-positive': 'var(--p-color-sentiment-positive)',
     'sentiment-neutral': 'var(--p-color-sentiment-neutral)',
     'sentiment-negative': 'var(--p-color-sentiment-negative)',
-
-    /* Legacy imports – to be removed before releasing v2.0 */
-    background: generateColorPalette('background'),
-    prefect: generateColorPalette('prefect'),
-    primary: generateColorPalette('primary'),
-    danger: generateColorPalette('danger'),
-    success: generateColorPalette('success'),
-    foreground: generateColorPalette('foreground'),
   }
 }
 

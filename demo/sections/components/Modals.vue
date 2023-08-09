@@ -12,7 +12,7 @@
       </p-button>
 
       <p-modal v-model:showModal="showModal" title="Modal Title" icon="CakeIcon">
-        <p class="text-sm text-foreground">
+        <p class="text-sm">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
         </p>
 
@@ -31,7 +31,7 @@
 
       <p-modal v-model:showModal="showLongContentModal" title="Modal Title" icon="CakeIcon">
         <template v-for="i in 10" :key="i">
-          <p class="text-sm text-foreground">
+          <p class="text-sm">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
           </p>
         </template>
@@ -50,7 +50,7 @@
       </p-button>
 
       <p-modal v-model:showModal="showAutoCloseModal" title="Auto-Close Modal" icon="CakeIcon" auto-close>
-        <p class="text-sm text-foreground">
+        <p class="text-sm">
           Click on modal mask to automatically dismiss modal
         </p> :modelValue=
 
