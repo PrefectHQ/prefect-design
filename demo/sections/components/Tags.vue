@@ -7,12 +7,6 @@
       { title: 'Using p-tag-wrapper' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-tags
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #basic>
       <div class="tags__list">
         <p-tag v-for="index in 3" :key="index">

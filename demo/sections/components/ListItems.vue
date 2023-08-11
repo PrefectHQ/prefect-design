@@ -6,12 +6,6 @@
       { title: 'Checkable' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-list-items
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #plain>
       <div class="grid gap-2">
         <template v-for="i in 3" :key="i">
