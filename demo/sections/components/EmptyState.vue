@@ -1,11 +1,5 @@
 <template>
   <ComponentPage title="Empty State" :demos="[{ title: 'Empty State' }]">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-empty-state
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #empty-state>
       <p-empty-state>
         <template #icon>

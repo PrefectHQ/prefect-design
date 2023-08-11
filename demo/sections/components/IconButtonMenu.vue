@@ -1,11 +1,5 @@
 <template>
   <ComponentPage title="Icon Button Menu" :demos="[{ title: 'Icon Button Menu' }]">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-icon-button-menu
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #icon-button-menu>
       <div class="icon-button-menu__container">
         <p-icon-button-menu>

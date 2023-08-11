@@ -9,10 +9,6 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code inline>
-        p-base-input
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 

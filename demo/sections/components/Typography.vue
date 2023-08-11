@@ -6,12 +6,6 @@
       { title: 'Adjusting Dates for Offset' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-typography
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #fonts>
       <div class="mb-4">
         <p class="text-xs">
