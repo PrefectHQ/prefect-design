@@ -1,5 +1,5 @@
 <template>
-  <p-toggle v-model="toggleValue" class="p-theme-toggle">
+  <p-toggle v-model="toggleValue" class="p-theme-toggle" neutral-states>
     <template #prepend>
       <p-icon icon="SunIcon" />
     </template>
@@ -26,15 +26,3 @@
     },
   })
 </script>
-
-<style>
-.p-theme-toggle .p-toggle__control.p-toggle__control--checked { @apply
-    bg-sky-900
-    border-sky-900
-  }
-
-.p-theme-toggle .p-toggle__control:not(.p-toggle__control--checked) { @apply
-    bg-sky-500
-    border-sky-500
-  }
-</style>

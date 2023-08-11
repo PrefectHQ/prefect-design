@@ -41,6 +41,7 @@
 
   const props = defineProps<{
     modelValue: boolean | null | undefined,
+    neutralStates?: boolean,
     disabled?: boolean,
     state?: State,
     prepend?: string,
@@ -72,6 +73,7 @@
       'p-toggle__control--disabled': props.disabled,
       'p-toggle__control--failed': failed.value,
       'p-toggle__control--pending': props.state?.pending,
+      'p-toggle__control--neutral-states': props.neutralStates,
     },
   }))
 
@@ -108,43 +110,28 @@
   flex
   items-center
   border-2
-  border-foreground-50
-  bg-background-400
-  dark:border-background-600
-  dark:bg-background-600
   w-11
   h-full
   rounded-full
   transition-colors
-  ring-offset-2
-  focus:ring-2
-  focus:ring-primary-600
   outline-none
   cursor-pointer
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-offset-focus-ring
+  focus:ring-offset-focus-ring-offset;
+  background-color: var(--p-color-toggle-bg);
+  border-color: var(--p-color-toggle-bg);
 }
 
-.p-toggle__control--checked { @apply
-  border-primary-500
-  dark:border-primary-500
-  bg-primary-500
-  dark:bg-primary-500
+.p-toggle__control:focus:not(:focus-visible) { @apply
+  ring-transparent
+  ring-offset-transparent
 }
 
-.p-toggle__control--failed { @apply
-  ring-1
-  ring-danger
-  focus-within:ring-danger
-}
-
-.p-toggle__control--pending { @apply
-  ring-1
-  ring-primary-300
-  focus-within:ring-primary-300
-}
-
-.p-toggle__control--disabled { @apply
-  opacity-50
-  cursor-not-allowed
+.p-toggle__control--checked:not(.p-toggle__control--neutral-states) {
+  background-color: var(--p-color-toggle-bg-checked);
+  border-color: var(--p-color-toggle-bg-checked);
 }
 
 .p-toggle__slider { @apply
@@ -153,16 +140,25 @@
   flex
   justify-center
   items-center
-  text-primary-300
   relative
   rounded-full
-  bg-background
-  dark:bg-foreground
   transition-all
+  text-live;
+  background-color: var(--p-color-toggle-trigger);
 }
 
 .p-toggle__control--checked .p-toggle__slider { @apply
   translate-x-5
+}
+
+.p-toggle__control--failed {
+  background-color: var(--p-color-input-border-invalid);
+  border-color: var(--p-color-input-border-invalid)
+}
+
+.p-toggle__control--disabled { @apply
+  opacity-50
+  cursor-not-allowed
 }
 
 .p-toggle__prepend,

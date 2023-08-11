@@ -1,27 +1,24 @@
 <template>
-  <ComponentPage title="Toggle" :demos="[{ title: 'Toggle' }]">
+  <ComponentPage title="Toggle" :demos="[{ title: 'Default Toggle' }, { title: 'Neutral states' }]">
     <template #description>
-      This is where we add a short description of <p-code inline>
-        p-toggle
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      Used for both displaying and providing controls for a boolean value.
 
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
-    <template #toggle>
-      <p-label label="Toggle">
-        <div class="flex flex-col gap-2">
-          <p-toggle v-model="exampleBoolean" :disabled="disabled" :state="exampleState" />
-          <p-toggle
-            v-model="exampleSecondBoolean"
-            class="color-toggle"
-            :disabled="disabled"
-            :state="exampleState"
-            prepend="green"
-            append="blue"
-          />
-        </div>
-      </p-label>
+    <template #default-toggle>
+      <p-toggle v-model="exampleBoolean" :disabled="disabled" :state="exampleState" />
+    </template>
+
+    <template #neutral-states>
+      <p-toggle
+        v-model="exampleSecondBoolean"
+        :disabled="disabled"
+        :state="exampleState"
+        prepend="Left"
+        append="Right"
+        neutral-states
+      />
     </template>
   </ComponentPage>
 </template>
@@ -38,10 +35,3 @@
   const exampleBoolean = ref<boolean | null>(null)
   const exampleSecondBoolean = ref(false)
 </script>
-
-<style>
-.color-toggle .p-toggle__control:not(.p-toggle__control--checked) { @apply
-    bg-green-600
-    border-green-600
-  }
-</style>
