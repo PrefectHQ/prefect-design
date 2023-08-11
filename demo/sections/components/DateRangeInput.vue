@@ -1,11 +1,5 @@
 <template>
   <ComponentPage title="Date Range Input" :demos="[{ title: 'Date Range Input' }]">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-date-range-input
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #date-range-input>
       <div class="date-range-input__demo">
         <p-date-range-input v-model:startDate="value.start" v-model:endDate="value.end" clearable />

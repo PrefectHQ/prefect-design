@@ -1,11 +1,5 @@
 <template>
   <ComponentPage title="Message" :demos="[{ title: 'Dismissible' }, { title: 'Context' }, { title: 'Custom Actions' }]">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-message
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <p-message>
       here is a plain ol' p-message component
     </p-message>
