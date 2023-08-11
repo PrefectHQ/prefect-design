@@ -6,12 +6,6 @@
       { title: 'Multiline' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-code
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #inline>
       This <p-code inline>
         is

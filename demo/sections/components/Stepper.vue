@@ -6,12 +6,6 @@
       { title: 'Step Size' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-stepper
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #min-and-max-props>
       <div class="stepper__demo">
         <p-stepper

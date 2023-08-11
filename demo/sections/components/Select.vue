@@ -1,10 +1,6 @@
 <template>
   <ComponentPage title="Select" :demos="[{ title: 'Single Select' }, { title: 'Multi-Select' }, { title: 'Grouped' }]">
     <template #description>
-      This is where we add a short description of <p-code inline>
-        p-select
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
