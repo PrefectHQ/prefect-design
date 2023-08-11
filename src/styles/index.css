@@ -154,11 +154,7 @@
     --p-color-focus-ring: #276EE7;
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
-    --p-color-awaiting: #F79008;
     --p-color-live: #6272FF;
-
-    --p-color-event: #7210EF;
-    --p-color-event-dense: #A564F9;
 
     --p-color-sentiment-positive: #22C55E;
     --p-color-sentiment-neutral: #70707B;
@@ -370,11 +366,7 @@
     --p-color-focus: #1470EF;
     --p-color-focus-halo: rgba(23, 92, 211, 0.4);
 
-    --p-color-awaiting: #F79008;
     --p-color-live: #4B5CFF;
-
-    --p-color-event: #B073FF;
-    --p-color-event-dense: #CDA7FE;
 
     --p-color-sentiment-positive: #22C55E;
     --p-color-sentiment-neutral: #70707B;
