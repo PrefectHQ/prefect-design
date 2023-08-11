@@ -6,12 +6,6 @@
       { title: 'External' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-links
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #local>
       <p-link to="/icons">
         Link to Icons page

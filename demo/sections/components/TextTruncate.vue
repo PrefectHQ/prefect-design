@@ -1,11 +1,5 @@
 <template>
   <ComponentPage title="Text Truncate" :demos="[{ title: 'Text Truncate' }]">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-text-truncate
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #text-truncate>
       <span class="heading">
         Default character count: 70<br>

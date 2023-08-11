@@ -9,12 +9,6 @@
       { title: 'Grouped' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-pop-over
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #manual>
       <div class="flex items-center gap-2">
         <position-select v-model:position="position" />
