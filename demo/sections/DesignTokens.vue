@@ -230,7 +230,7 @@
               <strong>Level 2:</strong> Adding the class <p-code inline>
                 p-background
               </p-code> directly to a container will automatically apply the level 2 background color when it's nested within a level 1 background, using a simple <p-code inline>
-                .p-background + .p-background {}
+                .p-background .p-background {}
               </p-code> style.
             </p>
           </div>
