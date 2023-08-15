@@ -109,18 +109,18 @@
 }
 
 .p-drawer--right .drawer__navigation-bar { @apply
-  rounded-l-2xl
+  rounded-l-default
 }
 
 .p-drawer--left .drawer__navigation-bar { @apply
-  rounded-r-2xl
+  rounded-r-default
 }
 
 .p-drawer--top .drawer__navigation-bar { @apply
-  rounded-b-xl
+  rounded-b-default
 }
 
 .p-drawer--bottom .drawer__navigation-bar { @apply
-  rounded-t-xl
+  rounded-t-default
 }
 </style>

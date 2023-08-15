@@ -28,7 +28,7 @@
   flex
   py-2
   px-2
-  rounded-md
+  rounded-default
   items-center
   transition
   duration-200

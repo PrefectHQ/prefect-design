@@ -90,7 +90,7 @@
   py-2.5
   px-3
   mb-1
-  rounded-md
+  rounded-default
   items-center
   gap-3
   text-sm
@@ -121,7 +121,7 @@
 .p-context-accordion-item__contents { @apply
   flex
   flex-col
-  rounded-md
+  rounded-default
   pl-4
   gap-1
 }
@@ -129,7 +129,7 @@
 .p-context-accordion-item__content-child { @apply
   px-1.5
   py-1
-  rounded-md
+  rounded-default
   items-center
   text-sm
   leading-5

@@ -118,7 +118,7 @@
   my-1
   bg-floating
   overflow-hidden
-  rounded-md
+  rounded-default
   shadow-lg
   focus:outline-none
 }

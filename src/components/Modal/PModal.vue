@@ -164,7 +164,7 @@
   relative
   flex
   flex-col
-  rounded-md
+  rounded-default
   shadow-xl
   transition-all
   sm:max-w-lg

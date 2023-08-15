@@ -184,7 +184,7 @@
 .p-table { @apply
   overflow-hidden
   overflow-x-auto
-  rounded-md
+  rounded-default
 }
 
 .p-table__table { @apply
