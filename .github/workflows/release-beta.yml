@@ -15,9 +15,7 @@ jobs:
     environment: 'prod'
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
@@ -37,14 +35,13 @@ jobs:
           access: public
           tag: beta
           strategy: upgrade
-
-      - name: Create Release
-        uses: actions/create-release@v1
+      
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.publish.outputs.version }}
-          release_name: Release ${{ steps.publish.outputs.version }}
-          prerelease: true
-          body: |
-            Please refer to [CHANGELOG.md](https://github.com/PrefectHQ/prefect-design/blob/main/CHANGELOG.md) for details.
+          tag: ${{ steps.publish.outputs.version }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="Release ${tag#v}" \
+              --generate-notes
