@@ -9,7 +9,9 @@
 </template>
 
 <script lang="ts" setup>
+  import { useGlobalEventListener } from '@prefecthq/vue-compositions'
   import { onMounted, onUnmounted, ref, watch } from 'vue'
+  import { isHtmlElement } from '@/utilities/html'
 
   const props = defineProps<{
     open: boolean,
@@ -34,14 +36,15 @@
     }
 
     dialog.value.show()
+    setTimeout(() => addOnClickListener())
   }
 
   function close(): void {
-    if (!dialog.value) {
-      return
+    if (dialog.value) {
+      dialog.value.close()
     }
 
-    dialog.value.close()
+    removeOnClickListener()
   }
 
   function syncOpenValue(): void {
@@ -53,14 +56,19 @@
   }
 
   function onClick(event: MouseEvent): void {
-    if (!props.autoClose) {
+    if (!props.open || !props.autoClose || !dialog.value || !isHtmlElement(event.target)) {
       return
     }
 
-    if (event.target === dialog.value) {
+    const shouldCloseModal = props.modal && event.target === dialog.value
+    const shouldCloseDialog = !props.modal && !dialog.value.contains(event.target)
+
+    if (shouldCloseModal || shouldCloseDialog) {
       close()
     }
   }
+
+  const { add: addOnClickListener, remove: removeOnClickListener } = useGlobalEventListener('click', onClick)
 
   watch(() => props.open, open => {
     if (open) {
@@ -69,7 +77,8 @@
     }
 
     close()
-  })
+  }, { immediate: true })
+
 
   onMounted(() => {
     dialog.value?.addEventListener('close', syncOpenValue)
