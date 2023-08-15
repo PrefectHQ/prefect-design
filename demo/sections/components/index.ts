@@ -15,6 +15,7 @@ export const components: Section = {
   combobox: () => import('./Combobox.vue'),
   dateInput: () => import('./DateInput.vue'),
   dateRangeInput: () => import('./DateRangeInput.vue'),
+  dialog: () => import('./Dialog.vue'),
   divider: () => import('./Divider.vue'),
   drawer: () => import('./Drawer.vue'),
   emptyState: () => import('./EmptyState.vue'),
