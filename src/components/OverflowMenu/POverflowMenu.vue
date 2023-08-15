@@ -9,7 +9,7 @@
   bg-floating
   shadow-lg
   w-auto
-  rounded-md
+  rounded-default
   overflow-hidden
   inline-flex
   flex-col

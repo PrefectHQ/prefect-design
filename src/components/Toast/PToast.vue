@@ -105,7 +105,7 @@
   w-full
   bg-floating
   shadow-lg
-  rounded-md
+  rounded-default
   pointer-events-auto
   overflow-hidden
   p-4

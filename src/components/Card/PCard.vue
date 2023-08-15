@@ -19,7 +19,7 @@
 <style>
 .p-card { @apply
   p-4
-  rounded-md
+  rounded-default
   transition-all;
 
   transition-property: background-color;

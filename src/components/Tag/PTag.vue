@@ -50,7 +50,7 @@
   gap-1
   inline-flex
   items-center
-  rounded-md
+  rounded-default
   px-2.5
   py-0.5
   text-sm;

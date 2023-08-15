@@ -253,7 +253,7 @@
   items-center
   justify-center
   p-1
-  rounded
+  rounded-default
   shadow-sm
   hover:shadow-lg
   border-2
