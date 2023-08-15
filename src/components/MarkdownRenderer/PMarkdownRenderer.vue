@@ -53,7 +53,7 @@
 
 .markdown-renderer__image { @apply
   max-w-full
-  rounded-md
+  rounded-default
   shadow-sm
 }
 

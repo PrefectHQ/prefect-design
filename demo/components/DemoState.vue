@@ -45,6 +45,6 @@
   px-8
   py-4
   my-4
-  rounded
+  rounded-default
 }
 </style>

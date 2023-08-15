@@ -31,7 +31,7 @@
 .p-window { @apply
   max-w-2xl
   overflow-hidden
-  rounded-md
+  rounded-default
   w-full
 }
 

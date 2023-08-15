@@ -24,7 +24,7 @@
 .p-code-container { @apply
   bg-code
   text-code
-  rounded-md
+  rounded-default
   px-1
   py-0
   inline-block

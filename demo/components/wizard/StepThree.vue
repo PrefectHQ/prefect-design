@@ -24,7 +24,7 @@
 
 <style>
 .step-three { @apply
-  rounded
+  rounded-default
   overflow-hidden
 }
 </style>

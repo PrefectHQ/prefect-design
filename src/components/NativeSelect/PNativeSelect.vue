@@ -107,7 +107,7 @@
   top-0
   bottom-0
   py-2
-  rounded-md
+  rounded-default
   border-0
   focus:ring-0
   appearance-none

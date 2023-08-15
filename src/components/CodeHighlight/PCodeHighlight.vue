@@ -57,7 +57,7 @@
   @apply
   bg-code
   flex
-  rounded-md
+  rounded-default
   font-mono
   py-0
   px-1
