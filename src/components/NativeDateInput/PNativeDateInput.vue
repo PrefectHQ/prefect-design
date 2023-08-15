@@ -136,7 +136,7 @@
   left-0
   right-0
   w-full
-  rounded-md
+  rounded-default
   border-0
   focus:ring-0
 }

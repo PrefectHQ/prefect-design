@@ -159,7 +159,7 @@ for i in range(10):
 <style>
 .p-card { @apply
   p-6
-  rounded-lg
+  rounded-default
   shadow-sm
 }
 </style>

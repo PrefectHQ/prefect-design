@@ -44,7 +44,7 @@
   bg-transparent
   block
   w-full
-  rounded-md
+  rounded-default
   border-0
   focus:ring-0
   min-h-[2.5rem]

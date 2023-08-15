@@ -72,7 +72,7 @@
   focus-within:ring-focus-ring
   focus-within:ring-offset-focus-ring
   focus-within:ring-offset-focus-ring-offset
-  rounded-md
+  rounded-default
   font-normal;
   background-color: var(--p-color-input-bg);
   border-color: var(--p-color-input-border);

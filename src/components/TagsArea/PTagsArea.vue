@@ -113,7 +113,7 @@
 .p-tags-area__input { @apply
   bg-transparent
   w-full
-  rounded-md
+  rounded-default
   outline-none
   border-none
   ring-0

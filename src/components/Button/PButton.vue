@@ -101,7 +101,7 @@
   items-center
   px-4
   py-2
-  rounded-md
+  rounded-default
   border
   outline-none
   focus:ring-spacing-focus-ring
