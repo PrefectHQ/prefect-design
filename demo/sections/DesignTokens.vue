@@ -6,6 +6,7 @@
       { title: 'Backgrounds and borders' },
       { title: 'Text' },
       { title: 'Selectables' },
+      { title: 'Border radiuses' },
     ]"
   >
     <template #description>
@@ -217,15 +218,15 @@
       <p class="design_tokens__paragraph">
         There are 3 base levels of background colors. If we encounter a design calling for more levels of background colors than this, we should reconsider the design.
       </p>
-      <div class="border border-default rounded-md my-4 p-6">
+      <div class="border border-default rounded-default my-4 p-6">
         <p><strong>Level 0:</strong> The base background color of the application, applied globally.</p>
-        <div class="p-background mt-4 p-6 rounded-md">
+        <div class="p-background mt-4 p-6 rounded-default">
           <p>
             <strong>Level 1:</strong> Add the class <p-code inline>
               p-background
             </p-code> directly to a container to apply the level 1 background color. Used on cards by default.
           </p>
-          <div class="p-background mt-4 p-6 rounded-md">
+          <div class="p-background mt-4 p-6 rounded-default">
             <p>
               <strong>Level 2:</strong> Adding the class <p-code inline>
                 p-background
@@ -239,25 +240,25 @@
       <p class="design_tokens__paragraph">
         There are two additional background colors for specific use cases. These need to work on all backgrounds.
       </p>
-      <div class="border border-default rounded-md my-4 p-6">
+      <div class="border border-default rounded-default my-4 p-6">
         <p>On level 0</p>
-        <div class="bg-floating shadow-lg inline-block p-2 rounded-md mt-4">
+        <div class="bg-floating shadow-lg inline-block p-2 rounded-default mt-4">
           `bg-floating` is for floating elements, like dropdowns and tooltips.
         </div>
         <p-code class="mt-4">
           `bg-code` is for code blocks and inline code snippets.
         </p-code>
-        <div class="p-background mt-4 p-6 rounded-md">
+        <div class="p-background mt-4 p-6 rounded-default">
           <p>On level 1</p>
-          <div class="bg-floating shadow-lg inline-block p-2 rounded-md mt-4">
+          <div class="bg-floating shadow-lg inline-block p-2 rounded-default mt-4">
             bg-floating
           </div>
           <p-code class="mt-4">
             bg-code
           </p-code>
-          <div class="p-background mt-4 p-6 rounded-md">
+          <div class="p-background mt-4 p-6 rounded-default">
             <p>On level 2</p>
-            <div class="bg-floating shadow-lg inline-block p-2 rounded-md mt-4">
+            <div class="bg-floating shadow-lg inline-block p-2 rounded-default mt-4">
               bg-floating
             </div>
             <p-code class="mt-4">
@@ -271,13 +272,13 @@
           --p-divider
         </p-code>, for layout level divider lines. All other border colors are component level tokens.
       </p>
-      <div class="border border-default rounded-md my-4 p-6">
+      <div class="border border-default rounded-default my-4 p-6">
         <p>On level 0</p>
         <p-divider />
-        <div class="p-background mt-4 p-6 rounded-md">
+        <div class="p-background mt-4 p-6 rounded-default">
           <p>On level 1</p>
           <p-divider />
-          <div class="p-background mt-4 p-6 rounded-md">
+          <div class="p-background mt-4 p-6 rounded-default">
             <p>On level 2</p>
             <p-divider />
           </div>
@@ -316,6 +317,23 @@
         </p-link> and <p-link :to="routeRecordsFlat['p-wizard']">
           Wizard
         </p-link> components.
+      </p>
+    </template>
+
+    <template #border-radiuses>
+      <p class="design_tokens__paragraph">
+        Currently we have 1 defined border radius token, <p-code inline>
+          --p-radius-default
+        </p-code>, which can be used as a tailwind class <p-code inline>
+          rounded-default
+        </p-code>. This same border radius is used almost everywhere.
+      </p>
+      <p class="design_tokens__paragraph">
+        For certain cases, the tailwind class <p-code inline>
+          rounded-full
+        </p-code> is used for a full rounded edge. Checkboxes use <p-code inline>
+          rounded
+        </p-code>. Other than that, our default rounded token is used.
       </p>
     </template>
   </ComponentPage>

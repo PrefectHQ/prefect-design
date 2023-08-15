@@ -150,7 +150,7 @@
 .p-date-input__date-picker { @apply
   bg-floating
   my-1
-  rounded-md
+  rounded-default
   shadow-lg
 }
 

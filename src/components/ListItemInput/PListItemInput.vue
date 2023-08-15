@@ -41,7 +41,7 @@
 
 <style>
 .p-list-item-input { @apply
-  rounded-md
+  rounded-default
   overflow-hidden
   flex
   p-0

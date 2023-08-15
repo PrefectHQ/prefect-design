@@ -97,7 +97,7 @@
   bg-floating
   px-2
   py-1
-  rounded-md
+  rounded-default
   shadow
   dark:shadow-md
   max-w-xs

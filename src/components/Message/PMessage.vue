@@ -80,7 +80,7 @@
   gap-2
   items-center
   p-4
-  rounded-md
+  rounded-default
   text-sm
 }
 

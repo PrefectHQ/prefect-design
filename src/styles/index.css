@@ -20,6 +20,8 @@
   :root {
     --p-spacing-focus-ring: 2px;
     --p-spacing-focus-ring-offset: 1px;
+
+    --p-radius-default: 6px;
   }
 
   .dark {
