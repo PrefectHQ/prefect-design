@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const forms = require('@tailwindcss/forms')
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 
@@ -36,6 +35,7 @@ const fontFamily = {
   sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
   mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],
 }
+
 const extend = {
   borderRadius,
   colors,
@@ -44,7 +44,7 @@ const extend = {
   ringOffsetWidth,
   fontFamily,
 }
-const plugins = [forms]
+
 const darkMode = 'class'
 
 function PrefectDesign() {
@@ -53,7 +53,6 @@ function PrefectDesign() {
 
 const config = {
   darkMode,
-  plugins,
   theme: {
     extend,
   },
