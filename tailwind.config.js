@@ -2,13 +2,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const forms = require('@tailwindcss/forms')
-const prefectDesignTheme = require('./public/tailwindTheme')
-const prefectDesignUtilities = require('./public/tailwindUtilities')
+const prefectDesignPlugin = require('./public/tailwindPlugin')
 
 const plugins = [
   forms,
-  prefectDesignTheme,
-  prefectDesignUtilities,
+  prefectDesignPlugin,
 ]
 
 module.exports = {
