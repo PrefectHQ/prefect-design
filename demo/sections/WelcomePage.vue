@@ -6,7 +6,7 @@
 
     <div class="welcome-page__content-container">
       <div class="welcome-page__content">
-        <p-icon class="welcome-page__logo-icon" icon="PrefectLight" />
+        <p-icon class="welcome-page__logo-icon" icon="Prefect" />
         <div class="welcome-page__intro">
           <p class="welcome-page__title">
             Prefect Design
