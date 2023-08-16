@@ -33,7 +33,8 @@
       "require": "./dist/prefect-design.umd.js"
     },
     "./dist/style.css": "./dist/style.css",
-    "./dist/tailwindPlugin.js": "./dist/tailwindPlugin.js"
+    "./dist/tailwindTheme.js": "./dist/tailwindTheme.js",
+    "./dist/tailwindUtilities.js": "./dist/tailwindUtilities.js"
   },
   "files": [
     "dist"
