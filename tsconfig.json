@@ -42,7 +42,6 @@
     "./*.d.ts",
     "./**/postcss.config.js",
     "./**/tailwind.config.js",
-    "src/tailwindTheme.js",
-    "src/tailwindUtilities.js"
+    "src/tailwindPlugin.js",
   ]
 }
