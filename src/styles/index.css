@@ -325,26 +325,6 @@
   }
 }
 
-@layer components {
-  .bg-floating { background-color: var(--p-color-bg-floating); }
-  .bg-code { background-color: var(--p-color-bg-code); }
-  .bg-fullscreen-cover { background-color: var(--p-color-bg-fullscreen-cover); }
-  .bg-selected { background-color: var(--p-color-selected); }
-
-  .border-default { border-color: var(--p-color-divider); }
-  .border-selected { border-color: var(--p-color-selected); }
-
-  .text-default { color: var(--p-color-text-default); }
-  .text-subdued { color: var(--p-color-text-subdued); }
-  .text-inverse { color: var(--p-color-text-inverse); }
-  .text-link { color: var(--p-color-text-link); }
-  .text-code { color: var(--p-color-text-code); }
-  .text-invalid { color: var(--p-color-text-invalid); }
-  .text-selected { color: var(--p-color-text-selected); }
-
-  .caret-default { caret-color: var(--p-color-text-default); }
-}
-
 html {
   transition: inherit;
 }
