@@ -110,7 +110,6 @@
     textArea: {
       'p-code-input__textarea--show-line-numbers': props.showLineNumbers,
     },
-
   }))
 
   const styles = computed(() => {
