@@ -21,6 +21,7 @@
 
   const emit = defineEmits<{
     (event: 'update:open', value: boolean): void,
+    (event: 'close' | 'open'): void,
   }>()
 
   const dialog = ref<HTMLDialogElement>()
@@ -29,6 +30,8 @@
     if (!dialog.value) {
       return
     }
+
+    emit('open')
 
     if (props.modal) {
       dialog.value.showModal()
@@ -40,10 +43,12 @@
   }
 
   function close(): void {
-    if (dialog.value) {
-      dialog.value.close()
+    if (!dialog.value) {
+      return
     }
 
+    emit('close')
+    dialog.value.close()
     removeOnClickListener()
   }
 
