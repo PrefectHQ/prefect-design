@@ -4,6 +4,7 @@
     :demos="[
       { title: 'Basic' },
       { title: 'Using Slot' },
+      { title: 'Multiple' },
       { title: 'Using p-tag-wrapper' },
     ]"
   >
@@ -23,6 +24,14 @@
       <p-tag v-for="item in classes" :key="item.name" :class="item.className" class="tag" icon="TagIcon">
         {{ item.name }}
       </p-tag>
+    </template>
+
+    <template #multiple>
+      <p-tags :tags="numberArr">
+        <template #default="{ tag }">
+          Number {{ tag.label }}
+        </template>
+      </p-tags>
     </template>
 
     <template #using-p-tag-wrapper>
