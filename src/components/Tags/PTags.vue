@@ -1,7 +1,9 @@
 <template>
   <div class="p-tags">
     <PTag v-for="tag in tags" :key="tag.label">
-      {{ tag.label }}
+      <slot :tag="tag">
+        {{ tag.label }}
+      </slot>
     </PTag>
   </div>
 </template>
