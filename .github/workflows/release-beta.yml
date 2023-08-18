@@ -1,0 +1,50 @@
+name: Release Beta
+
+on:
+  push:
+    paths: 
+      - package.json
+    branches:
+      - rebrand
+      
+jobs:
+
+  build-and-publish:
+    name: Build & Publish Release
+    runs-on: ubuntu-latest
+    environment: 'prod'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish Package
+        id: publish
+        uses: JS-DevTools/npm-publish@v2
+        with:
+          token: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          access: public
+          tag: beta
+          strategy: upgrade
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.publish.outputs.version }}
+          release_name: Release ${{ steps.publish.outputs.version }}
+          prerelease: true
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/PrefectHQ/prefect-design/blob/main/CHANGELOG.md) for details.
