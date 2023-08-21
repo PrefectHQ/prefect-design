@@ -1,6 +1,6 @@
 <template>
   <div class="p-layout-table">
-    <div class="p-layout-table__header" :class="classes.header">
+    <div ref="stickyHeader" class="p-layout-table__header" :class="classes.header">
       <slot name="header">
         <div class="p-layout-table__section p-layout-table__section--start">
           <slot name="header-start" />
@@ -29,15 +29,27 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { usePositionStickyObserver } from '@prefecthq/vue-compositions'
+  import { computed, ref, toRefs } from 'vue'
 
   const props = defineProps<{
     sticky?: boolean,
+    // boundingElement will default to the body element. Provide one if you want the `stuck`
+    // class to apply when the header is stuck to a different scroll container.
+    boundingElement?: HTMLElement,
   }>()
+
+  const stickyHeader = ref<HTMLElement>()
+
+  const { boundingElement } = toRefs(props)
+  const { stuck } = usePositionStickyObserver(stickyHeader, {
+    boundingElement,
+  })
 
   const classes = computed(() => ({
     header: {
       'p-layout-table__header--sticky': props.sticky,
+      'p-layout-table__header--sticking': props.sticky && stuck.value,
     },
   }))
 </script>
@@ -55,10 +67,16 @@
   sticky
   top-0
   border-0
-  bg-opacity-90
-  dark:bg-opacity-90
-  bg-floating
   z-10
+  bg-transparent
+  transition-all;
+  transition-property: background-color;
+}
+
+.p-layout-table__header--sticking { @apply
+  bg-opacity-90
+  bg-floating
+  shadow-md
 }
 
 .p-layout-table__footer { @apply
