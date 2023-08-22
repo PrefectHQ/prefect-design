@@ -48,6 +48,7 @@
 
     --p-color-sentiment-positive: #22C55E;
     --p-color-sentiment-neutral: #70707B;
+    --p-color-sentiment-warning: #F5A50A;
     --p-color-sentiment-negative: #D92D21;
 
     /* Text */
@@ -159,7 +160,7 @@
     --p-color-message-info-bg: #304A76;
     --p-color-message-info-text: var(--p-color-text-default);
 
-    --p-color-message-warning-bg: #F5A50A;
+    --p-color-message-warning-bg: var(--p-color-sentiment-warning);
     --p-color-message-warning-text: var(--p-color-text-inverse);
 
     --p-color-message-error-bg: var(--p-color-sentiment-negative);
@@ -198,6 +199,7 @@
 
     --p-color-sentiment-positive: #22C55E;
     --p-color-sentiment-neutral: #70707B;
+    --p-color-sentiment-warning: #F5A50A;
     --p-color-sentiment-negative: #D92D21;
 
     /* Text */
@@ -309,7 +311,7 @@
     --p-color-message-info-bg: #B5D0FF;
     --p-color-message-info-text: var(--p-color-text-default);
 
-    --p-color-message-warning-bg: #F5A50A;
+    --p-color-message-warning-bg: var(--p-color-sentiment-warning);
     --p-color-message-warning-text: var(--p-color-text-default);
 
     --p-color-message-error-bg: var(--p-color-sentiment-negative);
