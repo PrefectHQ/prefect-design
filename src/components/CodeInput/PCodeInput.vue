@@ -227,7 +227,6 @@
   min-h-full
   min-w-full
   p-0
-  text-foreground
 }
 
 .p-code-input__view-container { @apply
