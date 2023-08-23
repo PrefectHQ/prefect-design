@@ -87,18 +87,19 @@
 <style>
 .p-context-accordion-item__header { @apply
   flex
-  py-2.5
-  px-3
-  mb-1
+  p-2
   rounded-default
   items-center
-  gap-3
+  transition
+  duration-200
+  ease-linear
+  gap-2
   text-sm
   leading-5
   select-none
-  font-medium
   w-full
   text-left
+  mb-1
   hover:bg-selectable-hover
   active:bg-selected
 }
