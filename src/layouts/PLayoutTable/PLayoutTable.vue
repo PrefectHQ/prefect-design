@@ -29,8 +29,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { usePositionStickyObserver } from '@prefecthq/vue-compositions'
+  import { UsePositionStickyObserverOptions, usePositionStickyObserver } from '@prefecthq/vue-compositions'
   import { computed, ref, toRefs } from 'vue'
+  import { Getter } from '@/types'
 
   const props = defineProps<{
     sticky?: boolean,
@@ -42,9 +43,16 @@
   const stickyHeader = ref<HTMLElement>()
 
   const { boundingElement } = toRefs(props)
-  const { stuck } = usePositionStickyObserver(stickyHeader, {
-    boundingElement,
-  })
+  const options: Getter<UsePositionStickyObserverOptions> = () => {
+    if (!boundingElement?.value) {
+      return {}
+    }
+
+    return {
+      boundingElement: boundingElement.value,
+    }
+  }
+  const { stuck } = usePositionStickyObserver(stickyHeader, options)
 
   const classes = computed(() => ({
     header: {
