@@ -69,8 +69,6 @@
 <style>
 .p-label { @apply
   w-full
-  text-sm
-  font-medium
   flex
   flex-col
   gap-y-1
@@ -85,6 +83,11 @@
   flex-col
   items-start
   gap-y-[0.125rem]
+}
+
+.p-label__label { @apply
+  text-sm
+  font-medium
 }
 
 .p-label__description { @apply
