@@ -40,7 +40,7 @@
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: #1F647A;
-    --p-color-selectable-hover: #415258;
+    --p-color-selectable-hover: rgba(111, 120, 133, 0.4);
     --p-color-focus-ring: #276EE7;
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
@@ -183,7 +183,7 @@
     --p-color-bg-1: #FFFFFF;
     --p-color-bg-2: var(--p-color-bg-0);
     --p-color-bg-floating: #F8F8F9;
-    --p-color-bg-code: #DEDEE2;
+    --p-color-bg-code: #F8F8F9;
     --p-color-bg-fullscreen-cover: rgba(0, 0, 0, 0.5);
 
     /* Root Tokens */
@@ -191,9 +191,9 @@
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: #92d1e5;
-    --p-color-selectable-hover: #DDE2E3;
-    --p-color-focus: #1470EF;
-    --p-color-focus-halo: rgba(23, 92, 211, 0.4);
+    --p-color-selectable-hover: rgba(193, 195, 198, 0.4);
+    --p-color-focus-ring: #1470EF;
+    --p-color-focus-ring-offset: var(--p-color-bg-1);
 
     --p-color-live: #4B5CFF;
 
@@ -209,7 +209,7 @@
     --p-color-text-link: #1470EF;
     --p-color-text-code: #3D3D3D;
     --p-color-text-invalid: var(--p-color-sentiment-negative);
-    --p-color-text-selected: #2D758B;
+    --p-color-text-selected: #58818D;
 
     /* Syntax Highlighting */
     --p-color-syntax-comment: #686D7E;
@@ -221,8 +221,8 @@
     --p-color-syntax-keyword: #E054C1;
 
     /* Input */
-    --p-color-input-bg: var(--p-color-bg-0);
-    --p-color-input-border: #70707B;
+    --p-color-input-bg: var(--p-color-bg-1);
+    --p-color-input-border: #A9A9B1;
     --p-color-input-text: var(--p-color-text-default);
     --p-color-input-placeholder: var(--p-color-text-subdued);
 
@@ -304,7 +304,7 @@
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
     --p-color-button-selected-bg: var(--p-color-selected);
-    --p-color-button-selected-border: transparent;
+    --p-color-button-selected-border: var(--p-color-button-default-border);
     --p-color-button-selected-text: var(--p-color-text-default);
 
     /* Message */

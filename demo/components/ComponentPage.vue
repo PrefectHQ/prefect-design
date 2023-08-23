@@ -161,7 +161,6 @@
 
 .component-page__description,
 .component-page__demo-description { @apply
-  text-subdued
   my-2
   text-sm
 }
