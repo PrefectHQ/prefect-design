@@ -338,7 +338,7 @@ body {
 }
 
 *::selection {
-  background-color: var(--p-color-selection);
+  background-color: var(--p-color-text-selection);
 }
 
 .p-background {
