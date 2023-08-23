@@ -63,7 +63,6 @@
   text-sm
   leading-5
   select-none
-  font-medium
   hover:bg-selectable-hover
   active:bg-selected
 }
