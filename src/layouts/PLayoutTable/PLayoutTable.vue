@@ -57,7 +57,7 @@
   const classes = computed(() => ({
     header: {
       'p-layout-table__header--sticky': props.sticky,
-      'p-layout-table__header--sticking': props.sticky && stuck.value,
+      'p-layout-table__header--stuck': props.sticky && stuck.value,
     },
   }))
 </script>
@@ -73,17 +73,18 @@
 
 .p-layout-table__header--sticky { @apply
   sticky
+  bg-transparent
   top-0
   border-0
+  rounded-b-default
   z-10
-  bg-transparent
   transition-all;
   transition-property: background-color;
 }
 
-.p-layout-table__header--sticking { @apply
-  bg-opacity-90
-  bg-floating
+.p-layout-table__header--stuck { @apply
+  bg-overlay
+  backdrop-blur-sm
   shadow-md
 }
 

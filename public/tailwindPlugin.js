@@ -50,7 +50,7 @@ const darkMode = 'class'
 const prefectUtilities = {
   '.bg-floating': { backgroundColor: 'var(--p-color-bg-floating)' },
   '.bg-code': { backgroundColor: 'var(--p-color-bg-code)' },
-  '.bg-fullscreen-cover': { backgroundColor: 'var(--p-color-bg-fullscreen-cover)' },
+  '.bg-overlay': { backgroundColor: 'var(--p-color-bg-overlay)' },
   '.bg-selected': { backgroundColor: 'var(--p-color-selected)' },
 
   '.border-default': { borderColor: 'var(--p-color-divider)' },
