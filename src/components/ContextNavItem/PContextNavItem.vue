@@ -47,7 +47,6 @@
 }
 
 .p-context-nav-item--active { @apply
-  font-semibold
   bg-selected
   hover:bg-selected
 }
