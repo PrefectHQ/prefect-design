@@ -52,8 +52,7 @@
 .p-context-nav-item { @apply
   flex
   w-full
-  py-2
-  px-2
+  p-2
   rounded-default
   items-center
   transition
