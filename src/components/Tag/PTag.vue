@@ -47,7 +47,7 @@
 
 <style>
 .p-tag { @apply
-  gap-2
+  gap-1
   inline-flex
   items-center
   rounded-default

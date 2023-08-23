@@ -338,10 +338,6 @@ body {
 }
 
 *::selection {
-  background-color: var(--p-color-text-selection);
-}
-
-*::selection {
   background-color: var(--p-color-selection);
 }
 
