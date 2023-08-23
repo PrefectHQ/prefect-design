@@ -5,10 +5,14 @@
         <template #header>
           Header
         </template>
-        <PContextNavItem to="#0" title="Context Nav Item" icon="Agent" />
+        <PContextNavItem to="#0" title="Context Nav Item" />
         <PContextNavItem to="/" title="Context Nav Item" />
         <PContextNavItem to="/" title="Context Nav Item" />
         <PContextNavItem to="/" title="Context Nav Item" />
+        <PContextAccordionItem title="Context Accordion Item">
+          <PContextNavItem to="/" title="Context Nav Item" />
+          <PContextNavItem to="/" title="Context Nav Item" />
+        </PContextAccordionItem>
         <template #footer>
           Footer
         </template>
