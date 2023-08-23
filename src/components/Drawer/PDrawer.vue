@@ -122,7 +122,7 @@
 }
 
 .p-drawer::before { @apply
-  bg-fullscreen-cover
+  bg-overlay
   absolute
   top-0
   left-0

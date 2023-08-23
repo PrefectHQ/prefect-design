@@ -157,7 +157,7 @@
 .p-modal__background { @apply
   fixed
   inset-0
-  bg-fullscreen-cover
+  bg-overlay
 }
 
 .p-modal__card { @apply
