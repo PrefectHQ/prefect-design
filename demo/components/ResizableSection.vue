@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="resizable-section p-background">
+  <div ref="container" class="resizable-section">
     <p-frame v-if="show" :style="styles.iframe" :class="classes.iframe" :body-class="classes.content">
       <div class="resizable-section__content">
         <slot />
@@ -7,12 +7,12 @@
     </p-frame>
 
     <div class="resizable-section__aside">
-      <div class="resizable-section__handle p-background" @mousedown="start" @mouseup="stop">
+      <div class="resizable-section__handle" @mousedown="start" @mouseup="stop">
         <component :is="ResizeIcon" />
       </div>
 
       <transition name="fade">
-        <div v-if="dragging" class="resizable-section__px p-background">
+        <div v-if="dragging" class="resizable-section__px">
           {{ contentWidth }}px
         </div>
       </transition>
@@ -40,7 +40,6 @@
     content: {
       'dark': colorTheme.value === 'dark',
       'light': colorTheme.value === 'light',
-      'p-background': true,
     },
     iframe: {
       'pointer-events-none': dragging.value,
@@ -109,13 +108,14 @@
 }
 
 .resizable-section__handle { @apply
+  bg-floating
+  shadow-md
   w-[v-bind(handleWidthPx)]
   h-full
   flex
   justify-center
   items-center
-  cursor-ew-resize;
-  filter: drop-shadow(0 0 0.15rem rgba(0, 0, 0, 0.2));
+  cursor-ew-resize
 }
 
 .resizable-section__px { @apply
