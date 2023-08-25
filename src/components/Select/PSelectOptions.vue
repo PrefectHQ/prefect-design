@@ -95,7 +95,7 @@
   const classes = computed(() => {
     return {
       root: {
-        'p-select-options--end': endVisible.value && props.options.length > 0,
+        'p-select-options--end': endVisible.value || props.options.length === 0,
       },
     }
   })
