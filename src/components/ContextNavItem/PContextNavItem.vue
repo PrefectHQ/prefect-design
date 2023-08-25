@@ -1,31 +1,57 @@
 <template>
-  <router-link
+  <component
+    :is="component"
     active-class="p-context-nav-item--active"
     class="p-context-nav-item"
-    :to="to"
+    v-bind="componentProps"
   >
     <template v-if="icon">
       <PIcon :icon="icon" class="p-context-nav-item__icon" />
     </template>
-    <span>{{ title }}</span>
-  </router-link>
+    <slot>
+      <span>{{ title }}</span>
+    </slot>
+  </component>
 </template>
 
 <script setup lang="ts">
+  import { computed } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { Icon } from '@/types/icon'
 
-  defineProps<{
-    to: string | RouteLocationRaw,
+  const props = defineProps<{
+    to?: string | RouteLocationRaw,
     title?: string,
     icon?: Icon,
   }>()
+
+  const component = computed(() => {
+    if (props.to) {
+      return 'router-link'
+    }
+
+    return 'button'
+  })
+
+  const componentProps = computed(() => {
+    if (props.to) {
+      return {
+        role: 'button',
+        to: props.to,
+      }
+    }
+
+    return {
+      type: 'button',
+    }
+  })
 </script>
 
 <style>
 .p-context-nav-item { @apply
   flex
+  w-full
   py-2.5
   px-3
   rounded-md
