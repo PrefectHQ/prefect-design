@@ -93,12 +93,9 @@
   const { visible: endVisible } = useVisibilityObserver(end, visibilityOptions)
 
   const classes = computed(() => {
-    if(props.options.length === 0) {
-      endVisible.value = true
-    }
     return {
       root: {
-      'p-select-options--end': endVisible.value,
+        'p-select-options--end': endVisible.value && props.options.length > 0,
       },
     }
   })
