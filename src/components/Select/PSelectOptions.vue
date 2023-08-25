@@ -92,11 +92,16 @@
 
   const { visible: endVisible } = useVisibilityObserver(end, visibilityOptions)
 
-  const classes = computed(() => ({
-    root: {
+  const classes = computed(() => {
+    if(props.options.length === 0) {
+      endVisible.value = true
+    }
+    return {
+      root: {
       'p-select-options--end': endVisible.value,
-    },
-  }))
+      },
+    }
+  })
 
   function flattenGroupsAndOptions(value: SelectOptionNormalized | SelectOptionGroupNormalized): (SelectOptionNormalized | SelectOptionGroupNormalized)[] {
     if (isSelectOptionGroup(value)) {
