@@ -1,14 +1,12 @@
 <template>
-  <div class="p-list-item">
+  <div class="p-list-item p-background">
     <slot />
   </div>
 </template>
 
 <style>
 .p-list-item { @apply
-  bg-background
-  shadow
-  rounded-lg
+  rounded-default
   flex
   py-3
   px-4

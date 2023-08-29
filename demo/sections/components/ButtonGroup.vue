@@ -8,18 +8,12 @@
       { title: 'Booleans', description: 'Uses `boolean[]` for options' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-button-group
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #basic>
       <p-button-group v-model="preselectedItem" :options="buttonGroup" />
     </template>
 
     <template #small>
-      <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" />
+      <p-button-group v-model="preselectedItem" small :options="buttonGroup" />
     </template>
 
     <template #simple>

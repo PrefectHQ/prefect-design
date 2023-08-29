@@ -1,50 +1,81 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const forms = require('@tailwindcss/forms')
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 
-const COLOR_PALETTE_KEYS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
-
-// Think of foreground/background palette scales as scales of intensity from a starting color
-const generateColorPalette = (base) => {
-  const colors = {
-    DEFAULT: `hsl(var(--${base}) / <alpha-value>)`,
-  }
-  COLOR_PALETTE_KEYS.forEach((key) => colors[key] = `hsl(var(--${base}-${key}) / <alpha-value>)`)
-  return colors
+const borderRadius = {
+  default: 'var(--p-radius-default)',
 }
 
-const colors = () => {
-  return {
-    prefect: generateColorPalette('prefect'),
-    primary: generateColorPalette('primary'),
-    danger: generateColorPalette('danger'),
-    success: generateColorPalette('success'),
-    foreground: generateColorPalette('foreground'),
-    background: generateColorPalette('background'),
-  }
+const colors = {
+  divider: 'var(--p-color-divider)',
+  'selectable-hover': 'var(--p-color-selectable-hover)',
+  'focus-ring': 'var(--p-color-focus-ring)',
+  'focus-ring-offset': 'var(--p-color-focus-ring-offset)',
+  live: 'var(--p-color-live)',
+  'sentiment-positive': 'var(--p-color-sentiment-positive)',
+  'sentiment-neutral': 'var(--p-color-sentiment-neutral)',
+  'sentiment-negative': 'var(--p-color-sentiment-negative)',
+}
+
+const spacing = {
+  'spacing-focus-ring': 'var(--p-spacing-focus-ring)',
+}
+
+const ringWidth = {
+  'spacing-focus-ring': 'var(--p-spacing-focus-ring)',
+}
+
+const ringOffsetWidth = {
+  'focus-ring': 'var(--p-spacing-focus-ring-offset)',
 }
 
 const fontFamily = {
   sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
   mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],
 }
-const extend = { colors, fontFamily }
-const plugins = [forms]
+
+const extend = {
+  borderRadius,
+  colors,
+  spacing,
+  ringWidth,
+  ringOffsetWidth,
+  fontFamily,
+}
+
 const darkMode = 'class'
 
-function PrefectDesign() {
-  /* */
+const prefectUtilities = {
+  '.bg-floating': { backgroundColor: 'var(--p-color-bg-floating)' },
+  '.bg-code': { backgroundColor: 'var(--p-color-bg-code)' },
+  '.bg-overlay': { backgroundColor: 'var(--p-color-bg-overlay)' },
+  '.bg-selected': { backgroundColor: 'var(--p-color-selected)' },
+
+  '.border-default': { borderColor: 'var(--p-color-divider)' },
+  '.border-selected': { borderColor: 'var(--p-color-selected)' },
+
+  '.text-default': { color: 'var(--p-color-text-default)' },
+  '.text-subdued': { color: 'var(--p-color-text-subdued)' },
+  '.text-inverse': { color: 'var(--p-color-text-inverse)' },
+  '.text-link': { color: 'var(--p-color-text-link)' },
+  '.text-code': { color: 'var(--p-color-text-code)' },
+  '.text-invalid': { color: 'var(--p-color-text-invalid)' },
+  '.text-selected': { color: 'var(--p-color-text-selected)' },
+
+  '.caret-default': { caretColor: 'var(--p-color-text-default)' },
+}
+
+function PrefectDesignPlugins({ addUtilities }) {
+  addUtilities(prefectUtilities)
 }
 
 const config = {
   darkMode,
-  plugins,
   theme: {
     extend,
   },
 }
 
-module.exports = plugin(PrefectDesign, config)
+module.exports = plugin(PrefectDesignPlugins, config)

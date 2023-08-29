@@ -6,12 +6,10 @@
 
 <style>
 .p-overflow-menu { @apply
-  bg-background-500
-  dark:bg-background-600
+  bg-floating
+  shadow-lg
   w-auto
-  border
-  dark:border-background-600
-  rounded
+  rounded-default
   overflow-hidden
   inline-flex
   flex-col
@@ -19,7 +17,6 @@
 }
 
 .p-overflow-menu > * { @apply
-  bg-background
   block
 }
 </style>

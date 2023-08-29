@@ -5,7 +5,7 @@
     </template>
 
     <template #basic>
-      <p-button size="sm" @click="toggle('basic')">
+      <p-button @click="toggle('basic')">
         Open
       </p-button>
 
@@ -15,19 +15,19 @@
     </template>
 
     <template #advanced>
-      <p-button size="sm" @click="toggle('advanced')">
+      <p-button @click="toggle('advanced')">
         Open
       </p-button>
 
       <p-drawer v-model:open="drawers.advanced" :placement="placement" resizable>
-        <p-navigation-bar class="drawer__navigation-bar">
+        <p-navigation-bar class="drawer__navigation-bar p-background">
           <template #prepend>
             <p-heading :heading="5">
               Advanced drawer
             </p-heading>
           </template>
 
-          <p-drawer v-model:open="drawers.nested" resizable :placement="placement">
+          <p-drawer v-model:open="drawers.nested" resizable :placement="placement" class="p-background">
             <p-navigation-bar class="drawer__navigation-bar">
               <template #prepend>
                 <p-heading :heading="5">
@@ -36,12 +36,12 @@
               </template>
 
               <template #append>
-                <p-button size="sm" class="my-2" @click="toggle('nestedBottom')">
+                <p-button class="my-2" @click="toggle('nestedBottom')">
                   Open nested
                 </p-button>
               </template>
 
-              <p-drawer v-model:open="drawers.nestedBottom" resizable placement="bottom">
+              <p-drawer v-model:open="drawers.nestedBottom" resizable placement="bottom" class="p-background">
                 <p-navigation-bar layout="horizontal" class="drawer__navigation-bar">
                   <template #prepend>
                     <p-heading :heading="5">
@@ -54,7 +54,7 @@
           </p-drawer>
 
           <template #append>
-            <p-button size="sm" class="my-2" @click="toggle('nested')">
+            <p-button class="my-2" @click="toggle('nested')">
               Open nested
             </p-button>
           </template>
@@ -109,18 +109,18 @@
 }
 
 .p-drawer--right .drawer__navigation-bar { @apply
-  rounded-l-2xl
+  rounded-l-default
 }
 
 .p-drawer--left .drawer__navigation-bar { @apply
-  rounded-r-2xl
+  rounded-r-default
 }
 
 .p-drawer--top .drawer__navigation-bar { @apply
-  rounded-b-xl
+  rounded-b-default
 }
 
 .p-drawer--bottom .drawer__navigation-bar { @apply
-  rounded-t-xl
+  rounded-t-default
 }
 </style>

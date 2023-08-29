@@ -7,7 +7,7 @@
     <template #bottom>
       <slot name="bottom" v-bind="{ shown, showMore, showLess, canShowMore, canShowLess }">
         <template v-if="canShowMore">
-          <p-button class="p-list-truncate__button" size="sm" inset @click="showMore">
+          <p-button class="p-list-truncate__button" @click="showMore">
             {{ buttonLabel ?? 'Show more' }}
           </p-button>
         </template>
@@ -52,7 +52,6 @@
 <style>
 .p-list-truncate__button { @apply
   mt-2
-  text-foreground-200
   w-full
 }
 </style>

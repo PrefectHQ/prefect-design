@@ -37,6 +37,10 @@
 </script>
 
 <style>
+.p-select-button { @apply
+  cursor-pointer
+}
+
 .p-select-button__control { @apply
   bg-transparent
   w-full
@@ -44,13 +48,12 @@
   py-2
   px-3
   text-left
-  text-base
-  cursor-default
   outline-none
   border-none
   ring-0
   focus:ring-0
-  truncate
+  truncate;
+  color: var(--p-color-input-text);
 }
 
 .p-select-button__control:disabled { @apply

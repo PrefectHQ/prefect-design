@@ -1,10 +1,10 @@
 <template>
   <ComponentPage title="Table Layout" :demos="[{ title: 'Table Layout' }, { title: 'Sticky Header' }]">
     <template #table-layout>
-      <div class="layout-table-section__box layout-table--scrollable ">
+      <div class="layout-table-section__box layout-table--scrollable">
         <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
-        <p-layout-table class="bg-background-400">
+        <p-layout-table class="p-background">
           <template v-if="useFullSlots" #header>
             <div class="bg-fuchsia-500 layout-table-section__box">
               header
@@ -23,7 +23,7 @@
             </div>
           </template>
 
-          <div class="bg-rose-500 layout-table-section__box layout-table__main">
+          <div class="bg-blue-200 dark:bg-blue-800 layout-table-section__box layout-table__main">
             main
           </div>
 
@@ -49,10 +49,10 @@
     </template>
 
     <template #sticky-header>
-      <div class="layout-table-section__box layout-table--scrollable ">
+      <div ref="stickyExampleScrollContainer" class="layout-table-section__box layout-table--scrollable">
         <p-checkbox v-model="useFullSlots" label="Use full slots" />
 
-        <p-layout-table class="bg-background-400" sticky>
+        <p-layout-table :bounding-element="stickyExampleScrollContainer" class="p-background" sticky>
           <template v-if="useFullSlots" #header>
             <div class="bg-fuchsia-500 layout-table-section__box">
               header
@@ -72,7 +72,7 @@
           </template>
 
 
-          <div class="bg-rose-500 layout-table-section__box layout-table__main">
+          <div class="bg-blue-200 dark:bg-blue-800 layout-table-section__box layout-table__main">
             main
           </div>
 
@@ -101,8 +101,11 @@
 </template>
 
 <script lang="ts" setup>
+  import PLayoutTable from '@/layouts/PLayoutTable/PLayoutTable.vue'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const stickyExampleScrollContainer = ref<HTMLElement>()
 
   const useFullSlots = ref(false)
 </script>

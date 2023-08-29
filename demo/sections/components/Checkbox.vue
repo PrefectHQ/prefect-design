@@ -8,10 +8,6 @@
     ]"
   >
     <template #description>
-      This is where we add a short description of <p-code inline>
-        p-checkbox
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
@@ -28,9 +24,9 @@
     <template #multiple>
       <div class="checkbox__demo">
         <fieldset :disabled="disabled">
-          <p-checkbox v-model="multiple" value="A" label="A" :state="exampleState" />
-          <p-checkbox v-model="multiple" value="B" label="B" :state="exampleState" />
-          <p-checkbox v-model="multiple" value="C" label="C" :state="exampleState" />
+          <p-checkbox v-model="multiple" value="A" label="Checkbox item A" :disabled="disabled" :state="exampleState" />
+          <p-checkbox v-model="multiple" value="B" label="Checkbox item B" :disabled="disabled" :state="exampleState" />
+          <p-checkbox v-model="multiple" value="C" label="Checkbox item C" :disabled="disabled" :state="exampleState" />
         </fieldset>
 
         <p-code inline>
@@ -41,7 +37,7 @@
 
     <template #label-slot>
       <div class="checkbox__demo">
-        <p-checkbox v-model="slot" :disabled="disabled">
+        <p-checkbox v-model="slot" :state="exampleState" :disabled="disabled">
           <template #label>
             Using the <span class="font-bold">label</span> slot
           </template>

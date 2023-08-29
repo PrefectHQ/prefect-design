@@ -51,7 +51,7 @@
   inline-block
   opacity-0
   relative
-  text-prefect-600
+  text-link
   top-0
   left-0
   transition-all

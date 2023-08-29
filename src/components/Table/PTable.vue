@@ -184,15 +184,13 @@
 .p-table { @apply
   overflow-hidden
   overflow-x-auto
-  shadow-sm
-  rounded-xl
+  rounded-default
 }
 
 .p-table__table { @apply
   min-w-full
   divide-y
-  divide-background-500
-  dark:divide-background-700
+  divide-divider
 }
 
 .p-table__checkbox-cell { @apply

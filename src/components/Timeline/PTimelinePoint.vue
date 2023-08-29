@@ -1,5 +1,5 @@
 <template>
-  <div class="p-timeline-point">
+  <div class="p-timeline-point p-background">
     <slot />
   </div>
 </template>
@@ -7,10 +7,8 @@
 <style>
 .p-timeline-point { @apply
   rounded-full
-  bg-background
   border
-  dark:border-foreground-100
-  text-foreground-400
+  border-divider
   p-2
   text-center
   shadow

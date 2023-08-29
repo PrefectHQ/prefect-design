@@ -65,7 +65,7 @@
 
 
               <div class="layout-resizable__aside-footer">
-                <p-button :icon="collapsed ? 'ArrowRightOnRectangleIcon' : 'ArrowLeftOnRectangleIcon'" inset @click="toggle" />
+                <p-button flat :icon="collapsed ? 'ArrowRightOnRectangleIcon' : 'ArrowLeftOnRectangleIcon'" @click="toggle" />
               </div>
             </div>
           </template>
@@ -141,13 +141,13 @@
 }
 
 .layout-resizable__main { @apply
-  bg-background-500
-  dark:bg-background
+  bg-blue-400
+  dark:bg-blue-800
 }
 
 .layout-resizable__aside { @apply
-  bg-cyan-600
-  text-foreground-50
+  bg-blue-600
+  text-blue-50
   text-ellipsis
   overflow-hidden
   p-2
@@ -162,12 +162,7 @@
   --p-layout-resizable-aside-max-size: 512px;
 }
 
-.layout-resizable__advanced { @apply
-  text-foreground
-}
-
 .layout-resizable__advanced .layout-resizable__aside { @apply
-  dark:bg-background
   text-slate-50
   flex
 }
@@ -180,10 +175,6 @@
 .layout-resizable__aside-left,
 .layout-resizable__aside-right { @apply
   flex-col
-}
-
-.layout-resizable__advanced .layout-resizable__main { @apply
-  dark:bg-background-100
 }
 
 .layout-resizable__aside-header,

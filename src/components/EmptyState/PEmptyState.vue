@@ -1,5 +1,5 @@
 <template>
-  <div class="p-empty-state">
+  <p-card class="p-empty-state">
     <div class="p-empty-state__corner-label">
       <slot name="corner-label" />
     </div>
@@ -24,17 +24,11 @@
         <slot name="actions" />
       </div>
     </div>
-  </div>
+  </p-card>
 </template>
 
 
 <style>
-.p-empty-state { @apply
-  bg-background
-  rounded-xl
-  shadow-sm
-}
-
 .p-empty-state__corner-label { @apply
   mt-2
   text-right
@@ -48,7 +42,7 @@
 }
 
 .p-empty-state__icon { @apply
-  text-foreground-100
+  text-subdued
   flex
   items-center
   justify-center
@@ -62,13 +56,12 @@
 
 .p-empty-state__heading { @apply
   mt-9
-  text-foreground-900
   text-2xl
   font-bold
 }
 
 .p-empty-state__description { @apply
-  text-foreground-300
+  text-subdued
   text-base
   font-normal
   mt-2

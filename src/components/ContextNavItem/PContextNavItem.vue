@@ -52,28 +52,27 @@
 .p-context-nav-item { @apply
   flex
   w-full
-  py-2.5
-  px-3
-  rounded-md
+  p-2
+  rounded-default
   items-center
   transition
   duration-200
   ease-linear
-  gap-3
+  gap-2
   text-sm
   leading-5
   select-none
-  font-medium
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-selectable-hover
+  active:bg-selected
 }
 
 .p-context-nav-item__icon { @apply
-  h-6
-  w-6
+  h-5
+  w-5
 }
 
 .p-context-nav-item--active { @apply
-  text-prefect-400
+  bg-selected
+  hover:bg-selected
 }
 </style>

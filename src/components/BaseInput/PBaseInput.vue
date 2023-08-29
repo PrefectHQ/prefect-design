@@ -65,19 +65,27 @@
 <style>
 .p-base-input { @apply
   w-full
-  border
   flex
   items-center
-  focus-within:ring-1
-  bg-background
-  border-background-400
-  dark:border-foreground-200
-  text-foreground
-  focus-within:border-prefect-600
-  focus-within:ring-prefect-600
-  shadow-sm
-  rounded-md
-  font-normal
+  border
+  focus-within:ring-spacing-focus-ring
+  focus-within:ring-focus-ring
+  focus-within:ring-offset-focus-ring
+  focus-within:ring-offset-focus-ring-offset
+  rounded-default
+  font-normal;
+  background-color: var(--p-color-input-bg);
+  border-color: var(--p-color-input-border);
+  color: var(--p-color-input-text);
+}
+
+.p-base-input:focus-within {
+  background-color: var(--p-color-input-bg-focus);
+  border-color: var(--p-color-input-border-focus);
+}
+
+.p-base-input input::placeholder {
+  color: var(--p-color-text-subdued);
 }
 
 .p-base-input--disabled,
@@ -94,9 +102,8 @@
   whitespace-nowrap
   justify-center
   self-stretch
-  text-sm
-  border-background-400
-  dark:border-foreground-200
+  text-sm;
+  border-color: var(--p-color-input-border);
 }
 
 .p-base-input__prepend { @apply
@@ -107,32 +114,29 @@
   border-l
 }
 
-.p-base-input--failed { @apply
-  border-danger-600
-  focus-within:border-danger-600
-  focus-within:ring-danger-600
-}
-
 .p-base-input--failed {
+  background-color: var(--p-color-input-bg-invalid);
+  border-color: var(--p-color-input-border-invalid);
   scroll-margin: var(--prefect-scroll-margin);
 }
 
-.p-base-input__failed-icon { @apply
-  text-danger-600
-  w-5
-  h-5
-  mr-2
+.p-base-input--failed .p-base-input__prepend,
+.p-base-input--failed .p-base-input__append {
+  border-color: var(--p-color-input-border-invalid);
 }
 
-.p-base-input--pending { @apply
-  border-prefect-300
-  focus-within:border-prefect-300
-  focus-within:ring-prefect-300
+.p-base-input__failed-icon { @apply
+  w-5
+  h-5
+  mr-2;
+  color: var(--p-color-input-text-invalid-icon);
 }
 
 .p-base-input__pending-icon { @apply
   relative
-  text-prefect-300
+  text-live
+  flex
+  items-center
   w-5
   h-5
   mr-2

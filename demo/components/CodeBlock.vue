@@ -1,13 +1,11 @@
 <template>
-  <div class="code-block">
+  <div class="code-block p-background">
     <pre>
     <!-- eslint-disable-next-line vue/no-v-html -->
     <code multiline v-html="highlighted" />
   </pre>
     <template v-if="showCopy">
-      <p-button inset size="sm" class="code-block__copy-button" @click="copy">
-        Copy
-      </p-button>
+      <p-button flat icon="DocumentDuplicateIcon" class="code-block__copy-button" @click="copy" />
     </template>
   </div>
 </template>
@@ -52,15 +50,12 @@
   break-normal
   text-left
   p-2
-  text-slate-50
-  bg-slate-700
+  text-default
 }
 
 .code-block__copy-button { @apply
   absolute
   top-2
   right-2
-  opacity-50
-  hover:opacity-100
 }
 </style>

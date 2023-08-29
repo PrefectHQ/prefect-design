@@ -28,7 +28,7 @@
       </div>
 
       <div class="icons-doc__size-preview">
-        <div class="icons-doc__size-selector">
+        <div class="icons-doc__size-selector p-background">
           <PLabel label="Icon Size">
             <PRadioGroup v-model="sizeValue" :options="sizes" />
           </PLabel>
@@ -98,7 +98,6 @@
   h-8
   duration-300
   transition-opacity
-  text-foreground-500
 }
 
 .icons-doc__icon--excluded { @apply
@@ -106,7 +105,7 @@
 }
 
 .icons-doc__no-results { @apply
-  text-foreground-600
+  text-subdued
   absolute
   left-0
   top-0
@@ -135,7 +134,6 @@
   max-w-fit
   px-8
   py-4
-  bg-primary-100
 }
 
 .icons-doc__icon-preview { @apply

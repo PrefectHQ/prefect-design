@@ -100,18 +100,19 @@
 
 .p-native-select__control { @apply
   bg-transparent
+  cursor-pointer
   absolute
   left-0
   right-0
   top-0
   bottom-0
-  text-base
   py-2
-  rounded-md
+  rounded-default
   border-0
   focus:ring-0
   appearance-none
-  bg-none
+  bg-none;
+  color: var(--p-color-input-text);
 }
 
 .p-native-select__control:disabled { @apply

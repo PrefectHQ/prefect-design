@@ -57,11 +57,8 @@
   grid
   gap-4
   overflow-hidden
-  bg-primary-100
-  dark:bg-background-500
   h-screen
   w-64
-  rounded-r-2xl
   shadow
 }
 
@@ -69,7 +66,7 @@
   h-16
   w-full
   rounded-none
-  rounded-b-lg
+  rounded-b-default
 }
 
 .p-navigation-bar {
@@ -83,12 +80,17 @@
 }
 
 .p-navigation-bar__content { @apply
+  border-t
+  border-b
+  border-divider
   self-stretch
+  py-2
   overflow-auto
 }
 
 .p-navigation-bar__content--horizontal { @apply
   flex
+  border-transparent
 }
 
 .p-navigation-bar__prepend,

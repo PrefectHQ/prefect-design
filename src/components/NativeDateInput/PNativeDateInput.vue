@@ -36,8 +36,7 @@
       <template v-if="showTime">
         <p-button
           class="p-native-date-input__mode-toggle"
-          size-sm
-          rounded
+          small
           flat
           icon="ClockIcon"
           @click="dateMode = !dateMode"
@@ -129,11 +128,6 @@
   pointer-events-none
 }
 
-.p-native-date-input__icon .p-icon { @apply
-  w-4
-  h-4
-}
-
 .p-native-date-input__control { @apply
   bg-transparent
   absolute
@@ -142,7 +136,7 @@
   left-0
   right-0
   w-full
-  rounded-md
+  rounded-default
   border-0
   focus:ring-0
 }
@@ -157,8 +151,9 @@
   w-full
 }
 
-.p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator {
-  background: none;
+.p-native-date-input .p-native-date-input__control::-webkit-calendar-picker-indicator { @apply
+  cursor-pointer
+  bg-none
 }
 
 .p-native-date-input .p-native-date-input__control--placeholder::-webkit-calendar-picker-indicator {
@@ -167,7 +162,6 @@
 }
 
 .p-native-date-input__mode-toggle { @apply
-  !p-0
   mr-2
 }
 

@@ -115,7 +115,7 @@
 
 <style>
 .p-select-option { @apply
-  text-foreground
+  text-default
   select-none
   relative
   py-2
@@ -129,15 +129,15 @@
 
 .p-select-option--selected { @apply
   font-semibold
-  bg-primary-200
+  bg-selected
 }
 
 .p-select-option--highlighted { @apply
-  bg-primary-100
+  bg-selectable-hover
 }
 
 .p-select-option--selected.p-select-option--highlighted { @apply
-  bg-primary-300
+  bg-selected
 }
 
 .p-select-option__text { @apply
@@ -151,20 +151,9 @@
   content: "\200b";
 }
 
-.p-select-option__check { @apply
-  text-prefect-600
-  flex
-  items-center
-  pr-1
-}
-
-.p-select-option__check .p-icon { @apply
-  w-4
-  h-4
-}
-
 .p-select-option--disabled { @apply
   opacity-50
+  cursor-not-allowed
 }
 
 .p-select-option--disabled .p-checkbox { @apply

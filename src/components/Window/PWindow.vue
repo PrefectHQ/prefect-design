@@ -1,5 +1,5 @@
 <template>
-  <div class="p-window">
+  <div class="p-window p-background">
     <div class="p-window__top-bar">
       <div class="p-window__buttons">
         <div class="p-window__button" />
@@ -30,9 +30,8 @@
 <style>
 .p-window { @apply
   max-w-2xl
-  bg-slate-800
   overflow-hidden
-  rounded
+  rounded-default
   w-full
 }
 
@@ -42,7 +41,8 @@
   py-4
   justify-between
   items-center
-  bg-slate-50/25
+  border-b
+  border-divider
 }
 
 .p-window__file-name { @apply
@@ -77,7 +77,7 @@
 }
 
 .p-window__body { @apply
-  text-slate-200
+  bg-code
   px-5
   py-4
 }
