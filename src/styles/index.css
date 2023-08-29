@@ -179,11 +179,11 @@
     color-scheme: light;
 
     /* Background */
-    --p-color-bg-0: #F0F0F2;
+    --p-color-bg-0: #E4E4E7;
     --p-color-bg-1: #FFFFFF;
-    --p-color-bg-2: var(--p-color-bg-0);
-    --p-color-bg-floating: #F8F8F9;
-    --p-color-bg-code: #F8F8F9;
+    --p-color-bg-2: #F4F4F5;
+    --p-color-bg-floating: #FAFAFA;
+    --p-color-bg-code: #ECECEE;
     --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
 
     /* Root Tokens */
@@ -243,8 +243,8 @@
     --p-color-toggle-bg-checked: var(--p-color-sentiment-positive);
 
     /* Button */
-    --p-color-button-default-bg: transparent;
-    --p-color-button-default-border: #70707B;
+    --p-color-button-default-bg: var(--p-color-bg-1);
+    --p-color-button-default-border: #A9A9B1;
     --p-color-button-default-text: var(--p-color-text-default);
     --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
     --p-color-button-default-border-hover: var(--p-color-text-subdued);
@@ -263,7 +263,7 @@
     --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
     --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
 
-    --p-color-button-danger-bg: transparent;
+    --p-color-button-danger-bg: var(--p-color-button-default-bg);
     --p-color-button-danger-border: var(--p-color-sentiment-negative);
     --p-color-button-danger-text: var(--p-color-text-default);
     --p-color-button-danger-bg-hover: rgba(217, 45, 33, 0.2);
