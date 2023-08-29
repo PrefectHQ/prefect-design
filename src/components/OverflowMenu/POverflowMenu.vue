@@ -14,6 +14,7 @@
   inline-flex
   flex-col
   gap-[1px]
+  py-1
 }
 
 .p-overflow-menu > * { @apply
