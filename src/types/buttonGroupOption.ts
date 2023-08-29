@@ -2,7 +2,7 @@ import { Icon } from '@/types/icon'
 import { SelectModelValue } from '@/types/selectOption'
 
 export type ButtonGroupOption = {
-  label: string,
+  label?: string,
   value: SelectModelValue,
   disabled?: boolean,
   icon?: Icon,
