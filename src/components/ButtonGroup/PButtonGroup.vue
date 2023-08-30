@@ -79,4 +79,13 @@
 .p-button-group__button:last-child {@apply
   rounded-l-none
 }
+
+.p-button-group__button:not(:disabled):hover { @apply
+  border-r
+  z-10
+}
+
+.p-button-group__button:not(:disabled):hover + .p-button-group__button { @apply
+  border-l-0
+}
 </style>
