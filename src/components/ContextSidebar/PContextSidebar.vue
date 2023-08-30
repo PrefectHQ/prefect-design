@@ -39,7 +39,6 @@
 .p-context-sidebar__header,
 .p-context-sidebar__footer { @apply
   py-4
-  overflow-y-auto
 }
 
 .p-context-sidebar__body { @apply
