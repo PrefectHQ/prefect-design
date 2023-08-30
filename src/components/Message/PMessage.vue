@@ -1,5 +1,5 @@
 <template>
-  <div class="p-message p-background" :class="classes.message">
+  <div class="p-message" :class="classes.message">
     <slot name="icon">
       <template v-if="icon">
         <p-icon class="p-message__icon" :class="classes.icon" :icon="icon" />
@@ -82,6 +82,7 @@
   p-4
   rounded-default
   text-sm
+  bg-floating
 }
 
 .p-message__icon { @apply

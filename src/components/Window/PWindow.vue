@@ -78,6 +78,7 @@
 
 .p-window__body { @apply
   bg-code
+  text-code
   px-5
   py-4
 }

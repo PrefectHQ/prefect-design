@@ -1,6 +1,6 @@
 <template>
   <div class="p-button-group">
-    <template v-for="button in options" :key="button.label">
+    <template v-for="button in options" :key="button.value">
       <p-button
         :disabled="button.disabled"
         :small="small"
@@ -9,7 +9,11 @@
         :icon="button.icon"
         @click="select(button.value)"
       >
-        {{ button.label }}
+        <template v-if="button.label || $slots.default" #default>
+          <slot :button="button">
+            {{ button.label }}
+          </slot>
+        </template>
       </p-button>
     </template>
   </div>
@@ -62,6 +66,10 @@
   inline-flex
 }
 
+.p-button-group__button:not(:last-child) { @apply
+  border-r-0
+}
+
 .p-button-group__button:not(:first-child):not(:last-child) { @apply
   rounded-none
 }
@@ -72,5 +80,14 @@
 
 .p-button-group__button:last-child {@apply
   rounded-l-none
+}
+
+.p-button-group__button:not(:disabled):hover { @apply
+  border-r
+  z-10
+}
+
+.p-button-group__button:not(:disabled):hover + .p-button-group__button { @apply
+  border-l-0
 }
 </style>

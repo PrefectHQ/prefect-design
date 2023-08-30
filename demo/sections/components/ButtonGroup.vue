@@ -3,6 +3,7 @@
     title="Button Group"
     :demos="[
       { title: 'Basic' },
+      { title: 'Icons Only' },
       { title: 'Small' },
       { title: 'Simple', description: 'Uses `string[]` for options' },
       { title: 'Booleans', description: 'Uses `boolean[]` for options' },
@@ -10,6 +11,10 @@
   >
     <template #basic>
       <p-button-group v-model="preselectedItem" :options="buttonGroup" />
+    </template>
+
+    <template #icons-only>
+      <p-button-group v-model="preselectedIconItem" :options="iconButtonGroup" />
     </template>
 
     <template #small>
@@ -64,8 +69,20 @@
     },
   ]
 
+  const preselectedIconItem = ref('up')
+  const iconButtonGroup: ButtonGroupOption[] = [
+    {
+      value: 'up',
+      icon: 'HandThumbUpIcon',
+    },
+    {
+      value: 'down',
+      icon: 'HandThumbDownIcon',
+    },
+  ]
+
   const simpleValue = ref('Email')
-  const simpleOptions = computed(() => buttonGroup.map(({ label }) => label))
+  const simpleOptions = computed(() => buttonGroup.map(({ label }) => label ?? null))
 
   const booleanValue = ref(true)
 </script>
