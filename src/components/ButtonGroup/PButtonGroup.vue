@@ -9,8 +9,10 @@
         :icon="button.icon"
         @click="select(button.value)"
       >
-        <template v-if="button.label" #default>
-          {{ button.label }}
+        <template v-if="button.label || $slots.default" #default>
+          <slot :button="button">
+            {{ button.label }}
+          </slot>
         </template>
       </p-button>
     </template>

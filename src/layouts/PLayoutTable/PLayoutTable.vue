@@ -46,8 +46,8 @@
   const { rootMargin, boundingElement } = toRefs(props)
   const options: Getter<UsePositionStickyObserverOptions> = () => {
     return {
-      rootMargin: rootMargin?.value ?? undefined,
-      boundingElement: boundingElement?.value ?? undefined,
+      rootMargin: rootMargin?.value,
+      boundingElement: boundingElement?.value,
     }
   }
 
