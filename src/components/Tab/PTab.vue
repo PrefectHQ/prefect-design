@@ -33,7 +33,6 @@
 .p-tab__active { @apply
   border-b-4
   border-selected
-  text-selected
 }
 
 .p-tab:not(.p-tab__active) { @apply

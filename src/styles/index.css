@@ -209,7 +209,7 @@
     --p-color-text-link: #1470EF;
     --p-color-text-code: #3D3D3D;
     --p-color-text-invalid: var(--p-color-sentiment-negative);
-    --p-color-text-selected: #58818D;
+    --p-color-text-selected: #297f9c;
 
     /* Syntax Highlighting */
     --p-color-syntax-comment: #686D7E;
