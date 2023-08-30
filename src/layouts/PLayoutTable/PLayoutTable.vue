@@ -35,6 +35,7 @@
 
   const props = defineProps<{
     sticky?: boolean,
+    rootMargin?: string,
     // boundingElement will default to the body element. Provide one if you want the `stuck`
     // class to apply when the header is stuck to a different scroll container.
     boundingElement?: HTMLElement,
@@ -42,16 +43,14 @@
 
   const stickyHeader = ref<HTMLElement>()
 
-  const { boundingElement } = toRefs(props)
+  const { rootMargin, boundingElement } = toRefs(props)
   const options: Getter<UsePositionStickyObserverOptions> = () => {
-    if (!boundingElement?.value) {
-      return {}
-    }
-
     return {
-      boundingElement: boundingElement.value,
+      rootMargin: rootMargin?.value ?? undefined,
+      boundingElement: boundingElement?.value ?? undefined,
     }
   }
+
   const { stuck } = usePositionStickyObserver(stickyHeader, options)
 
   const classes = computed(() => ({
