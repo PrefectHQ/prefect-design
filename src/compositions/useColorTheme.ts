@@ -4,15 +4,9 @@ import { onMounted, onUnmounted, ref, onBeforeMount, Ref } from 'vue'
 const COLOR_THEME_KEY = 'color-scheme'
 type ColorTheme = 'dark' | 'light'
 
-const currentHour = new Date().getHours()
-
 const { value: storageTheme, set: setStorageTheme } = useLocalStorage<ColorTheme | undefined>(COLOR_THEME_KEY, undefined)
-const mediaThemeDark = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : undefined
-const mediaThemeLight = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : undefined
-const mediaTheme = mediaThemeDark ?? mediaThemeLight
-const timeTheme = currentHour > 18 || currentHour < 7 ? 'dark' : 'light'
 
-const initialTheme: ColorTheme = storageTheme.value ?? mediaTheme ?? timeTheme
+const initialTheme: ColorTheme = storageTheme.value ?? 'dark'
 
 const internalValue = ref(initialTheme)
 const setTheme = (theme: ColorTheme): void => {
