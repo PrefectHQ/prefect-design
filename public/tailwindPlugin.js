@@ -49,6 +49,7 @@ const darkMode = 'class'
 
 const prefectUtilities = {
   '.bg-floating': { backgroundColor: 'var(--p-color-bg-floating)' },
+  '.bg-floating-sticky': { backgroundColor: 'var(--p-color-bg-floating-sticky)' },
   '.bg-code': { backgroundColor: 'var(--p-color-bg-code)' },
   '.bg-overlay': { backgroundColor: 'var(--p-color-bg-overlay)' },
   '.bg-selected': { backgroundColor: 'var(--p-color-selected)' },

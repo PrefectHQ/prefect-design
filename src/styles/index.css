@@ -32,6 +32,7 @@
     --p-color-bg-1: #1C1D20;
     --p-color-bg-2: var(--p-color-bg-0);
     --p-color-bg-floating: #35363C;
+    --p-color-bg-floating-sticky: rgba(28, 29, 32, 0.9);
     --p-color-bg-code: #121317;
     --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
 
@@ -183,6 +184,7 @@
     --p-color-bg-1: #FFFFFF;
     --p-color-bg-2: #F5F5F5;
     --p-color-bg-floating: #FAFAFA;
+    --p-color-bg-floating-sticky: rgba(255, 255, 255, 0.8);
     --p-color-bg-code: #DEDEE3;
     --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
 
