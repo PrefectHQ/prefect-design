@@ -82,7 +82,7 @@
 }
 
 .p-layout-table__header--stuck { @apply
-  bg-overlay
+  bg-floating-sticky
   backdrop-blur-sm
   shadow-md
 }
