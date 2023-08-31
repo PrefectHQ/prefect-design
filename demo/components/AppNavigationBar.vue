@@ -92,6 +92,8 @@
 }
 
 .app-navigation-bar__drawer { @apply
+  bg-floating
+  shadow-lg
   w-full
   max-w-[theme(screens.sm)]
 }

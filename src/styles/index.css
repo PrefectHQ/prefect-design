@@ -179,19 +179,19 @@
     color-scheme: light;
 
     /* Background */
-    --p-color-bg-0: #E4E4E7;
+    --p-color-bg-0: #EFEFF0;
     --p-color-bg-1: #FFFFFF;
-    --p-color-bg-2: #F4F4F5;
+    --p-color-bg-2: #F5F5F5;
     --p-color-bg-floating: #FAFAFA;
-    --p-color-bg-code: #ECECEE;
+    --p-color-bg-code: #DEDEE3;
     --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
 
     /* Root Tokens */
     --p-color-divider: #BFBFCC;
     --p-color-text-selection: rgba(69, 156, 255, 0.4);
 
-    --p-color-selected: rgba(109, 126, 150, 0.24);
-    --p-color-selectable-hover: rgba(109, 126, 150, 0.16);
+    --p-color-selected: rgba(107, 116, 152, 0.24);
+    --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
     --p-color-focus-ring: #1470EF;
     --p-color-focus-ring-offset: var(--p-color-bg-1);
 
