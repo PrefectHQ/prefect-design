@@ -64,6 +64,14 @@
   select-none
   hover:bg-selectable-hover
   active:bg-selected
+  outline-none
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-inset
+}
+
+.p-context-nav-item:focus:not(:focus-visible) { @apply
+  ring-0
 }
 
 .p-context-nav-item__icon { @apply

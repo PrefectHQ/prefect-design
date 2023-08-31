@@ -102,6 +102,14 @@
   mb-1
   hover:bg-selectable-hover
   active:bg-selected
+  outline-none
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-inset
+}
+
+.p-context-accordion-item__header:focus:not(:focus-visible) { @apply
+  ring-0
 }
 
 .p-context-accordion-item__header--highlighted { @apply
@@ -139,6 +147,14 @@
   cursor-pointer
   hover:bg-selectable-hover
   active:bg-selected
+  outline-none
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-inset
+}
+
+.p-context-accordion-item__content-child:focus:not(:focus-visible) { @apply
+  ring-0
 }
 
 .p-context-accordion-item__content-child--active { @apply
