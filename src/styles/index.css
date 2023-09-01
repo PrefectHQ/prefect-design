@@ -38,7 +38,7 @@
 
     /* Root Tokens */
     --p-color-divider: #51525C;
-    --p-color-text-selection: rgba(69, 156, 255, 0.4);
+    --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: rgba(104, 125, 155, 0.4);
     --p-color-selectable-hover: rgba(104, 125, 155, 0.24);
@@ -190,7 +190,7 @@
 
     /* Root Tokens */
     --p-color-divider: #BFBFCC;
-    --p-color-text-selection: rgba(69, 156, 255, 0.4);
+    --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: rgba(107, 116, 152, 0.24);
     --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
@@ -340,7 +340,7 @@ body {
 }
 
 *::selection {
-  background-color: var(--p-color-text-selection);
+  background-color: var(--p-color-selection-highlight);
 }
 
 .p-background {

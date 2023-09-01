@@ -219,7 +219,7 @@
 }
 
 .p-code-input__textarea::selection {
-  background-color: var(--p-color-text-selection);
+  background-color: var(--p-color-selection-highlight);
 }
 
 .p-code-input__view { @apply
