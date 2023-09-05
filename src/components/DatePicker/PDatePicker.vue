@@ -54,7 +54,6 @@
               class="p-date-picker__date"
               :class="classes.date(date)"
               flat
-              :selected="isSameDayAsSelectedDate(date)"
               :disabled="!!overlay || !isDateInRange(date, range, 'day')"
               small
               @click="updateSelectedDate(date)"
@@ -314,6 +313,13 @@
 
 .p-date-picker__date--out-of-month:not(:disabled) { @apply
   text-subdued
+}
+
+.p-date-picker__date--selected,
+.p-date-picker__date--selected:not(:disabled):hover,
+.p-date-picker__date--selected:not(:disabled):active { @apply
+  cursor-default
+  bg-[var(--p-color-input-checked-bg)]
 }
 
 .p-date-picker__bottom-bar { @apply

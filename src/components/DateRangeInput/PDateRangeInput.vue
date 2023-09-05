@@ -33,7 +33,6 @@
       <p-button
         class="p-date-range-input__date"
         :class="classes.date(date, today, outOfMonth)"
-        :selected="isDateSelected(date)"
         :disabled="disabled"
         small
         flat
@@ -188,9 +187,16 @@
   border-live
 }
 
+.p-date-range-input__date--selected,
+.p-date-range-input__date--selected:not(:disabled):hover,
+.p-date-range-input__date--selected:not(:disabled):active { @apply
+  cursor-default
+  bg-[var(--p-color-input-checked-bg)]
+}
+
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected),
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected):hover { @apply
-  bg-selectable-hover
+  bg-selected
 }
 
 .p-date-range-input__date--out-of-month:not(:disabled) { @apply
