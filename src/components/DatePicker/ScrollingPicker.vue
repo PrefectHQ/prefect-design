@@ -101,10 +101,9 @@
 .scrolling-picker__option--selected,
 .scrolling-picker__option--selected:not(:disabled):hover,
 .scrolling-picker__option--selected:not(:disabled):active { @apply
-  cursor-default;
-  background-color: var(--p-color-button-selected-bg);
-  border-color: var(--p-color-button-selected-border);
-  color: var(--p-color-button-selected-text);
+  cursor-default
+  border-none
+  bg-[var(--p-color-input-checked-bg)]
 }
 
 .scrolling-picker__option--disabled { @apply
