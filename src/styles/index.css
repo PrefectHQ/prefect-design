@@ -83,7 +83,7 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: var(--p-color-selected);
+    --p-color-input-checked-bg: #175cd3;
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
@@ -235,7 +235,7 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: var(--p-color-selected);
+    --p-color-input-checked-bg: #2e90fb;
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
