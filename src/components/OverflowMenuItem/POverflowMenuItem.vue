@@ -2,6 +2,7 @@
   <component
     :is="component"
     class="p-overflow-menu-item"
+    exact-active-class="p-overflow-menu-item--active"
     v-bind="componentProps"
   >
     <PIcon v-if="icon" :icon="icon" class="p-overflow-menu-item__icon" />
@@ -79,5 +80,10 @@
 .p-overflow-menu-item__after { @apply
   ml-auto
   pl-10
+}
+
+.p-overflow-menu-item--active { @apply
+  bg-selected
+  hover:bg-selected
 }
 </style>

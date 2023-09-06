@@ -1,7 +1,7 @@
 <template>
   <component
     :is="component"
-    active-class="p-context-nav-item--active"
+    exact-active-class="p-context-nav-item--active"
     class="p-context-nav-item"
     v-bind="componentProps"
   >
