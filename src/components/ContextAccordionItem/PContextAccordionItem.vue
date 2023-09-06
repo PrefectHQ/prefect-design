@@ -114,7 +114,7 @@
 
 .p-context-accordion-item__header--highlighted { @apply
   hover:bg-selectable-hover
-  active:bg-selected
+  bg-selected
 }
 
 .p-context-accordion-item__icon { @apply
