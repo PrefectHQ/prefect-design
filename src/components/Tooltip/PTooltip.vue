@@ -28,6 +28,7 @@
     text?: string,
     placement?: PositionMethod | PositionMethod[],
     to?: string | Element,
+    disabled?: boolean,
   }>()
 
   const popover = ref<InstanceType<typeof PPopOver> | null>(null)
@@ -40,6 +41,10 @@
   })
 
   function open(): void {
+    if (props.disabled) {
+      return
+    }
+
     timeout.value = setTimeout(() => popover.value?.open(), 500)
 
     document.addEventListener('pointerover', onCloseEvent)
