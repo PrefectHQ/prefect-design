@@ -7,7 +7,6 @@
 <style>
 .p-list-item { @apply
   rounded-default
-  flex
   py-3
   px-4
 }
