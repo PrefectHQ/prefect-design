@@ -1,42 +1,40 @@
 <template>
   <div ref="root" class="p-select-options" :class="classes.root" role="listbox">
     <slot name="pre-options" />
-    <template v-if="options.length">
-      <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
-        <template #default="{ item: option, index }">
-          <template v-if="isSelectOptionGroup(option)">
-            <PSelectOptionGroup :group="option">
-              <template #default="scope">
-                <slot name="group" v-bind="scope" />
-              </template>
-            </PSelectOptionGroup>
-          </template>
+    <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
+      <template #default="{ item: option, index }">
+        <template v-if="isSelectOptionGroup(option)">
+          <PSelectOptionGroup :group="option">
+            <template #default="scope">
+              <slot name="group" v-bind="scope" />
+            </template>
+          </PSelectOptionGroup>
+        </template>
 
-          <template v-else>
-            <PSelectOption
-              v-model="internalValue"
-              v-model:highlightedValue="highlightedValue"
-              :option="option"
-              :multiple="multiple"
-            >
-              <template #default="scope">
-                <slot name="option" v-bind="{ ...scope, index }" />
-              </template>
-            </PSelectOption>
-          </template>
+        <template v-else>
+          <PSelectOption
+            v-model="internalValue"
+            v-model:highlightedValue="highlightedValue"
+            :option="option"
+            :multiple="multiple"
+          >
+            <template #default="scope">
+              <slot name="option" v-bind="{ ...scope, index }" />
+            </template>
+          </PSelectOption>
         </template>
-        <template #bottom>
-          <div ref="end" />
+      </template>
+      <template #bottom>
+        <div ref="end" />
+        <template v-if="!options.length">
+          <slot name="options-empty">
+            <div class="p-select-options__options--empty">
+              No options
+            </div>
+          </slot>
         </template>
-      </PVirtualScroller>
-    </template>
-    <template v-else>
-      <slot name="options-empty">
-        <div class="p-select-options__options--empty">
-          No options
-        </div>
-      </slot>
-    </template>
+      </template>
+    </PVirtualScroller>
     <slot name="post-options" />
   </div>
 </template>
