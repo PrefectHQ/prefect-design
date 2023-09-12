@@ -68,6 +68,7 @@
     emptyMessage?: string,
     placeholder?: string,
     search?: string,
+    manual?: boolean,
   }>(), {
     emptyMessage: undefined,
     placeholder: 'Search',
@@ -129,7 +130,7 @@
   })
 
   const filteredSelectOptions = computed(() => {
-    if (!search.value) {
+    if (!search.value || props.manual) {
       return selectOptionsWithUnknown.value
     }
 
