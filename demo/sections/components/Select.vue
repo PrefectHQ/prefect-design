@@ -1,5 +1,13 @@
 <template>
-  <ComponentPage title="Select" :demos="[{ title: 'Single Select' }, { title: 'Multi-Select' }, { title: 'Grouped' }]">
+  <ComponentPage
+    title="Select"
+    :demos="[
+      { title: 'Single Select' },
+      { title: 'Multi-Select' },
+      { title: 'Grouped' },
+      { title: 'Readonly options' },
+    ]"
+  >
     <template #description>
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
@@ -31,6 +39,16 @@
     <template #grouped>
       <div class="select__demo">
         <p-select v-model="exampleGroupedSelect" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+
+        <p-code inline>
+          value: {{ JSON.stringify(exampleGroupedSelect) }}
+        </p-code>
+      </div>
+    </template>
+
+    <template #readonly>
+      <div class="select__demo">
+        <p-select v-model="readonlySelected" :disabled="disabled" :options="readonlyOptions" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleGroupedSelect) }}
@@ -89,6 +107,9 @@
     { label: '', value: null },
     ...exampleOptions,
   ]
+
+  const readonlySelected = ref()
+  const readonlyOptions = ['one', 'two', 'three'] as const
 </script>
 
 <style>

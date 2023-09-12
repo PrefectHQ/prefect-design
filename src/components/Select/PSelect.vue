@@ -104,6 +104,7 @@
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
+  import { MaybeReadonly } from '@/types'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectModelValue, flattenSelectOptions, normalizeSelectOption, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
   import { TagValue } from '@/types/tag'
@@ -114,7 +115,7 @@
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
-    options: (SelectOption | SelectOptionGroup)[],
+    options: MaybeReadonly<(SelectOption | SelectOptionGroup)[]>,
     emptyMessage?: string,
     multiple?: boolean,
   }>()
