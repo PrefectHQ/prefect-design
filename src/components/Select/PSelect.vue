@@ -77,6 +77,7 @@
       @update:model-value="closeIfNotMultiple"
       @keydown="handleKeydown"
       @mouseleave="setHighlightedValueUnselected"
+      @bottom="emit('bottom')"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
@@ -122,7 +123,7 @@
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
-    (event: 'open' | 'close'): void,
+    (event: 'open' | 'close' | 'bottom'): void,
   }>()
 
   const buttonElement = ref<typeof PSelectButton>()

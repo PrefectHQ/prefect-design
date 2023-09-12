@@ -2,7 +2,7 @@
   <div ref="root" class="p-select-options" :class="classes.root" role="listbox">
     <slot name="pre-options" />
     <template v-if="options.length">
-      <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
+      <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
         <template #default="{ item: option, index }">
           <template v-if="isSelectOptionGroup(option)">
             <PSelectOptionGroup :group="option">
@@ -59,6 +59,7 @@
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
+    (event: 'bottom'): void,
   }>()
 
   const internalValue = computed({

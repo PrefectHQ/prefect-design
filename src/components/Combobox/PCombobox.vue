@@ -7,6 +7,7 @@
     @close="resetTypedValue"
     @open="focusOnTextInput"
     @keydown="handleComboboxKeydown"
+    @bottom="emit('bottom')"
   >
     <template #default="{ value, option }">
       <slot :value="value" :label="displayValue(value)" :option="option">
@@ -78,6 +79,7 @@
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'update:search', value: string | null): void,
+    (event: 'bottom'): void,
   }>()
 
   const modelValue = computed({
