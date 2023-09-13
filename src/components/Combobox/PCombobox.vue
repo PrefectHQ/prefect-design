@@ -7,6 +7,7 @@
     @close="resetTypedValue"
     @open="focusOnTextInput"
     @keydown="handleComboboxKeydown"
+    @bottom="emit('bottom')"
   >
     <template #default="{ value, option }">
       <slot :value="value" :label="displayValue(value)" :option="option">
@@ -15,20 +16,19 @@
     </template>
     <template #pre-options>
       <div class="p-combobox__search-option">
-        <input
+        <p-text-input
           ref="textInput"
           v-model="search"
           type="search"
           :placeholder="placeholder"
           class="p-combobox__text-input"
-          :class="classes.input"
           role="combobox"
           tabindex="-1"
           aria-controls="options"
           aria-expanded="false"
           @keydown="handleTextInputKeydown"
           @focus="handleFocus"
-        >
+        />
       </div>
     </template>
     <template #option="{ option, ...scope }">
@@ -42,9 +42,9 @@
         <slot name="combobox-options-empty" v-bind="scope">
           <template v-if="search">
             <span>No matches for "{{ search }}"</span>
-            <PButton secondary size="sm" @click.stop="clearSearch">
+            <p-button secondary small @click.stop="clearSearch">
               See All Options
-            </PButton>
+            </p-button>
           </template>
         </slot>
       </div>
@@ -58,8 +58,7 @@
 
 <script lang="ts" setup>
   import { computed, ref, nextTick } from 'vue'
-  import PButton from '@/components/Button/PButton.vue'
-  import PSelect from '@/components/Select/PSelect.vue'
+  import { PButton, PSelect, PTextInput } from '@/components'
   import { keys } from '@/types/keyEvent'
   import { flattenSelectOptions, SelectModelValue, SelectOptionGroup, normalizeSelectOption, SelectOptionNormalized, SelectOptionGroupNormalized, filterOptionsOrOptionGroups, SelectOption } from '@/types/selectOption'
 
@@ -70,6 +69,7 @@
     emptyMessage?: string,
     placeholder?: string,
     search?: string,
+    manual?: boolean,
   }>(), {
     emptyMessage: undefined,
     placeholder: 'Search',
@@ -79,6 +79,7 @@
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'update:search', value: string | null): void,
+    (event: 'bottom'): void,
   }>()
 
   const modelValue = computed({
@@ -131,18 +132,12 @@
   })
 
   const filteredSelectOptions = computed(() => {
-    if (!search.value) {
+    if (!search.value || props.manual) {
       return selectOptionsWithUnknown.value
     }
 
     return filterOptionsOrOptionGroups(selectOptionsWithUnknown.value, search.value)
   })
-
-  const classes = computed(() => ({
-    input: {
-      'p-combobox__text-input--unknown-value': !filteredSelectOptions.value.length,
-    },
-  }))
 
   const backupSearch = ref<string | null>(null)
   const search = computed({
@@ -155,7 +150,7 @@
     },
   })
 
-  const textInput = ref<HTMLInputElement>()
+  const textInput = ref<typeof PTextInput>()
 
   function displayValue(value: SelectModelValue): string {
     const option = getSelectOption(value)
@@ -206,7 +201,7 @@
   }
 
   function focusOnTextInput(): void {
-    nextTick(() => textInput.value?.focus())
+    nextTick(() => textInput.value?.el.focus())
   }
 
   function handleTextInputKeydown(event: KeyboardEvent): void {
@@ -220,7 +215,7 @@
   }
 
   function handleFocus(): void {
-    textInput.value?.select()
+    textInput.value?.el.select()
   }
 
   function clearSearch(): void {
@@ -234,26 +229,14 @@
 }
 
 .p-combobox__text-input { @apply
-  h-full
-  w-full
-  rounded-md
-  focus:ring-0
-  bg-background
-  border-background-400
-  dark:border-foreground-200
-  focus:border-background-300
-  dark:focus:border-foreground-400
-}
-
-.p-combobox__text-input--unknown-value { @apply
-  text-foreground-400
+  focus-within:ring-0
 }
 
 .p-combobox__options-empty { @apply
   flex
   justify-between
   items-center
-  text-foreground-400
+  text-subdued
   text-sm
   italic
   p-2

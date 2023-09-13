@@ -27,15 +27,9 @@
 }
 
 .p-icon-text__icon { @apply
-  text-foreground-400
   w-4
   flex-shrink-0
   h-4
-}
-
-.p-link .p-icon-text__icon { @apply
-  text-inherit
-  opacity-70
 }
 
 .p-icon-text__label { @apply

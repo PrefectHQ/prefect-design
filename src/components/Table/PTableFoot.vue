@@ -1,11 +1,5 @@
 <template>
-  <tfoot class="p-table-foot">
+  <tfoot class="p-table-foot p-background">
     <slot />
   </tfoot>
 </template>
-
-<style>
-.p-table-foot { @apply
-  bg-background
-}
-</style>

@@ -1,42 +1,40 @@
 <template>
   <div ref="root" class="p-select-options" :class="classes.root" role="listbox">
     <slot name="pre-options" />
-    <template v-if="options.length">
-      <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options">
-        <template #default="{ item: option, index }">
-          <template v-if="isSelectOptionGroup(option)">
-            <PSelectOptionGroup :group="option">
-              <template #default="scope">
-                <slot name="group" v-bind="scope" />
-              </template>
-            </PSelectOptionGroup>
-          </template>
+    <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
+      <template #default="{ item: option, index }">
+        <template v-if="isSelectOptionGroup(option)">
+          <PSelectOptionGroup :group="option">
+            <template #default="scope">
+              <slot name="group" v-bind="scope" />
+            </template>
+          </PSelectOptionGroup>
+        </template>
 
-          <template v-else>
-            <PSelectOption
-              v-model="internalValue"
-              v-model:highlightedValue="highlightedValue"
-              :option="option"
-              :multiple="multiple"
-            >
-              <template #default="scope">
-                <slot name="option" v-bind="{ ...scope, index }" />
-              </template>
-            </PSelectOption>
-          </template>
+        <template v-else>
+          <PSelectOption
+            v-model="internalValue"
+            v-model:highlightedValue="highlightedValue"
+            :option="option"
+            :multiple="multiple"
+          >
+            <template #default="scope">
+              <slot name="option" v-bind="{ ...scope, index }" />
+            </template>
+          </PSelectOption>
         </template>
-        <template #bottom>
-          <div ref="end" />
+      </template>
+      <template #bottom>
+        <div ref="end" />
+        <template v-if="!options.length">
+          <slot name="options-empty">
+            <div class="p-select-options__options--empty">
+              No options
+            </div>
+          </slot>
         </template>
-      </PVirtualScroller>
-    </template>
-    <template v-else>
-      <slot name="options-empty">
-        <div class="p-select-options__options--empty">
-          No options
-        </div>
-      </slot>
-    </template>
+      </template>
+    </PVirtualScroller>
     <slot name="post-options" />
   </div>
 </template>
@@ -59,6 +57,7 @@
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
     (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
+    (event: 'bottom'): void,
   }>()
 
   const internalValue = computed({
@@ -92,11 +91,13 @@
 
   const { visible: endVisible } = useVisibilityObserver(end, visibilityOptions)
 
-  const classes = computed(() => ({
-    root: {
-      'p-select-options--end': endVisible.value,
-    },
-  }))
+  const classes = computed(() => {
+    return {
+      root: {
+        'p-select-options--end': endVisible.value || props.options.length === 0,
+      },
+    }
+  })
 
   function flattenGroupsAndOptions(value: SelectOptionNormalized | SelectOptionGroupNormalized): (SelectOptionNormalized | SelectOptionGroupNormalized)[] {
     if (isSelectOptionGroup(value)) {
@@ -116,15 +117,10 @@
 .p-select-options { @apply
   relative
   my-1
-  bg-background
-  border
-  border-background-400
+  bg-floating
   overflow-hidden
-  rounded-md
+  rounded-default
   shadow-lg
-  ring-1
-  ring-black
-  ring-opacity-5
   focus:outline-none
 }
 
@@ -136,11 +132,9 @@
   left-0
   right-0
   h-12
-  bg-gradient-to-t
-  from-background
-  to-transparent
   pointer-events-none;
   content: '';
+  background-image: linear-gradient(transparent, var(--p-color-bg-floating));
 }
 
 .p-select-options--end::after { @apply
@@ -157,6 +151,7 @@
   py-2
   italic
   text-sm
+  text-subdued
 }
 
 @media (hover: hover) {

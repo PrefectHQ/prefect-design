@@ -1,5 +1,5 @@
 <template>
-  <div class="p-card" :class="classes">
+  <div class="p-card p-background" :class="classes">
     <slot />
   </div>
 </template>
@@ -18,18 +18,14 @@
 
 <style>
 .p-card { @apply
-  bg-background
-  text-foreground
   p-4
-  rounded-xl
-  shadow-sm
+  rounded-default
   transition-all;
 
-  transition-property: border border-color background-color;
+  transition-property: background-color;
 }
 
 .p-card--flat { @apply
-  shadow-none
   bg-transparent
 }
 </style>

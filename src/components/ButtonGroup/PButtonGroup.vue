@@ -1,16 +1,20 @@
 <template>
   <div class="p-button-group">
-    <template v-for="button in options" :key="button.label">
-      <PButton
+    <template v-for="button in options" :key="button.value">
+      <p-button
         :disabled="button.disabled"
-        :size="size"
-        :inset="button.value !== modelValue"
+        :small="small"
         class="p-button-group__button"
+        :selected="button.value === modelValue"
         :icon="button.icon"
         @click="select(button.value)"
       >
-        {{ button.label }}
-      </PButton>
+        <template v-if="button.label || $slots.default" #default>
+          <slot :button="button">
+            {{ button.label }}
+          </slot>
+        </template>
+      </p-button>
     </template>
   </div>
 </template>
@@ -18,15 +22,13 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
-  import { SelectModelValue, ButtonGroupOption, Size, isButtonGroupOption } from '@/types'
+  import { SelectModelValue, ButtonGroupOption, isButtonGroupOption } from '@/types'
 
-  const props = withDefaults(defineProps<{
+  const props = defineProps<{
     options: (ButtonGroupOption | SelectModelValue)[],
-    modelValue: SelectModelValue | undefined,
-    size?: Size,
-  }>(), {
-    size: 'md',
-  })
+    modelValue?: SelectModelValue,
+    small?: boolean,
+  }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue): void,
@@ -60,23 +62,32 @@
 </script>
 
 <style>
-.p-button-group {
-  @apply
+.p-button-group { @apply
   inline-flex
 }
 
-.p-button-group__button:not(:first-child):not(:last-child) {
-  @apply
+.p-button-group__button:not(:last-child) { @apply
+  border-r-0
+}
+
+.p-button-group__button:not(:first-child):not(:last-child) { @apply
   rounded-none
 }
 
-.p-button-group__button:first-child {
-  @apply
+.p-button-group__button:first-child {@apply
   rounded-r-none
 }
 
-.p-button-group__button:last-child {
-  @apply
+.p-button-group__button:last-child {@apply
   rounded-l-none
+}
+
+.p-button-group__button:not(:disabled):hover { @apply
+  border-r
+  z-10
+}
+
+.p-button-group__button:not(:disabled):hover + .p-button-group__button { @apply
+  border-l-0
 }
 </style>

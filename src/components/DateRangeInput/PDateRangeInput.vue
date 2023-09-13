@@ -4,7 +4,8 @@
       <template v-if="media.hover">
         <PDateButton
           :date="null"
-          :class="classes.target(isOpen)"
+          class="p-date-range-input__trigger"
+          :class="classes.trigger(isOpen)"
           :disabled="disabled"
           @click="openPicker"
         >
@@ -29,12 +30,12 @@
       </template>
     </template>
     <template #date="{ date, disabled, today, outOfMonth, select }">
-      <PButton
+      <p-button
         class="p-date-range-input__date"
         :class="classes.date(date, today, outOfMonth)"
-        :flat="!isDateSelected(date)"
         :disabled="disabled"
-        size="xs"
+        small
+        flat
         @click="select"
       >
         <slot
@@ -45,7 +46,7 @@
         >
           {{ date.getDate() }}
         </slot>
-      </PButton>
+      </p-button>
     </template>
   </PDateInput>
 </template>
@@ -137,7 +138,7 @@
   })
 
   const classes = computed(() => ({
-    target: (isOpen: boolean) => ({ 'p-date-range-input__target--open': isOpen }),
+    trigger: (isOpen: boolean) => ({ 'p-date-range-input__trigger--open': isOpen }),
     date: (date: Date, today: boolean, outOfMonth: boolean) => ({
       'p-date-range-input__date--today': today,
       'p-date-range-input__date--selected': isDateSelected(date),
@@ -175,40 +176,39 @@
 
 <style>
 .p-date-range-input__date { @apply
-  p-1
+  justify-center
+  p-0
 }
 
-.p-date-range-input__target { @apply
-  flex
-  flex-wrap
-  md:flex-nowrap
-  gap-2
-  items-center
+.p-date-range-input__date--today,
+.p-date-range-input__date--today:not(:disabled):hover,
+.p-date-range-input__date--today:not(:disabled):active { @apply
+  border-2
+  border-live
 }
 
-.p-date-range-input__target--open { @apply
-  outline-none
-  ring-1
-  ring-primary-500
-  border-primary-500
+.p-date-range-input__date--selected,
+.p-date-range-input__date--selected:not(:disabled):hover,
+.p-date-range-input__date--selected:not(:disabled):active { @apply
+  cursor-default
+  bg-[var(--p-color-input-checked-bg)]
 }
 
-.p-date-range-input__date--in-range:not(.p-date-range-input__date--selected) { @apply
-  bg-primary-600/70
-  text-white
-}
-
+.p-date-range-input__date--in-range:not(.p-date-range-input__date--selected),
 .p-date-range-input__date--in-range:not(.p-date-range-input__date--selected):hover { @apply
-  bg-primary-600/80
-  text-white
+  bg-selected
 }
 
-.p-date-range-input__date--today:not(.p-date-range-input__date--selected):not(.p-date-range-input__date--in-range) { @apply
-  text-primary-600
+.p-date-range-input__date--out-of-month:not(:disabled) { @apply
+  text-subdued
 }
 
-.p-date-range-input__date--out-of-month:not(.p-button--disabled) { @apply
-  text-foreground-300
-  hover:text-foreground-400
+.p-date-range-input__trigger--open { @apply
+  ring-spacing-focus-ring
+  ring-focus-ring
+  ring-offset-focus-ring
+  ring-offset-focus-ring-offset;
+  background-color: var(--p-color-input-bg-focus);
+  border-color: var(--p-color-input-border-focus);
 }
 </style>

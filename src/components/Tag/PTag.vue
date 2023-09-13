@@ -1,7 +1,7 @@
 <template>
-  <span class="p-tag">
+  <span class="p-tag" :class="classes.root">
     <div v-if="icon" class="p-tag__icon">
-      <PIcon :icon="icon" />
+      <PIcon :icon="icon" size="small" />
     </div>
 
     <slot>{{ tagValue.label }}</slot>
@@ -12,7 +12,7 @@
       class="p-tag__dismiss"
       @click.stop="emits('dismiss', tagValue)"
     >
-      <PIcon icon="XMarkIcon" class="p-tag__icon p-tag__icon--dismiss" />
+      <PIcon icon="XMarkIcon" size="small" class="p-tag__icon p-tag__icon--dismiss" />
     </button>
   </span>
 </template>
@@ -37,6 +37,12 @@
   const tagValue = computed(() => {
     return normalize(props.value ?? props.label ?? '')
   })
+
+  const classes = computed(() => ({
+    root: {
+      'p-tag--dismissible': props.dismissible,
+    },
+  }))
 </script>
 
 <style>
@@ -44,22 +50,20 @@
   gap-1
   inline-flex
   items-center
-  rounded-full
-  bg-background-400
-  text-foreground
-  dark:bg-background-600
+  rounded-default
   px-2.5
   py-0.5
-  text-sm
+  text-sm;
+  background-color: var(--p-color-tag-bg);
+  border-color: var(--p-color-tag-border);
+  color: var(--p-color-tag-text);
 }
 
-.p-tag__icon { @apply
-  w-4
-  h-4
+.p-tag--dismissible { @apply
+  pr-1.5
 }
 
-.p-tag__dismiss { @apply
-  text-foreground-600
-  hover:text-foreground-300
+.p-tag__dismiss {
+  color: var(--p-color-tag-text);
 }
 </style>

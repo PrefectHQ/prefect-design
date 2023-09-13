@@ -1,5 +1,5 @@
 <template>
-  <thead class="p-table-head">
+  <thead class="p-table-head p-background">
     <slot>
       <PTableRow>
         <slot name="row" />
@@ -11,9 +11,3 @@
 <script lang="ts" setup>
   import PTableRow from '@/components/Table/PTableRow.vue'
 </script>
-
-<style>
-.p-table-head { @apply
-  bg-background
-}
-</style>

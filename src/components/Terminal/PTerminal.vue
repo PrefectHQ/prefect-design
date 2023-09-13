@@ -1,12 +1,8 @@
 <template>
   <PWindow class="p-terminal">
     <template #actions>
-      <PButton size="xs" inset class="p-terminal__copy-button" @click="copy">
-        <span class="p-terminal__copy-text">Copy</span>
-        <p-icon icon="ClipboardDocumentIcon" />
-      </PButton>
+      <p-button small flat class="p-terminal__copy-button" icon="ClipboardDocumentIcon" @click="copy" />
     </template>
-
     <div class="p-terminal__code">
       <template v-for="(line, index) in commands" :key="index">
         <p class="p-terminal__code-line">
@@ -40,15 +36,6 @@
 </script>
 
 <style>
-.p-terminal__copy-button { @apply
-  opacity-50
-  hover:opacity-100
-}
-
-.p-terminal__copy-text { @apply
-  font-medium
-}
-
 .p-terminal__code { @apply
   px-4
   py-2
@@ -65,8 +52,8 @@
 .p-terminal__cursor { @apply
   ml-1
   -mb-1
-  bg-gray-400
   inline-block;
+  background-color: var(--p-color-text-subdued);
   content: "";
   width: 7px;
   height: 18px;

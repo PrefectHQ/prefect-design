@@ -5,8 +5,7 @@
 <style>
 .p-context-sidebar-divider { @apply
   border-t-2
-  border-slate-600
-  -mx-3
+  border-divider
   my-2
 }
 </style>

@@ -23,7 +23,7 @@
           <template #content>
             <div class="flex gap-2 items-center">
               <p>This is a Tooltip component</p>
-              <p-button size="xs">
+              <p-button small>
                 Button
               </p-button>
             </div>

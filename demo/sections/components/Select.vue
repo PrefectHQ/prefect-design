@@ -1,10 +1,14 @@
 <template>
-  <ComponentPage title="Select" :demos="[{ title: 'Single Select' }, { title: 'Multi-Select' }, { title: 'Grouped' }]">
+  <ComponentPage
+    title="Select"
+    :demos="[
+      { title: 'Single Select' },
+      { title: 'Multi-Select' },
+      { title: 'Grouped' },
+      { title: 'Readonly options' },
+    ]"
+  >
     <template #description>
-      This is where we add a short description of <p-code inline>
-        p-select
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
     </template>
 
@@ -35,6 +39,16 @@
     <template #grouped>
       <div class="select__demo">
         <p-select v-model="exampleGroupedSelect" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+
+        <p-code inline>
+          value: {{ JSON.stringify(exampleGroupedSelect) }}
+        </p-code>
+      </div>
+    </template>
+
+    <template #readonly>
+      <div class="select__demo">
+        <p-select v-model="readonlySelected" :disabled="disabled" :options="readonlyOptions" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleGroupedSelect) }}
@@ -93,12 +107,14 @@
     { label: '', value: null },
     ...exampleOptions,
   ]
+
+  const readonlySelected = ref()
+  const readonlyOptions = ['one', 'two', 'three'] as const
 </script>
 
 <style>
   .select__demo {
     @apply
-    h-80
     flex
     flex-col
     gap-4

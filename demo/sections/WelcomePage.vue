@@ -6,7 +6,7 @@
 
     <div class="welcome-page__content-container">
       <div class="welcome-page__content">
-        <p-icon class="welcome-page__logo-icon" icon="PrefectLight" />
+        <p-icon class="welcome-page__logo-icon" icon="Prefect" />
         <div class="welcome-page__intro">
           <p class="welcome-page__title">
             Prefect Design
@@ -23,15 +23,10 @@
             </p-button>
           </a>
           <a href="https://github.com/prefectHQ/prefect-design/" target="_blank">
-            <p-button class="welcome-page__github-link" icon="GitHubIcon">
+            <p-button icon="GitHubIcon">
               Github
             </p-button>
           </a>
-          <p-link :to="routeRecordsFlat[firstComponent]">
-            <p-button secondary icon="ArrowRightIcon">
-              Get Started
-            </p-button>
-          </p-link>
         </div>
       </div>
     </div>
@@ -40,9 +35,6 @@
 
 <script lang="ts" setup>
   import CirclesIcon from '@/demo/components/CirclesIcon.svg'
-  import { routeRecordsFlat } from '@/demo/router/routeRecordsFlat'
-
-  const [firstComponent] = Object.keys(routeRecordsFlat)
 </script>
 
 <style>
@@ -77,7 +69,6 @@
   flex-col
   gap-2
   text-justify
-  font-light
   max-w-md
 }
 
@@ -96,23 +87,13 @@
   gap-2
 }
 
-.welcome-page__github-link { @apply
-  text-white
-  bg-black
-  focus:ring-black
-}
-
-.welcome-page__github-link:not(.p-button--disabled) { @apply
-  hover:bg-neutral-900
-}
-
 .welcome-page__circles-container { @apply
   -translate-x-1/2
   -translate-y-1/2
   absolute
   left-1/2
   origin-center
-  text-foreground-50
+  opacity-20
   top-1/2
   select-none
   z-0

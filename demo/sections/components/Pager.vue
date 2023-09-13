@@ -7,12 +7,6 @@
       { title: 'Table' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-pager
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #simple>
       <template v-for="item in currentPageItems" :key="item">
         <div>{{ item }}</div>

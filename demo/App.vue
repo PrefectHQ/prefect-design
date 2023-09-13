@@ -33,9 +33,6 @@
 }
 
 .app { @apply
-  text-foreground
-  bg-background-900
-  dark:bg-background-50
   grid
   max-h-screen
 }
@@ -61,13 +58,6 @@
 .app__prefect-icon { @apply
   w-6
   h-6
-}
-
-.app__menu-icon { @apply
-  text-foreground-500
-  w-6
-  h-6
-  cursor-pointer
 }
 
 .app__sidebar { @apply

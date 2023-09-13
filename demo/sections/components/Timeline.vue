@@ -3,7 +3,7 @@
     <template #description>
       <p-content>
         <p-label label="Layout">
-          <p-button-group v-model="selectedLayout" size="sm" :options="layoutOptions" />
+          <p-button-group v-model="selectedLayout" small :options="layoutOptions" />
         </p-label>
       </p-content>
     </template>
@@ -37,7 +37,7 @@
     <template #custom-point>
       <p-timeline :items="itemsReversed" class="ordered-list__custom-point" v-bind="{ layout }">
         <template #point="{ item }">
-          <div class="ordered-list__ninja-point">
+          <div class="ordered-list__ninja-point p-background">
             <p-icon v-if="item.icon" :icon="item.icon" solid />
           </div>
         </template>
@@ -253,11 +253,9 @@
   items-center
   justify-center
   p-1
-  rounded
+  rounded-default
   shadow-sm
   hover:shadow-lg
-  text-foreground
-  bg-background
   border-2
 }
 
@@ -307,7 +305,7 @@
   bg-amber-500
   rounded-full
   border-4
-  border-danger
+  border-sentiment-negative
 }
 
 .ordered-list__virtual-scroller { @apply

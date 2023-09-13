@@ -1,11 +1,5 @@
 <template>
   <ComponentPage title="Tab" :demos="[{ title: 'Tab' }]">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-tab
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #tab>
       <PTabs v-model:selected="selectedTab" :tabs="tabs">
         <template #tab-one-heading="{ tab }">
@@ -40,7 +34,7 @@
         </template>
       </PTabs>
 
-      <p-button size="sm" class="mt-2" @click="changeToTab(tabs[2])">
+      <p-button class="mt-2" @click="changeToTab(tabs[2])">
         Switch to third tab
       </p-button>
     </template>

@@ -2,7 +2,9 @@
   <div ref="containerElement" class="scrolling-picker">
     <slot name="before" />
     <template v-for="option in selectOptions" :key="option.value">
-      <button
+      <p-button
+        small
+        flat
         type="button"
         class="scrolling-picker__option"
         :tabindex="1"
@@ -11,7 +13,7 @@
         @click="handleOptionClick(option)"
       >
         <span ref="optionElements" :data-target="option.value">{{ option.label }}</span>
-      </button>
+      </p-button>
     </template>
     <slot name="after" />
   </div>
@@ -64,7 +66,7 @@
     const element = optionElements.value.find(node => node.dataset.target === value?.toString())
 
     if (element && containerElement.value) {
-      const buttonElement = element.parentNode as HTMLButtonElement
+      const buttonElement = element.closest('button')!
       const scrollTop = buttonElement.offsetTop - containerElement.value.clientHeight / 2 + buttonElement.clientHeight / 2
 
       containerElement.value.scrollTop = scrollTop
@@ -90,37 +92,20 @@
 .scrolling-picker { @apply
   flex
   flex-col
+  flex-grow
+  items-center
   gap-2
   px-4
   py-3
   overflow-y-auto
 }
 
-.scrolling-picker__option { @apply
-  text-center
-  py-1
-  px-2
-  text-sm
-  cursor-pointer
-  rounded
-  text-foreground
-  focus:ring-primary-600
-  focus:outline-none
-  focus:ring-2
-  focus:ring-offset-2
-}
-
-.scrolling-picker__option:not(.scrolling-picker__option--disabled) { @apply
-  hover:bg-background-400
-}
-
-.scrolling-picker__option--selected { @apply
-  text-white
-  bg-primary-500
-}
-
-.scrolling-picker__option--selected:not(.scrolling-picker__option--disabled) { @apply
-  hover:bg-primary-600
+.scrolling-picker__option--selected,
+.scrolling-picker__option--selected:not(:disabled):hover,
+.scrolling-picker__option--selected:not(:disabled):active { @apply
+  cursor-default
+  border-none
+  bg-[var(--p-color-input-checked-bg)]
 }
 
 .scrolling-picker__option--disabled { @apply

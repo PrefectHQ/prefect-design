@@ -2,17 +2,17 @@
   <div class="p-month-picker">
     <template v-for="(option) in monthOptions" :key="option.value">
       <div class="p-month-picker__month">
-        <PButton
-          size="xs"
+        <p-button
+          small
           class="p-month-picker__month-button"
+          :class="getSelectedClass(option.value)"
           :disabled="isDisabled(option.value)"
-          :flat="!isSelected(option.value)"
           @click="updateSelectedDate(option.value)"
         >
           <span ref="monthElements" :data-month="option.value">
             {{ option.label }}
           </span>
-        </PButton>
+        </p-button>
       </div>
     </template>
   </div>
@@ -52,8 +52,10 @@
     label: format(x, 'MMMM'),
   }))
 
-  function isSelected(month: number): boolean {
+  function getSelectedClass(month: number): string | null {
     return selectedDate.value.getMonth() === month
+      ? 'p-month-picker__month-button--selected'
+      : null
   }
 
   function isDisabled(month: number): boolean {
@@ -83,13 +85,20 @@
   grid-cols-3
   grid-rows-4
   gap-4
+  justify-around
 }
 
 .p-month-picker__month { @apply
-  text-center
+  flex
+  items-center
+  justify-center
 }
 
-.p-month-picker__month-button { @apply
-  justify-center
+.p-month-picker__month-button--selected,
+.p-month-picker__month-button--selected:not(:disabled):hover,
+.p-month-picker__month-button--selected:not(:disabled):active { @apply
+  border-none
+  cursor-default
+  bg-[var(--p-color-input-checked-bg)]
 }
 </style>

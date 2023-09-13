@@ -25,7 +25,7 @@
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <PButton class="p-modal__x-button" size="lg" icon="XMarkIcon" flat @click="modalScope.close" />
+              <p-button class="p-modal__x-button" icon="XMarkIcon" small flat @click="modalScope.close" />
             </div>
 
             <div ref="modalBody" class="p-modal__body">
@@ -35,9 +35,9 @@
             <div class="p-modal__footer">
               <slot name="actions" v-bind="modalScope" />
               <slot name="cancel" v-bind="modalScope">
-                <PButton inset class="p-modal__close-button" @click="modalScope.close">
+                <p-button class="p-modal__close-button" @click="modalScope.close">
                   Cancel
-                </PButton>
+                </p-button>
               </slot>
             </div>
           </div>
@@ -157,22 +157,20 @@
 .p-modal__background { @apply
   fixed
   inset-0
-  bg-background-100
-  bg-opacity-75
-  transition-opacity
+  bg-overlay
 }
 
 .p-modal__card { @apply
   relative
   flex
   flex-col
-  bg-background
-  rounded-lg
+  rounded-default
   shadow-xl
   transition-all
   sm:max-w-lg
   sm:w-full;
-  max-height: calc(100vh - theme('spacing.8'))
+  background-color: var(--p-color-bg-0);
+  max-height: calc(100vh - theme('spacing.8'));
 }
 
 .p-modal__header { @apply
@@ -185,9 +183,7 @@
   text-lg
   leading-6
   font-medium
-  text-foreground-900
-  border-background-400
-  dark:border-background-600
+  border-divider
 }
 
 .p-modal__header--no-title { @apply
@@ -220,17 +216,11 @@
   border-t
   sm:justify-end
   sm:flex-row
-  border-background-400
-  dark:border-background-600
+  border-divider
 }
 
 .p-modal__close-button { @apply
   sm:order-first
-}
-
-.p-modal__x-button { @apply
-  text-foreground-400
-  !p-1
 }
 
 .p-modal__stop-bg-scroll { @apply

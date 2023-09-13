@@ -14,7 +14,6 @@
         <PSelectButton
           ref="buttonElement"
           v-model="modelValue"
-          class="p-select__custom"
           :class="classes.control"
           :disabled="disabled"
           v-bind="attrs"
@@ -78,6 +77,7 @@
       @update:model-value="closeIfNotMultiple"
       @keydown="handleKeydown"
       @mouseleave="setHighlightedValueUnselected"
+      @bottom="emit('bottom')"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
@@ -105,6 +105,7 @@
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
+  import { MaybeReadonly } from '@/types'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectModelValue, flattenSelectOptions, normalizeSelectOption, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
   import { TagValue } from '@/types/tag'
@@ -115,14 +116,14 @@
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     disabled?: boolean,
-    options: (SelectOption | SelectOptionGroup)[],
+    options: MaybeReadonly<(SelectOption | SelectOptionGroup)[]>,
     emptyMessage?: string,
     multiple?: boolean,
   }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
-    (event: 'open' | 'close'): void,
+    (event: 'open' | 'close' | 'bottom'): void,
   }>()
 
   const buttonElement = ref<typeof PSelectButton>()
@@ -313,23 +314,3 @@
     }
   }
 </script>
-
-<style>
-.p-select { @apply
-  relative
-  text-base
-  rounded-md
-}
-
-.p-select--open { @apply
-  outline-none
-  ring-1
-  ring-primary-500
-  border-primary-500
-}
-
-.p-select__custom { @apply
-  w-full
-  rounded-md
-}
-</style>

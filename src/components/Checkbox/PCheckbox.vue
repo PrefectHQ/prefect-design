@@ -79,7 +79,6 @@
   items-center
   gap-x-2
   w-auto
-  text-foreground
 }
 
 .p-checkbox__label,
@@ -92,45 +91,53 @@
   w-4
   rounded
   transition-colors
-  ring-offset-2
-  focus-within:ring-2
   block
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-offset-focus-ring
+  focus:ring-offset-focus-ring-offset;
+  background-color: var(--p-color-input-bg);
+  border-color: var(--p-color-input-border);
+  color: var(--p-color-input-text);
+}
 
-  text-primary-600
-  bg-background
-  focus:ring-primary-600
+.p-checkbox__input:focus:not(:focus-visible) { @apply
+  ring-transparent
+  ring-offset-transparent
+}
 
-  border-background-400
-  dark:text-primary-300
-  dark:border-foreground-200
-  dark:focus:ring-primary-400
-  dark:ring-offset-background-500
+.p-checkbox__input:not(:disabled):hover {
+  background-color: var(--p-color-input-bg);
+  border-color: var(--p-color-input-border-focus);
+  color: var(--p-color-input-text);
+}
+
+.p-checkbox__input:checked,
+.p-checkbox__input:checked:hover,
+.p-checkbox__input:checked:focus {
+  background-color: var(--p-color-input-checked-bg);
+  border-color: var(--p-color-input-checked-border);
+  color: var(--p-color-input-checked-text);
 }
 
 .p-checkbox--failed {
   scroll-margin: var(--prefect-scroll-margin);
 }
 
-.p-checkbox--failed .p-checkbox__input { @apply
-  ring-1
-  ring-danger
-  focus-within:ring-2
-  focus-within:ring-danger
+.p-checkbox--failed .p-checkbox__input,
+.p-checkbox--failed .p-checkbox__input:hover,
+.p-checkbox--failed .p-checkbox__input:focus {
+  background-color: var(--p-color-input-bg-invalid);
+  border-color: var(--p-color-input-border-invalid);
 }
 
-.p-checkbox--disabled .p-radio__label,
-.p-checkbox--disabled .p-radio__input { @apply
+.p-checkbox--disabled .p-checkbox__label,
+.p-checkbox--disabled .p-checkbox__input { @apply
   opacity-50
   cursor-not-allowed
 }
 
-.p-checkbox--pending .p-checkbox__input { @apply
-  ring-1
-  ring-primary-300
-  focus-within:ring-2
-  focus-within:ring-primary-300
-
-  dark:ring-primary-100
-  dark:focus-within:ring-primary-100
+.p-checkbox--pending { @apply
+  animate-pulse
 }
 </style>

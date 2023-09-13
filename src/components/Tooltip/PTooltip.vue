@@ -28,6 +28,7 @@
     text?: string,
     placement?: PositionMethod | PositionMethod[],
     to?: string | Element,
+    disabled?: boolean,
   }>()
 
   const popover = ref<InstanceType<typeof PPopOver> | null>(null)
@@ -40,6 +41,10 @@
   })
 
   function open(): void {
+    if (props.disabled) {
+      return
+    }
+
     timeout.value = setTimeout(() => popover.value?.open(), 500)
 
     document.addEventListener('pointerover', onCloseEvent)
@@ -89,20 +94,15 @@
 }
 
 .p-tooltip__tooltip { @apply
-  p-2
+  p-1
   max-w-xs
 }
 
 .p-tooltip__content { @apply
-  backdrop-blur-[1px]
-  bg-slate-300
-  dark:bg-slate-950
-  bg-opacity-50
-  dark:bg-opacity-70
-  text-foreground
+  bg-floating
   px-2
   py-1
-  rounded
+  rounded-default
   shadow
   dark:shadow-md
   max-w-xs

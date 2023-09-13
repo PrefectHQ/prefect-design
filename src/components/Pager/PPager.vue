@@ -9,11 +9,11 @@
       </template>
     </p>
     <div class="p-pager__buttons">
-      <p-button inset size="sm" :disabled="!showPrevious" @click="previous">
-        <p-icon icon="ChevronLeftIcon" size="small" /> Previous
+      <p-button small icon="ChevronLeftIcon" :disabled="!showPrevious" @click="previous">
+        Previous
       </p-button>
-      <p-button inset size="sm" :disabled="!showNext" @click="next">
-        Next <p-icon icon="ChevronRightIcon" size="small" />
+      <p-button small icon-append="ChevronRightIcon" :disabled="!showNext" @click="next">
+        Next
       </p-button>
     </div>
   </div>
@@ -56,7 +56,7 @@
 
 .p-pager__context { @apply
   text-sm
-  text-foreground-200
+  text-subdued
 }
 
 .p-pager__page { @apply

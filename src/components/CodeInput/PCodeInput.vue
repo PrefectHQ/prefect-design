@@ -23,29 +23,30 @@
           :style="styles.textarea"
           v-bind="ctrlAttrs"
         />
+        <div ref="view" class="p-code-input__view-container">
+          <template v-if="lang">
+            <PCodeHighlight
+              :lang="lang"
+              :text="internalValue"
+              class="p-code-input__view"
+              :style="styles.view"
+              v-bind="ctrlAttrs"
+            />
+          </template>
 
-        <template v-if="lang">
-          <PCodeHighlight
-            :lang="lang"
-            :text="internalValue"
-            class="p-code-input__view"
-            :style="styles.view"
-            v-bind="ctrlAttrs"
-          />
-        </template>
-
-        <template v-else>
-          <PCode class="p-code-input__view" :style="styles.view" v-bind="ctrlAttrs">
-            {{ internalValue }}
-          </PCode>
-        </template>
+          <template v-else>
+            <PCode class="p-code-input__view" :style="styles.view" v-bind="ctrlAttrs">
+              {{ internalValue }}
+            </PCode>
+          </template>
+        </div>
       </div>
     </template>
   </p-base-input>
 </template>
 
 <script lang="ts" setup>
-  import { useComputedStyle } from '@prefecthq/vue-compositions'
+  import { useComputedStyle, useElementRect } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import { PCode, PCodeHighlight, PLineNumbers } from '@/components'
   import { useScrollLinking } from '@/compositions'
@@ -66,6 +67,9 @@
   const textarea = ref()
   const textareaStyle = useComputedStyle(textarea)
 
+  const view = ref()
+  const { width } = useElementRect(view)
+
   const { source, target } = useScrollLinking()
 
   const lineSplitRegex = /\r|\r\n|\n/
@@ -80,6 +84,7 @@
 
     return []
   })
+
   const lines = computed(() => Math.max(valueLines.value.length, props.minLines ?? 1))
   const lineHeight = computed(() => {
     if (textareaStyle.value) {
@@ -111,6 +116,7 @@
     return {
       textarea: {
         height: `${lineHeight.value * lines.value}px`,
+        width: width.value ? `${width.value}px` : '100%',
       },
       view: {
         height: `${lineHeight.value * lines.value}px`,
@@ -141,11 +147,6 @@
   line-height: inherit;
 }
 
-.p-code-input__control  {
-  scrollbar-gutter: stable;
-  scrollbar-width: thin;
-}
-
 .p-code-input__textarea,
 .p-code-input__view {
   border: none !important;
@@ -154,7 +155,8 @@
 }
 
 .p-code-input { @apply
-  bg-background-500
+  bg-code
+  text-code
   font-mono
   overflow-hidden
   p-0
@@ -162,9 +164,9 @@
 }
 
 .p-code-input__line-numbers-wrapper { @apply
-  border-background-400
+  bg-transparent
+  border-divider
   border-r
-  dark:border-foreground-200
   grow-0
   overflow-hidden
   px-[var(--gap-x)]
@@ -181,7 +183,7 @@
 }
 
 .p-code-input__control { @apply
-  bg-background
+  bg-code
   cursor-text
   grow
   h-full
@@ -189,17 +191,18 @@
   min-h-[inherit]
   overflow-auto
   p-0
-  pt-[var(--gap-y)]
+  py-[var(--gap-y)]
   relative
-  rounded-lg
   self-stretch
-  z-[1]
+  z-[1];
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
 }
 
 .p-code-input__textarea { @apply
   bg-transparent
   block
-  caret-foreground-500
+  caret-default
   m-0
   min-h-full
   min-w-full
@@ -215,25 +218,28 @@
   cursor-not-allowed
 }
 
-.p-code-input__textarea::selection { @apply
-  bg-foreground-200
-  bg-opacity-50
+.p-code-input__textarea::selection {
+  background-color: var(--p-color-selection-highlight);
 }
 
 .p-code-input__view { @apply
-  absolute
   bg-transparent
+  min-h-full
+  min-w-full
+  p-0
+}
+
+.p-code-input__view-container { @apply
+  absolute
   left-0
   min-h-full
   min-w-full
   overflow-hidden
-  p-0
-  pointer-events-none
-  px-[var(--gap-x)]
-  pt-[var(--gap-y)]
-  select-none
-  text-foreground
   top-0
   z-0
+  px-[var(--gap-x)]
+  pt-[var(--gap-y)]
+  pointer-events-none
+  select-none
 }
 </style>

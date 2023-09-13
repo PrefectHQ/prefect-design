@@ -1,23 +1,17 @@
 <template>
   <ComponentPage title="Modals" :demos="demos">
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-modals
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #modals>
       <p-button @click="showModal = true">
         Open Modal
       </p-button>
 
       <p-modal v-model:showModal="showModal" title="Modal Title" icon="CakeIcon">
-        <p class="text-sm text-foreground">
+        <p class="text-sm">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
         </p>
 
         <template #actions>
-          <p-button @click="showModal = false">
+          <p-button primary @click="showModal = false">
             Submit
           </p-button>
         </template>
@@ -31,13 +25,13 @@
 
       <p-modal v-model:showModal="showLongContentModal" title="Modal Title" icon="CakeIcon">
         <template v-for="i in 10" :key="i">
-          <p class="text-sm text-foreground">
+          <p class="text-sm">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in aliquam erat. Proin elit dui, tristique non consequat at, gravida ac lectus
           </p>
         </template>
 
         <template #actions>
-          <p-button @click="showLongContentModal = false">
+          <p-button primary @click="showLongContentModal = false">
             Submit
           </p-button>
         </template>
@@ -50,12 +44,12 @@
       </p-button>
 
       <p-modal v-model:showModal="showAutoCloseModal" title="Auto-Close Modal" icon="CakeIcon" auto-close>
-        <p class="text-sm text-foreground">
+        <p class="text-sm">
           Click on modal mask to automatically dismiss modal
         </p> :modelValue=
 
         <template #actions>
-          <p-button @click="showAutoCloseModal = false">
+          <p-button primary @click="showAutoCloseModal = false">
             Submit
           </p-button>
         </template>

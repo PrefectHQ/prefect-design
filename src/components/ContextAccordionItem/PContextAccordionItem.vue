@@ -87,25 +87,34 @@
 <style>
 .p-context-accordion-item__header { @apply
   flex
-  py-2.5
-  px-3
-  mb-1
-  rounded-md
+  p-2
+  rounded-default
   items-center
-  gap-3
+  transition
+  duration-200
+  ease-linear
+  gap-2
   text-sm
   leading-5
   select-none
-  font-medium
   w-full
   text-left
-  hover:text-primary
-  active:text-primary-600
+  mb-1
+  hover:bg-selectable-hover
+  active:bg-selected
+  outline-none
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-inset
+}
+
+.p-context-accordion-item__header:focus:not(:focus-visible) { @apply
+  ring-0
 }
 
 .p-context-accordion-item__header--highlighted { @apply
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-selectable-hover
+  bg-selected
 }
 
 .p-context-accordion-item__icon { @apply
@@ -121,7 +130,7 @@
 .p-context-accordion-item__contents { @apply
   flex
   flex-col
-  rounded-md
+  rounded-default
   pl-4
   gap-1
 }
@@ -129,19 +138,28 @@
 .p-context-accordion-item__content-child { @apply
   px-1.5
   py-1
-  rounded-md
+  rounded-default
   items-center
   text-sm
   leading-5
   select-none
   font-medium
   cursor-pointer
-  hover:text-primary
-  active:text-primary-600
+  hover:bg-selectable-hover
+  active:bg-selected
+  outline-none
+  focus:ring-spacing-focus-ring
+  focus:ring-focus-ring
+  focus:ring-inset
+}
+
+.p-context-accordion-item__content-child:focus:not(:focus-visible) { @apply
+  ring-0
 }
 
 .p-context-accordion-item__content-child--active { @apply
-  text-primary
+  bg-selected
+  hover:bg-selected
 }
 
 .p-context-accordion-item__indicator { @apply

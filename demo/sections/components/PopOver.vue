@@ -9,12 +9,6 @@
       { title: 'Grouped' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-pop-over
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #manual>
       <div class="flex items-center gap-2">
         <position-select v-model:position="position" />
@@ -32,8 +26,8 @@
           target
         </div>
         <template v-if="showManual">
-          <div ref="manualContent" class="bg-primary text-white p-2" :style="manualStyles">
-            <span>Manual Composition Content</span>
+          <div ref="manualContent" class="bg-floating text-white p-2" :style="manualStyles">
+            <span>Manual <br> Composition Content</span>
           </div>
         </template>
       </div>
@@ -58,7 +52,7 @@
           target
         </div>
         <template v-if="showDynamic">
-          <div ref="dynamicContent" class="bg-primary text-white p-20" :style="dynamicStyles">
+          <div ref="dynamicContent" class="bg-floating text-white p-20" :style="dynamicStyles">
             <span>Dynamic Composition Content</span>
           </div>
         </template>
@@ -75,7 +69,7 @@
             </p-heading>
             <div class="flex gap-2 items-center flex-wrap">
               <template v-for="i in 5" :key="i">
-                <p-pop-over :group="group" :placement="top">
+                <p-pop-over :group="group" :placement="positionMethods.top">
                   <template #target="{ open }">
                     <p-button @mouseover="open">
                       Open {{ i }}
@@ -98,12 +92,15 @@
 <script lang="ts" setup>
   import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/position'
   import { usePopOverGroup } from '@/compositions/usePopOverGroup'
-  import { left, right, top } from '@/utilities/position'
+
+  /*  eslint import/namespace: ['error', { allowComputed: true }] */
+  import * as positionMethods from '@/utilities/position'
+
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import PositionSelect from '@/demo/components/PositionSelect.vue'
 
-  const position = ref(left)
+  const position = ref(positionMethods.leftTop)
   const showManual = ref(false)
   const {
     target: manualTarget,
@@ -112,7 +109,7 @@
     styles: manualStyles,
   } = usePositionStyles(position)
 
-  const positions = ref([left, right])
+  const positions = ref([positionMethods.left, positionMethods.right])
   const showDynamic = ref(false)
   const {
     target: dynamicTarget,

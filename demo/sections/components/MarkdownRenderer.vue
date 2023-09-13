@@ -59,7 +59,7 @@
             </template>
 
             <template #raw>
-              <p-code-highlight :text="markdownRef" class="markdown-renderer__raw" show-line-numbers lang="markdown" />
+              <p-code-highlight :text="markdownRef" class="markdown-renderer__raw p-background" show-line-numbers lang="markdown" />
             </template>
           </p-tabs>
         </p-card>
@@ -242,7 +242,7 @@
   > highlighted_fenced = "code block"
   > \`\`\`
   > ${blockQuote} nested
-  > 
+  >
   > ${heading1}
   > ${heading2}
   > ${heading3}
@@ -262,8 +262,8 @@
   > 3. ordered list item 3
   > - [x] task list item 1
   > - [ ] task list item 2
-  > - [ ] task list item 
-  > 
+  > - [ ] task list item
+  >
   > ${table}
   `
 
@@ -271,7 +271,7 @@
   <h2 class="text-3xl">Embedded HTML</h2>
 <p>
     This is some embedded html; the color of <span class="text-amber-500">this text</span> should be orange
-and the color of <span class="text-success">this text</span> should be green
+and the color of <span class="text-sentiment-positive">this text</span> should be green
 </p>`
 
   const dangerousHtml = `
@@ -279,9 +279,9 @@ and the color of <span class="text-success">this text</span> should be green
   <script>alert('window alert')<\/script>
 <p>
     This is some embedded html that contains dangerous scripts; the color of <span class="text-amber-500">this text</span> should be orange
-and the color of <span class="text-success">this text</span> should still be green.
+and the color of <span class="text-sentiment-positive">this text</span> should still be green.
 </p>
-<div class="text-3xl text-danger">NO WINDOW ALERT SHOULD HAVE FIRED</div>
+<div class="text-3xl text-sentiment-negative">NO WINDOW ALERT SHOULD HAVE FIRED</div>
 `
 
   const getGitHubBaseUrl = (repo: string): string => `https://github.com/${repo}/raw/main`
@@ -361,13 +361,9 @@ _**${user3}** has changed their name to **${user1}**_
 .markdown-renderer__section-header { @apply
   mb-4
   border-b
-  border-b-foreground-200
+  border-b-divider
   text-2xl
   font-semibold
-}
-
-.markdown-renderer__live { @apply
-  bg-background-400
 }
 
 .markdown-renderer__interactive,
@@ -376,8 +372,6 @@ _**${user3}** has changed their name to **${user1}**_
 }
 
 .markdown-renderer__raw { @apply
-  bg-background-600
-  dark:bg-background-400
   overflow-auto
   pl-0
   max-w-full

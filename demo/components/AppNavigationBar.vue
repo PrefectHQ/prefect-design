@@ -3,7 +3,7 @@
     <template #prepend>
       <slot name="prepend" v-bind="{ layout }">
         <template v-if="layout == 'horizontal'">
-          <p-button class="app-navigation-bar__drawer-button" inset size="sm" icon="Bars3Icon" @click="toggleDrawer" />
+          <p-button icon="Bars3Icon" @click="toggleDrawer" />
         </template>
         <template v-else>
           <p-icon class="app-navigation-bar__logo" icon="Prefect" @click="toggleDrawer" />
@@ -31,7 +31,6 @@
 
     <template v-if="layout == 'vertical'" #append>
       <div class="app-navigation-bar__append">
-        <p-divider />
         <p-theme-toggle />
       </div>
     </template>
@@ -77,15 +76,6 @@
   w-full
 }
 
-.app-navigation-bar__drawer-button { @apply
-  shadow-none
-}
-
-.app-navigation-bar__drawer-button .p-icon { @apply
-  h-5
-  w-5
-}
-
 .app-navigation-bar__logo { @apply
   h-10
   w-10
@@ -102,6 +92,8 @@
 }
 
 .app-navigation-bar__drawer { @apply
+  bg-floating
+  shadow-lg
   w-full
   max-w-[theme(screens.sm)]
 }
@@ -116,6 +108,6 @@
   flex-col
   items-center
   w-full
-  py-4
+  pb-4
 }
 </style>

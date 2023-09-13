@@ -2,37 +2,37 @@
   <div class="p-date-picker" :class="classes.picker">
     <div class="p-date-picker__top-bar">
       <template v-if="overlay">
-        <PButton
+        <p-button
           class="p-date-picker__close-icon"
           flat
           icon="XMarkIcon"
-          size="sm"
+          small
           @click="closeOverlay"
         />
       </template>
       <template v-else>
-        <PButton
+        <p-button
           class="p-date-picker__previous-icon"
           flat
           icon="ChevronLeftIcon"
-          size="sm"
+          small
           :disabled="previousDisabled"
           @click="internalViewingDate = addMonths(internalViewingDate, -1)"
         />
       </template>
       <div class="p-date-picker__title">
-        <PButton class="p-date-picker__title-month" flat @click="setOverlay('month')">
+        <p-button class="p-date-picker__title-month" flat @click="setOverlay('month')">
           {{ viewingMonth }}
-        </PButton>
-        <PButton class="p-date-picker__title-year" flat @click="setOverlay('year')">
+        </p-button>
+        <p-button class="p-date-picker__title-year" flat @click="setOverlay('year')">
           {{ viewingYear }}
-        </PButton>
+        </p-button>
       </div>
-      <PButton
+      <p-button
         class="p-date-picker__next-icon"
         flat
         icon="ChevronRightIcon"
-        size="sm"
+        small
         :disabled="nextDisabled"
         @click="internalViewingDate = addMonths(internalViewingDate, 1)"
       />
@@ -50,36 +50,36 @@
             :out-of-month="!isSameMonth(date, internalViewingDate)"
             :select="() => updateSelectedDate(date)"
           >
-            <PButton
+            <p-button
               class="p-date-picker__date"
               :class="classes.date(date)"
-              :flat="!isSameDayAsSelectedDate(date)"
+              flat
               :disabled="!!overlay || !isDateInRange(date, range, 'day')"
-              size="xs"
+              small
               @click="updateSelectedDate(date)"
             >
               {{ date.getDate() }}
-            </PButton>
+            </p-button>
           </slot>
         </template>
       </PCalendar>
 
       <div class="p-date-picker__bottom-bar">
         <template v-if="showTime && selectedDate">
-          <PButton class="p-date-picker__time-button" size="sm" flat @click="setOverlay('time')">
+          <p-button class="p-date-picker__time-button" small flat @click="setOverlay('time')">
             {{ time }}
-          </PButton>
+          </p-button>
         </template>
         <div class="p-date-picker__actions">
           <template v-if="isDateInRange(new Date(), range, 'day')">
-            <PButton class="p-date-picker__today-button" size="sm" flat :disabled="todayDisabled" @click="handleTodayClick">
+            <p-button class="p-date-picker__today-button" small flat :disabled="todayDisabled" @click="handleTodayClick">
               {{ showTime ? 'Now' : 'Today' }}
-            </PButton>
+            </p-button>
           </template>
           <template v-if="clearable">
-            <PButton class="p-date-picker__clear-button" size="sm" flat :disabled="selectedDate === null" @click="selectedDate = null">
+            <p-button class="p-date-picker__clear-button" small flat :disabled="selectedDate === null" @click="selectedDate = null">
               Clear
-            </PButton>
+            </p-button>
           </template>
         </div>
       </div>
@@ -239,7 +239,6 @@
 .p-date-picker { @apply
   flex
   flex-col
-  border
   p-2
   select-none
   min-w-[20rem]
@@ -297,7 +296,7 @@
   bottom-0
   flex
   justify-center
-  bg-background-500/[.95]
+  bg-floating
 }
 
 .p-date-picker__date { @apply
@@ -305,13 +304,22 @@
   p-0
 }
 
-.p-date-picker__date--today:not(.p-date-picker__date--selected) { @apply
-  text-prefect-600
+.p-date-picker__date--today,
+.p-date-picker__date--today:not(:disabled):hover,
+.p-date-picker__date--today:not(:disabled):active { @apply
+  border-2
+  border-live
 }
 
-.p-date-picker__date--out-of-month:not(.p-button--disabled) { @apply
-  text-foreground-200
-  hover:text-foreground-300
+.p-date-picker__date--out-of-month:not(:disabled) { @apply
+  text-subdued
+}
+
+.p-date-picker__date--selected,
+.p-date-picker__date--selected:not(:disabled):hover,
+.p-date-picker__date--selected:not(:disabled):active { @apply
+  cursor-default
+  bg-[var(--p-color-input-checked-bg)]
 }
 
 .p-date-picker__bottom-bar { @apply

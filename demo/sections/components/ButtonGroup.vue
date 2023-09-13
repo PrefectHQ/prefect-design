@@ -3,23 +3,22 @@
     title="Button Group"
     :demos="[
       { title: 'Basic' },
+      { title: 'Icons Only' },
       { title: 'Small' },
       { title: 'Simple', description: 'Uses `string[]` for options' },
       { title: 'Booleans', description: 'Uses `boolean[]` for options' },
     ]"
   >
-    <template #description>
-      This is where we add a short description of <p-code inline>
-        p-button-group
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
-    </template>
-
     <template #basic>
       <p-button-group v-model="preselectedItem" :options="buttonGroup" />
     </template>
 
+    <template #icons-only>
+      <p-button-group v-model="preselectedIconItem" :options="iconButtonGroup" />
+    </template>
+
     <template #small>
-      <p-button-group v-model="preselectedItem" size="xs" :options="buttonGroup" />
+      <p-button-group v-model="preselectedItem" small :options="buttonGroup" />
     </template>
 
     <template #simple>
@@ -70,8 +69,20 @@
     },
   ]
 
+  const preselectedIconItem = ref('up')
+  const iconButtonGroup: ButtonGroupOption[] = [
+    {
+      value: 'up',
+      icon: 'HandThumbUpIcon',
+    },
+    {
+      value: 'down',
+      icon: 'HandThumbDownIcon',
+    },
+  ]
+
   const simpleValue = ref('Email')
-  const simpleOptions = computed(() => buttonGroup.map(({ label }) => label))
+  const simpleOptions = computed(() => buttonGroup.map(({ label }) => label ?? null))
 
   const booleanValue = ref(true)
 </script>

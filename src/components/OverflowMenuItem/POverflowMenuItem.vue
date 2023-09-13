@@ -1,16 +1,17 @@
 <template>
   <component
     :is="component"
-    class="p-menu-item"
+    class="p-overflow-menu-item"
+    exact-active-class="p-overflow-menu-item--active"
     v-bind="componentProps"
   >
-    <PIcon v-if="icon" :icon="icon" class="p-menu-item__icon" />
+    <PIcon v-if="icon" :icon="icon" class="p-overflow-menu-item__icon" />
 
     <slot>
       <span>{{ label }}</span>
     </slot>
 
-    <div class="p-menu-item__after">
+    <div class="p-overflow-menu-item__after">
       <slot name="after" />
     </div>
   </component>
@@ -59,26 +60,30 @@
 </script>
 
 <style>
-.p-menu-item { @apply
-  p-3
+.p-overflow-menu-item { @apply
+  px-3
+  py-2
   font-normal
-  text-foreground
   text-sm
   flex
   items-center
   w-full
-  hover:bg-background-500
-  dark:hover:bg-background-600
+  hover:bg-selectable-hover
 }
 
-.p-menu-item__icon { @apply
+.p-overflow-menu-item__icon { @apply
   w-5
   h-5
   mr-2
 }
 
-.p-menu-item__after { @apply
+.p-overflow-menu-item__after { @apply
   ml-auto
   pl-10
+}
+
+.p-overflow-menu-item--active { @apply
+  bg-selected
+  hover:bg-selected
 }
 </style>
