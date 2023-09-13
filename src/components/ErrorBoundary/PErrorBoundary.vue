@@ -1,6 +1,6 @@
 <template>
   <slot v-if="!error" />
-  <slot v-else name="fallback" v-bind="{ error }" />
+  <slot v-else name="fallback" v-bind="{ error, reset }" />
 </template>
 
 <script lang="ts" setup>
@@ -11,6 +11,8 @@
   }>()
 
   const error = ref<Error>(null)
+
+  const reset = (): void => error.value = null
 
   onErrorCaptured((err) => {
     error.value = err
