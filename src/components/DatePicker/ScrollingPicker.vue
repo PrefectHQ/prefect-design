@@ -92,6 +92,8 @@
 .scrolling-picker { @apply
   flex
   flex-col
+  flex-grow
+  items-center
   gap-2
   px-4
   py-3
