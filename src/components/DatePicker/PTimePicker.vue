@@ -74,11 +74,12 @@
 }
 
 .p-time-picker { @apply
-  flex
-  flex-auto
+  grid
+  grid-cols-3
   items-start
   justify-center
   h-full
+  w-full
 }
 
 .p-time-picker__hours,
