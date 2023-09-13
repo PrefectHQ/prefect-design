@@ -10,9 +10,11 @@
     (event: 'error', value: Error): void,
   }>()
 
-  const error = ref<Error>(null)
+  const error = ref<Error | null>(null)
 
-  const reset = (): void => error.value = null
+  const reset = (): void => {
+    error.value = null
+  }
 
   onErrorCaptured((err) => {
     error.value = err
