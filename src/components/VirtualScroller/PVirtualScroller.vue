@@ -64,13 +64,7 @@
     return props.chunkSize * chunkIndex + itemChunkIndex
   }
 
-  watch(() => props.items, (current, previous) => {
-    if (previous.length >= current.length) {
-      return
-    }
-
-    check(bottom)
-  })
+  watch(() => props.items, () => check(bottom))
 
   onMounted(() => {
     observe(bottom)
