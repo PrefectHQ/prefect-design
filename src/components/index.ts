@@ -25,6 +25,7 @@ import { PDivider, install as installPDivider } from '@/components/Divider'
 import { PDrawer, install as installPDrawer } from '@/components/Drawer'
 import { PEmptyResults, install as installPEmptyResults } from '@/components/EmptyResults'
 import { PEmptyState, install as installPEmptyState } from '@/components/EmptyState'
+import { PErrorBoundary, install as installPErrorBoundary } from '@/components/ErrorBoundary'
 import { PForm, install as installPForm } from '@/components/Form'
 import { PFrame, install as installPFrame } from '@/components/Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from '@/components/GlobalNavItem'
@@ -111,6 +112,7 @@ export {
   PDrawer,
   PEmptyResults,
   PEmptyState,
+  PErrorBoundary,
   PForm,
   PFrame,
   PGlobalNavItem,
@@ -208,6 +210,7 @@ export const installs = [
   installPDrawer,
   installPEmptyResults,
   installPEmptyState,
+  installPErrorBoundary,
   installPForm,
   installPFrame,
   installPGlobalNavItem,
@@ -295,6 +298,7 @@ declare module '@vue/runtime-core' {
     PDrawer: typeof PDrawer,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
+    PErrorBoundary: typeof PErrorBoundary,
     PForm: typeof PForm,
     PFrame: typeof PFrame,
     PGlobalNavItem: typeof PGlobalNavItem,
