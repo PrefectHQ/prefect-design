@@ -68,6 +68,7 @@
   items-center
   mb-2
   p-2
+  gap-2
 }
 
 .p-layout-table__header--sticky { @apply
@@ -100,6 +101,7 @@
   flex
   gap-2
   items-center
+  flex-wrap
 }
 
 .p-layout-table__section--start { @apply
