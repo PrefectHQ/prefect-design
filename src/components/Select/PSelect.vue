@@ -157,7 +157,7 @@
       return modelValue.value.length === 0
     }
 
-    return getSelectOption(modelValue.value) === undefined
+    return modelValue.value === null
   })
 
   const selectOptions = computed(() => {
