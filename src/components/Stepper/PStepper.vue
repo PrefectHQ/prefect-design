@@ -1,12 +1,12 @@
 <template>
-  <p-number-input v-model="internalValue" class="p-stepper">
+  <p-number-input v-model="internalValue" class="p-stepper" :disabled="disabled">
     <template #prepend>
       <p-button
         class="p-stepper__step p-stepper__step--down"
         flat
         small
         icon="MinusIcon"
-        :disabled="!canDecrease"
+        :disabled="disabled || !canDecrease"
         @click="internalValue -= step"
       />
     </template>
@@ -16,7 +16,7 @@
         flat
         small
         icon="PlusIcon"
-        :disabled="!canIncrease"
+        :disabled="disabled || !canIncrease"
         @click="internalValue += step"
       />
     </template>
@@ -29,6 +29,7 @@
 
   const props = withDefaults(defineProps<{
     modelValue: number | null | undefined,
+    disabled?: boolean,
     min?: number | null,
     max?: number | null,
     step?: number,
