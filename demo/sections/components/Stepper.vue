@@ -4,6 +4,7 @@
     :demos="[
       { title: 'Min and Max Props' },
       { title: 'Step Size' },
+      { title: 'Disabled' },
     ]"
   >
     <template #min-and-max-props>
@@ -53,6 +54,15 @@
         >
           Reset Value
         </p-button>
+      </div>
+    </template>
+
+    <template #disabled>
+      <div class="stepper__demo">
+        <p-stepper
+          :model-value="0"
+          disabled
+        />
       </div>
     </template>
   </ComponentPage>
