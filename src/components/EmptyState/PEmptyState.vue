@@ -1,26 +1,26 @@
 <template>
   <p-card class="p-empty-state">
-    <div class="p-empty-state__corner-label">
+    <div v-if="$slots.cornerLabel" class="p-empty-state__corner-label">
       <slot name="corner-label" />
     </div>
     <div
       class="p-empty-state__text"
     >
-      <div class="p-empty-state__icon">
+      <div v-if="$slots.icon" class="p-empty-state__icon">
         <slot name="icon" />
       </div>
 
-      <h3 class="p-empty-state__heading">
+      <h3 v-if="$slots.heading" class="p-empty-state__heading">
         <slot name="heading" />
       </h3>
 
-      <p class="p-empty-state__description">
+      <p v-if="$slots.description" class="p-empty-state__description">
         <slot name="description" />
       </p>
 
       <slot />
 
-      <div class="p-empty-state__actions">
+      <div v-if="$slots.actions" class="p-empty-state__actions">
         <slot name="actions" />
       </div>
     </div>
