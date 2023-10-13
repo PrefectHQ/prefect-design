@@ -11,7 +11,7 @@
       <span>{{ label }}</span>
     </slot>
 
-    <div class="p-overflow-menu-item__after">
+    <div v-if="$slots.after" class="p-overflow-menu-item__after">
       <slot name="after" />
     </div>
   </component>
