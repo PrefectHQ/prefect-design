@@ -10,9 +10,9 @@
     <template #option="{ option, index }">
       <slot
         :name="`${kebabCase(option.label)}-heading`"
-        v-bind="{ tab: option.label, index }"
+        v-bind="{ tab: option, index }"
       >
-        <slot name="heading" v-bind="{ tab: option.label, index }">
+        <slot name="heading" v-bind="{ tab: option, index }">
           {{ option.label }}
         </slot>
       </slot>
