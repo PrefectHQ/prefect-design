@@ -14,7 +14,7 @@
   }>()
 
   const forbiddenAttrs = ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data']
-  const forbiddenTags = ['script', 'iframe', 'form']
+  const forbiddenTags = ['script', 'style', 'iframe', 'form']
   const useProfiles = { svg: true, html: true }
 
   const sanitize = (text: string): string => {
