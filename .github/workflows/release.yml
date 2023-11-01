@@ -19,5 +19,5 @@ jobs:
 
       - uses: prefecthq/actions-release-ui-components@chore/test-npm-token-passing
         env:
-          NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
+          NPM_RELEASE_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
       
