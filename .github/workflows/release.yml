@@ -15,32 +15,8 @@ jobs:
     environment: 'prod'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: prefecthq/actions-release-ui-components@main
         with:
-          node-version-file: ".nvmrc"
-      
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build package
-        run: npm run build
-
-      - name: Publish Package
-        id: publish
-        uses: JS-DevTools/npm-publish@v2
-        with:
-          token: ${{ secrets.NPM_PUBLISH_TOKEN }}
-          access: public
-          strategy: upgrade
-      
-      - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.publish.outputs.version }}
-        run: |
-          gh release create "$tag" \
-              --repo="$GITHUB_REPOSITORY" \
-              --title="Release ${tag#v}" \
-              --generate-notes
+          NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
