@@ -2,10 +2,10 @@ name: Test Release UI Components
 
 on:
   push:
-    # paths: 
-    #   - package.json
+    paths: 
+      - package.json
     branches:
-      - chore/use-shared-gha-for-releases*
+      - main
       
 jobs:
 
@@ -15,9 +15,8 @@ jobs:
     environment: 'prod'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: prefecthq/actions-release-ui-components@chore/test-npm-token-passing
-        env:
-          NPM_RELEASE_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
-      
+      - uses: prefecthq/actions-release-ui-components@main
+        with:
+          NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
