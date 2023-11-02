@@ -13,7 +13,7 @@
     html: string,
   }>()
 
-  const forbiddenAttrs = ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data']
+  const forbiddenAttrs = ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data', 'onmousedown', 'onmouseup']
   const forbiddenTags = ['script', 'style', 'iframe', 'form']
   const useProfiles = { svg: true, html: true }
 
