@@ -20,3 +20,4 @@ jobs:
       - uses: prefecthq/actions-release-ui-components@main
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
