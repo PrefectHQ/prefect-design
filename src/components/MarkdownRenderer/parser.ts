@@ -137,7 +137,7 @@ const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
     const { href, title } = token
     const classList = [`${baseClass}__link`]
     const composedHref = normalizeHref(href)
-    return h(PLink, { to: composedHref, title, class: classList }, { default: () => token.text })
+    return h(PLink, { to: composedHref, title, class: classList, rel: 'noopener' }, { default: () => token.text })
   }
 
   return h(baseElement, props, children)

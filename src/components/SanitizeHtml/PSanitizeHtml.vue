@@ -13,13 +13,15 @@
     html: string,
   }>()
 
-  const forbiddenAttrs = ['style']
+  const forbiddenAttrs = ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data', 'onmousedown', 'onmouseup']
+  const forbiddenTags = ['script', 'style', 'iframe', 'form']
   const useProfiles = { svg: true, html: true }
 
   const sanitize = (text: string): string => {
     return dompurify.sanitize(
       text,
       {
+        FORBID_TAGS: forbiddenTags,
         FORBID_ATTR: forbiddenAttrs,
         USE_PROFILES: useProfiles,
       },
