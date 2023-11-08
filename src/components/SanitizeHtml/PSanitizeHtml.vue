@@ -10,17 +10,18 @@
   import { PUnwrap } from '@/components/Unwrap'
 
   const props = defineProps<{
-    html: string,
+    html: string | HTMLElement | DocumentFragment,
+    config?: dompurify.Config,
   }>()
 
   const forbiddenAttrs = ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data', 'onmousedown', 'onmouseup']
   const forbiddenTags = ['script', 'style', 'iframe', 'form']
   const useProfiles = { svg: true, html: true }
 
-  const sanitize = (text: string): string => {
+  const sanitize = (text: string | HTMLElement | DocumentFragment): string | HTMLElement | DocumentFragment => {
     return dompurify.sanitize(
       text,
-      {
+      props.config ?? {
         FORBID_TAGS: forbiddenTags,
         FORBID_ATTR: forbiddenAttrs,
         USE_PROFILES: useProfiles,
