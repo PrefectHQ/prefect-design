@@ -14,7 +14,7 @@
     config?: dompurify.Config,
   }>()
 
-  const defaultConfig = {
+  const defaultConfig: dompurify.Config = {
     FORBID_TAGS: ['script', 'style', 'iframe', 'form'],
     FORBID_ATTR: ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data', 'onmousedown', 'onmouseup'],
     USE_PROFILES: { svg: true, html: true },
