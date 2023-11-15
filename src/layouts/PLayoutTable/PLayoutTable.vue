@@ -8,6 +8,12 @@
 
         <div class="p-layout-table__section p-layout-table__section--end">
           <slot name="header-end" />
+
+          <template v-if="slots['header-sort']">
+            <div class="p-layout-table__header-sort">
+              <slot name="header-sort" />
+            </div>
+          </template>
         </div>
       </slot>
     </div>
@@ -30,7 +36,7 @@
 
 <script lang="ts" setup>
   import { UsePositionStickyObserverOptions, usePositionStickyObserver } from '@prefecthq/vue-compositions'
-  import { computed, ref, toRefs } from 'vue'
+  import { computed, ref, toRefs, useSlots } from 'vue'
   import { Getter } from '@/types'
 
   const props = defineProps<{
@@ -40,6 +46,8 @@
     // class to apply when the header is stuck to a different scroll container.
     boundingElement?: HTMLElement,
   }>()
+
+  const slots = useSlots()
 
   const stickyHeader = ref<HTMLElement>()
 
@@ -69,6 +77,12 @@
   mb-2
   p-2
   gap-2
+}
+
+.p-layout-table__header-sort { @apply
+  border-l
+  border-l-divider
+  pl-2
 }
 
 .p-layout-table__header--sticky { @apply
