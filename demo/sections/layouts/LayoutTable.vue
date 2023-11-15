@@ -12,16 +12,17 @@
           </template>
 
           <template #header-start>
-            <div class="bg-indigo-500 layout-table-section__box">
-              header-start
-            </div>
+            header-start
           </template>
 
           <template #header-end>
-            <div class="bg-violet-500 layout-table-section__box">
-              header-end
-            </div>
+            header-end
           </template>
+
+          <template #header-sort>
+            header-sort
+          </template>
+
 
           <div class="bg-blue-200 dark:bg-blue-800 layout-table-section__box layout-table__main">
             main
@@ -60,15 +61,15 @@
           </template>
 
           <template #header-start>
-            <div class="bg-indigo-500 layout-table-section__box">
-              header-start
-            </div>
+            header-start
           </template>
 
           <template #header-end>
-            <div class="bg-violet-500 layout-table-section__box">
-              header-end
-            </div>
+            header-end
+          </template>
+
+          <template #header-sort>
+            header-sort
           </template>
 
 
