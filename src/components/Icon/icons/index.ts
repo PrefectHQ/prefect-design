@@ -1,5 +1,3 @@
-import { fr } from 'date-fns/locale'
-
 export { default as Agent } from './agent.svg'
 export { default as Automation } from './automation.svg'
 export { default as AwaitingRetry } from './awaiting-retry.svg'
