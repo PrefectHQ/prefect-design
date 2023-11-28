@@ -1,5 +1,5 @@
 <template>
-  <div ref="stickyControls" class="list-header" :class="classes.header">
+  <div ref="stickyContainer" class="list-header" :class="classes.header">
     <div class="list-header__left">
       <slot />
     </div>
@@ -21,16 +21,27 @@
 <script lang="ts" setup>
   import { UsePositionStickyObserverOptions, usePositionStickyObserver } from '@prefecthq/vue-compositions'
   import { computed, ref, useSlots } from 'vue'
+  import { useOffsetStickyRootMargin } from '@/compositions'
+  import { Getter } from '@/types'
 
   const props = defineProps<{
     sticky?: boolean,
-    stickyOptions?: UsePositionStickyObserverOptions,
+    boundingElement?: HTMLElement,
   }>()
 
   const slots = useSlots()
 
-  const stickyControls = ref<HTMLElement>()
-  const { stuck } = usePositionStickyObserver(stickyControls, props.stickyOptions)
+  const stickyContainer = ref<HTMLElement>()
+
+  const { margin } = useOffsetStickyRootMargin()
+
+  const stickyOptions: Getter<UsePositionStickyObserverOptions> = () => {
+    return props.boundingElement
+      ? { boundingElement: props.boundingElement }
+      : { rootMargin: margin.value }
+  }
+
+  const { stuck } = usePositionStickyObserver(stickyContainer, stickyOptions)
 
   const classes = computed(() => ({
     header: {
@@ -52,13 +63,17 @@
     "left sort";
 }
 
-.list-header__left {
+.list-header__left { @apply
+  flex
+  items-center
+  gap-2;
   grid-area: left;
 }
 
 .list-header__controls { @apply
-  flex
-  flex-col
+  grid
+  grid-cols-1
+  md:flex
   md:flex-row
   items-center
   gap-2;
