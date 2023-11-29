@@ -28,6 +28,7 @@ export const components: Section = {
   keyValue: () => import('./KeyValue.vue'),
   label: () => import('./Label.vue'),
   links: () => import('./Links.vue'),
+  listHeader: () => import('./ListHeader.vue'),
   listItems: () => import('./ListItems.vue'),
   listTruncate: () => import('./ListTruncate.vue'),
   markdownRenderer: () => import('./MarkdownRenderer.vue'),

@@ -39,6 +39,7 @@ import { PKeyValue, install as installPKeyValue } from '@/components/KeyValue'
 import { PLabel, install as installPLabel } from '@/components/Label'
 import { PLineNumbers, install as installPLineNumbers } from '@/components/LineNumbers'
 import { PLink, install as installPLink } from '@/components/Link'
+import { PListHeader, install as installPListHeader } from '@/components/ListHeader'
 import { PListItem, install as installPListItem } from '@/components/ListItem'
 import { PListItemInput, install as installPListItemInput } from '@/components/ListItemInput'
 import { PListTruncate, install as installPListTruncate } from '@/components/ListTruncate'
@@ -126,6 +127,7 @@ export {
   PLabel,
   PLineNumbers,
   PLink,
+  PListHeader,
   PListItem,
   PListItemInput,
   PListTruncate,
@@ -224,6 +226,7 @@ export const installs = [
   installPLabel,
   installPLineNumbers,
   installPLink,
+  installPListHeader,
   installPListItem,
   installPListItemInput,
   installPListTruncate,
@@ -312,6 +315,7 @@ declare module '@vue/runtime-core' {
     PLabel: typeof PLabel,
     PLineNumbers: typeof PLineNumbers,
     PLink: typeof PLink,
+    PListHeader: typeof PListHeader,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
     PListTruncate: typeof PListTruncate,
