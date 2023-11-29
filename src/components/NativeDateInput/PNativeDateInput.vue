@@ -16,7 +16,7 @@
       >
     </template>
 
-    <template #append>
+    <template v-if="!disablePicker" #append>
       <PButton icon="CalendarIcon" small flat class="p-native-date-input__picker" @click="showPicker" />
     </template>
   </PBaseInput>
@@ -31,6 +31,7 @@
     modelValue: Date | null | undefined,
     min?: Date | null,
     max?: Date | null,
+    disablePicker?: boolean,
   }>()
 
   const emit = defineEmits<{
