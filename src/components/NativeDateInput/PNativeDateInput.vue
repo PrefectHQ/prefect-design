@@ -46,7 +46,19 @@
       return props.modelValue ? format(props.modelValue, 'yyyy-MM-dd') : null
     },
     set(value) {
-      emit('update:modelValue', value ? parseISO(value) : null)
+      if (!value) {
+        emit('update:modelValue', null)
+        return
+      }
+
+      const parsed = parseISO(value)
+
+      if (props.modelValue) {
+        parsed.setHours(props.modelValue.getHours())
+        parsed.setMinutes(props.modelValue.getMinutes())
+      }
+
+      emit('update:modelValue', parsed)
     },
   })
 
