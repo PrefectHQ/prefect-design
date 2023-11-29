@@ -36,6 +36,7 @@ export const components: Section = {
   modals: () => import('./Modals.vue'),
   nativeDateInput: () => import('./NativeDateInput.vue'),
   nativeSelect: () => import('./NativeSelect.vue'),
+  nativeTimeInput: () => import('./NativeTimeInput.vue'),
   numberInput: () => import('./NumberInput.vue'),
   overflowMenu: () => import('./OverflowMenu.vue'),
   pager: () => import('./Pager.vue'),
