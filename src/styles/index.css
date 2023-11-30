@@ -57,7 +57,11 @@
     --p-color-sentiment-neutral-lightness: 46%;
     --p-color-sentiment-neutral-hsl-values: var(--p-color-sentiment-neutral-hue) var(--p-color-sentiment-neutral-saturation) var(--p-color-sentiment-neutral-lightness);
     --p-color-sentiment-neutral: hsl(var(--p-color-sentiment-neutral-hsl-values));
-    --p-color-sentiment-warning: #F5A50A;
+    --p-color-sentiment-warning-hue: 40deg;
+    --p-color-sentiment-warning-saturation: 92%;
+    --p-color-sentiment-warning-lightness: 50%;
+    --p-color-sentiment-warning-hsl-values: var(--p-color-sentiment-warning-hue) var(--p-color-sentiment-warning-saturation) var(--p-color-sentiment-warning-lightness);
+    --p-color-sentiment-warning: hsl(var(--p-color-sentiment-warning-hsl-values));
     --p-color-sentiment-negative-hue: 4deg;
     --p-color-sentiment-negative-saturation: 74%;
     --p-color-sentiment-negative-lightness: 49%;
@@ -221,7 +225,11 @@
     --p-color-sentiment-neutral-lightness: 46%;
     --p-color-sentiment-neutral-hsl-values: var(--p-color-sentiment-neutral-hue) var(--p-color-sentiment-neutral-saturation) var(--p-color-sentiment-neutral-lightness);
     --p-color-sentiment-neutral: hsl(var(--p-color-sentiment-neutral-hsl-values));
-    --p-color-sentiment-warning: #F5A50A;
+    --p-color-sentiment-warning-hue: 40deg;
+    --p-color-sentiment-warning-saturation: 92%;
+    --p-color-sentiment-warning-lightness: 50%;
+    --p-color-sentiment-warning-hsl-values: var(--p-color-sentiment-warning-hue) var(--p-color-sentiment-warning-saturation) var(--p-color-sentiment-warning-lightness);
+    --p-color-sentiment-warning: hsl(var(--p-color-sentiment-warning-hsl-values));
     --p-color-sentiment-negative-hue: 4deg;
     --p-color-sentiment-negative-saturation: 74%;
     --p-color-sentiment-negative-lightness: 49%;

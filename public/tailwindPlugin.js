@@ -16,6 +16,7 @@ const colors = {
   live: 'var(--p-color-live)',
   'sentiment-positive': 'hsl(var(--p-color-sentiment-positive-hsl-values) / <alpha-value>)',
   'sentiment-neutral': 'hsl(var(--p-color-sentiment-neutral-hsl-values) / <alpha-value>)',
+  'sentiment-warning': 'hsl(var(--p-color-sentiment-warning-hsl-values) / <alpha-value>)',
   'sentiment-negative': 'hsl(var(--p-color-sentiment-negative-hsl-values) / <alpha-value>)',
 }
 
