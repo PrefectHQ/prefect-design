@@ -20,6 +20,7 @@
 
     <PDatePicker
       v-model="internalModelValue"
+      v-model:viewing-date="internalViewingDate"
       class="p-date-input__date-picker"
       v-bind="{ min, max, showTime, clearable }"
       @click.stop

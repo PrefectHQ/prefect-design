@@ -1,5 +1,5 @@
 <template>
-  <PDateInput v-model="rangeValue" v-model:viewingDate="internalViewingDate" :clearable="clearable">
+  <PDateInput v-model="dummy" v-model:viewingDate="internalViewingDate" v-bind="{ showTime, min, max, clearable, disabled }" @update:model-value="update">
     <template #default="{ openPicker, isOpen, disabled }">
       <PDateButton
         :date="null"
@@ -14,7 +14,7 @@
       </PDateButton>
     </template>
 
-    <template #date="{ date, disabled, today, outOfMonth, select }">
+    <template #date="{ date, disabled, today, outOfMonth }">
       <div class="p-date-range-input__date-wrapper" :class="classes.dateWrapper(date)">
         <p-button
           class="p-date-range-input__date"
@@ -22,7 +22,7 @@
           :disabled="disabled"
           small
           flat
-          @click="select"
+          @click="setDate(date)"
         >
           <slot
             name="date"
@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
   import { format, isSameDay, startOfDay, endOfDay } from 'date-fns'
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import PContent from '@/components/Content/PContent.vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDateInput from '@/components/DateInput/PDateInput.vue'
@@ -60,68 +60,30 @@
     viewingDate?: Date,
     showTime?: boolean,
     clearable?: boolean,
+    disabled?: boolean,
+    min?: Date | null | undefined,
+    max?: Date | null | undefined,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:startDate' | 'update:endDate', value: Date | null): void,
+    (event: 'update:startDate' | 'update:endDate', value: Date | null | undefined): void,
     (event: 'update:viewingDate', value: Date | undefined): void,
   }>()
 
+  // this dummy ref is bound to PDatInput's v-model but isn't directly used for anything
+  // this component tracks its own dates
+  const dummy = ref()
+
   const dateFormat = 'MMM do, yyyy'
-
-  const internalStartDate = computed({
-    get() {
-      return props.startDate ?? null
-    },
-    set(value) {
-      emit('update:startDate', value)
-    },
-  })
-
-  const internalEndDate = computed({
-    get() {
-      return props.endDate ?? null
-    },
-    set(value) {
-      emit('update:endDate', value)
-    },
-  })
+  const internalStartDate = ref(props.startDate)
+  const internalEndDate = ref(props.endDate)
 
   const displayValue = computed(() => {
-    if (internalStartDate.value && internalEndDate.value) {
-      return `${format(internalStartDate.value, dateFormat)} - ${format(internalEndDate.value, dateFormat)}`
+    if (props.startDate && props.endDate) {
+      return `${format(props.startDate, dateFormat)} - ${format(props.endDate, dateFormat)}`
     }
 
     return 'Select dates'
-  })
-
-  const rangeValue = computed({
-    get() {
-      return internalEndDate.value ?? internalStartDate.value
-    },
-    set(value) {
-      if (!value) {
-        return clear()
-      }
-
-      if (internalStartDate.value && isDateBefore(value, internalStartDate.value)) {
-        setEndDate(internalEndDate.value ? null : internalStartDate.value)
-        setStartDate(value)
-
-        return
-      }
-
-      if (!internalStartDate.value) {
-        return setStartDate(value)
-      }
-
-      if (!internalEndDate.value) {
-        return setEndDate(value)
-      }
-
-      setStartDate(value)
-      setEndDate(null)
-    },
   })
 
   const internalViewingDate = computed({
@@ -169,6 +131,26 @@
     return isDateInRange(date, { min: internalStartDate.value, max: internalEndDate.value })
   }
 
+  function setDate(value: Date): void {
+    if (internalStartDate.value && isDateBefore(value, internalStartDate.value)) {
+      setEndDate(internalEndDate.value ? null : internalStartDate.value)
+      setStartDate(value)
+
+      return
+    }
+
+    if (!internalStartDate.value) {
+      return setStartDate(value)
+    }
+
+    if (!internalEndDate.value) {
+      return setEndDate(value)
+    }
+
+    setStartDate(value)
+    setEndDate(null)
+  }
+
   function setStartDate(value: Date | null): void {
     internalStartDate.value = value ? startOfDay(value) : value
   }
@@ -177,9 +159,9 @@
     internalEndDate.value = value ? endOfDay(value) : value
   }
 
-  function clear(): void {
-    internalStartDate.value = null
-    internalEndDate.value = null
+  function update(): void {
+    emit('update:startDate', internalStartDate.value)
+    emit('update:endDate', internalEndDate.value)
   }
 </script>
 

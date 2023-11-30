@@ -1,6 +1,10 @@
 <template>
   <p-content class="p-date-picker" secondary>
-    <PCalendar v-model="selected" v-model:viewingDate="viewingDate" v-bind="{ min, max }" />
+    <PCalendar v-model="selected" v-model:viewingDate="viewingDate" v-bind="{ min, max }">
+      <template #date="scope">
+        <slot name="date" v-bind="scope" />
+      </template>
+    </PCalendar>
 
     <div class="p-date-picker__controls">
       <slot name="controls">

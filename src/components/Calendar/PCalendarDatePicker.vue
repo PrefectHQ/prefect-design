@@ -9,11 +9,11 @@
     </div>
     <div class="p-calendar-date-picker__dates">
       <template v-for="date in dates" :key="date.getTime()">
-        <PButton small flat class="p-calendar-date-picker__date" :class="getDateClasses(date)" @click="setSelected(date)">
-          <slot name="date" :date="date">
+        <slot name="date" :date="date" :select="() => setSelected(date)">
+          <PButton small flat class="p-calendar-date-picker__date" :class="getDateClasses(date)" @click="setSelected(date)">
             {{ date.getDate() }}
-          </slot>
-        </PButton>
+          </PButton>
+        </slot>
       </template>
     </div>
   </div>
