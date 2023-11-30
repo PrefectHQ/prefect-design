@@ -1,16 +1,16 @@
 <template>
   <p-content class="p-calendar" :class="`p-calendar--${mode}`">
-    <PCalendarHeader v-model="selected" v-model:mode="mode" v-bind="{ min, max }" />
+    <PCalendarHeader v-model="viewingDate" v-model:mode="mode" v-bind="{ min, max }" />
 
     <div class="p-calendar__mode">
-      <PCalendarDatePicker v-model="selected" :class="classes" v-bind="{ min, max }" @mode="mode = $event" />
+      <PCalendarDatePicker v-model="selected" :class="classes" v-bind="{ viewingDate, min, max }" @mode="mode = $event" />
 
       <div v-if="overlay" class="p-calendar__overlay">
         <template v-if="mode === 'year'">
-          <PCalendarYearPicker v-model="selected" v-bind="{ min, max }" @update:model-value="mode = 'date'" />
+          <PCalendarYearPicker v-model="viewingDate" v-bind="{ min, max }" @update:model-value="mode = 'date'" />
         </template>
         <template v-if="mode === 'month'">
-          <PCalendarMonthPicker v-model="selected" v-bind="{ min, max }" @update:model-value="mode = 'date'" />
+          <PCalendarMonthPicker v-model="viewingDate" v-bind="{ min, max }" @update:model-value="mode = 'date'" />
         </template>
       </div>
     </div>
@@ -37,28 +37,39 @@
 
   const props = defineProps<{
     modelValue?: Date | null | undefined,
+    viewingDate?: Date | null | undefined,
     classes?: Classes,
     min?: Date | null | undefined,
     max?: Date | null | undefined,
   }>()
 
   const emit = defineEmits<{
-    'update:modelValue': [value: Date],
+    'update:modelValue': [value: Date | null | undefined],
+    'update:viewingDate': [value: Date | null | undefined],
   }>()
 
   const mode = ref<'date' | 'month' | 'year'>('date')
   const overlay = computed(() => mode.value !== 'date')
 
-  const fallbackSelected = ref(new Date())
+  const fallbackViewingDate = ref(props.modelValue ?? new Date())
+
+  const viewingDate = computed({
+    get() {
+      return props.viewingDate ?? fallbackViewingDate.value
+    },
+    set(value) {
+      emit('update:viewingDate', value)
+
+      fallbackViewingDate.value = value
+    },
+  })
 
   const selected = computed({
     get() {
-      return props.modelValue ?? fallbackSelected.value
+      return props.modelValue
     },
     set(value) {
       emit('update:modelValue', value)
-
-      fallbackSelected.value = value
     },
   })
 </script>

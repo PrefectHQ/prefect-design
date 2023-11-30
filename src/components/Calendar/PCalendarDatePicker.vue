@@ -21,8 +21,9 @@
 
 <script lang="ts" setup>
   import { eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, isToday, startOfMonth, startOfWeek } from 'date-fns'
-  import { computed, ref } from 'vue'
+  import { computed } from 'vue'
   import { ClassValue } from '@/types/attributes'
+  import { isNotNullish } from '@/utilities'
 
   type DateParams = {
     date: Date,
@@ -36,22 +37,31 @@
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
+    viewingDate: Date,
     classes?: Classes,
   }>()
 
   const emit = defineEmits<{
-    'update:modelValue': [selected: Date | null | undefined],
+    'update:modelValue': [value: Date | null | undefined],
+    'update:viewingDate': [value: Date | null | undefined],
     'mode': [mode: 'month' | 'year'],
   }>()
 
-  const fallbackSelected = ref(new Date())
   const selected = computed({
     get() {
-      return props.modelValue ?? fallbackSelected.value
+      return props.modelValue
     },
     set(value) {
       emit('update:modelValue', value)
-      fallbackSelected.value = value
+    },
+  })
+
+  const viewingDate = computed({
+    get() {
+      return props.viewingDate
+    },
+    set(value) {
+      emit('update:viewingDate', value)
     },
   })
 
@@ -59,9 +69,9 @@
 
 
   const dates = computed(() => {
-    const monthStart = startOfMonth(selected.value)
+    const monthStart = startOfMonth(viewingDate.value)
     const start = startOfWeek(monthStart)
-    const monthEnd = endOfMonth(selected.value)
+    const monthEnd = endOfMonth(viewingDate.value)
     const end = endOfWeek(monthEnd)
 
     return eachDayOfInterval({ start, end })
@@ -69,9 +79,9 @@
 
   function getDateClasses(date: Date): ClassValue {
     const today = isToday(date)
-    const sameMonth = isSameMonth(date, selected.value)
+    const sameMonth = isNotNullish(viewingDate.value) && isSameMonth(date, viewingDate.value)
     const custom = props.classes?.button({ date, today })
-    const isSelected = isSameDay(date, selected.value)
+    const isSelected = isNotNullish(selected.value) && isSameDay(date, selected.value)
 
     const builtIn: ClassValue = {
       'p-calendar-date-picker__date--today': today,

@@ -1,6 +1,6 @@
 <template>
   <p-content class="p-date-picker" secondary>
-    <PCalendar v-model="selected" v-bind="{ min, max }" />
+    <PCalendar v-model="selected" v-model:viewingDate="viewingDate" v-bind="{ min, max }" />
 
     <div class="p-date-picker__controls">
       <slot name="controls">
@@ -28,8 +28,7 @@
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
-    // will need to re-add support for this.
-    // viewingDate?: Date,
+    viewingDate?: Date | null | undefined,
     showTime?: boolean,
     clearable?: boolean,
     min?: Date | null | undefined,
@@ -38,7 +37,7 @@
 
   const emit = defineEmits<{
     'update:modelValue': [value: Date | null | undefined],
-    'update:viewingDate': [value: Date],
+    'update:viewingDate': [value: Date | null | undefined],
     'close': [],
   }>()
 
@@ -57,6 +56,19 @@
       }
 
       emit('update:modelValue', keepDateInRange(value, range.value))
+    },
+  })
+
+  const fallbackViewingDate = ref(props.modelValue ?? new Date())
+
+  const viewingDate = computed({
+    get() {
+      return props.viewingDate ?? fallbackViewingDate.value
+    },
+    set(value) {
+      emit('update:viewingDate', value)
+
+      fallbackViewingDate.value = value
     },
   })
 
