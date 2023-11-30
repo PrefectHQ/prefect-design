@@ -14,9 +14,9 @@ const colors = {
   'focus-ring': 'var(--p-color-focus-ring)',
   'focus-ring-offset': 'var(--p-color-focus-ring-offset)',
   live: 'var(--p-color-live)',
-  'sentiment-positive': 'var(--p-color-sentiment-positive)',
-  'sentiment-neutral': 'var(--p-color-sentiment-neutral)',
-  'sentiment-negative': 'var(--p-color-sentiment-negative)',
+  'sentiment-positive': 'hsl(var(--p-color-sentiment-positive-hsl-values) / <alpha-value>)',
+  'sentiment-neutral': 'hsl(var(--p-color-sentiment-neutral-hsl-values) / <alpha-value>)',
+  'sentiment-negative': 'hsl(var(--p-color-sentiment-negative-hsl-values) / <alpha-value>)',
 }
 
 const spacing = {
