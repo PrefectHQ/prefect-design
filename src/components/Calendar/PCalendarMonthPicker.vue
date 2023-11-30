@@ -1,10 +1,10 @@
 <template>
-  <div class="p-month-picker">
+  <div class="p-calendar-month-picker">
     <template v-for="(option) in monthOptions" :key="option.value">
-      <div class="p-month-picker__month">
+      <div class="p-calendar-month-picker__month">
         <p-button
           small
-          class="p-month-picker__month-button"
+          class="p-calendar-month-picker__month-button"
           :class="getSelectedClass(option.value)"
           :disabled="isDisabled(option.value)"
           @click="updateSelectedDate(option.value)"
@@ -54,7 +54,7 @@
 
   function getSelectedClass(month: number): string | null {
     return selectedDate.value.getMonth() === month
-      ? 'p-month-picker__month-button--selected'
+      ? 'p-calendar-month-picker__month-button--selected'
       : null
   }
 
@@ -79,7 +79,7 @@
 </script>
 
 <style>
-.p-month-picker { @apply
+.p-calendar-month-picker { @apply
   h-full
   grid
   grid-cols-3
@@ -88,15 +88,15 @@
   justify-around
 }
 
-.p-month-picker__month { @apply
+.p-calendar-month-picker__month { @apply
   flex
   items-center
   justify-center
 }
 
-.p-month-picker__month-button--selected,
-.p-month-picker__month-button--selected:not(:disabled):hover,
-.p-month-picker__month-button--selected:not(:disabled):active { @apply
+.p-calendar-month-picker__month-button--selected,
+.p-calendar-month-picker__month-button--selected:not(:disabled):hover,
+.p-calendar-month-picker__month-button--selected:not(:disabled):active { @apply
   border-none
   cursor-default
   bg-[var(--p-color-input-checked-bg)]

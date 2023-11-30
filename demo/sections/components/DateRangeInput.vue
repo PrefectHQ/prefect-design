@@ -2,7 +2,7 @@
   <ComponentPage title="Date Range Input" :demos="[{ title: 'Date Range Input' }]">
     <template #date-range-input>
       <div class="date-range-input__demo">
-        <p-date-range-input v-model:startDate="value.start" v-model:endDate="value.end" clearable />
+        <p-date-range-input v-model:startDate="value.start" v-model:endDate="value.end" clearable show-time />
 
         <p-code inline>
           start:{{ JSON.stringify(value.start) }}

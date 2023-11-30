@@ -6,6 +6,7 @@ export const components: Section = {
   breadCrumbs: () => import('./BreadCrumbs.vue'),
   button: () => import('./Buttons.vue'),
   buttonGroup: () => import('./ButtonGroup.vue'),
+  calendar: () => import('./Calendar.vue'),
   card: () => import('./Card.vue'),
   checkbox: () => import('./Checkbox.vue'),
   checkboxGroup: () => import('./CheckboxGroup.vue'),

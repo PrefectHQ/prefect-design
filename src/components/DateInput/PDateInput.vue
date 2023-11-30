@@ -9,33 +9,21 @@
   >
     <template #target>
       <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
-        <template v-if="media.hover">
-          <PDateButton
-            :date="internalModelValue"
-            :class="classes.control"
-            v-bind="{ showTime, disabled }"
-            @click="openPicker"
-          />
-        </template>
-        <template v-else>
-          <PNativeDateInput
-            v-model="internalModelValue"
-            class="p-date-input__native"
-            v-bind="{ min, max, disabled, showTime }"
-          />
-        </template>
+        <PDateButton
+          :date="internalModelValue"
+          :class="classes.control"
+          v-bind="{ showTime, disabled }"
+          @click="openPicker"
+        />
       </slot>
     </template>
 
     <PDatePicker
       v-model="internalModelValue"
-      v-model:viewingDate="internalViewingDate"
       class="p-date-input__date-picker"
-      :show-time="showTime"
-      :clearable="clearable"
-      :min="min"
-      :max="max"
+      v-bind="{ min, max, showTime, clearable }"
       @click.stop
+      @close="closePicker"
       @keydown="closeOnEscape"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
@@ -49,7 +37,6 @@
   import { computed, ref } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
-  import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { keys } from '@/types'
   import { keepDateInRange } from '@/utilities/dates'
@@ -95,10 +82,9 @@
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const classes = computed(() => ({
-    control:
-      {
-        'p-date-input--open': isOpen.value,
-      },
+    control: {
+      'p-date-input--open': isOpen.value,
+    },
   }))
 
   function openPicker(): void {
