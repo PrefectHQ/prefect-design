@@ -47,23 +47,7 @@
   }>()
 
   const range = computed(() => ({ min: props.min, max: props.max }))
-
   const selected = ref(props.modelValue)
-
-  const modelValue = computed({
-    get() {
-      return props.modelValue
-    },
-    set(value) {
-      if (!value) {
-        emit('update:modelValue', value)
-        return
-      }
-
-      emit('update:modelValue', keepDateInRange(value, range.value))
-    },
-  })
-
   const fallbackViewingDate = ref(props.modelValue ?? new Date())
 
   const viewingDate = computed({
@@ -78,7 +62,9 @@
   })
 
   function apply(): void {
-    modelValue.value = selected.value
+    const value = selected.value ? keepDateInRange(selected.value, range.value) : null
+
+    emit('update:modelValue', value)
     close()
   }
 
