@@ -38,8 +38,8 @@
 
     <template #controls>
       <PContent>
-        <PDateTimeInputGroup v-model="internalStartDate" show-time label="Start Date" />
-        <PDateTimeInputGroup v-model="internalEndDate" show-time label="End Date" />
+        <PDateTimeInputGroup v-model="internalStartDate" :show-time="showTime" label="Start Date" />
+        <PDateTimeInputGroup v-model="internalEndDate" :show-time="showTime" label="End Date" />
       </PContent>
     </template>
   </PDateInput>
