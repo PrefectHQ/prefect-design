@@ -2,11 +2,12 @@
   <PDateInput v-model="dummy" v-model:viewingDate="internalViewingDate" v-bind="{ showTime, min, max, clearable, disabled }" @update:model-value="update">
     <template #default="{ openPicker, isOpen, disabled: buttonDisabled }">
       <PDateButton
-        :date="null"
+        :date="startDate"
         class="p-date-range-input__trigger"
         :class="classes.trigger(isOpen)"
         :disabled="buttonDisabled"
         @click="openPicker"
+        @clear="clear"
       >
         <div class="p-date-range-input__target">
           {{ displayValue }}
@@ -162,6 +163,13 @@
   function update(): void {
     emit('update:startDate', internalStartDate.value)
     emit('update:endDate', internalEndDate.value)
+  }
+
+  function clear(): void {
+    setStartDate(null)
+    setEndDate(null)
+    emit('update:startDate', null)
+    emit('update:endDate', null)
   }
 </script>
 

@@ -10,7 +10,7 @@
     <template #target>
       <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
         <template v-if="media.hover">
-          <PDateButton :date="internalModelValue" :class="classes.control" v-bind="{ showTime, disabled }" @click="openPicker" />
+          <PDateButton :date="internalModelValue" :class="classes.control" v-bind="{ showTime, disabled }" @click="openPicker" @clear="clear" />
         </template>
         <template v-else>
           <PNativeDateInput v-model="internalModelValue" v-bind="{ min, max, disabled }" />
@@ -88,6 +88,10 @@
       'p-date-input--open': isOpen.value,
     },
   }))
+
+  function clear(): void {
+    emit('update:modelValue', null)
+  }
 
   function openPicker(): void {
     if (!isOpen.value && !props.disabled) {

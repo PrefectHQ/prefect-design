@@ -35,7 +35,6 @@
     modelValue: Date | null | undefined,
     viewingDate?: Date | null | undefined,
     showTime?: boolean,
-    clearable?: boolean,
     min?: Date | null | undefined,
     max?: Date | null | undefined,
   }>()
