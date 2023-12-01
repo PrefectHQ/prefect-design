@@ -22,6 +22,7 @@
   import { format, eachMonthOfInterval, startOfYear, endOfYear, setMonth, startOfMonth, endOfMonth } from 'date-fns'
   import { computed, nextTick, onMounted, ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
+  import { ClassValue } from '@/types'
   import { isDateAfter, isDateBefore, keepDateInRange } from '@/utilities/dates'
 
   const props = defineProps<{
@@ -52,10 +53,10 @@
     label: format(x, 'MMMM'),
   }))
 
-  function getSelectedClass(month: number): string | null {
-    return selectedDate.value.getMonth() === month
-      ? 'p-calendar-month-picker__month-button--selected'
-      : null
+  function getSelectedClass(month: number): ClassValue {
+    return {
+      'p-calendar-month-picker__month-button--selected': selectedDate.value.getMonth() === month,
+    }
   }
 
   function isDisabled(month: number): boolean {
