@@ -70,15 +70,23 @@
   const year = computed(() => format(selected.value, 'yyyy'))
 
   const previousDisabled = computed(() => {
+    if (!props.min) {
+      return false
+    }
+
     const previousMonth = addMonths(selected.value, -1)
 
-    return !!props.min && isDateBefore(endOfMonth(previousMonth), props.min)
+    return isDateBefore(endOfMonth(previousMonth), props.min)
   })
 
   const nextDisabled = computed(() => {
+    if (!props.max) {
+      return false
+    }
+
     const nextMonth = addMonths(selected.value, 1)
 
-    return !!props.max && isDateAfter(startOfMonth(nextMonth), props.max)
+    return isDateAfter(startOfMonth(nextMonth), props.max)
   })
 </script>
 
