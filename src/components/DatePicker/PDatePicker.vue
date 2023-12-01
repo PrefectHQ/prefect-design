@@ -1,5 +1,5 @@
 <template>
-  <p-content class="p-date-picker" secondary>
+  <PContent class="p-date-picker" secondary>
     <PCalendar v-model="selected" v-model:viewingDate="viewingDate" v-bind="{ min, max }">
       <template #date="scope">
         <slot name="date" v-bind="scope" />
@@ -20,13 +20,14 @@
         Apply
       </PButton>
     </div>
-  </p-content>
+  </PContent>
 </template>
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PCalendar from '@/components/Calendar/PCalendar.vue'
+  import PContent from '@/components/Content/PContent.vue'
   import PDateTimeInputGroup from '@/components/DateTimeInputGroup/PDateTimeInputGroup.vue'
   import { keepDateInRange } from '@/utilities/dates'
 
