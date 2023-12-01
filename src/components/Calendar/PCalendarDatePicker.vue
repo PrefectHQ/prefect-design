@@ -9,8 +9,15 @@
     </div>
     <div class="p-calendar-date-picker__dates">
       <template v-for="date in dates" :key="date.getTime()">
-        <slot name="date" :date="date" :select="() => setSelected(date)">
-          <PButton small flat class="p-calendar-date-picker__date" :class="getDateClasses(date)" @click="setSelected(date)">
+        <slot name="date" v-bind="scope(date)">
+          <PButton
+            small
+            flat
+            class="p-calendar-date-picker__date"
+            :class="getDateClasses(date)"
+            :disabled="isDateDisabled(date)"
+            @click="setSelected(date)"
+          >
             {{ date.getDate() }}
           </PButton>
         </slot>
@@ -23,28 +30,32 @@
   import { eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, isToday, startOfMonth, startOfWeek } from 'date-fns'
   import { computed } from 'vue'
   import { ClassValue } from '@/types/attributes'
-  import { isNotNullish } from '@/utilities'
+  import { isDateAfter, isDateBefore, isNotNullish } from '@/utilities'
 
-  type DateParams = {
+  type DateSlotScope = {
     date: Date,
     today: boolean,
-  }
-
-  type Classes = {
-    date: (params: DateParams) => ClassValue,
-    button: (params: DateParams) => ClassValue,
+    disabled: boolean,
+    selected: boolean,
+    inMonth: boolean,
+    select: () => void,
   }
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
     viewingDate: Date,
-    classes?: Classes,
+    min?: Date | null | undefined,
+    max?: Date | null | undefined,
   }>()
 
   const emit = defineEmits<{
     'update:modelValue': [value: Date | null | undefined],
     'update:viewingDate': [value: Date | null | undefined],
     'mode': [mode: 'month' | 'year'],
+  }>()
+
+  defineSlots<{
+    date: (props: DateSlotScope) => any,
   }>()
 
   const selected = computed({
@@ -67,7 +78,6 @@
 
   const days = eachDayOfInterval({ start: startOfWeek(new Date()), end: endOfWeek(new Date()) }).map(x => format(x, 'EEEEEE'))
 
-
   const dates = computed(() => {
     const monthStart = startOfMonth(viewingDate.value)
     const start = startOfWeek(monthStart)
@@ -77,20 +87,44 @@
     return eachDayOfInterval({ start, end })
   })
 
-  function getDateClasses(date: Date): ClassValue {
-    const today = isToday(date)
-    const sameMonth = isNotNullish(viewingDate.value) && isSameMonth(date, viewingDate.value)
-    const custom = props.classes?.button({ date, today })
-    const isSelected = isNotNullish(selected.value) && isSameDay(date, selected.value)
-
-    const builtIn: ClassValue = {
-      'p-calendar-date-picker__date--today': today,
-      'p-calendar-date-picker__date--selected': isSelected,
-      'p-calendar-date-picker__date--in-month': sameMonth,
-      'p-calendar-date-picker__date--out-of-month': !sameMonth,
+  function isDateDisabled(date: Date): boolean {
+    if (props.min && isDateBefore(date, props.min)) {
+      return true
     }
 
-    return [builtIn, custom]
+    if (props.max && isDateAfter(date, props.max)) {
+      return true
+    }
+
+    return false
+  }
+
+  function scope(date: Date): DateSlotScope {
+    const today = isToday(date)
+    const disabled = isDateDisabled(date)
+    const select = (): void => setSelected(date)
+    const inMonth = isNotNullish(viewingDate.value) && isSameMonth(date, viewingDate.value)
+    const isSelected = isNotNullish(selected.value) && isSameDay(date, selected.value)
+
+    return {
+      date,
+      today,
+      disabled,
+      select,
+      selected: isSelected,
+      inMonth,
+    }
+  }
+
+  function getDateClasses(date: Date): ClassValue {
+    const { today, selected, inMonth } = scope(date)
+
+    return {
+      'p-calendar-date-picker__date--today': today,
+      'p-calendar-date-picker__date--selected': selected,
+      'p-calendar-date-picker__date--in-month': inMonth,
+      'p-calendar-date-picker__date--out-of-month': !inMonth,
+    }
   }
 
   function setSelected(date: Date): void {

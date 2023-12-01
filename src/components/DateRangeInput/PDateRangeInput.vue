@@ -1,11 +1,11 @@
 <template>
   <PDateInput v-model="dummy" v-model:viewingDate="internalViewingDate" v-bind="{ showTime, min, max, clearable, disabled }" @update:model-value="update">
-    <template #default="{ openPicker, isOpen, disabled }">
+    <template #default="{ openPicker, isOpen, disabled: buttonDisabled }">
       <PDateButton
         :date="null"
         class="p-date-range-input__trigger"
         :class="classes.trigger(isOpen)"
-        :disabled="disabled"
+        :disabled="buttonDisabled"
         @click="openPicker"
       >
         <div class="p-date-range-input__target">
@@ -14,12 +14,12 @@
       </PDateButton>
     </template>
 
-    <template #date="{ date, disabled, today, outOfMonth }">
+    <template #date="{ date, disabled: dateDisabled, today, inMonth }">
       <div class="p-date-range-input__date-wrapper" :class="classes.dateWrapper(date)">
         <p-button
           class="p-date-range-input__date"
-          :class="classes.date(today, outOfMonth)"
-          :disabled="disabled"
+          :class="classes.date(today, inMonth)"
+          :disabled="dateDisabled"
           small
           flat
           @click="setDate(date)"
@@ -105,9 +105,9 @@
       'p-date-range-input__date-wrapper--selected-end': isSelectedEndDate(date),
       'p-date-range-input__date-wrapper--in-range': isDateInSelectedRange(date),
     }),
-    date: (today: boolean, outOfMonth: boolean) => ({
+    date: (today: boolean, inMonth: boolean) => ({
       'p-date-range-input__date--today': today,
-      'p-date-range-input__date--out-of-month': outOfMonth,
+      'p-date-range-input__date--out-of-month': !inMonth,
     }),
   }))
 
