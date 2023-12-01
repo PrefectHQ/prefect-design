@@ -9,12 +9,12 @@
   >
     <template #target>
       <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
-        <PDateButton
-          :date="internalModelValue"
-          :class="classes.control"
-          v-bind="{ showTime, disabled }"
-          @click="openPicker"
-        />
+        <template v-if="media.hover">
+          <PDateButton :date="internalModelValue" :class="classes.control" v-bind="{ showTime, disabled }" @click="openPicker" />
+        </template>
+        <template v-else>
+          <PNativeDateInput v-model="internalModelValue" v-bind="{ min, max, disabled }" />
+        </template>
       </slot>
     </template>
 
@@ -38,6 +38,7 @@
   import { computed, ref } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
+  import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { keys } from '@/types'
   import { keepDateInRange } from '@/utilities/dates'
