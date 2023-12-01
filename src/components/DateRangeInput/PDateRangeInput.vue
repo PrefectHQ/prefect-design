@@ -128,7 +128,7 @@
       return false
     }
 
-    return isDateInRange(date, { min: internalStartDate.value, max: internalEndDate.value })
+    return isDateInRange(date, { min: internalStartDate.value, max: internalEndDate.value }, 'day')
   }
 
   function setDate(value: Date): void {
