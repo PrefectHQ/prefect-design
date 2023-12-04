@@ -10,7 +10,7 @@
     <template #target>
       <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
         <template v-if="media.hover">
-          <PDateButton :date="internalModelValue" :class="classes.control" v-bind="{ showTime, disabled }" @click="openPicker" @clear="clear" />
+          <PDateButton :date="internalModelValue" :class="classes.control" v-bind="{ showTime, disabled, clearable }" @click="openPicker" @clear="clear" />
         </template>
         <template v-else>
           <PNativeDateInput v-model="internalModelValue" v-bind="{ min, max, disabled }" />
@@ -22,7 +22,7 @@
       v-model="internalModelValue"
       v-model:viewing-date="internalViewingDate"
       class="p-date-input__date-picker"
-      v-bind="{ min, max, showTime, clearable }"
+      v-bind="{ min, max, showTime }"
       @click.stop
       @close="closePicker"
       @keydown="closeOnEscape"

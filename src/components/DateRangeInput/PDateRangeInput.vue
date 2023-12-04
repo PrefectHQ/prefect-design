@@ -6,6 +6,7 @@
         class="p-date-range-input__trigger"
         :class="classes.trigger(isOpen)"
         :disabled="buttonDisabled"
+        :clearable="clearable"
         @click="openPicker"
         @clear="clear"
       >

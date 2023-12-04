@@ -20,7 +20,7 @@
     </template>
     <template #append>
       <div class="p-date-button__actions">
-        <template v-if="date">
+        <template v-if="date && clearable">
           <PButton small flat icon="XCircleIcon" @click="emit('clear')" />
         </template>
         <PButton small flat icon="CalendarIcon" />
@@ -37,6 +37,7 @@
 
   const props = defineProps<{
     date: Date | null | undefined,
+    clearable?: boolean,
     showTime?: boolean,
   }>()
 
