@@ -1,7 +1,7 @@
 <template>
   <PPopOver
     ref="popOver"
-    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
+    :placement="[bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside]"
     class="p-date-input"
     auto-close
     @open="handleOpenChange"
@@ -43,7 +43,7 @@
   import { keys } from '@/types'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
-  import { bottomRight, topRight, bottomLeft, topLeft } from '@/utilities/position'
+  import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
