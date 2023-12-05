@@ -19,9 +19,12 @@
       </button>
     </template>
     <template #append>
-      <span class="p-date-button__icon">
-        <PIcon icon="CalendarIcon" />
-      </span>
+      <div class="p-date-button__actions">
+        <template v-if="date && clearable">
+          <PButton small flat icon="XCircleIcon" @click="emit('clear')" />
+        </template>
+        <PButton small flat icon="CalendarIcon" />
+      </div>
     </template>
   </PBaseInput>
 </template>
@@ -30,10 +33,16 @@
   import { format } from 'date-fns'
   import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
+  import PButton from '@/components/Button/PButton.vue'
 
   const props = defineProps<{
     date: Date | null | undefined,
+    clearable?: boolean,
     showTime?: boolean,
+  }>()
+
+  const emit = defineEmits<{
+    'clear': [],
   }>()
 
   const buttonElement = ref<HTMLButtonElement>()
@@ -90,15 +99,9 @@
   h-full
 }
 
-.p-date-button__icon { @apply
-  pr-2
+.p-date-button__actions { @apply
+  mr-2
   flex
-  items-center
-  pointer-events-none
-}
-
-.p-date-button__icon .p-icon { @apply
-  w-4
-  h-4
+  gap-1
 }
 </style>
