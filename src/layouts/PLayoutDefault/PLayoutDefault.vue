@@ -1,6 +1,6 @@
 <template>
   <div class="p-layout-default">
-    <div class="p-layout-default__header">
+    <div v-if="$slots.header" class="p-layout-default__header">
       <slot name="header" class="p-layout-default__header" />
     </div>
     <div class="p-layout-default__content">
