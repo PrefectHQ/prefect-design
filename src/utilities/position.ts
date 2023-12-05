@@ -139,7 +139,3 @@ export const rightTop: PositionMethod = function(target: DOMRect, content: DOMRe
     left,
   }
 }
-
-// export const rightMiddle: PositionMethod = function(target, content, container) {
-//   const top = target.top - target.height / 2
-// }
