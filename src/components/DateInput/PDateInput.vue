@@ -1,7 +1,7 @@
 <template>
   <PPopOver
     ref="popOver"
-    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
+    :placement="[bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside]"
     class="p-date-input"
     auto-close
     @open="handleOpenChange"
@@ -10,32 +10,21 @@
     <template #target>
       <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
         <template v-if="media.hover">
-          <PDateButton
-            :date="internalModelValue"
-            :class="classes.control"
-            v-bind="{ showTime, disabled }"
-            @click="openPicker"
-          />
+          <PDateButton :date="internalModelValue" :class="classes.control" v-bind="{ showTime, disabled, clearable }" @click="openPicker" @clear="clear" />
         </template>
         <template v-else>
-          <PNativeDateInput
-            v-model="internalModelValue"
-            class="p-date-input__native"
-            v-bind="{ min, max, disabled, showTime }"
-          />
+          <PNativeDateInput v-model="internalModelValue" v-bind="{ min, max, disabled }" />
         </template>
       </slot>
     </template>
 
     <PDatePicker
       v-model="internalModelValue"
-      v-model:viewingDate="internalViewingDate"
+      v-model:viewing-date="internalViewingDate"
       class="p-date-input__date-picker"
-      :show-time="showTime"
-      :clearable="clearable"
-      :min="min"
-      :max="max"
+      v-bind="{ min, max, showTime }"
       @click.stop
+      @close="closePicker"
       @keydown="closeOnEscape"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
@@ -54,7 +43,7 @@
   import { keys } from '@/types'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
-  import { bottomRight, topRight, bottomLeft, topLeft } from '@/utilities/position'
+  import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -95,11 +84,14 @@
   const isOpen = computed(() => popOver.value?.visible ?? false)
 
   const classes = computed(() => ({
-    control:
-      {
-        'p-date-input--open': isOpen.value,
-      },
+    control: {
+      'p-date-input--open': isOpen.value,
+    },
   }))
+
+  function clear(): void {
+    emit('update:modelValue', null)
+  }
 
   function openPicker(): void {
     if (!isOpen.value && !props.disabled) {

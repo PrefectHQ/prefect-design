@@ -1,7 +1,5 @@
 import { SetupContext, StyleValue as VueStyleValue } from 'vue'
 
-type SimpleClassValue = string | Record<string, boolean> | undefined
-
 export type StyleValue = VueStyleValue
-export type ClassValue = SimpleClassValue | SimpleClassValue[]
+export type ClassValue = string | undefined | Record<string, boolean> | ClassValue[]
 export type AttrsValue = Exclude<SetupContext['attrs'], 'class' | 'style'>

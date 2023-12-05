@@ -20,6 +20,16 @@ export const right: PositionMethod = function(target: DOMRect, content: DOMRect,
   }
 }
 
+export const rightInside: PositionMethod = function(target, content, container): Position {
+  const top = target.top - container.top - content.height / 2 + target.height / 2
+  const left = target.right - content.width
+
+  return {
+    top,
+    left,
+  }
+}
+
 export const bottom: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
   const top = target.top - container.top + target.height
   const left = target.left - container.left + target.width / 2 - content.width / 2
@@ -33,6 +43,16 @@ export const bottom: PositionMethod = function(target: DOMRect, content: DOMRect
 export const left: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
   const top = target.top - container.top - content.height / 2 + target.height / 2
   const left = target.left - container.left - content.width
+
+  return {
+    top,
+    left,
+  }
+}
+
+export const leftInside: PositionMethod = function(target, content, container): Position {
+  const top = target.top - container.top - content.height / 2 + target.height / 2
+  const { left } = target
 
   return {
     top,

@@ -1,5 +1,5 @@
 <template>
-  <PBaseInput class="p-native-date-input">
+  <PBaseInput class="p-native-time-input">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -8,8 +8,8 @@
       <input
         ref="inputElement"
         v-model="stringValue"
-        type="date"
-        class="p-native-date-input__control"
+        type="time"
+        class="p-native-time-input__control"
         :min="stringMin"
         :max="stringMax"
         v-bind="attrs"
@@ -17,13 +17,13 @@
     </template>
 
     <template v-if="!disablePicker" #append>
-      <PButton icon="CalendarIcon" small flat class="p-native-date-input__picker" @click="showPicker" />
+      <PButton icon="ClockIcon" small flat class="p-native-time-input__picker" @click="showPicker" />
     </template>
   </PBaseInput>
 </template>
 
 <script lang="ts" setup>
-  import { format, parseISO } from 'date-fns'
+  import { format, parse } from 'date-fns'
   import { computed, readonly, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
@@ -44,7 +44,7 @@
 
   const stringValue = computed({
     get() {
-      return props.modelValue ? format(props.modelValue, 'yyyy-MM-dd') : null
+      return props.modelValue ? format(props.modelValue, 'HH:mm') : null
     },
     set(value) {
       if (!value) {
@@ -52,12 +52,8 @@
         return
       }
 
-      const parsed = parseISO(value)
-
-      if (props.modelValue) {
-        parsed.setHours(props.modelValue.getHours())
-        parsed.setMinutes(props.modelValue.getMinutes())
-      }
+      const reference = props.modelValue ?? new Date()
+      const parsed = parse(value, 'H:mm', reference)
 
       emit('update:modelValue', parsed)
     },
@@ -72,7 +68,7 @@
 </script>
 
 <style>
-.p-native-date-input__control { @apply
+.p-native-time-input__control { @apply
   bg-transparent
   block
   w-full
@@ -81,16 +77,16 @@
   focus:ring-0
 }
 
-.p-native-date-input__control::-webkit-calendar-picker-indicator {
+.p-native-time-input__control::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
 
-.p-native-date-input__control:disabled { @apply
+.p-native-time-input__control:disabled { @apply
   cursor-not-allowed
 }
 
-.p-native-date-input__picker { @apply
+.p-native-time-input__picker { @apply
   mr-2
 }
 </style>
