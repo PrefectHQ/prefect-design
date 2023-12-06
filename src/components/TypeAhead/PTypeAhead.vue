@@ -26,7 +26,7 @@
     <PSelectOptions
       v-model="modelValue"
       class="p-type-ahead__options"
-      :options="options"
+      :options="filteredSelectOptions"
       :style="styles.option"
       @update:model-value="handleOptionSelected"
       @keydown="handleKeydown"
@@ -54,7 +54,7 @@
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectModelValue } from '@/types/selectOption'
+  import { SelectModelValue, normalizeSelectOption, optionIncludes } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -85,6 +85,14 @@
   })
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
+
+  const selectOptions = computed(() => {
+    return props.options.map(option => normalizeSelectOption(option))
+  })
+
+  const filteredSelectOptions = computed(() => {
+    return selectOptions.value.filter(option => optionIncludes(option, modelValue.value))
+  })
 
   const styles = computed(() => ({
     option: {
