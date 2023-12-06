@@ -15,7 +15,6 @@
         v-model="modelValue"
         :disabled="disabled"
         v-bind="attrs"
-        :options="filteredSelectOptions"
         @click="handleInputClick"
       >
         <template v-for="(index, name) in $slots" #[name]="data">
@@ -26,13 +25,11 @@
 
     <PSelectOptions
       v-model="modelValue"
-      v-model:highlightedValue="highlightedValue"
       class="p-type-ahead__options"
-      :options="filteredSelectOptions"
+      :options="options"
       :style="styles.option"
       @update:model-value="handleOptionSelected"
       @keydown="handleKeydown"
-      @mouseleave="setHighlightedValueUnselected"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
         <slot :name="name" v-bind="{ ...data, close: closeSelect }" />
@@ -56,9 +53,8 @@
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { optionIncludes, SelectModelValue, normalizeSelectOption } from '@/types/selectOption'
+  import { SelectModelValue } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
 
   const props = defineProps<{
@@ -89,16 +85,6 @@
   })
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
-
-  const selectOptions = computed(() => {
-    return props.options.map(option => normalizeSelectOption(option))
-  })
-
-  const filteredSelectOptions = computed(() => {
-    return selectOptions.value.filter(option => optionIncludes(option, modelValue.value))
-  })
-
-  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(filteredSelectOptions)
 
   const styles = computed(() => ({
     option: {
@@ -134,16 +120,6 @@
     closeSelect()
   }
 
-  function setValue(newValue: SelectModelValue): void {
-    if (typeof newValue !== 'string') {
-      return
-    }
-
-    modelValue.value = newValue
-
-    handleOptionSelected(newValue)
-  }
-
   function handleOpenChange(open: boolean): void {
     if (open) {
       emits('open')
@@ -165,47 +141,13 @@
         closeSelect()
         break
       case keys.upArrow:
-        if (!isOpen.value) {
-          openSelect()
-        } else {
-          setPreviousHighlightedValue()
-        }
-        event.preventDefault()
-        break
       case keys.downArrow:
-        if (!isOpen.value) {
-          openSelect()
-        } else {
-          setNextHighlightedValue()
-        }
-        event.preventDefault()
-        break
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else if (!isUnselected(highlightedValue.value)) {
-          setValue(highlightedValue.value)
-        }
-        event.preventDefault()
-        break
-      case keys.enter:
-        if (!isOpen.value) {
-          return
-        }
-
-        if (filteredSelectOptions.value.length === 1) {
-          const [first] = filteredSelectOptions.value
-
-          setValue(first.value)
-        }
-
-        if (!isUnselected(highlightedValue.value)) {
-          setValue(highlightedValue.value)
           event.preventDefault()
         }
-        closeSelect()
-        break
-      default:
+
         break
     }
   }

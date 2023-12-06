@@ -38,11 +38,12 @@
   import { computed } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import { MaybeReadonly } from '@/types'
   import { SelectModelValue, SelectOptionGroup, normalizeSelectOption, isSelectOptionGroup, flattenSelectOptions, SelectOption } from '@/types/selectOption'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    options: (SelectOption | SelectOptionGroup)[],
+    options: MaybeReadonly<(SelectOption | SelectOptionGroup)[]>,
   }>()
 
   const emits = defineEmits<{

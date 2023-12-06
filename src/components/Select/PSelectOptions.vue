@@ -1,5 +1,11 @@
 <template>
-  <div ref="root" class="p-select-options" :class="classes.root" role="listbox">
+  <div
+    ref="root"
+    class="p-select-options"
+    :class="classes.root"
+    role="listbox"
+    @mouseleave="setHighlightedValueUnselected"
+  >
     <slot name="pre-options" />
     <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
       <template #default="{ item: option, index }">
@@ -40,23 +46,25 @@
 </template>
 
 <script lang="ts" setup>
-  import { UseVisibilityObserverOptions, useVisibilityObserver } from '@prefecthq/vue-compositions'
+  import { UseVisibilityObserverOptions, useKeyDown, useVisibilityObserver } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PSelectOption from '@/components/SelectOption/PSelectOption.vue'
   import PSelectOptionGroup from '@/components/SelectOptionGroup/PSelectOptionGroup.vue'
   import PVirtualScroller from '@/components/VirtualScroller/PVirtualScroller.vue'
-  import { isSelectOptionGroup, SelectModelValue, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
+  import { useHighlightedValue } from '@/compositions/useHighlightedValue'
+  import { MaybeReadonly } from '@/types'
+  import { isAlphaNumeric, keys } from '@/types/keyEvent'
+  import { flattenSelectOptions, isSelectOptionGroup, normalizeSelectOption, SelectModelValue, SelectOption, SelectOptionGroup, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
+  import { toggleArrayValue } from '@/utilities'
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
-    options: (SelectOptionNormalized | SelectOptionGroupNormalized)[],
-    highlightedValue: string | number | boolean | null | symbol,
+    options: MaybeReadonly<(SelectOption | SelectOptionGroup)[]>,
     multiple?: boolean,
   }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
-    (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
     (event: 'bottom'): void,
   }>()
 
@@ -70,15 +78,6 @@
     },
     set(value) {
       emit('update:modelValue', value)
-    },
-  })
-
-  const highlightedValue = computed({
-    get() {
-      return props.highlightedValue
-    },
-    set(value) {
-      emit('update:highlightedValue', value)
     },
   })
 
@@ -110,7 +109,46 @@
     return [value]
   }
 
-  const flattened = computed(() => props.options.flatMap(option => flattenGroupsAndOptions(option)))
+  function toggleValue(newValue: SelectModelValue): void {
+    if (Array.isArray(internalValue.value)) {
+      toggleArrayValue(internalValue.value, newValue)
+      return
+    }
+
+    internalValue.value = newValue
+  }
+
+  const flatSelectOptions = computed(() => flattenSelectOptions(props.options.map(normalizeSelectOption)))
+  const flattened = computed(() => flatSelectOptions.value.flatMap(option => flattenGroupsAndOptions(option)))
+  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
+
+  useKeyDown(['ArrowDown', 'ArrowUp', ' ', 'Enter'], onKeyDown)
+
+  function onKeyDown(event: KeyboardEvent): void {
+    if (isAlphaNumeric(event.key)) {
+      return
+    }
+
+    switch (event.key) {
+      case keys.upArrow:
+        setPreviousHighlightedValue()
+        event.preventDefault()
+        break
+      case keys.downArrow:
+        setNextHighlightedValue()
+        event.preventDefault()
+        break
+      case keys.space:
+      case keys.enter:
+        if (isUnselected(highlightedValue.value)) {
+          return
+        }
+
+        toggleValue(highlightedValue.value)
+        event.preventDefault()
+        break
+    }
+  }
 </script>
 
 <style>
