@@ -1,8 +1,8 @@
 <template>
-  <PPopOver ref="popover" class="p-date-range-select" auto-close>
-    <template #target="{ toggle }">
+  <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
+    <template #target="{ open }">
       <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" />
-      <PButton class="p-date-range-select__button p-date-range-select__input" icon="CalendarIcon" icon-append="ChevronDownIcon" @click="toggle">
+      <PButton class="p-date-range-select__button p-date-range-select__input" icon="CalendarIcon" icon-append="ChevronDownIcon" @click="open">
         Past 8h
       </PButton>
 
@@ -13,10 +13,10 @@
     </template>
 
     <template #default>
-      <PDateRangeSelectOptions v-show="mode === 'relative'" v-model="option" @update:model-value="selectOption" />
+      <PDateRangeSelectOptions v-show="mode === 'relative'" :model-value="span" @update:model-value="selectSpan" />
 
       <template v-if="mode === 'range'">
-        hello
+        <PDateRangePicker v-model:start-date="startDate" v-model:end-date="endDate" v-bind="{ min, max }" @close="close" @apply="selectRange" />
       </template>
     </template>
   </PPopOver>
@@ -25,8 +25,10 @@
 <script lang="ts" setup>
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
+  import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
   import PDateRangeSelectOptions, { DateRangeSelectOptionsValue } from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
+  import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
   export type DateRangeSelectValue = number | [Date, Date] | null | undefined
 
@@ -40,11 +42,15 @@
     'update:modelValue': [DateRangeSelectValue],
   }>()
 
+  const placement = [bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside]
   const popover = ref<InstanceType<typeof PPopOver>>()
   const mode = ref<'relative' | 'range'>('relative')
-  const option = ref()
 
-  const value = computed({
+  const span = ref<number | null>(null)
+  const startDate = ref<Date | null>(null)
+  const endDate = ref<Date | null>(null)
+
+  const modelValue = computed({
     get() {
       return props.modelValue
     },
@@ -53,12 +59,29 @@
     },
   })
 
-  function selectOption(value: DateRangeSelectOptionsValue): void {
+  function selectSpan(value: DateRangeSelectOptionsValue): void {
     if (value === 'range') {
       mode.value = 'range'
+      span.value = null
       return
     }
 
+    span.value = value ?? null
+    modelValue.value = span.value
+
+    close()
+  }
+
+  function selectRange(): void {
+    if (startDate.value && endDate.value) {
+      modelValue.value = [startDate.value, endDate.value]
+      return
+    }
+
+    modelValue.value = null
+  }
+
+  function close(): void {
     popover.value?.close()
   }
 
