@@ -21,7 +21,6 @@
         v-model:start-date="internalStartDate"
         v-model:end-date="internalEndDate"
         v-model:viewing-date="internalViewingDate"
-        class="p-date-input__date-picker"
         v-bind="{ min, max, showTime }"
         @close="close"
       >
