@@ -1,15 +1,21 @@
 import { reactive, watch } from 'vue'
 import { useColorTheme } from '@/compositions/useColorTheme'
 
-export function useThemeTokens(): ReturnType<typeof getTokens> {
+function factory(): () => ReturnType<typeof getTokens> {
   const { value: theme } = useColorTheme()
 
   const tokens = reactive(getTokens())
 
   watch(theme, () => Object.assign(tokens, getTokens()))
 
-  return tokens
+  function useThemeTokens(): ReturnType<typeof getTokens> {
+    return tokens
+  }
+
+  return useThemeTokens
 }
+
+export const useThemeTokens = factory()
 
 // this makes more sense to just infer the return type
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
