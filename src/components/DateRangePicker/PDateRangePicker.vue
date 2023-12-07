@@ -59,6 +59,7 @@
     'update:startDate': [value: Date | null | undefined],
     'update:endDate': [value: Date | null | undefined],
     'update:viewingDate': [value: Date | null | undefined],
+    'apply': [],
     'close': [],
   }>()
 
@@ -138,6 +139,7 @@
   function update(): void {
     emit('update:startDate', selectedStartDate.value)
     emit('update:endDate', selectedEndDate.value)
+    emit('apply')
     close()
   }
 
