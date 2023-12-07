@@ -1,5 +1,5 @@
 <template>
-  <PDatePicker v-model:viewingDate="viewingDate" :model-value="null" v-bind="{ min, max }" class="p-date-picker" @update:model-value="update">
+  <PDatePicker v-model:viewingDate="viewingDate" :model-value="startDate ?? endDate" v-bind="{ min, max }" class="p-date-picker" @update:model-value="update">
     <template #date="{ date, disabled: dateDisabled, today, inMonth }">
       <div class="p-date-range-picker__date-wrapper" :class="classes.dateWrapper(date)">
         <p-button
