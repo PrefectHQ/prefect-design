@@ -2,8 +2,12 @@
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
       <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" />
-      <PButton class="p-date-range-select__button p-date-range-select__input" icon="CalendarIcon" icon-append="ChevronDownIcon" @click="open">
-        Past 8h
+      <PButton class="p-date-range-select__button p-date-range-select__input" @click="open">
+        <div class="p-date-range-select__content">
+          <PIcon icon="CalendarIcon" />
+          {{ label }}
+          <PIcon icon="ChevronDownIcon" class="ml-auto" />
+        </div>
       </PButton>
 
       <template v-if="modelValue">
@@ -23,10 +27,12 @@
 </template>
 
 <script lang="ts" setup>
+  import { addSeconds, format, intervalToDuration } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
   import PDateRangeSelectOptions, { DateRangeSelectOptionsValue } from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
+  import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
@@ -49,6 +55,7 @@
   const span = ref<number | null>(null)
   const startDate = ref<Date | null>(null)
   const endDate = ref<Date | null>(null)
+  const dateFormat = 'MMM do, yyyy'
 
   const modelValue = computed({
     get() {
@@ -58,6 +65,26 @@
       emit('update:modelValue', value)
     },
   })
+
+  const label = computed(() => {
+    if (typeof modelValue.value === 'number') {
+      const duration = intervalToDuration({
+        start: new Date(),
+        end: addSeconds(new Date(), modelValue.value),
+      })
+
+      return `Past ${JSON.stringify(duration)}`
+    }
+
+    if (Array.isArray(modelValue.value)) {
+      const [startDate, endDate] = modelValue.value
+
+      return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
+    }
+
+    return 'select'
+  })
+
 
   function selectSpan(value: DateRangeSelectOptionsValue): void {
     if (value === 'range') {
@@ -120,5 +147,12 @@
 
 .p-date-range-select__input { @apply
   grow
+}
+
+.p-date-range-select__content { @apply
+  w-full
+  flex
+  items-center
+  gap-2
 }
 </style>
