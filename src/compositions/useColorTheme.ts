@@ -1,6 +1,6 @@
 import { useLocalStorage } from '@prefecthq/vue-compositions'
 import { ref, Ref } from 'vue'
-import { globalExists } from '..'
+import { globalExists } from '@/utilities/id'
 
 const COLOR_THEME_KEY = 'color-scheme'
 type ColorTheme = 'dark' | 'light'
