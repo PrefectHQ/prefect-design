@@ -1,5 +1,6 @@
 import { useLocalStorage } from '@prefecthq/vue-compositions'
-import { onMounted, onUnmounted, ref, onBeforeMount, Ref } from 'vue'
+import { ref, Ref } from 'vue'
+import { globalExists } from '..'
 
 const COLOR_THEME_KEY = 'color-scheme'
 type ColorTheme = 'dark' | 'light'
@@ -24,21 +25,16 @@ const handlePrefersColorSchemeChange = (event: MediaQueryListEvent): void => {
   internalValue.value = event.matches ? 'dark' : 'light'
 }
 
+if (globalExists('document')) {
+  if (!document.documentElement.classList.contains(internalValue.value)) {
+    setTheme(initialTheme)
+  }
+}
+
+if (globalExists('window')) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handlePrefersColorSchemeChange)
+}
 
 export function useColorTheme(): { value: Ref<ColorTheme>, toggleTheme: () => void, setTheme: (theme: ColorTheme) => void } {
-  onBeforeMount(() => {
-    if (!document.documentElement.classList.contains(internalValue.value)) {
-      setTheme(initialTheme)
-    }
-  })
-
-  onMounted(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handlePrefersColorSchemeChange)
-  })
-
-  onUnmounted(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handlePrefersColorSchemeChange)
-  })
-
   return { value: internalValue, toggleTheme, setTheme }
 }
