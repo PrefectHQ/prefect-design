@@ -1,7 +1,7 @@
 <template>
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
-      <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" />
+      <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" @click="previous" />
       <PButton class="p-date-range-select__button p-date-range-select__input" @click="open">
         <div class="p-date-range-select__content">
           <PIcon icon="CalendarIcon" />
@@ -15,7 +15,7 @@
       <template v-if="modelValue">
         <PButton class="p-date-range-select__button" icon="XCircleIcon" @click="clear" />
       </template>
-      <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" />
+      <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" @click="next" />
     </template>
 
     <template #default>
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, format, intervalToDuration } from 'date-fns'
+  import { addSeconds, differenceInSeconds, format, intervalToDuration, isBefore, subSeconds } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
@@ -147,6 +147,69 @@
     }
 
     modelValue.value = null
+  }
+
+  function getIntervalInSeconds(): number {
+    if (modelValue.value?.type === 'span') {
+      return Math.abs(modelValue.value.seconds)
+    }
+
+    if (modelValue.value?.type === 'range') {
+      const { startDate, endDate } = modelValue.value
+
+      return Math.abs(differenceInSeconds(startDate, endDate))
+    }
+
+    return 0
+  }
+
+  const previousDisabled = computed<boolean>(() => {
+    const seconds = getIntervalInSeconds()
+
+    if (!seconds || !modelValue.value) {
+      return true
+    }
+
+    if (!props.min) {
+      return false
+    }
+
+    if (modelValue.value.type === 'span') {
+      return isBefore(subSeconds(new Date(), seconds), props.min)
+    }
+
+    const { startDate } = modelValue.value
+
+    return isBefore(subSeconds(startDate, seconds), props.min)
+  })
+
+  function previous(): void {
+
+  }
+
+  const nextDisabled = computed<boolean>(() => {
+    const seconds = getIntervalInSeconds()
+
+    if (!seconds || !modelValue.value) {
+      return true
+    }
+
+    if (!props.max) {
+      return false
+    }
+
+    if (modelValue.value.type === 'span') {
+      return isBefore(addSeconds(new Date(), seconds), props.max)
+    }
+
+    const { startDate } = modelValue.value
+
+    return isBefore(addSeconds(startDate, seconds), props.max)
+
+  })
+
+  function next(): void {
+
   }
 
   function close(): void {
