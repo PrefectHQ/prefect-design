@@ -36,7 +36,9 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
-  export type DateRangeSelectValue = number | [Date, Date] | null | undefined
+  export type DateRangeSelectSpanValue = { type: 'span', value: number }
+  export type DateRangeSelectRangeValue = { type: 'range', value: [Date, Date] }
+  export type DateRangeSelectValue = DateRangeSelectSpanValue | DateRangeSelectRangeValue | null | undefined
 
   const props = defineProps<{
     modelValue: DateRangeSelectValue,
