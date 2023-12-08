@@ -1,14 +1,24 @@
 import { reactive, watch, readonly } from 'vue'
 import { useColorTheme } from '@/compositions/useColorTheme'
 
-function factory(): () => Readonly<ReturnType<typeof getTokens>> {
+type ThemeTokens = ReturnType<typeof getTokens>
+
+function factory(): () => Readonly<ThemeTokens> {
   const { value: theme } = useColorTheme()
 
-  const tokens = reactive(getTokens())
+  const tokens = reactive({}) as ThemeTokens
 
-  watch(theme, () => Object.assign(tokens, getTokens()))
+  setTokens()
 
-  function useThemeTokens(): Readonly<ReturnType<typeof getTokens>> {
+  watch(theme, () => setTokens())
+
+  function setTokens(): void {
+    requestAnimationFrame(() => {
+      Object.assign(tokens, getTokens())
+    })
+  }
+
+  function useThemeTokens(): Readonly<ThemeTokens> {
     return readonly(tokens)
   }
 
