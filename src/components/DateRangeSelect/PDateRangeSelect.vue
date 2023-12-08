@@ -13,17 +13,28 @@
       </PButton>
 
       <template v-if="modelValue">
-        <PButton class="p-date-range-select__button" icon="XCircleIcon" />
+        <PButton class="p-date-range-select__button" icon="XCircleIcon" @click="clear" />
       </template>
       <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" />
     </template>
 
     <template #default>
-      <PDateRangeSelectOptions v-show="mode === 'relative'" :model-value="span" v-bind="{ min, max }" @update:model-value="selectSpan" />
+      <div class="p-date-range-select__picker" @click.stop>
+        <template v-if="mode === 'relative'">
+          <PDateRangeSelectOptions :model-value="span" v-bind="{ min, max }" @update:model-value="selectSpan" />
+        </template>
 
-      <template v-if="mode === 'range'">
-        <PDateRangePicker v-model:start-date="startDate" v-model:end-date="endDate" v-bind="{ min, max }" @close="close" @apply="selectRange" />
-      </template>
+        <template v-if="mode === 'range'">
+          <PDateRangePicker
+            v-model:start-date="startDate"
+            v-model:end-date="endDate"
+            v-bind="{ min, max }"
+            show-time
+            @close="close"
+            @apply="selectRange"
+          />
+        </template>
+      </div>
     </template>
   </PPopOver>
 </template>
@@ -140,6 +151,10 @@
 
   function close(): void {
     popover.value?.close()
+  }
+
+  function clear(): void {
+    emit('update:modelValue', null)
   }
 
   watch(() => popover.value?.visible, (visible) => {
