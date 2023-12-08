@@ -19,7 +19,7 @@
     </template>
 
     <template #default>
-      <PDateRangeSelectOptions v-show="mode === 'relative'" :model-value="span" @update:model-value="selectSpan" />
+      <PDateRangeSelectOptions v-show="mode === 'relative'" :model-value="span" v-bind="{ min, max }" @update:model-value="selectSpan" />
 
       <template v-if="mode === 'range'">
         <PDateRangePicker v-model:start-date="startDate" v-model:end-date="endDate" v-bind="{ min, max }" @close="close" @apply="selectRange" />

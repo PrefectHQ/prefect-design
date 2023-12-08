@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { secondsInDay, secondsInHour, secondsInMinute } from 'date-fns'
+  import { addSeconds, isAfter, isBefore, secondsInDay, secondsInHour, secondsInMinute } from 'date-fns'
   import { computed, onMounted, ref } from 'vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
-  import { SelectOption, SelectOptionGroup } from '@/types'
+  import { SelectOption } from '@/types'
 
   export type DateRangeSelectOptionsValue = number | 'range' | null | undefined
 
@@ -43,29 +43,38 @@
   const input = ref<InstanceType<typeof PTextInput>>()
   const search = ref('')
 
-  // eslint keeps breaking the parens here
-  // eslint-disable-next-line no-extra-parens
-  const options = computed<(SelectOption | SelectOptionGroup)[]>(() => {
+  const options = computed<SelectOption[]>(() => {
     const parsed = parseInt(search.value || '1')
     const unit = isNaN(parsed) ? 1 : parsed
 
+    const spans = [
+      { label: `Past ${unit} minutes`, value: unit * secondsInMinute * -1 },
+      { label: `Past ${unit} hours`, value: unit * secondsInHour * -1 },
+      { label: `Past ${unit} days`, value: unit * secondsInDay * -1 },
+      { label: `Next ${unit} minutes`, value: unit * secondsInMinute },
+      { label: `Next ${unit} hours`, value: unit * secondsInHour },
+      { label: `Next ${unit} days`, value: unit * secondsInDay },
+    ]
+
+    const now = new Date()
+
+    const filteredSpans = spans.filter(option => {
+      const time = addSeconds(now, option.value)
+
+      if (props.min && isBefore(time, props.min)) {
+        return false
+      }
+
+      if (props.max && isAfter(time, props.max)) {
+        return false
+      }
+
+      return true
+    })
+
     return [
-      {
-        label: 'Test',
-        options: [
-          { label: `Past ${unit} minutes`, value: unit * secondsInMinute * -1 },
-          { label: `Past ${unit} hours`, value: unit * secondsInHour * -1 },
-          { label: `Past ${unit} days`, value: unit * secondsInDay * -1 },
-          { label: `Next ${unit} minutes`, value: unit * secondsInMinute },
-          { label: `Next ${unit} hours`, value: unit * secondsInHour },
-          { label: `Next ${unit} days`, value: unit * secondsInDay },
-        ],
-      },
+      ...filteredSpans,
       { label: 'Select from calendar', value: 'range' },
     ]
   })
 </script>
-
-<style>
-
-</style>

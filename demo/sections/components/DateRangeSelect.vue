@@ -6,7 +6,7 @@
 
     <template #date-range-select>
       <p-content>
-        <p-date-range-select v-model="value" />
+        <p-date-range-select v-model="value" v-bind="{ min, max }" />
         <p-code inline>
           value: {{ JSON.stringify(value) }}
         </p-code>
@@ -14,12 +14,12 @@
           <p-checkbox v-model="isClearableDate" :disabled="disabled" label="Clearable" />
         </div>
         <div class="flex gap-4 w-1/2">
-          <p-label label="Min Value" :message="minDate ? format(minDate, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="minDate" :disabled="disabled" :state="exampleState" />
+          <p-label label="Min Value" :message="min ? format(min, 'MMM do, yyyy h:mm a') : ''">
+            <p-native-date-input v-model="min" :disabled="disabled" :state="exampleState" />
           </p-label>
 
-          <p-label label="Max Value" :message="maxDate ? format(maxDate, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="maxDate" :disabled="disabled" :state="exampleState" />
+          <p-label label="Max Value" :message="max ? format(max, 'MMM do, yyyy h:mm a') : ''">
+            <p-native-date-input v-model="max" :disabled="disabled" :state="exampleState" />
           </p-label>
         </div>
       </p-content>
@@ -38,7 +38,7 @@
   const disabled = ref(false)
 
   const value = ref()
-  const minDate = ref<Date | null>(null)
-  const maxDate = ref<Date | null>(null)
+  const min = ref<Date>()
+  const max = ref<Date>()
   const isClearableDate = ref(false)
 </script>
