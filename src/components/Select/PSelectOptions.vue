@@ -7,7 +7,7 @@
     @mouseleave="setHighlightedValueUnselected"
   >
     <slot name="pre-options" />
-    <PVirtualScroller :items="flattened" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
+    <PVirtualScroller :items="flattenedOptionsAndGroups" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
       <template #default="{ item: option, index }">
         <template v-if="isSelectOptionGroup(option)">
           <PSelectOptionGroup :group="option">
@@ -118,9 +118,10 @@
     internalValue.value = newValue
   }
 
-  const flatSelectOptions = computed(() => flattenSelectOptions(props.options.map(normalizeSelectOption)))
-  const flattened = computed(() => flatSelectOptions.value.flatMap(option => flattenGroupsAndOptions(option)))
-  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
+  const normalized = props.options.map(option => normalizeSelectOption(option))
+  const flattenedOptionsAndGroups = computed(() => normalized.flatMap(option => flattenGroupsAndOptions(option)))
+  const flattenedOptions = computed(() => flattenSelectOptions(normalized))
+  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flattenedOptions)
 
   useKeyDown(['ArrowDown', 'ArrowUp', ' ', 'Enter'], onKeyDown)
 
