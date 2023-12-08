@@ -65,7 +65,7 @@
     'update:modelValue': [DateRangeSelectValue],
   }>()
 
-  const placement = [bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside]
+  const placement = [bottomLeft, topLeft, bottomRight, topRight, leftInside, rightInside]
   const popover = ref<InstanceType<typeof PPopOver>>()
   const mode = ref<'relative' | 'range'>('relative')
 
