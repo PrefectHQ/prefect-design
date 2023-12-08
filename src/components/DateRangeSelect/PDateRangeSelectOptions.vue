@@ -79,3 +79,9 @@
     ]
   })
 </script>
+
+<style>
+.p-date-range-select-options {
+  min-width: 300px;
+}
+</style>
