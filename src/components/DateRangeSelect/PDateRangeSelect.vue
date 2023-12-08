@@ -36,10 +36,11 @@
   import PDateRangeSelectOptions, { DateRangeSelectOptionsValue } from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
+  import { toPluralString } from '@/utilities'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
-  export type DateRangeSelectSpanValue = { type: 'span', value: number }
-  export type DateRangeSelectRangeValue = { type: 'range', value: [Date, Date] }
+  export type DateRangeSelectSpanValue = { type: 'span', seconds: number }
+  export type DateRangeSelectRangeValue = { type: 'range', startDate: Date, endDate: Date }
   export type DateRangeSelectValue = DateRangeSelectSpanValue | DateRangeSelectRangeValue | null | undefined
 
   const props = defineProps<{
@@ -74,23 +75,39 @@
   const placeholder = computed(() => props.placeholder ?? 'Select a time span')
 
   const label = computed(() => {
-    if (typeof modelValue.value === 'number') {
-      const duration = intervalToDuration({
-        start: new Date(),
-        end: addSeconds(new Date(), modelValue.value),
-      })
-
-      return `Past ${JSON.stringify(duration)}`
+    if (!modelValue.value) {
+      return placeholder.value
     }
 
-    if (Array.isArray(modelValue.value)) {
-      const [startDate, endDate] = modelValue.value
-
-      return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
+    if (modelValue.value.type === 'span') {
+      return getSpanLabel(modelValue.value.seconds)
     }
 
-    return placeholder.value
+    const { startDate, endDate } = modelValue.value
+
+    return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
   })
+
+  function getSpanLabel(seconds: number): string {
+    const now = new Date()
+    const duration = intervalToDuration({
+      start: now,
+      end: addSeconds(now, seconds),
+    })
+
+    const reduced = Object.entries(duration).reduce<string[]>((durations, [key, value]) => {
+      if (value) {
+        const unit = key.slice(0, -1)
+        durations.push(`${value} ${toPluralString(unit, value)}`)
+      }
+
+      return durations
+    }, [])
+
+    const direction = seconds < 0 ? 'Past' : 'Next'
+
+    return `${direction} ${reduced.join(' ')}`
+  }
 
   const classes = computed(() => ({
     label: {
@@ -107,14 +124,14 @@
     }
 
     span.value = value ?? null
-    modelValue.value = span.value
+    modelValue.value = value ? { type: 'span', seconds: value } : null
 
     close()
   }
 
   function selectRange(): void {
     if (startDate.value && endDate.value) {
-      modelValue.value = [startDate.value, endDate.value]
+      modelValue.value = { type: 'range', startDate: startDate.value, endDate: endDate.value }
       return
     }
 

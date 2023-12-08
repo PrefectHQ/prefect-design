@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns'
+  import { secondsInDay, secondsInHour, secondsInMinute } from 'date-fns'
   import { computed, onMounted, ref } from 'vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
-  import { SelectOption } from '@/types'
+  import { SelectOption, SelectOptionGroup } from '@/types'
 
   export type DateRangeSelectOptionsValue = number | 'range' | null | undefined
 
@@ -43,15 +43,24 @@
   const input = ref<InstanceType<typeof PTextInput>>()
   const search = ref('')
 
-  const options = computed<SelectOption[]>(() => {
+  // eslint keeps breaking the parens here
+  // eslint-disable-next-line no-extra-parens
+  const options = computed<(SelectOption | SelectOptionGroup)[]>(() => {
     const parsed = parseInt(search.value || '1')
     const unit = isNaN(parsed) ? 1 : parsed
 
     return [
-      { label: `Past ${unit}m`, value: unit * secondsInMinute },
-      { label: `Past ${unit}h`, value: unit * secondsInHour },
-      { label: `Past ${unit}d`, value: unit * secondsInDay },
-      { label: `Past ${unit}w`, value: unit * secondsInWeek },
+      {
+        label: 'Test',
+        options: [
+          { label: `Past ${unit} minutes`, value: unit * secondsInMinute * -1 },
+          { label: `Past ${unit} hours`, value: unit * secondsInHour * -1 },
+          { label: `Past ${unit} days`, value: unit * secondsInDay * -1 },
+          { label: `Next ${unit} minutes`, value: unit * secondsInMinute },
+          { label: `Next ${unit} hours`, value: unit * secondsInHour },
+          { label: `Next ${unit} days`, value: unit * secondsInDay },
+        ],
+      },
       { label: 'Select from calendar', value: 'range' },
     ]
   })
