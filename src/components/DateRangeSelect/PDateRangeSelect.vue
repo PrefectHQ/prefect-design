@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, differenceInSeconds, format, intervalToDuration, isBefore, subSeconds } from 'date-fns'
+  import { addSeconds, differenceInSeconds, format, intervalToDuration, isAfter, isBefore } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
@@ -165,8 +165,9 @@
 
   const previousDisabled = computed<boolean>(() => {
     const seconds = getIntervalInSeconds()
+    const { startDate } = getNewRange(seconds * -1) ?? {}
 
-    if (!seconds || !modelValue.value) {
+    if (!startDate || !seconds) {
       return true
     }
 
@@ -174,23 +175,24 @@
       return false
     }
 
-    if (modelValue.value.type === 'span') {
-      return isBefore(subSeconds(new Date(), seconds), props.min)
-    }
-
-    const { startDate } = modelValue.value
-
-    return isBefore(subSeconds(startDate, seconds), props.min)
+    return isBefore(startDate, props.min)
   })
 
   function previous(): void {
+    const seconds = getIntervalInSeconds()
+    const range = getNewRange(seconds * -1)
 
+    if (range) {
+      const { startDate, endDate } = range
+      emit('update:modelValue', { type: 'range', startDate, endDate })
+    }
   }
 
   const nextDisabled = computed<boolean>(() => {
     const seconds = getIntervalInSeconds()
+    const { endDate } = getNewRange(seconds) ?? {}
 
-    if (!seconds || !modelValue.value) {
+    if (!endDate || !seconds) {
       return true
     }
 
@@ -198,18 +200,47 @@
       return false
     }
 
-    if (modelValue.value.type === 'span') {
-      return isBefore(addSeconds(new Date(), seconds), props.max)
-    }
-
-    const { startDate } = modelValue.value
-
-    return isBefore(addSeconds(startDate, seconds), props.max)
-
+    return isAfter(endDate, props.max)
   })
 
   function next(): void {
+    const seconds = getIntervalInSeconds()
+    const range = getNewRange(seconds)
 
+    if (range) {
+      const { startDate, endDate } = range
+      emit('update:modelValue', { type: 'range', startDate, endDate })
+    }
+  }
+
+  function getNewRange(seconds: number): { startDate: Date, endDate: Date } | null {
+    if (modelValue.value?.type === 'span') {
+
+      if (modelValue.value.seconds > 0) {
+        const currentStartDate = new Date()
+        const currentEndDate = addSeconds(currentStartDate, modelValue.value.seconds)
+        const startDate = addSeconds(currentStartDate, seconds)
+        const endDate = addSeconds(currentEndDate, seconds)
+
+        return { startDate, endDate }
+      }
+
+      const currentEndDate = new Date()
+      const currentStartDate = addSeconds(currentEndDate, modelValue.value.seconds)
+      const startDate = addSeconds(currentStartDate, seconds)
+      const endDate = addSeconds(currentEndDate, seconds)
+
+      return { startDate, endDate }
+    }
+
+    if (modelValue.value?.type === 'range') {
+      const startDate = addSeconds(modelValue.value.startDate, seconds)
+      const endDate = addSeconds(modelValue.value.endDate, seconds)
+
+      return { startDate, endDate }
+    }
+
+    return null
   }
 
   function close(): void {
