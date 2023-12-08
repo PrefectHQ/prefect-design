@@ -118,9 +118,9 @@
     internalValue.value = newValue
   }
 
-  const normalized = props.options.map(option => normalizeSelectOption(option))
-  const flattenedOptionsAndGroups = computed(() => normalized.flatMap(option => flattenGroupsAndOptions(option)))
-  const flattenedOptions = computed(() => flattenSelectOptions(normalized))
+  const normalized = computed(() => props.options.map(option => normalizeSelectOption(option)))
+  const flattenedOptionsAndGroups = computed(() => normalized.value.flatMap(option => flattenGroupsAndOptions(option)))
+  const flattenedOptions = computed(() => flattenSelectOptions(normalized.value))
   const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flattenedOptions)
 
   useKeyDown(['ArrowDown', 'ArrowUp', ' ', 'Enter'], onKeyDown)
