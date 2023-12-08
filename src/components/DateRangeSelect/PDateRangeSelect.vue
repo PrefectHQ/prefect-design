@@ -5,7 +5,9 @@
       <PButton class="p-date-range-select__button p-date-range-select__input" @click="open">
         <div class="p-date-range-select__content">
           <PIcon icon="CalendarIcon" />
-          {{ label }}
+          <span class="p-date-range-select__label" :class="classes.label">
+            {{ label }}
+          </span>
           <PIcon icon="ChevronDownIcon" class="ml-auto" />
         </div>
       </PButton>
@@ -42,6 +44,7 @@
 
   const props = defineProps<{
     modelValue: DateRangeSelectValue,
+    placeholder?: string,
     min?: Date,
     max?: Date,
   }>()
@@ -68,6 +71,8 @@
     },
   })
 
+  const placeholder = computed(() => props.placeholder ?? 'Select a time span')
+
   const label = computed(() => {
     if (typeof modelValue.value === 'number') {
       const duration = intervalToDuration({
@@ -84,8 +89,14 @@
       return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
     }
 
-    return 'select'
+    return placeholder.value
   })
+
+  const classes = computed(() => ({
+    label: {
+      'p-date-range-select__label--placeholder': label.value === placeholder.value,
+    },
+  }))
 
 
   function selectSpan(value: DateRangeSelectOptionsValue): void {
@@ -156,5 +167,9 @@
   flex
   items-center
   gap-2
+}
+
+.p-date-range-select__label--placeholder { @apply
+  text-subdued
 }
 </style>
