@@ -40,14 +40,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, differenceInSeconds, format, intervalToDuration, isAfter, isBefore } from 'date-fns'
+  import { addSeconds, differenceInSeconds, isAfter, isBefore } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
   import PDateRangeSelectOptions, { DateRangeSelectOptionsValue } from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
+  import { getDateRangeLabel, getDateSpanLabel } from '@/components/DateRangeSelect/utilities'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import { toPluralString } from '@/utilities'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
   export type DateRangeSelectSpanValue = { type: 'span', seconds: number }
@@ -72,7 +72,6 @@
   const span = ref<number | null>(null)
   const startDate = ref<Date | null>(null)
   const endDate = ref<Date | null>(null)
-  const dateFormat = 'MMM do, yyyy'
 
   const modelValue = computed({
     get() {
@@ -86,39 +85,16 @@
   const placeholder = computed(() => props.placeholder ?? 'Select a time span')
 
   const label = computed(() => {
-    if (!modelValue.value) {
-      return placeholder.value
+    if (modelValue.value?.type === 'span') {
+      return getDateSpanLabel(modelValue.value.seconds)
     }
 
-    if (modelValue.value.type === 'span') {
-      return getSpanLabel(modelValue.value.seconds)
+    if (modelValue.value?.type === 'range') {
+      return getDateRangeLabel(modelValue.value)
     }
 
-    const { startDate, endDate } = modelValue.value
-
-    return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
+    return placeholder.value
   })
-
-  function getSpanLabel(seconds: number): string {
-    const now = new Date()
-    const duration = intervalToDuration({
-      start: now,
-      end: addSeconds(now, seconds),
-    })
-
-    const reduced = Object.entries(duration).reduce<string[]>((durations, [key, value]) => {
-      if (value) {
-        const unit = key.slice(0, -1)
-        durations.push(`${value} ${toPluralString(unit, value)}`)
-      }
-
-      return durations
-    }, [])
-
-    const direction = seconds < 0 ? 'Past' : 'Next'
-
-    return `${direction} ${reduced.join(' ')}`
-  }
 
   const classes = computed(() => ({
     label: {
