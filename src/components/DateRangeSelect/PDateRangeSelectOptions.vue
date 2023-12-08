@@ -14,6 +14,7 @@
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
   import { SelectOption } from '@/types'
+  import { toPluralString } from '@/utilities'
 
   export type DateRangeSelectOptionsValue = number | 'range' | null | undefined
 
@@ -48,12 +49,12 @@
     const unit = isNaN(parsed) ? 1 : parsed
 
     const spans = [
-      { label: `Past ${unit} minutes`, value: unit * secondsInMinute * -1 },
-      { label: `Past ${unit} hours`, value: unit * secondsInHour * -1 },
-      { label: `Past ${unit} days`, value: unit * secondsInDay * -1 },
-      { label: `Next ${unit} minutes`, value: unit * secondsInMinute },
-      { label: `Next ${unit} hours`, value: unit * secondsInHour },
-      { label: `Next ${unit} days`, value: unit * secondsInDay },
+      { label: `Past ${unit} ${toPluralString('minute', unit)}`, value: unit * secondsInMinute * -1 },
+      { label: `Past ${unit} ${toPluralString('hour', unit)}`, value: unit * secondsInHour * -1 },
+      { label: `Past ${unit} ${toPluralString('day', unit)}`, value: unit * secondsInDay * -1 },
+      { label: `Next ${unit} ${toPluralString('minute', unit)}`, value: unit * secondsInMinute },
+      { label: `Next ${unit} ${toPluralString('hour', unit)}`, value: unit * secondsInHour },
+      { label: `Next ${unit} ${toPluralString('day', unit)}`, value: unit * secondsInDay },
     ]
 
     const now = new Date()
