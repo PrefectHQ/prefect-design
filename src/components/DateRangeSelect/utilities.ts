@@ -1,4 +1,4 @@
-import { addSeconds, format, intervalToDuration, isSameDay } from 'date-fns'
+import { addSeconds, endOfDay, format, intervalToDuration, isSameDay, startOfDay } from 'date-fns'
 import { toPluralString } from '@/utilities'
 
 type DateRange = {
@@ -33,21 +33,21 @@ export function getDateSpanLabel(seconds: number): string {
 }
 
 export function getDateRangeLabel({ startDate, endDate }: DateRange): string {
-  if (isSingleDay({ startDate, endDate })) {
+  if (isPickerSingleDayRange({ startDate, endDate })) {
     return format(startDate, dateFormat)
   }
 
-  if (isDateRange({ startDate, endDate })) {
+  if (isPickerDateRange({ startDate, endDate })) {
     return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
   }
 
   return `${format(startDate, dateTimeFormat)} - ${format(endDate, dateTimeFormat)}`
 }
 
-function isSingleDay({ startDate, endDate }: DateRange): boolean {
-  return isDateRange({ startDate, endDate }) && isSameDay(startDate, endDate)
+function isPickerSingleDayRange({ startDate, endDate }: DateRange): boolean {
+  return isPickerDateRange({ startDate, endDate }) && isSameDay(startDate, endDate)
 }
 
-function isDateRange({ startDate, endDate }: DateRange): boolean {
-  return startDate.getMinutes() === 0 && endDate.getMinutes() === 59
+export function isPickerDateRange({ startDate, endDate }: DateRange): boolean {
+  return startOfDay(startDate).getTime() === startDate.getTime() && endOfDay(endDate).getTime() === endDate.getTime()
 }
