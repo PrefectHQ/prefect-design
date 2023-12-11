@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, isAfter, isBefore, secondsInDay, secondsInHour, secondsInMinute } from 'date-fns'
+  import { addSeconds, isAfter, isBefore, secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns'
   import { computed, onMounted, ref } from 'vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
@@ -70,7 +70,7 @@
         return false
       }
 
-      return true
+      return Math.abs(option.value) < secondsInWeek
     })
 
     return [
