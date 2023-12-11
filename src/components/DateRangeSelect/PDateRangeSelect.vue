@@ -103,7 +103,6 @@
     },
   }))
 
-
   function selectSpan(value: DateRangeSelectOptionsValue): void {
     if (value === 'range') {
       mode.value = 'range'
