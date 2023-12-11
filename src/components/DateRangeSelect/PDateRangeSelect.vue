@@ -40,16 +40,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, differenceInSeconds, endOfMinute, isAfter, isBefore, startOfMinute } from 'date-fns'
+  import { addDays, addSeconds, differenceInSeconds, isAfter, isBefore, secondsInDay, startOfMinute } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
   import PDateRangeSelectOptions, { DateRangeSelectOptionsValue } from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
-  import { getDateRangeLabel, getDateSpanLabel } from '@/components/DateRangeSelect/utilities'
+  import { getDateRangeLabel, getDateSpanLabel, isFullDateRange } from '@/components/DateRangeSelect/utilities'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
+  type DateRange = { startDate: Date, endDate: Date }
   export type DateRangeSelectSpanValue = { type: 'span', seconds: number }
   export type DateRangeSelectRangeValue = { type: 'range', startDate: Date, endDate: Date }
   export type DateRangeSelectValue = DateRangeSelectSpanValue | DateRangeSelectRangeValue | null | undefined
@@ -189,7 +190,19 @@
     }
   }
 
-  function getDateRangeForSpan(seconds: number): { startDate: Date, endDate: Date } {
+  function getCurrentDateRange(): DateRange | null | undefined {
+    if (modelValue.value?.type === 'span') {
+      return getDateRangeForSpan(modelValue.value.seconds)
+    }
+
+    if (modelValue.value?.type === 'range') {
+      return modelValue.value
+    }
+
+    return modelValue.value
+  }
+
+  function getDateRangeForSpan(seconds: number): DateRange {
     const now = startOfMinute(new Date())
     const timeSpanIsPast = seconds < 0
     const startDate = timeSpanIsPast ? addSeconds(now, seconds) : now
@@ -198,30 +211,28 @@
     return { startDate, endDate }
   }
 
-  function getNewRange(seconds: number): { startDate: Date, endDate: Date } | null {
-    if (modelValue.value?.type === 'span') {
-      const { startDate: currentStartDate, endDate: currentEndDate } = getDateRangeForSpan(modelValue.value.seconds)
-      // this endDateOffset is needed to convert a relative span like "last 1 minute" (which is 60 seconds)
-      // to a range like where startDate is at the start of a minute and endDate is at the end of a minute
-      const endDateOffset = 1
-      const startDate = startOfMinute(addSeconds(currentStartDate, seconds))
-      const endDate = endOfMinute(addSeconds(currentEndDate, seconds - endDateOffset))
+  function getNewRange(seconds: number): DateRange | null {
+    const range = getCurrentDateRange()
+
+    if (!range) {
+      return null
+    }
+
+    const { startDate: currentStartDate, endDate: currentEndDate } = range
+
+    if (isFullDateRange(range)) {
+      const differenceInDays = Math.ceil(Math.abs(seconds) / secondsInDay)
+      const daysToAdd = seconds < 0 ? -differenceInDays : differenceInDays
+      const startDate = addDays(currentStartDate, daysToAdd)
+      const endDate = addDays(currentEndDate, daysToAdd)
 
       return { startDate, endDate }
     }
 
-    if (modelValue.value?.type === 'range') {
-      // this offset is needed to preserve "paging" of date ranges where either the start or end bookend the previous value
-      // there's a 59 seconds difference between startDate and endDate (because startDate is "start of minute" and endDate is "endOfMinute")
-      // so this rounds it back to 60
-      const offset = seconds < 0 ? 1 : -1
-      const startDate = addSeconds(startOfMinute(modelValue.value.startDate), seconds - offset)
-      const endDate = addSeconds(endOfMinute(modelValue.value.endDate), seconds - offset)
+    const startDate = addSeconds(currentStartDate, seconds)
+    const endDate = addSeconds(currentEndDate, seconds)
 
-      return { startDate, endDate }
-    }
-
-    return null
+    return { startDate, endDate }
   }
 
   function close(): void {

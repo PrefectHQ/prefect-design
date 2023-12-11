@@ -37,7 +37,7 @@ export function getDateRangeLabel({ startDate, endDate }: DateRange): string {
     return format(startDate, dateFormat)
   }
 
-  if (isPickerDateRange({ startDate, endDate })) {
+  if (isFullDateRange({ startDate, endDate })) {
     return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
   }
 
@@ -45,9 +45,9 @@ export function getDateRangeLabel({ startDate, endDate }: DateRange): string {
 }
 
 function isPickerSingleDayRange({ startDate, endDate }: DateRange): boolean {
-  return isPickerDateRange({ startDate, endDate }) && isSameDay(startDate, endDate)
+  return isFullDateRange({ startDate, endDate }) && isSameDay(startDate, endDate)
 }
 
-export function isPickerDateRange({ startDate, endDate }: DateRange): boolean {
+export function isFullDateRange({ startDate, endDate }: DateRange): boolean {
   return startOfDay(startDate).getTime() === startDate.getTime() && endOfDay(endDate).getTime() === endDate.getTime()
 }
