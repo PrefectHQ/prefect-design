@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, differenceInSeconds, isAfter, isBefore } from 'date-fns'
+  import { addSeconds, differenceInSeconds, endOfMinute, isAfter, isBefore, startOfMinute } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
@@ -189,29 +189,34 @@
     }
   }
 
+  function getDateRangeForSpan(seconds: number): { startDate: Date, endDate: Date } {
+    const now = startOfMinute(new Date())
+    const timeSpanIsPast = seconds < 0
+    const startDate = timeSpanIsPast ? addSeconds(now, seconds) : now
+    const endDate = timeSpanIsPast ? now : addSeconds(now, seconds)
+
+    return { startDate, endDate }
+  }
+
   function getNewRange(seconds: number): { startDate: Date, endDate: Date } | null {
     if (modelValue.value?.type === 'span') {
-
-      if (modelValue.value.seconds > 0) {
-        const currentStartDate = new Date()
-        const currentEndDate = addSeconds(currentStartDate, modelValue.value.seconds)
-        const startDate = addSeconds(currentStartDate, seconds)
-        const endDate = addSeconds(currentEndDate, seconds)
-
-        return { startDate, endDate }
-      }
-
-      const currentEndDate = new Date()
-      const currentStartDate = addSeconds(currentEndDate, modelValue.value.seconds)
-      const startDate = addSeconds(currentStartDate, seconds)
-      const endDate = addSeconds(currentEndDate, seconds)
+      const { startDate: currentStartDate, endDate: currentEndDate } = getDateRangeForSpan(modelValue.value.seconds)
+      // this endDateOffset is needed to convert a relative span like "last 1 minute" (which is 60 seconds)
+      // to a range like where startDate is at the start of a minute and endDate is at the end of a minute
+      const endDateOffset = 1
+      const startDate = startOfMinute(addSeconds(currentStartDate, seconds))
+      const endDate = endOfMinute(addSeconds(currentEndDate, seconds - endDateOffset))
 
       return { startDate, endDate }
     }
 
     if (modelValue.value?.type === 'range') {
-      const startDate = addSeconds(modelValue.value.startDate, seconds)
-      const endDate = addSeconds(modelValue.value.endDate, seconds)
+      // this offset is needed to preserve "paging" of date ranges where either the start or end bookend the previous value
+      // there's a 59 seconds difference between startDate and endDate (because startDate is "start of minute" and endDate is "endOfMinute")
+      // so this rounds it back to 60
+      const offset = seconds < 0 ? 1 : -1
+      const startDate = addSeconds(startOfMinute(modelValue.value.startDate), seconds - offset)
+      const endDate = addSeconds(endOfMinute(modelValue.value.endDate), seconds - offset)
 
       return { startDate, endDate }
     }
