@@ -21,7 +21,6 @@
       <PDatePicker
         v-model="internalModelValue"
         v-model:viewing-date="internalViewingDate"
-        class="p-date-input__date-picker"
         v-bind="{ min, max, showTime }"
         @close="close"
       >
@@ -88,13 +87,6 @@
 </script>
 
 <style>
-.p-date-input__date-picker { @apply
-  bg-floating
-  my-1
-  rounded-default
-  shadow-lg
-}
-
 .p-date-input--open { @apply
   ring-spacing-focus-ring
   ring-focus-ring

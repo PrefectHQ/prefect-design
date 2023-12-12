@@ -10,10 +10,10 @@
     </template>
 
     <PContent secondary>
-      <PNativeDateInput v-model="date" disable-picker />
+      <PNativeDateInput v-model="startDate" disable-picker />
 
       <template v-if="showTime">
-        <PNativeTimeInput v-model="date" disable-picker />
+        <PNativeTimeInput v-model="startTime" disable-picker />
       </template>
     </PContent>
   </PLabel>
@@ -38,7 +38,7 @@
     (event: 'update:modelValue', value: Date | null): void,
   }>()
 
-  const date = computed({
+  const startDate = computed({
     get() {
       return props.modelValue ?? null
     },
@@ -47,6 +47,18 @@
     },
   })
 
+  const startTime = computed({
+    get() {
+      return props.modelValue ?? null
+    },
+    set(value) {
+      if (!value) {
+        return
+      }
+
+      emit('update:modelValue', value)
+    },
+  })
   const nowOrTodayLabel = computed(() => props.showTime ? 'Now' : 'Today')
 
   function setToTodayOrNow(): void {

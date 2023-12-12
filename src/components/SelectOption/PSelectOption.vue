@@ -125,6 +125,7 @@
   flex
   gap-2
   items-center
+  cursor-pointer
 }
 
 .p-select-option--selected { @apply

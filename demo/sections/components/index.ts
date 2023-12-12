@@ -17,6 +17,7 @@ export const components: Section = {
   contextSidebar: () => import('./ContextSidebar.vue'),
   dateInput: () => import('./DateInput.vue'),
   dateRangeInput: () => import('./DateRangeInput.vue'),
+  dateRangeSelect: () => import('./DateRangeSelect.vue'),
   dialog: () => import('./Dialog.vue'),
   divider: () => import('./Divider.vue'),
   drawer: () => import('./Drawer.vue'),

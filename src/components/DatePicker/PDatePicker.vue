@@ -74,6 +74,10 @@
 
 <style>
 .p-date-picker { @apply
+  bg-floating
+  my-1
+  rounded-default
+  shadow-lg
   flex
   flex-col
   p-2

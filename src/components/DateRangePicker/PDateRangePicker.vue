@@ -1,5 +1,12 @@
 <template>
-  <PDatePicker v-model:viewingDate="viewingDate" :model-value="startDate ?? endDate" v-bind="{ min, max }" class="p-date-picker" @update:model-value="update">
+  <PDatePicker
+    v-model:viewingDate="viewingDate"
+    :model-value="startDate ?? endDate"
+    v-bind="{ min, max }"
+    class="p-date-range-picker"
+    @update:model-value="update"
+    @close="close"
+  >
     <template #date="{ date, disabled: dateDisabled, today, inMonth }">
       <div class="p-date-range-picker__date-wrapper" :class="classes.dateWrapper(date)">
         <p-button
@@ -24,15 +31,15 @@
 
     <template #controls>
       <PContent>
-        <PDateTimeInputGroup v-model="selectedStartDate" :show-time="showTime" label="Start Date" />
-        <PDateTimeInputGroup v-model="selectedEndDate" :show-time="showTime" label="End Date" />
+        <PDateTimeInputGroup :model-value="selectedStartDate" :show-time="showTime" label="Start Date" @update:model-value="setStartDateAndTime" />
+        <PDateTimeInputGroup :model-value="selectedEndDate" :show-time="showTime" label="End Date" @update:model-value="setEndDateAndTime" />
       </PContent>
     </template>
   </PDatePicker>
 </template>
 
 <script lang="ts" setup>
-  import { endOfDay, isSameDay, startOfDay } from 'date-fns'
+  import { endOfDay, endOfMinute, isSameDay, startOfDay, startOfMinute } from 'date-fns'
   import { computed, ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
@@ -52,6 +59,7 @@
     'update:startDate': [value: Date | null | undefined],
     'update:endDate': [value: Date | null | undefined],
     'update:viewingDate': [value: Date | null | undefined],
+    'apply': [],
     'close': [],
   }>()
 
@@ -128,9 +136,18 @@
     selectedEndDate.value = value ? endOfDay(value) : value
   }
 
+  function setStartDateAndTime(value: Date | null): void {
+    selectedStartDate.value = value ? startOfMinute(value) : value
+  }
+
+  function setEndDateAndTime(value: Date | null): void {
+    selectedEndDate.value = value ? endOfMinute(value) : value
+  }
+
   function update(): void {
     emit('update:startDate', selectedStartDate.value)
     emit('update:endDate', selectedEndDate.value)
+    emit('apply')
     close()
   }
 

@@ -21,6 +21,7 @@ import { PDateInput, install as installPDateInput } from '@/components/DateInput
 import { PDatePicker, install as installPDatePicker } from '@/components/DatePicker'
 import { PDateRangeInput, install as installPDateRangeInput } from '@/components/DateRangeInput'
 import { PDateRangePicker, install as installPDateRangePicker } from '@/components/DateRangePicker'
+import { PDateRangeSelect, install as installPDateRangeSelect } from '@/components/DateRangeSelect'
 import { PDialog, install as installPDialog } from '@/components/Dialog'
 import { PDivider, install as installPDivider } from '@/components/Divider'
 import { PDrawer, install as installPDrawer } from '@/components/Drawer'
@@ -111,6 +112,7 @@ export {
   PDatePicker,
   PDateRangeInput,
   PDateRangePicker,
+  PDateRangeSelect,
   PDialog,
   PDivider,
   PDrawer,
@@ -212,6 +214,7 @@ export const installs = [
   installPDatePicker,
   installPDateRangeInput,
   installPDateRangePicker,
+  installPDateRangeSelect,
   installPDialog,
   installPDivider,
   installPDrawer,
@@ -303,6 +306,7 @@ declare module '@vue/runtime-core' {
     PDatePicker: typeof PDatePicker,
     PDateRangeInput: typeof PDateRangeInput,
     PDateRangePicker: typeof PDateRangePicker,
+    PDateRangeSelect: typeof PDateRangeSelect,
     PDialog: typeof PDialog,
     PDivider: typeof PDivider,
     PDrawer: typeof PDrawer,
