@@ -2,7 +2,7 @@
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
       <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" @click="previous" />
-      <PButton class="p-date-range-select__button p-date-range-select__input" @click="open">
+      <PButton class="p-date-range-select__button p-date-range-select__input" :disabled="disabled" @click="open">
         <div class="p-date-range-select__content">
           <PIcon icon="CalendarIcon" class="shrink-0" />
           <span class="p-date-range-select__label" :class="classes.label">
@@ -12,7 +12,7 @@
         </div>
       </PButton>
 
-      <template v-if="modelValue && clearable">
+      <template v-if="modelValue && clearable && !disabled">
         <PButton class="p-date-range-select__button" icon="XCircleIcon" @click="clear" />
       </template>
       <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" @click="next" />
@@ -59,6 +59,7 @@
     modelValue: DateRangeSelectValue,
     placeholder?: string,
     clearable?: boolean,
+    disabled?: boolean,
     min?: Date,
     max?: Date,
   }>()
@@ -144,7 +145,7 @@
     const seconds = getIntervalInSeconds()
     const { startDate } = getNewRange(seconds * -1) ?? {}
 
-    if (!startDate || !seconds) {
+    if (!startDate || !seconds || props.disabled) {
       return true
     }
 
@@ -169,7 +170,7 @@
     const seconds = getIntervalInSeconds()
     const { endDate } = getNewRange(seconds) ?? {}
 
-    if (!endDate || !seconds) {
+    if (!endDate || !seconds || props.disabled) {
       return true
     }
 

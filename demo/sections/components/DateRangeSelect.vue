@@ -6,7 +6,7 @@
 
     <template #date-range-select>
       <p-content>
-        <p-date-range-select v-model="value" v-bind="{ min, max, clearable }" />
+        <p-date-range-select v-model="value" v-bind="{ min, max, clearable, disabled }" />
         <p-code inline>
           value: {{ JSON.stringify(value) }}
         </p-code>
