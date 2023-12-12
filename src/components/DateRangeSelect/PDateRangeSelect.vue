@@ -48,12 +48,8 @@
   import { getDateRangeLabel, getDateSpanLabel, isFullDateRange } from '@/components/DateRangeSelect/utilities'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
+  import { DateRange, DateRangeSelectValue } from '@/types/dateRange'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
-
-  type DateRange = { startDate: Date, endDate: Date }
-  export type DateRangeSelectSpanValue = { type: 'span', seconds: number }
-  export type DateRangeSelectRangeValue = { type: 'range', startDate: Date, endDate: Date }
-  export type DateRangeSelectValue = DateRangeSelectSpanValue | DateRangeSelectRangeValue | null | undefined
 
   const props = defineProps<{
     modelValue: DateRangeSelectValue,
