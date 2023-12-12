@@ -12,7 +12,7 @@
         </div>
       </PButton>
 
-      <template v-if="modelValue">
+      <template v-if="modelValue && clearable">
         <PButton class="p-date-range-select__button" icon="XCircleIcon" @click="clear" />
       </template>
       <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" @click="next" />
@@ -58,6 +58,7 @@
   const props = defineProps<{
     modelValue: DateRangeSelectValue,
     placeholder?: string,
+    clearable?: boolean,
     min?: Date,
     max?: Date,
   }>()

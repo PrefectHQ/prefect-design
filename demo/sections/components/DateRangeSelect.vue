@@ -6,12 +6,12 @@
 
     <template #date-range-select>
       <p-content>
-        <p-date-range-select v-model="value" v-bind="{ min, max }" />
+        <p-date-range-select v-model="value" v-bind="{ min, max, clearable }" />
         <p-code inline>
           value: {{ JSON.stringify(value) }}
         </p-code>
         <div class="flex justify-start gap-4">
-          <p-checkbox v-model="isClearableDate" :disabled="disabled" label="Clearable" />
+          <p-checkbox v-model="clearable" :disabled="disabled" label="Clearable" />
         </div>
         <div class="flex gap-4 w-1/2">
           <p-label label="Min Value" :message="min ? format(min, 'MMM do, yyyy h:mm a') : ''">
@@ -40,5 +40,5 @@
   const value = ref()
   const min = ref<Date>()
   const max = ref<Date>()
-  const isClearableDate = ref(false)
+  const clearable = ref(true)
 </script>
