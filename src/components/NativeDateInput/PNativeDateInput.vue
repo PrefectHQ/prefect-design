@@ -64,7 +64,14 @@
   })
 
   const stringMin = computed(() => props.min ? format(props.min, 'yyyy-MM-dd') : undefined)
-  const stringMax = computed(() => props.max ? format(props.max, 'yyyy-MM-dd') : undefined)
+  const stringMax = computed(() => {
+    if (props.max) {
+      return format(props.max, 'yyyy-MM-dd')
+    }
+
+    // max date with a 4 digit year
+    return '2999-12-31'
+  })
 
   function showPicker(): void {
     inputElement.value?.showPicker()
