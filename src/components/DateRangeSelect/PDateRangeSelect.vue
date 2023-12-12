@@ -21,7 +21,7 @@
     <template #default>
       <div class="p-date-range-select__picker" @click.stop>
         <template v-if="mode === 'relative'">
-          <PDateRangeSelectOptions :model-value="span" v-bind="{ min, max }" @update:model-value="selectSpan" />
+          <PDateRangeSelectOptions :model-value="span" v-bind="{ min, max, maxSpanInSeconds }" @update:model-value="selectSpan" />
         </template>
 
         <template v-if="mode === 'range'">
@@ -58,6 +58,7 @@
   const props = defineProps<{
     modelValue: DateRangeSelectValue,
     placeholder?: string,
+    maxSpanInSeconds?: number,
     clearable?: boolean,
     disabled?: boolean,
     min?: Date,

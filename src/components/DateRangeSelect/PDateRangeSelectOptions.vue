@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { addSeconds, isAfter, isBefore, secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns'
+  import { addSeconds, isAfter, isBefore, secondsInDay, secondsInHour, secondsInMinute, secondsInMonth, secondsInWeek } from 'date-fns'
   import { computed, onMounted, ref } from 'vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
@@ -20,6 +20,7 @@
 
   const props = defineProps<{
     modelValue: DateRangeSelectOptionsValue,
+    maxSpanInSeconds?: number,
     min?: Date,
     max?: Date,
   }>()
@@ -52,12 +53,15 @@
       { label: `Past ${unit} ${toPluralString('minute', unit)}`, value: unit * secondsInMinute * -1 },
       { label: `Past ${unit} ${toPluralString('hour', unit)}`, value: unit * secondsInHour * -1 },
       { label: `Past ${unit} ${toPluralString('day', unit)}`, value: unit * secondsInDay * -1 },
+      { label: `Past ${unit} ${toPluralString('week', unit)}`, value: unit * secondsInWeek * -1 },
       { label: `Next ${unit} ${toPluralString('minute', unit)}`, value: unit * secondsInMinute },
       { label: `Next ${unit} ${toPluralString('hour', unit)}`, value: unit * secondsInHour },
       { label: `Next ${unit} ${toPluralString('day', unit)}`, value: unit * secondsInDay },
+      { label: `Next ${unit} ${toPluralString('week', unit)}`, value: unit * secondsInWeek },
     ]
 
     const now = new Date()
+    const maxSpanInSeconds = props.maxSpanInSeconds ?? secondsInMonth * 2
 
     const filteredSpans = spans.filter(option => {
       const time = addSeconds(now, option.value)
@@ -70,7 +74,11 @@
         return false
       }
 
-      return Math.abs(option.value) < secondsInWeek
+      if (maxSpanInSeconds) {
+        return Math.abs(option.value) < maxSpanInSeconds
+      }
+
+      return true
     })
 
     return [
@@ -83,5 +91,10 @@
 <style>
 .p-date-range-select-options {
   min-width: 300px;
+}
+
+.p-date-range-select-options,
+.p-date-range-select-options .p-select-options__options {
+  max-height: 400px;
 }
 </style>
