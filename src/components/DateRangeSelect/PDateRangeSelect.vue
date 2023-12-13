@@ -40,6 +40,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { useKeyDown } from '@prefecthq/vue-compositions'
   import { addDays, addSeconds, differenceInSeconds, isAfter, isBefore, secondsInDay, startOfMinute } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
@@ -66,6 +67,10 @@
   const emit = defineEmits<{
     'update:modelValue': [DateRangeSelectValue],
   }>()
+
+  useKeyDown('Escape', () => {
+    popover.value?.close()
+  })
 
   const placement = [bottomLeft, topLeft, bottomRight, topRight, leftInside, rightInside]
   const popover = ref<InstanceType<typeof PPopOver>>()
@@ -252,7 +257,6 @@
 
 <style>
 .p-date-range-select { @apply
-  w-full
   flex
   flex-nowrap
   items-center
@@ -277,6 +281,7 @@
 }
 
 .p-date-range-select__input { @apply
+  overflow-hidden
   grow
   shrink
   min-w-0
@@ -293,7 +298,6 @@
 .p-date-range-select__label { @apply
   shrink
   min-w-0
-  overflow-hidden
   whitespace-nowrap
 }
 

@@ -181,7 +181,7 @@
 }
 
 .p-date-range-picker__date-wrapper--selected-start { @apply
-  rounded-l-sm
+  rounded-l-default
 }
 
 .p-date-range-picker__date-wrapper--selected-start::before { @apply
@@ -193,7 +193,7 @@
 }
 
 .p-date-range-picker__date-wrapper--selected-end { @apply
-  rounded-r-sm
+  rounded-r-default
 }
 
 .p-date-range-picker__date-wrapper--in-range { @apply
