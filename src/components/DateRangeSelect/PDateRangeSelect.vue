@@ -257,7 +257,6 @@
 
 <style>
 .p-date-range-select { @apply
-  w-full
   flex
   flex-nowrap
   items-center
