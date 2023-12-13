@@ -62,6 +62,7 @@
           :disabled="disabled"
           v-bind="attrs"
           :options="options"
+          @vue:mounted="emit('bottom')"
         />
       </template>
     </template>
