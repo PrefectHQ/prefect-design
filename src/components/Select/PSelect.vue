@@ -21,13 +21,15 @@
         >
           <template #default>
             <template v-if="showShowEmptyMessage">
-              <slot name="empty-message">
-                {{ emptyMessage }}
-              </slot>
+              <span class="p-select__empty-message">
+                <slot name="empty-message">
+                  {{ emptyMessage }}
+                </slot>
+              </span>
             </template>
 
             <template v-else-if="multiple">
-              <PTagWrapper class="p-select-button__value" :tags="tags">
+              <PTagWrapper :tags="tags">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="tag.label" :value="tag.value" :dismiss="() => dismissTag(tag)">
                     <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">
@@ -149,7 +151,7 @@
     }))
   })
 
-  const multiple = computed(() => props.multiple || isArray(modelValue.value))
+  const multiple = computed(() => props.multiple || isArray(props.modelValue))
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
   const showShowEmptyMessage = computed(() => {
@@ -258,3 +260,9 @@
     }
   }
 </script>
+
+<style>
+.p-select__empty-message { @apply
+  text-subdued
+}
+</style>
