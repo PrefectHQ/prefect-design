@@ -277,6 +277,7 @@
 }
 
 .p-date-range-select__input { @apply
+  overflow-hidden
   grow
   shrink
   min-w-0
@@ -293,7 +294,6 @@
 .p-date-range-select__label { @apply
   shrink
   min-w-0
-  overflow-hidden
   whitespace-nowrap
 }
 
