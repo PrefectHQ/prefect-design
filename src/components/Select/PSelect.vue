@@ -29,7 +29,7 @@
             </template>
 
             <template v-else-if="multiple">
-              <PTagWrapper :tags="tags">
+              <PTagWrapper :tags="tags" inline>
                 <template #tag="{ tag }">
                   <slot name="tag" :label="tag.label" :value="tag.value" :dismiss="() => dismissTag(tag)">
                     <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">

@@ -31,6 +31,7 @@
   const props = defineProps<{
     tags?: (string | TagValue)[],
     justify?: 'left' | 'center' | 'right',
+    inline?: boolean,
   }>()
 
   const container: Ref<HTMLDivElement | undefined> = ref()
@@ -63,44 +64,43 @@
   let resizeObserver: ResizeObserver | null = null
   const hasOverflowChildren = computed(() => overflowChildren.value > 0)
 
+  const invisibleTagClass = 'p-tag-wrapper__tag--invisible'
+  const hiddenTagClass = 'p-tag-wrapper__tag--hidden'
+
   const calculateOverflow = (): void => {
-    const children = Array.from(
-      container.value?.querySelector('.p-tag-wrapper__tag-container')?.children ?? [])
-      .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow'),
-      ) as HTMLElement[]
-
-    const containerBoundingBox = container.value!.getBoundingClientRect()
     const hiddenChildTexts = []
-
+    const overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
+    let largestChildHeight = overflowBoundingBox.height
     let overflowed = false
+    let tagsWidth = 0
+
+    const children = Array.from(
+      container.value?.querySelector('.p-tag-wrapper__tag-container')?.children ?? [],
+    ).filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow')) as HTMLElement[]
 
     overflowChildren.value = children.length
-    const overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
-    let tagsWidth = 0
-    let largestChildHeight = overflowBoundingBox.height
 
-    const invisibleClass = 'p-tag-wrapper__tag--invisible'
-    const hiddenClass = 'p-tag-wrapper__tag--hidden'
+    if (props.inline) {
+      setInlineContainerWidth(children)
+    }
+
+    const containerBoundingBox = container.value!.getBoundingClientRect()
 
     for (const child of children) {
-      child.classList.add(invisibleClass)
-      child.classList.remove(hiddenClass)
+      setTagVisibility(child, 'invisible')
 
       if (overflowed) {
-        child.classList.add(hiddenClass)
-        child.classList.remove(invisibleClass)
+        setTagVisibility(child, 'hidden')
         hiddenChildTexts.push(child.innerText)
       } else {
         const boundingBox = child.getBoundingClientRect()
         overflowed = tagsWidth + boundingBox.width >= containerBoundingBox.width
 
         if (overflowed) {
-          child.classList.add(hiddenClass)
-          child.classList.remove(invisibleClass)
+          setTagVisibility(child, 'hidden')
           hiddenChildTexts.push(child.innerText)
         } else {
-          child.classList.remove(invisibleClass)
-          child.classList.remove(hiddenClass)
+          setTagVisibility(child, 'visible')
 
           tagsWidth += boundingBox.width
           largestChildHeight = Math.max(largestChildHeight, boundingBox.height)
@@ -112,8 +112,9 @@
     if (overflowChildren.value > 0) {
       let overflowBoundingBox = overflowTag.value!.getBoundingClientRect()
       let totalWidth = tagsWidth + overflowBoundingBox.width
+
       if (totalWidth > containerBoundingBox.width) {
-        const visibleChildren = children.filter(child => !child.classList.contains(hiddenClass)).reverse()
+        const visibleChildren = children.filter(child => !child.classList.contains(hiddenTagClass)).reverse()
 
         reverse: for (const child of visibleChildren) {
           overflowChildren.value++
@@ -124,7 +125,7 @@
           totalWidth = tagsWidth + overflowBoundingBox.width
           const overflow = totalWidth > containerBoundingBox.width
 
-          child.classList.add(hiddenClass)
+          child.classList.add(hiddenTagClass)
           hiddenChildTexts.unshift(child.innerText)
 
           if (overflow) {
@@ -143,6 +144,34 @@
     hiddenText.value = hiddenChildTexts.join(', ')
 
     ready.value = true
+  }
+
+  function setTagVisibility(child: HTMLElement, visibility: 'invisible' | 'hidden' | 'visible'): void {
+    switch (visibility) {
+      case 'invisible':
+        child.classList.remove(hiddenTagClass)
+        child.classList.add(invisibleTagClass)
+        break
+      case 'hidden':
+        child.classList.remove(invisibleTagClass)
+        child.classList.add(hiddenTagClass)
+        break
+      case 'visible':
+        child.classList.remove(hiddenTagClass)
+        child.classList.remove(invisibleTagClass)
+        break
+    }
+  }
+
+  function setInlineContainerWidth(children: HTMLElement[]): void {
+    const totalTagsWidth = children.reduce((acc, child) => {
+      setTagVisibility(child, 'invisible')
+      const boundingBox = child.getBoundingClientRect()
+
+      return acc + Math.ceil(boundingBox.width)
+    }, 0)
+
+    container.value!.style.width = `${totalTagsWidth}px`
   }
 
   function createObserver(): void {
@@ -173,6 +202,7 @@
   block
   whitespace-nowrap
   align-middle
+  max-w-full
 }
 
 .p-tag-wrapper__tag--hidden { @apply

@@ -7,6 +7,7 @@
       { title: 'Multiple' },
       { title: 'Using p-tag-wrapper' },
     ]"
+    use-resizable
   >
     <template #basic>
       <div class="tags__list">
@@ -55,6 +56,13 @@
             Tag {{ i }}
           </p-tag>
         </p-tag-wrapper>
+
+        <div>
+          <p>Inline</p>
+          <div class="border border-default p-2 inline-flex max-w-full">
+            <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="left" inline />
+          </div>
+        </div>
       </div>
     </template>
   </ComponentPage>
