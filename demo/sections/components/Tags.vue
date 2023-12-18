@@ -35,9 +35,9 @@
 
     <template #using-p-tag-wrapper>
       <div class="flex flex-col gap-3">
-        <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="left" />
+        <p-tag-wrapper :tags="numberArr" justify="left" />
 
-        <p-tag-wrapper class="h-[48px]" :tags="numberArr">
+        <p-tag-wrapper :tags="numberArr">
           <template #tag="{ tag }">
             <p-tag icon="Prefect">
               {{ tag }}
@@ -51,7 +51,7 @@
           </template>
         </p-tag-wrapper>
 
-        <p-tag-wrapper class="h-[48px]" justify="right">
+        <p-tag-wrapper justify="right">
           <p-tag v-for="i in 20" :key="i">
             Tag {{ i }}
           </p-tag>
@@ -59,8 +59,8 @@
 
         <div>
           <p>Inline</p>
-          <div class="border border-default p-2 inline-flex max-w-full">
-            <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="left" inline />
+          <div class="border border-default p-2 max-w-full">
+            <p-tag-wrapper :tags="numberArr" justify="left" inline class="border border-default" />
           </div>
         </div>
       </div>
