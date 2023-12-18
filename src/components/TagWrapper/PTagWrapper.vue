@@ -167,7 +167,7 @@
     const totalTagsWidth = children.reduce((acc, child) => {
       setTagVisibility(child, 'invisible')
       const boundingBox = child.getBoundingClientRect()
-
+      console.log('tag width', Math.ceil(boundingBox.width))
       return acc + Math.ceil(boundingBox.width)
     }, 0)
 
