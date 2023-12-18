@@ -60,7 +60,7 @@
         <div>
           <p>Inline</p>
           <div class="border border-default p-2 max-w-full">
-            <p-tag-wrapper :tags="numberArr" justify="left" inline class="border border-default" />
+            <p-tag-wrapper :tags="numberArr" justify="left" inline class="border border-red-500" />
           </div>
         </div>
       </div>

@@ -76,6 +76,8 @@
     const tags = Array.from(container.value.children)
       .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow')) as HTMLElement[]
 
+    setTagVisibility(overflowTag.value!, 'hidden')
+
     setAllTagsInvisible(tags)
 
     if (props.inline) {
@@ -87,7 +89,7 @@
     tags.forEach(tag => {
       const { right } = tag.getBoundingClientRect()
 
-      if (right > containerRightEdge) {
+      if (right > containerRightEdge || overflowCount.value > 0) {
         setTagVisibility(tag, 'hidden')
         overflowCount.value++
         if (tag.textContent) {
@@ -100,7 +102,12 @@
     })
 
     if (overflowCount.value > 0) {
-      const { right: overflowTagRight, width: overflowTagWidth } = overflowTag.value!.getBoundingClientRect()
+      setTagVisibility(overflowTag.value!, 'visible')
+
+      const {
+        right: overflowTagRight,
+        width: overflowTagWidth,
+      } = overflowTag.value!.getBoundingClientRect()
 
       if (overflowTagRight > containerRightEdge) {
         const visibleTags = tags.filter(child => !child.classList.contains(hiddenTagClass)).reverse()
@@ -149,9 +156,9 @@
   }
 
   function setInlineContainerWidth(tags: HTMLElement[]): void {
-    console.log('---------')
     const totalTagsWidth = tags.reduce((acc, tag) => {
       const boundingBox = tag.getBoundingClientRect()
+
       return acc + Math.ceil(boundingBox.width)
     }, 0)
 
