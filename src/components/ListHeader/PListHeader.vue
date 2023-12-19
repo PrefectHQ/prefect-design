@@ -71,6 +71,7 @@
 }
 
 .list-header__controls { @apply
+  min-w-0
   grid
   grid-cols-1
   md:flex
