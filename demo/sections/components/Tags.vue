@@ -3,6 +3,7 @@
     title="Tags"
     :demos="[
       { title: 'Basic' },
+      { title: 'Size XS' },
       { title: 'Using Slot' },
       { title: 'Multiple' },
       { title: 'Using p-tag-wrapper' },
@@ -12,6 +13,14 @@
     <template #basic>
       <div class="tags__list">
         <p-tag v-for="index in 3" :key="index">
+          {{ index }}
+        </p-tag>
+      </div>
+    </template>
+
+    <template #size-xs>
+      <div class="tags__list">
+        <p-tag v-for="index in 3" :key="index" size="xs">
           {{ index }}
         </p-tag>
       </div>
