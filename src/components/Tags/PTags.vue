@@ -1,6 +1,6 @@
 <template>
   <div class="p-tags">
-    <PTag v-for="tag in tags" :key="tag.label" :dismissible="dismissible" :size="size">
+    <PTag v-for="tag in tags" :key="tag.label" :dismissible="dismissible" :small="small">
       <slot :tag="tag">
         {{ tag.label }}
       </slot>
@@ -16,7 +16,7 @@
   const props = defineProps<{
     tags: (string | TagValue)[],
     dismissible?: boolean,
-    size?: 'xs' | 'sm',
+    small?: boolean,
   }>()
 
   const tags = computed(() => props.tags.map(normalize))

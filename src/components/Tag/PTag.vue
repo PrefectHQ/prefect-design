@@ -23,13 +23,13 @@
   import { Icon } from '@/types/icon'
   import { TagValue, normalize } from '@/types/tag'
 
-  const props = withDefaults(defineProps<{
+  const props = defineProps<{
     icon?: Icon,
     label?: string,
     value?: string | TagValue,
     dismissible?: boolean,
-    size?: 'xs' | 'sm',
-  }>(), { icon: undefined, label: undefined, value: undefined, size: 'sm' })
+    small?: boolean,
+  }>()
 
   const emits = defineEmits<{
     (event: 'dismiss', value: TagValue): void,
@@ -42,7 +42,7 @@
   const classes = computed(() => ({
     root: {
       'p-tag--dismissible': props.dismissible,
-      [`p-tag--${props.size}`]: true,
+      'p-tag--small': props.small,
     },
   }))
 </script>
@@ -52,7 +52,10 @@
   gap-1
   inline-flex
   items-center
-  rounded-default;
+  rounded-default
+  text-sm
+  px-2.5
+  py-0.5;
   background-color: var(--p-color-tag-bg);
   border-color: var(--p-color-tag-border);
   color: var(--p-color-tag-text);
@@ -66,13 +69,7 @@
   color: var(--p-color-tag-text);
 }
 
-.p-tag--sm { @apply
-  text-sm
-  px-2.5
-  py-0.5
-}
-
-.p-tag--xs { @apply
+.p-tag--small { @apply
   text-xs
   px-1.5
   py-0.5
