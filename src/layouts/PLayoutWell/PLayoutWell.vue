@@ -20,7 +20,6 @@
   grid-cols-[1fr_1fr_250px]
   grid-rows-[max-content_max-content]
   gap-4
-  h-full
   w-full
 }
 
