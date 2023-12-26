@@ -23,7 +23,6 @@
     maxSpanInSeconds?: number,
     min?: Date,
     max?: Date,
-    placeholder: string,
   }>()
 
   const emit = defineEmits<{
