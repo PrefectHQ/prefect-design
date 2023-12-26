@@ -2,7 +2,7 @@
   <PSelectOptions v-model="value" :options="options" class="p-date-range-select-options">
     <template #pre-options>
       <div class="p-1">
-        <PTextInput ref="input" v-model="search" placeholder="Enter a unit like &quot;15&quot;" />
+        <PTextInput ref="input" v-model="search" placeholder="Relative time(15m, 1h, 1d, 1w)" />
       </div>
     </template>
   </PSelectOptions>
@@ -23,6 +23,7 @@
     maxSpanInSeconds?: number,
     min?: Date,
     max?: Date,
+    placeholder: string,
   }>()
 
   const emit = defineEmits<{
