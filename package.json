@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "2.0.11",
+  "version": "2.2.5",
   "description": "",
   "repository": {
     "type": "git",
@@ -42,12 +42,11 @@
   "devDependencies": {
     "@fontsource/inconsolata": "^4.5.7",
     "@fontsource/inter": "^4.5.12",
-    "@prefecthq/eslint-config": "1.0.27",
+    "@prefecthq/eslint-config": "1.0.31",
     "@types/dompurify": "^3.0.1",
     "@types/marked": "^4.0.8",
     "@types/node": "^20.1.6",
-    "@types/tailwindcss": "^3.0.10",
-    "@vitejs/plugin-vue": "4.3.4",
+    "@vitejs/plugin-vue": "4.5.2",
     "auto-changelog": "^2.4.0",
     "autoprefixer": "^10.4.6",
     "eslint": "^8.6.0",
@@ -56,9 +55,9 @@
     "ts-node": "^10.7.0",
     "tsc-alias": "1.8.7",
     "typescript": "5.2.2",
-    "vite": "4.4.9",
-    "vite-svg-loader": "4.0.0",
-    "vue-tsc": "1.8.11"
+    "vite": "4.5.1",
+    "vite-svg-loader": "5.1.0",
+    "vue-tsc": "1.8.22"
   },
   "peerDependencies": {
     "vue": "^3.3.4",
@@ -66,14 +65,14 @@
   },
   "dependencies": {
     "@heroicons/vue": "2.0.17",
-    "@prefecthq/vue-compositions": "1.5.9",
+    "@prefecthq/vue-compositions": "1.6.7",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
-    "@types/lodash.debounce": "4.0.7",
+    "@types/lodash.debounce": "4.0.9",
     "date-fns": "2.30.0",
-    "dompurify": "3.0.5",
-    "highlight.js": "11.8.0",
+    "dompurify": "3.0.6",
+    "highlight.js": "11.9.0",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0"
   }

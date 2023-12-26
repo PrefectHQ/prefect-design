@@ -17,18 +17,19 @@
           :class="classes.control"
           :disabled="disabled"
           v-bind="attrs"
-          :options="selectOptions"
           @click="toggleSelect"
         >
           <template #default>
             <template v-if="showShowEmptyMessage">
-              <slot name="empty-message">
-                {{ emptyMessage }}
-              </slot>
+              <span class="p-select__empty-message">
+                <slot name="empty-message">
+                  {{ emptyMessage }}
+                </slot>
+              </span>
             </template>
 
             <template v-else-if="multiple">
-              <PTagWrapper class="p-select-button__value" :tags="tags">
+              <PTagWrapper :tags="tags" inline>
                 <template #tag="{ tag }">
                   <slot name="tag" :label="tag.label" :value="tag.value" :dismiss="() => dismissTag(tag)">
                     <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">
@@ -62,21 +63,20 @@
           :class="classes.control"
           :disabled="disabled"
           v-bind="attrs"
-          :options="selectOptions"
+          :options="options"
+          @vue:mounted="emit('bottom')"
         />
       </template>
     </template>
 
     <PSelectOptions
       v-model="modelValue"
-      v-model:highlightedValue="highlightedValue"
       class="p-select__options"
-      :options="selectOptions"
+      :options="options"
       :style="styles.option"
       :multiple="multiple"
       @update:model-value="closeIfNotMultiple"
       @keydown="handleKeydown"
-      @mouseleave="setHighlightedValueUnselected"
       @bottom="emit('bottom')"
     >
       <template v-for="(index, name) in $slots" #[name]="data">
@@ -104,10 +104,9 @@
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { MaybeReadonly } from '@/types'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { SelectModelValue, flattenSelectOptions, normalizeSelectOption, SelectOptionGroup, SelectOptionNormalized, SelectOption, isSelectOptionNormalized } from '@/types/selectOption'
+  import { SelectModelValue, flattenSelectOptions, normalizeSelectOption, SelectOptionGroup, SelectOptionNormalized, SelectOption } from '@/types/selectOption'
   import { TagValue } from '@/types/tag'
   import { asArray, isArray } from '@/utilities/arrays'
   import { media } from '@/utilities/media'
@@ -134,6 +133,10 @@
 
   const modelValue = computed({
     get() {
+      if (multiple.value) {
+        return props.modelValue ?? []
+      }
+
       return props.modelValue ?? null
     },
     set(value) {
@@ -148,24 +151,18 @@
     }))
   })
 
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  const multiple = computed(() => props.multiple || isArray(modelValue.value))
+  const multiple = computed(() => props.multiple || isArray(props.modelValue))
 
   const isOpen = computed(() => popOver.value?.visible ?? false)
   const showShowEmptyMessage = computed(() => {
-    if (isArray(modelValue.value)) {
-      return modelValue.value.length === 0
+    if (multiple.value) {
+      return asArray(modelValue.value).length === 0
     }
 
-    return getSelectOption(modelValue.value) === undefined
+    return modelValue.value === null
   })
 
-  const selectOptions = computed(() => {
-    return props.options.map(normalizeSelectOption)
-  })
-
-  const flatSelectOptions = computed(() => flattenSelectOptions(selectOptions.value))
-  const { highlightedValue, isUnselected, setHighlightedValueUnselected, setNextHighlightedValue, setPreviousHighlightedValue } = useHighlightedValue(flatSelectOptions)
+  const flatSelectOptions = computed(() => flattenSelectOptions(props.options.map(normalizeSelectOption)))
 
   function getSelectOption(value: unknown): SelectOptionNormalized | undefined {
     return flatSelectOptions.value.find(option => option.value === value)
@@ -231,24 +228,6 @@
     }
   }
 
-  function setValue(newValue: SelectModelValue): void {
-    if (Array.isArray(modelValue.value)) {
-      const index = modelValue.value.indexOf(newValue)
-
-      if (index > -1) {
-        modelValue.value = [...modelValue.value.slice(0, index), ...modelValue.value.slice(index + 1)]
-      } else {
-        modelValue.value = [...modelValue.value, newValue]
-      }
-    } else {
-      modelValue.value = newValue
-    }
-
-    if (!multiple.value) {
-      closeSelect()
-    }
-  }
-
   function handleOpenChange(open: boolean): void {
     if (open) {
       emit('open')
@@ -270,47 +249,20 @@
         closeSelect()
         break
       case keys.upArrow:
-        if (!isOpen.value) {
-          openSelect()
-        } else {
-          setPreviousHighlightedValue()
-        }
-        event.preventDefault()
-        break
       case keys.downArrow:
-        if (!isOpen.value) {
-          openSelect()
-        } else {
-          setNextHighlightedValue()
-        }
-        event.preventDefault()
-        break
       case keys.space:
         if (!isOpen.value) {
           openSelect()
-        } else if (!isUnselected(highlightedValue.value)) {
-          setValue(highlightedValue.value)
-        }
-        event.preventDefault()
-        break
-      case keys.enter:
-        if (!isOpen.value) {
-          return
-        }
-
-        if (selectOptions.value.length === 1) {
-          const [first] = selectOptions.value
-
-          if (isSelectOptionNormalized(first)) {
-            setValue(first.value)
-          }
-        } else if (!isUnselected(highlightedValue.value)) {
-          setValue(highlightedValue.value)
           event.preventDefault()
         }
-        break
-      default:
+
         break
     }
   }
 </script>
+
+<style>
+.p-select__empty-message { @apply
+  text-subdued
+}
+</style>

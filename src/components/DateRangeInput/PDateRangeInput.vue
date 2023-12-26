@@ -1,81 +1,74 @@
 <template>
-  <PDateInput v-model="rangeValue" v-model:viewingDate="internalViewingDate" :clearable="clearable">
-    <template #default="{ openPicker, isOpen, disabled }">
-      <template v-if="media.hover">
+  <PInputPopOver class="p-date-input">
+    <template #input="{ open, visible }">
+      <slot v-bind="{ open, visible }">
         <PDateButton
-          :date="null"
-          class="p-date-range-input__trigger"
-          :class="classes.trigger(isOpen)"
-          :disabled="disabled"
-          @click="openPicker"
+          :date="startDate ?? endDate"
+          :class="getControlClass(visible)"
+          v-bind="{ showTime, disabled, clearable }"
+          @click="open"
+          @clear="clear"
         >
           <div class="p-date-range-input__target">
             {{ displayValue }}
           </div>
         </PDateButton>
-      </template>
-      <template v-else>
-        <div class="p-date-range-input__target">
-          <p-label label="Start Date">
-            <template #default="{ id }">
-              <PNativeDateInput :id="id" v-model="internalStartDate" :max="internalEndDate" />
-            </template>
-          </p-label>
-          <p-label label="End Date">
-            <template #default="{ id }">
-              <PNativeDateInput :id="id" v-model="internalEndDate" :min="internalStartDate" />
-            </template>
-          </p-label>
-        </div>
-      </template>
+      </slot>
     </template>
-    <template #date="{ date, disabled, today, outOfMonth, select }">
-      <p-button
-        class="p-date-range-input__date"
-        :class="classes.date(date, today, outOfMonth)"
-        :disabled="disabled"
-        small
-        flat
-        @click="select"
+
+    <template #default="{ close }">
+      <PDateRangePicker
+        v-model:start-date="internalStartDate"
+        v-model:end-date="internalEndDate"
+        v-model:viewing-date="internalViewingDate"
+        v-bind="{ min, max, showTime }"
+        @close="close"
       >
-        <slot
-          name="date"
-          :date="date"
-          :is-selected="isDateSelected(date)"
-          :is-in-selected-range="isDateInSelectedRange(date)"
-        >
-          {{ date.getDate() }}
-        </slot>
-      </p-button>
+        <template v-for="(index, name) in $slots" #[name]="data">
+          <slot :name="name" v-bind="data" />
+        </template>
+      </PDateRangePicker>
     </template>
-  </PDateInput>
+  </PInputPopOver>
 </template>
 
 <script lang="ts" setup>
-  import { format, isSameDay, startOfDay, endOfDay } from 'date-fns'
+  import { format, startOfDay, endOfDay } from 'date-fns'
   import { computed } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
-  import PDateInput from '@/components/DateInput/PDateInput.vue'
-  import { isDateBefore, isDateInRange } from '@/utilities'
-  import { media } from '@/utilities/media'
+  import PInputPopOver from '@/components/DateInput/PInputPopOver.vue'
+  import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
+  import { ClassValue } from '@/types'
 
   const props = defineProps<{
     startDate: Date | null | undefined,
     endDate: Date | null | undefined,
     viewingDate?: Date,
+    showTime?: boolean,
     clearable?: boolean,
+    disabled?: boolean,
+    min?: Date | null | undefined,
+    max?: Date | null | undefined,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:startDate' | 'update:endDate', value: Date | null): void,
+    (event: 'update:startDate' | 'update:endDate', value: Date | null | undefined): void,
     (event: 'update:viewingDate', value: Date | undefined): void,
   }>()
 
   const dateFormat = 'MMM do, yyyy'
 
+  const displayValue = computed(() => {
+    if (props.startDate && props.endDate) {
+      return `${format(props.startDate, dateFormat)} - ${format(props.endDate, dateFormat)}`
+    }
+
+    return 'Select dates'
+  })
+
   const internalStartDate = computed({
     get() {
-      return props.startDate ?? null
+      return props.startDate
     },
     set(value) {
       emit('update:startDate', value)
@@ -84,47 +77,10 @@
 
   const internalEndDate = computed({
     get() {
-      return props.endDate ?? null
+      return props.endDate
     },
     set(value) {
       emit('update:endDate', value)
-    },
-  })
-
-  const displayValue = computed(() => {
-    if (internalStartDate.value && internalEndDate.value) {
-      return `${format(internalStartDate.value, dateFormat)} - ${format(internalEndDate.value, dateFormat)}`
-    }
-
-    return 'Select dates'
-  })
-
-  const rangeValue = computed({
-    get() {
-      return internalEndDate.value ?? internalStartDate.value
-    },
-    set(value) {
-      if (!value) {
-        return clear()
-      }
-
-      if (internalStartDate.value && isDateBefore(value, internalStartDate.value)) {
-        setEndDate(internalEndDate.value ? null : internalStartDate.value)
-        setStartDate(value)
-
-        return
-      }
-
-      if (!internalStartDate.value) {
-        return setStartDate(value)
-      }
-
-      if (!internalEndDate.value) {
-        return setEndDate(value)
-      }
-
-      setStartDate(value)
-      setEndDate(null)
     },
   })
 
@@ -137,27 +93,10 @@
     },
   })
 
-  const classes = computed(() => ({
-    trigger: (isOpen: boolean) => ({ 'p-date-range-input__trigger--open': isOpen }),
-    date: (date: Date, today: boolean, outOfMonth: boolean) => ({
-      'p-date-range-input__date--today': today,
-      'p-date-range-input__date--selected': isDateSelected(date),
-      'p-date-range-input__date--in-range': isDateInSelectedRange(date),
-      'p-date-range-input__date--out-of-month': outOfMonth,
-    }),
-  }))
-
-  function isDateSelected(date: Date): boolean {
-    return !!internalStartDate.value && isSameDay(date, internalStartDate.value)
-      || !!internalEndDate.value && isSameDay(date, internalEndDate.value)
-  }
-
-  function isDateInSelectedRange(date: Date): boolean {
-    if (!internalStartDate.value || !internalEndDate.value) {
-      return false
+  function getControlClass(open: boolean): ClassValue {
+    return {
+      'p-date-input--open': open,
     }
-
-    return isDateInRange(date, { min: internalStartDate.value, max: internalEndDate.value })
   }
 
   function setStartDate(value: Date | null): void {
@@ -169,40 +108,14 @@
   }
 
   function clear(): void {
-    internalStartDate.value = null
-    internalEndDate.value = null
+    setStartDate(null)
+    setEndDate(null)
+    emit('update:startDate', null)
+    emit('update:endDate', null)
   }
 </script>
 
 <style>
-.p-date-range-input__date { @apply
-  justify-center
-  p-0
-}
-
-.p-date-range-input__date--today,
-.p-date-range-input__date--today:not(:disabled):hover,
-.p-date-range-input__date--today:not(:disabled):active { @apply
-  border-2
-  border-live
-}
-
-.p-date-range-input__date--selected,
-.p-date-range-input__date--selected:not(:disabled):hover,
-.p-date-range-input__date--selected:not(:disabled):active { @apply
-  cursor-default
-  bg-[var(--p-color-input-checked-bg)]
-}
-
-.p-date-range-input__date--in-range:not(.p-date-range-input__date--selected),
-.p-date-range-input__date--in-range:not(.p-date-range-input__date--selected):hover { @apply
-  bg-selected
-}
-
-.p-date-range-input__date--out-of-month:not(:disabled) { @apply
-  text-subdued
-}
-
 .p-date-range-input__trigger--open { @apply
   ring-spacing-focus-ring
   ring-focus-ring

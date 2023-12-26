@@ -20,6 +20,8 @@ import { PContextSidebar, install as installPContextSidebar } from '@/components
 import { PDateInput, install as installPDateInput } from '@/components/DateInput'
 import { PDatePicker, install as installPDatePicker } from '@/components/DatePicker'
 import { PDateRangeInput, install as installPDateRangeInput } from '@/components/DateRangeInput'
+import { PDateRangePicker, install as installPDateRangePicker } from '@/components/DateRangePicker'
+import { PDateRangeSelect, install as installPDateRangeSelect } from '@/components/DateRangeSelect'
 import { PDialog, install as installPDialog } from '@/components/Dialog'
 import { PDivider, install as installPDivider } from '@/components/Divider'
 import { PDrawer, install as installPDrawer } from '@/components/Drawer'
@@ -39,6 +41,7 @@ import { PKeyValue, install as installPKeyValue } from '@/components/KeyValue'
 import { PLabel, install as installPLabel } from '@/components/Label'
 import { PLineNumbers, install as installPLineNumbers } from '@/components/LineNumbers'
 import { PLink, install as installPLink } from '@/components/Link'
+import { PListHeader, install as installPListHeader } from '@/components/ListHeader'
 import { PListItem, install as installPListItem } from '@/components/ListItem'
 import { PListItemInput, install as installPListItemInput } from '@/components/ListItemInput'
 import { PListTruncate, install as installPListTruncate } from '@/components/ListTruncate'
@@ -48,6 +51,7 @@ import { PMessage, install as installPMessage } from '@/components/Message'
 import { PModal, install as installPModal } from '@/components/Modal'
 import { PNativeDateInput, install as installPNativeDateInput } from '@/components/NativeDateInput'
 import { PNativeSelect, install as installPNativeSelect } from '@/components/NativeSelect'
+import { PNativeTimeInput, install as installPNativeTimeInput } from '@/components/NativeTimeInput'
 import { PNavigationBar, install as installPNavigationBar } from '@/components/NavigationBar'
 import { PNumberInput, install as installPNumberInput } from '@/components/NumberInput'
 import { POverflowMenu, install as installPOverflowMenu } from '@/components/OverflowMenu'
@@ -107,6 +111,8 @@ export {
   PDateInput,
   PDatePicker,
   PDateRangeInput,
+  PDateRangePicker,
+  PDateRangeSelect,
   PDialog,
   PDivider,
   PDrawer,
@@ -126,6 +132,7 @@ export {
   PLabel,
   PLineNumbers,
   PLink,
+  PListHeader,
   PListItem,
   PListItemInput,
   PListTruncate,
@@ -135,6 +142,7 @@ export {
   PModal,
   PNativeDateInput,
   PNativeSelect,
+  PNativeTimeInput,
   PNavigationBar,
   PNumberInput,
   POverflowMenu,
@@ -205,6 +213,8 @@ export const installs = [
   installPDateInput,
   installPDatePicker,
   installPDateRangeInput,
+  installPDateRangePicker,
+  installPDateRangeSelect,
   installPDialog,
   installPDivider,
   installPDrawer,
@@ -224,6 +234,7 @@ export const installs = [
   installPLabel,
   installPLineNumbers,
   installPLink,
+  installPListHeader,
   installPListItem,
   installPListItemInput,
   installPListTruncate,
@@ -233,6 +244,7 @@ export const installs = [
   installPModal,
   installPNativeDateInput,
   installPNativeSelect,
+  installPNativeTimeInput,
   installPNavigationBar,
   installPNumberInput,
   installPOverflowMenu,
@@ -293,6 +305,8 @@ declare module '@vue/runtime-core' {
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
     PDateRangeInput: typeof PDateRangeInput,
+    PDateRangePicker: typeof PDateRangePicker,
+    PDateRangeSelect: typeof PDateRangeSelect,
     PDialog: typeof PDialog,
     PDivider: typeof PDivider,
     PDrawer: typeof PDrawer,
@@ -312,6 +326,7 @@ declare module '@vue/runtime-core' {
     PLabel: typeof PLabel,
     PLineNumbers: typeof PLineNumbers,
     PLink: typeof PLink,
+    PListHeader: typeof PListHeader,
     PListItem: typeof PListItem,
     PListItemInput: typeof PListItemInput,
     PListTruncate: typeof PListTruncate,
@@ -321,6 +336,7 @@ declare module '@vue/runtime-core' {
     PModal: typeof PModal,
     PNativeDateInput: typeof PNativeDateInput,
     PNativeSelect: typeof PNativeSelect,
+    PNativeTimeInput: typeof PNativeDateInput,
     PNavigationBar: typeof PNavigationBar,
     PNumberInput: typeof PNumberInput,
     POverflowMenu: typeof POverflowMenu,

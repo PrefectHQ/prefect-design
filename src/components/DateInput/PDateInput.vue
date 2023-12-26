@@ -1,60 +1,46 @@
 <template>
-  <PPopOver
-    ref="popOver"
-    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
-    class="p-date-input"
-    auto-close
-    @open="handleOpenChange"
-    @keydown="handleKeydown"
-  >
-    <template #target>
-      <slot v-bind="{ openPicker, closePicker, isOpen, disabled }">
+  <PInputPopOver class="p-date-input">
+    <template #input="{ open, visible }">
+      <slot v-bind="{ open, visible }">
         <template v-if="media.hover">
           <PDateButton
             :date="internalModelValue"
-            :class="classes.control"
-            v-bind="{ showTime, disabled }"
-            @click="openPicker"
+            :class="getControlClass(visible)"
+            v-bind="{ showTime, disabled, clearable }"
+            @click="open"
+            @clear="clear"
           />
         </template>
         <template v-else>
-          <PNativeDateInput
-            v-model="internalModelValue"
-            class="p-date-input__native"
-            v-bind="{ min, max, disabled, showTime }"
-          />
+          <PNativeDateInput v-model="internalModelValue" v-bind="{ min, max, disabled }" />
         </template>
       </slot>
     </template>
 
-    <PDatePicker
-      v-model="internalModelValue"
-      v-model:viewingDate="internalViewingDate"
-      class="p-date-input__date-picker"
-      :show-time="showTime"
-      :clearable="clearable"
-      :min="min"
-      :max="max"
-      @click.stop
-      @keydown="closeOnEscape"
-    >
-      <template v-for="(index, name) in $slots" #[name]="data">
-        <slot :name="name" v-bind="data" />
-      </template>
-    </PDatePicker>
-  </PPopOver>
+    <template #default="{ close }">
+      <PDatePicker
+        v-model="internalModelValue"
+        v-model:viewing-date="internalViewingDate"
+        v-bind="{ min, max, showTime }"
+        @close="close"
+      >
+        <template v-for="(index, name) in $slots" #[name]="data">
+          <slot :name="name" v-bind="data" />
+        </template>
+      </PDatePicker>
+    </template>
+  </PInputPopOver>
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import { computed } from 'vue'
   import PDateButton from '@/components/DateInput/PDateButton.vue'
+  import PInputPopOver from '@/components/DateInput/PInputPopOver.vue'
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
   import PNativeDateInput from '@/components/NativeDateInput/PNativeDateInput.vue'
-  import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import { keys } from '@/types'
+  import { ClassValue } from '@/types'
   import { keepDateInRange } from '@/utilities/dates'
   import { media } from '@/utilities/media'
-  import { bottomRight, topRight, bottomLeft, topLeft } from '@/utilities/position'
 
   const props = defineProps<{
     modelValue: Date | null | undefined,
@@ -69,10 +55,7 @@
   const emit = defineEmits<{
     (event: 'update:modelValue', value: Date | null): void,
     (event: 'update:viewingDate', value: Date | undefined): void,
-    (event: 'open' | 'close'): void,
   }>()
-
-  const popOver = ref<typeof PPopOver>()
 
   const internalModelValue = computed({
     get() {
@@ -92,68 +75,18 @@
     },
   })
 
-  const isOpen = computed(() => popOver.value?.visible ?? false)
-
-  const classes = computed(() => ({
-    control:
-      {
-        'p-date-input--open': isOpen.value,
-      },
-  }))
-
-  function openPicker(): void {
-    if (!isOpen.value && !props.disabled) {
-      popOver.value!.open()
+  function getControlClass(open: boolean): ClassValue {
+    return {
+      'p-date-input--open': open,
     }
   }
 
-  function closePicker(): void {
-    if (isOpen.value) {
-      popOver.value!.close()
-    }
-  }
-
-  function closeOnEscape(event: KeyboardEvent): void {
-    if (media.hover && event.key === keys.escape) {
-      closePicker()
-      event.preventDefault()
-    }
-  }
-
-  function handleOpenChange(open: boolean): void {
-    if (open) {
-      emit('open')
-    } else {
-      emit('close')
-    }
-  }
-
-  function handleKeydown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case keys.escape:
-      case keys.tab:
-        closePicker()
-        break
-      case keys.space:
-        if (!isOpen.value) {
-          openPicker()
-        }
-        event.preventDefault()
-        break
-      default:
-        break
-    }
+  function clear(): void {
+    emit('update:modelValue', null)
   }
 </script>
 
 <style>
-.p-date-input__date-picker { @apply
-  bg-floating
-  my-1
-  rounded-default
-  shadow-lg
-}
-
 .p-date-input--open { @apply
   ring-spacing-focus-ring
   ring-focus-ring
