@@ -1,4 +1,5 @@
-import { addSeconds, endOfDay, format, intervalToDuration, isSameDay, startOfDay } from 'date-fns'
+import { intervalToDuration, addSeconds, format, isSameDay, startOfDay, endOfDay } from 'date-fns'
+import { DateRangeSelectAroundValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
 
 type DateRange = {
@@ -10,8 +11,26 @@ const dateFormat = 'MMM do, yyyy'
 const timeFormat = 'hh:mm a'
 const dateTimeFormat = `${dateFormat} 'at' ${timeFormat}`
 
-export function getDateSpanLabel(seconds: number): string {
+export function getDateRangeSelectValueLabel(value: DateRangeSelectValue): string | null {
+  if (!value) {
+    return null
+  }
+  const { type } = value
 
+  switch (type) {
+    case 'span':
+      return getDateSpanLabel(value)
+    case 'range':
+      return getDateRangeLabel(value)
+    case 'around':
+      return getDateAroundLabel(value)
+    default:
+      const exhaustive: never = type
+      throw new Error(`Label not found for date range type: ${exhaustive}`)
+  }
+}
+
+function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
   const now = new Date()
   const duration = intervalToDuration({
     start: now,
@@ -32,7 +51,7 @@ export function getDateSpanLabel(seconds: number): string {
   return `${direction} ${reduced.join(' ')}`
 }
 
-export function getDateRangeLabel({ startDate, endDate }: DateRange): string {
+function getDateRangeLabel({ startDate, endDate }: DateRangeSelectRangeValue): string {
   if (isPickerSingleDayRange({ startDate, endDate })) {
     return format(startDate, dateFormat)
   }
@@ -44,10 +63,24 @@ export function getDateRangeLabel({ startDate, endDate }: DateRange): string {
   return `${format(startDate, dateTimeFormat)} - ${format(endDate, dateTimeFormat)}`
 }
 
+function getDateAroundLabel({ date, seconds }: DateRangeSelectAroundValue): string {
+  const dateString = isStartOfDay(date) ? format(date, dateFormat) : format(date, dateTimeFormat)
+
+  return `${seconds} ${toPluralString('second', seconds)} around ${dateString}`
+}
+
+function isStartOfDay(date: Date): boolean {
+  return startOfDay(date).getTime() === date.getTime()
+}
+
+function isEndOfDay(date: Date): boolean {
+  return endOfDay(date).getTime() === date.getTime()
+}
+
 function isPickerSingleDayRange({ startDate, endDate }: DateRange): boolean {
   return isFullDateRange({ startDate, endDate }) && isSameDay(startDate, endDate)
 }
 
 export function isFullDateRange({ startDate, endDate }: DateRange): boolean {
-  return startOfDay(startDate).getTime() === startDate.getTime() && endOfDay(endDate).getTime() === endDate.getTime()
+  return isStartOfDay(startDate) && isEndOfDay(endDate)
 }

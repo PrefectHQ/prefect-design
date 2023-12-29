@@ -20,19 +20,20 @@
 
     <template #default>
       <div class="p-date-range-select__picker" @click.stop>
-        <template v-if="mode === 'relative'">
-          <PDateRangeSelectOptions :model-value="span" v-bind="{ min, max, maxSpanInSeconds }" @update:model-value="selectSpan" />
+        <template v-if="mode === null">
+          <PDateRangeSelectOptions v-model:mode="mode" />
+        </template>
+
+        <template v-if="mode === 'span'">
+          <PDateRangeSelectRelative v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
+        </template>
+
+        <template v-if="mode === 'around'">
+          <PDateRangeSelectAround v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
         </template>
 
         <template v-if="mode === 'range'">
-          <PDateRangePicker
-            v-model:start-date="startDate"
-            v-model:end-date="endDate"
-            v-bind="{ min, max }"
-            show-time
-            @close="close"
-            @apply="selectRange"
-          />
+          <PDateRangeSelectRange v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
         </template>
       </div>
     </template>
@@ -41,18 +42,23 @@
 
 <script lang="ts" setup>
   import { useKeyDown } from '@prefecthq/vue-compositions'
-  import { addDays, addSeconds, differenceInSeconds, isAfter, isBefore, secondsInDay, startOfMinute } from 'date-fns'
+  import { addDays, addSeconds, differenceInSeconds, isAfter, isBefore, secondsInDay } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
-  import PDateRangePicker from '@/components/DateRangePicker/PDateRangePicker.vue'
-  import PDateRangeSelectOptions, { DateRangeSelectOptionsValue } from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
-  import { getDateRangeLabel, getDateSpanLabel, isFullDateRange } from '@/components/DateRangeSelect/utilities'
+  import PDateRangeSelectAround from '@/components/DateRangeSelect/PDateRangeSelectAround.vue'
+  import PDateRangeSelectOptions from '@/components/DateRangeSelect/PDateRangeSelectOptions.vue'
+  import PDateRangeSelectRange from '@/components/DateRangeSelect/PDateRangeSelectRange.vue'
+  import PDateRangeSelectRelative from '@/components/DateRangeSelect/PDateRangeSelectRelative.vue'
+  import { getDateRangeSelectValueLabel, isFullDateRange } from '@/components/DateRangeSelect/utilities'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { DateRangeSelectValue } from '@/types/dateRange'
+  import { mapDateRangeSelectValueToDateRange } from '@/utilities/dateRangeSelect'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
   type DateRange = { startDate: Date, endDate: Date }
+
+  export type DateRangeSelectMode = 'span' | 'range' | 'around' | null
 
   const props = defineProps<{
     modelValue: DateRangeSelectValue,
@@ -74,11 +80,7 @@
 
   const placement = [bottomLeft, topLeft, bottomRight, topRight, leftInside, rightInside]
   const popover = ref<InstanceType<typeof PPopOver>>()
-  const mode = ref<'relative' | 'range'>('relative')
-
-  const span = ref<number | null>(null)
-  const startDate = ref<Date | null>(null)
-  const endDate = ref<Date | null>(null)
+  const mode = ref<DateRangeSelectMode>(null)
 
   const modelValue = computed({
     get() {
@@ -92,15 +94,7 @@
   const placeholder = computed(() => props.placeholder ?? 'Select a time span')
 
   const label = computed(() => {
-    if (modelValue.value?.type === 'span') {
-      return getDateSpanLabel(modelValue.value.seconds)
-    }
-
-    if (modelValue.value?.type === 'range') {
-      return getDateRangeLabel(modelValue.value)
-    }
-
-    return placeholder.value
+    return getDateRangeSelectValueLabel(modelValue.value) ?? placeholder.value
   })
 
   const classes = computed(() => ({
@@ -109,26 +103,9 @@
     },
   }))
 
-  function selectSpan(value: DateRangeSelectOptionsValue): void {
-    if (value === 'range') {
-      mode.value = 'range'
-      span.value = null
-      return
-    }
-
-    span.value = value ?? null
-    modelValue.value = value ? { type: 'span', seconds: value } : null
-
+  function apply(value: DateRangeSelectValue): void {
+    modelValue.value = value
     close()
-  }
-
-  function selectRange(): void {
-    if (startDate.value && endDate.value) {
-      modelValue.value = { type: 'range', startDate: startDate.value, endDate: endDate.value }
-      return
-    }
-
-    modelValue.value = null
   }
 
   function getIntervalInSeconds(): number {
@@ -195,29 +172,8 @@
     }
   }
 
-  function getCurrentDateRange(): DateRange | null | undefined {
-    if (modelValue.value?.type === 'span') {
-      return getDateRangeForSpan(modelValue.value.seconds)
-    }
-
-    if (modelValue.value?.type === 'range') {
-      return modelValue.value
-    }
-
-    return modelValue.value
-  }
-
-  function getDateRangeForSpan(seconds: number): DateRange {
-    const now = startOfMinute(new Date())
-    const timeSpanIsPast = seconds < 0
-    const startDate = timeSpanIsPast ? addSeconds(now, seconds) : now
-    const endDate = timeSpanIsPast ? now : addSeconds(now, seconds)
-
-    return { startDate, endDate }
-  }
-
   function getNewRange(seconds: number): DateRange | null {
-    const range = getCurrentDateRange()
+    const range = mapDateRangeSelectValueToDateRange(modelValue.value)
 
     if (!range) {
       return null
@@ -250,7 +206,7 @@
 
   watch(() => popover.value?.visible, (visible) => {
     if (!visible) {
-      mode.value = 'relative'
+      mode.value = null
     }
   })
 </script>

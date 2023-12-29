@@ -30,10 +30,8 @@
     </template>
 
     <template #controls>
-      <PContent>
-        <PDateTimeInputGroup :model-value="selectedStartDate" :show-time="showTime" label="Start Date" @update:model-value="setStartDateAndTime" />
-        <PDateTimeInputGroup :model-value="selectedEndDate" :show-time="showTime" label="End Date" @update:model-value="setEndDateAndTime" />
-      </PContent>
+      <PDateTimeInputGroup :model-value="selectedStartDate" :show-time="showTime" label="Start Date" @update:model-value="setStartDateAndTime" />
+      <PDateTimeInputGroup :model-value="selectedEndDate" :show-time="showTime" label="End Date" @update:model-value="setEndDateAndTime" />
     </template>
   </PDatePicker>
 </template>

@@ -6,11 +6,12 @@
       </template>
     </PCalendar>
 
-    <div class="p-date-picker__controls">
+    <PContent class="p-date-picker__controls">
       <slot name="controls">
         <PDateTimeInputGroup v-model="selected" v-bind="{ showTime }" label="Selected Date" />
       </slot>
-    </div>
+      <slot name="after-controls" />
+    </PContent>
 
     <div class="p-date-picker__footer">
       <PButton small @click="close">
@@ -42,6 +43,7 @@
   const emit = defineEmits<{
     'update:modelValue': [value: Date | null | undefined],
     'update:viewingDate': [value: Date | null | undefined],
+    'apply': [],
     'close': [],
   }>()
 
@@ -64,6 +66,7 @@
     const value = selected.value ? keepDateInRange(selected.value, range.value) : null
 
     emit('update:modelValue', value)
+    emit('apply')
     close()
   }
 
