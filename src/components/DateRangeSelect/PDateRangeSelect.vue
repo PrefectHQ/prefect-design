@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
   import { useKeyDown } from '@prefecthq/vue-compositions'
-  import { addDays, addSeconds, differenceInSeconds, isAfter, isBefore, secondsInDay } from 'date-fns'
+  import { addDays, addSeconds, isAfter, isBefore, secondsInDay } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangeSelectAround from '@/components/DateRangeSelect/PDateRangeSelectAround.vue'
@@ -109,17 +109,9 @@
   }
 
   function getIntervalInSeconds(): number {
-    if (modelValue.value?.type === 'span') {
-      return Math.abs(modelValue.value.seconds)
-    }
+    const range = mapDateRangeSelectValueToDateRange(modelValue.value)
 
-    if (modelValue.value?.type === 'range') {
-      const { startDate, endDate } = modelValue.value
-
-      return Math.abs(differenceInSeconds(startDate, endDate))
-    }
-
-    return 0
+    return range?.timeSpanInSeconds ?? 0
   }
 
   const previousDisabled = computed<boolean>(() => {
