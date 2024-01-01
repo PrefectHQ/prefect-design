@@ -74,6 +74,6 @@
     "dompurify": "3.0.6",
     "highlight.js": "11.9.0",
     "lodash.debounce": "4.0.8",
-    "marked": "4.3.0"
+    "marked": "11.1.1"
   }
 }
