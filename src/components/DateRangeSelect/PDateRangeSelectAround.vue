@@ -3,7 +3,7 @@
     <template #after-controls>
       <PLabel label="Duration">
         <template #default="{ id }">
-          <PNumberInput :id="id" v-model="seconds" min="1" append="Seconds" />
+          <PDateRangeDurationInput :id="id" v-model:quantity="quantity" v-model:unit="unit" />
         </template>
       </PLabel>
     </template>
@@ -13,9 +13,9 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import PDatePicker from '@/components/DatePicker/PDatePicker.vue'
+  import PDateRangeDurationInput from '@/components/DateRangeSelect/PDateRangeDurationInput.vue'
   import PLabel from '@/components/Label/PLabel.vue'
-  import PNumberInput from '@/components/NumberInput/PNumberInput.vue'
-  import { DateRangeSelectAroundValue } from '@/types'
+  import { DateRangeSelectAroundUnit, DateRangeSelectAroundValue } from '@/types'
 
   const emit = defineEmits<{
     apply: [DateRangeSelectAroundValue | null],
@@ -23,11 +23,12 @@
   }>()
 
   const date = ref<Date | null>(null)
-  const seconds = ref(15)
+  const quantity = ref(15)
+  const unit = ref<DateRangeSelectAroundUnit>('second')
 
   function apply(): void {
-    if (date.value && seconds.value) {
-      emit('apply', { type: 'around', date: date.value, seconds: seconds.value })
+    if (date.value && quantity.value) {
+      emit('apply', { type: 'around', date: date.value, quantity: quantity.value, unit: unit.value })
       return
     }
 

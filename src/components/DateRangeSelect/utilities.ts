@@ -63,10 +63,10 @@ function getDateRangeLabel({ startDate, endDate }: DateRangeSelectRangeValue): s
   return `${format(startDate, dateTimeFormat)} - ${format(endDate, dateTimeFormat)}`
 }
 
-function getDateAroundLabel({ date, seconds }: DateRangeSelectAroundValue): string {
+function getDateAroundLabel({ date, quantity, unit }: DateRangeSelectAroundValue): string {
   const dateString = isStartOfDay(date) ? format(date, dateFormat) : format(date, dateTimeFormat)
 
-  return `${seconds} ${toPluralString('second', seconds)} around ${dateString}`
+  return `${quantity} ${toPluralString(unit, quantity)} around ${dateString}`
 }
 
 function isStartOfDay(date: Date): boolean {

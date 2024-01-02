@@ -1,5 +1,5 @@
-import { addSeconds, differenceInSeconds, subSeconds } from 'date-fns'
-import { DateRangeSelectAroundValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types/dateRange'
+import { addSeconds, differenceInSeconds, secondsInDay, secondsInHour, secondsInMinute, subSeconds } from 'date-fns'
+import { DateRangeSelectAroundUnit, DateRangeSelectAroundValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types/dateRange'
 
 function nowWithoutMilliseconds(): Date {
   const now = new Date()
@@ -29,12 +29,30 @@ function mapDateRangeSelectSpanValueToDateRange({ seconds }: DateRangeSelectSpan
   return { startDate, endDate, timeSpanInSeconds: seconds }
 }
 
-function mapDateRangeSelectAroundValueToDateRange({ date, seconds }: DateRangeSelectAroundValue): DateRangeWithTimeSpan {
-  const startDate = subSeconds(date, Math.abs(seconds))
-  const endDate = addSeconds(date, Math.abs(seconds))
+function mapDateRangeSelectAroundValueToDateRange({ date, quantity, unit }: DateRangeSelectAroundValue): DateRangeWithTimeSpan {
+  const multiplier = getMultiplierForUnit(unit)
+  const seconds = Math.abs(quantity * multiplier)
+  const startDate = subSeconds(date, seconds)
+  const endDate = addSeconds(date, seconds)
   const timeSpanInSeconds = differenceInSeconds(endDate, startDate)
 
   return { startDate, endDate, timeSpanInSeconds }
+}
+
+function getMultiplierForUnit(unit: DateRangeSelectAroundUnit): number {
+  switch (unit) {
+    case 'second':
+      return 1
+    case 'minute':
+      return secondsInMinute
+    case 'hour':
+      return secondsInHour
+    case 'day':
+      return secondsInDay
+    default:
+      const exhaustive: never = unit
+      throw new Error(`Failed get multiplier for unit because unit is not supported: ${exhaustive}`)
+  }
 }
 
 export function mapDateRangeSelectValueToDateRange(source: DateRangeSelectValue): DateRangeWithTimeSpan | null {
