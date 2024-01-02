@@ -1,5 +1,5 @@
 import { intervalToDuration, addSeconds, format, isSameDay, startOfDay, endOfDay } from 'date-fns'
-import { DateRangeSelectAroundValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
+import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
 
 type DateRange = {
@@ -24,6 +24,8 @@ export function getDateRangeSelectValueLabel(value: DateRangeSelectValue): strin
       return getDateRangeLabel(value)
     case 'around':
       return getDateAroundLabel(value)
+    case 'period':
+      return getPeriodLabel(value)
     default:
       const exhaustive: never = type
       throw new Error(`Label not found for date range type: ${exhaustive}`)
@@ -67,6 +69,10 @@ function getDateAroundLabel({ date, quantity, unit }: DateRangeSelectAroundValue
   const dateString = isStartOfDay(date) ? format(date, dateFormat) : format(date, dateTimeFormat)
 
   return `${quantity} ${toPluralString(unit, quantity)} around ${dateString}`
+}
+
+function getPeriodLabel({ period }: DateRangeSelectPeriodValue): string {
+  return period
 }
 
 function isStartOfDay(date: Date): boolean {

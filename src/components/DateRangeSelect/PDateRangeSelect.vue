@@ -21,7 +21,7 @@
     <template #default>
       <div class="p-date-range-select__picker" @click.stop>
         <template v-if="mode === null">
-          <PDateRangeSelectOptions v-model:mode="mode" />
+          <PDateRangeSelectOptions v-model:mode="mode" @apply="apply" />
         </template>
 
         <template v-if="mode === 'span'">

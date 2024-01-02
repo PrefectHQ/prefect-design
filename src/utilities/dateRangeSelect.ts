@@ -1,5 +1,5 @@
-import { addSeconds, differenceInSeconds, secondsInDay, secondsInHour, secondsInMinute, subSeconds } from 'date-fns'
-import { DateRangeSelectAroundUnit, DateRangeSelectAroundValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types/dateRange'
+import { addSeconds, differenceInSeconds, endOfToday, endOfWeek, secondsInDay, secondsInHour, secondsInMinute, startOfToday, startOfWeek, subSeconds } from 'date-fns'
+import { DateRangeSelectAroundUnit, DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types/dateRange'
 
 function nowWithoutMilliseconds(): Date {
   const now = new Date()
@@ -55,6 +55,25 @@ function getMultiplierForUnit(unit: DateRangeSelectAroundUnit): number {
   }
 }
 
+function mapDateRangeSelectPeriodToDateRange({ period }: DateRangeSelectPeriodValue): DateRangeWithTimeSpan {
+  // I want a condition for each value so that the exhaustive check below works correctly
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (period === 'Today') {
+    const startDate = startOfToday()
+    const endDate = endOfToday()
+    const timeSpanInSeconds = differenceInSeconds(endDate, startDate)
+
+    return {
+      startDate,
+      endDate,
+      timeSpanInSeconds,
+    }
+  }
+
+  const exhaustive: never = period
+  throw new Error(`No handler for period: ${exhaustive}`)
+}
+
 export function mapDateRangeSelectValueToDateRange(source: DateRangeSelectValue): DateRangeWithTimeSpan | null {
   if (!source) {
     return null
@@ -67,6 +86,8 @@ export function mapDateRangeSelectValueToDateRange(source: DateRangeSelectValue)
       return mapDateRangeSelectSpanValueToDateRange(source)
     case 'around':
       return mapDateRangeSelectAroundValueToDateRange(source)
+    case 'period':
+      return mapDateRangeSelectPeriodToDateRange(source)
     default:
       const exhaustive: never = source
       throw new Error(`No handler for DateRangeSelectValue.type: ${exhaustive}`)
