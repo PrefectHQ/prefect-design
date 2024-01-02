@@ -36,7 +36,7 @@
     { label: 'This week', value: 'This week' },
     { label: 'Relative time', value: 'span' },
     { label: 'Around a time', value: 'around' },
-    { label: 'Date Range', value: 'range' },
+    { label: 'Date range', value: 'range' },
   ]
 </script>
 
