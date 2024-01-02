@@ -33,7 +33,6 @@
 
   const options: (SelectOption & { value: DateRangeSelectMode | DateRangeSelectPeriod })[] = [
     { label: 'Today', value: 'Today' },
-    { label: 'This week', value: 'This week' },
     { label: 'Relative time', value: 'span' },
     { label: 'Around a time', value: 'around' },
     { label: 'Date range', value: 'range' },

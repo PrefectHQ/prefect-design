@@ -56,24 +56,11 @@ function getMultiplierForUnit(unit: DateRangeSelectAroundUnit): number {
 }
 
 function mapDateRangeSelectPeriodToDateRange({ period }: DateRangeSelectPeriodValue): DateRangeWithTimeSpan {
+  // I want a condition for each value so that the exhaustive check below works correctly
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (period === 'Today') {
     const startDate = startOfToday()
     const endDate = endOfToday()
-    const timeSpanInSeconds = differenceInSeconds(endDate, startDate)
-
-    return {
-      startDate,
-      endDate,
-      timeSpanInSeconds,
-    }
-  }
-
-  // I want a condition for each value so that the exhaustive check below works correctly
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (period === 'This week') {
-    const now = new Date()
-    const startDate = startOfWeek(now)
-    const endDate = endOfWeek(now)
     const timeSpanInSeconds = differenceInSeconds(endDate, startDate)
 
     return {

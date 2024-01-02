@@ -1,7 +1,7 @@
 export type DateRangeSelectSpanValue = { type: 'span', seconds: number }
 export type DateRangeSelectRangeValue = { type: 'range', startDate: Date, endDate: Date }
 
-const dateRangeSelectPeriod = ['Today', 'This week'] as const
+const dateRangeSelectPeriod = ['Today'] as const
 export type DateRangeSelectPeriod = typeof dateRangeSelectPeriod[number]
 export type DateRangeSelectPeriodValue = { type: 'period', period: DateRangeSelectPeriod }
 
