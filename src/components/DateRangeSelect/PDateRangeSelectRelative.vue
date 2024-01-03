@@ -92,8 +92,13 @@
   function getOptionShorthand(option: RelativeSelectOption): string {
     const direction = getOptionDirection(option)
     const unit = option.unit.slice(0, 1)
+    const label = `${option.quantity}${unit}`
 
-    return `${direction}${option.quantity}${unit}`
+    if (direction === '-') {
+      return label
+    }
+
+    return `${direction}${label}`
   }
 
   function getOptionDirection(option: RelativeSelectOption): '+' | '-' {
