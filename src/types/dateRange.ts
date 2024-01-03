@@ -1,5 +1,5 @@
 const dateRangeSelectType = ['span', 'range', 'period', 'around'] as const
-type DateRangeSelectType = typeof dateRangeSelectType[number]
+export type DateRangeSelectType = typeof dateRangeSelectType[number]
 
 type DateRangeValue<T extends DateRangeSelectType, U extends Record<string, unknown>> = U & {
   type: T,
