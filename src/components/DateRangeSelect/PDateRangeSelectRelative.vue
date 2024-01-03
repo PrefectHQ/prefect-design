@@ -33,6 +33,7 @@
   const options = computed<SelectOption[]>(() => {
     const [quantitySearch = ''] = search.value.match(/\d+/) ?? []
     const [unitSearch = ''] = search.value.match(/[a-zA-Z]+/) ?? []
+    const [directionSearch = ''] = search.value.match(/[+-]+/) ?? []
     const parsed = parseInt(quantitySearch)
     const quantity = isNaN(parsed) ? 1 : parsed
 
@@ -63,8 +64,10 @@
 
       const withinSpan = Math.abs(option.value) < maxSpanInSeconds
       const unitMatches = toPluralString(option.unit, quantity).includes(unitSearch)
+      const optionDirection = option.value > 0 ? '+' : '-'
+      const directionMatches = optionDirection.includes(directionSearch)
 
-      return withinSpan && unitMatches
+      return withinSpan && unitMatches && directionMatches
     })
 
     return filteredSpans
