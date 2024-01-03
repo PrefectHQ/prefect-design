@@ -20,7 +20,12 @@ export function isDateRangeSelectPeriod(value: unknown): value is DateRangeSelec
   return dateRangeSelectPeriod.includes(value as DateRangeSelectPeriod)
 }
 
-export type DateRangeSelectAroundUnit = 'second' | 'minute' | 'hour' | 'day'
+const dateRangeSelectAroundUnit = ['second', 'minute', 'hour', 'day'] as const
+export type DateRangeSelectAroundUnit = typeof dateRangeSelectAroundUnit[number]
 export type DateRangeSelectAroundValue = DateRangeValue<'around', { date: Date, quantity: number, unit: DateRangeSelectAroundUnit }>
+
+export function isDateRangeSelectAroundUnit(value: unknown): value is DateRangeSelectAroundUnit {
+  return dateRangeSelectAroundUnit.includes(value as DateRangeSelectAroundUnit)
+}
 
 export type DateRangeSelectValue = DateRangeSelectSpanValue | DateRangeSelectRangeValue | DateRangeSelectAroundValue | DateRangeSelectPeriodValue | null | undefined
