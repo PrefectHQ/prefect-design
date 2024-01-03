@@ -31,18 +31,20 @@
   const search = ref('')
 
   const options = computed<SelectOption[]>(() => {
-    const parsed = parseInt(search.value || '1')
-    const unit = isNaN(parsed) ? 1 : parsed
+    const [quantitySearch = ''] = search.value.match(/\d+/) ?? []
+    const [unitSearch = ''] = search.value.match(/[a-zA-Z]+/) ?? []
+    const parsed = parseInt(quantitySearch)
+    const quantity = isNaN(parsed) ? 1 : parsed
 
     const spans = [
-      { label: `Past ${unit} ${toPluralString('minute', unit)}`, value: unit * secondsInMinute * -1 },
-      { label: `Past ${unit} ${toPluralString('hour', unit)}`, value: unit * secondsInHour * -1 },
-      { label: `Past ${unit} ${toPluralString('day', unit)}`, value: unit * secondsInDay * -1 },
-      { label: `Past ${unit} ${toPluralString('week', unit)}`, value: unit * secondsInWeek * -1 },
-      { label: `Next ${unit} ${toPluralString('minute', unit)}`, value: unit * secondsInMinute },
-      { label: `Next ${unit} ${toPluralString('hour', unit)}`, value: unit * secondsInHour },
-      { label: `Next ${unit} ${toPluralString('day', unit)}`, value: unit * secondsInDay },
-      { label: `Next ${unit} ${toPluralString('week', unit)}`, value: unit * secondsInWeek },
+      { label: `Past ${quantity} ${toPluralString('minute', quantity)}`, unit: 'minute', value: quantity * secondsInMinute * -1 },
+      { label: `Past ${quantity} ${toPluralString('hour', quantity)}`, unit: 'hour', value: quantity * secondsInHour * -1 },
+      { label: `Past ${quantity} ${toPluralString('day', quantity)}`, unit: 'day', value: quantity * secondsInDay * -1 },
+      { label: `Past ${quantity} ${toPluralString('week', quantity)}`, unit: 'week', value: quantity * secondsInWeek * -1 },
+      { label: `Next ${quantity} ${toPluralString('minute', quantity)}`, unit: 'minute', value: quantity * secondsInMinute },
+      { label: `Next ${quantity} ${toPluralString('hour', quantity)}`, unit: 'hour', value: quantity * secondsInHour },
+      { label: `Next ${quantity} ${toPluralString('day', quantity)}`, unit: 'day', value: quantity * secondsInDay },
+      { label: `Next ${quantity} ${toPluralString('week', quantity)}`, unit: 'week', value: quantity * secondsInWeek },
     ]
 
     const now = new Date()
@@ -59,11 +61,10 @@
         return false
       }
 
-      if (maxSpanInSeconds) {
-        return Math.abs(option.value) < maxSpanInSeconds
-      }
+      const withinSpan = Math.abs(option.value) < maxSpanInSeconds
+      const unitMatches = toPluralString(option.unit, quantity).includes(unitSearch)
 
-      return true
+      return withinSpan && unitMatches
     })
 
     return filteredSpans
