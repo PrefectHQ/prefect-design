@@ -21,11 +21,11 @@
     <template #default>
       <div class="p-date-range-select__picker" @click.stop>
         <template v-if="mode === null">
-          <PDateRangeSelectOptions v-model:mode="mode" @apply="apply" />
+          <PDateRangeSelectOptions v-model:mode="mode" :style="styles.options" @apply="apply" />
         </template>
 
         <template v-if="mode === 'span'">
-          <PDateRangeSelectRelative v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
+          <PDateRangeSelectRelative :style="styles.options" v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
         </template>
 
         <template v-if="mode === 'around'">
@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { useKeyDown } from '@prefecthq/vue-compositions'
+  import { useElementRect, useKeyDown } from '@prefecthq/vue-compositions'
   import { addDays, addSeconds, isAfter, isBefore, secondsInDay } from 'date-fns'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
@@ -53,6 +53,7 @@
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { DateRangeSelectValue } from '@/types/dateRange'
+  import { toPixels } from '@/utilities'
   import { mapDateRangeSelectValueToDateRange } from '@/utilities/dateRangeSelect'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
@@ -79,7 +80,10 @@
   })
 
   const placement = [bottomLeft, topLeft, bottomRight, topRight, leftInside, rightInside]
+
   const popover = ref<InstanceType<typeof PPopOver>>()
+  const target = computed(() => popover.value?.target)
+  const { width } = useElementRect(target)
   const mode = ref<DateRangeSelectMode>(null)
 
   const modelValue = computed({
@@ -100,6 +104,12 @@
   const classes = computed(() => ({
     label: {
       'p-date-range-select__label--placeholder': label.value === placeholder.value,
+    },
+  }))
+
+  const styles = computed(() => ({
+    options: {
+      width: toPixels(width.value),
     },
   }))
 
