@@ -48,9 +48,7 @@
       return props.modelValue ?? props.min ?? 0
     },
     set(value) {
-      if (isWithinRange(value)) {
-        emits('update:modelValue', value)
-      }
+      emits('update:modelValue', value)
     },
   })
 
@@ -63,10 +61,6 @@
 
   function isWithinMax(value: number): boolean {
     return typeof props.max !== 'number' || value <= props.max
-  }
-
-  function isWithinRange(value: number): boolean {
-    return isWithinMin(value) && isWithinMax(value)
   }
 </script>
 
