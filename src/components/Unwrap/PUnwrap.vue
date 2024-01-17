@@ -6,7 +6,7 @@
   import { DirectiveBinding, ref } from 'vue'
 
   defineProps<{
-    html: string,
+    html: string | HTMLElement | DocumentFragment,
   }>()
 
   const parentElement = ref()

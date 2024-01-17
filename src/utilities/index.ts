@@ -1,6 +1,7 @@
 export * as positions from './position'
 export * from './arrays'
 export * from './attributes'
+export * from './dateRangeSelect'
 export * from './dates'
 export * from './html'
 export * from './id'

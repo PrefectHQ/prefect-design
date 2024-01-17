@@ -6,7 +6,7 @@
 
     <template #tags-input>
       <div class="tags-input__demo">
-        <p-tags-input v-model="exampleTagsValue" :disabled="disabled" :state="exampleState" />
+        <p-tags-input v-model="exampleTagsValue" empty-message="All tags" :disabled="disabled" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleTagsValue) }}

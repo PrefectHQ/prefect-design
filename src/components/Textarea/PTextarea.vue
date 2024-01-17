@@ -4,13 +4,13 @@
       <slot :name="name" v-bind="data" />
     </template>
     <template #control="{ attrs }">
-      <textarea v-model="value" class="p-textarea__control" v-bind="attrs" />
+      <textarea ref="el" v-model="value" class="p-textarea__control" v-bind="attrs" />
     </template>
   </PBaseInput>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
 
   const props = defineProps<{
@@ -20,6 +20,10 @@
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | null): void,
   }>()
+
+  const el = ref<HTMLTextAreaElement>()
+
+  defineExpose({ el })
 
   const value = computed({
     get() {

@@ -3,14 +3,24 @@
     title="Tags"
     :demos="[
       { title: 'Basic' },
+      { title: 'Small' },
       { title: 'Using Slot' },
       { title: 'Multiple' },
       { title: 'Using p-tag-wrapper' },
     ]"
+    use-resizable
   >
     <template #basic>
       <div class="tags__list">
         <p-tag v-for="index in 3" :key="index">
+          {{ index }}
+        </p-tag>
+      </div>
+    </template>
+
+    <template #small>
+      <div class="tags__list">
+        <p-tag v-for="index in 3" :key="index" small>
           {{ index }}
         </p-tag>
       </div>
@@ -30,13 +40,15 @@
           Number {{ tag.label }}
         </template>
       </p-tags>
+
+      <p-tags :tags="numberArr" small />
     </template>
 
     <template #using-p-tag-wrapper>
       <div class="flex flex-col gap-3">
-        <p-tag-wrapper class="h-[48px]" :tags="numberArr" justify="left" />
+        <p-tag-wrapper :tags="numberArr" justify="left" />
 
-        <p-tag-wrapper class="h-[48px]" :tags="numberArr">
+        <p-tag-wrapper :tags="numberArr">
           <template #tag="{ tag }">
             <p-tag icon="Prefect">
               {{ tag }}
@@ -50,11 +62,18 @@
           </template>
         </p-tag-wrapper>
 
-        <p-tag-wrapper class="h-[48px]" justify="right">
+        <p-tag-wrapper justify="right">
           <p-tag v-for="i in 20" :key="i">
             Tag {{ i }}
           </p-tag>
         </p-tag-wrapper>
+
+        <div>
+          <p>Inline</p>
+          <div class="border border-default p-2 max-w-full">
+            <p-tag-wrapper :tags="numberArr" justify="left" inline class="border border-default" />
+          </div>
+        </div>
       </div>
     </template>
   </ComponentPage>

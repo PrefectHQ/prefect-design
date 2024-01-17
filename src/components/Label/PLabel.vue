@@ -4,7 +4,7 @@
       <div class="p-label__header">
         <template v-if="slots.label || isDefined(label)">
           <label :for="id" class="p-label__label">
-            <slot name="label">
+            <slot :id="id" name="label">
               <span>
                 {{ label }}
               </span>
@@ -12,7 +12,7 @@
           </label>
         </template>
         <div v-if="slots.description || isDefined(description)" class="p-label__description">
-          <slot name="description">
+          <slot :id="id" name="description">
             <span>
               {{ description }}
             </span>
@@ -24,7 +24,7 @@
       <slot :id="id" />
     </div>
     <div v-if="slots.message || isDefined(message)" class="p-label__message" :class="classes.message">
-      <slot name="message">
+      <slot :id="id" name="message">
         <span>
           {{ message }}
         </span>

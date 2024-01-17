@@ -28,6 +28,7 @@
     label?: string,
     value?: string | TagValue,
     dismissible?: boolean,
+    small?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -41,6 +42,7 @@
   const classes = computed(() => ({
     root: {
       'p-tag--dismissible': props.dismissible,
+      'p-tag--small': props.small,
     },
   }))
 </script>
@@ -51,9 +53,9 @@
   inline-flex
   items-center
   rounded-default
+  text-sm
   px-2.5
-  py-0.5
-  text-sm;
+  py-0.5;
   background-color: var(--p-color-tag-bg);
   border-color: var(--p-color-tag-border);
   color: var(--p-color-tag-text);
@@ -65,5 +67,11 @@
 
 .p-tag__dismiss {
   color: var(--p-color-tag-text);
+}
+
+.p-tag--small { @apply
+  text-xs
+  px-1.5
+  py-0.5
 }
 </style>

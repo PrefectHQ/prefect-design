@@ -47,10 +47,26 @@
 
     --p-color-live: #6272FF;
 
-    --p-color-sentiment-positive: #22C55E;
-    --p-color-sentiment-neutral: #70707B;
-    --p-color-sentiment-warning: #F5A50A;
-    --p-color-sentiment-negative: #D92D21;
+    --p-color-sentiment-positive-hue: 142deg;
+    --p-color-sentiment-positive-saturation: 71%;
+    --p-color-sentiment-positive-lightness: 45%;
+    --p-color-sentiment-positive-hsl-values: var(--p-color-sentiment-positive-hue) var(--p-color-sentiment-positive-saturation) var(--p-color-sentiment-positive-lightness);
+    --p-color-sentiment-positive: hsl(var(--p-color-sentiment-positive-hsl-values));
+    --p-color-sentiment-neutral-hue: 240deg;
+    --p-color-sentiment-neutral-saturation: 5%;
+    --p-color-sentiment-neutral-lightness: 46%;
+    --p-color-sentiment-neutral-hsl-values: var(--p-color-sentiment-neutral-hue) var(--p-color-sentiment-neutral-saturation) var(--p-color-sentiment-neutral-lightness);
+    --p-color-sentiment-neutral: hsl(var(--p-color-sentiment-neutral-hsl-values));
+    --p-color-sentiment-warning-hue: 40deg;
+    --p-color-sentiment-warning-saturation: 92%;
+    --p-color-sentiment-warning-lightness: 50%;
+    --p-color-sentiment-warning-hsl-values: var(--p-color-sentiment-warning-hue) var(--p-color-sentiment-warning-saturation) var(--p-color-sentiment-warning-lightness);
+    --p-color-sentiment-warning: hsl(var(--p-color-sentiment-warning-hsl-values));
+    --p-color-sentiment-negative-hue: 4deg;
+    --p-color-sentiment-negative-saturation: 74%;
+    --p-color-sentiment-negative-lightness: 49%;
+    --p-color-sentiment-negative-hsl-values: var(--p-color-sentiment-negative-hue) var(--p-color-sentiment-negative-saturation) var(--p-color-sentiment-negative-lightness);
+    --p-color-sentiment-negative: hsl(var(--p-color-sentiment-negative-hsl-values));
 
     /* Text */
     --p-color-text-default: #FFFFFF;
@@ -199,10 +215,26 @@
 
     --p-color-live: #4B5CFF;
 
-    --p-color-sentiment-positive: #22C55E;
-    --p-color-sentiment-neutral: #70707B;
-    --p-color-sentiment-warning: #F5A50A;
-    --p-color-sentiment-negative: #D92D21;
+    --p-color-sentiment-positive-hue: 142deg;
+    --p-color-sentiment-positive-saturation: 71%;
+    --p-color-sentiment-positive-lightness: 45%;
+    --p-color-sentiment-positive-hsl-values: var(--p-color-sentiment-positive-hue) var(--p-color-sentiment-positive-saturation) var(--p-color-sentiment-positive-lightness);
+    --p-color-sentiment-positive: hsl(var(--p-color-sentiment-positive-hsl-values));
+    --p-color-sentiment-neutral-hue: 240deg;
+    --p-color-sentiment-neutral-saturation: 5%;
+    --p-color-sentiment-neutral-lightness: 46%;
+    --p-color-sentiment-neutral-hsl-values: var(--p-color-sentiment-neutral-hue) var(--p-color-sentiment-neutral-saturation) var(--p-color-sentiment-neutral-lightness);
+    --p-color-sentiment-neutral: hsl(var(--p-color-sentiment-neutral-hsl-values));
+    --p-color-sentiment-warning-hue: 40deg;
+    --p-color-sentiment-warning-saturation: 92%;
+    --p-color-sentiment-warning-lightness: 50%;
+    --p-color-sentiment-warning-hsl-values: var(--p-color-sentiment-warning-hue) var(--p-color-sentiment-warning-saturation) var(--p-color-sentiment-warning-lightness);
+    --p-color-sentiment-warning: hsl(var(--p-color-sentiment-warning-hsl-values));
+    --p-color-sentiment-negative-hue: 4deg;
+    --p-color-sentiment-negative-saturation: 74%;
+    --p-color-sentiment-negative-lightness: 49%;
+    --p-color-sentiment-negative-hsl-values: var(--p-color-sentiment-negative-hue) var(--p-color-sentiment-negative-saturation) var(--p-color-sentiment-negative-lightness);
+    --p-color-sentiment-negative: hsl(var(--p-color-sentiment-negative-hsl-values));
 
     /* Text */
     --p-color-text-default: #171717;

@@ -1,5 +1,5 @@
 <template>
-  <scrolling-picker
+  <ScrollingPicker
     ref="scrollingPicker"
     :model-value="selectedYear"
     :options="years"
@@ -11,14 +11,14 @@
     <template #after>
       <div ref="bottomElement" class="scrolling-picker__observer" data-target="bottom" />
     </template>
-  </scrolling-picker>
+  </ScrollingPicker>
 </template>
 
 <script lang="ts" setup>
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
   import { setYear } from 'date-fns'
   import { computed, ref, nextTick, onMounted } from 'vue'
-  import ScrollingPicker from '@/components/DatePicker/ScrollingPicker.vue'
+  import ScrollingPicker from '@/components/Calendar/ScrollingPicker.vue'
   import { SelectModelValue, SelectOptionNormalized } from '@/types/selectOption'
   import { isDateInRange, keepDateInRange } from '@/utilities/dates'
 

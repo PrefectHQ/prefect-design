@@ -30,3 +30,15 @@ export function isArray<T>(value: T | T[]): value is T[] {
 export function sortStringArray(array: string[]): string[] {
   return array.sort((stringA: string, stringB: string) => stringA.localeCompare(stringB))
 }
+
+export function toggleArrayValue<T>(array: T[], value: T): T[] {
+  const index = array.indexOf(value)
+
+  if (index > -1) {
+    array = [...array.slice(0, index), ...array.slice(index + 1)]
+  } else {
+    array = [...array, value]
+  }
+
+  return array
+}
