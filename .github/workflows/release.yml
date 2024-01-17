@@ -21,5 +21,5 @@ jobs:
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEBULA_UI_ACTIONS_RW_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_WORKFLOWS_RW }}
-          PREFECT_OSS_ACTIONS_RW_TOKEN: ${{ secrets.PREFECT_ACTIONS_WORKFLOWS_RW }}
+          NEBULA_UI_ACTIONS_RW_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
+          PREFECT_OSS_ACTIONS_RW_TOKEN: ${{ secrets.PREFECT_ACTIONS_RW }}
