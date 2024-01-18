@@ -8,12 +8,28 @@ on:
       - main
       
 jobs:
+  # This job is used to verify that the version in package.json does not match the latest tag.
+  # If it does, we do not want to proceed with the release.
+  verify-release:
+    name: Verify Release
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.verify-release.outputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      - name: Verify Release
+        id: verify-release
+        uses: prefecthq/actions-verify-npm-package-bump@main
+  # This job is used to build and publish the release if the verify-release job passes.
   build-and-publish:
     name: Build & Publish Release
     runs-on: ubuntu-latest
     environment: 'prod'
-
+    needs: verify-release
+    if: needs.verify-release.outputs.release == 'true'
     steps:
       - uses: actions/checkout@v4
 
