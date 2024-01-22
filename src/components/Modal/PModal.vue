@@ -1,5 +1,5 @@
 <template>
-  <teleport to="body">
+  <teleport :to="modalTeleportTarget">
     <Transition name="modal">
       <div
         v-if="showModal"
@@ -61,6 +61,7 @@
   import PIcon from '@/components/Icon/PIcon.vue'
   import { useGlobalEventListener, useModal } from '@/compositions'
   import { useFocusableElements } from '@/compositions/useFocusableElements'
+  import { modalTeleportTarget } from '@/plugins/Modal'
   import { keys } from '@/types'
   import { Icon } from '@/types/icon'
   import { isKeyEvent } from '@/utilities'
@@ -141,9 +142,14 @@
 
 <style>
 .p-modal { @apply
+  hidden
   fixed
   z-10
   inset-0
+}
+
+.p-modal:last-child { @apply
+  block
 }
 
 .p-modal__container { @apply
