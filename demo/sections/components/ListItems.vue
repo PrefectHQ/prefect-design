@@ -28,6 +28,7 @@
     </template>
 
     <template #draggable>
+      Order: {{ draggableItems }}
       <p-draggable-list v-model="draggableItems" class="grid gap-2">
         <template #default="{ item }">
           {{ item }}
