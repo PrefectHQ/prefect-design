@@ -8,6 +8,7 @@
         :draggable="itemIsDraggable(i)"
         tabindex="0"
         @dragover="handleDragOver($event, i)"
+        @dragleave="handleDragLeave(i)"
         @dragstart="handleDragStart"
         @dragend="handleDragEnd"
         @drop="drop"
@@ -105,11 +106,20 @@
   const handleDragOver = (event: DragEvent, index: number): void => {
     event.preventDefault()
 
-    if (draggingIndex.value === null) {
+
+    if (draggingIndex.value === null || overIndex.value === index) {
       return
     }
 
     overIndex.value = index
+  }
+
+  const handleDragLeave = (index: number): void => {
+    if (draggingIndex.value === null || overIndex.value !== index) {
+      return
+    }
+
+    overIndex.value = null
   }
 
   const drop = (event: DragEvent): void => {
