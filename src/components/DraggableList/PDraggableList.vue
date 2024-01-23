@@ -27,7 +27,7 @@
 
     <template v-if="allowCreate">
       <slot name="create">
-        <PButton small icon="PlusIcon" @click="createItem">
+        <PButton small icon="PlusIcon" class="p-draggable-list__create-button" @click="createItem">
           Add item
         </PButton>
       </slot>
@@ -244,5 +244,9 @@
 
 .p-draggable-list__item[draggable = 'true'] { @apply
   select-none
+}
+
+.p-draggable-list__create-button { @apply
+  mt-2
 }
 </style>
