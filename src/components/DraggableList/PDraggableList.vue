@@ -52,19 +52,11 @@
   const handleDragStart = (index: number): void => {
     dragging.value = true
     draggingIndex.value = index
-
-    console.log('dragStart', {
-      index: draggingIndex.value,
-    })
   }
 
   const handleDragEnd = (): void => {
     dragging.value = false
     draggingIndex.value = null
-
-    console.log('dragEnd', {
-      index: draggingIndex.value,
-    })
   }
 
   const handleDragOver = (event: DragEvent, index: number): void => {
@@ -75,34 +67,19 @@
     }
 
     overIndex.value = index
-
-    console.log('dragOver', {
-      overIndex: overIndex.value,
-    })
   }
 
   const handleDragLeave = (): void => {
     overIndex.value = null
-
-    console.log('dragLeave', {
-      overIndex: overIndex.value,
-    })
   }
 
   const drop = (event: DragEvent): void => {
-    console.log('drop', {
-      draggingIndex: draggingIndex.value,
-      overIndex: overIndex.value,
-      event: event,
-    })
-
     if (draggingIndex.value === null) {
       return
     }
 
     event.preventDefault()
 
-    console.log(event)
     const overIndexValue = overIndex.value ?? 0
     const itemToMove = props.modelValue[draggingIndex.value]
     const newItems = [...props.modelValue]
@@ -112,8 +89,6 @@
 
     emit('update:modelValue', newItems)
   }
-
-  // on drag end emit new array
 </script>
 
 <style>
