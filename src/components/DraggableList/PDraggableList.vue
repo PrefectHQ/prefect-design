@@ -15,12 +15,12 @@
         @keydown="handleKeydown($event, i)"
       >
         <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(i)" @mouseup="handleMouseUp">
-          <slot name="handle">
+          <slot name="handle" v-bind="{ item, index: i }">
             <PIcon icon="DragHandle" />
           </slot>
         </div>
         <div class="p-draggable-list__item-content">
-          <slot :item="item" />
+          <slot v-bind="{ item, index: i }" />
         </div>
       </div>
     </template>
@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends unknown">
   import { computed, nextTick, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
 
@@ -43,7 +43,8 @@
   type Booleanish = 'true' | 'false'
 
   const props = defineProps<{
-    modelValue: unknown[],
+    modelValue: T[],
+    generator?: () => T,
     allowCreate?: boolean,
     allowDelete?: boolean,
   }>()
@@ -86,8 +87,12 @@
   const focusItemAtIndex = (index: number): void => items.value[index]?.focus()
 
   const createItemAtIndex = (index: number): void => {
+    if (!props.generator) {
+      return
+    }
+
     const newItems = [...props.modelValue]
-    newItems.splice(index, 0, '')
+    newItems.splice(index, 0, props.generator())
     emit('update:modelValue', newItems)
   }
 
@@ -169,7 +174,7 @@
       return
     }
 
-    if (event.key === 'Backspace' || event.key === 'Delete') {
+    if (event.key === 'Delete') {
       if (!props.allowDelete) {
         return
       }
