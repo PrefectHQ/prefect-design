@@ -11,7 +11,7 @@
         @dragstart="handleDragStart"
         @dragend="handleDragEnd"
         @drop="drop"
-        @keyup="handleKeyup($event, i)"
+        @keydown="handleKeydown($event, i)"
       >
         <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(i)" @mouseup="handleMouseUp">
           <slot name="handle">
@@ -112,8 +112,15 @@
     moveItemTo(draggingIndex.value, overIndexValue)
   }
 
-  const handleKeyup = (event: KeyboardEvent, index: number): void => {
+  const handleKeydown = (event: KeyboardEvent, index: number): void => {
     const altKeyIsPressed = event.altKey
+
+    const handledKeys = ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown']
+    const shouldPreventDefault = handledKeys.includes(event.key)
+
+    if (shouldPreventDefault) {
+      event.preventDefault()
+    }
 
     if (event.key === 'Backspace' || event.key === 'Delete') {
       deleteItemAtIndex(index)
