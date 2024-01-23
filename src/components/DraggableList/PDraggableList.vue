@@ -222,7 +222,7 @@
   w-4
   h-4
   mr-2
-  cursor-ns-resize
+  cursor-grab
 }
 
 .p-draggable-list--dragging .p-draggable-list__item--over { @apply
