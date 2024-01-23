@@ -2,13 +2,16 @@
   <div class="p-draggable-list">
     <template v-for="(item, i) in modelValue" :key="i">
       <div
+        ref="items"
         class="p-draggable-list__item"
         :class="classes.item(i)"
         :draggable="itemIsDraggable(i)"
-        @dragover="($event) => handleDragOver($event, i)"
+        tabindex="0"
+        @dragover="handleDragOver($event, i)"
         @dragstart="handleDragStart"
         @dragend="handleDragEnd"
         @drop="drop"
+        @keyup="handleKeyup($event, i)"
       >
         <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(i)" @mouseup="handleMouseUp">
           <slot name="handle">
@@ -40,6 +43,7 @@
     (event: 'update:modelValue', value: unknown[]): void,
   }>()
 
+  const items = ref<HTMLElement[]>([])
   const dragging = ref(false)
   const overIndex = ref<number | null>(null)
   const draggingIndex = ref<number | null>(null)
@@ -54,6 +58,14 @@
   const itemIsDraggable = (index: number): Booleanish => {
     return draggingIndex.value === index ? 'true' : 'false'
   }
+
+  const moveItemTo = (index: number, newIndex: number): void => {
+    const newItems = [...props.modelValue]
+    newItems.splice(newIndex, 0, newItems.splice(index, 1)[0])
+    emit('update:modelValue', newItems)
+  }
+
+  const focusItemAtIndex = (index: number): void => items.value[index]?.focus()
 
   const handleMouseDown = (index: number): void => {
     draggingIndex.value = index
@@ -91,13 +103,39 @@
     event.preventDefault()
 
     const overIndexValue = overIndex.value ?? 0
-    const itemToMove = props.modelValue[draggingIndex.value]
-    const newItems = [...props.modelValue]
+    moveItemTo(draggingIndex.value, overIndexValue)
+  }
 
-    newItems.splice(draggingIndex.value, 1)
-    newItems.splice(overIndexValue, 0, itemToMove)
+  const handleKeyup = (event: KeyboardEvent, index: number): void => {
+    const altKeyIsPressed = event.altKey
 
-    emit('update:modelValue', newItems)
+    if (event.key === 'ArrowUp') {
+      const newIndex = index - 1
+
+      if (newIndex < 0) {
+        return
+      }
+
+      if (altKeyIsPressed) {
+        moveItemTo(index, index - 1)
+      }
+
+      focusItemAtIndex(newIndex)
+    }
+
+    if (event.key === 'ArrowDown') {
+      const newIndex = index + 1
+
+      if (newIndex >= props.modelValue.length) {
+        return
+      }
+
+      if (altKeyIsPressed) {
+        moveItemTo(index, index + 1)
+      }
+
+      focusItemAtIndex(newIndex)
+    }
   }
 </script>
 
