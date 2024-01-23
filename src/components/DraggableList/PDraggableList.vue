@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue'
+  import { computed, nextTick, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
 
   // Enumerated type for boolean attributes: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable
@@ -37,6 +37,8 @@
 
   const props = defineProps<{
     modelValue: unknown[],
+    disableDelete?: boolean,
+    disableAdd?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -75,6 +77,12 @@
   }
 
   const focusItemAtIndex = (index: number): void => items.value[index]?.focus()
+
+  const addItemAtIndex = (index: number): void => {
+    const newItems = [...props.modelValue]
+    newItems.splice(index, 0, '')
+    emit('update:modelValue', newItems)
+  }
 
   const handleMouseDown = (index: number): void => {
     draggingIndex.value = index
@@ -118,14 +126,37 @@
   const handleKeydown = (event: KeyboardEvent, index: number): void => {
     const altKeyIsPressed = event.altKey
 
-    const handledKeys = ['Backspace', 'Delete', 'ArrowUp', 'ArrowDown']
+    const handledKeys = ['Enter', 'Backspace', 'Delete', 'ArrowUp', 'ArrowDown']
     const shouldPreventDefault = handledKeys.includes(event.key)
 
     if (shouldPreventDefault) {
       event.preventDefault()
     }
 
+    if (event.key === 'Enter') {
+      if (props.disableAdd) {
+        return
+
+      }
+      const newIndex = index + 1
+
+      if (newIndex === props.modelValue.length) {
+        addItemAtIndex(newIndex)
+      }
+
+      // Wait for the new item to be rendered before focusing it
+      nextTick(() => {
+        focusItemAtIndex(newIndex)
+      })
+
+      return
+    }
+
     if (event.key === 'Backspace' || event.key === 'Delete') {
+      if (props.disableDelete) {
+        return
+      }
+
       deleteItemAtIndex(index)
 
       return
