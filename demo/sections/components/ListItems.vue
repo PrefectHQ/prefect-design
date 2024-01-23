@@ -28,12 +28,23 @@
     </template>
 
     <template #draggable>
-      Order: {{ draggableItems }}
-      <p-draggable-list v-model="draggableItems">
-        <template #default="{ item }">
-          {{ item }}
-        </template>
-      </p-draggable-list>
+      <p-content>
+        <div class="text-subdued text-sm">
+          <ul class="list-disc list-inside">
+            <li>⌥ + ↑: Move item up</li>
+            <li>⌥ + ↓: Move item down</li>
+            <li>⌥ + ⇧ + ↑: Move item to top</li>
+            <li>⌥ + ⇧ + ↓: Move item to bottom</li>
+            <li>⌫: Delete item</li>
+          </ul>
+        </div>
+
+        <p-draggable-list v-model="draggableItems">
+          <template #default="{ item }">
+            {{ item }}
+          </template>
+        </p-draggable-list>
+      </p-content>
     </template>
   </ComponentPage>
 </template>

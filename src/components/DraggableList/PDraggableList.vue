@@ -135,6 +135,7 @@
 
   const handleKeydown = (event: KeyboardEvent, index: number): void => {
     const altKeyIsPressed = event.altKey
+    const shiftKeyIsPressed = event.shiftKey
 
     const handledKeys = ['Enter', 'Backspace', 'Delete', 'ArrowUp', 'ArrowDown']
     const shouldPreventDefault = handledKeys.includes(event.key)
@@ -173,14 +174,14 @@
     }
 
     if (event.key === 'ArrowUp') {
-      const newIndex = index - 1
+      const newIndex = shiftKeyIsPressed ? 0 : index - 1
 
       if (newIndex < 0) {
         return
       }
 
       if (altKeyIsPressed) {
-        moveItemTo(index, index - 1)
+        moveItemTo(index, newIndex)
       }
 
       focusItemAtIndex(newIndex)
@@ -189,14 +190,14 @@
     }
 
     if (event.key === 'ArrowDown') {
-      const newIndex = index + 1
+      const newIndex = shiftKeyIsPressed ? props.modelValue.length - 1 : index + 1
 
       if (newIndex >= props.modelValue.length) {
         return
       }
 
       if (altKeyIsPressed) {
-        moveItemTo(index, index + 1)
+        moveItemTo(index, newIndex)
       }
 
       focusItemAtIndex(newIndex)
