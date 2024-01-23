@@ -1,10 +1,7 @@
 <template>
   <ComponentPage
     title="List Items"
-    :demos="[
-      { title: 'Plain' },
-      { title: 'Checkable' },
-    ]"
+    :demos="demos"
   >
     <template #plain>
       <div class="grid gap-2">
@@ -29,14 +26,31 @@
         {{ selected }}
       </div>
     </template>
+
+    <template #draggable>
+      <p-draggable-list class="grid gap-2">
+        <template v-for="i in 3" :key="i">
+          <p-list-item>
+            List Item {{ i }}
+          </p-list-item>
+        </template>
+      </p-draggable-list>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
+  import PDraggableList from '@/components/DraggableList/PDraggableList.vue'
   import PListItem from '@/components/ListItem/PListItem.vue'
   import PListItemInput from '@/components/ListItemInput/PListItemInput.vue'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const demos = ref([
+    { title: 'Plain' },
+    { title: 'Checkable' },
+    { title: 'Draggable' },
+  ])
 
   const selected = ref([1])
 </script>
