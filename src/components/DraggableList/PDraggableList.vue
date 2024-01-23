@@ -65,6 +65,12 @@
     emit('update:modelValue', newItems)
   }
 
+  const deleteItemAtIndex = (index: number): void => {
+    const newItems = [...props.modelValue]
+    newItems.splice(index, 1)
+    emit('update:modelValue', newItems)
+  }
+
   const focusItemAtIndex = (index: number): void => items.value[index]?.focus()
 
   const handleMouseDown = (index: number): void => {
@@ -109,6 +115,12 @@
   const handleKeyup = (event: KeyboardEvent, index: number): void => {
     const altKeyIsPressed = event.altKey
 
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      deleteItemAtIndex(index)
+
+      return
+    }
+
     if (event.key === 'ArrowUp') {
       const newIndex = index - 1
 
@@ -121,6 +133,8 @@
       }
 
       focusItemAtIndex(newIndex)
+
+      return
     }
 
     if (event.key === 'ArrowDown') {
@@ -135,6 +149,8 @@
       }
 
       focusItemAtIndex(newIndex)
+
+
     }
   }
 </script>
