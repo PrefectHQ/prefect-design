@@ -53,5 +53,14 @@
 
   const selected = ref([1])
 
-  const draggableItems = ref([1, 2, 3])
+  const draggableItems = ref([
+    'Apple',
+    'Banana',
+    'Dragonfruit',
+    'Guava',
+    'Orange',
+    'Passionfruit',
+    'Pomegranate',
+    'Starfruit',
+  ])
 </script>
