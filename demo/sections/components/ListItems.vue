@@ -28,11 +28,9 @@
     </template>
 
     <template #draggable>
-      <p-draggable-list class="grid gap-2">
-        <template v-for="i in 3" :key="i">
-          <p-list-item>
-            List Item {{ i }}
-          </p-list-item>
+      <p-draggable-list v-model="draggableItems" class="grid gap-2">
+        <template #default="{ item }">
+          {{ item }}
         </template>
       </p-draggable-list>
     </template>
@@ -53,4 +51,6 @@
   ])
 
   const selected = ref([1])
+
+  const draggableItems = ref([1, 2, 3])
 </script>
