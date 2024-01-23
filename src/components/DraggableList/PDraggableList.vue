@@ -4,7 +4,7 @@
       <div class="p-draggable-list__item" :class="classes.item(i)">
         <div class="p-draggable-list__item-handle" @dragstart="handleDragStart(i)" @dragend="handleDragEnd">
           <slot name="handle">
-            <PIcon icon="EllipsisVerticalIcon" />
+            <PIcon icon="DragHandle" />
           </slot>
         </div>
         <div class="p-draggable-list__item-content">
