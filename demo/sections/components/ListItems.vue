@@ -39,7 +39,7 @@
           </ul>
         </div>
 
-        <p-draggable-list v-model="draggableItems">
+        <p-draggable-list v-model="draggableItems" allow-create allow-delete>
           <template #default="{ item }">
             {{ item }}
           </template>

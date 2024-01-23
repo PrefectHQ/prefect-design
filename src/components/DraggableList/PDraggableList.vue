@@ -23,8 +23,14 @@
           <slot :item="item" />
         </div>
       </div>
+    </template>
 
-      <div class="p-draggable-list__item-slot" />
+    <template v-if="allowCreate">
+      <slot name="create">
+        <PButton small icon="PlusIcon" @click="createItem">
+          Add item
+        </PButton>
+      </slot>
     </template>
   </div>
 </template>
@@ -38,8 +44,8 @@
 
   const props = defineProps<{
     modelValue: unknown[],
+    allowCreate?: boolean,
     allowDelete?: boolean,
-    allowAdd?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -79,10 +85,14 @@
 
   const focusItemAtIndex = (index: number): void => items.value[index]?.focus()
 
-  const addItemAtIndex = (index: number): void => {
+  const createItemAtIndex = (index: number): void => {
     const newItems = [...props.modelValue]
     newItems.splice(index, 0, '')
     emit('update:modelValue', newItems)
+  }
+
+  const createItem = (): void => {
+    createItemAtIndex(props.modelValue.length)
   }
 
   const handleMouseDown = (index: number): void => {
@@ -147,8 +157,8 @@
     if (event.key === 'Enter') {
       const newIndex = index + 1
 
-      if (newIndex === props.modelValue.length && props.allowAdd) {
-        addItemAtIndex(newIndex)
+      if (newIndex === props.modelValue.length && props.allowCreate) {
+        createItemAtIndex(newIndex)
       }
 
       // Wait for the new item to be rendered before focusing it
