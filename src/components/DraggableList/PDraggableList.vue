@@ -38,8 +38,8 @@
 
   const props = defineProps<{
     modelValue: unknown[],
-    disableDelete?: boolean,
-    disableAdd?: boolean,
+    allowDelete?: boolean,
+    allowAdd?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -145,13 +145,9 @@
     }
 
     if (event.key === 'Enter') {
-      if (props.disableAdd) {
-        return
-
-      }
       const newIndex = index + 1
 
-      if (newIndex === props.modelValue.length) {
+      if (newIndex === props.modelValue.length && props.allowAdd) {
         addItemAtIndex(newIndex)
       }
 
@@ -164,7 +160,7 @@
     }
 
     if (event.key === 'Backspace' || event.key === 'Delete') {
-      if (props.disableDelete) {
+      if (!props.allowDelete) {
         return
       }
 
