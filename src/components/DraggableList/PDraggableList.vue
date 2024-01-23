@@ -4,14 +4,13 @@
       <div
         class="p-draggable-list__item"
         :class="classes.item(i)"
-        draggable="true"
+        :draggable="itemIsDraggable(i)"
         @dragover="($event) => handleDragOver($event, i)"
-        @dragstart="handleDragStart(i)"
+        @dragstart="handleDragStart"
         @dragend="handleDragEnd"
-        @dragleave="handleDragLeave"
         @drop="drop"
       >
-        <div class="p-draggable-list__item-handle">
+        <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(i)" @mouseup="handleMouseUp">
           <slot name="handle">
             <PIcon icon="DragHandle" />
           </slot>
@@ -29,6 +28,9 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+
+  // Enumerated type for boolean attributes: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable
+  type Booleanish = 'true' | 'false'
 
   const props = defineProps<{
     modelValue: unknown[],
@@ -49,14 +51,26 @@
     }),
   }))
 
-  const handleDragStart = (index: number): void => {
-    dragging.value = true
+  const itemIsDraggable = (index: number): Booleanish => {
+    return draggingIndex.value === index ? 'true' : 'false'
+  }
+
+  const handleMouseDown = (index: number): void => {
     draggingIndex.value = index
+  }
+
+  const handleMouseUp = (): void => {
+    draggingIndex.value = null
+  }
+
+  const handleDragStart = (): void => {
+    dragging.value = true
   }
 
   const handleDragEnd = (): void => {
     dragging.value = false
     draggingIndex.value = null
+    overIndex.value = null
   }
 
   const handleDragOver = (event: DragEvent, index: number): void => {
@@ -67,10 +81,6 @@
     }
 
     overIndex.value = index
-  }
-
-  const handleDragLeave = (): void => {
-    overIndex.value = null
   }
 
   const drop = (event: DragEvent): void => {
@@ -115,7 +125,8 @@
   bg-gray-200
 }
 
-[draggable] { @apply
+.p-draggable-list__item[draggable = 'true'] { @apply
   select-none
+  opacity-45
 }
 </style>
