@@ -1,5 +1,5 @@
 <template>
-  <div class="p-draggable-list">
+  <div class="p-draggable-list" :class="classes.root">
     <template v-for="(item, i) in modelValue" :key="i">
       <div
         ref="items"
@@ -49,8 +49,11 @@
   const draggingIndex = ref<number | null>(null)
 
   const classes = computed(() => ({
+    root: {
+      'p-draggable-list--dragging': dragging.value,
+    },
     item: (index: number) => ({
-      'p-draggable-list__item--slot': dragging.value && overIndex.value !== index,
+      'p-draggable-list__item--over': dragging.value && overIndex.value === index,
       'p-draggable-list__item--dragging': dragging.value && draggingIndex.value === index,
     }),
   }))
@@ -166,6 +169,8 @@
 .p-draggable-list__item { @apply
   flex
   items-center
+  border-2
+  border-transparent
 }
 
 .p-draggable-list__item-handle { @apply
@@ -178,16 +183,18 @@
   cursor-ns-resize
 }
 
-.draggable-list__item-slot { @apply
-  bg-gray-100
+.p-draggable-list--dragging .p-draggable-list__item--over { @apply
+  rounded-md
+  shadow-inner
+  border-dashed
+  border-default
 }
 
-.draggable-list__item-slot--over { @apply
-  bg-gray-200
+.p-draggable-list--dragging .p-draggable-list__item { @apply
+  opacity-50
 }
 
 .p-draggable-list__item[draggable = 'true'] { @apply
   select-none
-  opacity-45
 }
 </style>
