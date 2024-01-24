@@ -152,7 +152,7 @@
     const altKeyIsPressed = event.altKey
     const shiftKeyIsPressed = event.shiftKey
 
-    const handledKeys = ['Enter', 'Backspace', 'Delete', 'ArrowUp', 'ArrowDown']
+    const handledKeys = ['Enter', 'Delete', 'ArrowUp', 'ArrowDown']
     const shouldPreventDefault = handledKeys.includes(event.key)
 
     if (shouldPreventDefault) {
