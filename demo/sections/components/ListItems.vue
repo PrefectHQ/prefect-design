@@ -31,6 +31,8 @@
       <p-content>
         <div class="text-subdued text-sm">
           <ul class="list-disc list-inside">
+            <li>↑↓: Select previous/next item</li>
+            <li>⇧ + ↑↓: Select first/last item</li>
             <li>⌥ + ↑: Move item up</li>
             <li>⌥ + ↓: Move item down</li>
             <li>⌥ + ⇧ + ↑: Move item to top</li>
