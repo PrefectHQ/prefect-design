@@ -51,6 +51,7 @@
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: unknown[]): void,
+    (event: 'create', value: T | undefined): void,
   }>()
 
   const items = ref<HTMLElement[]>([])
@@ -86,18 +87,19 @@
 
   const focusItemAtIndex = (index: number): void => items.value[index]?.focus()
 
-  const createItemAtIndex = (index: number): void => {
+  const createItem = (index?: number): void => {
     if (!props.generator) {
+      emit('create', undefined)
       return
     }
 
     const newItems = [...props.modelValue]
-    newItems.splice(index, 0, props.generator())
-    emit('update:modelValue', newItems)
-  }
+    const newItem = props.generator()
+    const newIndex = index ?? newItems.length
+    newItems.splice(newIndex, 0, props.generator())
 
-  const createItem = (): void => {
-    createItemAtIndex(props.modelValue.length)
+    emit('update:modelValue', newItems)
+    emit('create', newItem)
   }
 
   const handleMouseDown = (index: number): void => {
@@ -163,7 +165,7 @@
       const newIndex = index + 1
 
       if (newIndex === props.modelValue.length && props.allowCreate) {
-        createItemAtIndex(newIndex)
+        createItem(newIndex)
       }
 
       // Wait for the new item to be rendered before focusing it
