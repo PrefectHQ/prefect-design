@@ -1,27 +1,29 @@
 <template>
   <div class="p-draggable-list" :class="classes.root">
-    <template v-for="(item, i) in modelValue" :key="i">
+    <template v-for="(item, index) in modelValue" :key="index">
       <div
         ref="items"
         class="p-draggable-list__item"
-        :class="classes.item(i)"
-        :draggable="itemIsDraggable(i)"
+        :class="classes.item(index)"
+        :draggable="itemIsDraggable(index)"
         tabindex="0"
-        @dragover="handleDragOver($event, i)"
-        @dragleave="handleDragLeave(i)"
-        @dragstart="handleDragStart"
+        @dragover="handleDragOver($event, index)"
+        @dragleave="handleDragLeave(index)"
         @dragend="handleDragEnd"
         @drop="drop"
-        @keydown="handleKeydown($event, i)"
+        @keydown="handleKeydown($event, index)"
       >
-        <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(i)" @mouseup="handleMouseUp">
-          <slot name="handle" v-bind="{ item, index: i }">
-            <PIcon icon="DragHandle" />
-          </slot>
-        </div>
-        <div class="p-draggable-list__item-content">
-          <slot v-bind="{ item, index: i }" />
-        </div>
+        <slot name="item" v-bind="{ item, index, handleDown: () => handleMouseDown(index), handleUp: handleMouseUp }">
+          <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(index)" @mouseup="handleMouseUp">
+            <slot name="handle" v-bind="{ item, index }">
+              <PIcon icon="DragHandle" />
+            </slot>
+          </div>
+
+          <div class="p-draggable-list__item-content">
+            <slot v-bind="{ item, index, moveUp: moveUp(index), moveToStart: moveToStart(index), moveDown: moveDown(index), moveToEnd: moveToEnd(index) }" />
+          </div>
+        </slot>
       </div>
     </template>
 
@@ -38,6 +40,7 @@
 <script lang="ts" setup generic="T extends unknown">
   import { computed, nextTick, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import { isNotNullish } from '@/utilities'
 
   // Enumerated type for boolean attributes: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable
   type Booleanish = 'true' | 'false'
@@ -55,9 +58,9 @@
   }>()
 
   const items = ref<HTMLElement[]>([])
-  const dragging = ref(false)
   const overIndex = ref<number | null>(null)
   const draggingIndex = ref<number | null>(null)
+  const dragging = computed(() => isNotNullish(draggingIndex.value))
 
   const classes = computed(() => ({
     root: {
@@ -77,6 +80,43 @@
     const newItems = [...props.modelValue]
     newItems.splice(newIndex, 0, newItems.splice(index, 1)[0])
     emit('update:modelValue', newItems)
+  }
+
+  const moveUp = (index: number): (() => void) => {
+    return () => {
+      const newIndex = index - 1
+
+      if (newIndex < 0) {
+        return
+      }
+
+      moveItemTo(index, newIndex)
+      focusItemAtIndex(newIndex)
+    }
+  }
+
+  const moveDown = (index: number): (() => void) => {
+    return () => {
+      const newIndex = index + 1
+
+      if (newIndex >= props.modelValue.length) {
+        return
+      }
+
+      moveItemTo(index, newIndex)
+    }
+  }
+
+  const moveToStart = (index: number): (() => void) => {
+    return () => {
+      moveItemTo(index, 0)
+    }
+  }
+
+  const moveToEnd = (index: number): (() => void) => {
+    return () => {
+      moveItemTo(index, props.modelValue.length - 1)
+    }
   }
 
   const deleteItemAtIndex = (index: number): void => {
@@ -110,19 +150,13 @@
     draggingIndex.value = null
   }
 
-  const handleDragStart = (): void => {
-    dragging.value = true
-  }
-
   const handleDragEnd = (): void => {
-    dragging.value = false
     draggingIndex.value = null
     overIndex.value = null
   }
 
   const handleDragOver = (event: DragEvent, index: number): void => {
     event.preventDefault()
-
 
     if (draggingIndex.value === null || overIndex.value === index) {
       return
@@ -169,10 +203,7 @@
       }
 
       // Wait for the new item to be rendered before focusing it
-      nextTick(() => {
-        focusItemAtIndex(newIndex)
-      })
-
+      nextTick(() => focusItemAtIndex(newIndex))
       return
     }
 
