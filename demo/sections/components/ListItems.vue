@@ -39,7 +39,7 @@
           </ul>
         </div>
 
-        <p-draggable-list v-model="draggableItems" allow-create allow-delete :create-item="createItem">
+        <p-draggable-list v-model="draggableItems" allow-create allow-delete :generator="addNewFruit">
           <template #default="{ index }">
             <p-text-input v-model="draggableItems[index]" placeholder="Fruit" />
           </template>
@@ -75,7 +75,7 @@
     'Starfruit',
   ])
 
-  const createItem = (): string => {
+  const addNewFruit = (): string => {
     return ''
   }
 </script>
