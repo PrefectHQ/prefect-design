@@ -21,9 +21,9 @@
             handleDown: () => handleMouseDown(index),
             handleUp: handleMouseUp,
             moveUp: moveUp(index),
-            moveToStart: moveToStart(index),
+            moveToTop: moveToTop(index),
             moveDown: moveDown(index),
-            moveToEnd: moveToEnd(index),
+            moveToBottom: moveToBottom(index),
             deleteItem: () => deleteItemAtIndex(index),
           }"
         >
@@ -45,9 +45,9 @@
                 item,
                 index,
                 moveUp: moveUp(index),
-                moveToStart: moveToStart(index),
+                moveToTop: moveToTop(index),
                 moveDown: moveDown(index),
-                moveToEnd: moveToEnd(index),
+                moveToBottom: moveToBottom(index),
                 deleteItem: () => deleteItemAtIndex(index),
               }"
             />
@@ -136,13 +136,13 @@
     }
   }
 
-  const moveToStart = (index: number): (() => void) => {
+  const moveToTop = (index: number): (() => void) => {
     return () => {
       moveItemTo(index, 0)
     }
   }
 
-  const moveToEnd = (index: number): (() => void) => {
+  const moveToBottom = (index: number): (() => void) => {
     return () => {
       moveItemTo(index, props.modelValue.length - 1)
     }

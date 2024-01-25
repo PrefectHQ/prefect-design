@@ -53,7 +53,7 @@
 
     <template #custom-draggable>
       <p-draggable-list v-model="customDraggableItems">
-        <template #item="{ item, index, handleDown, handleUp, moveUp, moveDown, moveToStart, moveToEnd }">
+        <template #item="{ item, index, handleDown, handleUp, moveUp, moveDown, moveToTop, moveToBottom }">
           <p-list-item class="flex items-stretch w-full gap-2">
             <div class="cursor-grab" @mousedown="handleDown" @mouseup="handleUp">
               <p-icon icon="Bars2Icon" />
@@ -66,10 +66,10 @@
 
 
             <div class="flex flex-col">
-              <p-button icon="ChevronDoubleUpIcon" flat small @click="moveToStart" />
+              <p-button icon="ChevronDoubleUpIcon" flat small @click="moveToTop" />
               <p-button icon="ChevronUpIcon" flat small @click="moveUp" />
               <p-button icon="ChevronDownIcon" flat small @click="moveDown" />
-              <p-button icon="ChevronDoubleDownIcon" flat small @click="moveToEnd" />
+              <p-button icon="ChevronDoubleDownIcon" flat small @click="moveToBottom" />
             </div>
           </p-list-item>
         </template>
