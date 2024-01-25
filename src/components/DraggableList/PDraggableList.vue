@@ -13,7 +13,7 @@
         @drop="drop"
         @keydown="handleKeydown($event, index)"
       >
-        <slot name="item" v-bind="{ item, index, handleDown: () => handleMouseDown(index), handleUp: handleMouseUp }">
+        <slot name="item" v-bind="{ item, index, handleDown: () => handleMouseDown(index), handleUp: handleMouseUp, moveUp: moveUp(index), moveToStart: moveToStart(index), moveDown: moveDown(index), moveToEnd: moveToEnd(index) }">
           <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(index)" @mouseup="handleMouseUp">
             <slot name="handle" v-bind="{ item, index }">
               <PIcon icon="DragHandle" />

@@ -48,6 +48,31 @@
         </p-draggable-list>
       </p-content>
     </template>
+
+    <template #custom-draggable>
+      <p-draggable-list v-model="customDraggableItems">
+        <template #item="{ item, index, handleDown, handleUp, moveUp, moveDown, moveToStart, moveToEnd }">
+          <p-list-item class="flex items-start w-full gap-2">
+            <div class="p-draggable-list__item-handle" @mousedown="handleDown" @mouseup="handleUp">
+              <p-icon icon="PaintBrushIcon" />
+            </div>
+
+            <div class="w-full flex flex-col gap-1">
+              <p-text-input v-model="customDraggableItems[index]" placeholder="Color" />
+              <!-- Make this image the same color as the item -->
+              <img :src="`https://placehold.co/600x400/${item}/white`" alt="Placeholder" class="w-24 h-16">
+            </div>
+
+            <div class="flex flex-col">
+              <p-button icon="ChevronDoubleUpIcon" flat small @click="moveToStart" />
+              <p-button icon="ChevronUpIcon" flat small @click="moveUp" />
+              <p-button icon="ChevronDownIcon" flat small @click="moveDown" />
+              <p-button icon="ChevronDoubleDownIcon" flat small @click="moveToEnd" />
+            </div>
+          </p-list-item>
+        </template>
+      </p-draggable-list>
+    </template>
   </ComponentPage>
 </template>
 
@@ -62,6 +87,7 @@
     { title: 'Plain' },
     { title: 'Checkable' },
     { title: 'Draggable' },
+    { title: 'Custom Draggable' },
   ])
 
   const selected = ref([1])
@@ -75,6 +101,16 @@
     'Passionfruit',
     'Pomegranate',
     'Starfruit',
+  ])
+
+  const customDraggableItems = ref([
+    'red',
+    'orange',
+    'yello',
+    'green',
+    'blue',
+    'indigo',
+    'violet',
   ])
 
   const addNewFruit = (): string => {
