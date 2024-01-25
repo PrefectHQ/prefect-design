@@ -54,13 +54,12 @@
         <template #item="{ item, index, handleDown, handleUp, moveUp, moveDown, moveToStart, moveToEnd }">
           <p-list-item class="flex items-start w-full gap-2">
             <div class="p-draggable-list__item-handle" @mousedown="handleDown" @mouseup="handleUp">
-              <p-icon icon="PaintBrushIcon" />
+              <p-icon icon="Bars2Icon" />
             </div>
 
-            <div class="w-full flex flex-col gap-1">
+            <div class="w-full flex-col gap-1">
               <p-text-input v-model="customDraggableItems[index]" placeholder="Color" />
-              <!-- Make this image the same color as the item -->
-              <img :src="`https://placehold.co/600x400/${item}/white`" alt="Placeholder" class="w-24 h-16">
+              <img :src="`https://placehold.co/600x400/${item}/white`" alt="Placeholder" class="w-full h-12">
             </div>
 
             <div class="flex flex-col">
@@ -106,7 +105,7 @@
   const customDraggableItems = ref([
     'red',
     'orange',
-    'yello',
+    'yellow',
     'green',
     'blue',
     'indigo',
