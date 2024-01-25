@@ -41,6 +41,8 @@
           </ul>
         </div>
 
+        {{ draggableItems }}
+        <br>
         <p-draggable-list v-model="draggableItems" allow-create allow-delete :generator="addNewFruit">
           <template #default="{ index }">
             <p-text-input v-model="draggableItems[index]" placeholder="Fruit" />
@@ -52,15 +54,16 @@
     <template #custom-draggable>
       <p-draggable-list v-model="customDraggableItems">
         <template #item="{ item, index, handleDown, handleUp, moveUp, moveDown, moveToStart, moveToEnd }">
-          <p-list-item class="flex items-start w-full gap-2">
-            <div class="p-draggable-list__item-handle" @mousedown="handleDown" @mouseup="handleUp">
+          <p-list-item class="flex items-stretch w-full gap-2">
+            <div class="cursor-grab" @mousedown="handleDown" @mouseup="handleUp">
               <p-icon icon="Bars2Icon" />
             </div>
 
             <div class="w-full flex-col gap-1">
               <p-text-input v-model="customDraggableItems[index]" placeholder="Color" />
-              <img :src="`https://placehold.co/600x400/${item}/white`" alt="Placeholder" class="w-full h-12">
+              <img :src="`https://placehold.co/100x50/${item}/white`" alt="Placeholder">
             </div>
+
 
             <div class="flex flex-col">
               <p-button icon="ChevronDoubleUpIcon" flat small @click="moveToStart" />
@@ -108,7 +111,6 @@
     'yellow',
     'green',
     'blue',
-    'indigo',
     'violet',
   ])
 

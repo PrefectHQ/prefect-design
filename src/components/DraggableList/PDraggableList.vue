@@ -13,15 +13,44 @@
         @drop="drop"
         @keydown="handleKeydown($event, index)"
       >
-        <slot name="item" v-bind="{ item, index, handleDown: () => handleMouseDown(index), handleUp: handleMouseUp, moveUp: moveUp(index), moveToStart: moveToStart(index), moveDown: moveDown(index), moveToEnd: moveToEnd(index) }">
-          <div class="p-draggable-list__item-handle" @mousedown="handleMouseDown(index)" @mouseup="handleMouseUp">
+        <slot
+          name="item"
+          v-bind="{
+            item,
+            index,
+            handleDown: () => handleMouseDown(index),
+            handleUp: handleMouseUp,
+            moveUp: moveUp(index),
+            moveToStart: moveToStart(index),
+            moveDown: moveDown(index),
+            moveToEnd: moveToEnd(index),
+            deleteItem: () => deleteItemAtIndex(index),
+          }"
+        >
+          <div
+            class="p-draggable-list__item-handle"
+            @mousedown="handleMouseDown(index)"
+            @touchstart="handleMouseDown(index)"
+            @touchend="handleMouseUp"
+            @mouseup="handleMouseUp"
+          >
             <slot name="handle" v-bind="{ item, index }">
               <PIcon icon="DragHandle" />
             </slot>
           </div>
 
           <div class="p-draggable-list__item-content">
-            <slot v-bind="{ item, index, moveUp: moveUp(index), moveToStart: moveToStart(index), moveDown: moveDown(index), moveToEnd: moveToEnd(index) }" />
+            <slot
+              v-bind="{
+                item,
+                index,
+                moveUp: moveUp(index),
+                moveToStart: moveToStart(index),
+                moveDown: moveDown(index),
+                moveToEnd: moveToEnd(index),
+                deleteItem: () => deleteItemAtIndex(index),
+              }"
+            />
           </div>
         </slot>
       </div>
@@ -29,7 +58,7 @@
 
     <template v-if="allowCreate">
       <slot name="create">
-        <PButton small icon="PlusIcon" class="p-draggable-list__create-button" @click="createItem">
+        <PButton small icon="PlusIcon" class="p-draggable-list__create-button" @click="createItem(undefined)">
           Add item
         </PButton>
       </slot>
@@ -213,7 +242,6 @@
       }
 
       deleteItemAtIndex(index)
-
       return
     }
 
@@ -229,7 +257,6 @@
       }
 
       focusItemAtIndex(newIndex)
-
       return
     }
 
@@ -245,8 +272,6 @@
       }
 
       focusItemAtIndex(newIndex)
-
-
     }
   }
 </script>
