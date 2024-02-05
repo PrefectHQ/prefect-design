@@ -217,14 +217,9 @@
     const altKeyIsPressed = event.altKey
     const shiftKeyIsPressed = event.shiftKey
 
-    const handledKeys = ['Enter', 'Delete', 'ArrowUp', 'ArrowDown']
-    const shouldPreventDefault = handledKeys.includes(event.key)
-
-    if (shouldPreventDefault) {
+    if (shiftKeyIsPressed && event.key === 'Enter') {
       event.preventDefault()
-    }
 
-    if (event.key === 'Enter') {
       const newIndex = index + 1
 
       if (newIndex === props.modelValue.length && props.allowCreate) {
@@ -233,13 +228,16 @@
 
       // Wait for the new item to be rendered before focusing it
       nextTick(() => focusItemAtIndex(newIndex))
+
       return
     }
 
-    if (event.key === 'Delete') {
+    if (shiftKeyIsPressed && event.key === 'Delete') {
       if (!props.allowDelete) {
         return
       }
+
+      event.preventDefault()
 
       deleteItemAtIndex(index)
       return
@@ -251,6 +249,8 @@
       if (newIndex < 0) {
         return
       }
+
+      event.preventDefault()
 
       if (altKeyIsPressed) {
         moveItemTo(index, newIndex)
@@ -266,6 +266,8 @@
       if (newIndex >= props.modelValue.length) {
         return
       }
+
+      event.preventDefault()
 
       if (altKeyIsPressed) {
         moveItemTo(index, newIndex)
