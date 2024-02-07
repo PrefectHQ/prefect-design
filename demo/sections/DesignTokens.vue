@@ -216,7 +216,7 @@
 
     <template #backgrounds-and-borders>
       <p class="design_tokens__paragraph">
-        There are 3 base levels of background colors. If we encounter a design calling for more levels of background colors than this, we should reconsider the design.
+        There are 4 base levels of background colors.
       </p>
       <div class="border border-default rounded-default my-4 p-6">
         <p><strong>Level 0:</strong> The base background color of the application, applied globally.</p>
@@ -234,6 +234,15 @@
                 .p-background .p-background {}
               </p-code> style.
             </p>
+            <div class="p-background mt-4 p-6 rounded-default">
+              <p>
+                <strong>Level 3:</strong> This level should be rare. If you reach this level, maybe reconsider the design. Adding the class <p-code inline>
+                  p-background
+                </p-code> directly to a container will automatically apply the level 3 background color when it's nested within a level 2 background, using a simple <p-code inline>
+                  .p-background .p-background .p-background {}
+                </p-code> style.
+              </p>
+            </div>
           </div>
         </div>
       </div>
