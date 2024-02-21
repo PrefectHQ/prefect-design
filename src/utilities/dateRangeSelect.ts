@@ -25,8 +25,9 @@ function mapDateRangeSelectSpanValueToDateRange({ seconds }: DateRangeSelectSpan
   const now = nowWithoutMilliseconds()
   const then = addSeconds(now, seconds)
   const [startDate, endDate] = [now, then].sort((dateA, dateB) => dateA.getTime() - dateB.getTime())
+  const timeSpanInSeconds = Math.abs(seconds)
 
-  return { startDate, endDate, timeSpanInSeconds: seconds }
+  return { startDate, endDate, timeSpanInSeconds }
 }
 
 function mapDateRangeSelectAroundValueToDateRange({ date, quantity, unit }: DateRangeSelectAroundValue): DateRangeWithTimeSpan {
