@@ -87,7 +87,8 @@
 <style>
 .p-context-accordion-item__header { @apply
   flex
-  p-2
+  px-2
+  py-1.5
   rounded-default
   items-center
   transition
@@ -99,7 +100,6 @@
   select-none
   w-full
   text-left
-  mb-1
   hover:bg-selectable-hover
   active:bg-selected
   outline-none
@@ -132,12 +132,13 @@
   flex-col
   rounded-default
   pl-4
-  gap-1
+  gap-0.5
+  mt-0.5
 }
 
 .p-context-accordion-item__content-child { @apply
-  px-1.5
-  py-1
+  px-2
+  py-1.5
   rounded-default
   items-center
   text-sm
