@@ -42,6 +42,11 @@ function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
   const reduced = Object.entries(duration).reduce<string[]>((durations, [key, value]) => {
     if (value) {
       const unit = key.slice(0, -1)
+      if (value === 1) {
+        durations.push(unit)
+        return durations
+      }
+
       durations.push(`${value} ${toPluralString(unit, value)}`)
     }
 
