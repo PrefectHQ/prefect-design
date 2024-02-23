@@ -55,7 +55,7 @@
 .p-context-sidebar__body,
 .p-context-sidebar__footer { @apply
   grid
-  gap-1
+  gap-0.5
 }
 
 .p-context-sidebar__footer { @apply
