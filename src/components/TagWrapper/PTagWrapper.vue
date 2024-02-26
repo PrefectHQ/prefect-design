@@ -11,12 +11,14 @@
     </slot>
 
 
-    <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag" :title="hiddenText">
-      <slot name="overflow-tags" :overflowed-children="overflowCount">
-        <PTag>
-          +{{ overflowCount }}
-        </PTag>
-      </slot>
+    <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag">
+      <p-tooltip :text="hiddenText">
+        <slot name="overflow-tags" :overflowed-children="overflowCount">
+          <PTag>
+            +{{ overflowCount }}
+          </PTag>
+        </slot>
+      </p-tooltip>
     </div>
   </div>
 </template>
