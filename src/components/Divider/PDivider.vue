@@ -1,18 +1,25 @@
 <template>
-  <div class="flex items-center gap-x-2">
-    <hr class="p-divider">
+  <div class="p-divider">
+    <hr class="p-divider__line">
 
     <template v-if="$slots.default">
       <div class="p-divider__text">
         <slot />
       </div>
-      <hr class="p-divider">
+      <hr class="p-divider__line">
     </template>
   </div>
 </template>
 
 <style>
   .p-divider { @apply
+    flex
+    items-center
+    gap-x-2
+    w-full
+  }
+
+  .p-divider__line { @apply
     border-none
     h-[1px]
     bg-divider
