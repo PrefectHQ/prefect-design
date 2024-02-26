@@ -11,12 +11,14 @@
     </slot>
 
 
-    <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag" :title="hiddenText">
-      <slot name="overflow-tags" :overflowed-children="overflowCount">
-        <PTag>
-          +{{ overflowCount }}
-        </PTag>
-      </slot>
+    <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag">
+      <PTooltip :text="hiddenText">
+        <slot name="overflow-tags" :overflowed-children="overflowCount">
+          <PTag>
+            +{{ overflowCount }}
+          </PTag>
+        </slot>
+      </PTooltip>
     </div>
   </div>
 </template>
@@ -24,6 +26,7 @@
 <script lang="ts" setup>
   import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import PTag from '@/components/Tag/PTag.vue'
+  import PTooltip from '@/components/Tooltip/PTooltip.vue'
   import { TagValue, normalize } from '@/types/tag'
 
   const props = defineProps<{
