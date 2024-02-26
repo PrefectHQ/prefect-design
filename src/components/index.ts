@@ -33,6 +33,7 @@ import { PForm, install as installPForm } from '@/components/Form'
 import { PFrame, install as installPFrame } from '@/components/Frame'
 import { PGlobalNavItem, install as installPGlobalNavItem } from '@/components/GlobalNavItem'
 import { PGlobalSidebar, install as installPGlobalSidebar } from '@/components/GlobalSidebar'
+import { PGrid, PGridItem, install as installPGrid } from '@/components/Grid'
 import { PHashLink, install as installPHashLink } from '@/components/HashLink'
 import { PHeading, install as installPHeading } from '@/components/Heading'
 import { PIcon, install as installPIcon } from '@/components/Icon'
@@ -125,6 +126,8 @@ export {
   PFrame,
   PGlobalNavItem,
   PGlobalSidebar,
+  PGrid,
+  PGridItem,
   PHashLink,
   PHeading,
   PIcon,
@@ -228,6 +231,7 @@ export const installs = [
   installPFrame,
   installPGlobalNavItem,
   installPGlobalSidebar,
+  installPGrid,
   installPHashLink,
   installPHeading,
   installPIcon,
@@ -321,6 +325,8 @@ declare module '@vue/runtime-core' {
     PFrame: typeof PFrame,
     PGlobalNavItem: typeof PGlobalNavItem,
     PGlobalSidebar: typeof PGlobalSidebar,
+    PGrid: typeof PGrid,
+    PGridItem: typeof PGridItem,
     PHashLink: typeof PHashLink,
     PHeading: typeof PHeading,
     PIcon: typeof PIcon,
