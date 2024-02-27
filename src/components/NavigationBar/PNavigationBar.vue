@@ -60,6 +60,8 @@
   h-screen
   w-64
   shadow
+  border-r
+  border-divider
 }
 
 .p-navigation-bar--horizontal { @apply
