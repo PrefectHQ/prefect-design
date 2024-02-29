@@ -37,7 +37,7 @@
   w-full
   flex
   flex-col
-  gap-y-6
+  gap-y-4
 }
 
 .p-form__header { @apply

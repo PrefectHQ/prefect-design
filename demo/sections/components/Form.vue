@@ -6,17 +6,16 @@
 
     <template #form>
       <p-form @submit="submit">
-        <p-content>
-          <fieldset :disabled="disabled">
-            <p-label label="Name">
-              <p-text-input v-model="name" :state="exampleState" />
-            </p-label>
+        <fieldset :disabled="disabled">
+          <p-label label="Name">
+            <p-text-input v-model="name" :state="exampleState" />
+          </p-label>
 
-            <p-label label="Description (Optional)">
-              <p-textarea v-model="description" rows="7" :state="exampleState" />
-            </p-label>
-          </fieldset>
-        </p-content>
+          <p-label label="Description (Optional)">
+            <p-textarea v-model="description" rows="7" :state="exampleState" />
+          </p-label>
+        </fieldset>
+
         <template #footer>
           <p-button type="submit" :state="exampleState" :disabled="disabled">
             Submit
