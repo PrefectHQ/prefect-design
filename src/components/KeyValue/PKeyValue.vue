@@ -68,17 +68,16 @@
 .p-key-value {
   @apply
   w-full
-  text-sm
   flex
   flex-col
   gap-y-1
-  leading-6
   items-start
 }
 
 .p-key-value__label {
   @apply
-  font-semibold
+  text-xs
+  text-subdued
   cursor-default
 }
 
@@ -94,7 +93,5 @@
 .p-key-value--alt {
   @apply
   text-xs
-  leading-4
-  font-normal
 }
 </style>
