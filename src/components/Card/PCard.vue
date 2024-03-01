@@ -1,5 +1,5 @@
 <template>
-  <div class="p-card p-background" :class="classes">
+  <div class="p-card" :class="classes">
     <slot />
   </div>
 </template>
@@ -13,6 +13,7 @@
 
   const classes = computed(() => ({
     'p-card--flat': props.flat,
+    'p-background': !props.flat,
   }))
 </script>
 
