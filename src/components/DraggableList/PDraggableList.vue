@@ -11,7 +11,6 @@
         @dragleave="handleDragLeave(index)"
         @dragend="handleDragEnd"
         @drop="drop"
-        @keydown="handleKeydown($event, index)"
       >
         <slot
           name="item"
@@ -67,7 +66,7 @@
 </template>
 
 <script lang="ts" setup generic="T extends unknown">
-  import { computed, nextTick, ref } from 'vue'
+  import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { isNotNullish } from '@/utilities'
 
@@ -78,7 +77,6 @@
     modelValue: T[],
     generator?: () => T,
     allowCreate?: boolean,
-    allowDelete?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -211,70 +209,6 @@
 
     const overIndexValue = overIndex.value ?? 0
     moveItemTo(draggingIndex.value, overIndexValue)
-  }
-
-  const handleKeydown = (event: KeyboardEvent, index: number): void => {
-    const altKeyIsPressed = event.altKey
-    const shiftKeyIsPressed = event.shiftKey
-
-    if (shiftKeyIsPressed && event.key === 'Enter') {
-      event.preventDefault()
-
-      const newIndex = index + 1
-
-      if (newIndex === props.modelValue.length && props.allowCreate) {
-        createItem(newIndex)
-      }
-
-      // Wait for the new item to be rendered before focusing it
-      nextTick(() => focusItemAtIndex(newIndex))
-
-      return
-    }
-
-    if (shiftKeyIsPressed && event.key === 'Delete') {
-      if (!props.allowDelete) {
-        return
-      }
-
-      event.preventDefault()
-
-      deleteItemAtIndex(index)
-      return
-    }
-
-    if (event.key === 'ArrowUp') {
-      const newIndex = shiftKeyIsPressed ? 0 : index - 1
-
-      if (newIndex < 0) {
-        return
-      }
-
-      event.preventDefault()
-
-      if (altKeyIsPressed) {
-        moveItemTo(index, newIndex)
-      }
-
-      focusItemAtIndex(newIndex)
-      return
-    }
-
-    if (event.key === 'ArrowDown') {
-      const newIndex = shiftKeyIsPressed ? props.modelValue.length - 1 : index + 1
-
-      if (newIndex >= props.modelValue.length) {
-        return
-      }
-
-      event.preventDefault()
-
-      if (altKeyIsPressed) {
-        moveItemTo(index, newIndex)
-      }
-
-      focusItemAtIndex(newIndex)
-    }
   }
 </script>
 
