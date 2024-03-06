@@ -23,6 +23,7 @@ export { default as IncidentSeverityUnknown } from './incident-severity-unknown.
 export { default as Late } from './late.svg'
 export { default as MicrosoftColoredIcon } from './microsoft-colored.svg'
 export { default as MicrosoftIcon } from './microsoft.svg'
+export { default as OktaIcon } from './okta.svg'
 export { default as PayAmex } from './pay-amex.svg'
 export { default as PayMastercard } from './pay-mastercard.svg'
 export { default as PayVisa } from './pay-visa.svg'
