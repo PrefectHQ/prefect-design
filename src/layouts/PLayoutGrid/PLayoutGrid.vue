@@ -21,7 +21,7 @@
       </slot>
     </div>
     <main class="p-layout-grid__main">
-      <div class="p-layout-grid__left-rail">
+      <div v-if="$slots.left-rail" class="p-layout-grid__left-rail">
         <slot name="left-rail" />
       </div>
       <div class="p-layout-grid__content">
@@ -38,6 +38,7 @@
   .p-layout-grid {
     @apply
     w-full
+    h-full
     border-l
     border-[color:var(--p-color-divider)];
   }
@@ -89,15 +90,19 @@
   .p-layout-grid__content {
     @apply
     flex-1
-    border-x
-    border-red-500
     border-[color:var(--p-color-divider)];
   }
   .p-layout-grid__left-rail,
   .p-layout-grid__right-rail {
-    @apply flex-shrink;
+    @apply
+    flex-shrink
+    border-l
+    border-[color:var(--p-color-divider)];
   }
   .p-layout-grid__left-rail {
-    @apply pl-8;
+    @apply
+    pl-8
+    border-r
+    border-[color:var(--p-color-divider)]
   }
  </style>
