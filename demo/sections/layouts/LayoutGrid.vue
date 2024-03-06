@@ -1,7 +1,7 @@
 <template>
   <ComponentPage title="Grid Layout" :demos="[{ title: 'Well Layout' }]">
     <template #well-layout>
-      <p-layout-well-toolbar class="bg-slate-100">
+      <p-layout-well-toolbar class="p-background">
         <template #header-leading>
           <div class="h-full">
             Header Leading
@@ -23,11 +23,11 @@
           </div>
         </template>
         <div class="p-background h-full">
-          <div class="bg-gray-300 layout-well-section__box" />
-          <div class="bg-gray-200 layout-well-section__box" />
-          <div class="bg-gray-300 layout-well-section__box" />
-          <div class="bg-gray-200 layout-well-section__box" />
-          <div class="bg-gray-300 layout-well-section__box" />
+          <div class="p-background layout-well-section__box" />
+          <div class="p-background layout-well-section__box" />
+          <div class="p-background layout-well-section__box" />
+          <div class="p-background layout-well-section__box" />
+          <div class="p-background layout-well-section__box" />
         </div>
         <template #left-rail>
           <div class="h-full">
