@@ -21,14 +21,14 @@
       </slot>
     </div>
     <main class="p-layout-grid__main">
-      <div v-if="$slots['left-rail']" class="p-layout-grid__left-rail">
-        <slot name="left-rail" />
+      <div v-if="$slots['main-leading']" class="p-layout-grid__main-leading">
+        <slot name="main-leading" />
       </div>
       <div class="p-layout-grid__content">
         <slot />
       </div>
-      <div v-if="$slots['right-rail']" class="p-layout-grid__right-rail">
-        <slot name="right-rail" />
+      <div v-if="$slots['main-trailing']" class="p-layout-grid__main-trailing">
+        <slot name="main-trailing" />
       </div>
     </main>
   </div>
@@ -103,15 +103,19 @@
     flex-1
     border-[color:var(--p-color-divider-subdued)];
   }
-  .p-layout-grid__left-rail {
+  .p-layout-grid__main-leading {
     @apply
     flex-shrink
     border-r
+    pt-3
+    px-8
     border-[color:var(--p-color-divider-subdued)];
   }
-  .p-layout-grid__right-rail {
+  .p-layout-grid__main-trailing {
     @apply
     border-l
+    px-4
+    pt-3
     border-[color:var(--p-color-divider-subdued)]
   }
  </style>

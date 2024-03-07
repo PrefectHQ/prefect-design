@@ -29,14 +29,14 @@
           <div class="p-background layout-well-section__box" />
           <div class="p-background layout-well-section__box" />
         </div>
-        <template #left-rail>
+        <template #main-leading>
           <div class="h-full">
-            Left Rail
+            Main Leading
           </div>
         </template>
-        <template #right-rail>
+        <template #main-trailing>
           <div class="h-full">
-            Right Rail
+            Main Trailing
           </div>
         </template>
       </p-layout-toolbar-grid>
