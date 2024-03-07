@@ -1,6 +1,6 @@
 <template>
   <div class="p-layout-grid">
-    <div class="p-layout-grid__header">
+    <div v-if="$slots.header || $slots['header-leading'] || $slots['header-trailing']" class="p-layout-grid__header">
       <slot name="header">
         <div class="p-layout-grid__header-leading">
           <slot name="header-leading" />
@@ -10,7 +10,7 @@
         </div>
       </slot>
     </div>
-    <div class="p-layout-grid__toolbar">
+    <div v-if="$slots.toolbar || $slots['toolbar-leading'] || $slots['toolbar-trailing']" class="p-layout-grid__toolbar">
       <slot name="toolbar">
         <div class="p-layout-grid__toolbar-leading">
           <slot name="toolbar-leading" />
