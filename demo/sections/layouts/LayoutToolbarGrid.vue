@@ -1,7 +1,7 @@
 <template>
   <ComponentPage title="Grid Layout" :demos="[{ title: 'Well Layout' }]">
     <template #well-layout>
-      <p-layout-well-toolbar class="p-background">
+      <p-layout-toolbar-grid class="p-background">
         <template #header-leading>
           <div class="h-full">
             Header Leading
@@ -39,7 +39,7 @@
             Right Rail
           </div>
         </template>
-      </p-layout-well-toolbar>
+      </p-layout-toolbar-grid>
     </template>
   </ComponentPage>
 </template>

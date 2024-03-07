@@ -21,18 +21,25 @@
       </slot>
     </div>
     <main class="p-layout-grid__main">
-      <div v-if="$slots.leftRail" class="p-layout-grid__left-rail">
-        <slot name="leftRail" />
+      <div v-if="$slots['left-rail']" class="p-layout-grid__left-rail">
+        <slot name="left-rail" />
       </div>
       <div class="p-layout-grid__content">
         <slot />
       </div>
-      <div v-if="$slots.rightRail" class="p-layout-grid__right-rail">
-        <slot name="rightRail" />
+      <div v-if="$slots['right-rail']" class="p-layout-grid__right-rail">
+        <slot name="right-rail" />
       </div>
     </main>
   </div>
 </template>
+
+
+<script lang="ts" setup>
+  import { useSlots } from 'vue'
+
+  const slots = useSlots()
+</script>
 
  <style>
   .p-layout-grid {
@@ -42,7 +49,7 @@
     border-l
     flex
     flex-col
-    border-[color:var(--p-color-divider)];
+    border-[color:var(--p-color-divider-subdued)];
   }
 
   .p-layout-grid__toolbar,
@@ -51,7 +58,7 @@
     h-14
     min-h-14
     border-b
-    border-[color:var(--p-color-divider)]
+    border-[color:var(--p-color-divider-subdued)]
     flex
     justify-between
     pl-8
@@ -94,17 +101,17 @@
   .p-layout-grid__content {
     @apply
     flex-1
-    border-[color:var(--p-color-divider)];
+    border-[color:var(--p-color-divider-subdued)];
   }
   .p-layout-grid__left-rail {
     @apply
     flex-shrink
     border-r
-    border-[color:var(--p-color-divider)];
+    border-[color:var(--p-color-divider-subdued)];
   }
   .p-layout-grid__right-rail {
     @apply
     border-l
-    border-[color:var(--p-color-divider)]
+    border-[color:var(--p-color-divider-subdued)]
   }
  </style>
