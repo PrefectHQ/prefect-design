@@ -21,14 +21,14 @@
       </slot>
     </div>
     <main class="p-layout-grid__main">
-      <div v-if="$slots.left-rail" class="p-layout-grid__left-rail">
-        <slot name="left-rail" />
+      <div v-if="$slots.leftRail" class="p-layout-grid__left-rail">
+        <slot name="leftRail" />
       </div>
       <div class="p-layout-grid__content">
         <slot />
       </div>
-      <div class="p-layout-grid__right-rail">
-        <slot name="right-rail" />
+      <div v-if="$slots.rightRail" class="p-layout-grid__right-rail">
+        <slot name="rightRail" />
       </div>
     </main>
   </div>
@@ -40,6 +40,8 @@
     w-full
     h-full
     border-l
+    flex
+    flex-col
     border-[color:var(--p-color-divider)];
   }
 
@@ -83,7 +85,9 @@
   .p-layout-grid__main {
     @apply
     flex
+    flex-1
     w-full
+    relative
     flex-nowrap;
   }
 
@@ -92,17 +96,15 @@
     flex-1
     border-[color:var(--p-color-divider)];
   }
-  .p-layout-grid__left-rail,
-  .p-layout-grid__right-rail {
-    @apply
-    flex-shrink
-    border-l
-    border-[color:var(--p-color-divider)];
-  }
   .p-layout-grid__left-rail {
     @apply
-    pl-8
+    flex-shrink
     border-r
+    border-[color:var(--p-color-divider)];
+  }
+  .p-layout-grid__right-rail {
+    @apply
+    border-l
     border-[color:var(--p-color-divider)]
   }
  </style>
