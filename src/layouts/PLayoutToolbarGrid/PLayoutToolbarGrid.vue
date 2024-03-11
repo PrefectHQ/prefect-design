@@ -34,18 +34,11 @@
   </div>
 </template>
 
-
-<script lang="ts" setup>
-  import { useSlots } from 'vue'
-
-  const slots = useSlots()
-</script>
-
  <style>
   .p-layout-grid {
     @apply
     w-full
-    h-full
+    h-screen
     border-l
     flex
     flex-col
@@ -55,14 +48,18 @@
   .p-layout-grid__toolbar,
   .p-layout-grid__header {
     @apply
-    h-14
-    min-h-14
     border-b
     border-[color:var(--p-color-divider-subdued)]
     flex
     justify-between
     pl-8
     pr-4
+  }
+
+  .p-layout-grid__header {
+    @apply
+    h-14
+    min-h-14
   }
 
   .p-layout-grid__toolbar {
@@ -93,8 +90,10 @@
     @apply
     flex
     flex-1
+    h-[calc(100%-theme('spacing.12')-theme('spacing.14'))]
     w-full
     relative
+    overflow-auto
     flex-nowrap;
   }
 
