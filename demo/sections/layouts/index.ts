@@ -5,4 +5,5 @@ export const layouts: Section = {
   layoutFull: () => import('./LayoutFull.vue'),
   layoutResizable: () => import('./LayoutResizable.vue'),
   layoutWell: () => import('./LayoutWell.vue'),
+  layoutToolbarGrid: () => import('./LayoutToolbarGrid.vue'),
 }

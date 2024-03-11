@@ -39,6 +39,7 @@
 
     /* Root Tokens */
     --p-color-divider: #51525C;
+    --p-color-divider-subdued: #51525C;
     --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: rgba(104, 125, 155, 0.4);
@@ -208,6 +209,7 @@
 
     /* Root Tokens */
     --p-color-divider: #BFBFCC;
+    --p-color-divider-subdued: #f3f4f6;
     --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
 
     --p-color-selected: rgba(107, 116, 152, 0.24);
