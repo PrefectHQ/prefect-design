@@ -11,9 +11,9 @@ const parse = (text: string): marked.TokensList => {
 }
 
 const handleMessage = (message: MessageEvent<MarkdownMessagePayload>): void => {
-  const { text } = message.data
+  const { componentId, text } = message.data
   const tokens = parse(text)
-  const response: ParseMessagePayload = { tokens }
+  const response: ParseMessagePayload = { componentId, tokens }
   self.postMessage(response)
 }
 

@@ -5,10 +5,12 @@ export type Token = ReturnType<typeof marked.lexer>[number]
 export type VNodeChildren = VNode<RendererNode, RendererElement, Record<string, unknown>>[]
 
 export type MarkdownMessagePayload = {
+  componentId: string,
   text: string,
 }
 
 export type ParseMessagePayload = {
+  componentId: string,
   tokens: marked.TokensList,
 }
 

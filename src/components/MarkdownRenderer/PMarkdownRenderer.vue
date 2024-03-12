@@ -8,12 +8,14 @@
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
   import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
   import type { ParseMessagePayload } from '@/types/markdownRenderer'
+  import { randomId } from '@/utilities'
 
   const props = defineProps<{
     text: string,
     linkBaseUrl?: string,
   }>()
 
+  const componentId = randomId()
   const tokens = ref<marked.TokensList | []>([])
 
   const renderRoot = computed(() => {
@@ -21,7 +23,9 @@
   })
 
   const handleWorkerMessage = (message: ParseMessagePayload): void => {
-    tokens.value = message.tokens
+    if (message.componentId === componentId) {
+      tokens.value = message.tokens
+    }
   }
 
   const worker = new MarkdownTokenWorker()
@@ -30,7 +34,7 @@
 
   watch(() => props.text, (text) => {
     if (text) {
-      worker.postMessage({ text })
+      worker.postMessage({ componentId, text })
     }
   }, { immediate: true })
 </script>
