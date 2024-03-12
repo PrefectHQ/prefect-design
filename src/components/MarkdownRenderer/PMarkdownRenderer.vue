@@ -12,7 +12,7 @@
     linkBaseUrl?: string,
   }>()
 
-  const { tokens } = useMarkdownRenderer(props.text)
+  const { tokens } = useMarkdownRenderer(() => props.text)
 
   const renderRoot = computed(() => {
     return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
