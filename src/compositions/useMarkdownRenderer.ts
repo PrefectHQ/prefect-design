@@ -1,5 +1,5 @@
 import { marked } from 'marked'
-import { computed, getCurrentScope, MaybeRefOrGetter, onUnmounted, Ref, ref, toRef, toValue, watch, watchEffect } from 'vue'
+import { computed, getCurrentScope, MaybeRefOrGetter, onScopeDispose, onUnmounted, Ref, ref, toRef, toValue, watch, watchEffect } from 'vue'
 import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
 import { ParseMessagePayload } from '@/types/markdownRenderer'
 import { randomId } from '@/utilities'
@@ -32,12 +32,7 @@ export function useMarkdownRenderer(text: MaybeRefOrGetter): UseMarkdownRenderer
 
   callbacks.set(id, rendererCallback)
   watchEffect(() => worker.postMessage({ id, text: toValue(text) }))
-
-  if (getCurrentScope()) {
-    onUnmounted(() => {
-      callbacks.delete(id)
-    })
-  }
+  onScopeDispose(() => callbacks.delete(id))
 
   return { tokens: tokensRef }
 }
