@@ -3,36 +3,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { marked } from 'marked'
-  import { computed, ref, watch } from 'vue'
+  import { computed } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
-  import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
-  import type { ParseMessagePayload } from '@/types/markdownRenderer'
+  import { useMarkdownRenderer } from '@/compositions/useMarkdownRenderer'
 
   const props = defineProps<{
     text: string,
     linkBaseUrl?: string,
   }>()
 
-  const tokens = ref<marked.TokensList | []>([])
+  const { tokens } = useMarkdownRenderer(() => props.text)
 
   const renderRoot = computed(() => {
     return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
   })
-
-  const handleWorkerMessage = (message: ParseMessagePayload): void => {
-    tokens.value = message.tokens
-  }
-
-  const worker = new MarkdownTokenWorker()
-
-  worker.onmessage = (event: MessageEvent<ParseMessagePayload>) => handleWorkerMessage(event.data)
-
-  watch(() => props.text, (text) => {
-    if (text) {
-      worker.postMessage({ text })
-    }
-  }, { immediate: true })
 </script>
 
 <style>
