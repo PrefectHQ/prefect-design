@@ -277,7 +277,8 @@
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
-    --p-input-checkbox-indeterminate-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 16 16'%3e%3cpath stroke='%2370707B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
+    /* Note: this url has a hardcoded usage of `--p-color-text-default` here however it uses `%23171717` instead of `#171717` since `#` within a url is a fragment. -*/
+    --p-input-checkbox-indeterminate-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 16 16'%3e%3cpath stroke='%23171717' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
 
     /* Toggle */
     --p-color-toggle-bg: var(--p-color-input-border);
