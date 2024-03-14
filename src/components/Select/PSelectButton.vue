@@ -11,7 +11,7 @@
         aria-hidden="true"
         v-bind="attrs"
       >
-        <span class="p-select-button__value">
+        <span class="p-select-button__value" :class="classes.value">
           <slot name="default" />
         </span>
       </button>
@@ -38,6 +38,14 @@
   const props = defineProps<{
     small?: boolean,
   }>()
+
+  const classes = computed(() => {
+    return {
+      value: {
+        'p-select-button__value--small': props.small,
+      },
+    }
+  })
 </script>
 
 <style>
@@ -79,7 +87,7 @@
   h-full
 }
 
-.p-base-input__control--small .p-select-button__value { @apply
+.p-select-button__value--small { @apply
   min-h-[.75rem]
 }
 
