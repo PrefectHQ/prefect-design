@@ -78,7 +78,13 @@
   }
 
   function eventHandler(event: MouseEvent | FocusEvent): void {
-    if (target.value?.contains(event.target as Node) || content.value?.contains(event.target as Node)) {
+    const eventTarget = event.target as Element
+
+    if (
+      target.value?.contains(eventTarget)
+      || content.value?.contains(eventTarget)
+      || eventTarget.closest('.p-pop-over-content') !== null
+    ) {
       return
     }
 
