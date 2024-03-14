@@ -10,17 +10,23 @@
 <script setup lang="ts">
   import { computed, defineProps } from 'vue'
 
-  const props = defineProps<{
-    size?: 'small' | 'large',
-  }>()
-  const iconSizeClass = computed(() => props.size && `p-loading-icon--${props.size}`)
+  const props = withDefaults(defineProps<{
+    size?: 'small' | 'default' | 'large',
+  }>(), {
+    size: 'default',
+  })
+
+  const iconSizeClass = computed(() => `p-loading-icon--${props.size}`)
 </script>
 
 <style>
 .p-loading-icon { @apply
   relative
-  w-4
-  h-4
+}
+
+.p-loading-icon--default { @apply
+  w-3
+  h-3
 }
 
 .p-loading-icon--small { @apply

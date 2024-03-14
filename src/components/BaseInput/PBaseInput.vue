@@ -4,7 +4,7 @@
       {{ prepend }}
     </div>
     <slot name="prepend" />
-    <slot name="control" :attrs="attrsWithDisabled" />
+    <slot name="control" :attrs="attrsForControl" />
     <div v-if="append" class="p-base-input__append">
       {{ append }}
     </div>
@@ -62,9 +62,13 @@
 
   const iconSize = computed(() => props.small ? 'small' : undefined)
 
-  const attrsWithDisabled = computed(() => ({
+  const attrsForControl = computed(() => ({
     ...attrs.value,
     disabled: props.disabled,
+    class: {
+      'p-base-input__control': true,
+      'p-base-input__control--small': props.small,
+    },
   }))
 </script>
 
@@ -90,7 +94,7 @@
   p-0
 }
 
-.p-base-input--small input { @apply
+.p-base-input__control--small { @apply
   py-1.5
   text-xs
   h-7
