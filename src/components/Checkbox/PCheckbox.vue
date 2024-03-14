@@ -120,7 +120,7 @@
 
 .p-checkbox__input:indeterminate {
   border-color: var(--p-color-input-border);
-  background-image: var(--p-color-input-checkbox-indeterminate-bg-img);
+  background-image: var(--p-input-checkbox-indeterminate-bg-img);
 }
 
 .p-checkbox--failed {
