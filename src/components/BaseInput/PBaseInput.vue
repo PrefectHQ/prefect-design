@@ -87,7 +87,6 @@
 }
 
 .p-base-input--small { @apply
-  h-8
   text-xs
   p-0
 }
@@ -95,7 +94,7 @@
 .p-base-input--small input { @apply
   py-1.5
   text-xs
-  h-8
+  h-7
 }
 
 .p-base-input:focus-within {
