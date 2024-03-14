@@ -67,7 +67,7 @@
 .p-base-input__control--small{
   @apply
   py-1
-  pl-1.5
+  px-2
   min-h-7
 }
 
