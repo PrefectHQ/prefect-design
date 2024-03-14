@@ -1,5 +1,5 @@
 <template>
-  <PBaseInput ref="wrapperElement" class="p-select-button">
+  <PBaseInput ref="wrapperElement" class="p-select-button" :small="props.small">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -34,6 +34,10 @@
   const el = computed(() => buttonElement.value)
 
   defineExpose({ el, wrapper })
+
+  const props = defineProps<{
+    small?: boolean,
+  }>()
 </script>
 
 <style>
@@ -60,6 +64,13 @@
   cursor-not-allowed
 }
 
+.p-base-input__control--small{
+  @apply
+  py-1
+  pl-1.5
+  min-h-7
+}
+
 .p-select-button__value { @apply
   min-h-[1.5rem]
   flex
@@ -67,6 +78,10 @@
   items-stretch
   w-full
   h-full
+}
+
+.p-base-input__control--small .p-select-button__value { @apply
+  min-h-[.75rem]
 }
 
 .p-select-button__icon { @apply
