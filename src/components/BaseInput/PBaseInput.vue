@@ -9,11 +9,13 @@
       {{ append }}
     </div>
     <slot name="append" />
+
     <div v-if="failed" class="p-base-input__failed-icon">
-      <PIcon icon="ExclamationCircleIcon" />
+      <PIcon icon="ExclamationCircleIcon" :size="iconSize" />
     </div>
+
     <div v-if="state?.pending" class="p-base-input__pending-icon">
-      <PLoadingIcon />
+      <PLoadingIcon :size="iconSize" />
     </div>
   </div>
 </template>
@@ -27,6 +29,7 @@
 </script>
 
 <script lang="ts" setup>
+  import { s } from 'vite/dist/node/types.d-jgA8ss1A'
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { PLoadingIcon } from '@/components/LoadingIcon'
@@ -39,6 +42,7 @@
     prepend?: string,
     append?: string,
     disabled?: boolean,
+    small?: boolean,
   }>()
 
   const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
@@ -53,8 +57,11 @@
       'p-base-input--disabled': props.disabled,
       'p-base-input--failed': failed.value,
       'p-base-input--pending': props.state?.pending,
+      'p-base-input--small': props.small,
     },
   ])
+
+  const iconSize = computed(() => props.small ? 'small' : undefined)
 
   const attrsWithDisabled = computed(() => ({
     ...attrs.value,
@@ -74,9 +81,21 @@
   focus-within:ring-offset-focus-ring-offset
   rounded-default
   font-normal;
-  background-color: var(--p-color-input-bg);
   border-color: var(--p-color-input-border);
+  background-color: var(--p-color-input-bg);
   color: var(--p-color-input-text);
+}
+
+.p-base-input--small { @apply
+  h-8
+  text-xs
+  p-0
+}
+
+.p-base-input--small input { @apply
+  py-1.5
+  text-xs
+  h-8
 }
 
 .p-base-input:focus-within {
@@ -106,6 +125,12 @@
   border-color: var(--p-color-input-border);
 }
 
+.p-base-input--small .p-base-input__prepend,
+.p-base-input--small .p-base-input__append { @apply
+  text-xs;
+  line-height: normal;
+}
+
 .p-base-input__prepend { @apply
   border-r
 }
@@ -132,6 +157,11 @@
   color: var(--p-color-input-text-invalid-icon);
 }
 
+.p-base-input--small .p-base-input__failed-icon { @apply
+  w-4
+  h-4;
+}
+
 .p-base-input__pending-icon { @apply
   relative
   text-live
@@ -140,5 +170,10 @@
   w-5
   h-5
   mr-2
+}
+
+.p-base-input--small .p-base-input__pending-icon { @apply
+  w-4
+  h-4;
 }
 </style>
