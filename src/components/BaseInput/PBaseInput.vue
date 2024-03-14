@@ -4,16 +4,18 @@
       {{ prepend }}
     </div>
     <slot name="prepend" />
-    <slot name="control" :attrs="attrsWithDisabled" />
+    <slot name="control" :attrs="attrsForControl" />
     <div v-if="append" class="p-base-input__append">
       {{ append }}
     </div>
     <slot name="append" />
+
     <div v-if="failed" class="p-base-input__failed-icon">
-      <PIcon icon="ExclamationCircleIcon" />
+      <PIcon icon="ExclamationCircleIcon" :size="iconSize" />
     </div>
+
     <div v-if="state?.pending" class="p-base-input__pending-icon">
-      <PLoadingIcon />
+      <PLoadingIcon :size="iconSize" />
     </div>
   </div>
 </template>
@@ -39,6 +41,7 @@
     prepend?: string,
     append?: string,
     disabled?: boolean,
+    small?: boolean,
   }>()
 
   const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
@@ -53,12 +56,19 @@
       'p-base-input--disabled': props.disabled,
       'p-base-input--failed': failed.value,
       'p-base-input--pending': props.state?.pending,
+      'p-base-input--small': props.small,
     },
   ])
 
-  const attrsWithDisabled = computed(() => ({
+  const iconSize = computed(() => props.small ? 'small' : undefined)
+
+  const attrsForControl = computed(() => ({
     ...attrs.value,
     disabled: props.disabled,
+    class: {
+      'p-base-input__control': true,
+      'p-base-input__control--small': props.small,
+    },
   }))
 </script>
 
@@ -74,9 +84,20 @@
   focus-within:ring-offset-focus-ring-offset
   rounded-default
   font-normal;
-  background-color: var(--p-color-input-bg);
   border-color: var(--p-color-input-border);
+  background-color: var(--p-color-input-bg);
   color: var(--p-color-input-text);
+}
+
+.p-base-input--small { @apply
+  text-xs
+  p-0
+}
+
+.p-base-input__control--small { @apply
+  py-1.5
+  text-xs
+  h-7
 }
 
 .p-base-input:focus-within {
@@ -106,6 +127,12 @@
   border-color: var(--p-color-input-border);
 }
 
+.p-base-input--small .p-base-input__prepend,
+.p-base-input--small .p-base-input__append { @apply
+  text-xs;
+  line-height: normal;
+}
+
 .p-base-input__prepend { @apply
   border-r
 }
@@ -132,6 +159,11 @@
   color: var(--p-color-input-text-invalid-icon);
 }
 
+.p-base-input--small .p-base-input__failed-icon { @apply
+  w-4
+  h-4;
+}
+
 .p-base-input__pending-icon { @apply
   relative
   text-live
@@ -140,5 +172,10 @@
   w-5
   h-5
   mr-2
+}
+
+.p-base-input--small .p-base-input__pending-icon { @apply
+  w-4
+  h-4;
 }
 </style>

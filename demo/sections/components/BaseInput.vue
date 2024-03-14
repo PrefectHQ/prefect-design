@@ -3,6 +3,7 @@
     title="Base Input"
     :demos="[
       { title: 'Basic' },
+      { title: 'Small' },
       { title: 'Prepend and Append Props' },
       { title: 'Prepend and Append Slots' },
       { title: 'Search Input' },
@@ -15,7 +16,9 @@
     <template #basic>
       <p-text-input v-model="basic" placeholder="Placeholder" :disabled="disabled" :state="exampleState" />
     </template>
-
+    <template #small>
+      <p-text-input v-model="basic" placeholder="Placeholder" small :disabled="disabled" :state="exampleState" />
+    </template>
     <template #prepend-and-append-props>
       <p-number-input v-model="exampleDollars" :disabled="disabled" prepend="$" append="USD" :state="exampleState" />
     </template>
@@ -55,6 +58,7 @@
   const disabled = ref(false)
 
   const basic = ref('')
+  const small = ref('')
   const exampleUrl = ref('')
   const exampleDollars = ref(0)
   const exampleSearch = ref('')

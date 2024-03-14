@@ -1,5 +1,5 @@
 <template>
-  <div class="p-loading-icon">
+  <div class="p-loading-icon" :class="iconSizeClass">
     <div class="p-loading-icon__segment" />
     <div class="p-loading-icon__segment" />
     <div class="p-loading-icon__segment" />
@@ -7,11 +7,36 @@
   </div>
 </template>
 
+<script setup lang="ts">
+  import { computed, defineProps } from 'vue'
+
+  const props = withDefaults(defineProps<{
+    size?: 'small' | 'default' | 'large',
+  }>(), {
+    size: 'default',
+  })
+
+  const iconSizeClass = computed(() => `p-loading-icon--${props.size}`)
+</script>
+
 <style>
 .p-loading-icon { @apply
   relative
-  w-4
-  h-4
+}
+
+.p-loading-icon--default { @apply
+  w-3
+  h-3
+}
+
+.p-loading-icon--small { @apply
+  w-3
+  h-3
+}
+
+.p-loading-icon--large { @apply
+  w-5
+  h-5
 }
 
 .p-loading-icon__segment {
