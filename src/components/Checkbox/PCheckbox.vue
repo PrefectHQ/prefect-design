@@ -97,8 +97,8 @@
   focus:ring-offset-focus-ring
   focus:ring-offset-focus-ring-offset;
   background-color: var(--p-color-input-bg);
+  color: var(--p-color-input-bg);
   border-color: var(--p-color-input-border);
-  color: var(--p-color-input-text);
 }
 
 .p-checkbox__input:focus:not(:focus-visible) { @apply
@@ -107,17 +107,20 @@
 }
 
 .p-checkbox__input:not(:disabled):hover {
-  background-color: var(--p-color-input-bg);
+  color: var(--p-color-input-bg);
   border-color: var(--p-color-input-border-focus);
-  color: var(--p-color-input-text);
 }
 
 .p-checkbox__input:checked,
 .p-checkbox__input:checked:hover,
 .p-checkbox__input:checked:focus {
-  background-color: var(--p-color-input-checked-bg);
+  color: var(--p-color-input-checked-bg);
   border-color: var(--p-color-input-checked-border);
-  color: var(--p-color-input-checked-text);
+}
+
+.p-checkbox__input:indeterminate {
+  border-color: var(--p-color-input-border);
+  background-image: var(--p-color-input-checkbox-indeterminate-bg-img);
 }
 
 .p-checkbox--failed {
@@ -127,7 +130,7 @@
 .p-checkbox--failed .p-checkbox__input,
 .p-checkbox--failed .p-checkbox__input:hover,
 .p-checkbox--failed .p-checkbox__input:focus {
-  background-color: var(--p-color-input-bg-invalid);
+  color: var(--p-color-input-bg-invalid);
   border-color: var(--p-color-input-border-invalid);
 }
 

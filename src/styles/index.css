@@ -105,6 +105,8 @@
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
+    --p-color-input-checkbox-indeterminate-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
+
     /* Toggle */
     --p-color-toggle-bg: var(--p-color-divider);
     --p-color-toggle-trigger: var(--p-color-input-text);
@@ -274,6 +276,8 @@
     --p-color-input-checked-bg: #2e90fb;
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
+
+    --p-color-input-checkbox-indeterminate-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 16 16'%3e%3cpath stroke='%2370707B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
 
     /* Toggle */
     --p-color-toggle-bg: var(--p-color-input-border);
