@@ -64,8 +64,7 @@
   cursor-not-allowed
 }
 
-.p-base-input__control--small{
-  @apply
+.p-base-input__control--small {  @apply
   py-1
   px-2
   min-h-7
