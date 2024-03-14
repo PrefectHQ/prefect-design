@@ -93,13 +93,13 @@
     h-[calc(100%-theme('spacing.12')-theme('spacing.14'))]
     w-full
     relative
-    overflow-auto
     flex-nowrap;
   }
 
   .p-layout-grid__content {
     @apply
     flex-1
+    overflow-auto
     border-[color:var(--p-color-divider-subdued)];
   }
   .p-layout-grid__main-leading {
