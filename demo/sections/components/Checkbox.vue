@@ -3,8 +3,8 @@
     title="Checkbox"
     :demos="[
       { title: 'Checkbox' },
-      { title: 'Multiple', description: 'See also: p-checkbox-group' },
-      { title: 'Label Slot' },
+      { title: 'Multiple', description: 'For multiple checkboxes, the v-model value can be an array to be shared across all checkboxes. See also: p-checkbox-group' },
+      { title: 'Label Slot', description: 'In addition to the label prop, there is a slot available for label content.' },
     ]"
   >
     <template #description>
