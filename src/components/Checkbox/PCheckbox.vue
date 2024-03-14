@@ -40,6 +40,7 @@
     label?: string,
     state?: State,
     disabled?: boolean,
+    small?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -66,6 +67,7 @@
       'p-checkbox--disabled': props.disabled,
       'p-checkbox--failed': failed.value,
       'p-checkbox--pending': props.state?.pending,
+      'p-checkbox--small': props.small,
     },
   ])
 </script>
@@ -79,6 +81,11 @@
   items-center
   gap-x-2
   w-auto
+}
+
+.p-checkbox--small .p-checkbox__input { @apply
+  h-3
+  w-3
 }
 
 .p-checkbox__label,
