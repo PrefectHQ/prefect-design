@@ -29,7 +29,6 @@
 </script>
 
 <script lang="ts" setup>
-  import { s } from 'vite/dist/node/types.d-jgA8ss1A'
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { PLoadingIcon } from '@/components/LoadingIcon'
