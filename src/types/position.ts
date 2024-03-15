@@ -1,11 +1,6 @@
 import { Ref } from 'vue'
 import { Pixels } from '@/types/units'
 
-export type MousePosition = {
-  x: number,
-  y: number,
-}
-
 export type Position = { top: number, left: number }
 
 export type PositionStyles = { top?: Pixels, left?: Pixels, position: 'absolute' }

@@ -4,7 +4,7 @@
     class="p-context-menu"
     :placement="internalPlacement"
     :group="group"
-    :auto-close="autoClose"
+    :auto-close="!disableAutoClose"
   >
     <template #target="{ toggle, open, close, visible }">
       <slot name="target" v-bind="{ toggle, open, close, visible }" />
@@ -20,19 +20,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { useGlobalEventListener } from '@prefecthq/vue-compositions'
+  import { useMousePosition, useKeyDown } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import { useMousePosition } from '@/compositions'
   import { PositionMethod, keys } from '@/types'
-  import { isKeyEvent } from '@/utilities'
   import { bottomLeft, bottomRight, topLeft, topRight } from '@/utilities/position'
   import { lowerLeft, lowerRight, upperLeft, upperRight } from '@/utilities/positionRelative'
 
   const props = withDefaults(defineProps<{
     placement?: PositionMethod | PositionMethod[],
-    autoClose?: boolean,
+    disableAutoClose?: boolean,
     disableCloseOnEscape?: boolean,
     disableCloseOnMenuClick?: boolean,
     positionAtClick?: boolean,
@@ -70,17 +68,15 @@
     internalClose()
   }
 
-  function closeOnEscape(event: KeyboardEvent): void {
+  function closeOnEscape(): void {
     if (props.disableCloseOnEscape) {
       return
     }
 
-    if (isKeyEvent(keys.escape, event)) {
-      internalClose()
-    }
+    internalClose()
   }
 
-  useGlobalEventListener('keyup', closeOnEscape)
+  useKeyDown(keys.escape, closeOnEscape)
 </script>
 
 <style>

@@ -1,5 +1,6 @@
+import { MousePosition } from '@prefecthq/vue-compositions'
 import { MaybeRefOrGetter, toValue } from 'vue'
-import { PositionMethod, Position, MousePosition } from '@/types/position'
+import { PositionMethod, Position } from '@/types/position'
 
 export const lowerRight = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
   return function(): Position {
