@@ -1,10 +1,7 @@
 <template>
   <ComponentPage title="Context Menu" :demos="demos">
     <template #description>
-      The `p-context-menu` component is a wrapper around the `p-pop-over` component that provides a context menu for a target element. It contains slots for the following:
-      - default - the content of the `p-overflow-menu` component (generally `p-overflow-menu-item`)
-      - target - the target element that will trigger the context menu
-      - context-menu - an override for the default `p-overflow-menu` in case the default isn't quite what you need
+      <PMarkdownRenderer :text="description" />
     </template>
 
     <PContextMenu auto-close>
@@ -37,9 +34,15 @@
 
 <script lang="ts" setup>
   import PContextMenu from '@/components/ContextMenu/PContextMenu.vue'
+  import PMarkdownRenderer from '@/components/MarkdownRenderer/PMarkdownRenderer.vue'
   import POverflowMenuItem from '@/components/OverflowMenuItem/POverflowMenuItem.vue'
   import PWindow from '@/components/Window/PWindow.vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const description = `The \`p-context-menu\` component is a wrapper around the \`p-pop-over\` component that provides a context menu for a target element. It contains slots for the following:
+      - default - the content of the \`p-overflow-menu\` component (generally \`p-overflow-menu-item\`)
+      - target - the target element that will trigger the context menu
+      - context-menu - an override for the default \`p-overflow-menu\` in case the default isn't quite what you need`
 
   const demos = [
     {
