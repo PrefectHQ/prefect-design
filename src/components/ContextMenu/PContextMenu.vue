@@ -26,7 +26,7 @@
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { PositionMethod, keys } from '@/types'
   import { bottomLeft, bottomRight, topLeft, topRight } from '@/utilities/position'
-  import { lowerLeft, lowerRight, upperLeft, upperRight } from '@/utilities/positionRelative'
+  import { positionAroundPoint } from '@/utilities/positionRelative'
 
   const props = withDefaults(defineProps<{
     placement?: PositionMethod | PositionMethod[],
@@ -50,10 +50,15 @@
     }
 
     if (props.positionAtClick) {
-      return [lowerRight(positionAtLastClick), lowerLeft(positionAtLastClick), upperRight(positionAtLastClick), upperLeft(positionAtLastClick)]
+      return [
+        positionAroundPoint(positionAtLastClick, bottomLeft),
+        positionAroundPoint(positionAtLastClick, topLeft),
+        positionAroundPoint(positionAtLastClick, topRight),
+        positionAroundPoint(positionAtLastClick, bottomRight),
+      ]
     }
 
-    return [topRight, bottomLeft, bottomRight, topLeft]
+    return [topRight, bottomRight, bottomLeft, topLeft]
   })
 
   function internalClose(): void {

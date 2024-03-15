@@ -2,46 +2,11 @@ import { MousePosition } from '@prefecthq/vue-compositions'
 import { MaybeRefOrGetter, toValue } from 'vue'
 import { PositionMethod, Position } from '@/types/position'
 
-export const lowerRight = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
-  return function(): Position {
+export const positionAroundPoint = function(position: MaybeRefOrGetter<MousePosition>, method: PositionMethod): PositionMethod {
+  return function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
     const { x, y } = toValue(position)
+    const targetPosition = new DOMRect(x, y, 0, 0)
 
-    return {
-      top: y,
-      left: x,
-    }
-  }
-}
-
-export const lowerLeft = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
-  return function(target: DOMRect, content: DOMRect): Position {
-    const { x, y } = toValue(position)
-
-    return {
-      top: y,
-      left: x - content.width,
-    }
-  }
-}
-
-export const upperRight = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
-  return function(target: DOMRect, content: DOMRect): Position {
-    const { x, y } = toValue(position)
-
-    return {
-      top: y - content.height,
-      left: x,
-    }
-  }
-}
-
-export const upperLeft = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
-  return function(target: DOMRect, content: DOMRect): Position {
-    const { x, y } = toValue(position)
-
-    return {
-      top: y - content.height,
-      left: x - content.width,
-    }
+    return method(targetPosition, content, container)
   }
 }
