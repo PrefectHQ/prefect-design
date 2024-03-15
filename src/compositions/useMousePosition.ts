@@ -1,10 +1,6 @@
 import { useGlobalEventListener } from '@prefecthq/vue-compositions'
 import { reactive } from 'vue'
-
-export type MousePosition = {
-  x: number,
-  y: number,
-}
+import { MousePosition } from '@/types/position'
 
 export type UseMousePosition = {
   position: MousePosition,

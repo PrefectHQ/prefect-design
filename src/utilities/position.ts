@@ -1,6 +1,5 @@
 import { toValue } from 'vue'
-import { MousePosition } from '..'
-import { PositionMethod, Position } from '@/types/position'
+import { PositionMethod, Position, MousePosition } from '@/types/position'
 
 export const top: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
   const top = target.top - container.top - content.height
