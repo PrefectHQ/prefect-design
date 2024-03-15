@@ -60,7 +60,7 @@
     "vue-tsc": "2.0.6"
   },
   "peerDependencies": {
-    "@prefecthq/vue-compositions": "^1.6.7",
+    "@prefecthq/vue-compositions": "^1.11.0",
     "vue": "^3.3.4",
     "vue-router": "^4.1.6"
   },

@@ -15,6 +15,7 @@ import { PCombobox, install as installPCombobox } from '@/components/Combobox'
 import { PContent, install as installPContent } from '@/components/Content'
 import { PContextAccordionItem, install as installPContextAccordionItem } from '@/components/ContextAccordionItem'
 import { PContextDivider, install as installPContextDivider } from '@/components/ContextDivider'
+import { PContextMenu, install as installPContextMenu } from '@/components/ContextMenu'
 import { PContextNavItem, install as installPContextNavItem } from '@/components/ContextNavItem'
 import { PContextSidebar, install as installPContextSidebar } from '@/components/ContextSidebar'
 import { PDateInput, install as installPDateInput } from '@/components/DateInput'
@@ -107,6 +108,7 @@ export {
   PContent,
   PContextAccordionItem,
   PContextDivider,
+  PContextMenu,
   PContextNavItem,
   PContextSidebar,
   PDateInput,
@@ -210,6 +212,7 @@ export const installs = [
   installPContent,
   installPContextAccordionItem,
   installPContextDivider,
+  installPContextMenu,
   installPContextNavItem,
   installPContextSidebar,
   installPDateInput,
@@ -303,6 +306,7 @@ declare module '@vue/runtime-core' {
     PCombobox: typeof PCombobox,
     PContent: typeof PContent,
     PContextAccordionItem: typeof PContextAccordionItem,
+    PContextDivider: typeof PContextDivider,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
     PDateInput: typeof PDateInput,
