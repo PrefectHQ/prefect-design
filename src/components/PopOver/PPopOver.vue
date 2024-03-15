@@ -18,7 +18,8 @@
 </script>
 
 <script lang="ts" setup>
-  import { ref, watch, computed, useAttrs, onMounted, onUnmounted } from 'vue'
+  import { useGlobalEventListener } from '@prefecthq/vue-compositions'
+  import { ref, watch, computed, useAttrs } from 'vue'
   import { useMostVisiblePositionStyles } from '@/compositions/position'
   import { usePopOverGroup } from '@/compositions/usePopOverGroup'
   import { PositionMethod } from '@/types/position'
@@ -57,17 +58,9 @@
     content,
   })
 
-  onMounted(() => {
-    if (props.autoClose) {
-      document.addEventListener('click', eventHandler)
-      document.addEventListener('focusin', eventHandler)
-    }
-  })
-
-  onUnmounted(() => {
-    document.removeEventListener('click', eventHandler)
-    document.removeEventListener('focusin', eventHandler)
-  })
+  useGlobalEventListener('click', eventHandler)
+  useGlobalEventListener('focusin', eventHandler)
+  useGlobalEventListener('contextmenu', eventHandler)
 
   function getContainer(): Element | undefined {
     if (typeof props.to === 'string') {
@@ -81,7 +74,8 @@
     const eventTarget = event.target as Element
 
     if (
-      target.value?.contains(eventTarget)
+      !props.autoClose
+      || target.value?.contains(eventTarget)
       || content.value?.contains(eventTarget)
       || eventTarget.closest('.p-pop-over-content') !== null
     ) {
