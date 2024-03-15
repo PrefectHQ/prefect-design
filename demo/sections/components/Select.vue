@@ -3,8 +3,11 @@
     title="Select"
     :demos="[
       { title: 'Single Select' },
+      { title: 'Small Single Select' },
       { title: 'Multi-Select' },
+      { title: 'Small Multi-Select' },
       { title: 'Grouped' },
+      { title: 'Small Grouped' },
       { title: 'Readonly options' },
     ]"
   >
@@ -27,9 +30,41 @@
         </p-code>
       </div>
     </template>
+    <template #small-single-select>
+      <div class="select__demo">
+        <p-select
+          v-model="exampleSelect"
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptionsWithEmpty"
+          :state="exampleState"
+          small
+        />
+
+        <p-code inline>
+          value: {{ JSON.stringify(exampleSelect) }}
+        </p-code>
+      </div>
+    </template>
     <template #multi-select>
       <div class="select__demo">
         <p-select v-model="exampleMultiSelect" :disabled="disabled" :options="exampleOptions" :state="exampleState" multiple />
+
+        <p-code inline>
+          value: {{ JSON.stringify(exampleMultiSelect) }}
+        </p-code>
+      </div>
+    </template>
+    <template #small-multi-select>
+      <div class="select__demo">
+        <p-select
+          v-model="exampleMultiSelect"
+          :disabled="disabled"
+          :options="exampleOptions"
+          :state="exampleState"
+          multiple
+          small
+        />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleMultiSelect) }}
@@ -45,7 +80,15 @@
         </p-code>
       </div>
     </template>
+    <template #small-grouped>
+      <div class="select__demo">
+        <p-select v-model="exampleGroupedSelect" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" small />
 
+        <p-code inline>
+          value: {{ JSON.stringify(exampleGroupedSelect) }}
+        </p-code>
+      </div>
+    </template>
     <template #readonly>
       <div class="select__demo">
         <p-select v-model="readonlySelected" :disabled="disabled" :options="readonlyOptions" :state="exampleState" />

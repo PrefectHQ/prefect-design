@@ -1,5 +1,5 @@
 <template>
-  <PBaseInput ref="wrapperElement" class="p-select-button">
+  <PBaseInput ref="wrapperElement" class="p-select-button" :small="props.small">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -11,7 +11,7 @@
         aria-hidden="true"
         v-bind="attrs"
       >
-        <span class="p-select-button__value">
+        <span class="p-select-button__value" :class="classes.value">
           <slot name="default" />
         </span>
       </button>
@@ -34,6 +34,18 @@
   const el = computed(() => buttonElement.value)
 
   defineExpose({ el, wrapper })
+
+  const props = defineProps<{
+    small?: boolean,
+  }>()
+
+  const classes = computed(() => {
+    return {
+      value: {
+        'p-select-button__value--small': props.small,
+      },
+    }
+  })
 </script>
 
 <style>
@@ -60,6 +72,12 @@
   cursor-not-allowed
 }
 
+.p-base-input__control--small {  @apply
+  py-1
+  px-2
+  min-h-7
+}
+
 .p-select-button__value { @apply
   min-h-[1.5rem]
   flex
@@ -67,6 +85,10 @@
   items-stretch
   w-full
   h-full
+}
+
+.p-select-button__value--small { @apply
+  min-h-[.75rem]
 }
 
 .p-select-button__icon { @apply

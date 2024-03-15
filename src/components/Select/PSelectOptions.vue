@@ -10,7 +10,7 @@
     <PVirtualScroller :items="flattenedOptionsAndGroups" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
       <template #default="{ item: option, index }">
         <template v-if="isSelectOptionGroup(option)">
-          <PSelectOptionGroup :group="option">
+          <PSelectOptionGroup :group="option" :small="small">
             <template #default="scope">
               <slot name="group" v-bind="scope" />
             </template>
@@ -23,6 +23,7 @@
             v-model:highlightedValue="highlightedValue"
             :option="option"
             :multiple="multiple"
+            :small="small"
           >
             <template #default="scope">
               <slot name="option" v-bind="{ ...scope, index }" />
@@ -61,6 +62,7 @@
     modelValue: string | number | boolean | null | SelectModelValue[] | undefined,
     options: MaybeReadonly<(SelectOption | SelectOptionGroup)[]>,
     multiple?: boolean,
+    small?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -94,6 +96,7 @@
     return {
       root: {
         'p-select-options--end': endVisible.value || props.options.length === 0,
+        'p-select-options--small': props.small,
       },
     }
   })
@@ -161,6 +164,7 @@
   rounded-default
   shadow-lg
   focus:outline-none
+  p-1
 }
 
 .p-select-options::after { @apply

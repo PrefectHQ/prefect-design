@@ -1,5 +1,5 @@
 <template>
-  <PLabel class="p-checkbox" :class="classes" :style="attrStyles">
+  <PLabel class="p-checkbox" :class="classes.checkbox" :style="attrStyles">
     <template v-if="slots.label || isDefined(label)" #label>
       <slot name="label">
         <span class="p-checkbox__label">
@@ -15,6 +15,7 @@
         type="checkbox"
         :disabled="disabled"
         class="p-checkbox__input"
+        :class="classes.input"
       >
     </template>
   </PLabel>
@@ -40,6 +41,7 @@
     label?: string,
     state?: State,
     disabled?: boolean,
+    small?: boolean,
   }>()
 
   const emits = defineEmits<{
@@ -61,13 +63,20 @@
 
   const failed = computed(() => props.state?.valid === false && props.state.validated && !props.state.pending)
 
-  const classes = computed(() => [
-    attrClasses.value, {
-      'p-checkbox--disabled': props.disabled,
-      'p-checkbox--failed': failed.value,
-      'p-checkbox--pending': props.state?.pending,
+  const classes = computed(() => ({
+    'checkbox': [
+      attrClasses.value, {
+        'p-checkbox--disabled': props.disabled,
+        'p-checkbox--failed': failed.value,
+        'p-checkbox--pending': props.state?.pending,
+        'p-checkbox--small': props.small,
+      },
+    ],
+    'input': {
+      'p-checkbox__input--small': props.small,
     },
-  ])
+  }
+  ))
 </script>
 
 <style>
@@ -84,6 +93,10 @@
 .p-checkbox__label,
 .p-checkbox__input { @apply
   cursor-pointer
+}
+
+.p-checkbox.p-checkbox--small { @apply
+  my-0
 }
 
 .p-checkbox__input { @apply

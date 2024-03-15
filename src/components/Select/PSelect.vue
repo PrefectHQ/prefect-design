@@ -17,6 +17,7 @@
           :class="classes.control"
           :disabled="disabled"
           v-bind="attrs"
+          :small="small"
           @click="toggleSelect"
         >
           <template #default>
@@ -29,10 +30,10 @@
             </template>
 
             <template v-else-if="multiple">
-              <PTagWrapper :tags="tags" inline>
+              <PTagWrapper :tags="tags" inline :small="small">
                 <template #tag="{ tag }">
                   <slot name="tag" :label="tag.label" :value="tag.value" :dismiss="() => dismissTag(tag)">
-                    <PTag :dismissible="isDismissible(tag)" @dismiss="dismissTag(tag)">
+                    <PTag :dismissible="isDismissible(tag)" :small="small" @dismiss="dismissTag(tag)">
                       <slot :label="tag.label" :value="tag.value" :option="getSelectOption(tag.value)">
                         {{ tag.label }}
                       </slot>
@@ -75,6 +76,7 @@
       :options="options"
       :style="styles.option"
       :multiple="multiple"
+      :small="small"
       @update:model-value="closeIfNotMultiple"
       @keydown="handleKeydown"
       @bottom="emit('bottom')"
@@ -118,6 +120,7 @@
     options: MaybeReadonly<(SelectOption | SelectOptionGroup)[]>,
     emptyMessage?: string,
     multiple?: boolean,
+    small?: boolean,
   }>()
 
   const emit = defineEmits<{

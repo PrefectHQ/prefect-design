@@ -5,9 +5,10 @@
     :class="classes"
     @click="handleClick"
     @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
   >
     <template v-if="multiple">
-      <PCheckbox :model-value="selected" :disabled="option.disabled" />
+      <PCheckbox :model-value="selected" :disabled="option.disabled" :small="small" />
     </template>
     <span class="p-select-option__text">
       <slot
@@ -28,14 +29,15 @@
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | SelectModelValue[],
-    highlightedValue: string | number | boolean | null | symbol,
+    highlightedValue?: string | number | boolean | null | symbol,
     option: SelectOptionNormalized,
     multiple?: boolean,
+    small?: boolean,
   }>()
 
   const emit = defineEmits<{
     (event: 'update:modelValue', value: SelectModelValue | SelectModelValue[]): void,
-    (event: 'update:highlightedValue', value: SelectModelValue | symbol): void,
+    (event: 'update:highlightedValue', value?: SelectModelValue | symbol): void,
   }>()
 
   const { option } = toRefs(props)
@@ -77,6 +79,7 @@
     'p-select-option--selected': selected.value,
     'p-select-option--highlighted': highlightedValue.value === option.value.value,
     'p-select-option--disabled': option.value.disabled,
+    'p-select-option--small': props.small,
   }))
 
   function handleClick(): void {
@@ -94,6 +97,14 @@
     }
 
     highlightedValue.value = option.value.value
+  }
+
+  function handleMouseLeave(): void {
+    if (option.value.disabled) {
+      return
+    }
+
+    highlightedValue.value = undefined
   }
 
   function setValue(): void {
@@ -118,6 +129,7 @@
   text-default
   select-none
   relative
+  rounded-default
   py-2
   px-3
   font-normal
@@ -126,10 +138,17 @@
   gap-2
   items-center
   cursor-pointer
+  mt-0.5
+}
+
+.p-select-option--small { @apply
+  py-1.5
+  px-2
+  text-xs
+  mt-0.5
 }
 
 .p-select-option--selected { @apply
-  font-semibold
   bg-selected
 }
 
