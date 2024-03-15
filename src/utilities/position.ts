@@ -1,4 +1,4 @@
-import { toValue } from 'vue'
+import { MaybeRefOrGetter, toValue } from 'vue'
 import { PositionMethod, Position, MousePosition } from '@/types/position'
 
 export const top: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
@@ -141,7 +141,7 @@ export const rightTop: PositionMethod = function(target: DOMRect, content: DOMRe
   }
 }
 
-export const lowerRight = function(position: MousePosition): PositionMethod {
+export const lowerRight = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
   return function(): Position {
     const { x, y } = toValue(position)
 
@@ -152,7 +152,7 @@ export const lowerRight = function(position: MousePosition): PositionMethod {
   }
 }
 
-export const lowerLeft = function(position: MousePosition): PositionMethod {
+export const lowerLeft = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
   return function(target: DOMRect, content: DOMRect): Position {
     const { x, y } = toValue(position)
 
@@ -163,7 +163,7 @@ export const lowerLeft = function(position: MousePosition): PositionMethod {
   }
 }
 
-export const upperRight = function(position: MousePosition): PositionMethod {
+export const upperRight = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
   return function(target: DOMRect, content: DOMRect): Position {
     const { x, y } = toValue(position)
 
@@ -174,7 +174,7 @@ export const upperRight = function(position: MousePosition): PositionMethod {
   }
 }
 
-export const upperLeft = function(position: MousePosition): PositionMethod {
+export const upperLeft = function(position: MaybeRefOrGetter<MousePosition>): PositionMethod {
   return function(target: DOMRect, content: DOMRect): Position {
     const { x, y } = toValue(position)
 
