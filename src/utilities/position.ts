@@ -1,3 +1,5 @@
+import { toValue } from 'vue'
+import { MousePosition } from '..'
 import { PositionMethod, Position } from '@/types/position'
 
 export const top: PositionMethod = function(target: DOMRect, content: DOMRect, container: DOMRect): Position {
@@ -137,5 +139,49 @@ export const rightTop: PositionMethod = function(target: DOMRect, content: DOMRe
   return {
     top,
     left,
+  }
+}
+
+export const lowerRight = function(position: MousePosition): PositionMethod {
+  return function(): Position {
+    const { x, y } = toValue(position)
+
+    return {
+      top: y,
+      left: x,
+    }
+  }
+}
+
+export const lowerLeft = function(position: MousePosition): PositionMethod {
+  return function(target: DOMRect, content: DOMRect): Position {
+    const { x, y } = toValue(position)
+
+    return {
+      top: y,
+      left: x - content.width,
+    }
+  }
+}
+
+export const upperRight = function(position: MousePosition): PositionMethod {
+  return function(target: DOMRect, content: DOMRect): Position {
+    const { x, y } = toValue(position)
+
+    return {
+      top: y - content.height,
+      left: x,
+    }
+  }
+}
+
+export const upperLeft = function(position: MousePosition): PositionMethod {
+  return function(target: DOMRect, content: DOMRect): Position {
+    const { x, y } = toValue(position)
+
+    return {
+      top: y - content.height,
+      left: x - content.width,
+    }
   }
 }

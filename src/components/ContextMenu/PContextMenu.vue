@@ -2,7 +2,7 @@
   <PPopOver
     ref="popOver"
     class="p-context-menu"
-    :placement="placement"
+    :placement="internalPlacement"
     :group="group"
     :auto-close="autoClose"
   >
@@ -25,25 +25,41 @@
 
 <script lang="ts" setup>
   import { useGlobalEventListener } from '@prefecthq/vue-compositions'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
+  import { useMousePosition } from '@/compositions'
   import { PositionMethod, keys } from '@/types'
   import { isKeyEvent } from '@/utilities'
-  import { bottomLeft, bottomRight, topLeft, topRight } from '@/utilities/position'
+  import { bottomLeft, bottomRight, lowerLeft, lowerRight, topLeft, topRight, upperLeft, upperRight } from '@/utilities/position'
 
   const props = withDefaults(defineProps<{
     placement?: PositionMethod | PositionMethod[],
     autoClose?: boolean,
     disableCloseOnEscape?: boolean,
     disableCloseOnMenuClick?: boolean,
+    positionAtClick?: boolean,
     group?: string,
   }>(), {
-    placement: () => [topRight, bottomLeft, bottomRight, topLeft],
+    placement: undefined,
     group: undefined,
   })
 
   const popOver = ref<typeof PPopOver>()
+
+  const { positionAtLastClick } = useMousePosition()
+
+  const internalPlacement = computed(() => {
+    if (props.placement) {
+      return props.placement
+    }
+
+    if (props.positionAtClick) {
+      return [lowerRight(positionAtLastClick), lowerLeft(positionAtLastClick), upperRight(positionAtLastClick), upperLeft(positionAtLastClick)]
+    }
+
+    return [topRight, bottomLeft, bottomRight, topLeft]
+  })
 
   function internalClose(): void {
     popOver.value?.close()

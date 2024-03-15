@@ -13,11 +13,24 @@
     </PContextMenu>
 
     <template #target-override>
-      <PContextMenu ref="targetOverride" auto-close :placement="customPlacementPosition">
+      <PContextMenu auto-close>
+        <template #target="{ toggle }">
+          <PTag class="cursor-pointer" @click="toggle">
+            Click me
+          </PTag>
+        </template>
+
+        <POverflowMenuItem>Item 1</POverflowMenuItem>
+        <POverflowMenuItem>Item 2</POverflowMenuItem>
+      </PContextMenu>
+    </template>
+
+    <template #position-at-click>
+      <PContextMenu auto-close position-at-click>
         <template #target="{ close, open }">
           <PWindow class="w-full h-full">
             <div class="relative text-subdued w-[480px] h-[200px]" @click.right.prevent="open" @click="close">
-              Right click anywhere to bring up a context menu
+              Right click to bring up a context menu
             </div>
           </PWindow>
         </template>
@@ -33,9 +46,6 @@
   import PContextMenu from '@/components/ContextMenu/PContextMenu.vue'
   import POverflowMenuItem from '@/components/OverflowMenuItem/POverflowMenuItem.vue'
   import PWindow from '@/components/Window/PWindow.vue'
-  import { useMousePosition } from '@/compositions/useMousePosition'
-  import { PositionMethod } from '@/types'
-  import { ref, toValue } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const demos = [
@@ -43,19 +53,7 @@
       title: 'Target override',
     },
     {
-      title: 'Menu override',
+      title: 'Position at click',
     },
   ]
-
-  const targetOverride = ref<typeof PContextMenu>()
-
-  const { positionAtLastClick } = useMousePosition()
-
-  const customPlacementPosition: PositionMethod = () => {
-    const { x, y } = toValue(positionAtLastClick)
-    return {
-      top: y,
-      left: x,
-    }
-  }
 </script>
