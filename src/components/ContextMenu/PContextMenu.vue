@@ -27,7 +27,8 @@
   import { useMousePosition } from '@/compositions'
   import { PositionMethod, keys } from '@/types'
   import { isKeyEvent } from '@/utilities'
-  import { bottomLeft, bottomRight, lowerLeft, lowerRight, topLeft, topRight, upperLeft, upperRight } from '@/utilities/position'
+  import { bottomLeft, bottomRight, topLeft, topRight } from '@/utilities/position'
+  import { lowerLeft, lowerRight, upperLeft, upperRight } from '@/utilities/positionRelative'
 
   const props = withDefaults(defineProps<{
     placement?: PositionMethod | PositionMethod[],
