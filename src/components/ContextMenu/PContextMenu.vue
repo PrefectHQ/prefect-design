@@ -7,11 +7,7 @@
     :auto-close="autoClose"
   >
     <template #target="{ toggle, open, close, visible }">
-      <slot name="target" v-bind="{ toggle, open, close, visible }">
-        <PButton @click="toggle">
-          Button
-        </PButton>
-      </slot>
+      <slot name="target" v-bind="{ toggle, open, close, visible }" />
     </template>
     <template #default="{ close }">
       <slot name="context-menu" v-bind="{ close }">

@@ -8,22 +8,15 @@
     </template>
 
     <PContextMenu auto-close>
+      <template #target="{ toggle }">
+        <PButton @click="toggle">
+          Click me
+        </PButton>
+      </template>
+
       <POverflowMenuItem>Item 1</POverflowMenuItem>
       <POverflowMenuItem>Item 2</POverflowMenuItem>
     </PContextMenu>
-
-    <template #target-override>
-      <PContextMenu auto-close>
-        <template #target="{ toggle }">
-          <PTag class="cursor-pointer" @click="toggle">
-            Click me
-          </PTag>
-        </template>
-
-        <POverflowMenuItem>Item 1</POverflowMenuItem>
-        <POverflowMenuItem>Item 2</POverflowMenuItem>
-      </PContextMenu>
-    </template>
 
     <template #position-at-click>
       <PContextMenu auto-close position-at-click>
@@ -49,9 +42,6 @@
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const demos = [
-    {
-      title: 'Target override',
-    },
     {
       title: 'Position at click',
     },
