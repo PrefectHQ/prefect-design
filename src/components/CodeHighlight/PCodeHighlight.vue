@@ -5,16 +5,16 @@
     </template>
 
     <PCode :inline="inline" class="p-code-highlight__code-wrapper" :class="classes.codeWrapper">
-      <PUnwrap :html="formattedText" />
+      <PUnwrap :html="formatted" />
     </PCode>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref, computed, watch } from 'vue'
+  import { computed } from 'vue'
   import { PCode, PUnwrap, PLineNumbers } from '@/components'
-  import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
-  import type { FormattedMessagePayload, SupportedLanguage } from '@/types/codeHighlight'
+  import { useCodeHighlight } from '@/compositions/useCodeHighlight'
+  import type { SupportedLanguage } from '@/types/codeHighlight'
 
   const props = defineProps<{
     text: string,
@@ -23,10 +23,7 @@
     inline?: boolean,
   }>()
 
-  const worker: Worker = new HighlightWorker()
-  const formattedText = ref('')
-
-  const lines = computed(() => props.text.split('\n').length)
+  const { formatted, lines } = useCodeHighlight(() => props.text, () => props.lang)
   const showLineNumbers = computed(() => !props.inline && props.showLineNumbers)
 
   const classes = computed(() => ({
@@ -37,16 +34,6 @@
       'p-code-highlight__code-wrapper--show-line-numbers': showLineNumbers.value,
     },
   }))
-
-  const handleWorkerMessage = (message: FormattedMessagePayload): void => {
-    formattedText.value = message.formatted
-  }
-
-  worker.onmessage = (event: MessageEvent<FormattedMessagePayload>) => handleWorkerMessage(event.data)
-
-  watch(() => [props.lang, props.text], ([lang, text]) => {
-    worker.postMessage({ text, lang })
-  }, { immediate: true })
 </script>
 
 <style>

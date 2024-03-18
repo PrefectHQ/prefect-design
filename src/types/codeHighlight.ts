@@ -29,16 +29,18 @@ export function isSupportedLanguage(lang: unknown): lang is SupportedLanguage {
 }
 
 export type UnformattedMessagePayload = {
+  id: string,
   text: string,
   lang: SupportedLanguage,
 }
 
 export type FormattedMessagePayload = {
-  unformatted: string,
+  id: string,
+  unformatted?: string | undefined,
   formatted: string,
   illegal: boolean,
   relevance: number,
-  language: string,
+  language?: string | undefined,
 }
 
 export function isJavascriptLanguageRef(lang: SupportedLanguage): lang is typeof JavascriptLanguageRefs[number] {
