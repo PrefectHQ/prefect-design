@@ -1,10 +1,8 @@
-import { marked } from 'marked'
 import { computed, MaybeRefOrGetter, onScopeDispose, Ref, ref, toValue, watchEffect } from 'vue'
 import HighlightWorker from '@/components/CodeHighlight/worker?worker&inline'
 import { FormattedMessagePayload, UnformattedMessagePayload } from '@/types/codeHighlight'
 import { randomId } from '@/utilities'
 
-export type Tokens = marked.TokensList | []
 export type HighlightCallback = (payload: FormattedMessagePayload) => void
 export type UseCodeHighlight = {
   formatted: Ref<string>,
