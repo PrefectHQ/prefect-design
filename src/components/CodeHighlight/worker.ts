@@ -20,7 +20,8 @@ import {
   isVueLanguageRef,
   isYamlLanguageRef,
   SupportedLanguage,
-  UnformattedMessagePayload
+  UnformattedMessagePayload,
+  FormattedMessagePayload
 } from '@/types/codeHighlight'
 
 const registeredLanguages: Set<SupportedLanguage> = new Set()
@@ -74,16 +75,19 @@ const registerLanguage = (lang: SupportedLanguage): void => {
 }
 
 const handleMessage = (message: MessageEvent<UnformattedMessagePayload>): void => {
-  const { text, lang } = message.data
+  const { id, text, lang } = message.data
   const { language, code, illegal, relevance, value } = highlightText(text, lang)
 
-  self.postMessage({
+  const response: FormattedMessagePayload = {
+    id,
     unformatted: code,
     formatted: value,
     illegal,
     relevance,
     language,
-  })
+  }
+
+  self.postMessage(response)
 }
 
 self.onmessage = handleMessage

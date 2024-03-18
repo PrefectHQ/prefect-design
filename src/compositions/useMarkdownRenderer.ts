@@ -1,5 +1,5 @@
 import { marked } from 'marked'
-import { computed, getCurrentScope, MaybeRefOrGetter, onScopeDispose, onUnmounted, Ref, ref, toRef, toValue, watch, watchEffect } from 'vue'
+import { MaybeRefOrGetter, onScopeDispose, Ref, ref, toValue, watchEffect } from 'vue'
 import MarkdownTokenWorker from '@/components/MarkdownRenderer/worker?worker&inline'
 import { ParseMessagePayload } from '@/types/markdownRenderer'
 import { randomId } from '@/utilities'
