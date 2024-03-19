@@ -3,9 +3,13 @@
     <p-checkbox
       v-model="checkboxModel"
       :indeterminate="selectedModel.length && selectedModel.length < selectable.length"
-      :aria-label="checkboxModel ? `Deselect all ${selectedModel.length} ${toPluralString(itemName, selectedModel.length)}` : `Select all ${selectable.length} ${toPluralString(itemName, selectable.length)}`"
+      :aria-label="label"
       v-bind="attrs"
-    />
+    >
+      <template v-if="$slots.label" #label>
+        <slot name="label" :label="label" />
+      </template>
+    </p-checkbox>
   </p-tooltip>
 </template>
 
@@ -31,4 +35,8 @@
       }
     },
   })
+
+  const label = computed(() => checkboxModel.value
+    ? `Deselect all ${selectedModel.value.length} ${toPluralString(props.itemName, selectedModel.value.length)}`
+    : `Select all ${props.selectable.length} ${toPluralString(props.itemName, props.selectable.length)}`)
 </script>
