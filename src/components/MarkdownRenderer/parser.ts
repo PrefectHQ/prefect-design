@@ -26,7 +26,7 @@ import {
 } from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
 import { randomId } from '@/utilities'
-import { isRouteExternal } from '@/utilities/router'
+import { isRouteExternal, isRouteRelative, stripBaseUrl } from '@/utilities/router'
 import { unescapeHtml } from '@/utilities/strings'
 
 const baseElement = 'div'
@@ -39,7 +39,19 @@ const mapChildTokens = (tokens: Token[], options: ParserOptions): VNodeChildren 
 const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
   const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
 
-  const normalizeHref = (href: string): string => isRouteExternal(href) ? href : `${baseLinkUrl}${href}`
+  const normalizeHref = (href: string): string => {
+    if (isRouteExternal(href)) {
+      return href
+    }
+
+    if (isRouteRelative(href)) {
+      return `${baseLinkUrl}${href}`
+    }
+
+    // This is used to strip the base URL from the href; without this
+    // vue-router will append the entire URL to the current route
+    return stripBaseUrl(href)
+  }
 
   let children: VNodeChildren = []
 
