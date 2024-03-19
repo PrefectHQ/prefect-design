@@ -15,7 +15,8 @@
   "globals": {
     "defineProps": "readonly",
     "defineEmits": "readonly",
-    "defineExpose": "readonly"
+    "defineExpose": "readonly",
+    "defineModel": "readonly"
   },
   "settings": {
     "import/resolver": {
