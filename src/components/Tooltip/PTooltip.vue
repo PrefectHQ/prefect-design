@@ -96,6 +96,7 @@
 .p-tooltip__tooltip { @apply
   p-1
   max-w-xs
+  text-xs
 }
 
 .p-tooltip__content { @apply
