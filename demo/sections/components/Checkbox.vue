@@ -4,7 +4,7 @@
     :demos="[
       { title: 'Checkbox' },
       { title: 'Multiple', description: 'For multiple checkboxes, the v-model value can be an array to be shared across all checkboxes. See also: p-checkbox-group' },
-      { title: 'Indeterminate', description: 'A checkbox can either be on or off, but there is a third, visual-only state called indeterminate. This is used to indicate that a checkbox is in a mixed state, for example, when a parent checkbox is checked, but not all of its children are - e.g. a `Select All` checkbox.' },
+      { title: 'Indeterminate', description: 'A checkbox can either be on or off, but there is a third, visual-only state called indeterminate. This is used to indicate that a checkbox is in a mixed state, for example, when a parent checkbox is checked, but not all of its children are. See also: p-select-all-checkbox' },
       { title: 'Label Slot', description: 'In addition to the label prop, there is a slot available for label content.' },
     ]"
   >

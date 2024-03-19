@@ -64,6 +64,7 @@ import { PRadio, install as installPRadio } from '@/components/Radio'
 import { PRadioGroup, install as installPRadioGroup } from '@/components/RadioGroup'
 import { PSanitizeHtml, install as installPSanitizeHtml } from '@/components/SanitizeHtml'
 import { PSelect, install as installPSelect } from '@/components/Select'
+import { PSelectAllCheckbox, install as installPSelectAllCheckbox } from '@/components/SelectAllCheckbox'
 import { PSelectOption, install as installPSelectOption } from '@/components/SelectOption'
 import { PSelectOptionGroup, install as installPSelectOptionGroup } from '@/components/SelectOptionGroup'
 import { PStepper, install as installPStepper } from '@/components/Stepper'
@@ -157,6 +158,7 @@ export {
   PRadioGroup,
   PSanitizeHtml,
   PSelect,
+  PSelectAllCheckbox,
   PSelectOption,
   PSelectOptionGroup,
   PStepper,
@@ -261,6 +263,7 @@ export const installs = [
   installPRadioGroup,
   installPSanitizeHtml,
   installPSelect,
+  installPSelectAllCheckbox,
   installPSelectOption,
   installPSelectOptionGroup,
   installPStepper,

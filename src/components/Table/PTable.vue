@@ -7,12 +7,7 @@
             <PTableRow>
               <template v-if="showMultiselect">
                 <PTableData class="p-table__checkbox-cell">
-                  <p-tooltip :text="selectAllModel ? 'Deselect all' : 'Select all'">
-                    <p-checkbox
-                      v-model="selectAllModel"
-                      :indeterminate="internalSelectedRows.length && internalSelectedRows.length < selectableRows.length"
-                    />
-                  </p-tooltip>
+                  <PSelectAllCheckbox v-model="internalSelectedRows" :selectable="selectableRows" />
                 </PTableData>
               </template>
 
@@ -64,6 +59,7 @@
 
 <script lang="ts" generic="const TData extends TableData, const TColumn extends TableColumn<TData>" setup>
   import { computed, StyleValue, useSlots } from 'vue'
+  import PSelectAllCheckbox from '@/components/SelectAllCheckbox/PSelectAllCheckbox.vue'
   import PTableBody from '@/components/Table/PTableBody.vue'
   import PTableData from '@/components/Table/PTableData.vue'
   import PTableFoot from '@/components/Table/PTableFoot.vue'
@@ -98,15 +94,6 @@
     },
     set(value) {
       emit('update:selected', value)
-    },
-  })
-
-  const selectAllModel = computed({
-    get() {
-      return internalSelectedRows.value.length > 0
-    },
-    set(value) {
-      internalSelectedRows.value = value ? selectableRows.value : []
     },
   })
 
