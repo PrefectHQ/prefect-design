@@ -7,7 +7,12 @@
             <PTableRow>
               <template v-if="showMultiselect">
                 <PTableData class="p-table__checkbox-cell">
-                  <p-checkbox v-model="allSelected" />
+                  <p-tooltip :text="selectAllModel ? 'Deselect all' : 'Select all'">
+                    <p-checkbox
+                      v-model="selectAllModel"
+                      :indeterminate="internalSelectedRows.length && internalSelectedRows.length < selectableRows.length"
+                    />
+                  </p-tooltip>
                 </PTableData>
               </template>
 
@@ -96,9 +101,9 @@
     },
   })
 
-  const allSelected = computed({
+  const selectAllModel = computed({
     get() {
-      return internalSelectedRows.value.length === selectableRows.value.length
+      return internalSelectedRows.value.length > 0
     },
     set(value) {
       internalSelectedRows.value = value ? selectableRows.value : []
