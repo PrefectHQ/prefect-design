@@ -29,3 +29,17 @@ export function isRouteExternal(route: RouteLocationRaw): boolean {
     return false
   }
 }
+
+export function isRouteRelative(route: string): boolean {
+  return route.startsWith('/')
+}
+
+export function stripBaseUrl(href: string): string {
+  try {
+    const strippedBaseUrl = new URL(href).pathname
+    return strippedBaseUrl
+  } catch {
+    // fail silently
+    return href
+  }
+}
