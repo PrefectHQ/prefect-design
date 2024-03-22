@@ -38,4 +38,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PREFECT_ACTIONS_RW }}
           DOWNSTREAM_REPO_NAME: prefect
           RELEASE_TAG: ${{ steps.release-ui-components.publish.outputs.version}}
-
