@@ -29,6 +29,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
           DOWNSTREAM_REPO_NAME: nebula-ui
+          RELEASE_TAG: ${{ steps.release-ui-components.publish.outputs.version}}
 
       - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
         id: trigger-downstream-npm-package-update-prefect-oss
@@ -36,3 +37,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.PREFECT_ACTIONS_RW }}
           DOWNSTREAM_REPO_NAME: prefect
+          RELEASE_TAG: ${{ steps.release-ui-components.publish.outputs.version}}
+
