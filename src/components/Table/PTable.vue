@@ -6,9 +6,9 @@
           <slot name="header">
             <PTableRow>
               <template v-if="showMultiselect">
-                <PTableData class="p-table__checkbox-cell">
+                <PTableHeader class="p-table__checkbox-cell">
                   <PSelectAllCheckbox v-model="internalSelectedRows" :selectable="selectableRows" />
-                </PTableData>
+                </PTableHeader>
               </template>
 
               <template v-for="column in visibleColumns" :key="column">
@@ -186,10 +186,6 @@
 }
 
 .p-table__checkbox-cell { @apply
-  flex
-  justify-center
-  items-center
-  pl-2
-  pr-0
+  w-5
 }
 </style>
