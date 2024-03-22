@@ -18,8 +18,21 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: prefecthq/actions-release-ui-components@main
+        id: release-ui-components
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEBULA_UI_ACTIONS_RW_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
-          PREFECT_OSS_ACTIONS_RW_TOKEN: ${{ secrets.PREFECT_ACTIONS_RW }}
+
+      - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
+        id: trigger-downstream-npm-package-update-nebula-ui
+        if: ${{ steps.release-ui-components.publish.outputs.type }}
+        with:
+          GITHUB_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
+          DOWNSTREAM_REPO_NAME: nebula-ui
+
+      - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
+        id: trigger-downstream-npm-package-update-prefect-oss
+        if: ${{ steps.release-ui-components.publish.outputs.type }}
+        with:
+          GITHUB_TOKEN: ${{ secrets.PREFECT_ACTIONS_RW }}
+          DOWNSTREAM_REPO_NAME: prefect
