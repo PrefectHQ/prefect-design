@@ -9,7 +9,10 @@
     </PCard>
 
     <template v-if="subpanel">
-      <PCascadePanel v-model:selected="selected" :data="subpanel" :level="level + 1" class="p-cascade-panel__subpanel" />
+      <slot name="subpanel" v-bind="{ data: subpanel, selected: internalSelected }">
+        <PCascadePanel v-model:selected="selected" :data="subpanel" :level="level + 1"
+          class="p-cascade-panel__subpanel" />
+      </slot>
     </template>
   </div>
 </template>

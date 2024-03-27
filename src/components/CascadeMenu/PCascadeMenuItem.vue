@@ -27,9 +27,6 @@
   const itemIsSelected = computed(() => (Array.isArray(selected.value) && props.data.value && selected.value.includes(props.data.value) || selected.value === props.data.value))
 
   const handleClick = (e: MouseEvent) => {
-    console.log('clicked', props.data.label, props.data.value)
-
-
     if (!props.data.value) {
       return
     }
