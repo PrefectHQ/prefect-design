@@ -4,7 +4,7 @@ export type CascadeDataChildren<T, V> = CascadeData<T, V>[] | (() => CascadeData
 
 export type CascadeData<T = unknown, V = unknown> = {
   label: string,
-  value?: V,
+  value: V,
   icon?: Icon,
   children?: CascadeDataChildren<T, V>,
   data?: T,

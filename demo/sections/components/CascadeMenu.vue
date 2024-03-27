@@ -7,7 +7,8 @@
     </template>
 
     <template #cascade-menu>
-      <PCascadeMenu :data="data" />
+      <div>{{ selected }}</div>
+      <PCascadeMenu v-model:selected="selected" :data="data" />
     </template>
   </ComponentPage>
 </template>
@@ -15,7 +16,10 @@
 <script lang="ts" setup>
   import { PCascadeMenu } from '@/components/CascadeMenu'
   import { CascadeData } from '@/utilities'
+  import {ref} from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const selected = ref([])
 
   const data: CascadeData[] = [
     {

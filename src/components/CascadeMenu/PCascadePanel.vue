@@ -2,12 +2,13 @@
   <div class="p-cascade-panel">
     <PCard class="p-cascade-panel__main" :class="classes.main">
       <template v-for="child in data.children" :key="child.label">
-        <PCascadeMenuItem :data="child" @click="toggleItem(child)" />
+        <PCascadeMenuItem :data="child" v-model:selected="selected" :level="level" />
       </template>
     </PCard>
 
-    <template v-if="selectedItem && selectedItem.children">
-      <PCascadePanel :data="selectedItem" class="p-cascade-panel__subpanel" />
+    <template v-if="selectedChild && selectedChildHasChildren">
+      <PCascadePanel v-model:selected="selected" :data="selectedChild" :level="level + 1"
+        class="p-cascade-panel__subpanel" />
     </template>
   </div>
 </template>
@@ -17,27 +18,34 @@
   import { PCard, PCascadeMenuItem } from '@/components'
   import { onMounted, ref, computed } from 'vue'
 
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     data: CascadeData,
-  }>()
+    level?: number,
+  }>(), {
+    level: 0,
+  })
 
   const children = ref<CascadeData[]>()
-  const selectedItem = ref<CascadeData>()
 
-  const toggleItem = (item: CascadeData) => {
-      // TODO: This isn't the right comparision
-      if (selectedItem.value?.label === item.label) {
-        selectedItem.value = undefined
-      } else {
-        selectedItem.value = item
-      }
-  }
+  const selected = defineModel<CascadeData['value'][]>('selected', { required: true })
 
   const classes = computed(() => ({
     main: {
-      'p-cascade-panel__main--subpanel-open': isDefined(selectedItem.value) && isDefined(selectedItem.value.children),
+      'p-cascade-panel__main--subpanel-open': hasSelectedChild.value && selectedChildHasChildren.value,
     }
   }))
+
+  const hasSelectedChild = computed(() => {
+    return selected.value[props.level] !== undefined
+  })
+
+  const selectedChild = computed(() => {
+    return children.value?.find(child => child.value === selected.value[props.level])
+  })
+
+  const selectedChildHasChildren = computed(() => {
+    return isDefined(selectedChild.value?.children)
+  })
 
   onMounted(async () => {
     children.value = await resolveChildren(props.data)

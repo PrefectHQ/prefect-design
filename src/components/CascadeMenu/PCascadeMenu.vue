@@ -9,20 +9,22 @@
     </template>
     <template #context-menu="{ close }">
       <slot name="context-menu" v-bind="{ close }">
-        <PCascadePanel :data="rootData" />
+        <PCascadePanel v-model:selected="selected" :data="rootData" />
       </slot>
     </template>
   </PContextMenu>
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue'
+import { computed, ref } from 'vue'
   import { PButton, PContextMenu, PCascadePanel } from '@/components'
   import { CascadeData, positions } from '@/utilities'
 
   const props = defineProps<{
     data: CascadeData | CascadeData[],
   }>()
+
+const selected = defineModel<CascadeData['value'][]>('selected', { required: true })
 
   const rootData = computed<CascadeData>(() => {
     if (Array.isArray(props.data)) {
