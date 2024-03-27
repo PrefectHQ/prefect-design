@@ -1,51 +1,40 @@
 <template>
-  <div class="p-cascade-menu">
-    <CascadeMenuItem :item="data" :active="active" @click="handleClick" />
-    <!--
-      <template #default="{}">
-      <template v-for="child in children" :key="child.label">
-      <CascadeMenu v-model:value="value" :data="child" :active="itemIsSelected(data)" />
-      </template>
-      </template>
-    -->
-  </div>
+  <PContextMenu :placement="[positions.bottomLeft, positions.topLeft]">
+    <template #target="{ toggle, open, close, visible }">
+      <slot name="target" v-bind="{ toggle, open, close, visible }">
+        <PButton @click="toggle">
+          Open
+        </PButton>
+      </slot>
+    </template>
+    <template #context-menu="{ close }">
+      <slot name="context-menu" v-bind="{ close }">
+        <PCascadePanel :data="rootData" />
+      </slot>
+    </template>
+  </PContextMenu>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-  // import PCascadeMenuItem from '@/components/CascadeMenuItem.vue'
-  import { CascadeData, resolveChildren } from '@/utilities'
+  import { computed } from 'vue'
+  import { PButton, PContextMenu, PCascadePanel } from '@/components'
+  import { CascadeData, positions } from '@/utilities'
 
   const props = defineProps<{
-    data: CascadeData,
+    data: CascadeData | CascadeData[],
   }>()
 
-  const value = defineModel<CascadeData['value']>('value')
+  const rootData = computed<CascadeData>(() => {
+    if (Array.isArray(props.data)) {
+      return {
+        label: '',
+        value: null,
+        children: props.data,
+      }
+    }
 
-  const active = ref(false)
-  const loading = ref(false)
-
-  const children = ref<CascadeData[]>([])
-
-  const itemIsSelected = (item: CascadeData): boolean => {
-    return false
-    // return isEqual(value.value, item.value)
-  }
-
-  const handleClick = async (): Promise<void> => {
-    // if (itemIsSelected(props.data)) {
-    //   value.value = undefined
-    //   return
-    // }
-
-    loading.value = true
-
-    // const _children = await resolveChildren(props.data)
-    // children.value = _children ?? []
-
-    value.value = props.data.value
-    loading.value = false
-  }
+    return props.data
+  })
 </script>
 
 <style>

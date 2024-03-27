@@ -7,6 +7,7 @@ export const components: Section = {
   button: () => import('./Buttons.vue'),
   buttonGroup: () => import('./ButtonGroup.vue'),
   calendar: () => import('./Calendar.vue'),
+  cascadeMenu: () => import('./CascadeMenu.vue'),
   card: () => import('./Card.vue'),
   checkbox: () => import('./Checkbox.vue'),
   checkboxGroup: () => import('./CheckboxGroup.vue'),

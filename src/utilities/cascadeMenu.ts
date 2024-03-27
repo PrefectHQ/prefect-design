@@ -3,9 +3,8 @@ import { Icon } from '@/types/icon'
 export type CascadeDataChildren<T, V> = CascadeData<T, V>[] | (() => CascadeData<T, V>[] | Promise<CascadeData<T, V>[]>)
 
 export type CascadeData<T = unknown, V = unknown> = {
-  id: string,
+  label: string,
   value?: V,
-  label?: string,
   icon?: Icon,
   children?: CascadeDataChildren<T, V>,
   data?: T,
