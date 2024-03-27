@@ -15,16 +15,16 @@
   </PContextMenu>
 </template>
 
-<script setup lang="ts">
-import { computed, ref } from 'vue'
+<script setup lang="ts" generic="T, V">
+  import { computed } from 'vue'
   import { PButton, PContextMenu, PCascadePanel } from '@/components'
-  import { CascadeData, positions } from '@/utilities'
+  import { CascadeData, CascadeMenuValue, positions } from '@/utilities'
 
   const props = defineProps<{
-    data: CascadeData | CascadeData[],
+    data: CascadeData<T, V> | CascadeData<T, V>[],
   }>()
 
-const selected = defineModel<CascadeData['value'][]>('selected', { required: true })
+  const selected = defineModel<CascadeMenuValue<V>[]>('selected', { required: true })
 
   const rootData = computed<CascadeData>(() => {
     if (Array.isArray(props.data)) {

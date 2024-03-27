@@ -25,6 +25,7 @@
     {
       label: 'Item 1',
       value: 1,
+      multiple: true,
       children: [
         {
           label: 'Item 1.1',
@@ -43,6 +44,7 @@
     {
       label: 'Item 2',
       value: 2,
+      multiple: true,
       children: [
         {
           label: 'Item 2.1',
