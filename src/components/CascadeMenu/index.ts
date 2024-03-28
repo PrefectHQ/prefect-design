@@ -1,14 +1,12 @@
 import { App } from 'vue'
-import PCascadeMenu from '@/components/CascadeMenu/PCascadeMenu.vue'
-import PCascadeMenuButton from '@/components/CascadeMenu/PCascadeMenuButton.vue'
-import PCascadeMenuItem from '@/components/CascadeMenu/PCascadeMenuItem.vue'
 import PCascadePanel from '@/components/CascadeMenu/PCascadePanel.vue'
+import PCascadePanels from '@/components/CascadeMenu/PCascadePanels.vue'
+import PCascadePanelsButton from '@/components/CascadeMenu/PCascadePanelsButton.vue'
 
 const install = (app: App): void => {
-  app.component('PCascadeMenu', PCascadeMenu)
-  app.component('PCascadeMenuItem', PCascadeMenuItem)
+  app.component('PCascadePanels', PCascadePanels)
   app.component('PCascadePanel', PCascadePanel)
-  app.component('PCascadeMenuButton', PCascadeMenuButton)
+  app.component('PCascadePanelsButton', PCascadePanelsButton)
 }
 
-export { PCascadeMenu, PCascadeMenuButton, PCascadeMenuItem, PCascadePanel, install }
+export { PCascadePanels, PCascadePanelsButton, PCascadePanel, install }

@@ -1,13 +1,12 @@
-import { inject, InjectionKey, provide, reactive, readonly, Ref, ref, UnwrapNestedRefs } from 'vue'
+import { computed, ComputedRef, inject, InjectionKey, MaybeRefOrGetter, provide, reactive, readonly, ref, toValue, UnwrapNestedRefs } from 'vue'
+import { isDefined } from '@/utilities'
 
 export function useCascadePanelsKey(): InjectionKey<UseCascadePanels> {
   return Symbol('UseCascadePanels')
 }
 
 export type CascadePanelId = string | symbol | number
-
 export type CascadeValue = Partial<{ [key in CascadePanelId]: unknown }>
-
 export type CascadeState = Record<CascadePanelId, boolean>
 
 export type CascadePanel = {
@@ -26,9 +25,7 @@ export function getInjectedCascadePanels(): UseCascadePanels {
 }
 
 export type UseCascadePanels = {
-  value: UnwrapNestedRefs<CascadeValue>,
-  panels: Ref<(CascadePanel)[]>,
-  addPanel: (panel: CascadePanel) => void,
+  values: UnwrapNestedRefs<CascadeValue>,
   getPanel: (id: CascadePanelId) => CascadePanel | undefined,
   openPanel: (id: CascadePanelId) => void,
   closePanel: (id: CascadePanelId) => void,
@@ -39,20 +36,20 @@ export type UseCascadePanels = {
   toggle: () => void,
   setValue: (id: CascadePanelId, newValue: unknown) => void,
   unsetValue: (id: CascadePanelId) => void,
+  empty: ComputedRef<boolean>,
   state: Readonly<CascadeState>,
 }
 
 /**
  * Provides a mechanism to manage a cascade of panels, each identified by a unique id, with operations to open, close, and toggle their states.
  *
- * @param {CascadeValue} [initialValue={}] - Initial values for panels, keyed by their ids.
- * @param {CascadePanel[]} initialPanels - Initial array of panel definitions.
+ * @param {CascadeValue} [initialValues={}] - Initial values for panels, keyed by their ids.
+ * @param {CascadePanel[]} panelsRefOrGetter - Initial array of panel definitions.
  * @returns {UseCascadePanels} - An object including:
- *   - `value`: Object with panel values.
+ *   - `values`: Object with panel values.
+ *   - `empty`: Computed boolean indicating whether all values are undefined.
  *   - `setValue`: Function to set a value for a panel by id.
  *   - `unsetValue`: Function to unset a value for a panel by id.
- *   - `panels`: Reactive array of panel objects.
- *   - `addPanel`: Function to add a new panel.
  *   - `openPanel`: Function to open a panel by id.
  *   - `closePanel`: Function to close a panel by id.
  *   - `togglePanel`: Function to toggle the open state of a panel by id.
@@ -60,14 +57,15 @@ export type UseCascadePanels = {
  *   - `close`, `open`, `toggle`: Functions to control the overall cascade state.
  *   - `state`: Readonly object tracking the open/close state of each panel by id.
  */
-export function useCascadePanels(initialPanels: CascadePanel[], initialValue: CascadeValue = {}): UseCascadePanels {
-  const value = reactive<CascadeValue>({ ...initialValue })
-  const panels = ref<CascadePanel[]>([...initialPanels])
+export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePanel[]>, initialValues?: CascadeValue): UseCascadePanels {
+  const values = reactive<CascadeValue>({ ...initialValues })
   const state = reactive<CascadeState>({})
   const isOpen = ref(false)
+  const empty = computed(() => Object.values(values).every((value) => !isDefined(value)))
 
   function closePanelsAtOrBelow(level?: number): void {
-    panels.value.forEach((panel) => {
+    const panels = getPanels()
+    panels.forEach((panel) => {
       if (panel.level === undefined) {
         return
       }
@@ -78,8 +76,13 @@ export function useCascadePanels(initialPanels: CascadePanel[], initialValue: Ca
     })
   }
 
+  function getPanels(): CascadePanel[] {
+    return toValue(panelsRefOrGetter) ?? []
+  }
+
   function getPanel(id: CascadePanelId): CascadePanel | undefined {
-    return panels.value.find((panel) => panel.id === id)
+    const panels = getPanels()
+    return panels.find((panel) => panel.id === id)
   }
 
   function openPanel(id: CascadePanelId): void {
@@ -112,11 +115,6 @@ export function useCascadePanels(initialPanels: CascadePanel[], initialValue: Ca
     }
   }
 
-  function addPanel(panel: CascadePanel): void {
-    state[panel.id] = false
-    panels.value.push(panel)
-  }
-
   function close(): void {
     isOpen.value = false
   }
@@ -133,14 +131,14 @@ export function useCascadePanels(initialPanels: CascadePanel[], initialValue: Ca
     closePanelsAtOrBelow()
   }
 
-  function setValue(id: CascadePanelId, newValue: unknown): void {
+  function setValue(id: CascadePanelId, value: unknown): void {
     const panel = getPanel(id)
 
     if (!panel) {
       throw new Error(`Panel with id ${String(id)} not found`)
     }
 
-    Object.assign(value, { [id]: newValue })
+    Object.assign(values, { [id]: value })
   }
 
   function unsetValue(id: CascadePanelId): void {
@@ -150,18 +148,17 @@ export function useCascadePanels(initialPanels: CascadePanel[], initialValue: Ca
       throw new Error(`Panel with id ${String(id)} not found`)
     }
 
-    Object.assign(value, { [id]: undefined })
+    Object.assign(values, { [id]: undefined })
   }
 
   const cascadePanels: UseCascadePanels = {
-    value,
+    values,
+    empty,
     setValue,
     unsetValue,
-    panels,
     getPanel,
     openPanel,
     closePanel,
-    addPanel,
     closeAll,
     togglePanel,
     state: readonly(state),

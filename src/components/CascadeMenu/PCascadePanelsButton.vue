@@ -1,5 +1,5 @@
 <template>
-  <PBaseInput class="p-cascade-menu-button" :class="classes.root">
+  <PBaseInput class="p-cascade-panel-button" :class="classes.root">
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -7,11 +7,11 @@
       <button
         ref="buttonElement"
         type="button"
-        class="p-cascade-menu-button__control"
+        class="p-cascade-panel-button__control"
         aria-hidden="true"
         v-bind="attrs"
       >
-        <span class="p-cascade-menu-button__value" :class="classes.value">
+        <span class="p-cascade-panel-button__value" :class="classes.value">
           <slot>
             {{ displayValue }}
           </slot>
@@ -19,16 +19,16 @@
       </button>
     </template>
     <template #append>
-      <div class="p-cascade-menu-button__actions">
+      <div class="p-cascade-panel-button__actions">
         <PButton
           v-if="showClear"
           small
           flat
           icon="ClearInput"
-          class="p-cascade-menu-button__clear-button"
+          class="p-cascade-panel-button__clear-button"
           @click="emit('clear')"
         />
-        <PIcon icon="ChevronDownIcon" size="small" class="p-cascade-menu-button__chevron" />
+        <PIcon icon="ChevronDownIcon" size="small" class="p-cascade-panel-button__chevron" />
       </div>
     </template>
   </PBaseInput>
@@ -37,10 +37,9 @@
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import { PIcon, PBaseInput, PButton } from '@/components'
-  import { CascadeValue, valueIsSet } from '@/utilities'
+  import { getInjectedCascadePanels } from '@/compositions'
 
   const props = defineProps<{
-    value?: CascadeValue,
     clearable?: boolean,
     small?: boolean,
   }>()
@@ -52,27 +51,21 @@
   const buttonElement = ref<HTMLButtonElement>()
   const el = computed(() => buttonElement.value)
 
-  const showClear = computed(() => props.clearable && valueIsSet(props.value))
+  const { values, empty } = getInjectedCascadePanels()
+
+  const showClear = computed(() => props.clearable && !empty.value)
 
   const displayValue = computed(() => {
-    if (props.value) {
-      if (Array.isArray(props.value)) {
-        return props.value.join(', ')
-      }
-
-      return props.value
-    }
-
-    return ''
+    return Object.values(values).join(' / ') || 'Select value'
   })
 
   const classes = computed(() => {
     return {
       root: {
-        'p-cascade-menu-button--small': props.small,
+        'p-cascade-panel-button--small': props.small,
       },
       value: {
-        'p-cascade-menu-button__value--small': props.small,
+        'p-cascade-panel-button__value--small': props.small,
       },
     }
   })
@@ -81,16 +74,16 @@
 </script>
 
 <style>
-.p-cascade-menu-button { @apply
+.p-cascade-panel-button { @apply
   text-base
   cursor-pointer
 }
 
-.p-cascade-menu-button--small { @apply
+.p-cascade-panel-button--small { @apply
   text-sm
 }
 
-.p-cascade-menu-button__control { @apply
+.p-cascade-panel-button__control { @apply
   w-full
   h-full
   py-1
@@ -104,11 +97,11 @@
   truncate
 }
 
-.p-cascade-menu-button__control:disabled { @apply
+.p-cascade-panel-button__control:disabled { @apply
   cursor-not-allowed
 }
 
-.p-cascade-menu-button__value { @apply
+.p-cascade-panel-button__value { @apply
   flex
   justify-start
   items-center
@@ -118,21 +111,21 @@
   text-inherit
 }
 
-.p-cascade-menu-button__value--small { @apply
+.p-cascade-panel-button__value--small { @apply
   min-h-5
 }
 
-.p-cascade-menu-button__actions { @apply
+.p-cascade-panel-button__actions { @apply
   flex
   gap-1
 }
 
-.p-cascade-menu-button__chevron { @apply
+.p-cascade-panel-button__chevron { @apply
   self-center
   mr-2
 }
 
-.p-cascade-menu-button__clear-button { @apply
+.p-cascade-panel-button__clear-button { @apply
   p-0.5
 }
 </style>

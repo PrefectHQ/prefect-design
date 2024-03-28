@@ -1,4 +1,4 @@
-import { computed, inject, InjectionKey, WritableComputedRef } from 'vue'
+import { computed, inject, InjectionKey, MaybeRefOrGetter, toRef, WritableComputedRef } from 'vue'
 import { CascadePanelId, CascadeValue, getInjectedCascadePanels, UseCascadePanels } from '@/compositions'
 
 export function useCascadePanelKey<T extends Record<CascadePanelId, unknown>, K extends keyof T>(): InjectionKey<UseCascadePanel<T, K>> {
@@ -25,42 +25,37 @@ function getInjectedPanel<T extends Record<CascadePanelId, unknown>, K extends k
   return cascadePanel
 }
 
-export function useCascadePanel<T extends Record<CascadePanelId, unknown>, K extends keyof T>(id?: K): UseCascadePanel<T, K> {
+export function useCascadePanel<T extends Record<CascadePanelId, unknown>, K extends keyof T>(id?: MaybeRefOrGetter<K>): UseCascadePanel<T, K> {
   if (!id) {
     return getInjectedPanel<T, K>()
   }
 
-  const panelId = id
   const panels = getInjectedCascadePanels()
-  const panel = panels.getPanel(panelId)
-
-  if (!panel) {
-    throw new Error(`Panel with id ${String(panelId)} not found.`)
-  }
+  const panelId = toRef(id)
 
   const value = computed({
-    get: () => panels.value[panelId],
-    set: (newValue: unknown) => panels.setValue(id, newValue),
+    get: () => panels.values[panelId.value],
+    set: (newValue: unknown) => panels.setValue(panelId.value, newValue),
   })
 
   function close(): void {
-    panels.closePanel(panelId)
+    panels.closePanel(panelId.value)
   }
 
   function open(): void {
-    panels.openPanel(panelId)
+    panels.openPanel(panelId.value)
   }
 
   function toggle(): void {
-    panels.togglePanel(panelId)
+    panels.togglePanel(panelId.value)
   }
 
   function setValue(newValue: unknown): void {
-    panels.setValue(panelId, newValue)
+    panels.setValue(panelId.value, newValue)
   }
 
   function unsetValue(): void {
-    panels.unsetValue(panelId)
+    panels.unsetValue(panelId.value)
   }
 
   return {
