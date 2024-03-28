@@ -1,90 +1,70 @@
 <template>
   <div class="p-cascade-panel">
     <PCard class="p-cascade-panel__main" :class="classes.main">
-      <template v-for="childData in data.children" :key="childData.label">
-        <PCascadeMenuItem :data="childData" v-model:selected="internalSelected" :multiple="data.multiple">
-          <slot name="menu-item" v-bind="{ data: childData, selected: internalSelected }" />
+      <template v-for="childData in children" :key="childData.label">
+        <PCascadeMenuItem v-model:value="value" :data="childData" :multiple="data.multiple">
+          <slot name="menu-item" v-bind="{ data: childData, value }" />
         </PCascadeMenuItem>
       </template>
     </PCard>
 
     <template v-if="subpanel">
-      <slot name="subpanel" v-bind="{ data: subpanel, selected: internalSelected }">
-        <PCascadePanel v-model:selected="selected" :data="subpanel" :level="level + 1"
-          class="p-cascade-panel__subpanel" />
+      <slot name="subpanel" v-bind="{ data: subpanel, value }">
+        <PCascadePanel
+          v-model:value="value"
+          :data="subpanel"
+          :level="level + 1"
+          class="p-cascade-panel__subpanel"
+        />
       </slot>
     </template>
   </div>
 </template>
 
-<script lang="ts" setup generic="T, V">
-  import { CascadeData, isDefined, resolveChildren, CascadeMenuValue } from '@/utilities'
+<script lang="ts" setup>
+  import { onMounted, ref, computed } from 'vue'
   import { PCard, PCascadeMenuItem } from '@/components'
-  import { onMounted, ref, computed, watch } from 'vue'
+  import { CascadeData, resolveChildren, CascadeValue, valueIsSet, valueIncludesValue } from '@/utilities'
 
   const props = withDefaults(defineProps<{
-    data: CascadeData<T, V>,
+    data: CascadeData,
     level?: number,
   }>(), {
     level: 0,
   })
 
-  const children = ref<CascadeData<T, V>[]>()
-  const selected = defineModel<CascadeMenuValue<V>[]>('selected', { required: true })
+  const children = ref<CascadeData[]>()
+  const value = defineModel<CascadeValue>('value', { required: true })
 
-  const internalSelected = computed({
-    get: () => selected.value[props.level],
-    set: (value: CascadeMenuValue<V>) => {
-      selected.value[props.level] = value
+  const valueIsInChildren = computed(() => {
+    if (!children.value || !valueIsSet(value.value)) {
+      return false
     }
+
+    return children.value.some((child) => valueIncludesValue(value.value, child.value))
   })
-  
-  const subpanel = ref<CascadeData<T, V>>()
-  const subpanelIsOpen = computed(() => isDefined(subpanel.value))
+
+  const subpanel = computed(() => {
+    if (!children.value || !valueIsSet(value.value)) {
+      return
+    }
+
+    if (valueIsInChildren.value) {
+      return children.value.find((child) => valueIncludesValue(value.value, child.value))
+    }
+
+    return children.value.find((child) => valueIncludesValue(value.value, child.value))
+  })
 
   const classes = computed(() => ({
     main: {
-      'p-cascade-panel__main--subpanel-open': subpanelIsOpen.value,
-    }
+      'p-cascade-panel__main--subpanel-open': subpanel.value,
+    },
   }))
 
-  watch(() => internalSelected.value, (newValue, oldValue) => {
-    if (!newValue) {
-      return
-    }
-    
-    if (newValue.length === 0) {
-      subpanel.value = undefined
-      
-    } else {
-      const mostRecentValue = newValue[newValue.length - 1]
-      if (mostRecentValue) {
-        if (props.data.value == mostRecentValue && subpanel.value?.value !== mostRecentValue) {
-          subpanel.value = props.data
-        } else {
-          const child = children.value?.find(child => child.value === mostRecentValue)
-          if (child?.children) {
-            subpanel.value = child
-          }
-        }
-      }
-    }
-
-    selected.value[props.level + 1] = []
-  }, { deep: true })
-
   onMounted(async () => {
-    children.value = await resolveChildren<T, V>(props.data)
-
-    if (internalSelected.value?.length > 0) {
-      const mostRecentValue = internalSelected.value[internalSelected.value.length - 1]
-      if (mostRecentValue) {
-        const child = children.value?.find(child => child.value === mostRecentValue)
-        if (child?.children) {
-          subpanel.value = child
-        }
-      }
-    }
+    children.value = await resolveChildren(props.data)
+    console.log('resolved children', JSON.parse(JSON.stringify(children.value)))
   })
 </script>
 

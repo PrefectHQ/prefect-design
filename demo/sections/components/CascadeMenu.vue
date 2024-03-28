@@ -7,19 +7,30 @@
     </template>
 
     <template #cascade-menu>
-      <div>{{ selected }}</div>
-      <PCascadeMenu v-model:selected="selected" :data="data" />
+      <PCheckbox v-model="clearable" label="Clearable" />
+      <PCheckbox v-model="small" label="Small" />
+      <PDivider />
+
+      <PContent>
+        <PCascadeMenu v-model:value="selected" :data="data" :clearable="clearable" :small="small" />
+
+        <div>Value: {{ selected }}</div>
+      </PContent>
     </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
+  import { PCheckbox, PContent, PDivider } from '@/components'
   import { PCascadeMenu } from '@/components/CascadeMenu'
   import { CascadeData } from '@/utilities'
-  import {ref} from 'vue'
+  import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const selected = ref([])
+
+  const clearable = ref(true)
+  const small = ref(true)
 
   const data: CascadeData[] = [
     {
@@ -38,7 +49,7 @@
         {
           label: 'Item 1.3',
           value: 13,
-        }
+        },
       ],
     },
     {
@@ -61,7 +72,7 @@
         {
           label: 'Item 2.4',
           value: 24,
-        }
+        },
       ],
     },
     {
@@ -79,7 +90,7 @@
         {
           label: 'Item 3.3',
           value: 33,
-        }
+        },
       ],
     },
   ]

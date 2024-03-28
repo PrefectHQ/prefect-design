@@ -6,58 +6,49 @@
   </POverflowMenuItem>
 </template>
 
-<script lang="ts" setup generic="T, V">
-  import { CascadeData, CascadeMenuValue, isArray } from '@/utilities'
-  import { POverflowMenuItem } from '@/components'
+<script lang="ts" setup>
   import { computed } from 'vue'
+  import { POverflowMenuItem } from '@/components'
+  import { CascadeData, CascadeValue } from '@/utilities'
 
   const props = defineProps<{
-    data: CascadeData<T, V>,
+    data: CascadeData,
     multiple?: boolean,
   }>()
 
-  const selected = defineModel<CascadeMenuValue<V>>('selected', { required: true })
+  const value = defineModel<CascadeValue>('value', { required: true })
 
   const classes = computed(() => ({
     root: {
       'p-cascade-menu-item--active': itemIsSelected.value,
-    }
+    },
   }))
 
-  const itemIsSelected = computed(() => (Array.isArray(selected.value) && props.data.value && selected.value.includes(props.data.value) || selected.value === props.data.value))
+  const itemIsSelected = computed(() => {
+    if (Array.isArray(value.value)) {
+      return value.value.includes(props.data.value)
+    }
 
-  const handleClick = (e: MouseEvent) => {
-    if (!props.data.value) {
+    return value.value === props.data.value
+  })
+
+  const handleClick = (): void => {
+    if (!props.multiple) {
+      value.value = itemIsSelected.value ? undefined : props.data.value
       return
     }
 
-    const selectedIsArray = isArray(selected.value)
-
-    if (selectedIsArray) {
-      const selectedIncludesValue = selected.value.includes(props.data.value)
-
-      if (props.multiple) {
-        if (selectedIncludesValue) {
-          selected.value = selected.value.filter((v: any) => v !== props.data.value)
-        } else {
-          selected.value = [...selected.value, props.data.value]
-        }
+    if (Array.isArray(value.value)) {
+      if (itemIsSelected.value) {
+        value.value = value.value.filter((v) => v !== props.data.value)
       } else {
-        if (selectedIncludesValue) {
-          selected.value = []
-        } else {
-          selected.value = [props.data.value]
-        }
+        value.value = [...value.value, props.data.value]
       }
-    } else {
-      const selectedIsValue = selected.value === props.data.value
 
-      if (selectedIsValue) {
-        selected.value = []
-      } else {
-        selected.value = [props.data.value]
-      }
+      return
     }
+
+    value.value = itemIsSelected.value ? undefined : [props.data.value]
   }
 </script>
 
