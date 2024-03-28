@@ -129,7 +129,7 @@
 
 .p-cascade-menu-button__chevron { @apply
   self-center
-  mr-1
+  mr-2
 }
 
 .p-cascade-menu-button__clear-button { @apply
