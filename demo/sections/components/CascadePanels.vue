@@ -29,7 +29,7 @@
         </template>
 
         <template #level-2="{ close }">
-          level 2
+          No component for level-2 but we can still access the panel state
 
           <p-button small @click="close">
             Close
