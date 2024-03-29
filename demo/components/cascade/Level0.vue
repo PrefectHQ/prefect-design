@@ -2,8 +2,6 @@
   <div>
     level 0
 
-    {{ value }}
-
     <p-button small @click="openPanelById('level-1')">
       Open sub
     </p-button>
@@ -17,6 +15,6 @@
 <script setup lang="ts">
   import { useCascadePanel, useCascadePanels } from '@/compositions'
 
-  const { value, close } = useCascadePanel()
+  const { close } = useCascadePanel()
   const { openPanelById } = useCascadePanels()
 </script>
