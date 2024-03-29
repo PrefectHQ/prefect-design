@@ -1,9 +1,13 @@
 <template>
   <ComponentPage title="Cascade Panels" :demos="demos">
     <template #description>
-      This is where we add a short description of <p-code inline>
+      <p-code inline>
         p-cascade-panels
-      </p-code>. Describe the components intent, not hyper specific documentation that belongs on vitepress page.
+      </p-code> is a component that manages a collection of <p-code inline>
+        p-cascade-panel
+      </p-code> components; they operate similarly to the <p-code inline>
+        p-wizard
+      </p-code> component. Both components are relatively straightforward, but they can be used to create complex cascading menus; most of the magic happens in the `useCascadePanels` and `useCascadePanel` compositions.
     </template>
 
     <template #basic>
