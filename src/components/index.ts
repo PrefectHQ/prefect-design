@@ -6,7 +6,7 @@ import { PButton, install as installPButton } from '@/components/Button'
 import { PButtonGroup, install as installPButtonGroup } from '@/components/ButtonGroup'
 import { PCalendar, install as installPCalendar } from '@/components/Calendar'
 import { PCard, install as installPCard } from '@/components/Card'
-import { PCascadePanels, PCascadePanelsButton, PCascadePanel, install as installPCascadePanels } from '@/components/CascadeMenu'
+import { PCascadePanels, PCascadePanelsInput, PCascadePanelsButton, PCascadePanel, install as installPCascadePanels } from '@/components/CascadeMenu'
 import { PCheckbox, install as installPCheckbox } from '@/components/Checkbox'
 import { PCheckboxGroup, install as installPCheckboxGroup } from '@/components/CheckboxGroup'
 import { PCode, install as installPCode } from '@/components/Code'
@@ -102,8 +102,9 @@ export {
   PCalendar,
   PCard,
   PCascadePanels,
-  PCascadePanelsButton,
   PCascadePanel,
+  PCascadePanelsButton,
+  PCascadePanelsInput,
   PCheckbox,
   PCheckboxGroup,
   PCode,
@@ -307,8 +308,9 @@ declare module '@vue/runtime-core' {
     PCalendar: typeof PCalendar,
     PCard: typeof PCard,
     PCascadePanels: typeof PCascadePanels,
-    PCascadePanelsButton: typeof PCascadePanelsButton,
     PCascadePanel: typeof PCascadePanel,
+    PCascadePanelsButton: typeof PCascadePanelsButton,
+    PCascadePanelsInput: typeof PCascadePanelsInput,
     PCheckbox: typeof PCheckbox,
     PCheckboxGroup: typeof PCheckboxGroup,
     PCode: typeof PCode,

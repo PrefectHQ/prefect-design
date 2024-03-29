@@ -1,13 +1,13 @@
-import { computed, inject, InjectionKey, MaybeRefOrGetter, toRef, WritableComputedRef } from 'vue'
-import { CascadePanelId, CascadeValue, getInjectedCascadePanels, UseCascadePanels } from '@/compositions'
+import { computed, ComputedRef, inject, InjectionKey, MaybeRefOrGetter, toRef, WritableComputedRef } from 'vue'
+import { CascadePanelId, CascadeValue, getInjectedCascadePanels } from '@/compositions'
 
 export function useCascadePanelKey<T extends Record<CascadePanelId, unknown>, K extends keyof T>(): InjectionKey<UseCascadePanel<T, K>> {
   return Symbol('UseCascadePanel')
 }
 
 export type UseCascadePanel<T extends CascadeValue, K extends keyof T> = {
-  panels: UseCascadePanels,
   value: WritableComputedRef<CascadeValue[K]>,
+  isOpen: ComputedRef<boolean>,
   setValue: (newValue: unknown) => void,
   unsetValue: () => void,
   close: () => void,
@@ -30,41 +30,35 @@ export function useCascadePanel<T extends Record<CascadePanelId, unknown>, K ext
     return getInjectedPanel<T, K>()
   }
 
-  const panels = getInjectedCascadePanels()
+  const { values, state, setValue, unsetValue, openPanelById, closePanelById, togglePanelById } = getInjectedCascadePanels()
+
   const panelId = toRef(id)
+  const isOpen = computed(() => state[panelId.value])
 
   const value = computed({
-    get: () => panels.values[panelId.value],
-    set: (newValue: unknown) => panels.setValue(panelId.value, newValue),
+    get: () => values[panelId.value],
+    set: (newValue: unknown) => setValue(panelId.value, newValue),
   })
 
   function close(): void {
-    panels.closePanel(panelId.value)
+    closePanelById(panelId.value)
   }
 
   function open(): void {
-    panels.openPanel(panelId.value)
+    openPanelById(panelId.value)
   }
 
   function toggle(): void {
-    panels.togglePanel(panelId.value)
-  }
-
-  function setValue(newValue: unknown): void {
-    panels.setValue(panelId.value, newValue)
-  }
-
-  function unsetValue(): void {
-    panels.unsetValue(panelId.value)
+    togglePanelById(panelId.value)
   }
 
   return {
-    panels,
     value,
-    close,
-    open,
+    isOpen,
     toggle,
-    setValue,
-    unsetValue,
+    open,
+    close,
+    setValue: (newValue: unknown) => setValue(panelId.value, newValue),
+    unsetValue: () => unsetValue(panelId.value),
   }
 }
