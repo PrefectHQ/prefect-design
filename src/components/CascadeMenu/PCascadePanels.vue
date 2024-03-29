@@ -1,6 +1,5 @@
 <template>
   <div v-show="isOpen" class="p-cascade-panels">
-    {{ isOpen ? 'open' : 'closed' }}
     <template v-for="{ id } in panels" :key="id">
       <PCascadePanel v-show="panelIsOpen(id)" :panel-id="id">
         <template #default="panel">
@@ -58,3 +57,10 @@
     return `${kebabCase(panelId.toString())}`
   }
 </script>
+
+<style>
+.p-cascade-panels { @apply
+  flex
+  gap-2
+}
+</style>
