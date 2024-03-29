@@ -75,6 +75,8 @@
   watchEffect(() => {
     if (continent.value) {
       openPanelById('countries')
+    } else {
+      closePanelById('countries')
     }
 
     if (country.value) {

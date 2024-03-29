@@ -2,26 +2,24 @@
   <p-card class="borders">
     <p-text-input v-model="search" class="borders__search" placeholder="Search borders" />
 
-    <p-auto-height-transition>
-      <transition name="fade" mode="out-in">
-        <p-loading-icon v-if="loading" class="borders__loading-icon" />
+    <transition name="fade" mode="out-in">
+      <p-loading-icon v-if="loading" class="borders__loading-icon" />
 
-        <div v-else-if="empty" class="borders__empty">
-          No borders found
-        </div>
+      <div v-else-if="empty" class="borders__empty">
+        No borders found
+      </div>
 
-        <div v-else class="borders__content">
-          <p-virtual-scroller :items="items" class="borders__scroller">
-            <template #default="{ item: { border } }">
-              <p-overflow-menu-item class="borders__item" :class="classes.border(border)" @click="toggle(border)">
-                {{ border }}
-                <p-icon v-if="value.includes(border)" size="small" icon="CheckIcon" class="ml-auto" />
-              </p-overflow-menu-item>
-            </template>
-          </p-virtual-scroller>
-        </div>
-      </transition>
-    </p-auto-height-transition>
+      <div v-else class="borders__content">
+        <p-virtual-scroller :items="items" class="borders__scroller">
+          <template #default="{ item: { border } }">
+            <p-overflow-menu-item class="borders__item" :class="classes.border(border)" @click="toggle(border)">
+              {{ border }}
+              <p-icon v-if="value.includes(border)" size="small" icon="CheckIcon" class="ml-auto" />
+            </p-overflow-menu-item>
+          </template>
+        </p-virtual-scroller>
+      </div>
+    </transition>
   </p-card>
 </template>
 
@@ -38,6 +36,7 @@
     borders: string[],
   }
 
+
   const fetchBorders = async (country: string): Promise<string[]> => {
     if (!country) {
       return []
@@ -52,7 +51,7 @@
     } catch {
       return []
     } finally {
-      loading.value = false
+      setTimeout(() => loading.value = false, 1000)
     }
   }
 
@@ -101,9 +100,9 @@
 <style>
 .borders { @apply
   px-0
-  gap-4
   flex
   flex-col
+  min-h-56
   min-w-64
 }
 
@@ -116,6 +115,7 @@
   mx-4
   shrink
   w-auto
+  mb-4
 }
 
 .borders__search .p-text-input__control { @apply
@@ -127,6 +127,12 @@
   max-h-96
   px-4
   grow
+  relative
+}
+
+.borders__close { @apply
+  ml-auto
+  text-subdued
 }
 
 .borders__scroller { @apply

@@ -84,11 +84,13 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
     const panel = getPanelById(id)
 
     if (!panel) {
+      console.warn(`Panel with id "${String(id)}" not found.`)
       return
     }
 
     closePanelsAtOrAboveLevel(panel.level)
     state[id] = true
+    console.trace(panel, state[id])
 
     if (!isOpen.value) {
       open()
