@@ -27,7 +27,7 @@
       </template>
 
       <template #countries>
-        <Countries v-model:value="country" class="advanced-demo__panel" />
+        <Countries v-model:value="country" v-model:continent="continent" class="advanced-demo__panel" />
       </template>
 
       <template #borders>

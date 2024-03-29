@@ -147,7 +147,7 @@
 .countries__content { @apply
   overflow-hidden
   max-h-96
-  pl-2
+  px-4
   grow
 }
 
