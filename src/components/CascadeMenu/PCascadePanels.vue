@@ -62,5 +62,7 @@
 .p-cascade-panels { @apply
   flex
   gap-2
+  pointer-events-none
+  items-start
 }
 </style>

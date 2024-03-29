@@ -15,3 +15,10 @@
   const panel = useCascadePanel(() => props.panelId)
   provide(cascadePanelKey, panel)
 </script>
+
+<style>
+.p-cascade-panel { @apply
+  pointer-events-auto
+  h-min
+}
+</style>
