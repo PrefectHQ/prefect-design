@@ -48,8 +48,6 @@
     try {
       const response = await fetch(`https://restcountries.com/v3.1/name/${country.toLowerCase()}?fullText=true`)
       const data = await response.json()
-
-      console.log(data)
       return data.map((country: CountryResponse) => country.borders).flat().filter((border: string) => border)
     } catch {
       return []
