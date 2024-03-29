@@ -10,9 +10,6 @@
       <div>
         Cascade Panels are {{ isOpen ? 'open' : 'closed' }}
       </div>
-      <div>
-        Values: {{ values }}
-      </div>
 
       <div>
         State: {{ state }}
@@ -65,5 +62,5 @@
     },
   ]
 
-  const { values, toggle, state, isOpen } = useCascadePanels(panels)
+  const { toggle, state, isOpen } = useCascadePanels(panels)
 </script>

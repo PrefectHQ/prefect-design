@@ -23,7 +23,6 @@ export function getInjectedCascadePanels(): UseCascadePanels {
 }
 
 export type UseCascadePanels = {
-  values: UnwrapNestedRefs<CascadeValue>,
   openPanels: ComputedRef<CascadePanel[]>,
   empty: ComputedRef<boolean>,
   state: Readonly<CascadeState>,
@@ -37,8 +36,6 @@ export type UseCascadePanels = {
   close: () => void,
   open: () => void,
   toggle: () => void,
-  setValue: (id: CascadePanelId, newValue: unknown) => void,
-  unsetValue: (id: CascadePanelId) => void,
 }
 
 /**
@@ -157,26 +154,6 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
     closePanelsAtOrAboveLevel()
   }
 
-  function setValue(id: CascadePanelId, value: unknown): void {
-    const panel = getPanelById(id)
-
-    if (!panel) {
-      throw new Error(`Panel with id ${String(id)} not found`)
-    }
-
-    Object.assign(values, { [id]: value })
-  }
-
-  function unsetValue(id: CascadePanelId): void {
-    const panel = getPanelById(id)
-
-    if (!panel) {
-      throw new Error(`Panel with id ${String(id)} not found`)
-    }
-
-    Object.assign(values, { [id]: undefined })
-  }
-
   function openFirstPanelAtLevel(level: number = 0): void {
     const panelsAtLevel = panels.value.filter((panel) => panel.level === level)
 
@@ -189,14 +166,11 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
   }
 
   const cascadePanels: UseCascadePanels = {
-    values,
     empty,
     openPanels,
     isOpen,
     panelIsOpen,
     state: readonly(state),
-    setValue,
-    unsetValue,
     getPanelById,
     openPanelById,
     closePanelById,

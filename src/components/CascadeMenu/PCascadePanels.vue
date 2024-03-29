@@ -37,11 +37,8 @@
     openPanelById,
     openPanels,
     panelIsOpen,
-    setValue,
     toggle,
     togglePanelById,
-    unsetValue,
-    values,
   } = inject(cascadePanelsKey, undefined) ?? useCascadePanels(() => props.panels)
 
   defineExpose({
@@ -55,11 +52,8 @@
     openPanelById,
     openPanels,
     panelIsOpen,
-    setValue,
     toggle,
     togglePanelById,
-    unsetValue,
-    values,
   })
 
   function getBaseSlotName(panelId: CascadePanelId): string {
