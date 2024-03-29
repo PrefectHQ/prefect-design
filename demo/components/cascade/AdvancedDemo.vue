@@ -14,8 +14,8 @@
 
           <template v-if="!emptyCountry">
             <span class="advanced-demo__separator"> / </span>
-            <span v-if="emptyRegions" class="advanced-demo__placeholder">Select a region</span>
-            <span v-else>{{ regions.join(', ') }}</span>
+            <span v-if="emptyBorders" class="advanced-demo__placeholder">Select borders</span>
+            <span v-else>{{ borders.join(', ') }}</span>
           </template>
         </p-button>
       </p-label>
@@ -30,8 +30,8 @@
         <Countries v-model:value="country" class="advanced-demo__panel" />
       </template>
 
-      <template #regions>
-        <Regions v-model:value="regions" v-model:country="country" class="advanced-demo__panel" />
+      <template #borders>
+        <Borders v-model:value="borders" v-model:country="country" class="advanced-demo__panel" />
       </template>
     </PCascadePanels>
   </p-context-menu>
@@ -42,13 +42,13 @@
   import { CascadePanel, useCascadePanels } from '@/compositions'
   import { positions } from '@/utilities'
   import { computed, ref, watchEffect } from 'vue'
+  import Borders from '@/demo/components/cascade/Borders.vue'
   import Continents from '@/demo/components/cascade/Continents.vue'
   import Countries from '@/demo/components/cascade/Countries.vue'
-  import Regions from '@/demo/components/cascade/Regions.vue'
 
   const continent = ref<string>()
   const country = ref<string>()
-  const regions = ref<string[]>([])
+  const borders = ref<string[]>([])
 
   const panels: CascadePanel[] = [
     {
@@ -60,7 +60,7 @@
       level: 1,
     },
     {
-      id: 'regions',
+      id: 'borders',
       level: 2,
     },
   ]
@@ -70,13 +70,7 @@
 
   const emptyContinent = computed(() => !continent.value)
   const emptyCountry = computed(() => !country.value)
-  const emptyRegions = computed(() => !regions.value.length)
-
-  function clear(): void {
-    continent.value = undefined
-    country.value = undefined
-    regions.value = []
-  }
+  const emptyBorders = computed(() => !borders.value.length)
 
   watchEffect(() => {
     if (continent.value) {
@@ -84,11 +78,11 @@
     }
 
     if (country.value) {
-      regions.value = []
-      openPanelById('regions')
+      borders.value = []
+      openPanelById('borders')
     } else {
-      regions.value = []
-      closePanelById('regions')
+      borders.value = []
+      closePanelById('borders')
     }
   })
 </script>

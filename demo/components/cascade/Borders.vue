@@ -2,24 +2,26 @@
   <p-card class="borders">
     <p-text-input v-model="search" class="borders__search" placeholder="Search borders" />
 
-    <transition name="fade" mode="out-in">
-      <p-loading-icon v-if="loading" class="borders__loading-icon" />
+    <p-auto-height-transition>
+      <transition name="fade" mode="out-in">
+        <p-loading-icon v-if="loading" class="borders__loading-icon" />
 
-      <div v-else-if="empty" class="borders__empty">
-        No borders found
-      </div>
+        <div v-else-if="empty" class="borders__empty">
+          No borders found
+        </div>
 
-      <div v-else class="borders__content">
-        <p-virtual-scroller :items="items" class="borders__scroller">
-          <template #default="{ item: { region } }">
-            <p-overflow-menu-item class="borders__item" :class="classes.region(region)" @click="toggle(region)">
-              {{ region }}
-              <p-icon v-if="value.includes(region)" size="small" icon="CheckIcon" class="ml-auto" />
-            </p-overflow-menu-item>
-          </template>
-        </p-virtual-scroller>
-      </div>
-    </transition>
+        <div v-else class="borders__content">
+          <p-virtual-scroller :items="items" class="borders__scroller">
+            <template #default="{ item: { border } }">
+              <p-overflow-menu-item class="borders__item" :class="classes.border(border)" @click="toggle(border)">
+                {{ border }}
+                <p-icon v-if="value.includes(border)" size="small" icon="CheckIcon" class="ml-auto" />
+              </p-overflow-menu-item>
+            </template>
+          </p-virtual-scroller>
+        </div>
+      </transition>
+    </p-auto-height-transition>
   </p-card>
 </template>
 
@@ -46,7 +48,9 @@
     try {
       const response = await fetch(`https://restcountries.com/v3.1/name/${country.toLowerCase()}?fullText=true`)
       const data = await response.json()
-      return data.map((country: CountryResponse) => country.borders).flat()
+
+      console.log(data)
+      return data.map((country: CountryResponse) => country.borders).flat().filter((border: string) => border)
     } catch {
       return []
     } finally {
@@ -64,31 +68,31 @@
 
   const subscription = useSubscriptionWithDependencies(fetchBorders, subscriptionArgs)
   const borders = computed<string[]>(() => subscription.response ?? [])
-  const empty = computed(() => !filteredborders.value.length && !loading.value)
+  const empty = computed(() => filteredborders.value.length === 0 && !loading.value)
 
   const filteredborders = computed(() => {
     if (!search.value) {
       return borders.value
     }
 
-    return borders.value.filter(region => region.toLowerCase().includes(search.value.toLowerCase()))
+    return borders.value.filter(border => border.toLowerCase().includes(search.value.toLowerCase()))
   })
 
   const items = computed(() => {
-    return filteredborders.value.map((region) => ({
-      region,
+    return filteredborders.value.map((border) => ({
+      border,
     }))
   })
 
   const classes = computed(() => ({
-    region: (region: string) => ({
-      'p-overflow-menu-item--active': value.value.includes(region),
+    border: (border: string) => ({
+      'p-overflow-menu-item--active': value.value.includes(border),
     }),
   }))
 
   function toggle(country: string): void {
     if (value.value.includes(country)) {
-      value.value = value.value.filter(region => region !== country)
+      value.value = value.value.filter(border => border !== country)
     } else {
       value.value = [...value.value, country]
     }
@@ -139,6 +143,7 @@
 .borders__empty { @apply
   flex
   justify-center
+  text-xs
   items-center
   text-subdued
 }
