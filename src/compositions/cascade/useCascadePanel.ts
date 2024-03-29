@@ -1,13 +1,11 @@
-import { computed, ComputedRef, inject, InjectionKey, MaybeRefOrGetter, toRef, WritableComputedRef } from 'vue'
-import { CascadePanelId, CascadeValue, getInjectedCascadePanels } from '@/compositions'
+import { computed, inject, InjectionKey, MaybeRefOrGetter, provide, Ref, toRef, WritableComputedRef } from 'vue'
+import { CascadePanelId, getInjectedCascadePanels } from '@/compositions'
 
-export function useCascadePanelKey<T extends Record<CascadePanelId, unknown>, K extends keyof T>(): InjectionKey<UseCascadePanel<T, K>> {
-  return Symbol('UseCascadePanel')
-}
+export const cascadePanelKey: InjectionKey<UseCascadePanel> = Symbol('UseCascadePanel')
 
-export type UseCascadePanel<T extends CascadeValue, K extends keyof T> = {
-  value: WritableComputedRef<CascadeValue[K]>,
-  isOpen: ComputedRef<boolean>,
+export type UseCascadePanel = {
+  value: WritableComputedRef<unknown>,
+  isOpen: Ref<boolean>,
   setValue: (newValue: unknown) => void,
   unsetValue: () => void,
   close: () => void,
@@ -15,25 +13,24 @@ export type UseCascadePanel<T extends CascadeValue, K extends keyof T> = {
   toggle: () => void,
 }
 
-function getInjectedPanel<T extends Record<CascadePanelId, unknown>, K extends keyof T>(): UseCascadePanel<T, K> {
-  const cascadePanel = inject(useCascadePanelKey<T, K>())
+function getInjectedPanel(): UseCascadePanel {
+  const cascadePanel = inject(cascadePanelKey)
 
   if (!cascadePanel) {
-    throw new Error('Cascade panel not found. Are you sure the component calling getPanel() exists within a <p-cascade-panel> component context?')
+    throw new Error('Cascade panel not found. Are you sure the component calling useCascadePanel() exists within a <p-cascade-panel> component context?')
   }
 
   return cascadePanel
 }
 
-export function useCascadePanel<T extends Record<CascadePanelId, unknown>, K extends keyof T>(id?: MaybeRefOrGetter<K>): UseCascadePanel<T, K> {
+export function useCascadePanel(id?: MaybeRefOrGetter<CascadePanelId>): UseCascadePanel {
   if (!id) {
-    return getInjectedPanel<T, K>()
+    return getInjectedPanel()
   }
 
-  const { values, state, setValue, unsetValue, openPanelById, closePanelById, togglePanelById } = getInjectedCascadePanels()
-
+  const { values, setValue, unsetValue, closePanelById, openPanelById, togglePanelById, panelIsOpen: globalPanelIsOpen } = getInjectedCascadePanels()
   const panelId = toRef(id)
-  const isOpen = computed(() => state[panelId.value])
+  const isOpen = computed(() => globalPanelIsOpen.value(panelId.value))
 
   const value = computed({
     get: () => values[panelId.value],
@@ -52,7 +49,7 @@ export function useCascadePanel<T extends Record<CascadePanelId, unknown>, K ext
     togglePanelById(panelId.value)
   }
 
-  return {
+  const cascadePanel: UseCascadePanel = {
     value,
     isOpen,
     toggle,
@@ -61,4 +58,7 @@ export function useCascadePanel<T extends Record<CascadePanelId, unknown>, K ext
     setValue: (newValue: unknown) => setValue(panelId.value, newValue),
     unsetValue: () => unsetValue(panelId.value),
   }
+
+  provide(id, cascadePanel)
+  return cascadePanel
 }

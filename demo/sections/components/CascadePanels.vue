@@ -7,38 +7,31 @@
     </template>
 
     <template #cascade-panels>
-      {{ values }}
+      <div>
+        Cascade Panels are {{ isOpen ? 'open' : 'closed' }}
+      </div>
+      <div>
+        Values: {{ values }}
+      </div>
+
+      <div>
+        State: {{ state }}
+      </div>
 
       <p-button small @click="toggle">
         Toggle Cascade Panels
       </p-button>
 
       <PCascadePanels :panels="panels">
-        <template #level-0-content="{ close }">
-          level 0
-
-          <p-button small @click="openPanelById('level-1')">
-            Open sub
-          </p-button>
-
-          <p-button small @click="close">
-            Close
-          </p-button>
+        <template #level-0>
+          <Level0 />
         </template>
 
-        <template #level-1-content="{ close }">
-          level 1
-
-          <p-button small @click="openPanelById('level-2')">
-            Open sub
-          </p-button>
-
-          <p-button small @click="close">
-            Close
-          </p-button>
+        <template #level-1>
+          <Level1 />
         </template>
 
-        <template #level-2-content="{ close }">
+        <template #level-2="{ close }">
           level 2
 
           <p-button small @click="close">
@@ -53,6 +46,8 @@
 <script lang="ts" setup>
   import { PCascadePanels } from '@/components'
   import { CascadePanel, useCascadePanels } from '@/compositions'
+  import Level0 from '@/demo/components/cascade/Level0.vue'
+  import Level1 from '@/demo/components/cascade/Level1.vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
   const panels: CascadePanel[] = [
@@ -70,5 +65,5 @@
     },
   ]
 
-  const { values, toggle, openPanelById } = useCascadePanels(panels)
+  const { values, toggle, state, isOpen } = useCascadePanels(panels)
 </script>

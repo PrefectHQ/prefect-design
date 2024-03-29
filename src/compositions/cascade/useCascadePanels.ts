@@ -1,4 +1,4 @@
-import { computed, ComputedRef, inject, InjectionKey, MaybeRefOrGetter, provide, reactive, readonly, Ref, ref, toRef, toValue, UnwrapNestedRefs } from 'vue'
+import { computed, ComputedRef, inject, InjectionKey, MaybeRefOrGetter, provide, reactive, readonly, Ref, ref, toRef, UnwrapNestedRefs } from 'vue'
 import { isDefined } from '@/utilities'
 
 export const cascadePanelsKey: InjectionKey<UseCascadePanels> = Symbol('UseCascadePanels')
@@ -28,6 +28,7 @@ export type UseCascadePanels = {
   empty: ComputedRef<boolean>,
   state: Readonly<CascadeState>,
   isOpen: Ref<boolean>,
+  panelIsOpen: ComputedRef<(id: CascadePanelId) => boolean>,
   getPanelById: (id: CascadePanelId) => CascadePanel | undefined,
   openPanelById: (id: CascadePanelId) => void,
   closePanelById: (id: CascadePanelId) => void,
@@ -60,13 +61,22 @@ export type UseCascadePanels = {
  *   - `closeAll`: Function to close all panels.
  *   - `close`, `open`, `toggle`: Functions to control the overall cascade state.
  */
-export function useCascadePanels(panelsRefOrGetter: MaybeRefOrGetter<CascadePanel[]>, initialValues?: CascadeValue): UseCascadePanels {
+export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePanel[]>, initialValues?: CascadeValue): UseCascadePanels {
+  if (!panelsRefOrGetter) {
+    try {
+      return getInjectedCascadePanels()
+    } catch {
+      throw new Error('No panels were provided; and no cascade panel context was found. Are you sure the component calling useCascadePanels() exists within a <p-cascade> component context?')
+    }
+  }
+
   const panels = toRef(panelsRefOrGetter)
   const values = reactive<CascadeValue>({ ...initialValues })
   const state = reactive<CascadeState>(Object.fromEntries(panels.value.map((panel) => [panel.id, false])))
   const isOpen = ref(false)
   const empty = computed(() => Object.values(values).every((value) => !isDefined(value)))
   const openPanels = computed(() => panels.value.filter((panel) => state[panel.id]))
+  const panelIsOpen = computed(() => (id: CascadePanelId) => state[id])
 
   function closePanelsAtOrAboveLevel(level?: number): void {
     const panelsAtLevel = panels.value.filter((panel) => panel.level === level)
@@ -183,6 +193,7 @@ export function useCascadePanels(panelsRefOrGetter: MaybeRefOrGetter<CascadePane
     empty,
     openPanels,
     isOpen,
+    panelIsOpen,
     state: readonly(state),
     setValue,
     unsetValue,

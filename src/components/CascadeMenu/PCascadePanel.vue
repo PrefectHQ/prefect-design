@@ -1,25 +1,17 @@
 <template>
-  <PCard v-if="isOpen" class="p-cascade-panel">
-    <slot v-bind="{ ...panel }" />
-  </PCard>
+  <div class="p-cascade-panel">
+    <slot v-bind="panel" />
+  </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  import { PCard } from '@/components'
-  import { useCascadePanel, CascadePanelId } from '@/compositions'
+  import { provide } from 'vue'
+  import { useCascadePanel, CascadePanelId, cascadePanelKey } from '@/compositions'
 
   const props = defineProps<{
     panelId: CascadePanelId,
   }>()
 
   const panel = useCascadePanel(() => props.panelId)
-  const isOpen = computed(() => panel.isOpen.value)
+  provide(cascadePanelKey, panel)
 </script>
-
-<style>
-.p-cascade-panel { @apply
-  flex
-  w-min
-}
-</style>
