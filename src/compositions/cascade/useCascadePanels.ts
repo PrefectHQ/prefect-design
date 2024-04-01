@@ -42,9 +42,10 @@ export type UseCascadePanels = {
  * @param {CascadePanel[]} panelsRefOrGetter - Initial array of panel definitions.
  * @returns {UseCascadePanels} - An object including:
  *   - `openPanels`: Computed array of open panels.
- *   - `isOpen`: Ref boolean indicating whether the cascade panel group is open.
- *   - `getPanelById`: Function to get a panel by id.
  *   - `state`: Readonly object tracking the open/close state of each panel by id.
+ *   - `isOpen`: Ref boolean indicating whether the cascade panel group is open.
+ *   - `panelIsOpen`: Computed function to check if a panel is open by id.
+ *   - `getPanelById`: Function to get a panel by id.
  *   - `openPanelById`: Function to open a panel by id.
  *   - `closePanelById`: Function to close a panel by id.
  *   - `togglePanelById`: Function to toggle the open state of a panel by id.
@@ -84,13 +85,11 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
     const panel = getPanelById(id)
 
     if (!panel) {
-      console.warn(`Panel with id "${String(id)}" not found.`)
       return
     }
 
     closePanelsAtOrAboveLevel(panel.level)
     state[id] = true
-    console.trace(panel, state[id])
 
     if (!isOpen.value) {
       open()
