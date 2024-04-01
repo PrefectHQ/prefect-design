@@ -7,7 +7,11 @@
         p-cascade-panel
       </p-code> components; they operate similarly to the <p-code inline>
         p-wizard
-      </p-code> component. Both components are relatively straightforward, but they can be used to create complex cascading menus; most of the magic happens in the `useCascadePanels` and `useCascadePanel` compositions.
+      </p-code> component. Both components are relatively straightforward, but they can be used to create complex cascading menus; most of the magic happens in the <p-code inline>
+        useCascadePanels
+      </p-code> and <p-code inline>
+        useCascadePanel
+      </p-code> compositions.
     </template>
 
     <template #basic>
