@@ -69,11 +69,6 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
 
   function closePanelsAtOrAboveLevel(level?: number): void {
     const panelsAtLevel = panels.value.filter((panel) => panel.level === level)
-
-    if (panelsAtLevel.length === 0) {
-      return
-    }
-
     panelsAtLevel.map((panel) => panel.id).forEach(closePanelById)
   }
 
@@ -85,6 +80,7 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
     const panel = getPanelById(id)
 
     if (!panel) {
+      console.warn(`Panel with id "${String(id)}" not found.`)
       return
     }
 
@@ -100,6 +96,7 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
     const panel = getPanelById(id)
 
     if (!panel) {
+      console.warn(`Panel with id "${String(id)}" not found.`)
       return
     }
 
