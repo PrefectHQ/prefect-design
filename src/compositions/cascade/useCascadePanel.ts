@@ -1,4 +1,4 @@
-import { computed, inject, InjectionKey, MaybeRefOrGetter, provide, Ref, toRef } from 'vue'
+import { computed, inject, InjectionKey, provide, Ref } from 'vue'
 import { CascadePanelId, getInjectedCascadePanels } from '@/compositions'
 
 export const cascadePanelKey: InjectionKey<UseCascadePanel> = Symbol('UseCascadePanel')
@@ -20,25 +20,25 @@ function getInjectedPanel(): UseCascadePanel {
   return cascadePanel
 }
 
-export function useCascadePanel(id?: MaybeRefOrGetter<CascadePanelId>): UseCascadePanel {
+export function useCascadePanel(id?: CascadePanelId): UseCascadePanel {
   if (!id) {
     return getInjectedPanel()
   }
 
   const { closePanelById, openPanelById, togglePanelById, panelIsOpen: globalPanelIsOpen } = getInjectedCascadePanels()
-  const panelId = toRef(id)
-  const isOpen = computed(() => globalPanelIsOpen.value(panelId.value))
+  const isOpen = computed(() => globalPanelIsOpen.value(panelId))
+  const panelId = id
 
   function close(): void {
-    closePanelById(panelId.value)
+    closePanelById(panelId)
   }
 
   function open(): void {
-    openPanelById(panelId.value)
+    openPanelById(panelId)
   }
 
   function toggle(): void {
-    togglePanelById(panelId.value)
+    togglePanelById(panelId)
   }
 
   const cascadePanel: UseCascadePanel = {
