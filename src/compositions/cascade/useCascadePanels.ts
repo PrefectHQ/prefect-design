@@ -62,7 +62,7 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
   }
 
   const panels = toRef(panelsRefOrGetter)
-  const state = reactive<CascadeState>(Object.fromEntries(panels.value.map((panel) => [panel.id, false])))
+  const state = reactive<CascadeState>({})
   const isOpen = ref(false)
   const openPanels = computed(() => panels.value.filter((panel) => state[panel.id]))
   const panelIsOpen = computed(() => (id: CascadePanelId) => state[id])
