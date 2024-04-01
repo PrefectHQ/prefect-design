@@ -41,7 +41,7 @@
   import { PCascadePanels } from '@/components'
   import { CascadePanel, useCascadePanels } from '@/compositions'
   import { positions } from '@/utilities'
-  import { computed, ref, watchEffect } from 'vue'
+  import { computed, ref, watch, watchEffect } from 'vue'
   import Borders from '@/demo/components/cascade/Borders.vue'
   import Continents from '@/demo/components/cascade/Continents.vue'
   import Countries from '@/demo/components/cascade/Countries.vue'
@@ -72,15 +72,17 @@
   const emptyCountry = computed(() => !country.value)
   const emptyBorders = computed(() => !borders.value.length)
 
-  watchEffect(() => {
-    if (continent.value) {
+  watch(() => continent.value, (value) => {
+    if (value) {
       openPanelById('countries')
     } else {
+      country.value = undefined
       closePanelById('countries')
     }
+  })
 
-    if (country.value) {
-      borders.value = []
+  watch(() => country.value, (value) => {
+    if (value) {
       openPanelById('borders')
     } else {
       borders.value = []

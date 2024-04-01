@@ -75,10 +75,6 @@
   transform-origin: center;
 }
 
-.p-cascade-panels__panel-transition-leave-active { @apply
-  absolute
-}
-
 .p-cascade-panels__panel-transition-enter-from,
 .p-cascade-panels__panel-transition-leave-to {
   opacity: 0;
