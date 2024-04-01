@@ -5,15 +5,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { provide } from 'vue'
-  import { useCascadePanel, CascadePanelId, cascadePanelKey } from '@/compositions'
+  import { useCascadePanel, CascadePanelId } from '@/compositions'
 
   const props = defineProps<{
     panelId: CascadePanelId,
   }>()
 
   const panel = useCascadePanel(() => props.panelId)
-  provide(cascadePanelKey, panel)
 </script>
 
 <style>
