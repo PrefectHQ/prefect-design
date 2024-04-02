@@ -114,7 +114,7 @@
 
   function toggleValue(newValue: SelectModelValue): void {
     if (Array.isArray(internalValue.value)) {
-      toggleArrayValue(internalValue.value, newValue)
+      internalValue.value = toggleArrayValue(internalValue.value, newValue)
       return
     }
 
@@ -144,6 +144,7 @@
         break
       case keys.space:
       case keys.enter:
+        debugger
         if (isUnselected(highlightedValue.value)) {
           return
         }
