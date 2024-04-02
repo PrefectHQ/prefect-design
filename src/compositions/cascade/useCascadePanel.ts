@@ -37,8 +37,8 @@ export function useCascadePanel(id?: MaybeRefOrGetter<CascadePanelId>): UseCasca
   }
 
   const panelId = toValue(id)
-  const { closePanelById, openPanelById, togglePanelById, panelIsOpen: globalPanelIsOpen } = getInjectedCascadePanels()
-  const isOpen = computed(() => globalPanelIsOpen.value(panelId))
+  const { closePanelById, openPanelById, togglePanelById, getPanelIsOpenById } = getInjectedCascadePanels()
+  const isOpen = computed(() => getPanelIsOpenById(panelId))
 
   function close(): void {
     closePanelById(panelId)

@@ -3,7 +3,7 @@
     <div v-show="isOpen" class="p-cascade-panels">
       <template v-for="{ id } in panels" :key="id">
         <transition-group :name="panelTransitionName">
-          <PCascadePanel v-show="panelIsOpen(id)" :key="id" :panel-id="id" class="p-cascade-panels__panel">
+          <PCascadePanel v-show="getPanelIsOpenById(id)" :key="id" :panel-id="id" class="p-cascade-panels__panel">
             <template #default="panel">
               <slot :name="`${getBaseSlotName(id)}`" v-bind="panel">
                 {{ getBaseSlotName(id) }}
@@ -43,7 +43,7 @@
     open,
     openPanelById,
     openPanels,
-    panelIsOpen,
+    getPanelIsOpenById,
     toggle,
     togglePanelById,
   } = inject(cascadePanelsKey, undefined) ?? useCascadePanels(() => props.panels)
@@ -57,7 +57,7 @@
     open,
     openPanelById,
     openPanels,
-    panelIsOpen,
+    getPanelIsOpenById,
     toggle,
     togglePanelById,
   })

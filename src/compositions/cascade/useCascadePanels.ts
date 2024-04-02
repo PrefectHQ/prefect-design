@@ -27,8 +27,8 @@ export type UseCascadePanels = {
   openPanels: ComputedRef<CascadePanel[]>,
   state: Readonly<CascadeState>,
   isOpen: Ref<boolean>,
-  panelIsOpen: ComputedRef<(id: CascadePanelId) => boolean>,
   getPanelById: (id: CascadePanelId) => CascadePanel | undefined,
+  getPanelIsOpenById: (id: CascadePanelId) => boolean,
   openPanelById: (id: CascadePanelId) => void,
   closePanelById: (id: CascadePanelId) => void,
   togglePanelById: (id: CascadePanelId) => void,
@@ -46,7 +46,7 @@ export type UseCascadePanels = {
  *   - `openPanels`: Computed array of open panels.
  *   - `state`: Readonly object tracking the open/close state of each panel by id.
  *   - `isOpen`: Ref boolean indicating whether the cascade panel group is open.
- *   - `panelIsOpen`: Computed function to check if a panel is open by id.
+ *   - `getPanelIsOpenById`: Function to get the open state of a panel by id.
  *   - `getPanelById`: Function to get a panel by id.
  *   - `openPanelById`: Function to open a panel by id.
  *   - `closePanelById`: Function to close a panel by id.
@@ -67,11 +67,14 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
   const state = reactive<CascadeState>({})
   const isOpen = ref(false)
   const openPanels = computed(() => panels.value.filter((panel) => state[panel.id]))
-  const panelIsOpen = computed(() => (id: CascadePanelId) => state[id])
 
   function closePanelsAtOrAboveLevel(level?: number): void {
     const panelsAtLevel = panels.value.filter((panel) => panel.level === level)
     panelsAtLevel.map((panel) => panel.id).forEach(closePanelById)
+  }
+
+  function getPanelIsOpenById(id: CascadePanelId): boolean {
+    return state[id]
   }
 
   function getPanelById(id: CascadePanelId): CascadePanel | undefined {
@@ -159,8 +162,8 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
   const cascadePanels: UseCascadePanels = {
     openPanels,
     isOpen,
-    panelIsOpen,
     state: readonly(state),
+    getPanelIsOpenById,
     getPanelById,
     openPanelById,
     closePanelById,
