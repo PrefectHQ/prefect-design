@@ -1,6 +1,6 @@
 <template>
-  <p-context-menu :placement="[positions.bottomLeft]" disable-close-on-menu-click class="advanced-demo">
-    <template #target="{ toggle }">
+  <div class="advanced-demo">
+    <div ref="target">
       <p-label label="Region">
         <p-button class="advanced-demo__target" small icon-append="ChevronDownIcon" @click.stop="toggle">
           <span v-if="emptyContinent" class="advanced-demo__placeholder">Select a continent to begin</span>
@@ -19,29 +19,37 @@
           </template>
         </p-button>
       </p-label>
-    </template>
 
-    <PCascadePanels :panels="panels" class="advanced-demo__panels">
-      <template #continents>
-        <Continents v-model:value="continent" class="advanced-demo__panel" />
-      </template>
+      <teleport to="body">
+        <div ref="content" :style="styles">
+          <PCascadePanels :panels="panels" class="advanced-demo__panels">
+            <template #continents>
+              <Continents v-model:value="continent" class="advanced-demo__panel" />
+            </template>
 
-      <template #countries>
-        <Countries v-model:value="country" v-model:continent="continent" class="advanced-demo__panel" />
-      </template>
+            <template #countries>
+              <Countries v-model:value="country" v-model:continent="continent" class="advanced-demo__panel" />
+            </template>
 
-      <template #borders>
-        <Borders v-model:value="borders" v-model:country="country" class="advanced-demo__panel" />
-      </template>
-    </PCascadePanels>
-  </p-context-menu>
+            <template #borders>
+              <keep-alive>
+                <Borders v-model:value="borders" v-model:country="country" class="advanced-demo__panel" />
+              </keep-alive>
+            </template>
+          </PCascadePanels>
+        </div>
+      </teleport>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
   import { PCascadePanels } from '@/components'
-  import { CascadePanel, useCascadePanels } from '@/compositions'
+  import { CascadePanel, useCascadePanels, useMostVisiblePositionStyles } from '@/compositions'
+  import { keys } from '@/types'
   import { positions } from '@/utilities'
-  import { computed, ref, watch, watchEffect } from 'vue'
+  import { useKeyDown } from '@prefecthq/vue-compositions'
+  import { computed, ref, watch } from 'vue'
   import Borders from '@/demo/components/cascade/Borders.vue'
   import Continents from '@/demo/components/cascade/Continents.vue'
   import Countries from '@/demo/components/cascade/Countries.vue'
@@ -65,8 +73,11 @@
     },
   ]
 
-  const { open, openPanelById, closePanelById } = useCascadePanels(panels)
-  open()
+  const { openPanelById, closePanelById, toggle, close } = useCascadePanels(panels)
+
+  const placement = ref([positions.bottomLeft])
+  const { styles, target, container, content } = useMostVisiblePositionStyles(placement)
+  container.value = document.body
 
   const emptyContinent = computed(() => !continent.value)
   const emptyCountry = computed(() => !country.value)
@@ -89,6 +100,8 @@
       closePanelById('borders')
     }
   })
+
+  useKeyDown(keys.escape, close)
 </script>
 
 <style>

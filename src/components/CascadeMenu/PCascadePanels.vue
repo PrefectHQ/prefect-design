@@ -1,17 +1,19 @@
 <template>
-  <div v-show="isOpen" class="p-cascade-panels">
-    <template v-for="{ id } in panels" :key="id">
-      <transition name="p-cascade-panels__panel-transition" tag="keep-alive">
-        <PCascadePanel v-show="panelIsOpen(id)" :panel-id="id" class="p-cascade-panels__panel">
-          <template #default="panel">
-            <slot :name="`${getBaseSlotName(id)}`" v-bind="panel">
-              {{ getBaseSlotName(id) }}
-            </slot>
-          </template>
-        </PCascadePanel>
-      </transition>
-    </template>
-  </div>
+  <transition :name="transitionName">
+    <div v-show="isOpen" class="p-cascade-panels">
+      <template v-for="{ id } in panels" :key="id">
+        <transition-group :name="panelTransitionName">
+          <PCascadePanel v-show="panelIsOpen(id)" :key="id" :panel-id="id" class="p-cascade-panels__panel">
+            <template #default="panel">
+              <slot :name="`${getBaseSlotName(id)}`" v-bind="panel">
+                {{ getBaseSlotName(id) }}
+              </slot>
+            </template>
+          </PCascadePanel>
+        </transition-group>
+      </template>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -20,9 +22,14 @@
   import { CascadePanel, CascadePanelId, cascadePanelsKey, useCascadePanels } from '@/compositions'
   import { kebabCase } from '@/utilities'
 
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     panels: CascadePanel[],
-  }>()
+    panelTransitionName?: string,
+    transitionName?: string,
+  }>(), {
+    panelTransitionName: 'p-cascade-panels__panel-transition',
+    transitionName: 'p-cascade-panels__transition',
+  })
 
   // Calling inject with a nullish coallescing operator while providing a default value of
   // undefined allows callers to use the `useCascadePanels` composition function while
@@ -63,12 +70,23 @@
 <style>
 .p-cascade-panels { @apply
   flex
+  flex-wrap
   gap-2
   pointer-events-none
   items-start
 }
 
-.p-cascade-panels__panel-transition-move,
+.p-cascade-panels__transition-enter-active,
+.p-cascade-panels__transition-leave-active {
+  transition: all 0.15s ease-in-out;
+}
+
+.p-cascade-panels__transition-enter-from,
+.p-cascade-panels__transition-leave-to {
+  opacity: 0;
+  z-index: 0;
+}
+
 .p-cascade-panels__panel-transition-enter-active,
 .p-cascade-panels__panel-transition-leave-active {
   transition: all 0.15s ease-in;

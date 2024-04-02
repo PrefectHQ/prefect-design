@@ -10,14 +10,12 @@
       </div>
 
       <div v-else class="borders__content">
-        <p-virtual-scroller :items="items" class="borders__scroller">
-          <template #default="{ item: { border } }">
-            <p-overflow-menu-item class="borders__item" :class="classes.border(border)" @click="toggle(border)">
-              {{ border }}
-              <p-icon v-if="value.includes(border)" size="small" icon="CheckIcon" class="ml-auto" />
-            </p-overflow-menu-item>
-          </template>
-        </p-virtual-scroller>
+        <template v-for="border in filteredborders" :key="border">
+          <p-overflow-menu-item class="borders__item" :class="classes.border(border)" @click="toggle(border)">
+            {{ border }}
+            <p-icon v-if="value.includes(border)" size="small" icon="CheckIcon" class="ml-auto" />
+          </p-overflow-menu-item>
+        </template>
       </div>
     </transition>
   </p-card>
@@ -75,12 +73,6 @@
     return borders.value.filter(border => border.toLowerCase().includes(search.value.toLowerCase()))
   })
 
-  const items = computed(() => {
-    return filteredborders.value.map((border) => ({
-      border,
-    }))
-  })
-
   const classes = computed(() => ({
     border: (border: string) => ({
       'p-overflow-menu-item--active': value.value.includes(border),
@@ -102,7 +94,6 @@
   px-0
   flex
   flex-col
-  min-h-56
   min-w-64
 }
 
@@ -123,8 +114,8 @@
 }
 
 .borders__content { @apply
-  overflow-hidden
-  max-h-96
+  overflow-y-auto
+  max-h-64
   px-4
   grow
   relative
@@ -133,11 +124,6 @@
 .borders__close { @apply
   ml-auto
   text-subdued
-}
-
-.borders__scroller { @apply
-  overflow-y-auto
-  max-h-96
 }
 
 .borders__loading-icon { @apply
