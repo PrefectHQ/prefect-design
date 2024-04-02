@@ -25,6 +25,7 @@ function getInjectedCascadePanels(): UseCascadePanels {
 
 export type UseCascadePanels = {
   openPanels: ComputedRef<CascadePanel[]>,
+  panels: Ref<CascadePanel[]>,
   state: Readonly<CascadeState>,
   isOpen: Ref<boolean>,
   getPanelById: (id: CascadePanelId) => CascadePanel | undefined,
@@ -43,6 +44,7 @@ export type UseCascadePanels = {
  *
  * @param {CascadePanel[]} panelsRefOrGetter - Initial array of panel definitions.
  * @returns {UseCascadePanels} - An object including:
+ *   - `panels`: Ref array of panel definitions.
  *   - `openPanels`: Computed array of open panels.
  *   - `state`: Readonly object tracking the open/close state of each panel by id.
  *   - `isOpen`: Ref boolean indicating whether the cascade panel group is open.
@@ -160,6 +162,7 @@ export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePan
   }
 
   const cascadePanels: UseCascadePanels = {
+    panels,
     openPanels,
     isOpen,
     state: readonly(state),

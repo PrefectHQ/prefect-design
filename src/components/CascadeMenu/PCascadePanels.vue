@@ -20,7 +20,7 @@
   import { inject } from 'vue'
   import { PCascadePanel } from '@/components'
   import { CascadePanel, CascadePanelId, cascadePanelsKey, useCascadePanels } from '@/compositions'
-  import { kebabCase } from '@/utilities'
+  import { isDefined, kebabCase } from '@/utilities'
 
   const props = withDefaults(defineProps<{
     panels: CascadePanel[],
@@ -31,40 +31,48 @@
     transitionName: 'p-cascade-panels__transition',
   })
 
-  // Calling inject with a nullish coallescing operator while providing a default value of
+  function getBaseSlotName(panelId: CascadePanelId): string {
+    return `${kebabCase(panelId.toString())}`
+  }
+
+  // Calling inject while providing a default value of
   // undefined allows callers to use the `useCascadePanels` composition function while
   // ensuring that the composition state is the same.
+  const injectedCascadePanels = inject(cascadePanelsKey, undefined)
+
+  const useInjectedCascadePanels = isDefined(injectedCascadePanels)
+    && injectedCascadePanels.panels.value.every((panel) => props.panels.find(({ id }) => id === panel.id))
+    && props.panels.every((panel) => injectedCascadePanels.panels.value.find(({ id }) => id === panel.id))
+
   const {
     close,
     closeAll,
     closePanelById,
     getPanelById,
+    getPanelIsOpenById,
     isOpen,
     open,
     openPanelById,
     openPanels,
-    getPanelIsOpenById,
+    panels,
     toggle,
     togglePanelById,
-  } = inject(cascadePanelsKey, undefined) ?? useCascadePanels(() => props.panels)
+  } = useInjectedCascadePanels ? injectedCascadePanels : useCascadePanels(() => props.panels)
 
   defineExpose({
     close,
     closeAll,
     closePanelById,
     getPanelById,
+    getPanelIsOpenById,
     isOpen,
     open,
     openPanelById,
     openPanels,
-    getPanelIsOpenById,
+    panels,
     toggle,
     togglePanelById,
   })
-
-  function getBaseSlotName(panelId: CascadePanelId): string {
-    return `${kebabCase(panelId.toString())}`
-  }
 </script>
 
 <style>
