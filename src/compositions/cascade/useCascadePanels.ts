@@ -11,7 +11,7 @@ export type CascadePanel = {
   level?: number,
 }
 
-export function getInjectedCascadePanels(): UseCascadePanels {
+export function useInjectedCascadePanels(): UseCascadePanels {
   const cascadePanels = inject(cascadePanelsKey)
 
   if (!cascadePanels) {
@@ -55,7 +55,7 @@ export type UseCascadePanels = {
 export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePanel[]>): UseCascadePanels {
   if (!panelsRefOrGetter) {
     try {
-      return getInjectedCascadePanels()
+      return useInjectedCascadePanels()
     } catch {
       throw new Error('No panels were provided; and no cascade panel context was found. Are you sure the component calling useCascadePanels() exists within a <p-cascade> component context?')
     }
