@@ -106,11 +106,9 @@
 </script>
 
 <style>
-  .combobox__demo {
-    @apply
-    h-80
-    flex
-    flex-col
-    gap-4
-  }
+.combobox__demo { @apply
+  flex
+  flex-col
+  gap-4
+}
 </style>

@@ -114,7 +114,7 @@
 
   function toggleValue(newValue: SelectModelValue): void {
     if (Array.isArray(internalValue.value)) {
-      toggleArrayValue(internalValue.value, newValue)
+      internalValue.value = toggleArrayValue(internalValue.value, newValue)
       return
     }
 
