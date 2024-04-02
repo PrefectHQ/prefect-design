@@ -144,7 +144,6 @@
         break
       case keys.space:
       case keys.enter:
-        debugger
         if (isUnselected(highlightedValue.value)) {
           return
         }
