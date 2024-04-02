@@ -1,4 +1,5 @@
 import { computed, ComputedRef, inject, InjectionKey, MaybeRefOrGetter, provide, reactive, readonly, Ref, ref, toRef } from 'vue'
+import { CascadePanelsNotFound, PanelsNotProvided } from '@/models/cascade'
 import { isDefined } from '@/utilities'
 
 export const cascadePanelsKey: InjectionKey<UseCascadePanels> = Symbol('UseCascadePanels')
@@ -11,15 +12,16 @@ export type CascadePanel = {
   level?: number,
 }
 
-export function useInjectedCascadePanels(): UseCascadePanels {
+function getInjectedCascadePanels(): UseCascadePanels {
   const cascadePanels = inject(cascadePanelsKey)
 
   if (!cascadePanels) {
-    throw new Error('Cascade panels not found. Are you sure the component calling useCascadePanels() exists within a <p-cascade> component context?')
+    throw new CascadePanelsNotFound()
   }
 
   return cascadePanels
 }
+
 
 export type UseCascadePanels = {
   openPanels: ComputedRef<CascadePanel[]>,
@@ -55,9 +57,9 @@ export type UseCascadePanels = {
 export function useCascadePanels(panelsRefOrGetter?: MaybeRefOrGetter<CascadePanel[]>): UseCascadePanels {
   if (!panelsRefOrGetter) {
     try {
-      return useInjectedCascadePanels()
+      return getInjectedCascadePanels()
     } catch {
-      throw new Error('No panels were provided; and no cascade panel context was found. Are you sure the component calling useCascadePanels() exists within a <p-cascade> component context?')
+      throw new PanelsNotProvided()
     }
   }
 

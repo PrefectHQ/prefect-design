@@ -1,5 +1,6 @@
 import { computed, inject, InjectionKey, MaybeRefOrGetter, provide, Ref, toValue } from 'vue'
-import { CascadePanelId, useInjectedCascadePanels } from '@/compositions'
+import { CascadePanelId, cascadePanelsKey, UseCascadePanels } from '@/compositions'
+import { CascadePanelNotFound, CascadePanelsNotFound } from '@/models/cascade'
 
 export const cascadePanelKey: InjectionKey<UseCascadePanel> = Symbol('UseCascadePanel')
 
@@ -10,23 +11,33 @@ export type UseCascadePanel = {
   toggle: () => void,
 }
 
-function getInjectedPanel(): UseCascadePanel {
-  const cascadePanel = inject(cascadePanelKey)
+function getInjectedCascadePanels(): UseCascadePanels {
+  const cascadePanels = inject(cascadePanelsKey)
 
-  if (!cascadePanel) {
-    throw new Error('Cascade panel not found. Are you sure the component calling useCascadePanel() exists within a <p-cascade-panel> component context?')
+  if (!cascadePanels) {
+    throw new CascadePanelsNotFound()
   }
 
-  return cascadePanel
+  return cascadePanels
+}
+
+function getInjectedCascadePanel(): UseCascadePanel {
+  const cascadePanels = inject(cascadePanelKey)
+
+  if (!cascadePanels) {
+    throw new CascadePanelNotFound()
+  }
+
+  return cascadePanels
 }
 
 export function useCascadePanel(id?: MaybeRefOrGetter<CascadePanelId>): UseCascadePanel {
   if (!id) {
-    return getInjectedPanel()
+    return getInjectedCascadePanel()
   }
 
   const panelId = toValue(id)
-  const { closePanelById, openPanelById, togglePanelById, panelIsOpen: globalPanelIsOpen } = useInjectedCascadePanels()
+  const { closePanelById, openPanelById, togglePanelById, panelIsOpen: globalPanelIsOpen } = getInjectedCascadePanels()
   const isOpen = computed(() => globalPanelIsOpen.value(panelId))
 
   function close(): void {
