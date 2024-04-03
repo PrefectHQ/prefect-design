@@ -4,11 +4,9 @@
       <template v-for="{ id } in panels" :key="id">
         <transition-group :name="panelTransitionName">
           <PCascadePanel v-show="getPanelIsOpenById(id)" :key="id" :panel-id="id" class="p-cascade-panels__panel">
-            <template #default="panel">
-              <slot :name="`${getBaseSlotName(id)}`" v-bind="panel">
-                {{ getBaseSlotName(id) }}
-              </slot>
-            </template>
+            <slot :name="`${getBaseSlotName(id)}`">
+              {{ getBaseSlotName(id) }}
+            </slot>
           </PCascadePanel>
         </transition-group>
       </template>

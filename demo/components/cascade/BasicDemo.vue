@@ -12,10 +12,10 @@
       <Level1 />
     </template>
 
-    <template #level-2="{ close }">
+    <template #level-2>
       No component for level-2 but we can still access the panel state
 
-      <p-button small @click="close">
+      <p-button small @click="closePanelById('level-2')">
         Close
       </p-button>
     </template>
@@ -43,5 +43,5 @@
     },
   ]
 
-  const { toggle } = useCascadePanels(panels)
+  const { toggle, closePanelById } = useCascadePanels(panels)
 </script>

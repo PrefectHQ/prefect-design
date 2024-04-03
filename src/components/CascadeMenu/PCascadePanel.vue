@@ -1,6 +1,6 @@
 <template>
   <div class="p-cascade-panel">
-    <slot v-bind="panel" />
+    <slot />
   </div>
 </template>
 
@@ -11,7 +11,7 @@
     panelId: CascadePanelId,
   }>()
 
-  const panel = useCascadePanel(() => props.panelId)
+  useCascadePanel(() => props.panelId)
 </script>
 
 <style>
