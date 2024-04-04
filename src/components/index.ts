@@ -318,6 +318,7 @@ declare module '@vue/runtime-core' {
     PContextDivider: typeof PContextDivider,
     PContextNavItem: typeof PContextNavItem,
     PContextSidebar: typeof PContextSidebar,
+    PContextMenu: typeof PContextMenu,
     PDateInput: typeof PDateInput,
     PDatePicker: typeof PDatePicker,
     PDateRangeInput: typeof PDateRangeInput,
