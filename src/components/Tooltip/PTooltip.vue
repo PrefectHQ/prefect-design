@@ -107,5 +107,6 @@
   shadow
   dark:shadow-md
   max-w-xs
+  break-words
 }
 </style>
