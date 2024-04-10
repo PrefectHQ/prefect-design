@@ -12,13 +12,15 @@
 
 
     <div ref="overflowTag" class="p-tag-wrapper__tag-overflow" :class="classes.overflowTag">
-      <PTooltip :text="hiddenText">
-        <slot name="overflow-tags" :overflowed-children="overflowCount">
-          <PTag>
-            +{{ overflowCount }}
-          </PTag>
-        </slot>
-      </PTooltip>
+      <slot name="overflow" v-bind="{ hiddenText, overflowCount }">
+        <PTooltip :text="hiddenText">
+          <slot name="overflow-tags" :overflowed-children="overflowCount">
+            <PTag>
+              +{{ overflowCount }}
+            </PTag>
+          </slot>
+        </PTooltip>
+      </slot>
     </div>
   </div>
 </template>
