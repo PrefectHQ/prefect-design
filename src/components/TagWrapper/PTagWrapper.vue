@@ -131,18 +131,17 @@
       }
     }
 
-    overflowing = overflowCount.value > 0 && elementOverflowsContainer(overflowTag.value, container.value)
-
-
     if (overflowCount.value > 0) {
       setTagVisibility(overflowTag.value!, 'visible')
     } else {
       setTagVisibility(overflowTag.value!, 'hidden')
     }
 
-    if (overflowing) {
+    let overflowTagOverflowing = overflowCount.value > 0 && elementOverflowsContainer(overflowTag.value, container.value)
+
+    if (overflowTagOverflowing) {
       tagsArr = Array.from(container.value.children).filter(tag => !tag.isEqualNode(overflowTag.value!) && !tag.classList.contains(hiddenTagClass)) as HTMLElement[]
-      while (overflowing) {
+      while (overflowTagOverflowing) {
         const tag = tagsArr.pop()
 
         if (!tag) {
@@ -156,7 +155,7 @@
           hiddenTags.push(tag.textContent)
         }
 
-        overflowing = elementOverflowsContainer(overflowTag.value, container.value)
+        overflowTagOverflowing = elementOverflowsContainer(overflowTag.value, container.value)
       }
     }
 
