@@ -197,7 +197,7 @@
     const computedContainerStyle = getComputedStyle(container.value)
     const computedContainerGap = computedContainerStyle.getPropertyValue('column-gap')
     const containerGap = parseFloat(computedContainerGap)
-    const padding = isNaN(containerGap) ? 0 : tags.length * containerGap
+    const padding = isNaN(containerGap) ? 0 : (tags.length - 1) * containerGap
 
     const tagsWidthWithPadding = totalTagsWidth + padding
     container.value.style.width = `${tagsWidthWithPadding}px`
@@ -243,6 +243,7 @@
   items-center
   box-content
   overflow-hidden
+  gap-1
 }
 
 .p-tag-wrapper--invisible {
