@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { throttle } from 'lodash'
   import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTooltip from '@/components/Tooltip/PTooltip.vue'
@@ -69,71 +70,97 @@
   let resizeObserver: ResizeObserver | null = null
   const isOverflowing = computed(() => overflowCount.value > 0)
 
+  const elementOverflowsContainer = (element: HTMLElement, container: HTMLElement): boolean => {
+    const { left, right } = element.getBoundingClientRect()
+    const { left: containerLeft, right: containerRight } = container.getBoundingClientRect()
+
+    if (props.justify === 'right') {
+      return left < containerLeft
+    }
+
+    if (props.justify === 'center') {
+      return left < containerLeft || right > containerRight
+    }
+
+    return right > containerRight
+  }
+
   const calculateOverflow = (): void => {
-    if (!container.value) {
+    if (!container.value || !overflowTag.value) {
       return
     }
 
     overflowCount.value = 0
     hiddenText.value = ''
 
-    const hiddenTags = []
-    const tags = Array.from(container.value.children)
-      .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow')) as HTMLElement[]
+    const hiddenTags: string[] = []
+    const internalTags = Array.from(container.value.children) as HTMLElement[]
+    const internalTagsWithoutOverflow = internalTags.filter(tag => !tag.isEqualNode(overflowTag.value!))
+    setAllTagsInvisible(internalTags)
 
-    setTagVisibility(overflowTag.value!, 'hidden')
-
-    setAllTagsInvisible(tags)
+    let tagsArr = props.justify === 'right' ? internalTags.slice().reverse() : internalTags.slice()
 
     if (props.inline) {
-      setInlineContainerWidth(tags)
+      setInlineContainerWidth(internalTagsWithoutOverflow)
     }
 
-    const containerRightEdge = container.value.getBoundingClientRect().right
+    let overflowing = false
 
-    tags.forEach(tag => {
-      const { right } = tag.getBoundingClientRect()
+    while (tagsArr.length > 0) {
+      const tag = tagsArr.pop()
 
-      if (right > containerRightEdge || overflowCount.value > 0) {
+      if (!tag) {
+        break
+      }
+
+      overflowing = elementOverflowsContainer(tag, container.value)
+
+      if (overflowing && !tag.isEqualNode(overflowTag.value)) {
         setTagVisibility(tag, 'hidden')
         overflowCount.value++
+
         if (tag.textContent) {
           hiddenTags.push(tag.textContent)
         }
-        return
+      } else {
+        setTagVisibility(tag, 'visible')
       }
 
-      setTagVisibility(tag, 'visible')
-    })
-
-    if (overflowCount.value > 0) {
-      setTagVisibility(overflowTag.value!, 'visible')
-
-      const {
-        right: overflowTagRight,
-        width: overflowTagWidth,
-      } = overflowTag.value!.getBoundingClientRect()
-
-      if (overflowTagRight > containerRightEdge) {
-        const visibleTags = tags.filter(child => !child.classList.contains(hiddenTagClass)).reverse()
-
-        for (const tag of visibleTags) {
-          const { right } = tag.getBoundingClientRect()
-
-          if (right + overflowTagWidth < containerRightEdge) {
-            break
-          }
-
-          overflowCount.value++
-          setTagVisibility(tag, 'hidden')
-          if (tag.textContent) {
-            hiddenTags.unshift(tag.textContent)
-          }
-        }
+      if (overflowCount.value >= internalTags.length - 1) {
+        break
       }
     }
 
-    hiddenText.value = hiddenTags.join(', ')
+    if (overflowCount.value > 0) {
+      setTagVisibility(overflowTag.value!, 'visible')
+    } else {
+      setTagVisibility(overflowTag.value!, 'hidden')
+    }
+
+    let overflowTagOverflowing = overflowCount.value > 0 && elementOverflowsContainer(overflowTag.value, container.value)
+
+    if (overflowTagOverflowing) {
+      tagsArr = Array.from(container.value.children).filter(tag => !tag.isEqualNode(overflowTag.value!) && !tag.classList.contains(hiddenTagClass)) as HTMLElement[]
+      while (overflowTagOverflowing) {
+        const tag = tagsArr.pop()
+
+        if (!tag) {
+          break
+        }
+
+        setTagVisibility(tag, 'hidden')
+        overflowCount.value++
+
+        if (tag.textContent) {
+          hiddenTags.push(tag.textContent)
+        }
+
+        overflowTagOverflowing = elementOverflowsContainer(overflowTag.value, container.value)
+      }
+    }
+
+    hiddenText.value = hiddenTags.reverse().join(', ')
+
     ready.value = true
   }
 
@@ -161,17 +188,31 @@
   }
 
   function setInlineContainerWidth(tags: HTMLElement[]): void {
-    const totalTagsWidth = tags.reduce((acc, tag) => {
+    if (!container.value) {
+      return
+    }
+
+    const totalTagsWidth = getTotalTagsWidth(tags)
+    const computedContainerStyle = getComputedStyle(container.value)
+    const computedContainerGap = computedContainerStyle.getPropertyValue('column-gap')
+    const containerGap = parseFloat(computedContainerGap)
+    const padding = isNaN(containerGap) ? 0 : (tags.length - 1) * containerGap
+
+    const tagsWidthWithPadding = totalTagsWidth + padding
+    container.value.style.width = `${tagsWidthWithPadding}px`
+  }
+
+  function getTotalTagsWidth(tags: HTMLElement[]): number {
+    return Math.ceil(tags.reduce((acc, tag) => {
       const boundingBox = tag.getBoundingClientRect()
 
-      return acc + Math.ceil(boundingBox.width)
-    }, 0)
-
-    container.value!.style.width = `${totalTagsWidth}px`
+      return acc + boundingBox.width
+    }, 0))
   }
 
   function createObserver(): void {
-    resizeObserver = new ResizeObserver(calculateOverflow)
+    const throttledCalculateOverflow = throttle(calculateOverflow, 100, { trailing: true })
+    resizeObserver = new ResizeObserver(throttledCalculateOverflow)
 
     if (container.value) {
       resizeObserver.observe(container.value)
@@ -189,6 +230,10 @@
   watch(() => props.tags, () => {
     nextTick(() => calculateOverflow())
   }, { deep: true })
+
+  defineExpose({
+    calculateOverflow,
+  })
 </script>
 
 
@@ -199,6 +244,9 @@
   max-w-full
   flex
   items-center
+  box-content
+  overflow-hidden
+  gap-1
 }
 
 .p-tag-wrapper--invisible {
@@ -206,15 +254,15 @@
 }
 
 .p-tag-wrapper--right { @apply
-  text-right
+  justify-end
 }
 
 .p-tag-wrapper--center { @apply
-  text-center
+  justify-center
 }
 
 .p-tag-wrapper--left { @apply
-  text-left
+  justify-start
 }
 
 .p-tag-wrapper__tag { @apply
@@ -223,23 +271,11 @@
 }
 
 .p-tag-wrapper__tag--hidden { @apply
-  !hidden;
+  !hidden
 }
 
 .p-tag-wrapper__tag--invisible {
   visibility: hidden !important;
-}
-
-.p-tag-wrapper__tag--right { @apply
-  pl-1;
-}
-
-.p-tag-wrapper__tag--center { @apply
-  px-[0.125rem];
-}
-
-.p-tag-wrapper__tag--left { @apply
-  pr-1;
 }
 
 .p-tag-wrapper__tag-overflow { @apply

@@ -46,7 +46,11 @@
 
     <template #using-p-tag-wrapper>
       <div class="flex flex-col gap-3">
-        <p-tag-wrapper :tags="numberArr" justify="left" />
+        <p-tag-wrapper :tags="numberArr" justify="right" class="flex gap-2" />
+
+        <p-tag-wrapper :tags="numberArr" justify="center" class="flex gap-2" />
+
+        <p-tag-wrapper :tags="numberArr" justify="left" class="flex gap-2" />
 
         <p-tag-wrapper :tags="numberArr">
           <template #tag="{ tag }">

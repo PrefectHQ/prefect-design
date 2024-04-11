@@ -7,7 +7,7 @@
     </p-frame>
 
     <div class="resizable-section__aside">
-      <div class="resizable-section__handle" @mousedown="start" @mouseup="stop">
+      <div class="resizable-section__handle" @mousedown="start">
         <component :is="ResizeIcon" />
       </div>
 
@@ -23,6 +23,7 @@
 <script lang="ts" setup>
   import { useColorTheme } from '@/compositions'
   import { toPixels } from '@/utilities'
+  import { useGlobalEventListener, useMousePosition } from '@prefecthq/vue-compositions'
   import { computed, ref, nextTick } from 'vue'
   import ResizeIcon from '@/demo/components/ResizeIcon.svg'
 
@@ -54,22 +55,30 @@
 
   const start = (): void => {
     dragging.value = true
-    window.addEventListener('mouseup', stop)
-    window.addEventListener('mousemove', drag)
   }
 
   const stop = (): void => {
     dragging.value = false
-    window.removeEventListener('mousemove', drag)
-    window.removeEventListener('mouseup', stop)
   }
 
-  const drag = (event: MouseEvent): void => {
-    const { offsetLeft, offsetWidth } = container.value!
-    const positionX = event.clientX - offsetLeft
+  const { position } = useMousePosition()
 
-    contentWidth.value = Math.min(Math.max(positionX, minWidth), offsetWidth - handleWidth)
+
+  const drag = (): void => {
+    if (!dragging.value || !container.value) {
+      return
+    }
+
+    const { x, width } = container.value.getBoundingClientRect()
+
+    const max = Math.max(position.x - x, minWidth)
+    const min = Math.min(max, width - handleWidth)
+
+    contentWidth.value = min
   }
+
+  useGlobalEventListener('mouseup', stop)
+  useGlobalEventListener('mousemove', drag)
 
   // This code block allows the component to take advantage of HMR
   if (import.meta.hot) {
@@ -100,6 +109,7 @@
   order-first
   max-w-full
   min-w-[200px]
+  box-content
   p-4
 }
 
