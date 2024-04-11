@@ -231,6 +231,10 @@
   watch(() => props.tags, () => {
     nextTick(() => calculateOverflow())
   }, { deep: true })
+
+  defineExpose({
+    calculateOverflow,
+  })
 </script>
 
 
