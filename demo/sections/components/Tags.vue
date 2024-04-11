@@ -46,7 +46,11 @@
 
     <template #using-p-tag-wrapper>
       <div class="flex flex-col gap-3">
-        <p-tag-wrapper :tags="numberArr" justify="left" />
+        <p-tag-wrapper :tags="numberArr" justify="right" class="flex gap-2" />
+
+        <p-tag-wrapper :tags="numberArr" justify="center" class="flex gap-2" />
+
+        <p-tag-wrapper :tags="numberArr" justify="left" class="flex gap-2" />
 
         <p-tag-wrapper :tags="numberArr">
           <template #tag="{ tag }">
@@ -71,7 +75,7 @@
         <div>
           <p>Inline</p>
           <div class="border border-default p-2 max-w-full">
-            <p-tag-wrapper :tags="numberArr" justify="left" inline class="border border-default" />
+            <p-tag-wrapper :tags="numberArr" justify="left" inline class="border border-default test-123" />
           </div>
         </div>
       </div>

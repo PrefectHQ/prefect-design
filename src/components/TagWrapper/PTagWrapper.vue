@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { throttle } from 'lodash'
   import { computed, ref, Ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
   import PTag from '@/components/Tag/PTag.vue'
   import PTooltip from '@/components/Tooltip/PTooltip.vue'
@@ -78,7 +79,6 @@
     }
 
     if (props.justify === 'center') {
-
       return left < containerLeft || right > containerRight
     }
 
@@ -94,39 +94,56 @@
     hiddenText.value = ''
 
     const hiddenTags: string[] = []
-    const tags = Array.from(container.value.children)
-      .filter(child => !child.classList.contains('p-tag-wrapper__tag-overflow')) as HTMLElement[]
+    const internalTags = Array.from(container.value.children) as HTMLElement[]
+    const internalTagsWithoutOverflow = internalTags.filter(tag => !tag.isEqualNode(overflowTag.value!))
+    setAllTagsInvisible(internalTags)
 
-    setTagVisibility(overflowTag.value, 'hidden')
-    setAllTagsInvisible(tags)
+    let tagsArr = props.justify === 'right' ? internalTags.slice().reverse() : internalTags.slice()
 
     if (props.inline) {
-      setInlineContainerWidth(tags)
+      setInlineContainerWidth(internalTagsWithoutOverflow)
     }
 
-    tags.forEach(tag => {
-      const overflowing = elementOverflowsContainer(tag, container.value!)
+    let overflowing = false
 
-      if (overflowing) {
+    while (tagsArr.length > 0) {
+      const tag = tagsArr.pop()
+
+      if (!tag) {
+        break
+      }
+
+      overflowing = elementOverflowsContainer(tag, container.value)
+
+      if (overflowing && !tag.isEqualNode(overflowTag.value)) {
         setTagVisibility(tag, 'hidden')
         overflowCount.value++
+
         if (tag.textContent) {
           hiddenTags.push(tag.textContent)
         }
-        return
+      } else {
+        setTagVisibility(tag, 'visible')
       }
 
-      setTagVisibility(tag, 'visible')
-    })
+      if (overflowCount.value >= internalTags.length - 1) {
+        break
+      }
+    }
+
+    overflowing = overflowCount.value > 0 && elementOverflowsContainer(overflowTag.value, container.value)
+
 
     if (overflowCount.value > 0) {
       setTagVisibility(overflowTag.value!, 'visible')
+    } else {
+      setTagVisibility(overflowTag.value!, 'hidden')
+    }
 
-      let overflowing = elementOverflowsContainer(overflowTag.value, container.value!)
-      const visibleTags = tags.filter(child => !child.classList.contains(hiddenTagClass)).reverse()
-
+    if (overflowing) {
+      tagsArr = Array.from(container.value.children).filter(tag => !tag.isEqualNode(overflowTag.value!) && !tag.classList.contains(hiddenTagClass)) as HTMLElement[]
       while (overflowing) {
-        const tag = visibleTags.pop()
+        const tag = tagsArr.pop()
 
         if (!tag) {
           break
@@ -134,15 +151,17 @@
 
         setTagVisibility(tag, 'hidden')
         overflowCount.value++
+
         if (tag.textContent) {
-          hiddenTags.unshift(tag.textContent)
+          hiddenTags.push(tag.textContent)
         }
 
-        overflowing = elementOverflowsContainer(overflowTag.value, container.value!)
+        overflowing = elementOverflowsContainer(overflowTag.value, container.value)
       }
     }
 
-    hiddenText.value = hiddenTags.join(', ')
+    hiddenText.value = hiddenTags.reverse().join(', ')
+
     ready.value = true
   }
 
@@ -170,17 +189,31 @@
   }
 
   function setInlineContainerWidth(tags: HTMLElement[]): void {
-    const totalTagsWidth = tags.reduce((acc, tag) => {
+    if (!container.value) {
+      return
+    }
+
+    const totalTagsWidth = getTotalTagsWidth(tags)
+    const computedContainerStyle = getComputedStyle(container.value)
+    const computedContainerGap = computedContainerStyle.getPropertyValue('column-gap')
+    const containerGap = parseFloat(computedContainerGap)
+    const padding = isNaN(containerGap) ? 0 : tags.length * containerGap
+
+    const tagsWidthWithPadding = totalTagsWidth + padding
+    container.value.style.width = `${tagsWidthWithPadding}px`
+  }
+
+  function getTotalTagsWidth(tags: HTMLElement[]): number {
+    return Math.ceil(tags.reduce((acc, tag) => {
       const boundingBox = tag.getBoundingClientRect()
 
-      return acc + Math.ceil(boundingBox.width)
-    }, 0)
-
-    container.value!.style.width = `${totalTagsWidth}px`
+      return acc + boundingBox.width
+    }, 0))
   }
 
   function createObserver(): void {
-    resizeObserver = new ResizeObserver(calculateOverflow)
+    const throttledCalculateOverflow = throttle(calculateOverflow, 100, { trailing: true })
+    resizeObserver = new ResizeObserver(throttledCalculateOverflow)
 
     if (container.value) {
       resizeObserver.observe(container.value)
@@ -208,7 +241,8 @@
   max-w-full
   flex
   items-center
-  gap-1
+  box-content
+  overflow-hidden
 }
 
 .p-tag-wrapper--invisible {
@@ -233,7 +267,7 @@
 }
 
 .p-tag-wrapper__tag--hidden { @apply
-  !hidden;
+  !hidden
 }
 
 .p-tag-wrapper__tag--invisible {
