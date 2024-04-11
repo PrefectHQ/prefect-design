@@ -7,11 +7,11 @@
     </template>
     <slot name="tooltip">
       <div class="p-tooltip__tooltip" :area-describedby="id">
-        <div class="p-tooltip__content">
-          <slot name="content">
+        <slot name="content">
+          <div class="p-tooltip__content">
             <p>{{ text }}</p>
-          </slot>
-        </div>
+          </div>
+        </slot>
       </div>
     </slot>
   </PPopOver>
@@ -94,18 +94,17 @@
 }
 
 .p-tooltip__tooltip { @apply
-  p-1
-  max-w-xs
   text-xs
-}
-
-.p-tooltip__content { @apply
   bg-floating
   px-2
   py-1
+  m-1
   rounded-default
   shadow
   dark:shadow-md
+}
+
+.p-tooltip__content { @apply
   max-w-xs
   break-words
 }

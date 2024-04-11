@@ -15,7 +15,7 @@
       </p-tooltip>
     </template>
 
-    <template #slot>
+    <template #content-slot>
       <p>
         This is a sentence with a
         <p-tooltip>
@@ -31,6 +31,19 @@
         </p-tooltip> that uses a slot in it.
       </p>
     </template>
+
+    <template #tooltip-slot>
+      <p>
+        <p-tooltip>
+          <p-link> This version</p-link>
+          <template #tooltip>
+            <p-card class="bg-slate-950">
+              Hey that looks different
+            </p-card>
+          </template>
+        </p-tooltip> overrides the entire tooltip.
+      </p>
+    </template>
   </ComponentPage>
 </template>
 
@@ -40,6 +53,7 @@
   const demos = [
     { title: 'Text' },
     { title: 'Button' },
-    { title: 'Slot' },
+    { title: 'Content slot' },
+    { title: 'Tooltip slot' },
   ]
 </script>
