@@ -98,6 +98,7 @@
   bg-floating
   px-2
   py-1
+  m-1
   rounded-default
   shadow
   dark:shadow-md
