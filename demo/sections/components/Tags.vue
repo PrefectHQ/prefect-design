@@ -1,13 +1,7 @@
 <template>
   <ComponentPage
     title="Tags"
-    :demos="[
-      { title: 'Basic' },
-      { title: 'Small' },
-      { title: 'Using Slot' },
-      { title: 'Multiple' },
-      { title: 'Using p-tag-wrapper' },
-    ]"
+    :demos="demos"
     use-resizable
   >
     <template #basic>
@@ -80,14 +74,52 @@
         </div>
       </div>
     </template>
+
+    <template #async-tag-wrapper>
+      <div class="flex flex-col gap-3">
+        <div>
+          <p-button small @click="resetAsyncTags">
+            Refresh
+          </p-button>
+        </div>
+
+        <p-tag-wrapper :tags="asyncTagsNormalized" justify="left" />
+
+        <p-tag-wrapper justify="right" inline>
+          <template v-for="tag in asyncTags" :key="tag.id">
+            <p-tag class="tags__async-tag" :class="tag.tailwindClass">
+              <template v-if="tag.label.length === 0">
+                ...
+                <p-loading-icon />
+                ...
+              </template>
+              <template v-else>
+                {{ tag.label }}
+              </template>
+            </p-tag>
+          </template>
+        </p-tag-wrapper>
+      </div>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
   import PTag from '@/components/Tag/PTag.vue'
   import PTagWrapper from '@/components/TagWrapper/PTagWrapper.vue'
+  import { TagValue } from '@/types'
+  import { randomId } from '@/utilities'
+  import { computed, onMounted, ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
+  const demos = [
+    { title: 'Basic' },
+    { title: 'Small' },
+    { title: 'Using Slot' },
+    { title: 'Multiple' },
+    { title: 'Using p-tag-wrapper' },
+    { title: 'Async Tag Wrapper' },
+  ]
   const numberArr = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven']
 
   const classes = [
@@ -98,6 +130,55 @@
     { className: 'tag--running', name: 'Running' },
     { className: 'tag--scheduled', name: 'Scheduled' },
   ]
+
+  type AsyncTag = { id: string, label: string, tailwindClass?: string }
+
+  const tailwindClasses = ['!bg-blue-500', '!bg-red-500', '!bg-yellow-500', '!bg-green-500', '!bg-gray-500', '!bg-purple-500', '!bg-pink-500', '!bg-indigo-500']
+  function getAsyncTags(length: number = 50): AsyncTag[] {
+    return Array.from({ length: length }, () => ({ id: randomId(), label: '' }))
+  }
+  const asyncTags = ref<AsyncTag[]>(getAsyncTags())
+  const loading = ref(false)
+
+  const timeouts: (NodeJS.Timeout | null)[] = []
+
+  function updateAsyncTags(): Promise<void> {
+    timeouts.forEach((timeout) => {
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+    })
+
+    return new Promise((resolve) => {
+      asyncTags.value.forEach((tag, index) => {
+        const timeout = setTimeout(() => {
+          const tailwindClass = tailwindClasses[Math.floor(Math.random() * tailwindClasses.length)]
+          asyncTags.value[index].label = tailwindClass.slice(4, -4)
+          asyncTags.value[index].tailwindClass = tailwindClass
+          if (index === asyncTags.value.length - 1) {
+            resolve()
+          }
+        }, Math.floor(Math.random() * 1000) + 1000)
+
+        timeouts.push(timeout)
+      })
+    })
+  }
+
+  const asyncTagsNormalized = computed<TagValue[]>(() => {
+    return asyncTags.value.map((tag) => ({ label: tag.label, value: tag.id }))
+  })
+
+  async function resetAsyncTags(): Promise<void> {
+    asyncTags.value = getAsyncTags()
+    loading.value = true
+    await updateAsyncTags()
+    loading.value = false
+  }
+
+  onMounted(() => {
+    resetAsyncTags()
+  })
 </script>
 
 <style>
