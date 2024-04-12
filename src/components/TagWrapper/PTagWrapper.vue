@@ -4,7 +4,7 @@
       <template v-for="tag in tags" :key="tag.value">
         <div class="p-tag-wrapper__tag" :class="classes.tag">
           <slot name="tag" :tag="tag">
-            <PTag :value="tag" />
+            <PTag :value="tag" :small="small" />
           </slot>
         </div>
       </template>
@@ -15,7 +15,7 @@
       <slot name="overflow" v-bind="{ hiddenText, overflowCount }">
         <PTooltip :text="hiddenText">
           <slot name="overflow-tags" :overflowed-children="overflowCount">
-            <PTag>
+            <PTag :small="small">
               +{{ overflowCount }}
             </PTag>
           </slot>
@@ -36,6 +36,7 @@
     tags?: (string | TagValue)[],
     justify?: 'left' | 'center' | 'right',
     inline?: boolean,
+    small?: boolean,
   }>()
 
   const container: Ref<HTMLDivElement | undefined> = ref()
@@ -52,6 +53,8 @@
         [
           `p-tag-wrapper--${props.justify ?? 'left'}`,
           { 'p-tag-wrapper--invisible': !ready.value },
+          { 'p-tag-wrapper--inline': props.inline },
+
         ],
       overflowTag: [
         `p-tag-wrapper__tag--${props.justify ?? 'left'}`,
@@ -68,6 +71,7 @@
   })
 
   let resizeObserver: ResizeObserver | null = null
+  let mutationObserver: MutationObserver | null = null
   const isOverflowing = computed(() => overflowCount.value > 0)
 
   const elementOverflowsContainer = (element: HTMLElement, container: HTMLElement): boolean => {
@@ -213,9 +217,13 @@
   function createObserver(): void {
     const throttledCalculateOverflow = throttle(calculateOverflow, 100, { trailing: true })
     resizeObserver = new ResizeObserver(throttledCalculateOverflow)
+    mutationObserver = new MutationObserver(throttledCalculateOverflow)
 
     if (container.value) {
       resizeObserver.observe(container.value)
+      // Note: do not observe attributes or this will trigger the observer on changes that
+      // the observer causes itself, causing an infinite loop
+      mutationObserver.observe(container.value, { childList: true, subtree: true })
     }
   }
 
@@ -225,6 +233,7 @@
 
   onUnmounted(() => {
     resizeObserver?.disconnect()
+    mutationObserver?.disconnect()
   })
 
   watch(() => props.tags, () => {

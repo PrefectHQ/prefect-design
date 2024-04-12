@@ -83,12 +83,19 @@
           </p-button>
         </div>
 
-        <p-tag-wrapper :tags="asyncTagsNormalized" justify="right" inline />
+        <p-tag-wrapper :tags="asyncTagsNormalized" justify="left" />
 
-        <p-tag-wrapper>
+        <p-tag-wrapper justify="right" inline>
           <template v-for="tag in asyncTags" :key="tag.id">
             <p-tag class="tags__async-tag" :class="tag.tailwindClass">
-              {{ tag.label }}
+              <template v-if="tag.label.length === 0">
+                ...
+                <p-loading-icon />
+                ...
+              </template>
+              <template v-else>
+                {{ tag.label }}
+              </template>
             </p-tag>
           </template>
         </p-tag-wrapper>
