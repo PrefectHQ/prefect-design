@@ -87,7 +87,7 @@
 
         <p-tag-wrapper>
           <template v-for="tag in asyncTags" :key="tag.id">
-            <p-tag :class="tag.tailwindClass">
+            <p-tag class="tags__async-tag" :class="tag.tailwindClass">
               {{ tag.label }}
             </p-tag>
           </template>
@@ -124,11 +124,11 @@
     { className: 'tag--scheduled', name: 'Scheduled' },
   ]
 
-  type AsyncTag = { id: string, label: string, tailwindClass: string }
+  type AsyncTag = { id: string, label: string, tailwindClass?: string }
 
-  const tailwindClasses = ['bg-blue-500', 'bg-red-500', 'bg-yellow-500', 'bg-green-500', 'bg-gray-500', 'bg-purple-500', 'bg-pink-500', 'bg-indigo-500']
+  const tailwindClasses = ['!bg-blue-500', '!bg-red-500', '!bg-yellow-500', '!bg-green-500', '!bg-gray-500', '!bg-purple-500', '!bg-pink-500', '!bg-indigo-500']
   function getAsyncTags(length: number = 50): AsyncTag[] {
-    return Array.from({ length: length }, () => ({ id: randomId(), label: '', tailwindClass: tailwindClasses[Math.floor(Math.random() * tailwindClasses.length)] }))
+    return Array.from({ length: length }, () => ({ id: randomId(), label: '' }))
   }
   const asyncTags = ref<AsyncTag[]>(getAsyncTags())
   const loading = ref(false)
@@ -145,7 +145,9 @@
     return new Promise((resolve) => {
       asyncTags.value.forEach((tag, index) => {
         const timeout = setTimeout(() => {
-          asyncTags.value[index].label = numberArr[Math.floor(Math.random() * numberArr.length)]
+          const tailwindClass = tailwindClasses[Math.floor(Math.random() * tailwindClasses.length)]
+          asyncTags.value[index].label = tailwindClass.slice(4, -4)
+          asyncTags.value[index].tailwindClass = tailwindClass
           if (index === asyncTags.value.length - 1) {
             resolve()
           }
