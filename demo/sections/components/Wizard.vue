@@ -1,7 +1,11 @@
 <template>
   <ComponentPage title="Wizard" :demos="[{ title: 'Wizard' }]">
+    <template #description>
+      <p-checkbox v-model="nonlinear" label="Nonlinear" />
+    </template>
+
     <template #wizard>
-      <p-wizard :steps="steps" @next="next" @submit="submit">
+      <p-wizard :steps="steps" :nonlinear @next="next" @submit="submit">
         <template #basic-information>
           <StepOne v-model="formData.favoriteColor" />
         </template>
@@ -23,6 +27,8 @@
   import StepOne from '@/demo/components/wizard/StepOne.vue'
   import StepThree from '@/demo/components/wizard/StepThree.vue'
   import StepTwo from '@/demo/components/wizard/StepTwo.vue'
+
+  const nonlinear = ref(false)
 
   const steps: WizardStep[] = [
     { title: 'Basic Information' },

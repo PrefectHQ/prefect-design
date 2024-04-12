@@ -31,6 +31,7 @@
     steps: WizardStep[],
     currentStepIndex: number,
     loading: boolean,
+    nonlinear?: boolean,
   }>()
 
   const container = ref<HTMLDivElement>()
@@ -43,7 +44,7 @@
   }
 
   function handleStepHeaderClick(index: number): void {
-    if (index >= props.currentStepIndex) {
+    if (!props.nonlinear && index >= props.currentStepIndex) {
       return
     }
     wizard?.goto(index + 1)

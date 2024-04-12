@@ -5,6 +5,7 @@
         :steps="steps"
         :loading="loading"
         :current-step-index="currentStepIndex"
+        :nonlinear
       />
     </PCard>
 
@@ -55,6 +56,7 @@
     steps: WizardStep[],
     showCancel?: boolean,
     lastStepText?: string,
+    nonlinear?: boolean,
   }>(), {
     lastStepText: 'Submit',
   })
