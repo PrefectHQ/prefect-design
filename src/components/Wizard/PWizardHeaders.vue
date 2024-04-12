@@ -8,6 +8,7 @@
           :current="index === currentStepIndex"
           :loading="loading && index === currentStepIndex"
           :complete="index < currentStepIndex"
+          @click="handleStepHeaderClick(index)"
         >
           <template #default="data">
             <slot :name="`${getStepKey(step)}-heading`" v-bind="data" />
@@ -20,12 +21,13 @@
 
 <script lang="ts" setup>
   import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
-  import { computed, ref } from 'vue'
+  import { computed, ref, inject } from 'vue'
   import PWizardStepHeader from '@/components/Wizard/PWizardStepHeader.vue'
+  import { useWizardKey } from '@/compositions'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
 
-  defineProps<{
+  const props = defineProps<{
     steps: WizardStep[],
     currentStepIndex: number,
     loading: boolean,
@@ -34,6 +36,18 @@
   const container = ref<HTMLDivElement>()
   const children = ref<HTMLSpanElement[]>([])
   const wrapped = useChildrenAreWrapped(children, container)
+
+  const wizard = inject(useWizardKey)
+  if (!wizard) {
+    throw new Error('PWizardHeaders must be used within a PWizard')
+  }
+
+  function handleStepHeaderClick(index: number): void {
+    if (index >= props.currentStepIndex) {
+      return
+    }
+    wizard?.goto(index + 1)
+  }
 
   const classes = computed(() => ({
     container: {
