@@ -1,7 +1,7 @@
 <template>
   <div ref="container" class="p-tag-wrapper" :class="classes.tagContainer">
     <slot>
-      <template v-for="tag in tags" :key="tag">
+      <template v-for="tag in tags" :key="tag.value">
         <div class="p-tag-wrapper__tag" :class="classes.tag">
           <slot name="tag" :tag="tag">
             <PTag :value="tag" />
