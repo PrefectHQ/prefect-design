@@ -61,6 +61,7 @@
 
   const emit = defineEmits<{
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
+    (event: 'step', currentStepIndex: WizardStep | undefined): void,
   }>()
 
   const {
@@ -101,6 +102,7 @@
     const { success } = await previous()
 
     if (success) {
+      emit('step', currentStep.value)
       emit('previous')
     }
   }
@@ -110,9 +112,11 @@
     const { success } = await next()
 
     if (success) {
+      emit('step', currentStep.value)
       emit('next')
 
       if (last) {
+        emit('step', currentStep.value)
         emit('submit')
       }
     }
