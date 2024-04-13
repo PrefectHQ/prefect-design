@@ -78,10 +78,6 @@
   flex
   items-center
   border
-  focus-within:ring-spacing-focus-ring
-  focus-within:ring-focus-ring
-  focus-within:ring-offset-focus-ring
-  focus-within:ring-offset-focus-ring-offset
   rounded-default
   font-normal;
   border-color: var(--p-color-input-border);
@@ -100,9 +96,10 @@
   h-7
 }
 
-.p-base-input:focus-within {
+.p-base-input:focus-within { @apply
+  ring-1
+  ring-focus-ring;
   background-color: var(--p-color-input-bg-focus);
-  border-color: var(--p-color-input-border-focus);
 }
 
 .p-base-input input::placeholder {
