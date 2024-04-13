@@ -21,7 +21,7 @@
 
       <slot name="after-steps" />
 
-      <div class="p-wizard__footer">
+      <div class="p-wizard__actions">
         <slot name="actions" :next-button-text="nextButtonText" :handle-next-button-click="handleNextButtonClick">
           <template v-if="showCancel">
             <p-button @click="emit('cancel')">
@@ -36,6 +36,7 @@
           </p-button>
         </slot>
       </div>
+      <slot name="footer" />
     </PCard>
   </div>
 </template>
@@ -60,6 +61,7 @@
 
   const emit = defineEmits<{
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
+    (event: 'step', currentStepIndex: WizardStep | undefined): void,
   }>()
 
   const {
@@ -100,6 +102,7 @@
     const { success } = await previous()
 
     if (success) {
+      emit('step', currentStep.value)
       emit('previous')
     }
   }
@@ -109,9 +112,11 @@
     const { success } = await next()
 
     if (success) {
+      emit('step', currentStep.value)
       emit('next')
 
       if (last) {
+        emit('step', currentStep.value)
         emit('submit')
       }
     }
@@ -134,7 +139,7 @@
   pb-6
 }
 
-.p-wizard__footer { @apply
+.p-wizard__actions { @apply
   flex
   flex-wrap
   gap-2
