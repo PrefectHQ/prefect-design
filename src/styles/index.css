@@ -44,7 +44,7 @@
 
     --p-color-selected: rgba(104, 125, 155, 0.4);
     --p-color-selectable-hover: rgba(104, 125, 155, 0.24);
-    --p-color-focus-ring: #276EE7;
+    --p-color-focus-ring: hsl(240, 4.9%, 83.9%);
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
     --p-color-live: #6272FF;
@@ -216,7 +216,7 @@
 
     --p-color-selected: rgba(107, 116, 152, 0.24);
     --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
-    --p-color-focus-ring: #1470EF;
+    --p-color-focus-ring: hsl(240, 5.9%, 10%);
     --p-color-focus-ring-offset: var(--p-color-bg-1);
 
     --p-color-live: #4B5CFF;
