@@ -77,7 +77,7 @@
 
 .expand-enter-active,
 .expand-leave-active {
-  transition: height 0.3s ease-in-out;
+  transition: height 0.2s ease-in-out;
   overflow: hidden;
 }
 

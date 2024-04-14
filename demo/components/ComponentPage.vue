@@ -41,6 +41,11 @@
               </ResizableSection>
             </template>
 
+            <template v-else-if="useHeroBlock">
+              <div class="component-page__demo-hero-block">
+                <slot :name="demo.slotKey" />
+              </div>
+            </template>
             <template v-else>
               <div class="component-page__demo-card">
                 <slot :name="demo.slotKey" />
@@ -89,6 +94,7 @@
     description?: string,
     demos?: DemoSection | DemoSection[],
     useResizable?: boolean,
+    useHeroBlock?: boolean,
   }>()
 
   const slots = useSlots()
@@ -122,6 +128,8 @@
 .component-page { @apply
   max-w-full
   relative
+  px-16
+  py-20
 }
 
 .component-page__heading { @apply
@@ -129,10 +137,12 @@
   justify-between
   text-sm
   sticky
-  px-6
-  py-6
-  lg:px-8
   z-10
+  mb-2
+}
+
+.component-page__demo-hero-block { @apply
+  bg-gradient-to-r from-cyan-500 to-blue-500 py-24 rounded-tl-xl rounded-tr-xl
 }
 
 .component-page__heading .component-page__heading-link { @apply
@@ -154,24 +164,8 @@
 }
 
 .component-page__description,
-.component-page__demos { @apply
-  mt-4
-  mb-8
-}
-
-.component-page__description,
 .component-page__demo-description { @apply
-  my-2
   text-sm
-}
-
-.component-page__demo,
-.component-page__description { @apply
-  max-w-full
-  mx-auto
-  py-6
-  px-6
-  lg:px-8
 }
 
 .component-page__demo-card { @apply

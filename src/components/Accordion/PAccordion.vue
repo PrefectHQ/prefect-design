@@ -117,21 +117,37 @@
 </script>
 
 <style>
+.p-accordion{
+  @apply
+  overflow-hidden
+}
+
 .p-accordion__header { @apply
   w-full
   flex
   gap-2
   items-center
   justify-between
-  py-2
+  py-4
   text-base
   text-default
-  border-t
+  px-5
+  hover:underline
+}
+
+.p-accordion__section{
+  @apply
+  border-b
   border-default
+
+}
+
+.p-accordion__content { @apply
+  px-5
 }
 
 .p-accordion__content-padding { @apply
-  pb-2
+  pb-4 pt-0
 }
 
 .p-accordion__icon { @apply

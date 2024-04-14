@@ -1,7 +1,7 @@
 <template>
-  <ComponentPage title="Accordion" :demos="[{ title: 'Accordion' }]">
+  <ComponentPage title="Accordion" description="A vertically stacked set of interactive headings that each reveal an associated section of content." :demos="[{ title: 'Accordion' }]" use-hero-block>
     <template #accordion>
-      <PAccordion :sections="['one', 'two', 'three', 'four']">
+      <PAccordion :sections="['one', 'two', 'three', 'four']" class="w-[50%] mx-auto p-background rounded-md">
         <template #one-heading>
           This is one using a slot
         </template>
