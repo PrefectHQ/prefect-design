@@ -16,6 +16,23 @@
   color-scheme: light;
 }
 
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--p-color-bg-0);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--p-color-scrollbar-thumb);
+    border-radius: 100vh;
+    border: 3px solid var(--p-color-bg-0);
+  }
+}
+
 @layer base {
   :root {
     --p-spacing-focus-ring: 2px;
@@ -41,7 +58,7 @@
     --p-color-divider: #51525C;
     --p-color-divider-subdued: #51525C;
     --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
-
+    --p-color-scrollbar-thumb: #636467;
     --p-color-selected: rgba(104, 125, 155, 0.4);
     --p-color-selectable-hover: rgba(104, 125, 155, 0.24);
     --p-color-focus-ring: #276EE7;
@@ -213,7 +230,7 @@
     --p-color-divider: #BFBFCC;
     --p-color-divider-subdued: #f3f4f6;
     --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
-
+    --p-color-scrollbar-thumb: #9e9ea0;
     --p-color-selected: rgba(107, 116, 152, 0.24);
     --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
     --p-color-focus-ring: #1470EF;
@@ -369,6 +386,8 @@
     --p-color-tag-text: var(--p-color-text-default);
   }
 }
+
+
 
 html {
   transition: inherit;
