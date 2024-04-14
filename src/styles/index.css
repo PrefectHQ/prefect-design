@@ -16,23 +16,6 @@
   color-scheme: light;
 }
 
-@layer utilities {
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 20px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--p-color-bg-0);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--p-color-scrollbar-thumb);
-    border-radius: 100vh;
-    border: 3px solid var(--p-color-bg-0);
-  }
-}
-
 @layer base {
   :root {
     --p-spacing-focus-ring: 2px;
@@ -396,11 +379,36 @@ html {
 html,
 body {
   background-color: var(--p-color-bg-0);
-  color: var(--p-color-text-default)
+  color: var(--p-color-text-default);
+  scrollbar-width: thin;
 }
 
 *::selection {
   background-color: var(--p-color-selection-highlight);
+  
+}
+
+@supports (scrollbar-color: auto) {
+  /* If the browser supports the scrollbar-color property, we can set the color of the scrollbar thumb */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--p-color-scrollbar-thumb) transparent
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--p-color-bg-0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--p-color-scrollbar-thumb);
+    border-radius: 100vh;
+    border: 3px solid var(--p-color-bg-0);
+  }
 }
 
 .p-background {
