@@ -398,6 +398,7 @@ body {
 
 @supports selector(::-webkit-scrollbar) {
   /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
+  /* The border-radius should be at least half the width of the scrollbar thumb */
   ::-webkit-scrollbar {
     width: 12px;
   }
@@ -406,7 +407,7 @@ body {
   }
   ::-webkit-scrollbar-thumb {
     background: var(--p-color-scrollbar-thumb);
-    border-radius: 100vh;
+    border-radius: 6px; 
     border: 3px solid var(--p-color-bg-0);
   }
 }
