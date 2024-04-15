@@ -22,6 +22,7 @@
     --p-spacing-focus-ring-offset: 1px;
 
     --p-radius-default: 6px;
+    --p-scrollbar-width: 12px;
   }
 
   .dark {
@@ -398,16 +399,15 @@ body {
 
 @supports selector(::-webkit-scrollbar) {
   /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
-  /* The border-radius should be at least half the width of the scrollbar thumb */
   ::-webkit-scrollbar {
-    width: 12px;
+    width: var(--p-scrollbar-width);
   }
   ::-webkit-scrollbar-track {
     background: var(--p-color-bg-0);
   }
   ::-webkit-scrollbar-thumb {
     background: var(--p-color-scrollbar-thumb);
-    border-radius: 6px; 
+    border-radius: calc(var(--p-scrollbar-width) / 2);
     border: 3px solid var(--p-color-bg-0);
   }
 }
