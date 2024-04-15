@@ -32,13 +32,13 @@
           <p-button :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
             Previous
           </p-button>
-          <p-button primary :loading="loading" @click="handleNextButtonClick">
+          <p-button :primary="!showingExtraActions" :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
           </p-button>
 
-          <template v-if="showSaveAndExit && !isOnLastStep">
+          <template v-if="showingExtraActions">
             <span class="border-l border-divider mx-2" />
-            <p-button @click="saveAndExit">
+            <p-button primary @click="saveAndExit">
               Save & Exit
             </p-button>
           </template>
@@ -107,6 +107,8 @@
   const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length - 1)
 
   const nextButtonText = computed(() => isOnLastStep.value ? props.lastStepText : 'Next')
+
+  const showingExtraActions = computed(() => props.showSaveAndExit && !isOnLastStep.value)
 
   async function handlePreviousButtonClick(): Promise<void> {
     const { success } = await previous()
