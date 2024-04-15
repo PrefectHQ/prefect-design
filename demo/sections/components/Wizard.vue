@@ -2,10 +2,11 @@
   <ComponentPage title="Wizard" :demos="[{ title: 'Wizard' }]">
     <template #description>
       <p-checkbox v-model="nonlinear" label="Nonlinear" />
+      <p-checkbox v-model="showSaveAndExit" label="Show Save & Exit" />
     </template>
 
     <template #wizard>
-      <p-wizard :steps="steps" :nonlinear @next="next" @submit="submit">
+      <p-wizard :steps :nonlinear :show-save-and-exit @next="next" @submit="submit">
         <template #basic-information>
           <StepOne v-model="formData.favoriteColor" />
         </template>
@@ -29,6 +30,7 @@
   import StepTwo from '@/demo/components/wizard/StepTwo.vue'
 
   const nonlinear = ref(false)
+  const showSaveAndExit = ref(false)
 
   const steps: WizardStep[] = [
     { title: 'Basic Information' },

@@ -35,6 +35,13 @@
           <p-button primary :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
           </p-button>
+
+          <template v-if="showSaveAndExit && !isOnLastStep">
+            <span class="border-l border-divider mx-2" />
+            <p-button @click="saveAndExit">
+              Save & Exit
+            </p-button>
+          </template>
         </slot>
       </div>
       <slot name="footer" />
@@ -57,6 +64,7 @@
     showCancel?: boolean,
     lastStepText?: string,
     nonlinear?: boolean,
+    showSaveAndExit?: boolean,
   }>(), {
     lastStepText: 'Submit',
   })
@@ -121,6 +129,15 @@
         emit('step', currentStep.value)
         emit('submit')
       }
+    }
+  }
+
+  async function saveAndExit(): Promise<void> {
+    const { success } = await next()
+
+    if (success) {
+      emit('next')
+      emit('submit')
     }
   }
 
