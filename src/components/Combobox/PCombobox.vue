@@ -33,7 +33,7 @@
     </template>
     <template #option="{ option, ...scope }">
       <slot name="option" :option="option" v-bind="scope">
-        {{ optionLabel(option) }}
+        {{ option.label }}
       </slot>
     </template>
 
@@ -163,19 +163,11 @@
       return ''
     }
 
-    if (unknownValues.value.includes(value.toString())) {
-      return `"${value}"`
-    }
-
     return value.toString()
   }
 
   function getSelectOption(value: SelectModelValue): SelectOptionNormalized | undefined {
     return flatSelectOptions.value.find(x => x.value === value)
-  }
-
-  function optionLabel(option: SelectOptionNormalized): string {
-    return option.value && unknownValues.value.includes(option.value.toString()) ? `"${option.label}"` : option.label
   }
 
   function optionsIncludeValue(options: (SelectOptionNormalized | SelectOptionGroupNormalized)[], value: string | null): boolean {
