@@ -29,7 +29,7 @@
             </p-button>
           </template>
           <p-button :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
-            Previous
+            Previous 88
           </p-button>
           <p-button primary :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
@@ -61,7 +61,7 @@
 
   const emit = defineEmits<{
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
-    (event: 'step', currentStepIndex: WizardStep | undefined): void,
+    (event: 'step', currentStep: WizardStep | undefined): void,
   }>()
 
   const {
