@@ -29,7 +29,7 @@
             </p-button>
           </template>
           <p-button :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
-            Previous 88
+            Previous
           </p-button>
           <p-button primary :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
