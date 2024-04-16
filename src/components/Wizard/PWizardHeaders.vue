@@ -7,7 +7,8 @@
           :index="index"
           :current="index === currentStepIndex"
           :loading="loading && index === currentStepIndex"
-          :complete="index < currentStepIndex"
+          :complete="index < wizard.furthestStepIndex.value"
+          @click="handleStepHeaderClick(index)"
         >
           <template #default="data">
             <slot :name="`${getStepKey(step)}-heading`" v-bind="data" />
@@ -22,18 +23,29 @@
   import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
   import PWizardStepHeader from '@/components/Wizard/PWizardStepHeader.vue'
+  import { useWizard } from '@/compositions'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
 
-  defineProps<{
+  const props = defineProps<{
     steps: WizardStep[],
     currentStepIndex: number,
     loading: boolean,
+    nonlinear?: boolean,
   }>()
 
   const container = ref<HTMLDivElement>()
   const children = ref<HTMLSpanElement[]>([])
   const wrapped = useChildrenAreWrapped(children, container)
+
+  const wizard = useWizard()
+
+  function handleStepHeaderClick(index: number): void {
+    if (!props.nonlinear && index > wizard.furthestStepIndex.value) {
+      return
+    }
+    wizard.goto(index + 1)
+  }
 
   const classes = computed(() => ({
     container: {

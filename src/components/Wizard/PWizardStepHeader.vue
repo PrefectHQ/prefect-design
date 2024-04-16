@@ -1,5 +1,5 @@
 <template>
-  <div class="p-wizard-step-header" :class="classes">
+  <button class="p-wizard-step-header" :class="classes" type="button">
     <div class="p-wizard-step-header__index">
       <template v-if="complete">
         <PIcon icon="CheckIcon" />
@@ -16,7 +16,7 @@
         {{ step.title }}
       </slot>
     </div>
-  </div>
+  </button>
 </template>
 
 <script lang="ts" setup>

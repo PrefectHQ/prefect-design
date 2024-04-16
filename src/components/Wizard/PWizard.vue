@@ -5,6 +5,7 @@
         :steps="steps"
         :loading="loading"
         :current-step-index="currentStepIndex"
+        :nonlinear
       />
     </PCard>
 
@@ -31,9 +32,16 @@
           <p-button :disabled="isOnFirstStep" @click="handlePreviousButtonClick">
             Previous
           </p-button>
-          <p-button primary :loading="loading" @click="handleNextButtonClick">
+          <p-button :primary="!showingExtraActions" :loading="loading" @click="handleNextButtonClick">
             {{ nextButtonText }}
           </p-button>
+
+          <template v-if="showingExtraActions">
+            <span class="border-l border-divider mx-2" />
+            <p-button primary @click="saveAndExit">
+              Save & Exit
+            </p-button>
+          </template>
         </slot>
       </div>
       <slot name="footer" />
@@ -47,7 +55,7 @@
   import PCard from '@/components/Card/PCard.vue'
   import PWizardHeaders from '@/components/Wizard/PWizardHeaders.vue'
   import PWizardStep from '@/components/Wizard/PWizardStep.vue'
-  import { useWizard } from '@/compositions/wizard'
+  import { createWizard } from '@/compositions/wizard'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
 
@@ -55,6 +63,8 @@
     steps: WizardStep[],
     showCancel?: boolean,
     lastStepText?: string,
+    nonlinear?: boolean,
+    showSaveAndExit?: boolean,
   }>(), {
     lastStepText: 'Submit',
   })
@@ -76,7 +86,7 @@
     getStep,
     setStep,
     isValid,
-  } = useWizard(props.steps)
+  } = createWizard(props.steps)
 
   defineExpose({
     steps,
@@ -97,6 +107,8 @@
   const isOnLastStep = computed(() => currentStepIndex.value === steps.value.length - 1)
 
   const nextButtonText = computed(() => isOnLastStep.value ? props.lastStepText : 'Next')
+
+  const showingExtraActions = computed(() => props.showSaveAndExit && !isOnLastStep.value)
 
   async function handlePreviousButtonClick(): Promise<void> {
     const { success } = await previous()
@@ -119,6 +131,15 @@
         emit('step', currentStep.value)
         emit('submit')
       }
+    }
+  }
+
+  async function saveAndExit(): Promise<void> {
+    const { success } = await next()
+
+    if (success) {
+      emit('next')
+      emit('submit')
     }
   }
 
