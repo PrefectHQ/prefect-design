@@ -7,7 +7,7 @@
           :index="index"
           :current="index === currentStepIndex"
           :loading="loading && index === currentStepIndex"
-          :complete="index < currentStepIndex"
+          :complete="index < wizard.furthestStepIndex.value"
           @click="handleStepHeaderClick(index)"
         >
           <template #default="data">
