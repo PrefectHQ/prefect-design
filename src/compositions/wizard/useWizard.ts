@@ -10,6 +10,7 @@ export function createWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard
   const loading = ref(false)
   const stepsRef = ref(steps)
   const currentStepIndex = ref(0)
+  const furthestStepIndex = ref(0)
   const currentStep = computed(() => stepsRef.value[currentStepIndex.value])
 
   function next(): Promise<WizardNavigation> {
@@ -58,17 +59,17 @@ export function createWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard
   }
 
   function setCurrentStepIndex(index: number): void {
+    let newIndex = index
     if (index < 0) {
-      currentStepIndex.value = 0
-      return
+      newIndex = 0
     }
 
     if (index >= stepsRef.value.length) {
-      currentStepIndex.value = stepsRef.value.length - 1
-      return
+      newIndex = stepsRef.value.length - 1
     }
 
-    currentStepIndex.value = index
+    currentStepIndex.value = newIndex
+    furthestStepIndex.value = Math.max(furthestStepIndex.value, newIndex)
   }
 
   function getZeroBasedIndex(index: number): number {
@@ -139,6 +140,7 @@ export function createWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard
     steps: stepsRef,
     currentStepIndex,
     currentStep,
+    furthestStepIndex,
     loading,
     next,
     previous,

@@ -18,6 +18,7 @@ export type UseWizard = {
   steps: Ref<WizardStep[]>,
   currentStepIndex: Ref<number>,
   currentStep: Ref<WizardStep | undefined>,
+  furthestStepIndex: Ref<number>,
   loading: Ref<boolean>,
   next: () => Promise<WizardNavigation>,
   previous: () => Promise<WizardNavigation>,

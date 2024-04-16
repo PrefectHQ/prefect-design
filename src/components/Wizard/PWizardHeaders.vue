@@ -41,7 +41,7 @@
   const wizard = useWizard()
 
   function handleStepHeaderClick(index: number): void {
-    if (!props.nonlinear && index >= props.currentStepIndex) {
+    if (!props.nonlinear && index > wizard.furthestStepIndex.value) {
       return
     }
     wizard.goto(index + 1)
