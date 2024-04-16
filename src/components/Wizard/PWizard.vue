@@ -61,7 +61,7 @@
 
   const emit = defineEmits<{
     (event: 'cancel' | 'next' | 'previous' | 'submit'): void,
-    (event: 'step', currentStepIndex: WizardStep | undefined): void,
+    (event: 'step', currentStep: WizardStep | undefined): void,
   }>()
 
   const {
