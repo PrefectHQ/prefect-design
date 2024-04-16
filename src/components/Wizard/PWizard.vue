@@ -55,7 +55,7 @@
   import PCard from '@/components/Card/PCard.vue'
   import PWizardHeaders from '@/components/Wizard/PWizardHeaders.vue'
   import PWizardStep from '@/components/Wizard/PWizardStep.vue'
-  import { useWizard } from '@/compositions/wizard'
+  import { createWizard } from '@/compositions/wizard'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
 
@@ -86,7 +86,7 @@
     getStep,
     setStep,
     isValid,
-  } = useWizard(props.steps)
+  } = createWizard(props.steps)
 
   defineExpose({
     steps,

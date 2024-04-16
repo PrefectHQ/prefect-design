@@ -1,11 +1,12 @@
 /* eslint-disable no-redeclare */
-import { computed, InjectionKey, provide, Ref, ref } from 'vue'
+import { computed, inject, InjectionKey, provide, Ref, ref } from 'vue'
+import { WizardNotFound } from '@/models'
 import { WizardStep, UseWizard, ValidationState, WizardNavigation } from '@/types/wizard'
 import { getStepKey } from '@/utilities/wizard'
 
 export const useWizardKey: InjectionKey<UseWizard> = Symbol('UseWizard')
 
-export function useWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
+export function createWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
   const loading = ref(false)
   const stepsRef = ref(steps)
   const currentStepIndex = ref(0)
@@ -150,5 +151,13 @@ export function useWizard(steps: WizardStep[] | Ref<WizardStep[]>): UseWizard {
 
   provide(useWizardKey, wizard)
 
+  return wizard
+}
+
+export function useWizard(): UseWizard {
+  const wizard = inject(useWizardKey)
+  if (!wizard) {
+    throw new WizardNotFound()
+  }
   return wizard
 }

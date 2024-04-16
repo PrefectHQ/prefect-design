@@ -21,9 +21,9 @@
 
 <script lang="ts" setup>
   import { useChildrenAreWrapped } from '@prefecthq/vue-compositions'
-  import { computed, ref, inject } from 'vue'
+  import { computed, ref } from 'vue'
   import PWizardStepHeader from '@/components/Wizard/PWizardStepHeader.vue'
-  import { useWizardKey } from '@/compositions'
+  import { useWizard } from '@/compositions'
   import { WizardStep } from '@/types/wizard'
   import { getStepKey } from '@/utilities/wizard'
 
@@ -38,16 +38,13 @@
   const children = ref<HTMLSpanElement[]>([])
   const wrapped = useChildrenAreWrapped(children, container)
 
-  const wizard = inject(useWizardKey)
-  if (!wizard) {
-    throw new Error('PWizardHeaders must be used within a PWizard')
-  }
+  const wizard = useWizard()
 
   function handleStepHeaderClick(index: number): void {
     if (!props.nonlinear && index >= props.currentStepIndex) {
       return
     }
-    wizard?.goto(index + 1)
+    wizard.goto(index + 1)
   }
 
   const classes = computed(() => ({
