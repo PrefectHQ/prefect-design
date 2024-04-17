@@ -22,6 +22,7 @@
     --p-spacing-focus-ring-offset: 1px;
 
     --p-radius-default: 6px;
+    --p-scrollbar-width: 12px;
   }
 
   .dark {
@@ -41,7 +42,7 @@
     --p-color-divider: #51525C;
     --p-color-divider-subdued: #51525C;
     --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
-
+    --p-color-scrollbar-thumb: #636467;
     --p-color-selected: rgba(104, 125, 155, 0.4);
     --p-color-selectable-hover: rgba(104, 125, 155, 0.24);
     --p-color-focus-ring: #276EE7;
@@ -213,7 +214,7 @@
     --p-color-divider: #BFBFCC;
     --p-color-divider-subdued: #f3f4f6;
     --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
-
+    --p-color-scrollbar-thumb: #9e9ea0;
     --p-color-selected: rgba(107, 116, 152, 0.24);
     --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
     --p-color-focus-ring: #1470EF;
@@ -370,6 +371,8 @@
   }
 }
 
+
+
 html {
   transition: inherit;
 }
@@ -377,11 +380,36 @@ html {
 html,
 body {
   background-color: var(--p-color-bg-0);
-  color: var(--p-color-text-default)
+  color: var(--p-color-text-default);
+  scrollbar-width: thin;
 }
 
 *::selection {
   background-color: var(--p-color-selection-highlight);
+  
+}
+
+@supports (scrollbar-color: auto) {
+  /* If the browser supports the scrollbar-color property, we can set the color of the scrollbar thumb */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--p-color-scrollbar-thumb) transparent
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
+  ::-webkit-scrollbar {
+    width: var(--p-scrollbar-width);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--p-color-bg-0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--p-color-scrollbar-thumb);
+    border-radius: calc(var(--p-scrollbar-width) / 2);
+    border: 3px solid var(--p-color-bg-0);
+  }
 }
 
 .p-background {
