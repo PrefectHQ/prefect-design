@@ -18,12 +18,12 @@
 
 @layer base {
   :root {
-  --background: hsl(228, 6.2%, 15.9%);
-  --foreground: hsl(20, 14.3%, 4.1%);
+  --background: 228deg 6.2% 15.9%;
+  --foreground: 20deg 14.3% 4.1%;
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --card-foreground: hsl(225, 6.7%, 11.8%);
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(231.4, 6.2%, 22.2%);
+  --popover-foreground: 231.4deg 6.2% 22.2%;
   --primary: hsl(24, 9.8%, 10%);
   --primary-foreground: hsl(60, 9.1%, 97.8%);
   --secondary: hsl(60, 4.8%, 95.9%);
@@ -49,11 +49,11 @@
     color-scheme: dark;
 
     /* Background */
-    --p-color-bg-0: var(--background);
-    --p-color-bg-1: hsl(225, 6.7%, 11.8%);
-    --p-color-bg-2: var(--background);
-    --p-color-bg-3: hsl(222.9, 6.8%, 20.2%);
-    --p-color-bg-floating: var(--popover-foreground);
+    --p-color-bg-0: hsl(var(--background));
+    --p-color-bg-1: hsl(var(--card-foreground));
+    --p-color-bg-2: hsl(var(--background));
+    --p-color-bg-3: color-mix(in srgb,var(--color-primary),#000 35%);
+    --p-color-bg-floating: hsl(var(--popover-foreground));
     --p-color-bg-floating-sticky: hsla(225, 6.7%, 11.8%, 0.9);
     --p-color-bg-code: hsl(228, 12.2%, 8%);
     --p-color-bg-overlay: var(--background) / 0.2;
