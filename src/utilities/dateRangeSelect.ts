@@ -1,4 +1,5 @@
-import { addSeconds, differenceInSeconds, endOfToday, endOfWeek, secondsInDay, secondsInHour, secondsInMinute, startOfToday, startOfWeek, subSeconds } from 'date-fns'
+import { addSeconds, differenceInSeconds, endOfToday, startOfToday, subSeconds } from 'date-fns'
+import { secondsInDay, secondsInHour, secondsInMinute } from 'date-fns/constants'
 import { DateRangeSelectAroundUnit, DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types/dateRange'
 
 function nowWithoutMilliseconds(): Date {

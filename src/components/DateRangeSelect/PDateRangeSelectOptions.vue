@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { secondsInDay, secondsInHour, secondsInWeek } from 'date-fns'
+  import { secondsInDay, secondsInHour, secondsInWeek } from 'date-fns/constants'
   import { computed } from 'vue'
   import { DateRangeSelectMode } from '@/components/DateRangeSelect/PDateRangeSelect.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'

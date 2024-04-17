@@ -42,7 +42,8 @@
 
 <script lang="ts" setup>
   import { useElementRect, useKeyDown } from '@prefecthq/vue-compositions'
-  import { addDays, addSeconds, isAfter, isBefore, secondsInDay } from 'date-fns'
+  import { addDays, addSeconds, isAfter, isBefore } from 'date-fns'
+  import { secondsInDay } from 'date-fns/constants'
   import { computed, ref, watch } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PDateRangeSelectAround from '@/components/DateRangeSelect/PDateRangeSelectAround.vue'
