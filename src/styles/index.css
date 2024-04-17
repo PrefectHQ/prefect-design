@@ -18,36 +18,57 @@
 
 @layer base {
   :root {
-    --p-spacing-focus-ring: 2px;
-    --p-spacing-focus-ring-offset: 1px;
+  --background: hsl(228, 6.2%, 15.9%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(231.4, 6.2%, 22.2%);
+  --primary: hsl(24, 9.8%, 10%);
+  --primary-foreground: hsl(60, 9.1%, 97.8%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --border: hsl(234.5, 6.4%, 33.9%);
+  --input: hsl(20, 5.9%, 90%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
 
-    --p-radius-default: 6px;
+
+  --p-spacing-focus-ring: 2px;
+  --p-spacing-focus-ring-offset: 1px;
+  --p-radius-default: 6px;
   }
 
   .dark {
     color-scheme: dark;
 
     /* Background */
-    --p-color-bg-0: #26272B;
-    --p-color-bg-1: #1C1D20;
-    --p-color-bg-2: var(--p-color-bg-0);
-    --p-color-bg-3: #303237;
-    --p-color-bg-floating: #35363C;
-    --p-color-bg-floating-sticky: rgba(28, 29, 32, 0.9);
-    --p-color-bg-code: #121317;
-    --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
+    --p-color-bg-0: var(--background);
+    --p-color-bg-1: hsl(225, 6.7%, 11.8%);
+    --p-color-bg-2: var(--background);
+    --p-color-bg-3: hsl(222.9, 6.8%, 20.2%);
+    --p-color-bg-floating: var(--popover-foreground);
+    --p-color-bg-floating-sticky: hsla(225, 6.7%, 11.8%, 0.9);
+    --p-color-bg-code: hsl(228, 12.2%, 8%);
+    --p-color-bg-overlay: var(--background) / 0.2;
 
     /* Root Tokens */
-    --p-color-divider: #51525C;
-    --p-color-divider-subdued: #51525C;
-    --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
+    --p-color-divider: var(--border);
+    --p-color-divider-subdued: var(--border);
+    --p-color-selection-highlight: hsla(211.9, 100%, 63.5%, 0.4);
 
-    --p-color-selected: rgba(104, 125, 155, 0.4);
-    --p-color-selectable-hover: rgba(104, 125, 155, 0.24);
-    --p-color-focus-ring: #276EE7;
+    --p-color-selected: hsla(215.3, 20.3%, 50.8%, 0.4);
+    --p-color-selectable-hover: hsla(215.3, 20.3%, 50.8%, 0.2);
+    --p-color-focus-ring: hsl(217.8, 80%, 52.9%);
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
-    --p-color-live: #6272FF;
+    --p-color-live: hsl(233.9, 100%, 69.2%);
 
     --p-color-sentiment-positive-hue: 142deg;
     --p-color-sentiment-positive-saturation: 71%;
@@ -71,22 +92,22 @@
     --p-color-sentiment-negative: hsl(var(--p-color-sentiment-negative-hsl-values));
 
     /* Text */
-    --p-color-text-default: #FFFFFF;
-    --p-color-text-subdued: #ADADAD;
-    --p-color-text-inverse: #171717;
-    --p-color-text-link: #53B1FD;
-    --p-color-text-code: #C1C4CE;
+    --p-color-text-default: hsl(0, 0%, 100%);
+    --p-color-text-subdued: hsl(0, 0%, 67.8%);
+    --p-color-text-inverse: hsl(0, 0%, 9%);
+    --p-color-text-link: hsl(206.8, 97.7%, 65.9%);
+    --p-color-text-code: hsl(226.2, 11.7%, 78.2%);
     --p-color-text-invalid: var(--p-color-sentiment-negative);
-    --p-color-text-selected: #3fa2c3;
+    --p-color-text-selected: hsl(195, 52.4%, 50.6%);
 
     /* Syntax Highlighting */
-    --p-color-syntax-comment: #686D7E;
-    --p-color-syntax-selector: #E0545C;
-    --p-color-syntax-parameter: #E3A64A;
-    --p-color-syntax-attribute: #D8692A;
-    --p-color-syntax-symbol: #12B981;
-    --p-color-syntax-title: #597FFF;
-    --p-color-syntax-keyword: #E054C1;
+    --p-color-syntax-comment: hsl(226.4, 9.6%, 45.1%);
+    --p-color-syntax-selector: hsl(356.6, 69.3%, 60.4%);
+    --p-color-syntax-parameter: hsl(36.1, 73.2%, 59%);
+    --p-color-syntax-attribute: hsl(21.7, 69%, 50.6%);
+    --p-color-syntax-symbol: hsl(159.9, 82.3%, 39.8%);
+    --p-color-syntax-title: hsl(226.3, 100%, 67.5%);
+    --p-color-syntax-keyword: hsl(313.3, 69.3%, 60.4%);
 
     /* Input */
     --p-color-input-bg: var(--p-color-bg-0);
@@ -101,7 +122,7 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: #175cd3;
+    --p-color-input-checked-bg: hsl(218, 80.3%, 45.9%);
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
@@ -113,72 +134,72 @@
     --p-color-toggle-bg-checked: var(--p-color-sentiment-positive);
 
     /* Button */
-    --p-color-button-default-bg: transparent;
+    --p-color-button-default-bg: hsla(0, 0%, 0%, 0);
     --p-color-button-default-border: var(--p-color-divider);
     --p-color-button-default-text: var(--p-color-text-default);
     --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
     --p-color-button-default-border-hover: var(--p-color-text-subdued);
     --p-color-button-default-text-hover: var(--p-color-button-default-text);
-    --p-color-button-default-bg-active: #141517;
+    --p-color-button-default-bg-active: hsl(220, 7%, 8.4%);
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
-    --p-color-button-primary-bg: #175CD3;
-    --p-color-button-primary-border: transparent;
+    --p-color-button-primary-bg: hsl(218, 80.3%, 45.9%);
+    --p-color-button-primary-border: hsla(0, 0%, 0%, 0);
     --p-color-button-primary-text: var(--p-color-text-default);
-    --p-color-button-primary-bg-hover: #1D6CF3;
+    --p-color-button-primary-bg-hover: hsl(217.9, 89.9%, 53.3%);
     --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
     --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
-    --p-color-button-primary-bg-active: #0A4BBA;
+    --p-color-button-primary-bg-active: hsl(217.8, 89.8%, 38.4%);
     --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
     --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
 
-    --p-color-button-danger-bg: transparent;
+    --p-color-button-danger-bg: hsla(0, 0%, 0%, 0);
     --p-color-button-danger-border: var(--p-color-sentiment-negative);
     --p-color-button-danger-text: var(--p-color-text-default);
-    --p-color-button-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-danger-bg-hover: hsla(3.9, 73.6%, 49%, 0.2);
     --p-color-button-danger-border-hover: var(--p-color-button-danger-border);
     --p-color-button-danger-text-hover: var(--p-color-button-danger-text);
-    --p-color-button-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-danger-bg-active: hsla(3.9, 73.6%, 49%, 0.4);
     --p-color-button-danger-border-active: var(--p-color-button-danger-border-hover);
     --p-color-button-danger-text-active: var(--p-color-button-danger-text-hover);
 
     --p-color-button-primary-danger-bg: var(--p-color-sentiment-negative);
-    --p-color-button-primary-danger-border: transparent;
+    --p-color-button-primary-danger-border: hsla(0, 0%, 0%, 0);
     --p-color-button-primary-danger-text: var(--p-color-text-default);
-    --p-color-button-primary-danger-bg-hover: #FE4134;
+    --p-color-button-primary-danger-bg-hover: hsl(3.9, 99%, 60%);
     --p-color-button-primary-danger-border-hover: var(--p-color-button-primary-danger-border);
     --p-color-button-primary-danger-text-hover: var(--p-color-button-primary-danger-text);
-    --p-color-button-primary-danger-bg-active: #C11F13;
+    --p-color-button-primary-danger-bg-active: hsl(4.1, 82.1%, 41.6%);
     --p-color-button-primary-danger-border-active: var(--p-color-button-primary-danger-border-hover);
     --p-color-button-primary-danger-text-active: var(--p-color-button-primary-danger-text-hover);
 
-    --p-color-button-flat-bg: transparent;
-    --p-color-button-flat-border: transparent;
+    --p-color-button-flat-bg: hsla(0, 0%, 0%, 0);
+    --p-color-button-flat-border: hsla(0, 0%, 0%, 0);
     --p-color-button-flat-text: var(--p-color-text-default);
-    --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
+    --p-color-button-flat-bg-hover: hsla(240, 4.7%, 46.1%, 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
-    --p-color-button-flat-bg-active: rgba(112, 112, 123, 0.8);
+    --p-color-button-flat-bg-active: hsla(240, 4.7%, 46.1%, 0.8);
     --p-color-button-flat-border-active: var(--p-color-button-flat-border-hover);
     --p-color-button-flat-text-active: var(--p-color-button-flat-text-hover);
 
-    --p-color-button-flat-danger-bg: transparent;
-    --p-color-button-flat-danger-border: transparent;
+    --p-color-button-flat-danger-bg: hsla(0, 0%, 0%, 0);
+    --p-color-button-flat-danger-border: hsla(0, 0%, 0%, 0);
     --p-color-button-flat-danger-text: var(--p-color-sentiment-negative);
-    --p-color-button-flat-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-flat-danger-bg-hover: hsla(3.9, 73.6%, 49%, 0.2);
     --p-color-button-flat-danger-border-hover: var(--p-color-button-flat-danger-border);
     --p-color-button-flat-danger-text-hover: var(--p-color-button-flat-danger-text);
-    --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-flat-danger-bg-active: hsla(3.9, 73.6%, 49%, 0.4);
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
     --p-color-button-selected-bg: var(--p-color-selected);
-    --p-color-button-selected-border: transparent;
+    --p-color-button-selected-border: hsla(0, 0%, 0%, 0);
     --p-color-button-selected-text: var(--p-color-text-default);
 
     /* Message */
-    --p-color-message-info-bg: #304A76;
+    --p-color-message-info-bg: hsl(217.7, 42.2%, 32.5%);
     --p-color-message-info-text: var(--p-color-text-default);
 
     --p-color-message-warning-bg: var(--p-color-sentiment-warning);
@@ -192,7 +213,7 @@
 
     /* Tag */
     --p-color-tag-bg: var(--p-color-divider);
-    --p-color-tag-border: transparent;
+    --p-color-tag-border: hsla(0, 0%, 0%, 0);
     --p-color-tag-text: var(--p-color-text-default);
   }
 
@@ -200,26 +221,26 @@
     color-scheme: light;
 
     /* Background */
-    --p-color-bg-0: #EFEFF0;
-    --p-color-bg-1: #FFFFFF;
-    --p-color-bg-2: #F5F5F5;
-    --p-color-bg-3: #EAEAEA;
-    --p-color-bg-floating: #FAFAFA;
-    --p-color-bg-floating-sticky: rgba(255, 255, 255, 0.8);
-    --p-color-bg-code: #DEDEE3;
-    --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
+    --p-color-bg-0: hsl(240, 3.2%, 93.9%);
+    --p-color-bg-1: hsl(0, 0%, 100%);
+    --p-color-bg-2: hsl(0, 0%, 96.1%);
+    --p-color-bg-3: hsl(0, 0%, 91.8%);
+    --p-color-bg-floating: hsl(0, 0%, 98%);
+    --p-color-bg-floating-sticky: hsla(0, 0%, 100%, 0.8);
+    --p-color-bg-code: hsl(240, 8.2%, 88%);
+    --p-color-bg-overlay: hsla(0, 0%, 0%, 0.5);
 
     /* Root Tokens */
-    --p-color-divider: #BFBFCC;
-    --p-color-divider-subdued: #f3f4f6;
-    --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
+    --p-color-divider: hsl(240, 11.3%, 77.5%);
+    --p-color-divider-subdued: hsl(220, 14.3%, 95.9%);
+    --p-color-selection-highlight: hsla(211.9, 100%, 63.5%, 0.4);
 
-    --p-color-selected: rgba(107, 116, 152, 0.24);
-    --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
-    --p-color-focus-ring: #1470EF;
+    --p-color-selected: hsla(228, 17.9%, 50.8%, 0.2);
+    --p-color-selectable-hover: hsla(228, 17.9%, 50.8%, 0.2);
+    --p-color-focus-ring: hsl(214.8, 87.3%, 50.8%);
     --p-color-focus-ring-offset: var(--p-color-bg-1);
 
-    --p-color-live: #4B5CFF;
+    --p-color-live: hsl(234.3, 100%, 64.7%);
 
     --p-color-sentiment-positive-hue: 142deg;
     --p-color-sentiment-positive-saturation: 71%;
@@ -243,22 +264,22 @@
     --p-color-sentiment-negative: hsl(var(--p-color-sentiment-negative-hsl-values));
 
     /* Text */
-    --p-color-text-default: #171717;
-    --p-color-text-subdued: #70707B;
-    --p-color-text-inverse: #FFFFFF;
-    --p-color-text-link: #1470EF;
-    --p-color-text-code: #3D3D3D;
+    --p-color-text-default: hsl(0, 0%, 9%);
+    --p-color-text-subdued: hsl(240, 4.7%, 46.1%);
+    --p-color-text-inverse: hsl(0, 0%, 100%);
+    --p-color-text-link: hsl(214.8, 87.3%, 50.8%);
+    --p-color-text-code: hsl(0, 0%, 23.9%);
     --p-color-text-invalid: var(--p-color-sentiment-negative);
-    --p-color-text-selected: #297f9c;
+    --p-color-text-selected: hsl(195.1, 58.4%, 38.6%);
 
     /* Syntax Highlighting */
-    --p-color-syntax-comment: #686D7E;
-    --p-color-syntax-selector: #E8212C;
-    --p-color-syntax-parameter: #CB7A00;
-    --p-color-syntax-attribute: #DF5100;
-    --p-color-syntax-symbol: #139569;
-    --p-color-syntax-title: #597FFF;
-    --p-color-syntax-keyword: #E054C1;
+    --p-color-syntax-comment: hsl(226.4, 9.6%, 45.1%);
+    --p-color-syntax-selector: hsl(356.7, 81.2%, 52%);
+    --p-color-syntax-parameter: hsl(36.1, 100%, 39.8%);
+    --p-color-syntax-attribute: hsl(21.8, 100%, 43.7%);
+    --p-color-syntax-symbol: hsl(159.7, 77.4%, 32.9%);
+    --p-color-syntax-title: hsl(226.3, 100%, 67.5%);
+    --p-color-syntax-keyword: hsl(313.3, 69.3%, 60.4%);
 
     /* Input */
     --p-color-input-bg: var(--p-color-bg-1);
@@ -273,7 +294,7 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: #2e90fb;
+    --p-color-input-checked-bg: hsl(211.3, 96.2%, 58.2%);
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
@@ -292,57 +313,57 @@
     --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
     --p-color-button-default-border-hover: var(--p-color-text-subdued);
     --p-color-button-default-text-hover: var(--p-color-button-default-text);
-    --p-color-button-default-bg-active: #E7E7EC;
+    --p-color-button-default-bg-active: hsl(240, 11.6%, 91.6%);
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
-    --p-color-button-primary-bg: #175CD3;
-    --p-color-button-primary-border: transparent;
+    --p-color-button-primary-bg: hsl(218, 80.3%, 45.9%);
+    --p-color-button-primary-border: hsla(0, 0%, 0%, 0);
     --p-color-button-primary-text: var(--p-color-text-inverse);
-    --p-color-button-primary-bg-hover: #1D6CF3;
+    --p-color-button-primary-bg-hover: hsl(217.9, 89.9%, 53.3%);
     --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
     --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
-    --p-color-button-primary-bg-active: #0A4BBA;
+    --p-color-button-primary-bg-active: hsl(217.8, 89.8%, 38.4%);
     --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
     --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
 
     --p-color-button-danger-bg: var(--p-color-button-default-bg);
     --p-color-button-danger-border: var(--p-color-sentiment-negative);
     --p-color-button-danger-text: var(--p-color-text-default);
-    --p-color-button-danger-bg-hover: #FCEEED;
+    --p-color-button-danger-bg-hover: hsl(4, 71.4%, 95.9%);
     --p-color-button-danger-border-hover: var(--p-color-button-danger-border);
     --p-color-button-danger-text-hover: var(--p-color-button-danger-text);
-    --p-color-button-danger-bg-active: #F8D5D3;
+    --p-color-button-danger-bg-active: hsl(3.2, 72.5%, 90%);
     --p-color-button-danger-border-active: var(--p-color-button-danger-border-hover);
     --p-color-button-danger-text-active: var(--p-color-button-danger-text-hover);
 
     --p-color-button-primary-danger-bg: var(--p-color-sentiment-negative);
-    --p-color-button-primary-danger-border: transparent;
+    --p-color-button-primary-danger-border: hsla(0, 0%, 0%, 0);
     --p-color-button-primary-danger-text: var(--p-color-text-inverse);
-    --p-color-button-primary-danger-bg-hover: #FE4134;
+    --p-color-button-primary-danger-bg-hover: hsl(3.9, 99%, 60%);
     --p-color-button-primary-danger-border-hover: var(--p-color-button-primary-danger-border);
     --p-color-button-primary-danger-text-hover: var(--p-color-button-primary-danger-text);
-    --p-color-button-primary-danger-bg-active: #C11F13;
+    --p-color-button-primary-danger-bg-active: hsl(4.1, 82.1%, 41.6%);
     --p-color-button-primary-danger-border-active: var(--p-color-button-primary-danger-border-hover);
     --p-color-button-primary-danger-text-active: var(--p-color-button-primary-danger-text-hover);
 
-    --p-color-button-flat-bg: transparent;
-    --p-color-button-flat-border: transparent;
+    --p-color-button-flat-bg: hsla(0, 0%, 0%, 0);
+    --p-color-button-flat-border: hsla(0, 0%, 0%, 0);
     --p-color-button-flat-text: var(--p-color-text-default);
-    --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
+    --p-color-button-flat-bg-hover: hsla(240, 4.7%, 46.1%, 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
-    --p-color-button-flat-bg-active: rgba(112, 112, 123, 0.8);
+    --p-color-button-flat-bg-active: hsla(240, 4.7%, 46.1%, 0.8);
     --p-color-button-flat-border-active: var(--p-color-button-flat-border-hover);
     --p-color-button-flat-text-active: var(--p-color-button-flat-text-hover);
 
-    --p-color-button-flat-danger-bg: transparent;
-    --p-color-button-flat-danger-border: transparent;
+    --p-color-button-flat-danger-bg: hsla(0, 0%, 0%, 0);
+    --p-color-button-flat-danger-border: hsla(0, 0%, 0%, 0);
     --p-color-button-flat-danger-text: var(--p-color-sentiment-negative);
-    --p-color-button-flat-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-flat-danger-bg-hover: hsla(3.9, 73.6%, 49%, 0.2);
     --p-color-button-flat-danger-border-hover: var(--p-color-button-flat-danger-border);
     --p-color-button-flat-danger-text-hover: var(--p-color-button-flat-danger-text);
-    --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-flat-danger-bg-active: hsla(3.9, 73.6%, 49%, 0.4);
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
@@ -351,7 +372,7 @@
     --p-color-button-selected-text: var(--p-color-text-default);
 
     /* Message */
-    --p-color-message-info-bg: #B5D0FF;
+    --p-color-message-info-bg: hsl(218.1, 100%, 85.5%);
     --p-color-message-info-text: var(--p-color-text-default);
 
     --p-color-message-warning-bg: var(--p-color-sentiment-warning);
@@ -364,8 +385,8 @@
     --p-color-message-success-text: var(--p-color-text-inverse);
 
     /* Tag */
-    --p-color-tag-bg: #D9D9E2;
-    --p-color-tag-border: transparent;
+    --p-color-tag-bg: hsl(240, 13.4%, 86.9%);
+    --p-color-tag-border: hsla(0, 0%, 0%, 0);
     --p-color-tag-text: var(--p-color-text-default);
   }
 }
