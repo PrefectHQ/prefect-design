@@ -32,7 +32,7 @@
               <slot v-bind="modalScope" />
             </div>
 
-            <div class="p-modal__footer">
+            <div v-if="$slots.actions" class="p-modal__footer">
               <slot name="actions" v-bind="modalScope" />
               <slot name="cancel" v-bind="modalScope">
                 <p-button class="p-modal__close-button" @click="modalScope.close">
