@@ -22,15 +22,16 @@
     --p-spacing-focus-ring-offset: 1px;
     --p-radius-default: 6px;
     --p-scrollbar-width: 12px;
-    --destructive: 4 74% 49%;
-    --positive: 142 71% 45%;
-    --neutral: 240 5% 46%;
-    --warning: 40 92% 50%;
 
-    --p-color-sentiment-positive: hsl(var(--positive));
-    --p-color-sentiment-neutral: hsl(var(--neutral));
-    --p-color-sentiment-warning: hsl(var(--warning));
-    --p-color-sentiment-negative: hsl(var(--destructive));
+    --p-destructive: 4 74% 49%;
+    --p-positive: 142 71% 45%;
+    --p-neutral: 240 5% 46%;
+    --p-warning: 40 92% 50%;
+
+    --p-color-sentiment-positive: hsl(var(--p-positive));
+    --p-color-sentiment-neutral: hsl(var(--p-neutral));
+    --p-color-sentiment-warning: hsl(var(--p-warning));
+    --p-color-sentiment-negative: hsl(var(--p-destructive));
   }
 
   .dark {
