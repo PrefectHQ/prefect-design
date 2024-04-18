@@ -1,13 +1,13 @@
-export type Tab = {
-  label: string,
+export type Tab<T extends string> = {
+  label: T,
   disabled?: boolean,
 }
 
-export function isTab(value: unknown): value is Tab {
+export function isTab(value: unknown): value is Tab<string> {
   return typeof value === 'object' && value !== null && 'label' in value
 }
 
-export function normalizeTab(value: string | Tab): Tab {
+export function normalizeTab<T extends string>(value: T | Tab<T>): Tab<T> {
   if (isTab(value)) {
     return value
   }

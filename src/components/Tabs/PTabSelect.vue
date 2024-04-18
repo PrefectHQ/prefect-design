@@ -7,53 +7,50 @@
     :options="options"
     name="tabs"
   >
-    <template #option="{ option, index }">
-      <slot
-        :name="`${kebabCase(option.label)}-heading`"
-        v-bind="{ tab: option, index }"
-      >
-        <slot name="heading" v-bind="{ tab: option, index }">
-          {{ option.label }}
+    <template #option="{ option: tab, index }">
+      <slot :name="`${kebabCase(tab.label)}-heading`" :tab :index>
+        <slot name="heading" :tab :index>
+          {{ tab.label }}
         </slot>
       </slot>
     </template>
-    <template #default="{ option, label }">
-      <slot
-        :name="`${kebabCase(label)}-heading`"
-        v-bind="{ tab: option, index: options.findIndex(tab => tab.label === label) }"
-      >
-        <slot name="heading" v-bind="{ tab: option, index: options.findIndex(tab => tab.label === label) }" />
+    <template #default="{ label }">
+      <slot :name="`${kebabCase(label)}-heading`" v-bind="getSlotScope(label)">
+        <slot name="heading" v-bind="getSlotScope(label)" />
       </slot>
     </template>
   </PSelect>
 </template>
 
-<script lang="ts" setup>
-  import { computed } from 'vue'
+<script lang="ts" setup generic="T extends string">
+  import { VNode, computed } from 'vue'
   import PSelect from '@/components/Select/PSelect.vue'
   import { Tab, normalizeTab } from '@/types'
   import { randomId } from '@/utilities'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    tabs: (string | Tab)[],
-    selected?: string,
+    tabs: (T | Tab<T>)[],
+    selected?: T,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:selected', value: string): void,
+    (event: 'update:selected', value: T): void,
   }>()
+
+  type HeadingSlots = Record<`${string}-heading`, (props: { tab: Tab<T>, index: number }) => VNode>
+  type HeadingSlot = { heading: (props: { tab: Tab<T>, index: number }) => VNode }
+
+  defineSlots<HeadingSlots & HeadingSlot>()
 
   const id = randomId()
 
-  const options = computed(() => props.tabs.map(tab => {
-    const value = normalizeTab(tab)
+  const normalizedTabs = computed(() => props.tabs.map(tab => normalizeTab(tab)))
 
-    return {
-      ...value,
-      value: value.label,
-    }
-  }))
+  const options = computed(() => normalizedTabs.value.map(tab => ({
+    ...tab,
+    value: tab.label,
+  })))
 
   const selected = computed({
     get() {
@@ -69,6 +66,16 @@
       emits('update:selected', value)
     },
   })
+
+  function getSlotScope(label: string): { tab: Tab<T>, index: number } {
+    const index = normalizedTabs.value.findIndex(tab => tab.label === label)
+    const tab = normalizedTabs.value[index]
+
+    return {
+      tab,
+      index,
+    }
+  }
 </script>
 
 <style>

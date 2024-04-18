@@ -2,15 +2,23 @@
   <section class="p-tabs">
     <template v-if="media.sm">
       <PTabNavigation v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
-        <template v-for="(index, name) in slots" #[name]="data">
-          <slot :name="name" v-bind="data" />
+        <template v-for="tab in tabs" #[`${tab}-heading`]="data">
+          <slot :name="`${tab}-heading`" v-bind="data" />
+        </template>
+
+        <template #heading="data">
+          <slot name="heading" v-bind="data" />
         </template>
       </PTabNavigation>
     </template>
     <template v-else>
       <PTabSelect v-model:selected="selected" :tabs="tabs">
-        <template v-for="(index, name) in slots" #[name]="data">
-          <slot :name="name" v-bind="data" />
+        <template v-for="tab in tabs" #[`${tab}-heading`]="data">
+          <slot :name="`${tab}-heading`" v-bind="data" />
+        </template>
+
+        <template #heading="data">
+          <slot name="heading" v-bind="data" />
         </template>
       </PTabSelect>
     </template>
@@ -22,7 +30,7 @@
           role="tabpanel"
           :aria-labelledby="`${kebabCase(tab.label)}`"
         >
-          <slot :name="kebabCase(tab.label)" v-bind="{ tab, index }">
+          <slot :name="`${tab.label}`" v-bind="{ tab, index }">
             <slot name="content" v-bind="{ tab, index }" />
           </slot>
         </section>
@@ -31,8 +39,8 @@
   </section>
 </template>
 
-<script lang="ts" setup>
-  import { computed, ref, useSlots } from 'vue'
+<script lang="ts" setup generic="T extends string">
+  import { VNode, computed, ref } from 'vue'
   import PTabNavigation from '@/components/Tabs/PTabNavigation.vue'
   import PTabSelect from '@/components/Tabs/PTabSelect.vue'
   import { Tab, normalizeTab } from '@/types/tabs'
@@ -40,19 +48,25 @@
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    tabs: (string | Tab)[],
-    selected?: string,
+    tabs: Readonly<(T | Tab<T>)[]>,
+    selected?: T,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:selected', value: string): void,
+    (event: 'update:selected', value: T): void,
   }>()
 
-  const slots = useSlots()
+  type HeadingSlots = Record<`${string}-heading`, (props: { tab: Tab<T>, index: number }) => VNode>
+  type HeadingSlot = { heading: (props: { tab: Tab<T>, index: number }) => VNode }
+  type ContentSlots = Record<string, (props: { tab: Tab<T>, index: number }) => VNode>
+  type ContentSlot = { content: (props: { tab: Tab<T>, index: number }) => VNode }
+
+  defineSlots<HeadingSlots & HeadingSlot & ContentSlots & ContentSlot>()
+
   const tabs = computed(() => props.tabs.map(normalizeTab))
 
-  const backupSelected = ref<string>()
-  const selected = computed({
+  const backupSelected = ref<T>()
+  const selected = computed<T>({
     get() {
       if (props.selected) {
         return props.selected

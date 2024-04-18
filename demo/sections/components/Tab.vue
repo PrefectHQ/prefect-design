@@ -1,7 +1,7 @@
 <template>
   <ComponentPage title="Tab" :demos="[{ title: 'Tab' }]">
     <template #tab>
-      <PTabs v-model:selected="selectedTab" :tabs="tabs">
+      <PTabs v-model:selected="selectedTab" :tabs="tabs" @update:selected="changeToTab">
         <template #tab-one-heading="{ tab }">
           <p-icon icon="Prefect" class="w-4 h-4 mr-2" />
           <span>{{ tab?.label }}</span>
@@ -46,10 +46,10 @@
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
-  const tabs = ['Tab One', 'Tab Two', 'Tab Three', 'Tab Four']
+  const tabs = ['Tab One', 'Tab Two', 'Tab Three', 'Tab Four'] as const
 
-  const selectedTab = ref()
-  const changeToTab = (tab: string): void => {
+  const selectedTab = ref<typeof tabs[number]>()
+  const changeToTab = (tab: typeof tabs[number]): void => {
     selectedTab.value = tab
   }
 </script>
