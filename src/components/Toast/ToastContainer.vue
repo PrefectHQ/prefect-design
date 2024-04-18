@@ -36,6 +36,7 @@
   py-6
   pointer-events-none
   sm:p-6
+  z-50
 }
 
 .p-toast-container__toast { @apply
