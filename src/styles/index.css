@@ -20,9 +20,18 @@
   :root {
     --p-spacing-focus-ring: 2px;
     --p-spacing-focus-ring-offset: 1px;
-
     --p-radius-default: 6px;
     --p-scrollbar-width: 12px;
+
+    --p-destructive: 4 74% 49%;
+    --p-positive: 142 71% 45%;
+    --p-neutral: 240 5% 46%;
+    --p-warning: 40 92% 50%;
+
+    --p-color-sentiment-positive: hsl(var(--p-positive));
+    --p-color-sentiment-neutral: hsl(var(--p-neutral));
+    --p-color-sentiment-warning: hsl(var(--p-warning));
+    --p-color-sentiment-negative: hsl(var(--p-destructive));
   }
 
   .dark {
@@ -49,27 +58,6 @@
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
     --p-color-live: #6272FF;
-
-    --p-color-sentiment-positive-hue: 142deg;
-    --p-color-sentiment-positive-saturation: 71%;
-    --p-color-sentiment-positive-lightness: 45%;
-    --p-color-sentiment-positive-hsl-values: var(--p-color-sentiment-positive-hue) var(--p-color-sentiment-positive-saturation) var(--p-color-sentiment-positive-lightness);
-    --p-color-sentiment-positive: hsl(var(--p-color-sentiment-positive-hsl-values));
-    --p-color-sentiment-neutral-hue: 240deg;
-    --p-color-sentiment-neutral-saturation: 5%;
-    --p-color-sentiment-neutral-lightness: 46%;
-    --p-color-sentiment-neutral-hsl-values: var(--p-color-sentiment-neutral-hue) var(--p-color-sentiment-neutral-saturation) var(--p-color-sentiment-neutral-lightness);
-    --p-color-sentiment-neutral: hsl(var(--p-color-sentiment-neutral-hsl-values));
-    --p-color-sentiment-warning-hue: 40deg;
-    --p-color-sentiment-warning-saturation: 92%;
-    --p-color-sentiment-warning-lightness: 50%;
-    --p-color-sentiment-warning-hsl-values: var(--p-color-sentiment-warning-hue) var(--p-color-sentiment-warning-saturation) var(--p-color-sentiment-warning-lightness);
-    --p-color-sentiment-warning: hsl(var(--p-color-sentiment-warning-hsl-values));
-    --p-color-sentiment-negative-hue: 4deg;
-    --p-color-sentiment-negative-saturation: 74%;
-    --p-color-sentiment-negative-lightness: 49%;
-    --p-color-sentiment-negative-hsl-values: var(--p-color-sentiment-negative-hue) var(--p-color-sentiment-negative-saturation) var(--p-color-sentiment-negative-lightness);
-    --p-color-sentiment-negative: hsl(var(--p-color-sentiment-negative-hsl-values));
 
     /* Text */
     --p-color-text-default: #FFFFFF;
@@ -200,6 +188,8 @@
   .light {
     color-scheme: light;
 
+    
+
     /* Background */
     --p-color-bg-0: #EFEFF0;
     --p-color-bg-1: #FFFFFF;
@@ -221,27 +211,6 @@
     --p-color-focus-ring-offset: var(--p-color-bg-1);
 
     --p-color-live: #4B5CFF;
-
-    --p-color-sentiment-positive-hue: 142deg;
-    --p-color-sentiment-positive-saturation: 71%;
-    --p-color-sentiment-positive-lightness: 45%;
-    --p-color-sentiment-positive-hsl-values: var(--p-color-sentiment-positive-hue) var(--p-color-sentiment-positive-saturation) var(--p-color-sentiment-positive-lightness);
-    --p-color-sentiment-positive: hsl(var(--p-color-sentiment-positive-hsl-values));
-    --p-color-sentiment-neutral-hue: 240deg;
-    --p-color-sentiment-neutral-saturation: 5%;
-    --p-color-sentiment-neutral-lightness: 46%;
-    --p-color-sentiment-neutral-hsl-values: var(--p-color-sentiment-neutral-hue) var(--p-color-sentiment-neutral-saturation) var(--p-color-sentiment-neutral-lightness);
-    --p-color-sentiment-neutral: hsl(var(--p-color-sentiment-neutral-hsl-values));
-    --p-color-sentiment-warning-hue: 40deg;
-    --p-color-sentiment-warning-saturation: 92%;
-    --p-color-sentiment-warning-lightness: 50%;
-    --p-color-sentiment-warning-hsl-values: var(--p-color-sentiment-warning-hue) var(--p-color-sentiment-warning-saturation) var(--p-color-sentiment-warning-lightness);
-    --p-color-sentiment-warning: hsl(var(--p-color-sentiment-warning-hsl-values));
-    --p-color-sentiment-negative-hue: 4deg;
-    --p-color-sentiment-negative-saturation: 74%;
-    --p-color-sentiment-negative-lightness: 49%;
-    --p-color-sentiment-negative-hsl-values: var(--p-color-sentiment-negative-hue) var(--p-color-sentiment-negative-saturation) var(--p-color-sentiment-negative-lightness);
-    --p-color-sentiment-negative: hsl(var(--p-color-sentiment-negative-hsl-values));
 
     /* Text */
     --p-color-text-default: #171717;
