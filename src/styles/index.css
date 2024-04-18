@@ -38,12 +38,16 @@
     color-scheme: dark;
 
     /* Background */
-    --p-color-bg-0: #26272B;
-    --p-color-bg-1: #1C1D20;
-    --p-color-bg-2: var(--p-color-bg-0);
-    --p-color-bg-3: #303237;
-    --p-color-bg-floating: #35363C;
-    --p-color-bg-floating-sticky: rgba(28, 29, 32, 0.9);
+    --p-background: 228 6% 16%;
+    --p-popover-foreground: 228 6% 22%;
+    
+    --p-color-bg-0: hsl(var(--p-background));
+    --p-color-bg-1: color-mix(in hsl, hsl(var(--p-background)) 75%, black);
+    --p-color-bg-2: hsl(var(--p-background));
+    --p-color-bg-3: color-mix(in hsl, hsl(var(--p-background)) 75%, white);
+    --p-color-bg-floating: hsl(var(--p-popover-foreground));
+    --p-color-bg-floating-sticky: hsl(var(--p-popover-foreground) / 90%);
+    
     --p-color-bg-code: #121317;
     --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
 
@@ -188,15 +192,16 @@
   .light {
     color-scheme: light;
 
-    
+    --p-background: 0 0% 96%; 
+    --p-popover-foreground: 0 0% 98%;
 
-    /* Background */
-    --p-color-bg-0: #EFEFF0;
-    --p-color-bg-1: #FFFFFF;
-    --p-color-bg-2: #F5F5F5;
-    --p-color-bg-3: #EAEAEA;
-    --p-color-bg-floating: #FAFAFA;
-    --p-color-bg-floating-sticky: rgba(255, 255, 255, 0.8);
+    --p-color-bg-0: hsl(var(--p-background));
+    --p-color-bg-1: color-mix(in hsl, hsl(var(--p-background)) 25%, white);
+    --p-color-bg-2: hsl(var(--p-background));
+    --p-color-bg-3: color-mix(in hsl, hsl(var(--p-background)) 75%, black);
+    --p-color-bg-floating: hsl(var(--p-popover-foreground));
+    --p-color-bg-floating-sticky: hsl(var(--p-popover-foreground) / 90%);
+
     --p-color-bg-code: #DEDEE3;
     --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
 
