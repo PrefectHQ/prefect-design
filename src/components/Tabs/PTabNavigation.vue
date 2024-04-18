@@ -9,11 +9,8 @@
         @click="selected = tab.label"
         @keydown.enter.space.prevent="handleSpaceDown(tab)"
       >
-        <slot
-          :name="`${kebabCase(tab.label)}-heading`"
-          v-bind="{ tab, index }"
-        >
-          <slot name="heading" v-bind="{ tab, index }">
+        <slot :name="`${kebabCase(tab.label)}-heading`" :tab :index>
+          <slot name="heading" :tab :index>
             {{ tab.label }}
           </slot>
         </slot>
@@ -22,20 +19,25 @@
   </ul>
 </template>
 
-<script lang="ts" setup>
-  import { computed } from 'vue'
+<script lang="ts" setup generic="T extends string">
+  import { VNode, computed } from 'vue'
   import PTab from '@/components/Tab/PTab.vue'
   import { Tab, normalizeTab } from '@/types'
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    tabs: (string | Tab)[],
-    selected?: string,
+    tabs: (T | Tab<T>)[],
+    selected?: NoInfer<T>,
   }>()
 
   const emits = defineEmits<{
-    (event: 'update:selected', value: string): void,
+    (event: 'update:selected', value: T): void,
   }>()
+
+  type HeadingSlots = Record<`${string}-heading`, (props: { tab: Tab<T>, index: number }) => VNode>
+  type HeadingSlot = { heading: (props: { tab: Tab<T>, index: number }) => VNode }
+
+  defineSlots<HeadingSlots & HeadingSlot>()
 
   const tabs = computed(() => props.tabs.map(normalizeTab))
 
@@ -54,7 +56,7 @@
     },
   })
 
-  function handleSpaceDown(tab: Tab): void {
+  function handleSpaceDown(tab: Tab<T>): void {
     if (tab.disabled) {
       return
     }
