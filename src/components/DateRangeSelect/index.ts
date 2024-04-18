@@ -5,4 +5,5 @@ const install = (app: App): void => {
   app.component('PDateRangeSelect', PDateRangeSelect)
 }
 
+export * from '@/components/DateRangeSelect/utilities'
 export { PDateRangeSelect, install }

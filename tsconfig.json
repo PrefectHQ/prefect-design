@@ -43,5 +43,6 @@
     "./**/postcss.config.js",
     "./**/tailwind.config.js",
     "src/tailwindPlugin.js",
+    "./vite.config.mts"
   ]
 }

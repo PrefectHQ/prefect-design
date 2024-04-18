@@ -15,7 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { secondsInMinute, secondsInHour, secondsInDay, secondsInWeek, secondsInMonth, addSeconds, isBefore, isAfter } from 'date-fns'
+  import { addSeconds, isBefore, isAfter } from 'date-fns'
+  import { secondsInMinute, secondsInHour, secondsInDay, secondsInWeek, secondsInMonth } from 'date-fns/constants'
   import { computed, onMounted, ref } from 'vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
   import PTextInput from '@/components/TextInput/PTextInput.vue'
