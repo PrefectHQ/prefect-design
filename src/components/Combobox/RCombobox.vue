@@ -1,27 +1,40 @@
 <template>
   <ComboboxRoot v-model="modelValue">
     <ComboboxAnchor>
-      <ComboboxInput />
-      <ComboboxTrigger />
-      <ComboboxCancel />
+      <ComboboxInput as-child>
+        <p-text-input v-model="modelValue">
+          <template #append>
+            <ComboboxTrigger>
+              <span class="flex items-center px-2 border-l">
+                <PIcon icon="ChevronUpDownIcon" />
+              </span>
+            </ComboboxTrigger>
+          </template>
+        </p-text-input>
+      </ComboboxInput>
+      <!-- <ComboboxCancel /> -->
     </ComboboxAnchor>
 
     <ComboboxPortal>
-      <ComboboxContent>
-        <ComboboxViewport>
+      <ComboboxContent position="popper" :side-offset="8">
+        <ComboboxViewport class="p-select-options">
           <ComboboxEmpty />
 
-          <ComboboxItem :value="5">
-            <ComboboxItemIndicator />
+          <ComboboxItem
+            v-for="(option, index) in options"
+            :key="index"
+            :value="option"
+          >
+            <ComboboxItemIndicator
+              class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+            >
+              <!-- <Icon icon="radix-icons:check" /> -->
+              ✅
+            </ComboboxItemIndicator>
+            <span>
+              {{ option }}
+            </span>
           </ComboboxItem>
-
-          <ComboboxGroup>
-            <ComboboxLabel />
-            <ComboboxItem :value="6">
-              <ComboboxItemIndicator />
-            </ComboboxItem>
-          </ComboboxGroup>
-          <ComboboxSeparator />
         </ComboboxViewport>
 
         <ComboboxArrow />
