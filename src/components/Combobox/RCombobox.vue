@@ -16,7 +16,7 @@
     </ComboboxAnchor>
 
     <ComboboxPortal>
-      <ComboboxContent position="popper" :side-offset="8">
+      <ComboboxContent position="popper" :side-offset="8" class="w-[var(--radix-combobox-trigger-width)]">
         <ComboboxViewport class="p-select-options">
           <ComboboxEmpty />
 
