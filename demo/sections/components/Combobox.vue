@@ -15,6 +15,7 @@
     <template #combobox>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
+        <r-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox) }}
@@ -62,6 +63,7 @@
 </template>
 
 <script lang="ts" setup>
+  import RCombobox from '@/components/Combobox/RCombobox.vue'
   import { State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'

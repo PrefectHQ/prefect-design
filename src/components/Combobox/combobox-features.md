@@ -1,0 +1,16 @@
+combobox features:
+- [] click to open a dropdown list of options
+- [] type to search/filter through list of options
+- [] select an option
+- [] options can have separate display and data values
+- [] can select multiple options
+- [] can group the options under header keys
+- [] can override the filter function from default search to something else (manual prop)
+- [] can type in custom values that are not options
+- [] can handle paginated/virtualized options
+- [] can customize the empty state - when no options are available
+- [] slot parity
+  - #default - the selected value
+  - #option - each option scoped slot
+  - #combobox-options-empty
+  - fallthrough rest of slots go straight into PSelect
