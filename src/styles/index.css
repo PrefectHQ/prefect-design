@@ -46,7 +46,7 @@
     /* In dark mode, we first go dark then incrementally lighten nested cards. */
     --p-color-bg-1: color-mix(in hsl, hsl(var(--p-background)) 75%, black);
     --p-color-bg-2: hsl(var(--p-background));
-    --p-color-bg-3: color-mix(in hsl, hsl(var(--p-background)) 75%, white);
+    --p-color-bg-3: color-mix(in hsl, hsl(var(--p-background)) 94%, white);
     --p-color-bg-floating: hsl(var(--p-popover-foreground));
     --p-color-bg-floating-sticky: hsl(var(--p-popover-foreground) / 90%);
     
