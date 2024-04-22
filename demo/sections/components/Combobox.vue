@@ -61,6 +61,7 @@
     <template #grouped>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+        <r-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox3) }}
