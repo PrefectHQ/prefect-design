@@ -28,6 +28,7 @@
             v-for="(option, index) in options"
             :key="index"
             :value="isComboboxOptionObject(option) ? option.value : option"
+            :disabled="isComboboxOptionObject(option) ? option.disabled : false"
             class="p-select-option"
           >
             <!--

@@ -172,7 +172,8 @@
   content: "\200b";
 }
 
-.p-select-option--disabled { @apply
+.p-select-option--disabled,
+.p-select-option[data-disabled] { @apply
   opacity-50
   cursor-not-allowed
 }

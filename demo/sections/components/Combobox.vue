@@ -15,7 +15,7 @@
     <template #combobox>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
-        <r-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions.map(opt => opt.value)" :state="exampleState" />
+        <r-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox) }}
