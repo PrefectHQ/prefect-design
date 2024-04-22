@@ -26,7 +26,7 @@ jobs:
       - name: Bump Package Version
         id: bump_version
         run: | 
-          npm version patch
+          npm version ${{ inputs.release_type }}
           echo "RELEASE_VERSION=$(cat package.json | jq .version)" >> $GITHUB_ENV
 
       - name: Bump Version and Create Release
