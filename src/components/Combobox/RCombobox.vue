@@ -27,7 +27,7 @@
           <ComboboxItem
             v-for="(option, index) in options"
             :key="index"
-            :value="option"
+            :value="isComboboxOptionObject(option) ? option.value : option"
             class="p-select-option"
           >
             <!--
@@ -39,7 +39,7 @@
               </ComboboxItemIndicator>
             -->
             <span>
-              {{ option }}
+              {{ isComboboxOptionObject(option) ? option.label : option }}
             </span>
           </ComboboxItem>
         </ComboboxViewport>
@@ -70,12 +70,17 @@
   } from 'radix-vue'
   import { type AcceptableValue } from 'radix-vue/dist/shared/types'
 
+  export type ComboboxOption<T> = T | { label: string, value: T, disabled?: boolean }
+  function isComboboxOptionObject<T>(option: ComboboxOption<T>): option is { label: string, value: T, disabled?: boolean } {
+    return typeof option === 'object' && option != null && 'label' in option && 'value' in option
+  }
+
   const modelValue = defineModel<T | T[]>()
 
   const search = defineModel<string>('search')
 
   const props = withDefaults(defineProps<{
-    options: T[],
+    options: ComboboxOption<T>[],
     allowUnknownValue?: boolean,
     emptyMessage?: string,
     placeholder?: string,
