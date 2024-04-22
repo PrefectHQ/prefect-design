@@ -1,14 +1,14 @@
 name: Release
 
 on:
-  push:
-    paths: 
-      - package.json
-    branches:
-      - main
-      
-jobs:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Type of release to perform'
+        required: true
+        default: 'patch'
 
+jobs:
   build-and-publish:
     name: Build & Publish Release
     runs-on: ubuntu-latest
@@ -16,6 +16,28 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      # Checkout branch, bump version, push, merge, create release
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      
+      - name: Bump Package Version
+        id: bump_version
+        run: | 
+          npm version patch
+          echo "RELEASE_VERSION=$(cat package.json | jq .version)" >> $GITHUB_ENV
+
+      - name: Bump Version and Create Release
+        run: |
+          git checkout -b $RELEASE_VERSION
+          git commit -am "Bump version to $RELEASE_VERSION"
+          git push --set-upstream origin release
+          gh pr create --base main -f
+          gh pr merge --squash
+        env:
+          GITHUB_TOKEN: ${{ secrets.PREFECT_CONTENTS_PR_RW }}
 
       - uses: prefecthq/actions-release-ui-components@main
         id: release-ui-components
