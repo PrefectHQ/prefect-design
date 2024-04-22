@@ -45,7 +45,10 @@
             <ComboboxGroup
               v-else
             >
-              <ComboboxLabel>{{ option.label }}</ComboboxLabel>
+              <ComboboxSeparator class="h-[1px] bg-[var(--p-color-divider)] m-[5px]" />
+              <ComboboxLabel class="text-subdued text-sm p-2">
+                {{ option.label }}
+              </ComboboxLabel>
               <template v-for="(groupOption, groupIndex) in option.options" :key="groupIndex">
                 <ComboboxItem
                   :value="isComboboxOptionObject(groupOption) ? groupOption.value : groupOption"
@@ -63,8 +66,6 @@
                   </span>
                 </ComboboxItem>
               </template>
-
-              <ComboboxSeparator class="h-[1px] bg-grass6 m-[5px]" />
             </ComboboxGroup>
           </template>
         </ComboboxViewport>
