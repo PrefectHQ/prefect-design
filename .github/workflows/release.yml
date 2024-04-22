@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Checkout branch, bump version, push, merge, create releases
+      # Checkout branch, bump version, push, merge, create release
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -33,11 +33,15 @@ jobs:
         run: |
           git checkout -b $RELEASE_VERSION
           git commit -am "Bump version to $RELEASE_VERSION"
-          git push --set-upstream origin release
+          git push --set-upstream origin $RELEASE_VERSION
           gh pr create --base main -f
           gh pr merge --squash
         env:
           GITHUB_TOKEN: ${{ secrets.PREFECT_CONTENTS_PR_RW }}
+      
+      - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: prefecthq/actions-release-ui-components@main
         id: release-ui-components
