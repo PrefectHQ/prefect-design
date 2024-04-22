@@ -23,8 +23,8 @@
     --p-radius-default: 6px;
     --p-scrollbar-width: 12px;
 
+    /* Prefect Blue is 218, 100, 50  */
     --p-primary-hue: 228;
-    --p-primary-saturation: 6%;
 
     --p-destructive: 4 74% 49%;
     --p-positive: 142 71% 45%;
@@ -41,18 +41,18 @@
     color-scheme: dark;
 
     /* Background */
-    --p-color-bg-0: hsl(var(--p-primary-hue), var(--p-primary-saturation), 15.88%);
-    --p-color-bg-1: hsl(var(--p-primary-hue), var(--p-primary-saturation), 11.76%);
+    --p-color-bg-0: hsl(var(--p-primary-hue), 6%, 15.88%);
+    --p-color-bg-1: hsl(var(--p-primary-hue), 6%, 11.76%);
     --p-color-bg-2: var(--p-color-bg-0);
-    --p-color-bg-3: hsl(var(--p-primary-hue), var(--p-primary-saturation), 20.2%);
-    --p-color-bg-floating: hsl(var(--p-primary-hue), var(--p-primary-saturation), 22.16%);
+    --p-color-bg-3: hsl(var(--p-primary-hue), 6%, 20.2%);
+    --p-color-bg-floating: hsl(var(--p-primary-hue), 6%, 22.16%);
     --p-color-bg-floating-sticky: hsl(var(--p-primary-hue) 6.67% 11.76% / 0.9);
     --p-color-bg-code: hsl(var(--p-primary-hue), 12.2%, 8.04%);
     --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
 
     /* Root Tokens */
-    --p-color-divider: hsl(var(--p-primary-hue), var(--p-primary-saturation), 33.92%);
-    --p-color-divider-subdued: hsl(var(--p-primary-hue), var(--p-primary-saturation), 33.92%);
+    --p-color-divider: hsl(var(--p-primary-hue), 6%, 33.92%);
+    --p-color-divider-subdued: hsl(var(--p-primary-hue), 6%, 33.92%);
     --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 63.53% / 0.4);
     --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.98%, 39.61%);
     --p-color-selected: hsl(var(--p-primary-hue) 20.32% 50.78% / 0.4);
@@ -111,7 +111,7 @@
     --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
     --p-color-button-default-border-hover: var(--p-color-text-subdued);
     --p-color-button-default-text-hover: var(--p-color-button-default-text);
-    --p-color-button-default-bg-active: hsl(var(--p-primary-hue), var(--p-primary-saturation), 8.43%);
+    --p-color-button-default-bg-active: hsl(var(--p-primary-hue), 6%, 8.43%);
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
@@ -217,7 +217,7 @@
 
     /* Text */
     --p-color-text-default: hsl(0.0, 0.0%, 9.02%);
-    --p-color-text-subdued: hsl(var(--p-primary-hue), var(--p-primary-saturation), 46.08%);
+    --p-color-text-subdued: hsl(var(--p-primary-hue), 6%, 46.08%);
     --p-color-text-inverse: hsl(0.0, 0.0%, 100.0%);
     --p-color-text-link: hsl(var(--p-primary-hue), 87.25%, 50.78%);
     --p-color-text-code: hsl(0.0, 0.0%, 23.92%);
@@ -302,7 +302,7 @@
     --p-color-button-flat-bg: transparent;
     --p-color-button-flat-border: transparent;
     --p-color-button-flat-text: var(--p-color-text-default);
-    --p-color-button-flat-bg-hover: hsla(var(--p-primary-hue), var(--p-primary-saturation), 46.1%, 0.4);
+    --p-color-button-flat-bg-hover: hsla(var(--p-primary-hue), 6%, 46.1%, 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
     --p-color-button-flat-bg-active: hsl(var(--p-primary-hue) 4.68% 46.08% / 0.8);
