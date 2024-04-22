@@ -16,7 +16,11 @@
     </ComboboxAnchor>
 
     <ComboboxPortal>
-      <ComboboxContent position="popper" :side-offset="8" class="w-[var(--radix-combobox-trigger-width)]">
+      <ComboboxContent
+        position="popper"
+        :side-offset="8"
+        class="w-[var(--radix-combobox-trigger-width)] max-h-[var(--radix-combobox-content-available-height)]"
+      >
         <ComboboxViewport class="p-select-options">
           <ComboboxEmpty />
 
@@ -26,12 +30,14 @@
             :value="option"
             class="p-select-option"
           >
-            <ComboboxItemIndicator
+            <!--
+              <ComboboxItemIndicator
               class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-            >
-              <!-- <Icon icon="radix-icons:check" /> -->
+              >
+              <Icon icon="radix-icons:check" />
               ✅
-            </ComboboxItemIndicator>
+              </ComboboxItemIndicator>
+            -->
             <span>
               {{ option }}
             </span>
