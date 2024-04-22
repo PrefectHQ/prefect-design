@@ -15,3 +15,6 @@ combobox features (r-combobox parity with p-combobox):
   - #option - each option scoped slot
   - #combobox-options-empty
   - fallthrough rest of slots go straight into PSelect
+
+bugs:
+- [] Remove bottom-of-options-(before scrolling)-opacity
