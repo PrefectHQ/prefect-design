@@ -25,23 +25,7 @@
           <ComboboxEmpty />
 
           <template v-for="(option, index) in options" :key="index">
-            <ComboboxItem
-              v-if="!isComboboxGroupedOption(option)"
-              :value="isComboboxOptionObject(option) ? option.value : option"
-              :disabled="isComboboxOptionObject(option) ? option.disabled : false"
-              class="p-select-option !pl-[25px]"
-            >
-              <ComboboxItemIndicator
-                class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-              >
-                <p-icon icon="Check" />
-              </ComboboxItemIndicator>
-
-              <span>
-                {{ isComboboxOptionObject(option) ? option.label : option }}
-              </span>
-            </ComboboxItem>
-
+            <RComboboxOption v-if="!isComboboxGroupedOption(option)" :option="option" />
             <ComboboxGroup
               v-else
             >
@@ -50,21 +34,7 @@
                 {{ option.label }}
               </ComboboxLabel>
               <template v-for="(groupOption, groupIndex) in option.options" :key="groupIndex">
-                <ComboboxItem
-                  :value="isComboboxOptionObject(groupOption) ? groupOption.value : groupOption"
-                  :disabled="isComboboxOptionObject(groupOption) ? groupOption.disabled : false"
-                  class="p-select-option !pl-[25px]"
-                >
-                  <ComboboxItemIndicator
-                    class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-                  >
-                    <p-icon icon="Check" />
-                  </ComboboxItemIndicator>
-
-                  <span>
-                    {{ isComboboxOptionObject(groupOption) ? groupOption.label : groupOption }}
-                  </span>
-                </ComboboxItem>
+                <RComboboxOption :option="groupOption" />
               </template>
             </ComboboxGroup>
           </template>
@@ -96,15 +66,9 @@
   } from 'radix-vue'
   import { type AcceptableValue } from 'radix-vue/dist/shared/types'
   import { computed } from 'vue'
+  import RComboboxOption from '@/components/Combobox/RComboboxOption.vue'
+  import { ComboboxOption, ComboboxGroupedOption, isComboboxGroupedOption } from '@/components/Combobox/types'
 
-  export type ComboboxOption<T> = T | { label: string, value: T, disabled?: boolean }
-  export type ComboboxGroupedOption<T> = { label: string, options: ComboboxOption<T>[] }
-  function isComboboxOptionObject<T>(option: ComboboxOption<T>): option is { label: string, value: T, disabled?: boolean } {
-    return typeof option === 'object' && option != null && 'label' in option && 'value' in option
-  }
-  function isComboboxGroupedOption<T>(option: ComboboxOption<T> | ComboboxGroupedOption<T>): option is { label: string, options: ComboboxOption<T>[] } {
-    return typeof option === 'object' && option != null && 'label' in option && 'options' in option && Array.isArray(option.options)
-  }
 
   const modelValue = defineModel<T | T[]>()
 
