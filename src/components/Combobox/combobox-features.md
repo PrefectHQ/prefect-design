@@ -4,7 +4,8 @@ combobox features:
 - [x] select an option
 - [x] options can have separate display and data values
 - [x] can select multiple options
-- [] can group the options under header keys
+- [] multiple selected options render (as tags?)
+- [x] can group the options under header keys
 - [] can override the filter function from default search to something else (manual prop)
 - [] can type in custom values that are not options
 - [] can handle paginated/virtualized options
