@@ -70,10 +70,12 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "@types/lodash.debounce": "4.0.9",
+    "clsx": "^2.1.0",
     "date-fns": "3.6.0",
     "dompurify": "3.1.0",
     "highlight.js": "11.9.0",
     "lodash.debounce": "4.0.8",
-    "marked": "4.3.0"
+    "marked": "4.3.0",
+    "tailwind-merge": "^2.3.0"
   }
 }
