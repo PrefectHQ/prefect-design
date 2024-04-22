@@ -33,6 +33,14 @@
           :state="exampleState"
           multiple
         />
+        <r-combobox
+          v-model="exampleMultiple"
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+          multiple
+        />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleMultiple) }}

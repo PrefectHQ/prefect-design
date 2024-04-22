@@ -1,5 +1,5 @@
 <template>
-  <ComboboxRoot v-model="modelValue">
+  <ComboboxRoot v-model="modelValue" :multiple>
     <ComboboxAnchor>
       <ComboboxInput as-child>
         <p-text-input v-model="modelValue">
@@ -29,16 +29,14 @@
             :key="index"
             :value="isComboboxOptionObject(option) ? option.value : option"
             :disabled="isComboboxOptionObject(option) ? option.disabled : false"
-            class="p-select-option"
+            class="p-select-option !pl-[25px]"
           >
-            <!--
-              <ComboboxItemIndicator
+            <ComboboxItemIndicator
               class="absolute left-0 w-[25px] inline-flex items-center justify-center"
-              >
-              <Icon icon="radix-icons:check" />
-              ✅
-              </ComboboxItemIndicator>
-            -->
+            >
+              <p-icon icon="Check" />
+            </ComboboxItemIndicator>
+
             <span>
               {{ isComboboxOptionObject(option) ? option.label : option }}
             </span>
@@ -70,6 +68,7 @@
     ComboboxViewport
   } from 'radix-vue'
   import { type AcceptableValue } from 'radix-vue/dist/shared/types'
+  import { computed } from 'vue'
 
   export type ComboboxOption<T> = T | { label: string, value: T, disabled?: boolean }
   function isComboboxOptionObject<T>(option: ComboboxOption<T>): option is { label: string, value: T, disabled?: boolean } {
@@ -77,6 +76,8 @@
   }
 
   const modelValue = defineModel<T | T[]>()
+
+  const multiple = computed(() => Array.isArray(modelValue.value))
 
   const search = defineModel<string>('search')
 
