@@ -1,9 +1,9 @@
 combobox features:
-- [] click to open a dropdown list of options
+- [x] click to open a dropdown list of options
 - [] type to search/filter through list of options
-- [] select an option
-- [] options can have separate display and data values
-- [] can select multiple options
+- [x] select an option
+- [x] options can have separate display and data values
+- [x] can select multiple options
 - [] can group the options under header keys
 - [] can override the filter function from default search to something else (manual prop)
 - [] can type in custom values that are not options
