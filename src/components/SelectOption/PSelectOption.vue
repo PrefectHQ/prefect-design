@@ -152,7 +152,8 @@
   bg-selected
 }
 
-.p-select-option--highlighted { @apply
+.p-select-option--highlighted,
+.p-select-option[data-highlighted] { @apply
   bg-selectable-hover
 }
 

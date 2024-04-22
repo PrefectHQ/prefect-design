@@ -24,6 +24,7 @@
             v-for="(option, index) in options"
             :key="index"
             :value="option"
+            class="p-select-option"
           >
             <ComboboxItemIndicator
               class="absolute left-0 w-[25px] inline-flex items-center justify-center"
