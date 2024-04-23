@@ -1,0 +1,24 @@
+
+
+@supports (scrollbar-color: auto) {
+  /* If the browser supports the scrollbar-color property, we can set the color of the scrollbar thumb */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--p-color-scrollbar-thumb) transparent
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
+  ::-webkit-scrollbar {
+    width: var(--p-scrollbar-width);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--p-color-bg-0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--p-color-scrollbar-thumb);
+    border-radius: calc(var(--p-scrollbar-width) / 2);
+    border: 3px solid var(--p-color-bg-0);
+  }
+}
