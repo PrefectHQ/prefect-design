@@ -16,7 +16,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      - name: Configure git user
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       # Checkout branch, bump version, push, merge, create release
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -27,12 +33,11 @@ jobs:
         id: bump_version
         run: | 
           npm version ${{ inputs.release_type }}
-          echo "RELEASE_VERSION=$(cat package.json | jq .version)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(cat package.json | jq .version | tr -d '"')" >> $GITHUB_ENV
 
       - name: Bump Version and Create Release
         run: |
           git checkout -b $RELEASE_VERSION
-          git commit -am "Bump version to $RELEASE_VERSION"
           git push --set-upstream origin $RELEASE_VERSION
           gh pr create --base main -f
           gh pr merge --squash
