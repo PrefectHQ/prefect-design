@@ -1,5 +1,6 @@
 @import "@fontsource/inconsolata/variable.css";
 @import "@fontsource/inter/variable.css";
+@import "@/styles/scrollbar.css";
 
 @tailwind base;
 @tailwind components;
@@ -52,7 +53,8 @@
     --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
 
     /* Root Tokens */
-    --p-color-divider: hsl(var(--p-primary-hue), 6%, 32%);
+    --p-input: var(--p-primary-hue) 6% 32%;
+    --p-color-divider: hsl(var(--p-input));
     --p-color-divider-subdued: hsl(var(--p-primary-hue), 6%, 32%);
     --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 64% / 0.4);
     --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.98%, 36%);
@@ -64,7 +66,8 @@
     --p-color-live: hsl(var(--p-primary-hue), 100.0%, 68%);
 
     /* Text */
-    --p-color-text-default: hsl(0.0, 0.0%, 100.0%);
+    --p-primary-foreground: 0.0 0.0% 100.0%;
+    --p-color-text-default: hsl(var(--p-primary-foreground));
     --p-color-text-subdued: hsl(0.0, 0.0%, 67.84%);
     --p-color-text-inverse: hsl(0.0, 0.0%, 9.02%);
     --p-color-text-link: hsl(206.8, 97.7%, 65.88%);
@@ -205,7 +208,8 @@
     --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
 
     /* Root Tokens */
-    --p-color-divider: hsl(var(--p-primary-hue), 11.3%, 76%);
+    --p-input: var(--p-primary-hue) 11.3% 76%;
+    --p-color-divider: hsl(var(--p-input));
     --p-color-divider-subdued: hsl(var(--p-primary-hue), 14.29%, 96%);
     --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 64% / 0.4);
     --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.04%, 64%);
@@ -217,7 +221,8 @@
     --p-color-live: hsl(var(--p-primary-hue), 100.0%, 64%);
 
     /* Text */
-    --p-color-text-default: hsl(0.0, 0.0%, 9.02%);
+    --p-primary-foreground: 0.0 0.0% 9.02%;
+    --p-color-text-default: hsl(var(--p-primary-foreground));
     --p-color-text-subdued: hsl(var(--p-primary-hue), 6%, 48%);
     --p-color-text-inverse: hsl(0.0, 0.0%, 100.0%);
     --p-color-text-link: hsl(var(--p-primary-hue), 87.25%, 52%);
@@ -360,29 +365,6 @@ body {
 *::selection {
   background-color: var(--p-color-selection-highlight);
   
-}
-
-@supports (scrollbar-color: auto) {
-  /* If the browser supports the scrollbar-color property, we can set the color of the scrollbar thumb */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--p-color-scrollbar-thumb) transparent
-  }
-}
-
-@supports selector(::-webkit-scrollbar) {
-  /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
-  ::-webkit-scrollbar {
-    width: var(--p-scrollbar-width);
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--p-color-bg-0);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--p-color-scrollbar-thumb);
-    border-radius: calc(var(--p-scrollbar-width) / 2);
-    border: 3px solid var(--p-color-bg-0);
-  }
 }
 
 .p-background {

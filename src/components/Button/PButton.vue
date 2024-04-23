@@ -107,10 +107,10 @@
   focus:ring-spacing-focus-ring
   focus:ring-focus-ring
   focus:ring-offset-focus-ring
-  focus:ring-offset-focus-ring-offset;
-  background-color: var(--p-color-button-default-bg);
-  border-color: var(--p-color-button-default-border);
-  color: var(--p-color-button-default-text);
+  focus:ring-offset-focus-ring-offset
+  bg-transparent
+  border-input
+  text-primary-foreground;
 }
 
 .p-button:focus:not(:focus-visible) { @apply
