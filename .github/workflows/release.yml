@@ -31,7 +31,8 @@ jobs:
       
       - name: Bump Package Version
         id: bump_version
-        run: | 
+        run: |
+          npm install -g auto-changelog
           npm version ${{ inputs.release_type }}
           echo "RELEASE_VERSION=$(cat package.json | jq .version | tr -d '"')" >> $GITHUB_ENV
 
