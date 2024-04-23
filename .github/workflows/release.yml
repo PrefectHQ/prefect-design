@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       release_type:
-        description: 'Type of release to perform'
+        description: Type of release to perform
         required: true
-        default: 'patch'
+        default: patch
 
 jobs:
   build-and-publish:
