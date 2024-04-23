@@ -2,12 +2,13 @@
   <component
     :is="component"
     ref="el"
-    class="p-button"
+    class="group p-button"
     :class="classes"
     :disabled="disabled || loading"
+    :data-loading="loading"
     v-bind="componentProps"
   >
-    <div class="p-button__content">
+    <div class="p-button__content" :data-loading="loading">
       <template v-if="icon">
         <PIcon :size="iconSize" :icon="icon" class="p-button__icon" />
       </template>
@@ -99,35 +100,36 @@
   relative
   inline-flex
   items-center
+  bg-transparent
+  border
+  border-input
+  text-primary-foreground
   px-4
   py-2
   rounded-default
-  border
   outline-none
   focus:ring-spacing-focus-ring
   focus:ring-focus-ring
   focus:ring-offset-focus-ring
   focus:ring-offset-focus-ring-offset
-  bg-transparent
-  border-input
-  text-primary-foreground;
+  [&:focus:not(:focus-visible)]:ring-transparent
+  [&:focus:not(:focus-visible)]:ring-offset-transparent
+  disabled:cursor-not-allowed
+  disabled:opacity-50
+  enabled:hover:border-[color:var(--p-color-text-subdued)]
+  enabled:active:bg-[color:var(--p-color-button-default-bg-active)]
+  enabled:active:border-[color:var(--p-color-text-subdued)]
+  data-[loading='true']:cursor-wait
 }
 
-.p-button:focus:not(:focus-visible) { @apply
-  ring-transparent
-  ring-offset-transparent
-}
-
-.p-button:not(:disabled):hover {
-  background-color: var(--p-color-button-default-bg-hover);
-  border-color: var(--p-color-button-default-border-hover);
-  color: var(--p-color-button-default-text-hover);
-}
-
-.p-button:not(:disabled):active {
-  background-color: var(--p-color-button-default-bg-active);
-  border-color: var(--p-color-button-default-border-active);
-  color: var(--p-color-button-default-text-active);
+.p-button__content { @apply
+  gap-1
+  inline-flex
+  flex-grow
+  justify-center
+  items-center
+  font-normal
+  group-data-[loading='true']:opacity-40
 }
 
 .p-button--icon-prepend { @apply
@@ -140,15 +142,6 @@
 
 .p-button--icon-only { @apply
   px-2
-}
-
-.p-button__content { @apply
-  gap-1
-  inline-flex
-  flex-grow
-  justify-center
-  items-center
-  font-normal
 }
 
 .p-button--primary {
@@ -252,19 +245,6 @@
 
 .p-button--icon-only.p-button--small { @apply
   px-1
-}
-
-.p-button--disabled { @apply
-  cursor-not-allowed
-  opacity-50
-}
-
-.p-button--loading { @apply
-  cursor-wait
-}
-
-.p-button--loading .p-button__content { @apply
-  opacity-40
 }
 
 .p-button__loading-icon {
