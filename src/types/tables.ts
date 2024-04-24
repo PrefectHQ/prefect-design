@@ -6,6 +6,8 @@ export type TableData = Record<string, any>
 export type TableColumn<T extends TableData = Record<never, never>> = {
   label: string,
   property?: T extends T ? keyof T : never,
+  maxWidth?: string,
+  minWidth?: string,
   width?: string,
   visible?: boolean,
   disabled?: boolean,
