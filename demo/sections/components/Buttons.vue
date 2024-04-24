@@ -2,50 +2,33 @@
   <ComponentPage
     title="Button"
     :demos="[
-      { title: 'Default button', description: 'Your go-to button for interactions.' },
-      { title: 'Primary button', description: 'For a button that progresses the current journey. Only one per screen.' },
-      { title: 'Icon only', description: 'When an icon is provided with no text.' },
-      { title: 'Flat icon only', description: 'While any button can technically be made flat, this style is intended to be used with icon only buttons.' },
-      { title: 'Loading', description: 'A soothing loading indicator for when a button is working on it.' },
-      { title: 'Selected', description: 'Indicates that a button is the active selection in a group.' },
+      { title: 'Outline button' },
+      { title: 'Default button' },
+      { title: 'Destructive button' },
+      { title: 'Ghost button' },
+      { title: 'Icon only' },
+      { title: 'Loading' },
+      { title: 'Selected' },
     ]"
   >
-    <template #description>
-      Buttons. The 'DON'T PANIC' signs of the internet, assuring us there's always something we're allowed to click.
+    <template #outline-button>
+      <div class="flex gap-4 items-center flex-wrap mb-4">
+        <p-button variant="outline">
+          Button
+        </p-button>
+        <p-button variant="outline" icon="PlusIcon">
+          With Icon
+        </p-button>
+        <p-button variant="outline" disabled>
+          Disabled
+        </p-button>
+        <p-button variant="outline" size="sm">
+          Small
+        </p-button>
+      </div>
     </template>
 
     <template #default-button>
-      <div class="flex gap-4 items-center flex-wrap mb-4">
-        <p-button>
-          Button
-        </p-button>
-        <p-button icon="PlusIcon">
-          With Icon
-        </p-button>
-        <p-button icon-append="PlusIcon">
-          Appended Icon
-        </p-button>
-        <p-button variant="destructive">
-          Dangerous
-        </p-button>
-        <p-button disabled>
-          Disabled
-        </p-button>
-      </div>
-      <div class="flex gap-4 items-center flex-wrap">
-        <p-button size="sm">
-          Button
-        </p-button>
-        <p-button size="sm" icon="PlusIcon">
-          With Icon
-        </p-button>
-        <p-button size="sm" icon-append="PlusIcon">
-          Appended Icon
-        </p-button>
-      </div>
-    </template>
-
-    <template #primary-button>
       <div class="flex gap-4 items-center flex-wrap">
         <p-button variant="default">
           Button
@@ -56,15 +39,45 @@
         <p-button disabled variant="default">
           Disabled
         </p-button>
-        <p-button variant="destructive">
-          Dangerous
-        </p-button>
         <p-button variant="default" size="sm">
           Small
         </p-button>
       </div>
     </template>
 
+    <template #ghost-button>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button variant="ghost">
+          Button
+        </p-button>
+        <p-button variant="ghost" icon="PlusIcon">
+          With Icon
+        </p-button>
+        <p-button variant="ghost" disabled>
+          Disabled
+        </p-button>
+        <p-button variant="ghost" size="sm">
+          Small
+        </p-button>
+      </div>
+    </template>
+
+    <template #destructive-button>
+      <div class="flex gap-4 items-center flex-wrap">
+        <p-button variant="destructive">
+          Button
+        </p-button>
+        <p-button variant="destructive" icon="PlusIcon">
+          With Icon
+        </p-button>
+        <p-button variant="destructive" disabled>
+          Disabled
+        </p-button>
+        <p-button variant="destructive" size="sm">
+          Small
+        </p-button>
+      </div>
+    </template>
     <template #icon-only>
       <div class="flex gap-4 items-center flex-wrap mb-4">
         <p-button icon="PlusIcon" />
@@ -95,9 +108,6 @@
           Button
         </p-button>
         <p-button :loading="buttonLoading" variant="destructive">
-          Button
-        </p-button>
-        <p-button :loading="buttonLoading" variant="default">
           Button
         </p-button>
         <p-button :loading="buttonLoading" icon="PlusIcon" />
