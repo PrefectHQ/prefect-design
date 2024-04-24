@@ -31,6 +31,8 @@
   import { isRouteExternal } from '@/utilities/router'
 
   const props = defineProps<{
+    variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link',
+    size?: 'default' | 'sm' | 'lg' | 'icon',
     primary?: boolean,
     flat?: boolean,
     selected?: boolean,
@@ -80,10 +82,10 @@
 
   const classes = computed(() => ({
     'p-button--icon-only': props.icon && !slots.default,
-    'p-button--primary': props.primary,
-    'p-button--danger': props.dangerous,
-    'p-button--flat': props.flat,
-    'p-button--small': props.small,
+    'p-button--default': props.primary || props.variant === 'default' || props.variant === 'destructive',
+    'p-button--destructive': props.dangerous || props.variant === 'destructive',
+    'p-button--ghost': props.flat || props.variant === 'ghost',
+    'p-button--small': props.small || props.size === 'sm',
     'p-button--icon-prepend': props.icon && slots.default,
     'p-button--icon-append': props.iconAppend && slots.default,
     'p-button--disabled': props.disabled || props.loading,
@@ -151,81 +153,81 @@
   font-normal
 }
 
-.p-button--primary {
+.p-button--default {
   background-color: var(--p-color-button-primary-bg);
   border-color: var(--p-color-button-primary-border);
   color: var(--p-color-button-primary-text);
 }
-.p-button--primary:not(:disabled):hover {
+.p-button--default:not(:disabled):hover {
   background-color: var(--p-color-button-primary-bg-hover);
   border-color: var(--p-color-button-primary-border-hover);
   color: var(--p-color-button-primary-text-hover);
 }
-.p-button--primary:not(:disabled):active {
+.p-button--default:not(:disabled):active {
   background-color: var(--p-color-button-primary-bg-active);
   border-color: var(--p-color-button-primary-border-active);
   color: var(--p-color-button-primary-text-active);
 }
 
-.p-button--danger {
+.p-button--destructive {
   background-color: var(--p-color-button-danger-bg);
   border-color: var(--p-color-button-danger-border);
   color: var(--p-color-button-danger-text);
 }
-.p-button--danger:not(:disabled):hover {
+.p-button--destructive:not(:disabled):hover {
   background-color: var(--p-color-button-danger-bg-hover);
   border-color: var(--p-color-button-danger-border-hover);
   color: var(--p-color-button-danger-text-hover);
 }
-.p-button--danger:not(:disabled):active {
+.p-button--destructive:not(:disabled):active {
   background-color: var(--p-color-button-danger-bg-active);
   border-color: var(--p-color-button-danger-border-active);
   color: var(--p-color-button-danger-text-active);
 }
 
-.p-button--primary.p-button--danger {
+.p-button--default.p-button--destructive {
   background-color: var(--p-color-button-primary-danger-bg);
   border-color: var(--p-color-button-primary-danger-border);
   color: var(--p-color-button-primary-danger-text);
 }
-.p-button--primary.p-button--danger:not(:disabled):hover {
+.p-button--default.p-button--destructive:not(:disabled):hover {
   background-color: var(--p-color-button-primary-danger-bg-hover);
   border-color: var(--p-color-button-primary-danger-border-hover);
   color: var(--p-color-button-primary-danger-text-hover);
 }
-.p-button--primary.p-button--danger:not(:disabled):active {
+.p-button--default.p-button--destructive:not(:disabled):active {
   background-color: var(--p-color-button-primary-danger-bg-active);
   border-color: var(--p-color-button-primary-danger-border-active);
   color: var(--p-color-button-primary-danger-text-active);
 }
 
-.p-button--flat {
+.p-button--ghost {
   background-color: var(--p-color-button-flat-bg);
   border-color: var(--p-color-button-flat-border);
   color: var(--p-color-button-flat-text);
 }
-.p-button--flat:not(:disabled):hover {
+.p-button--ghost:not(:disabled):hover {
   background-color: var(--p-color-button-flat-bg-hover);
   border-color: var(--p-color-button-flat-border-hover);
   color: var(--p-color-button-flat-text-hover);
 }
-.p-button--flat:not(:disabled):active {
+.p-button--ghost:not(:disabled):active {
   background-color: var(--p-color-button-flat-bg-active);
   border-color: var(--p-color-button-flat-border-active);
   color: var(--p-color-button-flat-text-active);
 }
 
-.p-button--flat.p-button--danger {
+.p-button--ghost.p-button--destructive {
   background-color: var(--p-color-button-flat-danger-bg);
   border-color: var(--p-color-button-flat-danger-border);
   color: var(--p-color-button-flat-danger-text);
 }
-.p-button--flat.p-button--danger:not(:disabled):hover {
+.p-button--ghost.p-button--destructive:not(:disabled):hover {
   background-color: var(--p-color-button-flat-danger-bg-hover);
   border-color: var(--p-color-button-flat-danger-border-hover);
   color: var(--p-color-button-flat-danger-text-hover);
 }
-.p-button--flat.p-button--danger:not(:disabled):active {
+.p-button--ghost.p-button--destructive:not(:disabled):active {
   background-color: var(--p-color-button-flat-danger-bg-active);
   border-color: var(--p-color-button-flat-danger-border-active);
   color: var(--p-color-button-flat-danger-text-active);
