@@ -177,6 +177,8 @@
   overflow-hidden
   overflow-x-auto
   rounded-default
+  border
+  border-divider
 }
 
 .p-table__table { @apply
