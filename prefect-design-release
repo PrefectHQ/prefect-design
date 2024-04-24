@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Is the release a major, minor, or patch release?"
 read release_type
-gh workflow run release.yaml \
+gh workflow run release.yml \
 --repo=prefecthq/prefect-design \
 --ref=main \
 -f release_type=$release_type
