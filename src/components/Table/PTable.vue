@@ -11,8 +11,8 @@
                 </PTableHeader>
               </template>
 
-              <template v-for="column in visibleColumns" :key="column">
-                <PTableHeader :style="getColumnStyle(column)" :title="column.label">
+              <template v-for="(column, columnIndex) in visibleColumns" :key="column">
+                <PTableHeader :style="getColumnStyle(column)" :class="getHeaderClasses(column, columnIndex)":title="column.label">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
                   </slot>
@@ -67,7 +67,7 @@
   import PTableHeader from '@/components/Table/PTableHeader.vue'
   import PTableRow from '@/components/Table/PTableRow.vue'
   import { ClassValue } from '@/types/attributes'
-  import { ColumnClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
+  import { ColumnClassesMethod, HeaderClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
   import { NoInfer } from '@/types/utilities'
   import { isEven, isOdd } from '@/utilities'
   import { asArray } from '@/utilities/arrays'
@@ -78,6 +78,7 @@
     selected?: TData[],
     columns?: TColumn[],
     rowClasses?: RowClassesMethod<NoInfer<TData>>,
+    headerClasses?: HeaderClassesMethod<NoInfer<TData>>,
     columnClasses?: ColumnClassesMethod<NoInfer<TData>>,
   }>()
 
@@ -150,6 +151,20 @@
         'p-table-row--even': isEven(index),
         'p-table-row--odd': isOdd(index),
         'p-table-row--last': index === props.data.length - 1,
+      },
+    ]
+  }
+
+  function getHeaderClasses(column: TColumn, index: number): ClassValue {
+    const custom = asArray(props.headerClasses?.(column, index))
+
+    return [
+      ...custom,
+      {
+        'p-table-column-header--first': index === 0,
+        'p-table-column-header--even': isEven(index),
+        'p-table-column-header--odd': isOdd(index),
+        'p-table-column-header--last': index === columns.value.length - 1,
       },
     ]
   }
