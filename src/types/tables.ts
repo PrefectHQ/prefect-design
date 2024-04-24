@@ -15,3 +15,4 @@ export type TableColumn<T extends TableData = Record<never, never>> = {
 
 export type RowClassesMethod<T extends TableData> = (row: T, index: number) => ClassValue
 export type ColumnClassesMethod<T extends TableData = Record<never, never>> = (column: TableColumn<T>, value: unknown, index: number, row: TableData, rowIndex: number) => ClassValue
+export type HeaderClassesMethod<T extends TableData = Record<never, never>> = (column: TableColumn<T>, index: number) => ClassValue
