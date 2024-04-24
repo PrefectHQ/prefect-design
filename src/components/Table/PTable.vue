@@ -12,7 +12,7 @@
               </template>
 
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
-                <PTableHeader :style="getColumnStyle(column)" :class="getHeaderClasses(column, columnIndex)":title="column.label">
+                <PTableHeader :style="getColumnStyle(column)" :class="getHeaderClasses(column, columnIndex)" :title="column.label">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
                   </slot>
