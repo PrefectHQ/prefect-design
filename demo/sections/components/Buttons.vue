@@ -56,7 +56,7 @@
         <p-button disabled variant="default">
           Disabled
         </p-button>
-        <p-button dangerous variant="default">
+        <p-button variant="destructive">
           Dangerous
         </p-button>
         <p-button variant="default" size="sm">
@@ -69,21 +69,20 @@
       <div class="flex gap-4 items-center flex-wrap mb-4">
         <p-button icon="PlusIcon" />
         <p-button icon="RocketLaunchIcon" variant="default" />
-        <p-button icon="TrashIcon" dangerous />
+        <p-button icon="TrashIcon" variant="destructive" />
       </div>
       <div class="flex gap-4 items-center flex-wrap">
         <p-button size="sm" icon="PlusIcon" />
         <p-button size="sm" icon="RocketLaunchIcon" variant="default" />
-        <p-button size="sm" icon="TrashIcon" dangerous />
+        <p-button size="sm" icon="TrashIcon" variant="destructive" />
       </div>
     </template>
 
     <template #flat-icon-only>
       <div class="flex gap-4 items-center flex-wrap">
-        <p-button icon="PlusIcon" flat />
-        <p-button icon="TrashIcon" flat dangerous />
-        <p-button icon="PlusIcon" flat size="sm" />
-        <p-button icon="PlusIcon" flat disabled />
+        <p-button icon="PlusIcon" variant="ghost" />
+        <p-button icon="PlusIcon" variant="ghost" size="sm" />
+        <p-button icon="PlusIcon" variant="ghost" disabled />
       </div>
     </template>
 
@@ -95,15 +94,14 @@
         <p-button :loading="buttonLoading" variant="default">
           Button
         </p-button>
-        <p-button :loading="buttonLoading" dangerous>
+        <p-button :loading="buttonLoading" variant="destructive">
           Button
         </p-button>
-        <p-button :loading="buttonLoading" variant="default" dangerous>
+        <p-button :loading="buttonLoading" variant="default">
           Button
         </p-button>
         <p-button :loading="buttonLoading" icon="PlusIcon" />
-        <p-button :loading="buttonLoading" icon="PlusIcon" flat />
-        <p-button :loading="buttonLoading" icon="PlusIcon" flat dangerous />
+        <p-button :loading="buttonLoading" icon="PlusIcon" variant="ghost" />
       </div>
 
       <p-checkbox v-model="buttonLoading" label="show loading" />
