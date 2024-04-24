@@ -25,7 +25,7 @@
         <p-button icon-append="PlusIcon">
           Appended Icon
         </p-button>
-        <p-button dangerous>
+        <p-button variant="destructive">
           Dangerous
         </p-button>
         <p-button disabled>
@@ -33,13 +33,13 @@
         </p-button>
       </div>
       <div class="flex gap-4 items-center flex-wrap">
-        <p-button small>
+        <p-button size="sm">
           Button
         </p-button>
-        <p-button small icon="PlusIcon">
+        <p-button size="sm" icon="PlusIcon">
           With Icon
         </p-button>
-        <p-button small icon-append="PlusIcon">
+        <p-button size="sm" icon-append="PlusIcon">
           Appended Icon
         </p-button>
       </div>
@@ -47,19 +47,19 @@
 
     <template #primary-button>
       <div class="flex gap-4 items-center flex-wrap">
-        <p-button primary>
+        <p-button variant="default">
           Button
         </p-button>
-        <p-button primary icon="PlusIcon">
+        <p-button variant="default" icon="PlusIcon">
           With Icon
         </p-button>
-        <p-button disabled primary>
+        <p-button disabled variant="default">
           Disabled
         </p-button>
-        <p-button dangerous primary>
+        <p-button dangerous variant="default">
           Dangerous
         </p-button>
-        <p-button primary small>
+        <p-button variant="default" size="sm">
           Small
         </p-button>
       </div>
@@ -68,13 +68,13 @@
     <template #icon-only>
       <div class="flex gap-4 items-center flex-wrap mb-4">
         <p-button icon="PlusIcon" />
-        <p-button icon="RocketLaunchIcon" primary />
+        <p-button icon="RocketLaunchIcon" variant="default" />
         <p-button icon="TrashIcon" dangerous />
       </div>
       <div class="flex gap-4 items-center flex-wrap">
-        <p-button small icon="PlusIcon" />
-        <p-button small icon="RocketLaunchIcon" primary />
-        <p-button small icon="TrashIcon" dangerous />
+        <p-button size="sm" icon="PlusIcon" />
+        <p-button size="sm" icon="RocketLaunchIcon" variant="default" />
+        <p-button size="sm" icon="TrashIcon" dangerous />
       </div>
     </template>
 
@@ -82,7 +82,7 @@
       <div class="flex gap-4 items-center flex-wrap">
         <p-button icon="PlusIcon" flat />
         <p-button icon="TrashIcon" flat dangerous />
-        <p-button icon="PlusIcon" flat small />
+        <p-button icon="PlusIcon" flat size="sm" />
         <p-button icon="PlusIcon" flat disabled />
       </div>
     </template>
@@ -92,13 +92,13 @@
         <p-button :loading="buttonLoading">
           Button
         </p-button>
-        <p-button :loading="buttonLoading" primary>
+        <p-button :loading="buttonLoading" variant="default">
           Button
         </p-button>
         <p-button :loading="buttonLoading" dangerous>
           Button
         </p-button>
-        <p-button :loading="buttonLoading" primary dangerous>
+        <p-button :loading="buttonLoading" variant="default" dangerous>
           Button
         </p-button>
         <p-button :loading="buttonLoading" icon="PlusIcon" />
