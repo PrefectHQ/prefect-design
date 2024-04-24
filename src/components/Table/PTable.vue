@@ -12,7 +12,7 @@
               </template>
 
               <template v-for="column in visibleColumns" :key="column">
-                <PTableHeader :style="getColumnStyle(column)">
+                <PTableHeader :style="getColumnStyle(column)" :title="column.label">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
                   </slot>
@@ -31,7 +31,7 @@
               </template>
 
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
-                <PTableData :class="getColumnClasses(column, getValue(row, column.property), columnIndex, row, rowIndex)">
+                <PTableData :class="getColumnClasses(column, getValue(row, column.property), columnIndex, row, rowIndex)" :title="getValue(row, column.property)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column.property)" v-bind="{ column, row }">
                     {{ getValue(row, column.property) }}
                   </slot>
@@ -118,12 +118,10 @@
   const visibleColumns = computed<TColumn[]>(() => columns.value.filter(column => column.visible ?? true))
 
   function getColumnStyle(column: TColumn): StyleValue {
-    if (column.width === undefined) {
-      return ''
-    }
-
     return {
       width: column.width,
+      minWidth: column.minWidth ?? column.width ?? 0,
+      maxWidth: column.maxWidth ?? column.width,
     }
   }
 
@@ -177,6 +175,8 @@
   overflow-hidden
   overflow-x-auto
   rounded-default
+  border
+  border-divider
 }
 
 .p-table__table { @apply

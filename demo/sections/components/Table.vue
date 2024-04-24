@@ -145,12 +145,14 @@
   const columns = computed<TableColumn<Data>[]>(() => [
     {
       property: 'first_name',
-      label: 'First Name',
+      label: 'First Name (or given name)',
+      minWidth: 'min-content',
       width: '120px',
+      maxWidth: '400px',
     },
     {
       property: 'last_name',
-      label: 'Last Name',
+      label: 'Last Name (or family name)',
       width: '120px',
     },
     {
