@@ -76,7 +76,6 @@
     loading?: boolean,
   }>()
 
-  const slots = useSlots()
   const el = ref<HTMLButtonElement>()
 
   defineExpose({
