@@ -51,12 +51,11 @@
         },
       },
       defaultVariants: {
-        variant: 'default',
+        variant: 'outline',
         size: 'default',
       },
     },
   )
-
 
   const props = defineProps<{
     variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link',
