@@ -111,19 +111,6 @@
     }
   })
 
-  const classes = computed(() => ({
-    'p-button--icon-only': props.icon && !slots.default,
-    'p-button--default': props.primary || props.variant === 'default' || props.variant === 'destructive',
-    'p-button--destructive': props.dangerous || props.variant === 'destructive',
-    'p-button--ghost': props.flat || props.variant === 'ghost',
-    'p-button--small': props.small || props.size === 'sm',
-    'p-button--icon-prepend': props.icon && slots.default,
-    'p-button--icon-append': props.iconAppend && slots.default,
-    'p-button--disabled': props.disabled || props.loading,
-    'p-button--loading': props.loading,
-    'p-button--selected': props.selected,
-  }))
-
   const iconSize = props.small ? undefined : 'large'
 </script>
 
