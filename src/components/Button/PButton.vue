@@ -2,18 +2,18 @@
   <component
     :is="component"
     ref="el"
-    :class="cn(buttonVariants({ variant: computedVariant, size: computedSize, icon: props.icon && !$slots.default }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '')"
+    :class="cn(buttonVariants({ variant, size, icon: props.icon && !$slots.default }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '')"
     :disabled="disabled || loading"
     :aria-selected="selected"
     v-bind="componentProps"
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="props.small ? undefined : 'large'" :icon="icon" class="p-button__icon" />
+        <PIcon :size="size" :icon="icon" class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="props.small ? undefined : 'large'" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="size" :icon="iconAppend" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
   import { cva } from 'class-variance-authority'
-  import { computed, useSlots, ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
@@ -33,15 +33,15 @@
   import { isRouteExternal } from '@/utilities/router'
 
   const buttonVariants = cva(
-    'p-button',
+    'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 aria-selected:bg-[color:var(--p-color-button-selected-bg)] aria-selected:text-[color:var(--p-color-button-selected-test)] aria-selected:border-[color:var(--p-color-button-selected-border)]',
     {
       variants: {
         variant: {
-          default: 'p-button--default',
-          destructive: 'p-button--default p-button--destructive',
-          outline: 'p-button--outline',
+          default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+          destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+          outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
           secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-          ghost: 'p-button--ghost',
+          ghost: 'hover:bg-accent hover:text-accent-foreground',
           link: 'text-primary underline-offset-4 hover:underline',
         },
         size: {
@@ -54,6 +54,13 @@
           true: 'p-button--icon-only',
         },
       },
+      compoundVariants: [
+        {
+          size: 'sm',
+          icon: true,
+          class: 'px-10',
+        },
+      ],
       defaultVariants: {
         variant: 'outline',
         size: 'default',
@@ -64,14 +71,10 @@
   const props = defineProps<{
     variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link',
     size?: 'default' | 'sm' | 'lg' | 'icon',
-    primary?: boolean,
-    flat?: boolean,
     selected?: boolean,
     icon?: Icon,
     iconAppend?: Icon,
-    dangerous?: boolean,
     to?: RouteLocationRaw,
-    small?: boolean,
     disabled?: boolean,
     loading?: boolean,
   }>()
@@ -109,59 +112,9 @@
       to: props.to,
     }
   })
-
-  const computedVariant = computed(() => {
-    // Until we migrate all the buttons to use the new variant prop, we need to support the old props
-    if (props.dangerous || props.variant === 'destructive') {
-      return 'destructive'
-    }
-    if (props.primary || props.variant === 'default') {
-      return 'default'
-    }
-    if (props.flat || props.variant === 'ghost') {
-      return 'ghost'
-    }
-    if (props.variant === 'secondary') {
-      return 'secondary'
-    }
-    if (props.variant === 'link') {
-      return 'link'
-    }
-    return 'outline'
-  })
-
-  const computedSize = computed(() => {
-    // Until we migrate all the buttons to use the new size prop, we need to support the old props
-    if (props.size) {
-      return props.size
-    }
-    if (props.small) {
-      return 'sm'
-    }
-    return 'default'
-  })
 </script>
 
 <style>
-.p-button { @apply
-  relative
-  inline-flex
-  items-center
-  rounded-default
-  border
-  outline-none
-  focus:ring-spacing-focus-ring
-  focus:ring-focus-ring
-  focus:ring-offset-focus-ring
-  focus:ring-offset-focus-ring-offset
-  bg-transparent
-  border-input
-  aria-selected:bg-[color:var(--p-color-button-selected-bg)]
-  aria-selected:text-[color:var(--p-color-button-selected-test)]
-  aria-selected:border-[color:var(--p-color-button-selected-border)]
-  text-primary-foreground;
-}
-
 .p-button:focus:not(:focus-visible) { @apply
   ring-transparent
   ring-offset-transparent
@@ -286,26 +239,12 @@
   py-1
 }
 
-.p-button--small .p-button__icon { @apply
-  max-w-[1.25rem]
-  max-h-[1.25rem]
-}
-
-.p-button--icon-prepend.p-button--small { @apply
-  pl-1
-}
-
 .p-button--icon-append.p-button--small { @apply
   pr-1
 }
 
 .p-button--icon-only.p-button--small { @apply
   px-1
-}
-
-.p-button--disabled { @apply
-  cursor-not-allowed
-  opacity-50
 }
 
 .p-button--loading { @apply

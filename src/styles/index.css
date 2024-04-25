@@ -26,6 +26,8 @@
 
     /* Prefect Blue is 219, 100, 50  */
     --p-primary-hue: 228;
+    --p-primary: var(--p-primary-hue) 80.34% 44%;
+    --p-primary-foreground: 0.0 0.0% 100.0%;
     --p-background: var(--p-primary-hue) 6% 16%;
     --p-accent: var(--p-primary-hue) 6% 24%;
 
@@ -224,8 +226,7 @@
     --p-color-live: hsl(var(--p-primary-hue), 100.0%, 64%);
 
     /* Text */
-    --p-primary-foreground: 0.0 0.0% 9.02%;
-    --p-color-text-default: hsl(var(--p-primary-foreground));
+    --p-color-text-default: hsl(var(0.0 0.0% 9.02%));
     --p-color-text-subdued: hsl(var(--p-primary-hue), 6%, 48%);
     --p-color-text-inverse: hsl(0.0, 0.0%, 100.0%);
     --p-color-text-link: hsl(var(--p-primary-hue), 87.25%, 52%);
