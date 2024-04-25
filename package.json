@@ -23,7 +23,8 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0",
-    "version": "npm run changelog && git add CHANGELOG.md"
+    "version": "npm run changelog && git add CHANGELOG.md",
+    "release": "./prefect-design-release"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.mjs",
