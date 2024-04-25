@@ -2,8 +2,7 @@
   <component
     :is="component"
     ref="el"
-    class="p-button"
-    :class="classes"
+    :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '', classes)"
     :disabled="disabled || loading"
     v-bind="componentProps"
   >
@@ -23,12 +22,41 @@
 </template>
 
 <script lang="ts" setup>
+  import { cva } from 'class-variance-authority'
   import { computed, useSlots, ref } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
   import { Icon } from '@/types'
+  import { cn } from '@/utilities'
   import { isRouteExternal } from '@/utilities/router'
+
+  const buttonVariants = cva(
+    'p-button',
+    {
+      variants: {
+        variant: {
+          default: 'p-button--default',
+          destructive: 'p-button--default p-button--destructive',
+          outline: 'p-button--outline',
+          secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+          ghost: 'p-button--ghost',
+          link: 'text-primary underline-offset-4 hover:underline',
+        },
+        size: {
+          default: 'px-4 py-2',
+          sm: 'p-button--small',
+          lg: 'h-11 rounded-md px-8',
+          icon: 'h-10 w-10',
+        },
+      },
+      defaultVariants: {
+        variant: 'default',
+        size: 'default',
+      },
+    },
+  )
+
 
   const props = defineProps<{
     variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link',

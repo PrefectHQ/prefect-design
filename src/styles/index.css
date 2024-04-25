@@ -26,8 +26,11 @@
 
     /* Prefect Blue is 219, 100, 50  */
     --p-primary-hue: 228;
+    --p-background: var(--p-primary-hue) 6% 16%;
+    --p-accent: var(--p-primary-hue) 6% 24%;
 
     --p-destructive: 4 74% 49%;
+    --p-destructive-foreground: 0.0 0.0% 100.0%;
     --p-positive: 142 71% 45%;
     --p-neutral: var(--p-primary-hue) 5% 46%;
     --p-warning: 40 92% 50%;

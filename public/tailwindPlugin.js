@@ -10,7 +10,12 @@ const borderRadius = {
 
 const colors = {
   'input': 'hsl(var(--p-input) / <alpha-value>)',
+  'primary': 'hsl(var(--p-primary) / <alpha-value>)',
   'primary-foreground': 'hsl(var(--p-primary-foreground) / <alpha-value>)',
+  'accent': 'hsl(var(--p-accent) / <alpha-value>)',
+  'background': 'hsl(var(--p-background) / <alpha-value>)',
+  'destructive': 'hsl(var(--p-destructive) / <alpha-value>)',
+  'destructive-foreground': 'hsl(var(--p-destructive-foreground) / <alpha-value>)',
   divider: 'var(--p-color-divider)',
   'selectable-hover': 'var(--p-color-selectable-hover)',
   'focus-ring': 'var(--p-color-focus-ring)',
