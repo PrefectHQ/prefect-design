@@ -36,7 +36,7 @@ function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
   const now = new Date()
   const duration = intervalToDuration({
     start: now,
-    end: addSeconds(now, seconds),
+    end: addSeconds(now, Math.abs(seconds)),
   })
 
   const reduced = Object.entries(duration).reduce<string[]>((durations, [key, value]) => {
