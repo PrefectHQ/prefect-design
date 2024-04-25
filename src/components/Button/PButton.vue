@@ -2,8 +2,9 @@
   <component
     :is="component"
     ref="el"
-    :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '', classes)"
+    :class="cn(buttonVariants({ variant, size, icon: props.icon && !$slots.default }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '')"
     :disabled="disabled || loading"
+    :aria-selected="selected"
     v-bind="componentProps"
   >
     <div class="p-button__content">
@@ -48,6 +49,9 @@
           sm: 'p-button--small',
           lg: 'h-11 rounded-md px-8',
           icon: 'h-10 w-10',
+        },
+        icon: {
+          true: 'p-button--icon-only',
         },
       },
       defaultVariants: {
@@ -128,8 +132,6 @@
   relative
   inline-flex
   items-center
-  px-4
-  py-2
   rounded-default
   border
   outline-none
@@ -139,6 +141,9 @@
   focus:ring-offset-focus-ring-offset
   bg-transparent
   border-input
+  aria-selected:bg-[color:var(--p-color-button-selected-bg)]
+  aria-selected:text-[color:var(--p-color-button-selected-test)]
+  aria-selected:border-[color:var(--p-color-button-selected-border)]
   text-primary-foreground;
 }
 
@@ -300,14 +305,5 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.p-button--selected,
-.p-button--selected:not(:disabled):hover,
-.p-button--selected:not(:disabled):active {
-  background-color: var(--p-color-button-selected-bg);
-  border-color: var(--p-color-button-selected-border);
-  color: var(--p-color-button-selected-text);
-  cursor: default;
 }
 </style>
