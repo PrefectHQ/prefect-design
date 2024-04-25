@@ -50,7 +50,7 @@
     "@vitejs/plugin-vue": "5.0.4",
     "auto-changelog": "^2.4.0",
     "autoprefixer": "^10.4.6",
-    "eslint": "^8.6.0",
+    "eslint": "^9.1.1",
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24",
     "ts-node": "^10.7.0",
