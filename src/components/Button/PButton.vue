@@ -2,18 +2,18 @@
   <component
     :is="component"
     ref="el"
-    :class="cn(buttonVariants({ variant, size, icon: props.icon && !$slots.default }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '')"
+    :class="cn(buttonVariants({ variant: computedVariant, size: computedSize, icon: props.icon && !$slots.default }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '')"
     :disabled="disabled || loading"
     :aria-selected="selected"
     v-bind="componentProps"
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="iconSize" :icon="icon" class="p-button__icon" />
+        <PIcon :size="props.small ? undefined : 'large'" :icon="icon" class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="iconSize" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="props.small ? undefined : 'large'" :icon="iconAppend" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -111,7 +111,36 @@
     }
   })
 
-  const iconSize = props.small ? undefined : 'large'
+  const computedVariant = computed(() => {
+    // Until we migrate all the buttons to use the new variant prop, we need to support the old props
+    if (props.dangerous || props.variant === 'destructive') {
+      return 'destructive'
+    }
+    if (props.primary || props.variant === 'default') {
+      return 'default'
+    }
+    if (props.flat || props.variant === 'ghost') {
+      return 'ghost'
+    }
+    if (props.variant === 'secondary') {
+      return 'secondary'
+    }
+    if (props.variant === 'link') {
+      return 'link'
+    }
+    return 'outline'
+  })
+
+  const computedSize = computed(() => {
+    // Until we migrate all the buttons to use the new size prop, we need to support the old props
+    if (props.size) {
+      return props.size
+    }
+    if (props.small) {
+      return 'sm'
+    }
+    return 'default'
+  })
 </script>
 
 <style>
