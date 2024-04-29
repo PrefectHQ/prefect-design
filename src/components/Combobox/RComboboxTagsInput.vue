@@ -10,13 +10,15 @@
       </TagsInputItemDelete>
     </TagsInputItem>
 
-    <TagsInputInput placeholder="Fruits..." class="text-sm focus:outline-none flex-1 rounded-default border-none bg-transparent placeholder:text-subdued px-1" />
+    <TagsInputInput :placeholder class="text-sm focus:outline-none flex-1 rounded-default border-none bg-transparent placeholder:text-subdued px-1" />
   </TagsInputRoot>
 </template>
 
 <script setup lang="ts">
   import { TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
-  import { ref } from 'vue'
 
-  const modelValue = ref(['Apple', 'Banana'])
+  const modelValue = defineModel<string[]>()
+  defineProps<{
+    placeholder?: string,
+  }>()
 </script>

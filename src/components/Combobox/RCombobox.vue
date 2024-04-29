@@ -2,7 +2,7 @@
   <ComboboxRoot v-model="modelValue" :multiple>
     <ComboboxAnchor>
       <ComboboxInput as-child>
-        <component :is="multiple ? RComboboxTagsInput : 'p-text-input'" v-model="modelValue">
+        <component :is="multiple ? RComboboxTagsInput : 'p-text-input'" v-model="modelValue" :placeholder>
           <template #append>
             <ComboboxTrigger>
               <span class="flex items-center px-2 border-l">
