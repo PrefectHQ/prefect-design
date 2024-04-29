@@ -29,7 +29,6 @@
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
   import { Icon } from '@/types'
-  import { cn } from '@/utilities'
   import { isRouteExternal } from '@/utilities/router'
 
   const button = cva(
