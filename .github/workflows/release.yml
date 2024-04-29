@@ -23,35 +23,13 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      # Checkout branch, bump version, push, merge, create release
-      - name: Setup Node
-        id: setup_node
-        uses: prefecthq/actions-setup-nodejs@main
-      
-      - name: Bump Package Version
-        id: bump_version
-        run: | 
-          npm version ${{ inputs.release_type }}
-          echo "RELEASE_VERSION=$(cat package.json | jq .version | tr -d '"')" >> $GITHUB_ENV
 
-      - name: Bump Version and Create Release
-        run: |
-          git checkout -b $RELEASE_VERSION
-          git push --set-upstream origin $RELEASE_VERSION
-          gh pr create --base main -f
-          gh pr merge --squash --admin --delete-branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.PREFECT_CONTENTS_PR_RW }}
-
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - uses: prefecthq/actions-release-ui-components@main
+      - uses: prefecthq/actions-release-ui-components@chore/add-automated-release
         id: release-ui-components
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PREFECT_CONTENTS_PR_RW }}
+          RELEASE_TYPE: ${{ inputs.release_type }}
 
       - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
         id: trigger-downstream-npm-package-update-nebula-ui
