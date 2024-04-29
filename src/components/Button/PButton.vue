@@ -5,7 +5,6 @@
     :class="button({ variant: computedVariantCompatLayer, size: computedSizeCompatLayer, icon: icon && !$slots.default })"
     :disabled="disabled || loading"
     :aria-selected="selected"
-    :aria-busy="loading"
     v-bind="componentProps"
   >
     <div class="p-button__content">
@@ -39,20 +38,19 @@
       variants: {
         variant: {
           default: 'p-button--default',
-          destructive: 'p-button--default p-button--destructive',
+          destructive: 'p-button--destructive',
           outline: 'p-button--outline',
-          secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
           ghost: 'p-button--ghost',
-          link: 'text-primary underline-offset-4 hover:underline',
+          link: 'p-button--link',
         },
         size: {
           default: 'px-4 py-2',
-          sm: 'p-button--small',
+          sm: 'text-sm px-2 py-1',
           lg: 'h-11 rounded-md px-8',
           icon: 'h-10 w-10',
         },
         icon: {
-          true: 'p-button--icon-only',
+          true: 'h-10 w-10',
         },
       },
       compoundVariants: [
@@ -131,9 +129,6 @@
     if (props.flat || props.variant === 'ghost') {
       return 'ghost'
     }
-    if (props.variant === 'secondary') {
-      return 'secondary'
-    }
     if (props.variant === 'link') {
       return 'link'
     }
@@ -157,52 +152,54 @@
   relative
   inline-flex
   items-center
-  rounded-default
-  border
-  outline-none
-  focus:ring-spacing-focus-ring
-  focus:ring-focus-ring
-  focus:ring-offset-focus-ring
-  focus:ring-offset-focus-ring-offset
-  bg-transparent
-  border-input
+  justify-center
+  whitespace-nowrap
+  rounded-md
+  text-sm
+  font-medium
+  ring-offset-background
+  transition-colors
+  focus-visible:outline-none
+  focus-visible:ring-2
+  focus-visible:ring-focus-ring
+  focus-visible:ring-offset-2
+  disabled:pointer-events-none
+  disabled:opacity-50
+  select-none
   aria-selected:bg-[color:var(--p-color-button-selected-bg)]
   aria-selected:text-[color:var(--p-color-button-selected-test)]
   aria-selected:border-[color:var(--p-color-button-selected-border)]
-  aria-busy:cursor-wait
-  aria-busy:opacity-40
-  disabled:cursor-not-allowed
-  disabled:opacity-50
-  text-primary-foreground;
 }
 
-.p-button:focus:not(:focus-visible) { @apply
-  ring-transparent
-  ring-offset-transparent
+.p-button--default{@apply
+  bg-primary
+  text-primary-foreground
+  hover:bg-primary/90
+  active:bg-primary/80
 }
-
-.p-button:not(:disabled):hover {
-  background-color: var(--p-color-button-default-bg-hover);
-  border-color: var(--p-color-button-default-border-hover);
-  color: var(--p-color-button-default-text-hover);
+.p-button--outline{@apply
+  border
+  border-input
+  bg-background
+  hover:bg-accent
+  hover:text-accent-foreground
+  active:bg-accent/90
 }
-
-.p-button:not(:disabled):active {
-  background-color: var(--p-color-button-default-bg-active);
-  border-color: var(--p-color-button-default-border-active);
-  color: var(--p-color-button-default-text-active);
+.p-button--ghost{@apply
+  hover:bg-accent
+  hover:text-accent-foreground
+  active:bg-accent/90
 }
-
-.p-button--icon-prepend { @apply
-  pl-2
+.p-button--destructive{@apply
+  bg-destructive
+  text-destructive-foreground
+  hover:bg-destructive/90
+  active:bg-destructive/80
 }
-
-.p-button--icon-append { @apply
-  pr-2
-}
-
-.p-button--icon-only { @apply
-  px-2
+.p-button--link{@apply
+  text-primary
+  underline-offset-4
+  hover:underline
 }
 
 .p-button__content { @apply
@@ -212,104 +209,6 @@
   justify-center
   items-center
   font-normal
-}
-
-.p-button--default {
-  background-color: var(--p-color-button-primary-bg);
-  border-color: var(--p-color-button-primary-border);
-  color: var(--p-color-button-primary-text);
-}
-.p-button--default:not(:disabled):hover {
-  background-color: var(--p-color-button-primary-bg-hover);
-  border-color: var(--p-color-button-primary-border-hover);
-  color: var(--p-color-button-primary-text-hover);
-}
-.p-button--default:not(:disabled):active {
-  background-color: var(--p-color-button-primary-bg-active);
-  border-color: var(--p-color-button-primary-border-active);
-  color: var(--p-color-button-primary-text-active);
-}
-
-.p-button--destructive {
-  background-color: var(--p-color-button-danger-bg);
-  border-color: var(--p-color-button-danger-border);
-  color: var(--p-color-button-danger-text);
-}
-.p-button--destructive:not(:disabled):hover {
-  background-color: var(--p-color-button-danger-bg-hover);
-  border-color: var(--p-color-button-danger-border-hover);
-  color: var(--p-color-button-danger-text-hover);
-}
-.p-button--destructive:not(:disabled):active {
-  background-color: var(--p-color-button-danger-bg-active);
-  border-color: var(--p-color-button-danger-border-active);
-  color: var(--p-color-button-danger-text-active);
-}
-
-.p-button--default.p-button--destructive {
-  background-color: var(--p-color-button-primary-danger-bg);
-  border-color: var(--p-color-button-primary-danger-border);
-  color: var(--p-color-button-primary-danger-text);
-}
-.p-button--default.p-button--destructive:not(:disabled):hover {
-  background-color: var(--p-color-button-primary-danger-bg-hover);
-  border-color: var(--p-color-button-primary-danger-border-hover);
-  color: var(--p-color-button-primary-danger-text-hover);
-}
-.p-button--default.p-button--destructive:not(:disabled):active {
-  background-color: var(--p-color-button-primary-danger-bg-active);
-  border-color: var(--p-color-button-primary-danger-border-active);
-  color: var(--p-color-button-primary-danger-text-active);
-}
-
-.p-button--ghost {
-  background-color: var(--p-color-button-flat-bg);
-  border-color: var(--p-color-button-flat-border);
-  color: var(--p-color-button-flat-text);
-}
-.p-button--ghost:not(:disabled):hover {
-  background-color: var(--p-color-button-flat-bg-hover);
-  border-color: var(--p-color-button-flat-border-hover);
-  color: var(--p-color-button-flat-text-hover);
-}
-.p-button--ghost:not(:disabled):active {
-  background-color: var(--p-color-button-flat-bg-active);
-  border-color: var(--p-color-button-flat-border-active);
-  color: var(--p-color-button-flat-text-active);
-}
-
-.p-button--ghost.p-button--destructive {
-  background-color: var(--p-color-button-flat-danger-bg);
-  border-color: var(--p-color-button-flat-danger-border);
-  color: var(--p-color-button-flat-danger-text);
-}
-.p-button--ghost.p-button--destructive:not(:disabled):hover {
-  background-color: var(--p-color-button-flat-danger-bg-hover);
-  border-color: var(--p-color-button-flat-danger-border-hover);
-  color: var(--p-color-button-flat-danger-text-hover);
-}
-.p-button--ghost.p-button--destructive:not(:disabled):active {
-  background-color: var(--p-color-button-flat-danger-bg-active);
-  border-color: var(--p-color-button-flat-danger-border-active);
-  color: var(--p-color-button-flat-danger-text-active);
-}
-
-.p-button--small { @apply
-  text-sm
-  px-2
-  py-1
-}
-
-.p-button--icon-prepend.p-button--small { @apply
-  pl-1
-}
-
-.p-button--icon-append.p-button--small { @apply
-  pr-1
-}
-
-.p-button--icon-only.p-button--small { @apply
-  px-1
 }
 
 .p-button__loading-icon {
