@@ -310,19 +310,6 @@
   px-1
 }
 
-.p-button--disabled { @apply
-  cursor-not-allowed
-  opacity-50
-}
-
-.p-button--loading { @apply
-  cursor-wait
-}
-
-.p-button--loading .p-button__content { @apply
-  opacity-40
-}
-
 .p-button__loading-icon {
   position: absolute;
   left: 50%;
