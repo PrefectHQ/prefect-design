@@ -15,7 +15,14 @@
     <template #combobox>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
-        <r-combobox v-model="exampleCombobox" :disabled="disabled" allow-deselect :options="exampleOptions" :state="exampleState" />
+        <p-combobox
+          v-model="exampleCombobox"
+          radix
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox) }}
@@ -33,8 +40,9 @@
           :state="exampleState"
           multiple
         />
-        <r-combobox
+        <p-combobox
           v-model="exampleMultiple"
+          radix
           :disabled="disabled"
           allow-deselect
           :options="exampleOptions"
@@ -51,7 +59,14 @@
     <template #allows-custom-values>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
-        <r-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
+        <p-combobox
+          v-model="exampleCombobox2"
+          radix
+          :disabled="disabled"
+          allow-unknown-value
+          :options="['Tim', 'Jeffrey', 'Elon']"
+          :state="exampleState"
+        />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox2) }}
@@ -62,7 +77,7 @@
     <template #grouped>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
-        <r-combobox v-model="exampleCombobox3" :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
+        <p-combobox v-model="exampleCombobox3" radix :disabled="disabled" :options="exampleOptionsGrouped" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox3) }}
@@ -73,7 +88,6 @@
 </template>
 
 <script lang="ts" setup>
-  import RCombobox from '@/components/Combobox/RCombobox.vue'
   import { State } from '@/types'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
