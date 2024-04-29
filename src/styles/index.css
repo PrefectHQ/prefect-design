@@ -1,5 +1,6 @@
 @import "@fontsource/inconsolata/variable.css";
 @import "@fontsource/inter/variable.css";
+@import "@/styles/scrollbar.css";
 
 @tailwind base;
 @tailwind components;
@@ -23,9 +24,12 @@
     --p-radius-default: 6px;
     --p-scrollbar-width: 12px;
 
+    /* Prefect Blue is 219, 100, 50  */
+    --p-primary-hue: 228;
+
     --p-destructive: 4 74% 49%;
     --p-positive: 142 71% 45%;
-    --p-neutral: 240 5% 46%;
+    --p-neutral: var(--p-primary-hue) 5% 46%;
     --p-warning: 40 92% 50%;
 
     --p-color-sentiment-positive: hsl(var(--p-positive));
@@ -38,44 +42,47 @@
     color-scheme: dark;
 
     /* Background */
-    --p-color-bg-0: #26272B;
-    --p-color-bg-1: #1C1D20;
-    --p-color-bg-2: var(--p-color-bg-0);
-    --p-color-bg-3: #303237;
-    --p-color-bg-floating: #35363C;
-    --p-color-bg-floating-sticky: rgba(28, 29, 32, 0.9);
-    --p-color-bg-code: #121317;
-    --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
+    --p-color-bg-0: hsl(var(--p-primary-hue), 6%, 16%);
+    --p-color-bg-1: hsl(var(--p-primary-hue), 6%, 12%);
+    --p-color-bg-2: hsl(var(--p-primary-hue), 6%, 16%);
+    --p-color-bg-3: hsl(var(--p-primary-hue), 6%, 20%);
+
+    --p-color-bg-floating: hsl(var(--p-primary-hue), 6%, 24%);
+    --p-color-bg-floating-sticky: hsl(var(--p-primary-hue) 6% 12% / 0.9);
+    --p-color-bg-code: hsl(var(--p-primary-hue), 6%, 8%);
+    --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
 
     /* Root Tokens */
-    --p-color-divider: #51525C;
-    --p-color-divider-subdued: #51525C;
-    --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
-    --p-color-scrollbar-thumb: #636467;
-    --p-color-selected: rgba(104, 125, 155, 0.4);
-    --p-color-selectable-hover: rgba(104, 125, 155, 0.24);
-    --p-color-focus-ring: #276EE7;
+    --p-input: var(--p-primary-hue) 6% 32%;
+    --p-color-divider: hsl(var(--p-input));
+    --p-color-divider-subdued: hsl(var(--p-primary-hue), 6%, 32%);
+    --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 64% / 0.4);
+    --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.98%, 36%);
+    --p-color-selected: hsl(var(--p-primary-hue) 20.32% 52% / 0.4);
+    --p-color-selectable-hover: hsl(var(--p-primary-hue) 20.32% 52% / 0.24);
+    --p-color-focus-ring: hsl(var(--p-primary-hue), 80.0%, 52%);
     --p-color-focus-ring-offset: var(--p-color-bg-0);
 
-    --p-color-live: #6272FF;
+    --p-color-live: hsl(var(--p-primary-hue), 100.0%, 68%);
 
     /* Text */
-    --p-color-text-default: #FFFFFF;
-    --p-color-text-subdued: #ADADAD;
-    --p-color-text-inverse: #171717;
-    --p-color-text-link: #53B1FD;
-    --p-color-text-code: #C1C4CE;
+    --p-primary-foreground: 0.0 0.0% 100.0%;
+    --p-color-text-default: hsl(var(--p-primary-foreground));
+    --p-color-text-subdued: hsl(0.0, 0.0%, 67.84%);
+    --p-color-text-inverse: hsl(0.0, 0.0%, 9.02%);
+    --p-color-text-link: hsl(206.8, 97.7%, 65.88%);
+    --p-color-text-code: hsl(var(--p-primary-hue), 11.71%, 78%);
     --p-color-text-invalid: var(--p-color-sentiment-negative);
-    --p-color-text-selected: #3fa2c3;
+    --p-color-text-selected: hsl(195.0, 52.38%, 50.59%);
 
     /* Syntax Highlighting */
-    --p-color-syntax-comment: #686D7E;
-    --p-color-syntax-selector: #E0545C;
-    --p-color-syntax-parameter: #E3A64A;
-    --p-color-syntax-attribute: #D8692A;
-    --p-color-syntax-symbol: #12B981;
-    --p-color-syntax-title: #597FFF;
-    --p-color-syntax-keyword: #E054C1;
+    --p-color-syntax-comment: hsl(var(--p-primary-hue), 9.57%, 44%);
+    --p-color-syntax-selector: hsl(356.6, 69.31%, 60.39%);
+    --p-color-syntax-parameter: hsl(36.1, 73.21%, 59.02%);
+    --p-color-syntax-attribute: hsl(21.7, 69.05%, 50.59%);
+    --p-color-syntax-symbol: hsl(159.9, 82.27%, 39.8%);
+    --p-color-syntax-title: hsl(var(--p-primary-hue), 100.0%, 68%);
+    --p-color-syntax-keyword: hsl(313.3, 69.31%, 60.39%);
 
     /* Input */
     --p-color-input-bg: var(--p-color-bg-0);
@@ -90,7 +97,7 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: #175cd3;
+    --p-color-input-checked-bg: hsl(var(--p-primary-hue), 80.34%, 44%);
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
@@ -108,57 +115,57 @@
     --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
     --p-color-button-default-border-hover: var(--p-color-text-subdued);
     --p-color-button-default-text-hover: var(--p-color-button-default-text);
-    --p-color-button-default-bg-active: #141517;
+    --p-color-button-default-bg-active: hsl(var(--p-primary-hue), 6%, 8%);
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
-    --p-color-button-primary-bg: #175CD3;
+    --p-color-button-primary-bg: hsl(var(--p-primary-hue), 80.34%, 44%);
     --p-color-button-primary-border: transparent;
     --p-color-button-primary-text: var(--p-color-text-default);
-    --p-color-button-primary-bg-hover: #1D6CF3;
+    --p-color-button-primary-bg-hover: hsl(var(--p-primary-hue), 89.92%, 52%);
     --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
     --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
-    --p-color-button-primary-bg-active: #0A4BBA;
+    --p-color-button-primary-bg-active: hsl(var(--p-primary-hue), 89.8%, 40%);
     --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
     --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
 
     --p-color-button-danger-bg: transparent;
     --p-color-button-danger-border: var(--p-color-sentiment-negative);
     --p-color-button-danger-text: var(--p-color-text-default);
-    --p-color-button-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-danger-bg-hover: hsl(3.9 73.6% 49.02% / 0.2);
     --p-color-button-danger-border-hover: var(--p-color-button-danger-border);
     --p-color-button-danger-text-hover: var(--p-color-button-danger-text);
-    --p-color-button-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-danger-bg-active: hsl(3.9 73.6% 49.02% / 0.4);
     --p-color-button-danger-border-active: var(--p-color-button-danger-border-hover);
     --p-color-button-danger-text-active: var(--p-color-button-danger-text-hover);
 
     --p-color-button-primary-danger-bg: var(--p-color-sentiment-negative);
     --p-color-button-primary-danger-border: transparent;
     --p-color-button-primary-danger-text: var(--p-color-text-default);
-    --p-color-button-primary-danger-bg-hover: #FE4134;
+    --p-color-button-primary-danger-bg-hover: hsl(3.9, 99.02%, 60.0%);
     --p-color-button-primary-danger-border-hover: var(--p-color-button-primary-danger-border);
     --p-color-button-primary-danger-text-hover: var(--p-color-button-primary-danger-text);
-    --p-color-button-primary-danger-bg-active: #C11F13;
+    --p-color-button-primary-danger-bg-active: hsl(4.1, 82.08%, 41.57%);
     --p-color-button-primary-danger-border-active: var(--p-color-button-primary-danger-border-hover);
     --p-color-button-primary-danger-text-active: var(--p-color-button-primary-danger-text-hover);
 
     --p-color-button-flat-bg: transparent;
     --p-color-button-flat-border: transparent;
     --p-color-button-flat-text: var(--p-color-text-default);
-    --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
+    --p-color-button-flat-bg-hover: hsl(var(--p-primary-hue) 4.68% 44% / 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
-    --p-color-button-flat-bg-active: rgba(112, 112, 123, 0.8);
+    --p-color-button-flat-bg-active: hsl(var(--p-primary-hue) 4.68% 48% / 0.8);
     --p-color-button-flat-border-active: var(--p-color-button-flat-border-hover);
     --p-color-button-flat-text-active: var(--p-color-button-flat-text-hover);
 
     --p-color-button-flat-danger-bg: transparent;
     --p-color-button-flat-danger-border: transparent;
     --p-color-button-flat-danger-text: var(--p-color-sentiment-negative);
-    --p-color-button-flat-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-flat-danger-bg-hover: hsl(3.9 73.6% 49.02% / 0.2);
     --p-color-button-flat-danger-border-hover: var(--p-color-button-flat-danger-border);
     --p-color-button-flat-danger-text-hover: var(--p-color-button-flat-danger-text);
-    --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-flat-danger-bg-active: hsl(3.9 73.6% 49.02% / 0.4);
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
@@ -167,7 +174,7 @@
     --p-color-button-selected-text: var(--p-color-text-default);
 
     /* Message */
-    --p-color-message-info-bg: #304A76;
+    --p-color-message-info-bg: hsl(var(--p-primary-hue), 42.17%, 32%);
     --p-color-message-info-text: var(--p-color-text-default);
 
     --p-color-message-warning-bg: var(--p-color-sentiment-warning);
@@ -191,44 +198,46 @@
     
 
     /* Background */
-    --p-color-bg-0: #EFEFF0;
-    --p-color-bg-1: #FFFFFF;
-    --p-color-bg-2: #F5F5F5;
-    --p-color-bg-3: #EAEAEA;
-    --p-color-bg-floating: #FAFAFA;
-    --p-color-bg-floating-sticky: rgba(255, 255, 255, 0.8);
-    --p-color-bg-code: #DEDEE3;
-    --p-color-bg-overlay: rgba(0, 0, 0, 0.5);
+    --p-color-bg-0: hsl(var(--p-primary-hue), 3.23%, 92%);
+    --p-color-bg-1: hsl(var(--p-primary-hue), 0.0%, 100.0%);
+    --p-color-bg-2: hsl(var(--p-primary-hue), 0.0%, 96%);
+    --p-color-bg-3: hsl(var(--p-primary-hue), 0.0%, 92%);
+    --p-color-bg-floating: hsl(var(--p-primary-hue), 0.0%, 100%);
+    --p-color-bg-floating-sticky: hsl(var(--p-primary-hue) 0.0% 100.0% / 0.8);
+    --p-color-bg-code: hsl(var(--p-primary-hue), 8.2%, 88%);
+    --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
 
     /* Root Tokens */
-    --p-color-divider: #BFBFCC;
-    --p-color-divider-subdued: #f3f4f6;
-    --p-color-selection-highlight: rgba(69, 156, 255, 0.4);
-    --p-color-scrollbar-thumb: #9e9ea0;
-    --p-color-selected: rgba(107, 116, 152, 0.24);
-    --p-color-selectable-hover: rgba(107, 116, 152, 0.16);
-    --p-color-focus-ring: #1470EF;
+    --p-input: var(--p-primary-hue) 11.3% 76%;
+    --p-color-divider: hsl(var(--p-input));
+    --p-color-divider-subdued: hsl(var(--p-primary-hue), 14.29%, 96%);
+    --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 64% / 0.4);
+    --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.04%, 64%);
+    --p-color-selected: hsl(var(--p-primary-hue) 17.93% 50.78% / 0.24);
+    --p-color-selectable-hover: hsl(var(--p-primary-hue) 17.93% 52% / 0.16);
+    --p-color-focus-ring: hsl(var(--p-primary-hue), 87.25%, 52%);
     --p-color-focus-ring-offset: var(--p-color-bg-1);
 
-    --p-color-live: #4B5CFF;
+    --p-color-live: hsl(var(--p-primary-hue), 100.0%, 64%);
 
     /* Text */
-    --p-color-text-default: #171717;
-    --p-color-text-subdued: #70707B;
-    --p-color-text-inverse: #FFFFFF;
-    --p-color-text-link: #1470EF;
-    --p-color-text-code: #3D3D3D;
+    --p-primary-foreground: 0.0 0.0% 9.02%;
+    --p-color-text-default: hsl(var(--p-primary-foreground));
+    --p-color-text-subdued: hsl(var(--p-primary-hue), 6%, 48%);
+    --p-color-text-inverse: hsl(0.0, 0.0%, 100.0%);
+    --p-color-text-link: hsl(var(--p-primary-hue), 87.25%, 52%);
+    --p-color-text-code: hsl(0.0, 0.0%, 23.92%);
     --p-color-text-invalid: var(--p-color-sentiment-negative);
-    --p-color-text-selected: #297f9c;
+    --p-color-text-selected: hsl(195.1, 58.38%, 38.63%);
 
     /* Syntax Highlighting */
-    --p-color-syntax-comment: #686D7E;
-    --p-color-syntax-selector: #E8212C;
-    --p-color-syntax-parameter: #CB7A00;
-    --p-color-syntax-attribute: #DF5100;
-    --p-color-syntax-symbol: #139569;
-    --p-color-syntax-title: #597FFF;
-    --p-color-syntax-keyword: #E054C1;
+    --p-color-syntax-comment: hsl(var(--p-primary-hue), 9.57%, 44%);
+    --p-color-syntax-selector: hsl(356.7, 81.22%, 51.96%);
+    --p-color-syntax-parameter: hsl(36.1, 100.0%, 39.8%);
+    --p-color-syntax-attribute: hsl(21.8, 100.0%, 43.73%);
+    --p-color-syntax-symbol: hsl(159.7, 77.38%, 32.94%);
+    --p-color-syntax-title: hsl(var(--p-primary-hue), 100.0%, 68%);
+    --p-color-syntax-keyword: hsl(313.3, 69.31%, 60.39%);
 
     /* Input */
     --p-color-input-bg: var(--p-color-bg-1);
@@ -243,11 +252,11 @@
     --p-color-input-border-invalid: var(--p-color-sentiment-negative);
     --p-color-input-text-invalid-icon: var(--p-color-sentiment-negative);
 
-    --p-color-input-checked-bg: #2e90fb;
+    --p-color-input-checked-bg: hsl(var(--p-primary-hue), 96.24%, 60%);
     --p-color-input-checked-border: var(--p-color-selected);
     --p-color-input-checked-text: var(--p-color-text-default);
 
-    /* Note: this url has a hardcoded usage of `--p-color-text-default` here however it uses `%23171717` instead of `#171717` since `#` within a url is a fragment. -*/
+    /* Note: this url has a hardcoded usage of `--p-color-text-default` here however it uses `%23171717` instead of `hsl(0.0, 0.0%, 9.02%)` since `#` within a url is a fragment. -*/
     --p-input-checkbox-indeterminate-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 16 16'%3e%3cpath stroke='%23171717' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
 
     /* Toggle */
@@ -262,57 +271,57 @@
     --p-color-button-default-bg-hover: var(--p-color-button-default-bg);
     --p-color-button-default-border-hover: var(--p-color-text-subdued);
     --p-color-button-default-text-hover: var(--p-color-button-default-text);
-    --p-color-button-default-bg-active: #E7E7EC;
+    --p-color-button-default-bg-active: hsl(var(--p-primary-hue), 11.63%, 92%);
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
-    --p-color-button-primary-bg: #175CD3;
+    --p-color-button-primary-bg: hsl(var(--p-primary-hue), 80.34%, 44%);
     --p-color-button-primary-border: transparent;
     --p-color-button-primary-text: var(--p-color-text-inverse);
-    --p-color-button-primary-bg-hover: #1D6CF3;
+    --p-color-button-primary-bg-hover: hsl(var(--p-primary-hue), 89.92%, 52%);
     --p-color-button-primary-border-hover: var(--p-color-button-primary-border);
     --p-color-button-primary-text-hover: var(--p-color-button-primary-text);
-    --p-color-button-primary-bg-active: #0A4BBA;
+    --p-color-button-primary-bg-active: hsl(var(--p-primary-hue), 89.8%, 40%);
     --p-color-button-primary-border-active: var(--p-color-button-primary-border-hover);
     --p-color-button-primary-text-active: var(--p-color-button-primary-text-hover);
 
     --p-color-button-danger-bg: var(--p-color-button-default-bg);
     --p-color-button-danger-border: var(--p-color-sentiment-negative);
     --p-color-button-danger-text: var(--p-color-text-default);
-    --p-color-button-danger-bg-hover: #FCEEED;
+    --p-color-button-danger-bg-hover: hsl(4.0, 71.43%, 95.88%);
     --p-color-button-danger-border-hover: var(--p-color-button-danger-border);
     --p-color-button-danger-text-hover: var(--p-color-button-danger-text);
-    --p-color-button-danger-bg-active: #F8D5D3;
+    --p-color-button-danger-bg-active: hsl(3.2, 72.55%, 90.0%);
     --p-color-button-danger-border-active: var(--p-color-button-danger-border-hover);
     --p-color-button-danger-text-active: var(--p-color-button-danger-text-hover);
 
     --p-color-button-primary-danger-bg: var(--p-color-sentiment-negative);
     --p-color-button-primary-danger-border: transparent;
     --p-color-button-primary-danger-text: var(--p-color-text-inverse);
-    --p-color-button-primary-danger-bg-hover: #FE4134;
+    --p-color-button-primary-danger-bg-hover: hsl(3.9, 99.02%, 60.0%);
     --p-color-button-primary-danger-border-hover: var(--p-color-button-primary-danger-border);
     --p-color-button-primary-danger-text-hover: var(--p-color-button-primary-danger-text);
-    --p-color-button-primary-danger-bg-active: #C11F13;
+    --p-color-button-primary-danger-bg-active: hsl(4.1, 82.08%, 41.57%);
     --p-color-button-primary-danger-border-active: var(--p-color-button-primary-danger-border-hover);
     --p-color-button-primary-danger-text-active: var(--p-color-button-primary-danger-text-hover);
 
     --p-color-button-flat-bg: transparent;
     --p-color-button-flat-border: transparent;
     --p-color-button-flat-text: var(--p-color-text-default);
-    --p-color-button-flat-bg-hover: rgba(112, 112, 123, 0.4);
+    --p-color-button-flat-bg-hover: hsla(var(--p-primary-hue), 6%, 48%, 0.4);
     --p-color-button-flat-border-hover: var(--p-color-button-flat-border);
     --p-color-button-flat-text-hover: var(--p-color-button-flat-text);
-    --p-color-button-flat-bg-active: rgba(112, 112, 123, 0.8);
+    --p-color-button-flat-bg-active: hsl(var(--p-primary-hue) 4.68% 48% / 0.8);
     --p-color-button-flat-border-active: var(--p-color-button-flat-border-hover);
     --p-color-button-flat-text-active: var(--p-color-button-flat-text-hover);
 
     --p-color-button-flat-danger-bg: transparent;
     --p-color-button-flat-danger-border: transparent;
     --p-color-button-flat-danger-text: var(--p-color-sentiment-negative);
-    --p-color-button-flat-danger-bg-hover: rgba(217, 45, 33, 0.2);
+    --p-color-button-flat-danger-bg-hover: hsl(3.9 73.6% 49.02% / 0.2);
     --p-color-button-flat-danger-border-hover: var(--p-color-button-flat-danger-border);
     --p-color-button-flat-danger-text-hover: var(--p-color-button-flat-danger-text);
-    --p-color-button-flat-danger-bg-active: rgba(217, 45, 33, 0.4);
+    --p-color-button-flat-danger-bg-active: hsl(3.9 73.6% 49.02% / 0.4);
     --p-color-button-flat-danger-border-active: var(--p-color-button-flat-danger-border-hover);
     --p-color-button-flat-danger-text-active: var(--p-color-button-flat-danger-text-hover);
 
@@ -321,7 +330,7 @@
     --p-color-button-selected-text: var(--p-color-text-default);
 
     /* Message */
-    --p-color-message-info-bg: #B5D0FF;
+    --p-color-message-info-bg: hsl(var(--p-primary-hue), 100.0%, 84%);
     --p-color-message-info-text: var(--p-color-text-default);
 
     --p-color-message-warning-bg: var(--p-color-sentiment-warning);
@@ -334,7 +343,7 @@
     --p-color-message-success-text: var(--p-color-text-inverse);
 
     /* Tag */
-    --p-color-tag-bg: #D9D9E2;
+    --p-color-tag-bg: hsl(var(--p-primary-hue), 13.43%, 88%);
     --p-color-tag-border: transparent;
     --p-color-tag-text: var(--p-color-text-default);
   }
@@ -356,29 +365,6 @@ body {
 *::selection {
   background-color: var(--p-color-selection-highlight);
   
-}
-
-@supports (scrollbar-color: auto) {
-  /* If the browser supports the scrollbar-color property, we can set the color of the scrollbar thumb */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--p-color-scrollbar-thumb) transparent
-  }
-}
-
-@supports selector(::-webkit-scrollbar) {
-  /* If the browser supports the ::-webkit-scrollbar pseudo-element, we can style the scrollbar */
-  ::-webkit-scrollbar {
-    width: var(--p-scrollbar-width);
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--p-color-bg-0);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--p-color-scrollbar-thumb);
-    border-radius: calc(var(--p-scrollbar-width) / 2);
-    border: 3px solid var(--p-color-bg-0);
-  }
 }
 
 .p-background {

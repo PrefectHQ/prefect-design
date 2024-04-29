@@ -2,8 +2,8 @@
   <section class="p-tabs">
     <template v-if="media.sm">
       <PTabNavigation v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
-        <template v-for="tab in tabs" #[`${tab}-heading`]="data">
-          <slot :name="`${tab}-heading`" v-bind="data" />
+        <template v-for="tab in tabs" #[`${kebabCase(tab.label)}-heading`]="data">
+          <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="data" />
         </template>
 
         <template #heading="data">
@@ -13,8 +13,8 @@
     </template>
     <template v-else>
       <PTabSelect v-model:selected="selected" :tabs="tabs">
-        <template v-for="tab in tabs" #[`${tab}-heading`]="data">
-          <slot :name="`${tab}-heading`" v-bind="data" />
+        <template v-for="tab in tabs" #[`${kebabCase(tab.label)}-heading`]="data">
+          <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="data" />
         </template>
 
         <template #heading="data">
@@ -30,7 +30,7 @@
           role="tabpanel"
           :aria-labelledby="`${kebabCase(tab.label)}`"
         >
-          <slot :name="`${tab.label}`" v-bind="{ tab, index }">
+          <slot :name="`${kebabCase(tab.label)}`" v-bind="{ tab, index }">
             <slot name="content" v-bind="{ tab, index }" />
           </slot>
         </section>

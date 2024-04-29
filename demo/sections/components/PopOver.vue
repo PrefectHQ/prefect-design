@@ -84,12 +84,15 @@
             </div>
           </div>
         </template>
+
+        <RPopover />
       </p-content>
     </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
+  import RPopover from '@/components/PopOver/RPopover.vue'
   import { usePositionStyles, useMostVisiblePositionStyles } from '@/compositions/position'
   import { usePopOverGroup } from '@/compositions/usePopOverGroup'
 

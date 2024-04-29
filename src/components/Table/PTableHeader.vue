@@ -7,10 +7,11 @@
 <style>
 .p-table-header { @apply
   px-3
-  py-3.5
+  py-3
   text-sm
-  font-semibold
+  font-bold
   whitespace-nowrap
+  truncate
   text-left
 }
 </style>

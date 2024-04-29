@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "2.7.10",
+  "version": "2.7.15",
   "description": "",
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0",
-    "version": "npm run changelog && git add CHANGELOG.md"
+    "version": "npm run changelog && git add CHANGELOG.md",
+    "release": "./prefect-design-release"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.mjs",
@@ -55,9 +56,9 @@
     "ts-node": "^10.7.0",
     "tsc-alias": "1.8.8",
     "typescript": "5.4.5",
-    "vite": "5.2.8",
+    "vite": "5.2.10",
     "vite-svg-loader": "5.1.0",
-    "vue-tsc": "2.0.13"
+    "vue-tsc": "2.0.14"
   },
   "peerDependencies": {
     "@prefecthq/vue-compositions": "^1.11.0",
@@ -70,11 +71,13 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "@types/lodash.debounce": "4.0.9",
+    "clsx": "^2.1.0",
     "date-fns": "3.6.0",
     "dompurify": "3.1.0",
     "highlight.js": "11.9.0",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0",
-    "radix-vue": "^1.7.0"
+    "radix-vue": "^1.7.3",
+    "tailwind-merge": "^2.3.0"
   }
 }

@@ -51,6 +51,7 @@
     <template #allows-custom-values>
       <div class="combobox__demo">
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
+        <r-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
 
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox2) }}
@@ -93,6 +94,40 @@
     { label: 'Sundar Pichai', value: 'Google' },
     { label: 'Elon Musk', value: 'Space-X' },
     { label: 'Mark Lizardking', value: 'Facebook' },
+
+    // Add a bunch of options for scrolling
+    { value: 'junk', label: 'junk' },
+    { value: 'junk1', label: 'junk1' },
+    { value: 'junk2', label: 'junk2' },
+    { value: 'junk3', label: 'junk3' },
+    { value: 'junk4', label: 'junk4' },
+    { value: 'junk5', label: 'junk5' },
+    { value: 'junk6', label: 'junk6' },
+    { value: 'junk7', label: 'junk7' },
+    { value: 'junk8', label: 'junk8' },
+    { value: 'junk9', label: 'junk9' },
+    { value: 'junk10', label: 'junk10' },
+    { value: 'junk11', label: 'junk11' },
+    { value: 'junk12', label: 'junk12' },
+    { value: 'junk13', label: 'junk13' },
+    { value: 'junk14', label: 'junk14' },
+    { value: 'junk15', label: 'junk15' },
+    { value: 'junk16', label: 'junk16' },
+    { value: 'junk17', label: 'junk17' },
+    { value: 'junk18', label: 'junk18' },
+    { value: 'junk19', label: 'junk19' },
+    { value: 'junk20', label: 'junk20' },
+    { value: 'junk21', label: 'junk21' },
+    { value: 'junk22', label: 'junk22' },
+    { value: 'junk23', label: 'junk23' },
+    { value: 'junk24', label: 'junk24' },
+    { value: 'junk25', label: 'junk25' },
+    { value: 'junk26', label: 'junk26' },
+    { value: 'junk27', label: 'junk27' },
+    { value: 'junk28', label: 'junk28' },
+    { value: 'junk29', label: 'junk29' },
+    { value: 'junk30', label: 'junk30' },
+    { value: 'junk31', label: 'junk31' },
   ]
 
   const exampleOptionsGrouped = [

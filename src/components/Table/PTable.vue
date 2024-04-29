@@ -11,8 +11,8 @@
                 </PTableHeader>
               </template>
 
-              <template v-for="column in visibleColumns" :key="column">
-                <PTableHeader :style="getColumnStyle(column)">
+              <template v-for="(column, columnIndex) in visibleColumns" :key="column">
+                <PTableHeader :style="getColumnStyle(column)" :class="getHeaderClasses(column, columnIndex)" :title="column.label">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
                   </slot>
@@ -31,7 +31,7 @@
               </template>
 
               <template v-for="(column, columnIndex) in visibleColumns" :key="column">
-                <PTableData :class="getColumnClasses(column, getValue(row, column.property), columnIndex, row, rowIndex)">
+                <PTableData :class="getColumnClasses(column, getValue(row, column.property), columnIndex, row, rowIndex)" :title="getValue(row, column.property)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column.property)" v-bind="{ column, row }">
                     {{ getValue(row, column.property) }}
                   </slot>
@@ -67,7 +67,7 @@
   import PTableHeader from '@/components/Table/PTableHeader.vue'
   import PTableRow from '@/components/Table/PTableRow.vue'
   import { ClassValue } from '@/types/attributes'
-  import { ColumnClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
+  import { ColumnClassesMethod, HeaderClassesMethod, RowClassesMethod, TableColumn, TableData } from '@/types/tables'
   import { NoInfer } from '@/types/utilities'
   import { isEven, isOdd } from '@/utilities'
   import { asArray } from '@/utilities/arrays'
@@ -78,6 +78,7 @@
     selected?: TData[],
     columns?: TColumn[],
     rowClasses?: RowClassesMethod<NoInfer<TData>>,
+    headerClasses?: HeaderClassesMethod<NoInfer<TData>>,
     columnClasses?: ColumnClassesMethod<NoInfer<TData>>,
   }>()
 
@@ -118,12 +119,10 @@
   const visibleColumns = computed<TColumn[]>(() => columns.value.filter(column => column.visible ?? true))
 
   function getColumnStyle(column: TColumn): StyleValue {
-    if (column.width === undefined) {
-      return ''
-    }
-
     return {
       width: column.width,
+      minWidth: column.minWidth ?? column.width ?? 0,
+      maxWidth: column.maxWidth ?? column.width,
     }
   }
 
@@ -156,6 +155,20 @@
     ]
   }
 
+  function getHeaderClasses(column: TColumn, index: number): ClassValue {
+    const custom = asArray(props.headerClasses?.(column, index))
+
+    return [
+      ...custom,
+      {
+        'p-table-column-header--first': index === 0,
+        'p-table-column-header--even': isEven(index),
+        'p-table-column-header--odd': isOdd(index),
+        'p-table-column-header--last': index === columns.value.length - 1,
+      },
+    ]
+  }
+
   // eslint-disable-next-line max-params
   function getColumnClasses(column: TableColumn<TData>, value: unknown, index: number, row: TData, rowIndex: number): ClassValue {
     const custom = asArray(props.columnClasses?.(column, value, index, row, rowIndex))
@@ -177,6 +190,8 @@
   overflow-hidden
   overflow-x-auto
   rounded-default
+  border
+  border-divider
 }
 
 .p-table__table { @apply
