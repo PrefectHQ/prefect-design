@@ -2,7 +2,7 @@
   <component
     :is="component"
     ref="el"
-    :class="button({ variant, size, icon: icon && !$slots.default })"
+    :class="button({ variant: computedVariantCompatLayer, size: computedSizeCompatLayer, icon: icon && !$slots.default })"
     :disabled="disabled || loading"
     :aria-selected="selected"
     :aria-busy="loading"
@@ -10,11 +10,11 @@
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="props.small ? undefined : 'large'" :icon="icon" class="p-button__icon" />
+        <PIcon :size="props.size == 'sm' || props.small ? undefined : 'large'" :icon="icon" class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="props.small ? undefined : 'large'" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="props.size == 'sm' || props.small ? undefined : 'large'" :icon="iconAppend" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -55,6 +55,13 @@
           true: 'p-button--icon-only',
         },
       },
+      compoundVariants: [
+        {
+          size: 'sm',
+          icon: true,
+          class: 'max-h-7 max-w-7',
+        },
+      ],
       defaultVariants: {
         variant: 'outline',
         size: 'default',
@@ -113,7 +120,7 @@
     }
   })
 
-  const computedVariant = computed(() => {
+  const computedVariantCompatLayer = computed(() => {
     // Until we migrate all the buttons to use the new variant prop, we need to support the old props
     if (props.dangerous || props.variant === 'destructive') {
       return 'destructive'
@@ -133,7 +140,7 @@
     return 'outline'
   })
 
-  const computedSize = computed(() => {
+  const computedSizeCompatLayer = computed(() => {
     // Until we migrate all the buttons to use the new size prop, we need to support the old props
     if (props.size) {
       return props.size
@@ -291,11 +298,6 @@
   text-sm
   px-2
   py-1
-}
-
-.p-button--small .p-button__icon { @apply
-  max-w-[1.25rem]
-  max-h-[1.25rem]
 }
 
 .p-button--icon-prepend.p-button--small { @apply
