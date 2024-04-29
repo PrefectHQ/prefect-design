@@ -27,7 +27,9 @@
     /* Prefect Blue is 219, 100, 50  */
     --p-primary-hue: 228;
 
+
     --p-destructive: 4 74% 49%;
+    --p-destructive-foreground: 0.0 0.0% 100.0%;
     --p-positive: 142 71% 45%;
     --p-neutral: var(--p-primary-hue) 5% 46%;
     --p-warning: 40 92% 50%;
@@ -40,6 +42,14 @@
 
   .dark {
     color-scheme: dark;
+    --p-background: var(--p-primary-hue) 6% 16%;
+
+    --p-primary: var(--p-primary-hue) 80.34% 44%;
+    --p-primary-foreground: 0.0 0.0% 100.0%;
+    --p-accent: var(--p-primary-hue) 6% 24%;
+    --p-accent-foreground: 0.0 0.0% 100.0%;
+    --p-destructive: 4 74% 49%;
+    --p-destructive-foreground: 0.0 0.0% 100.0%;
 
     /* Background */
     --p-color-bg-0: hsl(var(--p-primary-hue), 6%, 16%);
@@ -66,7 +76,7 @@
     --p-color-live: hsl(var(--p-primary-hue), 100.0%, 68%);
 
     /* Text */
-    --p-primary-foreground: 0.0 0.0% 100.0%;
+    
     --p-color-text-default: hsl(var(--p-primary-foreground));
     --p-color-text-subdued: hsl(0.0, 0.0%, 67.84%);
     --p-color-text-inverse: hsl(0.0, 0.0%, 9.02%);
@@ -194,8 +204,14 @@
 
   .light {
     color-scheme: light;
+    --p-background: var(--p-primary-hue) 3.23% 92%;
 
-    
+    --p-primary: var(--p-primary-hue) 80.34% 44%;
+    --p-primary-foreground: var(--p-primary-hue) 0.0% 100.0%;
+    --p-accent: var(--p-primary-hue) 0.0% 48%;
+    --p-accent-foreground: var(--p-primary-hue) 6% 9.02%;
+    --p-destructive: 4 74% 49%;
+    --p-destructive-foreground: 0.0 0.0% 100.0%;
 
     /* Background */
     --p-color-bg-0: hsl(var(--p-primary-hue), 3.23%, 92%);
@@ -221,8 +237,7 @@
     --p-color-live: hsl(var(--p-primary-hue), 100.0%, 64%);
 
     /* Text */
-    --p-primary-foreground: 0.0 0.0% 9.02%;
-    --p-color-text-default: hsl(var(--p-primary-foreground));
+    --p-color-text-default: hsl(var(--p-primary-hue), 6%, 9.02%);
     --p-color-text-subdued: hsl(var(--p-primary-hue), 6%, 48%);
     --p-color-text-inverse: hsl(0.0, 0.0%, 100.0%);
     --p-color-text-link: hsl(var(--p-primary-hue), 87.25%, 52%);
@@ -275,7 +290,7 @@
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
-    --p-color-button-primary-bg: hsl(var(--p-primary-hue), 80.34%, 44%);
+    --p-color-button-primary-bg: hsl(--p-primary);
     --p-color-button-primary-border: transparent;
     --p-color-button-primary-text: var(--p-color-text-inverse);
     --p-color-button-primary-bg-hover: hsl(var(--p-primary-hue), 89.92%, 52%);

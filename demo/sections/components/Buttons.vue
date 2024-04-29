@@ -25,6 +25,9 @@
         <p-button variant="outline" size="sm">
           Small
         </p-button>
+        <p-button variant="outline" icon="PlusIcon" size="sm">
+          Small With Icon
+        </p-button>
       </div>
     </template>
 
@@ -41,6 +44,12 @@
         </p-button>
         <p-button variant="default" size="sm">
           Small
+        </p-button>
+        <p-button variant="default" icon="PlusIcon" size="sm">
+          Small With Left Icon
+        </p-button>
+        <p-button variant="default" icon-append="PlusIcon" size="sm">
+          Small With Right Icon
         </p-button>
       </div>
     </template>
@@ -59,6 +68,9 @@
         <p-button variant="ghost" size="sm">
           Small
         </p-button>
+        <p-button variant="ghost" icon="PlusIcon" size="sm">
+          Small With Icon
+        </p-button>
       </div>
     </template>
 
@@ -75,6 +87,9 @@
         </p-button>
         <p-button variant="destructive" size="sm">
           Small
+        </p-button>
+        <p-button variant="destructive" icon="PlusIcon" size="sm">
+          Small With Icon
         </p-button>
       </div>
     </template>

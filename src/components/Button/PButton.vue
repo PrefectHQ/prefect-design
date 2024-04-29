@@ -2,18 +2,18 @@
   <component
     :is="component"
     ref="el"
-    class="p-button"
-    :class="classes"
+    :class="button({ variant: computedVariantCompatLayer, size: computedSizeCompatLayer, icon: icon && !$slots.default })"
     :disabled="disabled || loading"
+    :aria-selected="selected"
     v-bind="componentProps"
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="iconSize" :icon="icon" class="p-button__icon" />
+        <PIcon :size="props.size == 'sm' || props.small ? undefined : 'large'" :icon="icon" class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="iconSize" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="props.size == 'sm' || props.small ? undefined : 'large'" :icon="iconAppend" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -23,16 +23,54 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, useSlots, ref } from 'vue'
+  import { cva, type VariantProps } from 'class-variance-authority'
+  import { computed, ref } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
   import { Icon } from '@/types'
   import { isRouteExternal } from '@/utilities/router'
 
+  const button = cva(
+    'p-button',
+    {
+      variants: {
+        variant: {
+          default: 'p-button--default',
+          destructive: 'p-button--destructive',
+          outline: 'p-button--outline',
+          ghost: 'p-button--ghost',
+          link: 'p-button--link',
+        },
+        size: {
+          default: 'px-4 py-2',
+          sm: 'text-sm px-2 py-1',
+          lg: 'h-11 rounded-md px-8',
+          icon: 'h-10 w-10',
+        },
+        icon: {
+          true: 'h-10 w-10',
+        },
+      },
+      compoundVariants: [
+        {
+          size: 'sm',
+          icon: true,
+          class: 'max-h-7 max-w-7',
+        },
+      ],
+      defaultVariants: {
+        variant: 'outline',
+        size: 'default',
+      },
+    },
+  )
+
+  type ButtonProps = VariantProps<typeof button>
+
   const props = defineProps<{
-    variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link',
-    size?: 'default' | 'sm' | 'lg' | 'icon',
+    variant?: ButtonProps['variant'],
+    size?: ButtonProps['size'],
     primary?: boolean,
     flat?: boolean,
     selected?: boolean,
@@ -45,7 +83,6 @@
     loading?: boolean,
   }>()
 
-  const slots = useSlots()
   const el = ref<HTMLButtonElement>()
 
   defineExpose({
@@ -80,20 +117,33 @@
     }
   })
 
-  const classes = computed(() => ({
-    'p-button--icon-only': props.icon && !slots.default,
-    'p-button--default': props.primary || props.variant === 'default' || props.variant === 'destructive',
-    'p-button--destructive': props.dangerous || props.variant === 'destructive',
-    'p-button--ghost': props.flat || props.variant === 'ghost',
-    'p-button--small': props.small || props.size === 'sm',
-    'p-button--icon-prepend': props.icon && slots.default,
-    'p-button--icon-append': props.iconAppend && slots.default,
-    'p-button--disabled': props.disabled || props.loading,
-    'p-button--loading': props.loading,
-    'p-button--selected': props.selected,
-  }))
+  const computedVariantCompatLayer = computed(() => {
+    // Until we migrate all the buttons to use the new variant prop, we need to support the old props
+    if (props.dangerous || props.variant === 'destructive') {
+      return 'destructive'
+    }
+    if (props.primary || props.variant === 'default') {
+      return 'default'
+    }
+    if (props.flat || props.variant === 'ghost') {
+      return 'ghost'
+    }
+    if (props.variant === 'link') {
+      return 'link'
+    }
+    return 'outline'
+  })
 
-  const iconSize = props.small ? undefined : 'large'
+  const computedSizeCompatLayer = computed(() => {
+    // Until we migrate all the buttons to use the new size prop, we need to support the old props
+    if (props.size) {
+      return props.size
+    }
+    if (props.small) {
+      return 'sm'
+    }
+    return 'default'
+  })
 </script>
 
 <style>
@@ -101,47 +151,54 @@
   relative
   inline-flex
   items-center
-  px-4
-  py-2
-  rounded-default
+  justify-center
+  whitespace-nowrap
+  rounded-md
+  text-sm
+  font-medium
+  ring-offset-background
+  transition-colors
+  focus-visible:outline-none
+  focus-visible:ring-2
+  focus-visible:ring-focus-ring
+  focus-visible:ring-offset-2
+  disabled:pointer-events-none
+  disabled:opacity-50
+  select-none
+  aria-selected:bg-[color:var(--p-color-button-selected-bg)]
+  aria-selected:text-[color:var(--p-color-button-selected-test)]
+  aria-selected:border-[color:var(--p-color-button-selected-border)]
+}
+
+.p-button--default{@apply
+  bg-primary
+  text-primary-foreground
+  hover:bg-primary/90
+  active:bg-primary/80
+}
+.p-button--outline{@apply
   border
-  outline-none
-  focus:ring-spacing-focus-ring
-  focus:ring-focus-ring
-  focus:ring-offset-focus-ring
-  focus:ring-offset-focus-ring-offset
-  bg-transparent
   border-input
-  text-primary-foreground;
+  bg-background
+  hover:bg-accent
+  hover:text-accent-foreground
+  active:bg-accent/90
 }
-
-.p-button:focus:not(:focus-visible) { @apply
-  ring-transparent
-  ring-offset-transparent
+.p-button--ghost{@apply
+  hover:bg-accent
+  hover:text-accent-foreground
+  active:bg-accent/90
 }
-
-.p-button:not(:disabled):hover {
-  background-color: var(--p-color-button-default-bg-hover);
-  border-color: var(--p-color-button-default-border-hover);
-  color: var(--p-color-button-default-text-hover);
+.p-button--destructive{@apply
+  bg-destructive
+  text-destructive-foreground
+  hover:bg-destructive/90
+  active:bg-destructive/80
 }
-
-.p-button:not(:disabled):active {
-  background-color: var(--p-color-button-default-bg-active);
-  border-color: var(--p-color-button-default-border-active);
-  color: var(--p-color-button-default-text-active);
-}
-
-.p-button--icon-prepend { @apply
-  pl-2
-}
-
-.p-button--icon-append { @apply
-  pr-2
-}
-
-.p-button--icon-only { @apply
-  px-2
+.p-button--link{@apply
+  text-primary
+  underline-offset-4
+  hover:underline
 }
 
 .p-button__content { @apply
@@ -153,134 +210,9 @@
   font-normal
 }
 
-.p-button--default {
-  background-color: var(--p-color-button-primary-bg);
-  border-color: var(--p-color-button-primary-border);
-  color: var(--p-color-button-primary-text);
-}
-.p-button--default:not(:disabled):hover {
-  background-color: var(--p-color-button-primary-bg-hover);
-  border-color: var(--p-color-button-primary-border-hover);
-  color: var(--p-color-button-primary-text-hover);
-}
-.p-button--default:not(:disabled):active {
-  background-color: var(--p-color-button-primary-bg-active);
-  border-color: var(--p-color-button-primary-border-active);
-  color: var(--p-color-button-primary-text-active);
-}
-
-.p-button--destructive {
-  background-color: var(--p-color-button-danger-bg);
-  border-color: var(--p-color-button-danger-border);
-  color: var(--p-color-button-danger-text);
-}
-.p-button--destructive:not(:disabled):hover {
-  background-color: var(--p-color-button-danger-bg-hover);
-  border-color: var(--p-color-button-danger-border-hover);
-  color: var(--p-color-button-danger-text-hover);
-}
-.p-button--destructive:not(:disabled):active {
-  background-color: var(--p-color-button-danger-bg-active);
-  border-color: var(--p-color-button-danger-border-active);
-  color: var(--p-color-button-danger-text-active);
-}
-
-.p-button--default.p-button--destructive {
-  background-color: var(--p-color-button-primary-danger-bg);
-  border-color: var(--p-color-button-primary-danger-border);
-  color: var(--p-color-button-primary-danger-text);
-}
-.p-button--default.p-button--destructive:not(:disabled):hover {
-  background-color: var(--p-color-button-primary-danger-bg-hover);
-  border-color: var(--p-color-button-primary-danger-border-hover);
-  color: var(--p-color-button-primary-danger-text-hover);
-}
-.p-button--default.p-button--destructive:not(:disabled):active {
-  background-color: var(--p-color-button-primary-danger-bg-active);
-  border-color: var(--p-color-button-primary-danger-border-active);
-  color: var(--p-color-button-primary-danger-text-active);
-}
-
-.p-button--ghost {
-  background-color: var(--p-color-button-flat-bg);
-  border-color: var(--p-color-button-flat-border);
-  color: var(--p-color-button-flat-text);
-}
-.p-button--ghost:not(:disabled):hover {
-  background-color: var(--p-color-button-flat-bg-hover);
-  border-color: var(--p-color-button-flat-border-hover);
-  color: var(--p-color-button-flat-text-hover);
-}
-.p-button--ghost:not(:disabled):active {
-  background-color: var(--p-color-button-flat-bg-active);
-  border-color: var(--p-color-button-flat-border-active);
-  color: var(--p-color-button-flat-text-active);
-}
-
-.p-button--ghost.p-button--destructive {
-  background-color: var(--p-color-button-flat-danger-bg);
-  border-color: var(--p-color-button-flat-danger-border);
-  color: var(--p-color-button-flat-danger-text);
-}
-.p-button--ghost.p-button--destructive:not(:disabled):hover {
-  background-color: var(--p-color-button-flat-danger-bg-hover);
-  border-color: var(--p-color-button-flat-danger-border-hover);
-  color: var(--p-color-button-flat-danger-text-hover);
-}
-.p-button--ghost.p-button--destructive:not(:disabled):active {
-  background-color: var(--p-color-button-flat-danger-bg-active);
-  border-color: var(--p-color-button-flat-danger-border-active);
-  color: var(--p-color-button-flat-danger-text-active);
-}
-
-.p-button--small { @apply
-  text-sm
-  px-2
-  py-1
-}
-
-.p-button--small .p-button__icon { @apply
-  max-w-[1.25rem]
-  max-h-[1.25rem]
-}
-
-.p-button--icon-prepend.p-button--small { @apply
-  pl-1
-}
-
-.p-button--icon-append.p-button--small { @apply
-  pr-1
-}
-
-.p-button--icon-only.p-button--small { @apply
-  px-1
-}
-
-.p-button--disabled { @apply
-  cursor-not-allowed
-  opacity-50
-}
-
-.p-button--loading { @apply
-  cursor-wait
-}
-
-.p-button--loading .p-button__content { @apply
-  opacity-40
-}
-
 .p-button__loading-icon {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.p-button--selected,
-.p-button--selected:not(:disabled):hover,
-.p-button--selected:not(:disabled):active {
-  background-color: var(--p-color-button-selected-bg);
-  border-color: var(--p-color-button-selected-border);
-  color: var(--p-color-button-selected-text);
-  cursor: default;
 }
 </style>
