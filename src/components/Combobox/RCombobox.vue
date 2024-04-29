@@ -2,7 +2,7 @@
   <ComboboxRoot v-model="modelValue" :multiple>
     <ComboboxAnchor>
       <ComboboxInput as-child>
-        <component :is="multiple ? 'p-tags-input' : 'p-text-input'" v-model="modelValue">
+        <component :is="multiple ? RComboboxTagsInput : 'p-text-input'" v-model="modelValue">
           <template #append>
             <ComboboxTrigger>
               <span class="flex items-center px-2 border-l">
@@ -67,6 +67,7 @@
   import { type AcceptableValue } from 'radix-vue/dist/shared/types'
   import { computed } from 'vue'
   import RComboboxOption from '@/components/Combobox/RComboboxOption.vue'
+  import RComboboxTagsInput from '@/components/Combobox/RComboboxTagsInput.vue'
   import { ComboboxOption, ComboboxGroupedOption, isComboboxGroupedOption } from '@/components/Combobox/types'
 
 
