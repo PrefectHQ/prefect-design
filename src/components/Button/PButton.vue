@@ -2,9 +2,10 @@
   <component
     :is="component"
     ref="el"
-    :class="cn(buttonVariants({ variant: computedVariant, size: computedSize, icon: props.icon && !$slots.default }), $attrs.class ?? '', loading ? 'p-button--loading p-button--disabled' : '', disabled ? 'p-button--disabled' : '')"
+    :class="button({ variant, size, icon: icon && !$slots.default })"
     :disabled="disabled || loading"
     :aria-selected="selected"
+    :aria-busy="loading"
     v-bind="componentProps"
   >
     <div class="p-button__content">
@@ -23,8 +24,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { cva } from 'class-variance-authority'
-  import { computed, useSlots, ref } from 'vue'
+  import { cva, type VariantProps } from 'class-variance-authority'
+  import { computed, ref } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PLoadingIcon from '@/components/LoadingIcon/PLoadingIcon.vue'
@@ -32,7 +33,7 @@
   import { cn } from '@/utilities'
   import { isRouteExternal } from '@/utilities/router'
 
-  const buttonVariants = cva(
+  const button = cva(
     'p-button',
     {
       variants: {
@@ -61,9 +62,11 @@
     },
   )
 
+  type ButtonProps = VariantProps<typeof button>
+
   const props = defineProps<{
-    variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link',
-    size?: 'default' | 'sm' | 'lg' | 'icon',
+    variant?: ButtonProps['variant'],
+    size?: ButtonProps['size'],
     primary?: boolean,
     flat?: boolean,
     selected?: boolean,
@@ -159,6 +162,10 @@
   aria-selected:bg-[color:var(--p-color-button-selected-bg)]
   aria-selected:text-[color:var(--p-color-button-selected-test)]
   aria-selected:border-[color:var(--p-color-button-selected-border)]
+  aria-busy:cursor-wait
+  aria-busy:opacity-40
+  disabled:cursor-not-allowed
+  disabled:opacity-50
   text-primary-foreground;
 }
 
