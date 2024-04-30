@@ -18,6 +18,8 @@ const colors = {
   'background': 'hsl(var(--p-background) / <alpha-value>)',
   'primary': 'hsl(var(--p-primary) / <alpha-value>)',
   'primary-foreground': 'hsl(var(--p-primary-foreground) / <alpha-value>)',
+  'card': 'hsl(var(--p-card) / <alpha-value>)',
+  'card-foreground': 'hsl(var(--p-card-foreground) / <alpha-value>)',
   'destructive': 'hsl(var(--p-destructive) / <alpha-value>)',
   'destructive-foreground': 'hsl(var(--p-destructive-foreground) / <alpha-value>)',
   'accent': 'hsl(var(--p-accent) / <alpha-value>)',

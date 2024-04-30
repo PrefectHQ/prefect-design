@@ -1,11 +1,7 @@
 <template>
-  <div
-    :class="props.class"
-    class="p-card
-    "
-  >
+  <p :class="props.class" class="p-card-description">
     <slot />
-  </div>
+  </p>
 </template>
 
 <script setup lang="ts">
@@ -17,12 +13,9 @@
 </script>
 
 <style scoped>
-.p-card {
+.p-card-description {
   @apply
-    rounded-lg
-    border
-    bg-card
-    text-card-foreground
-    shadow-sm;
+    text-sm
+    text-muted-foreground;
 }
 </style>

@@ -1,11 +1,10 @@
 <template>
-  <div
+  <h3
+    class="p-card-title"
     :class="props.class"
-    class="p-card
-    "
   >
     <slot />
-  </div>
+  </h3>
 </template>
 
 <script setup lang="ts">
@@ -17,12 +16,11 @@
 </script>
 
 <style scoped>
-.p-card {
+.p-card-title {
   @apply
-    rounded-lg
-    border
-    bg-card
-    text-card-foreground
-    shadow-sm;
+    text-2xl
+    font-semibold
+    leading-none
+    tracking-tight
 }
 </style>

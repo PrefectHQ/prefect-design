@@ -1,9 +1,5 @@
 <template>
-  <div
-    :class="props.class"
-    class="p-card
-    "
-  >
+  <div class="p-card-footer" :class="props.class">
     <slot />
   </div>
 </template>
@@ -17,12 +13,11 @@
 </script>
 
 <style scoped>
-.p-card {
+.p-card-footer {
   @apply
-    rounded-lg
-    border
-    bg-card
-    text-card-foreground
-    shadow-sm;
+    flex
+    items-center
+    p-6
+    pt-0;
 }
 </style>
