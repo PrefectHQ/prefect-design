@@ -3,8 +3,18 @@
     <TooltipBase :v-bind="delegatedRootProps">
       <TooltipTrigger as-child>
         <slot />
-        <TooltipContent :v-bind="delegatedContentProps">
-          <p>Add to library</p>
+
+        <TooltipContent
+          :v-bind="delegatedContentProps"
+          :as-child="Boolean($slots.tooltip)"
+        >
+          <slot
+            name="tooltip"
+          >
+            <slot name="content">
+              {{ text }}
+            </slot>
+          </slot>
         </TooltipContent>
       </TooltipTrigger>
     </TooltipBase>
