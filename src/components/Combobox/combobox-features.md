@@ -4,10 +4,10 @@ combobox features (r-combobox parity with p-combobox):
 - [x] select an option
 - [x] options can have separate display and data values
 - [x] can select multiple options
-- [] multiple selected options render (as tags?)
+- [x] multiple selected options render (as tags?)
 - [x] can group the options under header keys
 - [] can override the filter function from default search to something else (manual prop)
-- [] can type in custom values that are not options
+- [x] can type in custom values that are not options
 - [] can handle paginated/virtualized options
 - [] can customize the empty state - when no options are available
 - [] slot parity

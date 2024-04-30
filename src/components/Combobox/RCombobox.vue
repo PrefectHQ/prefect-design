@@ -1,17 +1,23 @@
 <template>
-  <ComboboxRoot v-model="modelValue" :multiple>
+  <ComboboxRoot v-model="modelValue" v-model:search-term="search" :multiple>
     <ComboboxAnchor>
-      <ComboboxInput as-child>
-        <component :is="multiple ? RComboboxTagsInput : 'p-text-input'" v-model="modelValue" :placeholder>
-          <template #append>
-            <ComboboxTrigger>
-              <span class="flex items-center px-2 border-l">
-                <PIcon icon="ChevronUpDownIcon" />
-              </span>
-            </ComboboxTrigger>
-          </template>
-        </component>
-      </ComboboxInput>
+      <template v-if="!multiple">
+        <ComboboxInput as-child>
+          <p-text-input v-model="modelValue" v-model:search-term="search" :placeholder>
+            <template #append>
+              <ComboboxTrigger>
+                <span class="flex items-center px-2 border-l">
+                  <PIcon icon="ChevronUpDownIcon" />
+                </span>
+              </ComboboxTrigger>
+            </template>
+          </p-text-input>
+        </ComboboxInput>
+      </template>
+
+      <template v-else>
+        <RComboboxTagsInput v-model="modelValue" :placeholder />
+      </template>
       <!-- <ComboboxCancel /> -->
     </ComboboxAnchor>
 
@@ -22,7 +28,11 @@
         class="w-[var(--radix-combobox-trigger-width)] max-h-[var(--radix-combobox-content-available-height)]"
       >
         <ComboboxViewport class="p-select-options">
-          <ComboboxEmpty />
+          <ComboboxEmpty>
+            <template v-if="allowUnknownValue && search">
+              <RComboboxOption :option="addUnknownValueOption" />
+            </template>
+          </ComboboxEmpty>
 
           <template v-for="(option, index) in options" :key="index">
             <RComboboxOption v-if="!isComboboxGroupedOption(option)" :option="option" />
@@ -38,6 +48,10 @@
               </template>
             </ComboboxGroup>
           </template>
+
+          <template v-if="allowUnknownValue && search && !options.find(option => isComboboxOptionObject(option) ? option.value : option === search)">
+            <RComboboxOption :option="addUnknownValueOption" />
+          </template>
         </ComboboxViewport>
 
         <ComboboxArrow />
@@ -50,13 +64,10 @@
   import {
     ComboboxAnchor,
     ComboboxArrow,
-    ComboboxCancel,
     ComboboxContent,
     ComboboxEmpty,
     ComboboxGroup,
     ComboboxInput,
-    ComboboxItem,
-    ComboboxItemIndicator,
     ComboboxLabel,
     ComboboxPortal,
     ComboboxRoot,
@@ -68,7 +79,7 @@
   import { computed } from 'vue'
   import RComboboxOption from '@/components/Combobox/RComboboxOption.vue'
   import RComboboxTagsInput from '@/components/Combobox/RComboboxTagsInput.vue'
-  import { ComboboxOption, ComboboxGroupedOption, isComboboxGroupedOption } from '@/components/Combobox/types'
+  import { ComboboxOption, ComboboxGroupedOption, isComboboxGroupedOption, isComboboxOptionObject } from '@/components/Combobox/types'
 
 
   const modelValue = defineModel<T | T[]>()
@@ -92,4 +103,9 @@
   const emit = defineEmits<{
     (event: 'bottom'): void,
   }>()
+
+  const addUnknownValueOption = computed(() => ({
+    label: `Add "${search.value}"`,
+    value: search.value,
+  }))
 </script>

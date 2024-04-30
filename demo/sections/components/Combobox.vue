@@ -61,6 +61,7 @@
         <p-combobox v-model="exampleCombobox2" :disabled="disabled" allow-unknown-value :options="['Tim', 'Jeffrey', 'Elon']" :state="exampleState" />
         <p-combobox
           v-model="exampleCombobox2"
+          v-model:search="search"
           radix
           :disabled="disabled"
           allow-unknown-value
@@ -95,6 +96,8 @@
 
   const exampleState = ref<State>()
   const disabled = ref(false)
+
+  const search = ref<string>()
 
   const exampleCombobox = ref('Space-X')
   const exampleMultiple = ref<string[] | undefined>()
