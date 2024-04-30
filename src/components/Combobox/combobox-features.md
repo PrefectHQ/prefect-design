@@ -6,7 +6,7 @@ combobox features (r-combobox parity with p-combobox):
 - [x] can select multiple options
 - [x] multiple selected options render (as tags?)
 - [x] can group the options under header keys
-- [] can override the filter function from default search to something else (manual prop)
+- [] can override the default filter function (manual prop)
 - [x] can type in custom values that are not options
 - [] can handle paginated/virtualized options
 - [] can customize the empty state - when no options are available
@@ -18,3 +18,9 @@ combobox features (r-combobox parity with p-combobox):
 
 bugs:
 - [] Remove bottom-of-options-(before scrolling)-opacity
+
+new:
+- [x] options popover scrolls with keyboard navigation
+- [x] button to clear all tags
+- [ ] generic object type support
+- [ ] ability to provide a filter function
