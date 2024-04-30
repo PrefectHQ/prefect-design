@@ -34,7 +34,7 @@
   })
 </script>
 
-<style scoped>
+<style>
 .p-accordion-trigger {
   @apply
     cursor-pointer
@@ -46,7 +46,11 @@
     font-medium
     transition-all
     hover:underline
-    [&[data-state=open]>svg]:rotate-180
+}
+
+.p-accordion-trigger[data-state=open] > svg {
+  @apply
+    rotate-180
 }
 
 .p-accordion-trigger-icon {
