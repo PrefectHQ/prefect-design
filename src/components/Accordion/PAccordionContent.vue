@@ -23,9 +23,8 @@
   })
 </script>
 
-<style scoped>
-.p-accordion-content{
-  @apply
+<style>
+.p-accordion-content { @apply
     overflow-hidden
     text-sm
     transition-all
