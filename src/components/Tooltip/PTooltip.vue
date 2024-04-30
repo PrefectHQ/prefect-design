@@ -1,111 +1,44 @@
 <template>
-  <PPopOver ref="popover" class="p-tooltip" v-bind="{ placement, to }">
-    <template #target>
-      <span :id="id" class="p-tooltip__target" role="tooltip" @pointerenter="open" @focusin="open">
+  <TooltipProvider :v-bind="delegatedProviderProps">
+    <TooltipBase :v-bind="delegatedRootProps">
+      <TooltipTrigger as-child>
         <slot />
-      </span>
-    </template>
-    <slot name="tooltip">
-      <div class="p-tooltip__tooltip" :area-describedby="id">
-        <slot name="content">
-          <div class="p-tooltip__content">
-            <p>{{ text }}</p>
-          </div>
-        </slot>
-      </div>
-    </slot>
-  </PPopOver>
+        <TooltipContent :v-bind="delegatedContentProps">
+          <p>Add to library</p>
+        </TooltipContent>
+      </TooltipTrigger>
+    </TooltipBase>
+  </TooltipProvider>
 </template>
 
-<script lang="ts" setup>
-  import { computed, onUnmounted, ref } from 'vue'
-  import PPopOver from '@/components/PopOver/PPopOver.vue'
-  import { PositionMethod } from '@/types/position'
-  import { isNotNullish, isHtmlElement, randomId } from '@/utilities'
-  import { top, bottom, left, right } from '@/utilities/position'
+<script setup lang="ts">
+  import { type TooltipRootProps, type TooltipProviderProps, type TooltipContentProps } from 'radix-vue'
+  import { defineProps, computed } from 'vue'
+  import TooltipBase from '@/components/Tooltip/PTooltipBase.vue'
+  import TooltipContent from '@/components/Tooltip/PTooltipContent.vue'
+  import TooltipProvider from '@/components/Tooltip/PTooltipProvider.vue'
+  import TooltipTrigger from '@/components/Tooltip/PTooltipTrigger.vue'
 
-  const props = defineProps<{
-    text?: string,
-    placement?: PositionMethod | PositionMethod[],
-    to?: string | Element,
-    disabled?: boolean,
-  }>()
 
-  const popover = ref<InstanceType<typeof PPopOver> | null>(null)
-  const placement = computed(() => props.placement ?? [top, right, bottom, left])
-  const timeout = ref<ReturnType<typeof setTimeout> | null>(null)
-  const id = randomId()
+  // eslint-disable-next-line vue/no-unused-properties
+  const props = defineProps<TooltipRootProps & TooltipProviderProps & TooltipContentProps & { text?: string }>()
 
-  onUnmounted(() => {
-    document.removeEventListener('pointerover', onCloseEvent)
+
+  const delegatedRootProps = computed(() => {
+    // eslint-disable-next-line id-length, no-unused-vars
+    const { defaultOpen, open, delayDuration, disableHoverableContent, disableClosingTrigger, disabled, ignoreNonKeyboardFocus } = props
+    return { defaultOpen, open, delayDuration, disableHoverableContent, disableClosingTrigger, disabled, ignoreNonKeyboardFocus }
   })
 
-  function open(): void {
-    if (props.disabled) {
-      return
-    }
+  const delegatedProviderProps = computed(() => {
+    // eslint-disable-next-line id-length, no-unused-vars
+    const { delayDuration, disableHoverableContent, disableClosingTrigger, disabled, ignoreNonKeyboardFocus } = props
+    return { delayDuration, disableHoverableContent, disableClosingTrigger, disabled, ignoreNonKeyboardFocus }
+  })
 
-    timeout.value = setTimeout(() => popover.value?.open(), 500)
-
-    document.addEventListener('pointerover', onCloseEvent)
-    document.addEventListener('focusin', onCloseEvent)
-    document.addEventListener('keydown', onKeyDown)
-  }
-
-  function close(): void {
-    popover.value?.close()
-    document.removeEventListener('pointerover', onCloseEvent)
-    document.removeEventListener('keydown', onKeyDown)
-    document.removeEventListener('focusin', onCloseEvent)
-  }
-
-  function onCloseEvent(event: PointerEvent | FocusEvent): void {
-    if (!isHtmlElement(event.target)) {
-      return
-    }
-
-    const { target, content } = popover.value ?? {}
-
-    if (isNotNullish(target) && target.contains(event.target)) {
-      return
-    }
-
-    if (isNotNullish(content) && content.contains(event.target)) {
-      return
-    }
-
-    if (timeout.value) {
-      clearTimeout(timeout.value)
-    }
-
-    close()
-  }
-
-  function onKeyDown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      close()
-    }
-  }
+  const delegatedContentProps = computed(() => {
+    // eslint-disable-next-line id-length, no-unused-vars
+    const { sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached } = props
+    return { sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached }
+  })
 </script>
-
-<style>
-.p-tooltip { @apply
-  inline-flex
-}
-
-.p-tooltip__tooltip { @apply
-  text-xs
-  bg-floating
-  px-2
-  py-1
-  m-1
-  rounded-default
-  shadow
-  dark:shadow-md
-}
-
-.p-tooltip__content { @apply
-  max-w-xs
-  break-words
-}
-</style>

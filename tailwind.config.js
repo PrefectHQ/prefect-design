@@ -7,6 +7,7 @@ const prefectDesignPlugin = require('./public/tailwindPlugin')
 const plugins = [
   forms,
   prefectDesignPlugin,
+  require('tailwindcss-animate'),
 ]
 
 module.exports = {
