@@ -19,22 +19,26 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { computed } from 'vue'
+<script lang="ts" setup generic="T extends ButtonGroupValue">
+  import { VNode, computed } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
-  import { SelectModelValue, ButtonGroupOption, isButtonGroupOption } from '@/types'
+  import { ButtonGroupOption, isButtonGroupOption, ButtonGroupValue } from '@/types'
 
   const props = defineProps<{
-    options: (ButtonGroupOption | SelectModelValue)[],
-    modelValue?: SelectModelValue,
+    options: Readonly<(ButtonGroupOption<T> | T)[]>,
+    modelValue: T,
     small?: boolean,
   }>()
 
   const emit = defineEmits<{
-    (event: 'update:modelValue', value: SelectModelValue): void,
+    (event: 'update:modelValue', value: T): void,
   }>()
 
-  const options = computed<ButtonGroupOption[]>(() => {
+  defineSlots<{
+    default: (props: { button: ButtonGroupOption<T> }) => VNode,
+  }>()
+
+  const options = computed<ButtonGroupOption<T>[]>(() => {
     return props.options.map(option => {
       if (isButtonGroupOption(option)) {
         return option
@@ -49,14 +53,14 @@
 
   const internalValue = computed({
     get() {
-      return props.modelValue ?? null
+      return props.modelValue
     },
-    set(value: SelectModelValue) {
+    set(value: T) {
       emit('update:modelValue', value)
     },
   })
 
-  const select = (value: SelectModelValue): void => {
+  const select = (value: T): void => {
     internalValue.value = value
   }
 </script>
