@@ -1,6 +1,6 @@
 
 <template>
-  <AccordionRoot v-bind="forwarded" type="single" :collapsible="false">
+  <AccordionRoot v-bind="forwarded" type="single" :collapsible="true">
     <AccordionItem v-for="section in sections" :key="section" :value="section">
       <AccordionTrigger>
         <slot name="heading" :section="section">
