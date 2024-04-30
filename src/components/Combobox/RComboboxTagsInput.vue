@@ -13,11 +13,15 @@
     <ComboboxInput as-child>
       <TagsInputInput v-model="searchTerm" :placeholder class="text-sm focus:outline-none flex-1 rounded-default border-none bg-transparent placeholder:text-subdued px-1" @keydown.enter.prevent />
     </ComboboxInput>
+
+    <TagsInputClear>
+      <PIcon icon="XMarkIcon" size="small" />
+    </TagsInputClear>
   </TagsInputRoot>
 </template>
 
 <script setup lang="ts">
-  import { ComboboxInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
+  import { ComboboxInput, TagsInputClear, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText, TagsInputRoot } from 'radix-vue'
   import { watch } from 'vue'
 
   const modelValue = defineModel<string[]>()
