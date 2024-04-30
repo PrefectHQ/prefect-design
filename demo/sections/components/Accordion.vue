@@ -19,13 +19,13 @@
     <template #controlled-accordion>
       <p-number-input v-model="number" />
       <PAccordion :sections="['0', '1', '2', '3']" :model-value="(number % 4).toString()" @update:model-value="number = parseInt($event)">
-        <template #one-heading>
+        <template #1-heading>
           This is one using a slot
         </template>
-        <template #one-content>
+        <template #2-content>
           This is the content for number one
         </template>
-        <template #two-content>
+        <template #3-content>
           This is the content for number two
         </template>
         <template #content="{ section }">
