@@ -2,14 +2,14 @@
   <AccordionHeader class="flex">
     <AccordionTrigger
       v-bind="delegatedProps"
-      class="flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180"
+      class="p-accordion-trigger"
       :class="props.class"
     >
       <slot />
       <slot name="icon">
         <p-icon
           icon="ChevronDownIcon"
-          class="h-4 w-4 shrink-0 transition-transform duration-200"
+          class="p-accordion-trigger-icon"
         />
       </slot>
     </AccordionTrigger>
@@ -33,3 +33,28 @@
     return delegated
   })
 </script>
+
+<style scoped>
+.p-accordion-trigger {
+  @apply
+    cursor-pointer
+    flex
+    flex-1
+    items-center
+    justify-between
+    py-4
+    font-medium
+    transition-all
+    hover:underline
+    [&[data-state=open]>svg]:rotate-180
+}
+
+.p-accordion-trigger-icon {
+  @apply
+    h-4
+    w-4
+    shrink-0
+    transition-transform
+    duration-200
+}
+</style>

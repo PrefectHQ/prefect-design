@@ -1,7 +1,7 @@
 <template>
   <AccordionContent
     v-bind="delegatedProps"
-    class="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    class="p-accordion-content"
   >
     <div class="pb-4 pt-0" :class="props.class">
       <slot />
@@ -22,3 +22,14 @@
     return delegated
   })
 </script>
+
+<style scoped>
+.p-accordion-content{
+  @apply
+    overflow-hidden
+    text-sm
+    transition-all
+    data-[state=closed]:animate-accordion-up
+    data-[state=open]:animate-accordion-down
+}
+</style>
