@@ -27,6 +27,7 @@
   const emits = defineEmits<TooltipContentEmits>()
 
   const delegatedProps = computed(() => {
+    // eslint-disable-next-line id-length, no-unused-vars
     const { class: _, ...delegated } = props
 
     return delegated
