@@ -8,11 +8,20 @@ const borderRadius = {
   default: 'var(--p-radius-default)',
 }
 
+const borderColor = {
+  DEFAULT: 'hsl(var(--p-border) / <alpha-value>)',
+}
+
 const colors = {
+  'border': 'hsl(var(--p-destructive) / <alpha-value>)',
   'input': 'hsl(var(--p-input) / <alpha-value>)',
   'background': 'hsl(var(--p-background) / <alpha-value>)',
   'primary': 'hsl(var(--p-primary) / <alpha-value>)',
   'primary-foreground': 'hsl(var(--p-primary-foreground) / <alpha-value>)',
+  'card': 'hsl(var(--p-card) / <alpha-value>)',
+  'card-foreground': 'hsl(var(--p-card-foreground) / <alpha-value>)',
+  'muted': 'hsl(var(--p-muted) / <alpha-value>)',
+  'muted-foreground': 'hsl(var(--p-muted-foreground) / <alpha-value>)',
   'destructive': 'hsl(var(--p-destructive) / <alpha-value>)',
   'destructive-foreground': 'hsl(var(--p-destructive-foreground) / <alpha-value>)',
   'accent': 'hsl(var(--p-accent) / <alpha-value>)',
@@ -47,13 +56,33 @@ const fontFamily = {
   mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],
 }
 
+const keyframes = {
+  'accordion-down': {
+    from: { height: 0 },
+    to: { height: 'var(--radix-accordion-content-height)' },
+  },
+  'accordion-up': {
+    from: { height: 'var(--radix-accordion-content-height)' },
+    to: { height: 0 },
+  },
+}
+
+const animation = {
+  'accordion-down': 'accordion-down 0.2s ease-out',
+  'accordion-up': 'accordion-up 0.2s ease-out',
+}
+
+
 const extend = {
   borderRadius,
+  borderColor,
   colors,
   spacing,
   ringWidth,
   ringOffsetWidth,
   fontFamily,
+  keyframes,
+  animation,
 }
 
 const darkMode = 'class'
