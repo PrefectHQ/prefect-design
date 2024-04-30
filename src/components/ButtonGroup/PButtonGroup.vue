@@ -7,6 +7,7 @@
         class="p-button-group__button"
         :selected="button.value === modelValue"
         :icon="button.icon"
+        :aria-selected="button.value === modelValue"
         @click="select(button.value)"
       >
         <template v-if="button.label || $slots.default" #default>
