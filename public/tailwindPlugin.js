@@ -20,6 +20,8 @@ const colors = {
   'primary-foreground': 'hsl(var(--p-primary-foreground) / <alpha-value>)',
   'card': 'hsl(var(--p-card) / <alpha-value>)',
   'card-foreground': 'hsl(var(--p-card-foreground) / <alpha-value>)',
+  'muted': 'hsl(var(--p-muted) / <alpha-value>)',
+  'muted-foreground': 'hsl(var(--p-muted-foreground) / <alpha-value>)',
   'destructive': 'hsl(var(--p-destructive) / <alpha-value>)',
   'destructive-foreground': 'hsl(var(--p-destructive-foreground) / <alpha-value>)',
   'accent': 'hsl(var(--p-accent) / <alpha-value>)',
