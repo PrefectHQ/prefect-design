@@ -12,7 +12,7 @@
   import { normalizeClass, type HTMLAttributes } from 'vue'
 
   const card = cva(
-    'p-card', {
+    'p-card p-background', {
       variants: {
         variant: {
           ghost: 'p-card-ghost',
@@ -38,7 +38,7 @@
   @apply
     rounded-lg
     border
-    bg-card
+
     text-card-foreground
     shadow-sm;
 }
