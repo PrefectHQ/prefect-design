@@ -6,7 +6,7 @@ combobox features (r-combobox parity with p-combobox):
 - [x] can select multiple options
 - [x] multiple selected options render (as tags?)
 - [x] can group the options under header keys
-- [] can override the default filter function (manual prop)
+- [x] can override the default filter function (manual prop)
 - [x] can type in custom values that are not options
 - [] can handle paginated/virtualized options
 - [] can customize the empty state - when no options are available

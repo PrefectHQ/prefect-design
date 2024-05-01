@@ -1,5 +1,5 @@
 <template>
-  <ComboboxRoot v-model="modelValue" v-model:search-term="search" :multiple>
+  <ComboboxRoot v-model="modelValue" v-model:search-term="search" :multiple :filter-function>
     <ComboboxAnchor>
       <template v-if="!multiple">
         <ComboboxInput as-child>
@@ -108,4 +108,17 @@
     label: `Add "${search.value}"`,
     value: search.value,
   }))
+
+  function passthroughFilterFunction(): ComboboxOption<T>[] | ComboboxGroupedOption<T>[] {
+    return props.options
+  }
+
+  const filterFunction = computed(() => {
+    if (props.manual) {
+      // do nothing
+      return passthroughFilterFunction
+    }
+    // TODO: expose filter function as a prop
+    return undefined
+  })
 </script>
