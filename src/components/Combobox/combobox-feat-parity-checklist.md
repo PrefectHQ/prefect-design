@@ -14,11 +14,11 @@
 - [] compatibility with p-input
   - handle fallthrough of `:state`
 - [x] can customize the empty state - when no options are available
-- [] slot parity
+- [x] slot parity
   - [x] #default - the selected value
-  - [] #option - each option scoped slot
+  - [x] #option - each option scoped slot
   - [x] #combobox-options-empty
-  - [] fallthrough rest of slots go straight into PSelect
+  - [x] fallthrough rest of slots go straight into PSelect
 
 bugs:
 
@@ -35,5 +35,7 @@ todo-remove:
 
 - [] emptyMessage prop. extraneous overlap with empty state slot
 - [] manual prop. extraneous overlap with filter function prop. [impl detail] - by default, radix-vue filters string typed options. either remove or better document
-- [] default slot. Doesn't translate well to overriding the input element's displayed value. Easy to do to project content into tags for multi-select, but hard to do for single. PComboboxOld uses this slot for single-selection but not multi-select. RCombobox currently does the opposite
-  - RCombobox has bad compatibility with the slot props here as well.
+- slot apis
+  - [] default slot. Doesn't translate well to overriding the input element's displayed value. Easy to do to project content into tags for multi-select, but hard to do for single. PComboboxOld uses this slot for single-selection but not multi-select. RCombobox currently does the opposite
+    - RCombobox has bad compatibility with the slot props here as well.
+  - [] option slot. RCombobox missing some slot props that pselect propogates through. `selected`, `highlighted`, `index`. Some of these are data attributes on radix-vue. TBH might not need to preserve these.

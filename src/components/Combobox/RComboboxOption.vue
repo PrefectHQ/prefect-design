@@ -10,9 +10,11 @@
       <p-icon icon="Check" />
     </ComboboxItemIndicator>
 
-    <span>
-      {{ isComboboxOptionObject(option) ? option.label : option }}
-    </span>
+    <slot name="default" :option>
+      <span>
+        {{ isComboboxOptionObject(option) ? option.label : option }}
+      </span>
+    </slot>
   </ComboboxItem>
 </template>
 
@@ -23,5 +25,9 @@
 
   defineProps<{
     option: ComboboxOption<T>,
+  }>()
+
+  defineSlots<{
+    default: (props: { option: ComboboxOption<T> }) => unknown,
   }>()
 </script>

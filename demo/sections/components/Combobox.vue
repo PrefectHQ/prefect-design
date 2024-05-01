@@ -118,6 +118,35 @@
 
         <p-divider />
 
+        <h2>Option</h2>
+        <p-combobox
+          v-model="exampleCombobox"
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        >
+          <template #option="option">
+            <span>{{ option }}</span>
+          </template>
+        </p-combobox>
+
+
+        <p-combobox
+          v-model="exampleCombobox"
+          radix
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        >
+          <template #option="option">
+            <span>{{ option }}</span>
+          </template>
+        </p-combobox>
+
+        <p-divider />
+
         <h2>Empty state</h2>
         <p-combobox
           v-model="exampleCombobox"

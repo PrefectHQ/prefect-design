@@ -46,7 +46,9 @@
           </ComboboxEmpty>
 
           <template v-for="(option, index) in options" :key="index">
-            <RComboboxOption v-if="!isComboboxGroupedOption(option)" :option="option" />
+            <RComboboxOption v-if="!isComboboxGroupedOption(option)" :option="option">
+              <slot name="option" :option="option" />
+            </RComboboxOption>
             <ComboboxGroup
               v-else
             >
@@ -55,7 +57,9 @@
                 {{ option.label }}
               </ComboboxLabel>
               <template v-for="(groupOption, groupIndex) in option.options" :key="groupIndex">
-                <RComboboxOption :option="groupOption" />
+                <RComboboxOption :option="groupOption">
+                  <slot name="option" :option="groupOption" />
+                </RComboboxOption>
               </template>
             </ComboboxGroup>
           </template>

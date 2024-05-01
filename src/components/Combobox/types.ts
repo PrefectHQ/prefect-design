@@ -2,6 +2,7 @@ import { AcceptableValue } from 'radix-vue/dist/shared/types'
 
 export type ComboboxSlots<T> = {
   default: (props: { value: AcceptableValue, label: string, option: ComboboxOption<T> }) => unknown,
+  option: (props: { option: ComboboxOption<T> }) => unknown,
   'combobox-options-empty': (props: { search?: string }) => unknown,
 }
 
