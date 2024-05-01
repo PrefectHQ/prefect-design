@@ -24,7 +24,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - uses: prefecthq/actions-release-ui-components@chore/add-automated-release
+      - uses: prefecthq/actions-release-ui-components@main
         id: release-ui-components
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
