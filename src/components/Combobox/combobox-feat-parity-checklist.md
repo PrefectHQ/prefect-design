@@ -13,6 +13,7 @@
   - emit `bottom` event
 - [] compatibility with p-input
   - handle fallthrough of `:state`
+- [] handling null/undefined values (not options)
 - [x] can customize the empty state - when no options are available
 - [x] slot parity
   - [x] #default - the selected value
