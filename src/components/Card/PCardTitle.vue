@@ -5,7 +5,7 @@
 </template>
 
 
-<style scoped>
+<style>
 .p-card-title {
   @apply
     text-2xl
