@@ -23,6 +23,7 @@
 bugs:
 
 - [] Remove bottom-of-options-(before scrolling)-opacity
+- [] sometimes slow to open the popover now? especially when in single-select mode.
 
 new:
 
