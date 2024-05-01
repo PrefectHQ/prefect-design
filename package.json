@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "2.7.16",
+  "version": "2.7.15",
   "description": "",
   "repository": {
     "type": "git",
@@ -78,6 +78,7 @@
     "highlight.js": "11.9.0",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0",
+    "radix-vue": "1.7.3",
     "tailwind-merge": "^2.3.0"
   }
 }

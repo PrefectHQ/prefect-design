@@ -23,7 +23,7 @@
     --p-spacing-focus-ring-offset: 1px;
     --p-radius-default: 6px;
     --p-scrollbar-width: 12px;
-
+    --p-accordion-content-height: 36px;
     /* Prefect Blue is 219, 100, 50  */
     --p-primary-hue: 228;
 
@@ -50,8 +50,8 @@
     --p-accent-foreground: 0.0 0.0% 100.0%;
     --p-destructive: 4 74% 49%;
     --p-destructive-foreground: 0.0 0.0% 100.0%;
-    --p-input: var(--p-primary-hue) 6% 32%;
     --p-border: var(--p-primary-hue) 6% 32%;
+    --p-input: var(--p-primary-hue) 6% 32%;
 
     /* Background */
     --p-color-bg-0: hsl(var(--p-primary-hue), 6%, 16%);

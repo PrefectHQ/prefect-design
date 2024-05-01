@@ -8,7 +8,12 @@ const borderRadius = {
   default: 'var(--p-radius-default)',
 }
 
+const borderColor = {
+  DEFAULT: 'hsl(var(--p-border) / <alpha-value>)',
+}
+
 const colors = {
+  'border': 'hsl(var(--p-destructive) / <alpha-value>)',
   'input': 'hsl(var(--p-input) / <alpha-value>)',
   'background': 'hsl(var(--p-background) / <alpha-value>)',
   'primary': 'hsl(var(--p-primary) / <alpha-value>)',
@@ -45,13 +50,33 @@ const fontFamily = {
   mono: ['InconsolataVariable', ...defaultTheme.fontFamily.mono],
 }
 
+const keyframes = {
+  'accordion-down': {
+    from: { height: 0 },
+    to: { height: 'var(--radix-accordion-content-height)' },
+  },
+  'accordion-up': {
+    from: { height: 'var(--radix-accordion-content-height)' },
+    to: { height: 0 },
+  },
+}
+
+const animation = {
+  'accordion-down': 'accordion-down 0.2s ease-out',
+  'accordion-up': 'accordion-up 0.2s ease-out',
+}
+
+
 const extend = {
   borderRadius,
+  borderColor,
   colors,
   spacing,
   ringWidth,
   ringOffsetWidth,
   fontFamily,
+  keyframes,
+  animation,
 }
 
 const darkMode = 'class'
