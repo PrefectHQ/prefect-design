@@ -4,7 +4,7 @@
   </p>
 </template>
 
-<style scoped>
+<style>
 .p-card-description {
   @apply
     text-sm

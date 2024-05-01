@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .p-card-content {
   @apply
     p-6

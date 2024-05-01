@@ -36,7 +36,7 @@
 </script>
 
 
-<style scoped>
+<style>
 .p-card {
   @apply
     rounded-lg
