@@ -3,12 +3,14 @@
     :variant="props.variant"
   >
     <CardHeader v-if="$slots.header || $slots.title || $slots.description">
-      <CardTitle v-if="$slots.title">
-        <slot name="title" />
-      </CardTitle>
-      <CardDescription v-if="$slots.description">
-        <slot name="description" />
-      </CardDescription>
+      <slot name="header">
+        <CardTitle v-if="$slots.title">
+          <slot name="title" />
+        </CardTitle>
+        <CardDescription v-if="$slots.description">
+          <slot name="description" />
+        </CardDescription>
+      </slot>
     </CardHeader>
     <CardContent>
       <slot />
