@@ -1,6 +1,6 @@
 combobox features (r-combobox parity with p-combobox):
 - [x] click to open a dropdown list of options
-- [] type to search/filter through list of options
+- [x] type to search/filter through list of options
 - [x] select an option
 - [x] options can have separate display and data values
 - [x] can select multiple options
