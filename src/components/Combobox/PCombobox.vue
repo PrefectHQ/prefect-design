@@ -1,5 +1,9 @@
 <template>
-  <component :is="radix ? RCombobox : PComboboxOld" v-bind="props" v-model="modelValue" v-model:search="search" />
+  <component :is="radix ? RCombobox : PComboboxOld" v-bind="props" v-model="modelValue" v-model:search="search">
+    <template v-for="(_, name) in $slots" #[name]="data">
+      <slot :name="name" v-bind="data" />
+    </template>
+  </component>
 </template>
 
 <script lang="ts" setup>

@@ -29,6 +29,13 @@
       >
         <ComboboxViewport class="p-select-options">
           <ComboboxEmpty>
+            <template v-if="emptyMessage">
+              {{ emptyMessage }}
+            </template>
+            <template v-else-if="$slots['combobox-options-empty']">
+              <slot name="combobox-options-empty" :search />
+            </template>
+
             <template v-if="allowUnknownValue && search">
               <RComboboxOption :option="addUnknownValueOption" />
             </template>
@@ -102,6 +109,10 @@
 
   const emit = defineEmits<{
     (event: 'bottom'): void,
+  }>()
+
+  defineSlots<{
+    'combobox-options-empty': (props: { search?: string }) => unknown,
   }>()
 
   const addUnknownValueOption = computed(() => ({

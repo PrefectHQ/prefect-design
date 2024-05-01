@@ -12,12 +12,12 @@
 - [] can handle paginated/virtualized options
 - [] compatibility with p-input
   - handle fallthrough of `:state`
-- [] can customize the empty state - when no options are available
+- [x] can customize the empty state - when no options are available
 - [] slot parity
-  - #default - the selected value
-  - #option - each option scoped slot
-  - #combobox-options-empty
-  - fallthrough rest of slots go straight into PSelect
+  - [] #default - the selected value
+  - [] #option - each option scoped slot
+  - [x] #combobox-options-empty
+  - [] fallthrough rest of slots go straight into PSelect
 
 bugs:
 
