@@ -68,8 +68,8 @@
 
     /* Root Tokens */
     
-    --p-color-divider: hsl(var(--p-input));
-    --p-color-divider-subdued: hsl(var(--p-primary-hue), 6%, 32%);
+    --p-color-divider: hsl(var(--p-border));
+    --p-color-divider-subdued: hsl(var(--p-border));
     --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 64% / 0.4);
     --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.98%, 36%);
     --p-color-selected: hsl(var(--p-primary-hue) 20.32% 52% / 0.4);
@@ -216,10 +216,10 @@
     --p-accent-foreground: var(--p-primary-hue) 6% 9.02%;
     --p-destructive: 4 74% 49%;
     --p-destructive-foreground: 0.0 0.0% 100.0%;
-    --p-border: var(--p-primary-hue) 11.3% 76%;
     --p-input: var(--p-primary-hue) 11.3% 76%;
     --p-card: var(--p-primary-hue) 0.0% 100.0%;
     --p-card-foreground: var(--p-primary-hue) 6% 9.02%;
+    --p-border: var(--p-primary-hue) 11.3% 76%;
 
     /* Background */
     --p-color-bg-0: hsl(var(--p-primary-hue), 3.23%, 92%);
@@ -232,7 +232,7 @@
     --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
 
     /* Root Tokens */
-    --p-color-divider: hsl(var(--p-input));
+    --p-color-divider: hsl(var(--p-border));
     --p-color-divider-subdued: hsl(var(--p-primary-hue), 14.29%, 96%);
     --p-color-selection-highlight: hsl(var(--p-primary-hue) 100.0% 64% / 0.4);
     --p-color-scrollbar-thumb: hsl(var(--p-primary-hue), 1.04%, 64%);
