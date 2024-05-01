@@ -1,4 +1,5 @@
-combobox features (r-combobox parity with p-combobox):
+# combobox features (r-combobox parity with p-combobox)
+
 - [x] click to open a dropdown list of options
 - [x] type to search/filter through list of options
 - [x] select an option
@@ -9,6 +10,8 @@ combobox features (r-combobox parity with p-combobox):
 - [x] can override the default filter function (manual prop)
 - [x] can type in custom values that are not options
 - [] can handle paginated/virtualized options
+- [] compatibility with p-input
+  - handle fallthrough of `:state`
 - [] can customize the empty state - when no options are available
 - [] slot parity
   - #default - the selected value
@@ -17,10 +20,17 @@ combobox features (r-combobox parity with p-combobox):
   - fallthrough rest of slots go straight into PSelect
 
 bugs:
+
 - [] Remove bottom-of-options-(before scrolling)-opacity
 
 new:
+
 - [x] options popover scrolls with keyboard navigation
 - [x] button to clear all tags
 - [ ] generic object type support
 - [ ] ability to provide a filter function
+
+todo-remove:
+
+- [] emptyMessage prop. extraneous overlap with empty state slot
+- [] manual prop. extraneous overlap with filter function prop. [impl detail] - by default, radix-vue filters string typed options. either remove or better document
