@@ -1,9 +1,8 @@
 <template>
   <TooltipPortal>
     <TooltipContent
-      v-bind="{ ...forwarded, ...$attrs }"
+      v-bind="forwarded"
       class="p-tooltip"
-      :class="props.class"
     >
       <slot />
     </TooltipContent>
@@ -12,28 +11,20 @@
 
 <script setup lang="ts">
   import { TooltipContent, type TooltipContentEmits, type TooltipContentProps, TooltipPortal, useForwardPropsEmits } from 'radix-vue'
-  import { type HTMLAttributes, computed } from 'vue'
 
   defineOptions({
     inheritAttrs: false,
   })
 
 
-  // eslint-disable-next-line vue/require-default-prop
-  const props = withDefaults(defineProps<TooltipContentProps & { class?: HTMLAttributes['class'] }>(), {
+  // eslint-disable-next-line vue/no-unused-properties
+  const props = withDefaults(defineProps<TooltipContentProps>(), {
     sideOffset: 4,
   })
 
   const emits = defineEmits<TooltipContentEmits>()
 
-  const delegatedProps = computed(() => {
-    // eslint-disable-next-line id-length, no-unused-vars
-    const { class: _, ...delegated } = props
-
-    return delegated
-  })
-
-  const forwarded = useForwardPropsEmits(delegatedProps, emits)
+  const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <style>
