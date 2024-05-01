@@ -1,16 +1,8 @@
 <template>
-  <div class="p-card-content" :class="props.class">
+  <div class="p-card-content">
     <slot />
   </div>
 </template>
-
-<script setup lang="ts">
-  import type { HTMLAttributes } from 'vue'
-
-  const props = defineProps<{
-    class?: HTMLAttributes['class'],
-  }>()
-</script>
 
 <style scoped>
 .p-card-content {
