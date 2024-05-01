@@ -1,10 +1,8 @@
 <template>
   <AccordionHeader class="flex">
     <AccordionTrigger
-      v-bind="props"
+      v-bind="{ ...props, ...$attrs }"
       class="p-accordion-trigger"
-      :style="attrStyles"
-      :class="attrClasses"
     >
       <slot />
       <slot name="icon">
@@ -24,10 +22,11 @@
     type AccordionTriggerProps
   } from 'radix-vue'
 
-  import { useAttrsStylesAndClasses } from '@/compositions'
+  defineOptions({
+    inheritAttrs: false,
+  })
 
-  const { classes: attrClasses, styles: attrStyles } = useAttrsStylesAndClasses()
-
+  // eslint-disable-next-line vue/no-unused-properties
   const props = defineProps<AccordionTriggerProps>()
 </script>
 

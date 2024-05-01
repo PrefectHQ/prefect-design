@@ -3,7 +3,7 @@
     v-bind="props"
     class="p-accordion-content"
   >
-    <div class="pb-4 pt-0" :class="attrClasses" :style="attrStyles" v-bind="attrs">
+    <div class="pb-4 pt-0" v-bind="$attrs">
       <slot />
     </div>
   </AccordionContent>
@@ -11,10 +11,12 @@
 
 <script setup lang="ts">
   import { AccordionContent, type AccordionContentProps } from 'radix-vue'
-  import { useAttrsStylesAndClasses } from '@/compositions'
-  const props = defineProps<AccordionContentProps>()
 
-  const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
+  defineOptions({
+    inheritAttrs: false,
+  })
+
+  const props = defineProps<AccordionContentProps>()
 </script>
 
 <style>
