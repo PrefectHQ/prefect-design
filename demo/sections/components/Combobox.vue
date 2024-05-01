@@ -6,6 +6,7 @@
       { title: 'Multiple' },
       { title: 'Allows custom values' },
       { title: 'Grouped' },
+      { title: 'Slots' },
     ]"
   >
     <template #description>
@@ -83,6 +84,44 @@
         <p-code inline>
           value: {{ JSON.stringify(exampleCombobox3) }}
         </p-code>
+      </div>
+    </template>
+
+    <template #slots>
+      <div class="combobox__demo">
+        <h2>Empty state</h2>
+        <p-combobox
+          v-model="exampleCombobox"
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        >
+          <!-- empty-message="I couldn't find anything!" -->
+          <template #combobox-options-empty="{ search: _search }">
+            <div>No matches for "{{ _search }}"</div>
+            <p-button secondary small @click.stop="_search.value = ''">
+              See All Options
+            </p-button>
+          </template>
+        </p-combobox>
+
+        <p-combobox
+          v-model="exampleCombobox"
+          radix
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        >
+          <!-- empty-message="I couldn't find anything!" -->
+          <template #combobox-options-empty="{ search: _search }">
+            <div>No matches for "{{ _search }}"</div>
+            <p-button secondary small @click.stop="_search.value = ''">
+              See All Options
+            </p-button>
+          </template>
+        </p-combobox>
       </div>
     </template>
   </ComponentPage>
