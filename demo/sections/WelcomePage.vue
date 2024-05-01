@@ -9,7 +9,7 @@
         <p-icon class="welcome-page__logo-icon" icon="Prefect" />
         <div class="welcome-page__intro">
           <p class="welcome-page__title">
-            <span class="bg-sentiment-positive">Prefect Design</span>
+            Prefect Design
           </p>
           <p class="welcome-page__description">
             Prefect Design is UI Component library built on Vue 3 and Typescript. Components are designed on top of Tailwind CSS, so each component is beautiful and responsive.
