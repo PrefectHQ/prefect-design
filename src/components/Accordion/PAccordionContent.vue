@@ -1,9 +1,9 @@
 <template>
   <AccordionContent
-    v-bind="delegatedProps"
+    v-bind="props"
     class="p-accordion-content"
   >
-    <div class="pb-4 pt-0" :class="props.class">
+    <div class="pb-4 pt-0" :class="attrClasses" :style="attrStyles" v-bind="attrs">
       <slot />
     </div>
   </AccordionContent>
@@ -11,21 +11,14 @@
 
 <script setup lang="ts">
   import { AccordionContent, type AccordionContentProps } from 'radix-vue'
-  import { type HTMLAttributes, computed } from 'vue'
+  import { useAttrsStylesAndClasses } from '@/compositions'
+  const props = defineProps<AccordionContentProps>()
 
-  const props = defineProps<AccordionContentProps & { class?: HTMLAttributes['class'] }>()
-
-  const delegatedProps = computed(() => {
-    // eslint-disable-next-line id-length, no-unused-vars
-    const { class: _, ...delegated } = props
-
-    return delegated
-  })
+  const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
 </script>
 
-<style scoped>
-.p-accordion-content{
-  @apply
+<style>
+.p-accordion-content { @apply
     overflow-hidden
     text-sm
     transition-all

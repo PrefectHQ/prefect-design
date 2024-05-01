@@ -1,6 +1,6 @@
 
 <template>
-  <AccordionRoot v-bind="forwarded" type="single" :collapsible="true">
+  <AccordionRoot v-bind="forwarded">
     <AccordionItem v-for="section in sections" :key="section" :value="section">
       <AccordionTrigger>
         <slot name="heading" :section="section">
@@ -27,9 +27,13 @@
   import AccordionTrigger from '@/components/Accordion/PAccordionTrigger.vue'
 
   // eslint-disable-next-line vue/no-unused-properties
-  const props = defineProps<AccordionRootProps & {
+  const props = withDefaults(defineProps<AccordionRootProps & {
     sections?: T[],
-  }>()
+  }>(), {
+    type: 'single',
+    collapsible: true,
+    sections: undefined,
+  })
   const emits = defineEmits<AccordionRootEmits>()
 
   const forwarded = useForwardPropsEmits(props, emits)

@@ -1,9 +1,10 @@
 <template>
   <AccordionHeader class="flex">
     <AccordionTrigger
-      v-bind="delegatedProps"
+      v-bind="props"
       class="p-accordion-trigger"
-      :class="props.class"
+      :style="attrStyles"
+      :class="attrClasses"
     >
       <slot />
       <slot name="icon">
@@ -22,19 +23,15 @@
     AccordionTrigger,
     type AccordionTriggerProps
   } from 'radix-vue'
-  import { type HTMLAttributes, computed } from 'vue'
 
-  const props = defineProps<AccordionTriggerProps & { class?: HTMLAttributes['class'] }>()
+  import { useAttrsStylesAndClasses } from '@/compositions'
 
-  const delegatedProps = computed(() => {
-    // eslint-disable-next-line id-length, no-unused-vars
-    const { class: _, ...delegated } = props
+  const { classes: attrClasses, styles: attrStyles } = useAttrsStylesAndClasses()
 
-    return delegated
-  })
+  const props = defineProps<AccordionTriggerProps>()
 </script>
 
-<style scoped>
+<style>
 .p-accordion-trigger {
   @apply
     cursor-pointer
@@ -46,7 +43,11 @@
     font-medium
     transition-all
     hover:underline
-    [&[data-state=open]>svg]:rotate-180
+}
+
+.p-accordion-trigger[data-state=open] > svg {
+  @apply
+    rotate-180
 }
 
 .p-accordion-trigger-icon {
