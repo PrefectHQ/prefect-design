@@ -3,6 +3,7 @@
     class="p-card"
     :class="normalizeClass([attrClasses, card({ variant })])"
     :style="attrStyles"
+    v-bind="attrs"
   >
     <slot />
   </div>
@@ -13,7 +14,11 @@
   import { normalizeClass } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions'
 
-  const { classes: attrClasses, styles: attrStyles } = useAttrsStylesAndClasses()
+  defineOptions({
+    inheritAttrs: false,
+  })
+
+  const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
 
   const card = cva(
     'p-card p-background', {
