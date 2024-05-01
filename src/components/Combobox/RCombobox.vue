@@ -16,7 +16,11 @@
       </template>
 
       <template v-else>
-        <RComboboxTagsInput v-model="modelValue" :placeholder />
+        <RComboboxTagsInput v-model="modelValue" :placeholder>
+          <template v-if="$slots.default" #item-text="{ item }">
+            <slot name="default" :value="item" :label="item" :option="{ value: item, label: item }" />
+          </template>
+        </RComboboxTagsInput>
       </template>
       <!-- <ComboboxCancel /> -->
     </ComboboxAnchor>
@@ -86,7 +90,7 @@
   import { computed } from 'vue'
   import RComboboxOption from '@/components/Combobox/RComboboxOption.vue'
   import RComboboxTagsInput from '@/components/Combobox/RComboboxTagsInput.vue'
-  import { ComboboxOption, ComboboxGroupedOption, isComboboxGroupedOption, isComboboxOptionObject } from '@/components/Combobox/types'
+  import { ComboboxOption, ComboboxGroupedOption, isComboboxGroupedOption, isComboboxOptionObject, ComboboxSlots } from '@/components/Combobox/types'
 
 
   const modelValue = defineModel<T | T[]>()
@@ -111,9 +115,7 @@
     (event: 'bottom'): void,
   }>()
 
-  defineSlots<{
-    'combobox-options-empty': (props: { search?: string }) => unknown,
-  }>()
+  defineSlots<ComboboxSlots<T>>()
 
   const addUnknownValueOption = computed(() => ({
     label: `Add "${search.value}"`,

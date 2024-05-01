@@ -12,9 +12,11 @@
   </component>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends AcceptableValue">
+  import { AcceptableValue } from 'radix-vue/dist/shared/types'
   import PComboboxOld from '@/components/Combobox/PComboboxOld.vue'
   import RCombobox from '@/components/Combobox/RCombobox.vue'
+  import { ComboboxSlots } from '@/components/Combobox/types'
   import { SelectModelValue, SelectOptionGroup, SelectOption } from '@/types/selectOption'
 
   const modelValue = defineModel<SelectModelValue | SelectModelValue[]>()
@@ -35,4 +37,6 @@
   defineEmits<{
     (event: 'bottom'): void,
   }>()
+
+  defineSlots<ComboboxSlots<T>>()
 </script>

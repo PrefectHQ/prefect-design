@@ -89,6 +89,35 @@
 
     <template #slots>
       <div class="combobox__demo">
+        <h2>Default</h2>
+        <p-combobox
+          v-model="exampleCombobox2"
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        >
+          <template #default="{ value, label, option }">
+            <span>{{ value }} | {{ label }} | {{ option }}</span>
+          </template>
+        </p-combobox>
+
+
+        <p-combobox
+          v-model="exampleCombobox2"
+          radix
+          :disabled="disabled"
+          allow-deselect
+          :options="exampleOptions"
+          :state="exampleState"
+        >
+          <template #default="{ value, label, option }">
+            <span>{{ value }} | {{ label }} | {{ option }}</span>
+          </template>
+        </p-combobox>
+
+        <p-divider />
+
         <h2>Empty state</h2>
         <p-combobox
           v-model="exampleCombobox"
