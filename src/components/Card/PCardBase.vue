@@ -1,9 +1,7 @@
 <template>
   <div
     class="p-card"
-    :class="normalizeClass([attrClasses, card({ variant })])"
-    :style="attrStyles"
-    v-bind="attrs"
+    :class="card({ variant })"
   >
     <slot />
   </div>
@@ -11,14 +9,6 @@
 
 <script setup lang="ts">
   import { cva, type VariantProps } from 'class-variance-authority'
-  import { normalizeClass } from 'vue'
-  import { useAttrsStylesAndClasses } from '@/compositions'
-
-  defineOptions({
-    inheritAttrs: false,
-  })
-
-  const { classes: attrClasses, styles: attrStyles, attrs } = useAttrsStylesAndClasses()
 
   const card = cva(
     'p-card p-background', {
