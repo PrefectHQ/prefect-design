@@ -2,13 +2,11 @@
   <ComponentPage title="Dialog" :demos="[{ title: 'Dialog' }]">
     <template #dialog>
       <p-dialog v-model:open="open" auto-close modal>
-        <template #default="{ close }">
-          <p-card>
-            hello world <p-button size="sm" @click="close">
-              close
-            </p-button>
-          </p-card>
-        </template>
+        <p-card>
+          hello world <p-button size="sm" @click="open = false">
+            close
+          </p-button>
+        </p-card>
       </p-dialog>
 
       <p-button @click="open = true">

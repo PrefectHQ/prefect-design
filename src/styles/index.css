@@ -50,6 +50,8 @@
     --p-accent-foreground: 0.0 0.0% 100.0%;
     --p-destructive: 4 74% 49%;
     --p-destructive-foreground: 0.0 0.0% 100.0%;
+    --p-card: var(--p-primary-hue) 6% 12%;
+    --p-card-foreground: 0.0 0.0% 100.0%;
     --p-border: var(--p-primary-hue) 6% 32%;
     --p-input: var(--p-primary-hue) 6% 32%;
 
@@ -215,6 +217,8 @@
     --p-destructive: 4 74% 49%;
     --p-destructive-foreground: 0.0 0.0% 100.0%;
     --p-input: var(--p-primary-hue) 11.3% 76%;
+    --p-card: var(--p-primary-hue) 0.0% 100.0%;
+    --p-card-foreground: var(--p-primary-hue) 6% 9.02%;
     --p-border: var(--p-primary-hue) 11.3% 76%;
 
     /* Background */
