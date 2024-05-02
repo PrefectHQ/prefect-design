@@ -23,6 +23,7 @@ export const components: Section = {
   dialog: () => import('./Dialog.vue'),
   divider: () => import('./Divider.vue'),
   drawer: () => import('./Drawer.vue'),
+  dropdown: () => import('./Dropdown.vue'),
   emptyState: () => import('./EmptyState.vue'),
   form: () => import('./Form.vue'),
   globalSidebar: () => import('./GlobalSidebar.vue'),

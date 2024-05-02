@@ -28,6 +28,7 @@ import { PDialog, install as installPDialog } from '@/components/Dialog'
 import { PDivider, install as installPDivider } from '@/components/Divider'
 import { PDraggableList, install as installPDraggableList } from '@/components/DraggableList'
 import { PDrawer, install as installPDrawer } from '@/components/Drawer'
+import { PDropdownMenu, PDropdownMenuItem, installPDropdownMenu, installPDropdownMenuItem } from '@/components/DropdownMenu'
 import { PEmptyResults, install as installPEmptyResults } from '@/components/EmptyResults'
 import { PEmptyState, install as installPEmptyState } from '@/components/EmptyState'
 import { PErrorBoundary, install as installPErrorBoundary } from '@/components/ErrorBoundary'
@@ -124,6 +125,8 @@ export {
   PDivider,
   PDraggableList,
   PDrawer,
+  PDropdownMenu,
+  PDropdownMenuItem,
   PEmptyResults,
   PEmptyState,
   PErrorBoundary,
@@ -230,6 +233,8 @@ export const installs = [
   installPDivider,
   installPDraggableList,
   installPDrawer,
+  installPDropdownMenu,
+  installPDropdownMenuItem,
   installPEmptyResults,
   installPEmptyState,
   installPErrorBoundary,
@@ -328,6 +333,8 @@ declare module '@vue/runtime-core' {
     PDivider: typeof PDivider,
     PDraggableList: typeof PDraggableList,
     PDrawer: typeof PDrawer,
+    PDropdownMenu: typeof PDropdownMenu,
+    PDropdownMenuItem: typeof PDropdownMenuItem,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PErrorBoundary: typeof PErrorBoundary,
