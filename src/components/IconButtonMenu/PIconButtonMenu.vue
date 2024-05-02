@@ -4,13 +4,13 @@
     class="p-icon-button-menu"
     :class="classes"
     :style="styles"
-    :placement="placement"
+    :placement="[bottomRight, topRight, bottomLeft, topLeft]"
     auto-close
   >
     <template #target="{ toggle }">
       <p-button ref="button" :icon="icon" v-bind="attrs" @click="toggle" />
     </template>
-    <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="closeOnClick">
+    <div class="p-icon-button-menu__content" @keydown.esc="esc" @click="close">
       <POverflowMenu>
         <slot v-bind="{ close }" />
       </POverflowMenu>
@@ -32,28 +32,19 @@
   import POverflowMenu from '@/components/OverflowMenu/POverflowMenu.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
-  import { PositionMethod } from '@/types'
   import { Icon } from '@/types/icon'
   import { topRight, bottomRight, bottomLeft, topLeft } from '@/utilities/position'
 
-  const props = withDefaults(defineProps<{
+  withDefaults(defineProps<{
     icon?: Icon,
-    placement?: PositionMethod | PositionMethod[],
-    preventCloseOnClick?: boolean,
   }>(), {
     icon: 'EllipsisVerticalIcon',
-    placement: () => [bottomRight, topRight, bottomLeft, topLeft],
   })
 
   const { classes, styles, attrs } = useAttrsStylesAndClasses()
   const popOver = ref<typeof PPopOver>()
   const button = ref<typeof PButton>()
 
-  function closeOnClick(): void {
-    if (!props.preventCloseOnClick) {
-      close()
-    }
-  }
 
   function close(): void {
     if (popOver.value) {
