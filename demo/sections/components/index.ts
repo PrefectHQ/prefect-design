@@ -15,6 +15,7 @@ export const components: Section = {
   codeHighlight: () => import('./CodeHighlight.vue'),
   codeInput: () => import('./CodeInput.vue'),
   combobox: () => import('./Combobox.vue'),
+  command: () => import('./Command.vue'),
   contextMenu: () => import('./ContextMenu.vue'),
   contextSidebar: () => import('./ContextSidebar.vue'),
   dateInput: () => import('./DateInput.vue'),

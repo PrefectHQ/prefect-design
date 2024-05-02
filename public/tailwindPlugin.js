@@ -13,7 +13,7 @@ const borderColor = {
 }
 
 const colors = {
-  'border': 'hsl(var(--p-destructive) / <alpha-value>)',
+  'border': 'hsl(var(--p-border) / <alpha-value>)',
   'input': 'hsl(var(--p-input) / <alpha-value>)',
   'background': 'hsl(var(--p-background) / <alpha-value>)',
   'primary': 'hsl(var(--p-primary) / <alpha-value>)',
@@ -26,6 +26,9 @@ const colors = {
   'destructive-foreground': 'hsl(var(--p-destructive-foreground) / <alpha-value>)',
   'accent': 'hsl(var(--p-accent) / <alpha-value>)',
   'accent-foreground': 'hsl(var(--p-accent-foreground) / <alpha-value>)',
+  'text-foreground': 'hsl(var(--p-text-foreground) / <alpha-value>)',
+  'popover': 'hsl(var(--p-popover) / <alpha-value>)',
+  'popover-foreground': 'hsl(var(--p-popover-foreground) / <alpha-value>)',
   divider: 'var(--p-color-divider)',
   'selectable-hover': 'var(--p-color-selectable-hover)',
   'focus-ring': 'var(--p-color-focus-ring)',

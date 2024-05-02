@@ -13,6 +13,7 @@ import { PCode, install as installPCode } from '@/components/Code'
 import { PCodeHighlight, install as installPCodeHighlight } from '@/components/CodeHighlight'
 import { PCodeInput, install as installPCodeInput } from '@/components/CodeInput'
 import { PCombobox, install as installPCombobox } from '@/components/Combobox'
+import { PCommand, install as installPCommand, PCommandBase, installPCommandBase, PCommandDialog, installPCommandDialog, PCommandEmpty, installPCommandEmpty, PCommandGroup, installPCommandGroup, PCommandInput, installPCommandInput, PCommandItem, installPCommandItem, PCommandList, installPCommandList, PCommandSeparator, installPCommandSeparator, PCommandShortcut, installPCommandShortcut } from '@/components/Command'
 import { PContent, install as installPContent } from '@/components/Content'
 import { PContextAccordionItem, install as installPContextAccordionItem } from '@/components/ContextAccordionItem'
 import { PContextDivider, install as installPContextDivider } from '@/components/ContextDivider'
@@ -109,6 +110,16 @@ export {
   PCodeHighlight,
   PCodeInput,
   PCombobox,
+  PCommand,
+  PCommandBase,
+  PCommandDialog,
+  PCommandEmpty,
+  PCommandGroup,
+  PCommandInput,
+  PCommandItem,
+  PCommandList,
+  PCommandSeparator,
+  PCommandShortcut,
   PContent,
   PContextAccordionItem,
   PContextDivider,
@@ -215,6 +226,16 @@ export const installs = [
   installPCodeHighlight,
   installPCodeInput,
   installPCombobox,
+  installPCommand,
+  installPCommandBase,
+  installPCommandDialog,
+  installPCommandEmpty,
+  installPCommandGroup,
+  installPCommandInput,
+  installPCommandItem,
+  installPCommandList,
+  installPCommandSeparator,
+  installPCommandShortcut,
   installPContent,
   installPContextAccordionItem,
   installPContextDivider,
@@ -313,6 +334,16 @@ declare module '@vue/runtime-core' {
     PCodeHighlight: typeof PCodeHighlight,
     PCodeInput: typeof PCodeInput,
     PCombobox: typeof PCombobox,
+    PCommand: typeof PCommand,
+    PCommandBase: typeof PCommandBase,
+    PCommandDialog: typeof PCommandDialog,
+    PCommandEmpty: typeof PCommandEmpty,
+    PCommandGroup: typeof PCommandGroup,
+    PCommandInput: typeof PCommandInput,
+    PCommandItem: typeof PCommandItem,
+    PCommandList: typeof PCommandList,
+    PCommandSeparator: typeof PCommandSeparator,
+    PCommandShortcut: typeof PCommandShortcut,
     PContent: typeof PContent,
     PContextAccordionItem: typeof PContextAccordionItem,
     PContextDivider: typeof PContextDivider,
