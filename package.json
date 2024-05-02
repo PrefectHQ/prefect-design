@@ -37,7 +37,7 @@
     "./dist/tailwindPlugin.js": "./dist/tailwindPlugin.js"
   },
   "files": [
-    "dist"
+    "."
   ],
   "types": "./dist/types/src/index.d.ts",
   "devDependencies": {

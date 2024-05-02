@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const defaultTheme = require('tailwindcss/defaultTheme')
-const plugin = require('tailwindcss/plugin')
+import defaultTheme from 'tailwindcss/defaultTheme'
+import plugin from 'tailwindcss/plugin'
+import { Config, PluginCreator } from 'tailwindcss/types/config'
 
 const borderRadius = {
   default: 'var(--p-radius-default)',
@@ -52,12 +50,12 @@ const fontFamily = {
 
 const keyframes = {
   'accordion-down': {
-    from: { height: 0 },
+    from: { height: '0px' },
     to: { height: 'var(--radix-accordion-content-height)' },
   },
   'accordion-up': {
     from: { height: 'var(--radix-accordion-content-height)' },
-    to: { height: 0 },
+    to: { height: '0px' },
   },
 }
 
@@ -102,15 +100,16 @@ const prefectUtilities = {
   '.caret-default': { caretColor: 'var(--p-color-text-default)' },
 }
 
-function PrefectDesignPlugins({ addUtilities }) {
+const prefectDesignPlugins: PluginCreator = function({ addUtilities }) {
   addUtilities(prefectUtilities)
 }
 
-const config = {
+const config: Config = {
+  content: ['./src/**/*.vue'],
   darkMode,
   theme: {
     extend,
   },
 }
 
-module.exports = plugin(PrefectDesignPlugins, config)
+export const tailwindPlugin = plugin(prefectDesignPlugins, config)

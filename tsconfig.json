@@ -33,16 +33,11 @@
     "types": ["vite-svg-loader", "vite/client"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "demo/**/*.ts",
-    "demo/**/*.vue",
-    "./*.ts",
-    "./*.d.ts",
-    "./**/postcss.config.js",
-    "./**/tailwind.config.js",
-    "src/tailwindPlugin.js",
-    "./vite.config.mts"
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.vue",
+    "**/*.mts",
+    "postcss.config.cjs",
+    "vite.config.mts"
   ]
 }

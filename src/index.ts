@@ -7,18 +7,19 @@ export * from '@/models'
 export * from '@/plugins'
 export * from '@/types'
 export * from '@/utilities'
+export { tailwindPlugin } from '@/tailwindPlugin'
 
 import { App, Plugin } from 'vue'
 import { installs } from '@/components'
 import { layouts } from '@/layouts'
 import { plugins } from '@/plugins'
 
-const plugin: Plugin = {
+const plugin = {
   install(app: App) {
     installs.forEach(install => install(app))
     layouts.forEach(install => install(app))
     plugins.forEach(install => install(app))
   },
-}
+} satisfies Plugin
 
 export { plugin }
