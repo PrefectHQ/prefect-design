@@ -26,7 +26,7 @@ const colors = {
   'destructive-foreground': 'hsl(var(--p-destructive-foreground) / <alpha-value>)',
   'accent': 'hsl(var(--p-accent) / <alpha-value>)',
   'accent-foreground': 'hsl(var(--p-accent-foreground) / <alpha-value>)',
-  'text-foreground': 'hsl(var(--p-text-foreground) / <alpha-value>)',
+  'foreground': 'hsl(var(--p-text-foreground) / <alpha-value>)',
   'popover': 'hsl(var(--p-popover) / <alpha-value>)',
   'popover-foreground': 'hsl(var(--p-popover-foreground) / <alpha-value>)',
   divider: 'var(--p-color-divider)',
