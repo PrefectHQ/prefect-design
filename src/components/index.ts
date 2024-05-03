@@ -13,7 +13,7 @@ import { PCode, install as installPCode } from '@/components/Code'
 import { PCodeHighlight, install as installPCodeHighlight } from '@/components/CodeHighlight'
 import { PCodeInput, install as installPCodeInput } from '@/components/CodeInput'
 import { PCombobox, install as installPCombobox } from '@/components/Combobox'
-import { PCommand, install as installPCommand, PCommandBase, installPCommandBase, PCommandDialog, installPCommandDialog, PCommandEmpty, installPCommandEmpty, PCommandGroup, installPCommandGroup, PCommandInput, installPCommandInput, PCommandItem, installPCommandItem, PCommandList, installPCommandList, PCommandSeparator, installPCommandSeparator, PCommandShortcut, installPCommandShortcut } from '@/components/Command'
+import { PCommand, install as installPCommand, PCommandBase, installPCommandBase, PCommandEmpty, installPCommandEmpty, PCommandGroup, installPCommandGroup, PCommandInput, installPCommandInput, PCommandItem, installPCommandItem, PCommandList, installPCommandList, PCommandSeparator, installPCommandSeparator, PCommandShortcut, installPCommandShortcut } from '@/components/Command'
 import { PContent, install as installPContent } from '@/components/Content'
 import { PContextAccordionItem, install as installPContextAccordionItem } from '@/components/ContextAccordionItem'
 import { PContextDivider, install as installPContextDivider } from '@/components/ContextDivider'
@@ -112,7 +112,6 @@ export {
   PCombobox,
   PCommand,
   PCommandBase,
-  PCommandDialog,
   PCommandEmpty,
   PCommandGroup,
   PCommandInput,
@@ -228,7 +227,6 @@ export const installs = [
   installPCombobox,
   installPCommand,
   installPCommandBase,
-  installPCommandDialog,
   installPCommandEmpty,
   installPCommandGroup,
   installPCommandInput,
@@ -336,7 +334,6 @@ declare module '@vue/runtime-core' {
     PCombobox: typeof PCombobox,
     PCommand: typeof PCommand,
     PCommandBase: typeof PCommandBase,
-    PCommandDialog: typeof PCommandDialog,
     PCommandEmpty: typeof PCommandEmpty,
     PCommandGroup: typeof PCommandGroup,
     PCommandInput: typeof PCommandInput,

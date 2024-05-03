@@ -1,7 +1,6 @@
 import { App } from 'vue'
 import PCommand from '@/components/Command/PCommand.vue'
 import PCommandBase from '@/components/Command/PCommandBase.vue'
-import PCommandDialog from '@/components/Command/PCommandDialog.vue'
 import PCommandEmpty from '@/components/Command/PCommandEmpty.vue'
 import PCommandGroup from '@/components/Command/PCommandGroup.vue'
 import PCommandInput from '@/components/Command/PCommandInput.vue'
@@ -16,10 +15,6 @@ const install = (app: App): void => {
 
 const installPCommandBase = (app: App): void => {
   app.component('PCommandBase', PCommandBase)
-}
-
-const installPCommandDialog = (app: App): void => {
-  app.component('PCommandDialog', PCommandDialog)
 }
 
 const installPCommandEmpty = (app: App): void => {
@@ -50,4 +45,4 @@ const installPCommandShortcut = (app: App): void => {
   app.component('PCommandShortcut', PCommandShortcut)
 }
 
-export { PCommand, install, PCommandBase, installPCommandBase, PCommandDialog, installPCommandDialog, PCommandEmpty, installPCommandEmpty, PCommandGroup, installPCommandGroup, PCommandInput, installPCommandInput, PCommandItem, installPCommandItem, PCommandList, installPCommandList, PCommandSeparator, installPCommandSeparator, PCommandShortcut, installPCommandShortcut }
+export { PCommand, install, PCommandBase, installPCommandBase, PCommandEmpty, installPCommandEmpty, PCommandGroup, installPCommandGroup, PCommandInput, installPCommandInput, PCommandItem, installPCommandItem, PCommandList, installPCommandList, PCommandSeparator, installPCommandSeparator, PCommandShortcut, installPCommandShortcut }
