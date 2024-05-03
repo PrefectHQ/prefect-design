@@ -1,5 +1,6 @@
 import { Config } from 'tailwindcss/types/config'
-import config from '@/tailwind.config'
+// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
+import config from './src/tailwind.config'
 
 export default {
   content: [
