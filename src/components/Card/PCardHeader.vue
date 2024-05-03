@@ -1,18 +1,10 @@
 <template>
-  <div class="p-card-header" :class="props.class">
+  <div class="p-card-header">
     <slot />
   </div>
 </template>
 
-<script setup lang="ts">
-  import type { HTMLAttributes } from 'vue'
-
-  const props = defineProps<{
-    class?: HTMLAttributes['class'],
-  }>()
-</script>
-
-<style scoped>
+<style>
 .p-card-header {
   @apply
     flex

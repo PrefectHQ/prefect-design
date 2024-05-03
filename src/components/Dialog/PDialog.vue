@@ -1,95 +1,42 @@
 <template>
-  <dialog ref="dialog" class="p-dialog" @click="onClick">
-    <div class="p-dialog__content">
-      <template v-if="open">
-        <slot v-bind="{ close }" />
-      </template>
-    </div>
-  </dialog>
+  <PDialogBase v-bind="forwarded">
+    <PDialogContent class="sm:max-w-[425px]" :as-child="Boolean($slots.default)" v-bind="$attrs">
+      <slot>
+        <PDialogHeader v-if="!$slots.header || $slots.title || $slots.description">
+          <slot name="header">
+            <PDialogTitle v-if="$slots.title">
+              <slot name="title" />
+            </PDialogTitle>
+            <PDialogDescription v-if="$slots.description">
+              <slot name="description" />
+            </PDialogDescription>
+          </slot>
+        </PDialogHeader>
+        <PDialogFooter v-if="$slots.footer">
+          <slot name="footer" />
+        </PDialogFooter>
+      </slot>
+    </PDialogContent>
+  </PDialogBase>
 </template>
 
-<script lang="ts" setup>
-  import { useGlobalEventListener } from '@prefecthq/vue-compositions'
-  import { onMounted, onUnmounted, ref, watch } from 'vue'
-  import { isHtmlElement } from '@/utilities/html'
+<script setup lang="ts">
+  import { type DialogRootEmits, type DialogRootProps, useForwardPropsEmits } from 'radix-vue'
+  import PDialogBase from '@/components/Dialog/PDialogBase.vue'
+  import PDialogContent from '@/components/Dialog/PDialogContent.vue'
+  import PDialogDescription from '@/components/Dialog/PDialogDescription.vue'
+  import PDialogFooter from '@/components/Dialog/PDialogFooter.vue'
+  import PDialogHeader from '@/components/Dialog/PDialogHeader.vue'
+  import PDialogTitle from '@/components/Dialog/PDialogTitle.vue'
 
-  const props = defineProps<{
-    open: boolean,
-    modal?: boolean,
-    autoClose?: boolean,
-  }>()
-
-  const emit = defineEmits<{
-    (event: 'update:open', value: boolean): void,
-    (event: 'close' | 'open'): void,
-  }>()
-
-  const dialog = ref<HTMLDialogElement>()
-
-  function show(): void {
-    if (!dialog.value) {
-      return
-    }
-
-    emit('open')
-
-    if (props.modal) {
-      dialog.value.showModal()
-      return
-    }
-
-    dialog.value.show()
-    setTimeout(() => addOnClickListener())
-  }
-
-  function close(): void {
-    if (!dialog.value) {
-      return
-    }
-
-    emit('close')
-    dialog.value.close()
-    removeOnClickListener()
-  }
-
-  function syncOpenValue(): void {
-    if (!dialog.value) {
-      return
-    }
-
-    emit('update:open', dialog.value.open)
-  }
-
-  function onClick(event: MouseEvent): void {
-    if (!props.open || !props.autoClose || !dialog.value || !isHtmlElement(event.target)) {
-      return
-    }
-
-    const shouldCloseModal = props.modal && event.target === dialog.value
-    const shouldCloseDialog = !props.modal && !dialog.value.contains(event.target)
-
-    if (shouldCloseModal || shouldCloseDialog) {
-      close()
-    }
-  }
-
-  const { add: addOnClickListener, remove: removeOnClickListener } = useGlobalEventListener('click', onClick)
-
-  watch(() => props.open, open => {
-    if (open) {
-      show()
-      return
-    }
-
-    close()
-  }, { immediate: true })
-
-
-  onMounted(() => {
-    dialog.value?.addEventListener('close', syncOpenValue)
+  defineOptions({
+    inheritAttrs: false,
   })
 
-  onUnmounted(() => {
-    dialog.value?.removeEventListener('close', syncOpenValue)
-  })
+
+  // eslint-disable-next-line vue/no-unused-properties
+  const props = defineProps<DialogRootProps>()
+  const emits = defineEmits<DialogRootEmits>()
+
+  const forwarded = useForwardPropsEmits(props, emits)
 </script>

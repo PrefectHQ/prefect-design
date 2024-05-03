@@ -1,8 +1,9 @@
 <template>
   <AccordionItem
-    v-bind="forwardedProps"
+    v-bind="props"
     class="border-b"
-    :class="props.class"
+    :class="attrClasses"
+    :style="attrStyles"
   >
     <slot />
   </AccordionItem>
@@ -10,15 +11,11 @@
 
 <script setup lang="ts">
   import { AccordionItem, type AccordionItemProps, useForwardProps } from 'radix-vue'
-  import { type HTMLAttributes, computed } from 'vue'
+  import { useAttrsStylesAndClasses } from '@/compositions'
 
-  const props = defineProps<AccordionItemProps & { class?: HTMLAttributes['class'] }>()
+  const { classes: attrClasses, styles: attrStyles } = useAttrsStylesAndClasses()
 
-  const delegatedProps = computed(() => {
-    // eslint-disable-next-line id-length, no-unused-vars
-    const { class: _, ...delegated } = props
-    return delegated
-  })
 
-  const forwardedProps = useForwardProps(delegatedProps)
+  // eslint-disable-next-line vue/no-unused-properties
+  const props = defineProps<AccordionItemProps>()
 </script>

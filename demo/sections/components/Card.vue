@@ -1,8 +1,19 @@
 <template>
-  <ComponentPage title="Card" :demos="[{ title: 'Basic Card' }, { title: 'Ghost Card' }, { title: 'Card' }]">
+  <ComponentPage title="Card" :demos="[{ title: 'Basic Card' }, { title: 'Nested Card' }, { title: 'Ghost Card' }, { title: 'Card' }]">
     <template #basic-card>
       <p-card>
         <h1>This is a Card component</h1>
+      </p-card>
+    </template>
+    <template #nested-card>
+      <p-card>
+        <h1>This is a Card component</h1>
+        <p-card class="m-4">
+          <h1>This is a Second Level Card component</h1>
+          <p-card class="m-4">
+            <h1>This is a Third Level Card component</h1>
+          </p-card>
+        </p-card>
       </p-card>
     </template>
     <template #ghost-card>

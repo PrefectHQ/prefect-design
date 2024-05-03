@@ -1,7 +1,7 @@
 <template>
   <div
     class="p-card"
-    :class="normalizeClass([props.class, card({ variant })])"
+    :class="card({ variant })"
   >
     <slot />
   </div>
@@ -9,10 +9,9 @@
 
 <script setup lang="ts">
   import { cva, type VariantProps } from 'class-variance-authority'
-  import { normalizeClass, type HTMLAttributes } from 'vue'
 
   const card = cva(
-    'p-card', {
+    'p-card p-background', {
       variants: {
         variant: {
           ghost: 'p-card-ghost',
@@ -26,19 +25,17 @@
 
   export type CardProps = VariantProps<typeof card>
 
-  const props = defineProps<{
-    class?: HTMLAttributes['class'],
+  defineProps<{
     variant?: CardProps['variant'],
   }>()
 </script>
 
 
-<style scoped>
+<style>
 .p-card {
   @apply
     rounded-lg
     border
-    bg-card
     text-card-foreground
     shadow-sm;
 }

@@ -1,21 +1,11 @@
 <template>
-  <h3
-    class="p-card-title"
-    :class="props.class"
-  >
+  <h3 class="p-card-title">
     <slot />
   </h3>
 </template>
 
-<script setup lang="ts">
-  import type { HTMLAttributes } from 'vue'
 
-  const props = defineProps<{
-    class?: HTMLAttributes['class'],
-  }>()
-</script>
-
-<style scoped>
+<style>
 .p-card-title {
   @apply
     text-2xl

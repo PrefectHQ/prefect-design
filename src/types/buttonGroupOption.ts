@@ -1,13 +1,14 @@
 import { Icon } from '@/types/icon'
-import { SelectModelValue } from '@/types/selectOption'
 
-export type ButtonGroupOption = {
+export type ButtonGroupValue = string | number | boolean | null
+
+export type ButtonGroupOption<T extends ButtonGroupValue = ButtonGroupValue> = {
   label?: string,
-  value: SelectModelValue,
+  value: T,
   disabled?: boolean,
   icon?: Icon,
 }
 
-export function isButtonGroupOption(input: SelectModelValue | ButtonGroupOption): input is ButtonGroupOption {
+export function isButtonGroupOption<T extends ButtonGroupValue>(input: T | ButtonGroupOption<T>): input is ButtonGroupOption<T> {
   return typeof input === 'object'
 }

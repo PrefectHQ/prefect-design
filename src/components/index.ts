@@ -13,6 +13,7 @@ import { PCode, install as installPCode } from '@/components/Code'
 import { PCodeHighlight, install as installPCodeHighlight } from '@/components/CodeHighlight'
 import { PCodeInput, install as installPCodeInput } from '@/components/CodeInput'
 import { PCombobox, install as installPCombobox } from '@/components/Combobox'
+import { PCommand, install as installPCommand, PCommandBase, installPCommandBase, PCommandEmpty, installPCommandEmpty, PCommandGroup, installPCommandGroup, PCommandInput, installPCommandInput, PCommandItem, installPCommandItem, PCommandList, installPCommandList, PCommandSeparator, installPCommandSeparator, PCommandShortcut, installPCommandShortcut } from '@/components/Command'
 import { PContent, install as installPContent } from '@/components/Content'
 import { PContextAccordionItem, install as installPContextAccordionItem } from '@/components/ContextAccordionItem'
 import { PContextDivider, install as installPContextDivider } from '@/components/ContextDivider'
@@ -28,6 +29,7 @@ import { PDialog, install as installPDialog } from '@/components/Dialog'
 import { PDivider, install as installPDivider } from '@/components/Divider'
 import { PDraggableList, install as installPDraggableList } from '@/components/DraggableList'
 import { PDrawer, install as installPDrawer } from '@/components/Drawer'
+import { PDropdownMenu, PDropdownMenuItem, installPDropdownMenu, installPDropdownMenuItem } from '@/components/DropdownMenu'
 import { PEmptyResults, install as installPEmptyResults } from '@/components/EmptyResults'
 import { PEmptyState, install as installPEmptyState } from '@/components/EmptyState'
 import { PErrorBoundary, install as installPErrorBoundary } from '@/components/ErrorBoundary'
@@ -109,6 +111,15 @@ export {
   PCodeHighlight,
   PCodeInput,
   PCombobox,
+  PCommand,
+  PCommandBase,
+  PCommandEmpty,
+  PCommandGroup,
+  PCommandInput,
+  PCommandItem,
+  PCommandList,
+  PCommandSeparator,
+  PCommandShortcut,
   PContent,
   PContextAccordionItem,
   PContextDivider,
@@ -124,6 +135,8 @@ export {
   PDivider,
   PDraggableList,
   PDrawer,
+  PDropdownMenu,
+  PDropdownMenuItem,
   PEmptyResults,
   PEmptyState,
   PErrorBoundary,
@@ -215,6 +228,15 @@ export const installs = [
   installPCodeHighlight,
   installPCodeInput,
   installPCombobox,
+  installPCommand,
+  installPCommandBase,
+  installPCommandEmpty,
+  installPCommandGroup,
+  installPCommandInput,
+  installPCommandItem,
+  installPCommandList,
+  installPCommandSeparator,
+  installPCommandShortcut,
   installPContent,
   installPContextAccordionItem,
   installPContextDivider,
@@ -230,6 +252,8 @@ export const installs = [
   installPDivider,
   installPDraggableList,
   installPDrawer,
+  installPDropdownMenu,
+  installPDropdownMenuItem,
   installPEmptyResults,
   installPEmptyState,
   installPErrorBoundary,
@@ -313,6 +337,15 @@ declare module '@vue/runtime-core' {
     PCodeHighlight: typeof PCodeHighlight,
     PCodeInput: typeof PCodeInput,
     PCombobox: typeof PCombobox,
+    PCommand: typeof PCommand,
+    PCommandBase: typeof PCommandBase,
+    PCommandEmpty: typeof PCommandEmpty,
+    PCommandGroup: typeof PCommandGroup,
+    PCommandInput: typeof PCommandInput,
+    PCommandItem: typeof PCommandItem,
+    PCommandList: typeof PCommandList,
+    PCommandSeparator: typeof PCommandSeparator,
+    PCommandShortcut: typeof PCommandShortcut,
     PContent: typeof PContent,
     PContextAccordionItem: typeof PContextAccordionItem,
     PContextDivider: typeof PContextDivider,
@@ -328,6 +361,8 @@ declare module '@vue/runtime-core' {
     PDivider: typeof PDivider,
     PDraggableList: typeof PDraggableList,
     PDrawer: typeof PDrawer,
+    PDropdownMenu: typeof PDropdownMenu,
+    PDropdownMenuItem: typeof PDropdownMenuItem,
     PEmptyResults: typeof PEmptyResults,
     PEmptyState: typeof PEmptyState,
     PErrorBoundary: typeof PErrorBoundary,
