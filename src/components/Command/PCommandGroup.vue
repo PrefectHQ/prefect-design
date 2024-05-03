@@ -23,7 +23,7 @@
   @apply
   overflow-hidden
   p-1
-  /* text-foreground */
+  text-foreground
   [&_[cmdk-group-heading]]:px-2
   [&_[cmdk-group-heading]]:py-1.5
   [&_[cmdk-group-heading]]:text-xs
