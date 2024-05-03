@@ -20,7 +20,6 @@
 
 <script lang="ts" setup>
   import PAccordion from '@/components/Accordion/PAccordion.vue'
-  import { s } from 'vite/dist/node/types.d-aGj9QkWt'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
