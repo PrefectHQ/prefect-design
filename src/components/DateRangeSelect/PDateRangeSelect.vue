@@ -2,7 +2,7 @@
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
       <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
-      <PButton class="p-date-range-select__button p-date-range-select__input" :class="button({ size })" :disabled="disabled" :size="size" @click="open">
+      <PButton class="p-date-range-select__button  p-date-range-select__input" :class="button({ size })" :disabled="disabled" :size="size" @click="open">
         <div class="p-date-range-select__content">
           <PIcon icon="CalendarIcon" class="shrink-0" />
           <span class="p-date-range-select__label" :class="classes.label">
@@ -13,7 +13,7 @@
       </PButton>
 
       <template v-if="modelValue && clearable && !disabled">
-        <PButton class="p-date-range-select__button" icon="XCircleIcon" :size="size" @click="clear" />
+        <PButton class="p-date-range-select__button p-date-range-select__button--clear" icon="XCircleIcon" :size="size" @click="clear" />
       </template>
       <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" :size="size" @click="next" />
     </template>
@@ -244,8 +244,11 @@
 }
 
 .p-date-range-select__button { @apply
-
   -ml-[1px]
+}
+
+.p-date-range-select__button--clear { @apply
+  rounded-none
 }
 
 .p-date-range-select__button:hover { @apply

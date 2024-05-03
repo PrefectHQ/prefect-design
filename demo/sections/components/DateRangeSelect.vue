@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Date Range Select" :demos="[{ title: 'Date Range Select' }, { title: 'Date Range Selesct' }]">
+  <ComponentPage title="Date Range Select" :demos="[{ title: 'Date Range Select' }, { title: 'Date Range Select Small' }]">
     <template #description>
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
       <p-checkbox v-model="clearable" :disabled="disabled" label="Clearable" />
@@ -13,7 +13,7 @@
         </p-code>
       </p-content>
     </template>
-    <template #date-range-selesct>
+    <template #date-range-select-small>
       <p-content>
         <p-date-range-select v-model="value" v-bind="{ min, max, clearable, disabled }" size="sm">
           <p-code inline>
