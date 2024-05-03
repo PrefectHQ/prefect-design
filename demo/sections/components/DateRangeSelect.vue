@@ -1,7 +1,8 @@
 <template>
-  <ComponentPage title="Date Range Select" :demos="[{ title: 'Date Range Select' }]">
+  <ComponentPage title="Date Range Select" :demos="[{ title: 'Date Range Select' }, { title: 'Date Range Select Small' }]">
     <template #description>
       <DemoState v-model:state="exampleState" v-model:disabled="disabled" />
+      <p-checkbox v-model="clearable" :disabled="disabled" label="Clearable" />
     </template>
 
     <template #date-range-select>
@@ -10,18 +11,15 @@
         <p-code inline>
           value: {{ JSON.stringify(value) }}
         </p-code>
-        <div class="flex justify-start gap-4">
-          <p-checkbox v-model="clearable" :disabled="disabled" label="Clearable" />
-        </div>
-        <div class="flex gap-4 w-1/2">
-          <p-label label="Min Value" :message="min ? format(min, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="min" :disabled="disabled" :state="exampleState" />
-          </p-label>
-
-          <p-label label="Max Value" :message="max ? format(max, 'MMM do, yyyy h:mm a') : ''">
-            <p-native-date-input v-model="max" :disabled="disabled" :state="exampleState" />
-          </p-label>
-        </div>
+      </p-content>
+    </template>
+    <template #date-range-select-small>
+      <p-content>
+        <p-date-range-select v-model="value" v-bind="{ min, max, clearable, disabled }" size="sm">
+          <p-code inline>
+            value: {{ JSON.stringify(value) }}
+          </p-code>
+        </p-date-range-select>
       </p-content>
     </template>
   </ComponentPage>

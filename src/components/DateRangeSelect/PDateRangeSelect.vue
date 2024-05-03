@@ -1,8 +1,8 @@
 <template>
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
-      <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" @click="previous" />
-      <PButton class="p-date-range-select__button p-date-range-select__input" :disabled="disabled" @click="open">
+      <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
+      <PButton class="p-date-range-select__button  p-date-range-select__input" :class="button({ size })" :disabled="disabled" :size="size" @click="open">
         <div class="p-date-range-select__content">
           <PIcon icon="CalendarIcon" class="shrink-0" />
           <span class="p-date-range-select__label" :class="classes.label">
@@ -13,9 +13,9 @@
       </PButton>
 
       <template v-if="modelValue && clearable && !disabled">
-        <PButton class="p-date-range-select__button" icon="XCircleIcon" @click="clear" />
+        <PButton class="p-date-range-select__button p-date-range-select__button--clear" icon="XCircleIcon" :size="size" @click="clear" />
       </template>
-      <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" @click="next" />
+      <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" :size="size" @click="next" />
     </template>
 
     <template #default>
@@ -42,6 +42,7 @@
 
 <script lang="ts" setup>
   import { useElementRect, useKeyDown } from '@prefecthq/vue-compositions'
+  import { cva, type VariantProps } from 'class-variance-authority'
   import { addDays, addSeconds, isAfter, isBefore } from 'date-fns'
   import { secondsInDay } from 'date-fns/constants'
   import { computed, ref, watch } from 'vue'
@@ -58,11 +59,24 @@
   import { mapDateRangeSelectValueToDateRange } from '@/utilities/dateRangeSelect'
   import { bottomRight, topRight, bottomLeft, topLeft, rightInside, leftInside } from '@/utilities/position'
 
+  const button = cva(
+    '',
+    {
+      variants: {
+        size: {
+          default: 'h-10',
+          sm: 'h-7',
+        },
+      },
+    })
+
+  type ButtonProps = VariantProps<typeof button>
+
   type DateRange = { startDate: Date, endDate: Date }
 
   export type DateRangeSelectMode = 'span' | 'range' | 'around' | null
 
-  const props = defineProps<{
+  const props = withDefaults(defineProps<{
     modelValue: DateRangeSelectValue,
     placeholder?: string,
     maxSpanInSeconds?: number,
@@ -70,7 +84,14 @@
     disabled?: boolean,
     min?: Date,
     max?: Date,
-  }>()
+    size?: ButtonProps['size'],
+  }>(), {
+    min: undefined,
+    max: undefined,
+    placeholder: undefined,
+    maxSpanInSeconds: undefined,
+    size: 'default',
+  })
 
   const emit = defineEmits<{
     'update:modelValue': [DateRangeSelectValue],
@@ -219,24 +240,44 @@
   flex
   flex-nowrap
   items-center
+  rounded-none
 }
 
 .p-date-range-select__button { @apply
-  rounded-none
   -ml-[1px]
 }
 
+.p-date-range-select__button--clear { @apply
+  rounded-none
+}
+
 .p-date-range-select__button:hover { @apply
-  z-10
+  z-50
 }
 
 .p-date-range-select__button:first-child { @apply
   ml-0
-  rounded-l-default
+  rounded-r-none
 }
 
 .p-date-range-select__button:last-child { @apply
-  rounded-r-default
+  rounded-l-none
+}
+
+.p-date-range-select__input { @apply
+  overflow-hidden
+  grow
+  shrink
+  min-w-0
+  rounded-none
+}
+
+.p-date-range-select__content { @apply
+  w-full
+  flex
+  items-center
+  gap-2
+  min-w-0
 }
 
 .p-date-range-select__input { @apply
