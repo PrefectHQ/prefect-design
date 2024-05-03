@@ -7,7 +7,6 @@ export * from '@/models'
 export * from '@/plugins'
 export * from '@/types'
 export * from '@/utilities'
-export { tailwindPlugin } from '@/tailwindPlugin'
 
 import { App, Plugin } from 'vue'
 import { installs } from '@/components'

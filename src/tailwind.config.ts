@@ -1,6 +1,9 @@
+import forms from '@tailwindcss/forms'
 import defaultTheme from 'tailwindcss/defaultTheme'
 import plugin from 'tailwindcss/plugin'
-import { Config, PluginCreator } from 'tailwindcss/types/config'
+import { Config } from 'tailwindcss/types/config'
+import animate from 'tailwindcss-animate'
+
 
 const borderRadius = {
   default: 'var(--p-radius-default)',
@@ -86,7 +89,7 @@ const extend = {
 
 const darkMode = 'class'
 
-const prefectUtilities = {
+const themeUtilities = {
   '.bg-floating': { backgroundColor: 'var(--p-color-bg-floating)' },
   '.bg-floating-sticky': { backgroundColor: 'var(--p-color-bg-floating-sticky)' },
   '.bg-code': { backgroundColor: 'var(--p-color-bg-code)' },
@@ -107,16 +110,23 @@ const prefectUtilities = {
   '.caret-default': { caretColor: 'var(--p-color-text-default)' },
 }
 
-const prefectDesignPlugins: PluginCreator = function({ addUtilities }) {
-  addUtilities(prefectUtilities)
-}
+const utilities = plugin(({ addUtilities }) => addUtilities(themeUtilities))
 
-const config: Config = {
-  content: ['./src/**/*.vue'],
+const plugins = [
+  animate,
+  forms,
+  utilities,
+]
+
+export default {
+  content: [
+    './src/**/*.{vue,js,ts}',
+    './demo/index.html',
+    './demo/**/*.vue',
+  ],
   darkMode,
+  plugins,
   theme: {
     extend,
   },
-}
-
-export const tailwindPlugin = plugin(prefectDesignPlugins, config)
+} satisfies Config

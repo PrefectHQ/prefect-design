@@ -1,19 +1,11 @@
-import forms from '@tailwindcss/forms'
-import type { Config } from 'tailwindcss'
-import animate from 'tailwindcss-animate'
-import { tailwindPlugin } from '@/tailwindPlugin'
-
-const plugins = [
-  animate,
-  forms,
-  tailwindPlugin,
-]
+import { Config } from 'tailwindcss/types/config'
+import config from '@/tailwind.config'
 
 export default {
   content: [
-    './src/**/*.vue',
+    './src/**/*.{vue,js,ts}',
     './demo/index.html',
     './demo/**/*.vue',
   ],
-  plugins,
+  presets: [config],
 } satisfies Config

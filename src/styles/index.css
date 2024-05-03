@@ -1,6 +1,6 @@
 @import "@fontsource/inconsolata/variable.css";
 @import "@fontsource/inter/variable.css";
-@import "@/styles/scrollbar.css";
+@import "./scrollbar.css";
 
 @tailwind base;
 @tailwind components;
