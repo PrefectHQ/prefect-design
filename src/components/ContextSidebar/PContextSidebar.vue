@@ -47,8 +47,6 @@
 }
 
 .p-context-sidebar__header { @apply
-  border-b
-  border-divider
   flex-shrink-0
 }
 
@@ -60,8 +58,6 @@
 
 .p-context-sidebar__footer { @apply
   mt-auto
-  border-t
   flex-shrink-0
-  border-divider
 }
 </style>
