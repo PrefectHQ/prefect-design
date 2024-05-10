@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Tab" :demos="[{ title: 'Tab' }]">
+  <ComponentPage title="Tab" :demos="[{ title: 'Tab' }, { title: 'Tab Components' }]">
     <template #tab>
       <PTabs v-model:selected="selectedTab" :tabs="tabs">
         <template #tab-one-heading="{ tab }">
@@ -38,11 +38,24 @@
         Switch to third tab
       </p-button>
     </template>
+    <template #tab-components>
+      <PTabsRoot :default-value="tabs[0]" class="w-[400px]">
+        <PTabsList>
+          <PTabsTrigger v-for="tab in tabs" :key="tab" :value="tab">
+            {{ tab }}
+          </PTabsTrigger>
+        </PTabsList>
+        <PTabsContent v-for="tab in tabs" :key="tab" :value="tab">
+          {{ tab }} content
+        </PTabsContent>
+      </PTabsRoot>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
-  import { PTabs } from '@/components/Tabs'
+  import { PTabs, PTabsRoot, PTabsList, PTabsTrigger, PTabsContent } from '@/components/Tabs'
+
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
 
