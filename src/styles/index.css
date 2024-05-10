@@ -57,6 +57,8 @@
     --p-popover: var(--p-primary-hue) 6% 12%;
     --p-popover-foreground: 0.0 0.0% 100.0%;
     --p-foreground: 0.0 0.0% 100.0%;
+    --p-muted: var(--p-primary-hue) 6% 24%;
+    --p-ring: var(--p-primary-hue) 87.25% 52%;
 
     /* Background */
     --p-color-bg-0: hsl(var(--p-primary-hue), 6%, 16%);
@@ -226,6 +228,8 @@
     --p-popover: var(--p-primary-hue) 0.0% 100.0%;
     --p-popover-foreground: var(--p-primary-hue) 6% 9.02%;
     --p-foreground: var(--p-primary-hue) 6% 9.02%;
+    --p-muted: var(--p-primary-hue) 6% 86%;
+    --p-ring: var(--p-primary-hue) 87.25% 52%;
 
     /* Background */
     --p-color-bg-0: hsl(var(--p-primary-hue), 3.23%, 92%);
