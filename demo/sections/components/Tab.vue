@@ -1,5 +1,8 @@
 <template>
   <ComponentPage title="Tab" :demos="[{ title: 'Tab' }, { title: 'Tab Components' }]">
+    <p-button class="mt-2" @click="changeToTab(tabs[2])">
+      Switch to third tab
+    </p-button>
     <template #tab>
       <PTabs v-model:selected="selectedTab" :tabs="tabs">
         <template #tab-one-heading="{ tab }">
@@ -33,13 +36,9 @@
           This is the content for {{ tab.label }}
         </template>
       </PTabs>
-
-      <p-button class="mt-2" @click="changeToTab(tabs[2])">
-        Switch to third tab
-      </p-button>
     </template>
     <template #tab-components>
-      <PTabsRoot :default-value="tabs[0]" class="w-[400px]">
+      <PTabsRoot v-model:model-value="selectedTab" :default-value="tabs[0]" class="w-[400px]">
         <PTabsList>
           <PTabsTrigger v-for="tab in tabs" :key="tab" :value="tab">
             {{ tab }}
