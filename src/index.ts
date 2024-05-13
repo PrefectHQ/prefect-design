@@ -13,12 +13,12 @@ import { installs } from '@/components'
 import { layouts } from '@/layouts'
 import { plugins } from '@/plugins'
 
-const plugin: Plugin = {
+const plugin = {
   install(app: App) {
     installs.forEach(install => install(app))
     layouts.forEach(install => install(app))
     plugins.forEach(install => install(app))
   },
-}
+} satisfies Plugin
 
 export { plugin }

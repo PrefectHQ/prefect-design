@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const defaultTheme = require('tailwindcss/defaultTheme')
-const plugin = require('tailwindcss/plugin')
+import forms from '@tailwindcss/forms'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import plugin from 'tailwindcss/plugin'
+import { Config } from 'tailwindcss/types/config'
+import animate from 'tailwindcss-animate'
+
 
 const borderRadius = {
   default: 'var(--p-radius-default)',
@@ -60,12 +61,12 @@ const fontFamily = {
 
 const keyframes = {
   'accordion-down': {
-    from: { height: 0 },
+    from: { height: '0px' },
     to: { height: 'var(--radix-accordion-content-height)' },
   },
   'accordion-up': {
     from: { height: 'var(--radix-accordion-content-height)' },
-    to: { height: 0 },
+    to: { height: '0px' },
   },
 }
 
@@ -89,7 +90,7 @@ const extend = {
 
 const darkMode = 'class'
 
-const prefectUtilities = {
+const themeUtilities = {
   '.bg-floating': { backgroundColor: 'var(--p-color-bg-floating)' },
   '.bg-floating-sticky': { backgroundColor: 'var(--p-color-bg-floating-sticky)' },
   '.bg-code': { backgroundColor: 'var(--p-color-bg-code)' },
@@ -110,15 +111,23 @@ const prefectUtilities = {
   '.caret-default': { caretColor: 'var(--p-color-text-default)' },
 }
 
-function PrefectDesignPlugins({ addUtilities }) {
-  addUtilities(prefectUtilities)
-}
+const utilities = plugin(({ addUtilities }) => addUtilities(themeUtilities))
 
-const config = {
+const plugins = [
+  animate,
+  forms,
+  utilities,
+]
+
+export default {
+  content: [
+    './src/**/*.{vue,js,ts}',
+    './demo/index.html',
+    './demo/**/*.vue',
+  ],
   darkMode,
+  plugins,
   theme: {
     extend,
   },
-}
-
-module.exports = plugin(PrefectDesignPlugins, config)
+} satisfies Config
