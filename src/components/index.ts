@@ -73,7 +73,7 @@ import { PSelectOptionGroup, install as installPSelectOptionGroup } from '@/comp
 import { PStepper, install as installPStepper } from '@/components/Stepper'
 import { PTab, install as installPTab } from '@/components/Tab'
 import { PTable, PTableBody, PTableData, PTableFoot, PTableHead, PTableHeader, PTableRow, install as installPTable } from '@/components/Table'
-import { PTabs, PTabNavigation, PTabSelect, install as installPTabs } from '@/components/Tabs'
+import { PTabs, PTabNavigation, PTabSelect, PTabsContent, PTabsList, PTabsRoot, PTabsTrigger, install as installPTabs } from '@/components/Tabs'
 import { PTag, install as installPTag } from '@/components/Tag'
 import { PTags, install as installPTags } from '@/components/Tags'
 import { PTagsArea, install as installPTagsArea } from '@/components/TagsArea'
@@ -188,6 +188,10 @@ export {
   PTableRow,
   PTabNavigation,
   PTabs,
+  PTabsContent,
+  PTabsList,
+  PTabsRoot,
+  PTabsTrigger,
   PTabSelect,
   PTag,
   PTags,
@@ -413,6 +417,10 @@ declare module '@vue/runtime-core' {
     PTableRow: typeof PTableRow,
     PTabNavigation: typeof PTabNavigation,
     PTabs: typeof PTabs,
+    PTabsContent: typeof PTabsContent,
+    PTabsList: typeof PTabsList,
+    PTabsRoot: typeof PTabsRoot,
+    PTabsTrigger: typeof PTabsTrigger,
     PTabSelect: typeof PTabSelect,
     PTag: typeof PTag,
     PTags: typeof PTags,

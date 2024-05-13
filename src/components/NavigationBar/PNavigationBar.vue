@@ -80,8 +80,6 @@
 }
 
 .p-navigation-bar__content { @apply
-  border-t
-  border-b
   border-divider
   self-stretch
   py-2
