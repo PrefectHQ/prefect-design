@@ -17,9 +17,9 @@
 
     <template #position-at-click>
       <PContextMenu auto-close position-at-click>
-        <template #target="{ close, open }">
+        <template #target="{ open }">
           <PWindow class="w-full h-full">
-            <div class="relative text-subdued w-[480px] h-[200px]" @click.right.prevent="open" @click="close">
+            <div class="relative text-subdued w-[480px] h-[200px]" @click.right.prevent="open">
               Right click to bring up a context menu
             </div>
           </PWindow>
