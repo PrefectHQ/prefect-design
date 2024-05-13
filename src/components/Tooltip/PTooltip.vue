@@ -1,6 +1,6 @@
 <template>
   <TooltipProvider :v-bind="delegatedProviderProps">
-    <TooltipBase :v-bind="delegatedRootProps">
+    <TooltipRoot :v-bind="delegatedRootProps">
       <TooltipTrigger as-child>
         <slot />
 
@@ -17,16 +17,16 @@
           </slot>
         </TooltipContent>
       </TooltipTrigger>
-    </TooltipBase>
+    </TooltipRoot>
   </TooltipProvider>
 </template>
 
 <script setup lang="ts">
   import { type TooltipRootProps, type TooltipProviderProps, type TooltipContentProps } from 'radix-vue'
   import { defineProps, computed } from 'vue'
-  import TooltipBase from '@/components/Tooltip/PTooltipBase.vue'
   import TooltipContent from '@/components/Tooltip/PTooltipContent.vue'
   import TooltipProvider from '@/components/Tooltip/PTooltipProvider.vue'
+  import TooltipRoot from '@/components/Tooltip/PTooltipRoot.vue'
   import TooltipTrigger from '@/components/Tooltip/PTooltipTrigger.vue'
 
 
@@ -48,7 +48,7 @@
 
   const delegatedContentProps = computed(() => {
     // eslint-disable-next-line id-length, no-unused-vars
-    const { sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached } = props
-    return { sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached }
+    const { side, sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached } = props
+    return { side, sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached }
   })
 </script>
