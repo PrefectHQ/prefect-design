@@ -39,9 +39,5 @@
     "**/*.mts",
     "postcss.config.cjs",
     "vite.config.mts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
   ]
 }
