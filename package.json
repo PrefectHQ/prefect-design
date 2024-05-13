@@ -32,10 +32,12 @@
     ".": {
       "import": "./dist/prefect-design.mjs",
       "require": "./dist/prefect-design.umd.js"
-    }
+    },
+    "./tailwind.config.ts": "./src/tailwind.config.ts"
   },
   "files": [
-    "."
+    "dist",
+    "src"
   ],
   "types": "./dist/types/src/index.d.ts",
   "devDependencies": {
@@ -62,7 +64,7 @@
   },
   "peerDependencies": {
     "@prefecthq/vue-compositions": "^1.11.0",
-    "vue": "^3.4.4",
+    "vue": "^3.4.27",
     "vue-router": "^4.1.6"
   },
   "dependencies": {
