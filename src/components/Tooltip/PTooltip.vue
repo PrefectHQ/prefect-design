@@ -26,8 +26,8 @@
   import { defineProps, computed } from 'vue'
   import TooltipContent from '@/components/Tooltip/PTooltipContent.vue'
   import TooltipProvider from '@/components/Tooltip/PTooltipProvider.vue'
+  import TooltipRoot from '@/components/Tooltip/PTooltipRoot.vue'
   import TooltipTrigger from '@/components/Tooltip/PTooltipTrigger.vue'
-  import TooltipRoot from '@/components/Tooltip/TooltipRoot.vue'
 
 
   // eslint-disable-next-line vue/no-unused-properties
