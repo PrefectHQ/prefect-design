@@ -48,7 +48,7 @@
 
   const delegatedContentProps = computed(() => {
     // eslint-disable-next-line id-length, no-unused-vars
-    const { sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached } = props
-    return { sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached }
+    const { side, sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached } = props
+    return { side, sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached }
   })
 </script>
