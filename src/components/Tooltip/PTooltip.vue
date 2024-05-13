@@ -1,6 +1,6 @@
 <template>
   <TooltipProvider :v-bind="delegatedProviderProps">
-    <TooltipBase :v-bind="delegatedRootProps">
+    <TooltipRoot :v-bind="delegatedRootProps">
       <TooltipTrigger as-child>
         <slot />
 
@@ -17,17 +17,17 @@
           </slot>
         </TooltipContent>
       </TooltipTrigger>
-    </TooltipBase>
+    </TooltipRoot>
   </TooltipProvider>
 </template>
 
 <script setup lang="ts">
   import { type TooltipRootProps, type TooltipProviderProps, type TooltipContentProps } from 'radix-vue'
   import { defineProps, computed } from 'vue'
-  import TooltipBase from '@/components/Tooltip/PTooltipBase.vue'
   import TooltipContent from '@/components/Tooltip/PTooltipContent.vue'
   import TooltipProvider from '@/components/Tooltip/PTooltipProvider.vue'
   import TooltipTrigger from '@/components/Tooltip/PTooltipTrigger.vue'
+  import TooltipRoot from '@/components/Tooltip/TooltipRoot.vue'
 
 
   // eslint-disable-next-line vue/no-unused-properties
