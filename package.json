@@ -29,11 +29,11 @@
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.mjs",
   "exports": {
+    "./src/*": "./src/*",
     ".": {
       "import": "./dist/prefect-design.mjs",
       "require": "./dist/prefect-design.umd.js"
-    },
-    "./tailwind.config.ts": "./src/tailwind.config.ts"
+    }
   },
   "files": [
     "dist",
