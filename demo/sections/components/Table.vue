@@ -97,8 +97,8 @@
 
         <template #row-after="{ row }">
           <PTableRow v-if="isExpanded(row)">
-            <PTableData :colspan="columns.length">
-              <p-code-highlight :text="JSON.stringify(row, null, 2)" lang="json" class="w-full grow" />
+            <PTableData :colspan="columns.length" class="!p-0">
+              <p-code-highlight :text="JSON.stringify(row, null, 2)" lang="json" class="!rounded-none !p-4" />
             </PTableData>
           </PTableRow>
         </template>
