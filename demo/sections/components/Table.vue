@@ -7,6 +7,7 @@
       { title: 'With Multiselect' },
       { title: 'Using Columns' },
       { title: 'Custom Slots' },
+      { title: 'Expandable Rows' },
       { title: 'Empty States' },
     ]"
   >
@@ -82,6 +83,28 @@
       </p-table>
     </template>
 
+    <template #expandable-rows>
+      <p-table :data="data" :columns="columns">
+        <template #action-heading>
+          <span />
+        </template>
+
+        <template #action="{ row }">
+          <div class="w-full flex justify-end">
+            <p-button class="ml-auto" small :icon="isExpanded(row) ? 'ChevronUpIcon' : 'ChevronDownIcon'" @click="expandRow(row)" />
+          </div>
+        </template>
+
+        <template #row-after="{ row }">
+          <PTableRow v-if="isExpanded(row)">
+            <PTableData :colspan="columns.length" class="!p-0">
+              <p-code-highlight :text="JSON.stringify(row, null, 2)" lang="json" class="!rounded-none !p-4" />
+            </PTableData>
+          </PTableRow>
+        </template>
+      </p-table>
+    </template>
+
     <template #empty-states>
       <p-table :data="emptyDate" :columns="columns">
         <template #empty-state>
@@ -153,7 +176,6 @@
     {
       property: 'last_name',
       label: 'Last Name (or family name)',
-      width: '120px',
     },
     {
       property: 'email',
@@ -180,6 +202,17 @@
       'custom-column-class': column.label === 'Last Name',
       'custom-column-class--index': index === 3,
     }
+  }
+
+
+  const expandedRows = ref<Map<number, boolean>>(new Map())
+
+  function isExpanded(row: Data): boolean {
+    return expandedRows.value.get(row.id) ?? false
+  }
+
+  function expandRow(row: Data): void {
+    expandedRows.value.set(row.id, !isExpanded(row))
   }
 </script>
 

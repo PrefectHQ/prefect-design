@@ -13,6 +13,10 @@
             </template>
           </slot>
         </PTableRow>
+
+        <template v-if="$slots['row-after']">
+          <slot name="row-after" v-bind="{ row, index }" />
+        </template>
       </template>
     </slot>
   </tbody>
