@@ -38,6 +38,10 @@
                 </PTableData>
               </template>
             </PTableRow>
+
+            <template v-if="$slots['row-after']">
+              <slot name="row-after" v-bind="{ row, rowIndex }" />
+            </template>
           </template>
           <template v-if="slots['empty-state'] && data.length === 0">
             <PTableRow>
