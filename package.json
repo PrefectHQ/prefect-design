@@ -30,6 +30,7 @@
   "module": "./dist/prefect-design.mjs",
   "exports": {
     "./src/*": "./src/*",
+    "./dist/*": "./dist/*",
     ".": {
       "import": "./dist/prefect-design.mjs",
       "require": "./dist/prefect-design.umd.js"
