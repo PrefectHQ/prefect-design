@@ -20,7 +20,7 @@
         <div>{{ item }}</div>
       </template>
       <hr class="my-2">
-      <p-pager v-model:page="page" :pages="pages" />
+      <p-pager v-model:page="page" :pages="pages" class="mx-auto w-max" />
     </template>
 
     <template #table>
