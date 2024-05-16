@@ -1,13 +1,17 @@
 <template>
   <div class="p-pager">
-    <p class="p-pager__context">
-      <template v-if="pages">
-        Showing page <span class="p-pager__page">{{ page }}</span> of <span class="p-pager__page">{{ pages }}</span>
+    <slot name="limit">
+      <template v-if="limit">
+        <div class="p-pager__limit">
+          {{ limitText }} <p-select v-model="limit" small class="p-pager__limit-select" :options="limits" />
+        </div>
       </template>
-      <template v-else>
-        Page <span class="p-pager__page">{{ page }}</span>
-      </template>
-    </p>
+    </slot>
+
+    <div class="p-pager__slot">
+      <slot />
+    </div>
+
     <div class="p-pager__buttons">
       <p-button
         v-if="pages"
@@ -19,6 +23,16 @@
       />
 
       <p-button icon="ChevronLeftIcon" :disabled="disablePrevious" size="sm" variant="ghost" @click="previous" />
+
+      <p class="p-pager__context">
+        Page
+        <template v-if="pages">
+          <span class="p-pager__page">{{ page }}</span> of <span class="p-pager__page">{{ pages }}</span>
+        </template>
+        <template v-else>
+          <span class="p-pager__page">{{ page }}</span>
+        </template>
+      </p>
       <p-button icon="ChevronRightIcon" :disabled="disableNext" size="sm" variant="ghost" @click="next" />
 
       <p-button
@@ -38,6 +52,10 @@
 
   const page = defineModel<number>('page', { required: true })
   const pages = defineModel<number>('pages')
+  const limit = defineModel<number>('limit')
+
+  const limits = defineModel<number[]>('limits', { default: () => [5, 10, 25, 50] })
+  const limitText = computed(() => 'Items per page')
 
   const disableFirst = computed(() => page.value === 1)
   const disableLast = computed(() => page.value === (pages.value ?? Infinity))
@@ -67,18 +85,13 @@
   flex-col
   flex-wrap
   items-center
-  justify-between
   gap-2
   sm:flex-row
 }
 
 .p-pager__context { @apply
-  text-sm
+  text-xs
   text-subdued
-}
-
-.p-pager__page { @apply
-  font-medium
 }
 
 .p-pager__buttons { @apply
@@ -86,5 +99,17 @@
   flex-wrap
   items-center
   gap-2
+}
+
+.p-pager__slot { @apply
+  grow
+}
+
+.p-pager__limit { @apply
+  text-xs
+  text-subdued
+  flex
+  items-center
+  gap-1
 }
 </style>
