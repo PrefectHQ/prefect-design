@@ -9,12 +9,26 @@
       </template>
     </p>
     <div class="p-pager__buttons">
-      <p-button small icon="ChevronLeftIcon" :disabled="!showPrevious" @click="previous">
-        Previous
-      </p-button>
-      <p-button small icon-append="ChevronRightIcon" :disabled="!showNext" @click="next">
-        Next
-      </p-button>
+      <p-button
+        v-if="pages"
+        icon="ChevronDoubleLeftIcon"
+        :disabled="disableFirst"
+        size="sm"
+        variant="ghost"
+        @click="first"
+      />
+
+      <p-button icon="ChevronLeftIcon" :disabled="disablePrevious" size="sm" variant="ghost" @click="previous" />
+      <p-button icon="ChevronRightIcon" :disabled="disableNext" size="sm" variant="ghost" @click="next" />
+
+      <p-button
+        v-if="pages"
+        icon="ChevronDoubleRightIcon"
+        :disabled="disableLast"
+        size="sm"
+        variant="ghost"
+        @click="last"
+      />
     </div>
   </div>
 </template>
@@ -22,24 +36,28 @@
 <script lang="ts" setup>
   import { computed } from 'vue'
 
-  const props = defineProps<{
-    page: number,
-    pages?: number,
-  }>()
+  const page = defineModel<number>('page', { required: true })
+  const pages = defineModel<number>('pages')
 
-  const emit = defineEmits<{
-    (event: 'update:page', value: number): void,
-  }>()
-
-  const showPrevious = computed(() => props.page > 1)
-  const showNext = computed(() => props.page < (props.pages ?? Infinity))
+  const disableFirst = computed(() => page.value === 1)
+  const disableLast = computed(() => page.value === (pages.value ?? Infinity))
+  const disableNext = computed(() => page.value >= (pages.value ?? Infinity))
+  const disablePrevious = computed(() => page.value <= 1)
 
   function previous(): void {
-    emit('update:page', props.page - 1)
+    --page.value
   }
 
   function next(): void {
-    emit('update:page', props.page + 1)
+    ++page.value
+  }
+
+  function first(): void {
+    page.value = 1
+  }
+
+  function last(): void {
+    page.value = pages.value ?? 1
   }
 </script>
 
