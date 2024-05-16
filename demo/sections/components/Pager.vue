@@ -20,12 +20,12 @@
         <div>{{ item }}</div>
       </template>
       <hr class="my-2">
-      <p-pager v-model:page="page" :pages="pages" />
+      <p-pager v-model:page="page" :pages="pages" class="mx-auto w-max" />
     </template>
 
     <template #table>
       <p-table :data="data" class="mb-2" />
-      <p-pager v-model:page="page" :pages="pages" />
+      <p-pager v-model:page="page" v-model:limit="itemsPerPage" :pages="pages" />
     </template>
   </ComponentPage>
 </template>
