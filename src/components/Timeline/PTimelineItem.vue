@@ -158,6 +158,10 @@
   text-left
 }
 
+.p-timeline-item__content { @apply
+  self-center
+}
+
 .p-timeline-item__content--date-left { @apply
   text-left
 }
