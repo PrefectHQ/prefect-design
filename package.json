@@ -42,8 +42,6 @@
   ],
   "types": "./dist/types/src/index.d.ts",
   "devDependencies": {
-    "@fontsource/inconsolata": "^4.5.7",
-    "@fontsource/inter": "^4.5.12",
     "@prefecthq/eslint-config": "1.0.32",
     "@types/dompurify": "^3.0.1",
     "@types/marked": "^4.0.8",
@@ -69,6 +67,8 @@
     "vue-router": "^4.1.6"
   },
   "dependencies": {
+    "@fontsource/inconsolata": "^5.0.18",
+    "@fontsource/inter": "^5.0.18",
     "@heroicons/vue": "2.0.17",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",

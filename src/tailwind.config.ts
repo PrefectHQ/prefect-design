@@ -120,11 +120,7 @@ const plugins = [
 ]
 
 export default {
-  content: [
-    './src/**/*.{vue,js,ts}',
-    './demo/index.html',
-    './demo/**/*.vue',
-  ],
+  content: ['./src/**/*.{vue}'],
   darkMode,
   plugins,
   theme: {
