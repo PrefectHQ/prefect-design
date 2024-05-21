@@ -1,7 +1,6 @@
 <template>
   <div class="p-date-range-duration-input">
     <PNumberInput v-model="quantity" prepend="±" />
-    <!-- <PNativeSelect v-model="unit" :options="units" /> -->
     <PSelect v-model="unit" :options="units" />
   </div>
 </template>
