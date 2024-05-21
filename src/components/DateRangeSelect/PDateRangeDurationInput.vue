@@ -1,14 +1,14 @@
 <template>
   <div class="p-date-range-duration-input">
     <PNumberInput v-model="quantity" prepend="±" />
-    <PNativeSelect v-model="unit" :options="units" />
+    <PSelect v-model="unit" :options="units" />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed } from 'vue'
-  import PNativeSelect from '@/components/NativeSelect/PNativeSelect.vue'
-  import { PNumberInput } from '@/components/NumberInput'
+  import PNumberInput from '@/components/NumberInput/PNumberInput.vue'
+  import PSelect from '@/components/Select/PSelect.vue'
   import { DateRangeSelectAroundUnit } from '@/types/dateRange'
   import { SelectOption } from '@/types/selectOption'
 
