@@ -11,19 +11,6 @@
       { title: 'Selected' },
     ]"
   >
-    <p-button>
-      Button
-    </p-button>
-    <p-button variant="outline">
-      Button
-    </p-button>
-    <p-button variant="default">
-      Button
-    </p-button>
-    <p-button variant="destructive">
-      Button
-    </p-button>
-
     <template #outline-button>
       <div class="flex gap-4 items-center flex-wrap mb-4">
         <p-button variant="outline">
