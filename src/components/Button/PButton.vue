@@ -9,11 +9,11 @@
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="props.size == 'sm' || props.small ? undefined : 'large'" :icon="icon" class="p-button__icon" />
+        <PIcon :size="iconSize" :icon="icon" class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="props.size == 'sm' || props.small ? undefined : 'large'" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="iconSize" :icon="iconAppend" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -43,7 +43,7 @@
           link: 'p-button--link',
         },
         size: {
-          default: 'px-4 py-2',
+          default: 'px-3 py-1.5',
           sm: 'text-sm px-2 py-1',
           lg: 'h-11 rounded-md px-8',
           icon: 'h-10 w-10',
@@ -117,20 +117,36 @@
     }
   })
 
+  const iconSize = computed(() => {
+    if (props.size === 'sm') {
+      return 'small'
+    }
+
+    if (props.size === 'lg') {
+      return 'large'
+    }
+
+    return 'default'
+  })
+
   const computedVariantCompatLayer = computed(() => {
     // Until we migrate all the buttons to use the new variant prop, we need to support the old props
     if (props.dangerous || props.variant === 'destructive') {
       return 'destructive'
     }
+
     if (props.primary || props.variant === 'default') {
       return 'default'
     }
+
     if (props.flat || props.variant === 'ghost') {
       return 'ghost'
     }
+
     if (props.variant === 'link') {
       return 'link'
     }
+
     return 'outline'
   })
 
@@ -154,6 +170,8 @@
   justify-center
   whitespace-nowrap
   rounded-md
+  border
+  border-transparent
   text-sm
   font-medium
   ring-offset-background
@@ -170,13 +188,14 @@
   aria-selected:border-[color:var(--p-color-button-selected-border)]
 }
 
-.p-button--default{@apply
+.p-button--default{ @apply
   bg-primary
   text-primary-foreground
   hover:bg-primary/90
   active:bg-primary/80
 }
-.p-button--outline{@apply
+
+.p-button--outline{ @apply
   border
   border-input
   bg-background
@@ -184,18 +203,21 @@
   hover:text-accent-foreground
   active:bg-accent/90
 }
-.p-button--ghost{@apply
+
+.p-button--ghost{ @apply
   hover:bg-accent
   hover:text-accent-foreground
   active:bg-accent/90
 }
-.p-button--destructive{@apply
+
+.p-button--destructive{ @apply
   bg-destructive
   text-destructive-foreground
   hover:bg-destructive/90
   active:bg-destructive/80
 }
-.p-button--link{@apply
+
+.p-button--link{ @apply
   text-primary
   underline-offset-4
   hover:underline
