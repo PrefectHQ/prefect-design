@@ -55,8 +55,8 @@ const ringOffsetWidth = {
 }
 
 const fontFamily = {
-  sans: ['Inter', ...defaultTheme.fontFamily.sans],
-  mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
+  sans: ['Inter Variable', ...defaultTheme.fontFamily.sans],
+  mono: ['Inconsolata Variable', ...defaultTheme.fontFamily.mono],
 }
 
 const keyframes = {
