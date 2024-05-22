@@ -54,9 +54,12 @@ const ringOffsetWidth = {
   'focus-ring': 'var(--p-spacing-focus-ring-offset)',
 }
 
+export const sansFontFamily = 'Inter Variable'
+export const monoFontFamily = 'Inconsolata Variable'
+
 const fontFamily = {
-  sans: ['Inter Variable', ...defaultTheme.fontFamily.sans],
-  mono: ['Inconsolata Variable', ...defaultTheme.fontFamily.mono],
+  sans: [sansFontFamily, ...defaultTheme.fontFamily.sans],
+  mono: [monoFontFamily, ...defaultTheme.fontFamily.mono],
 }
 
 const keyframes = {
