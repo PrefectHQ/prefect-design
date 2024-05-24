@@ -72,11 +72,20 @@
 
   function eventHandler(event: MouseEvent | FocusEvent): void {
     const eventTarget = event.target as Element
+    const isMouseEvent = event instanceof MouseEvent
 
+    /*
+     * isEventInElement checks are backup checks for click events where the
+     * click changes the content of the popover. The element clicked on may
+     * no longer exist in the dom so the element.contains check will fail.
+     * So falling back to checking if the event x,y originated within the element
+     */
     if (
       !props.autoClose
       || target.value?.contains(eventTarget)
+      || isMouseEvent && isEventInElement(event, target.value)
       || content.value?.contains(eventTarget)
+      || isMouseEvent && isEventInElement(event, content.value)
       || eventTarget.closest('.p-pop-over-content') !== null
     ) {
       return
@@ -84,6 +93,26 @@
 
     close()
   }
+
+  function isEventInElement(event: MouseEvent, element: Element | undefined): boolean {
+    if (!element) {
+      return false
+    }
+
+    const rect = element.getBoundingClientRect()
+    const { clientX, clientY } = event
+
+    if (clientX < rect.left || clientX >= rect.right) {
+      return false
+    }
+
+    if (clientY < rect.top || clientY >= rect.bottom) {
+      return false
+    }
+
+    return true
+  }
+
 
   function open(): void {
     setGroupCloseMethod(close)

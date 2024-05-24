@@ -16,19 +16,19 @@
   }>()
 
   const styles = computed(() => ({
-    height: visible.value ? undefined : `${height.value ?? props.height}px`,
+    height: visible.value ? undefined : `${internalHeight.value ?? props.height}px`,
   }))
 
   const el = ref<HTMLDivElement>()
   const visible = ref(false)
-  const height = ref<number | null>(null)
+  const internalHeight = ref<number | null>(null)
   const { observe } = useIntersectionObserver(intersect, props.observerOptions)
 
   function setHeight(): void {
     setTimeout(() => {
       const rect = el.value!.getBoundingClientRect()
 
-      height.value = rect.height
+      internalHeight.value = rect.height
     })
   }
 
