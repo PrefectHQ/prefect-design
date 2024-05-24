@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
   import { eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, isToday, startOfMonth, startOfWeek } from 'date-fns'
-  import { computed } from 'vue'
+  import { VNode, computed } from 'vue'
   import { ClassValue } from '@/types/attributes'
   import { isDateAfter, isDateBefore, isNotNullish } from '@/utilities'
 
@@ -55,7 +55,7 @@
   }>()
 
   defineSlots<{
-    date: (props: DateSlotScope) => any,
+    date: (props: DateSlotScope) => VNode,
   }>()
 
   const selected = computed({
