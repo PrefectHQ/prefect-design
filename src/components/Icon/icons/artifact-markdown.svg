@@ -1,3 +1,13 @@
-<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 3.875C7.5 3.11561 8.11561 2.5 8.875 2.5H16.125C16.8844 2.5 17.5 3.11561 17.5 3.875V16.125C17.5 16.8844 16.8844 17.5 16.125 17.5H8.875C8.11561 17.5 7.5 16.8844 7.5 16.125V10.9375H6.66449C6.31341 11.6765 5.56012 12.1875 4.6875 12.1875C3.47938 12.1875 2.5 11.2081 2.5 10C2.5 8.79188 3.47938 7.8125 4.6875 7.8125C5.56012 7.8125 6.31341 8.32345 6.66449 9.0625H7.5V3.875ZM15 7.1875H10V5.3125H15V7.1875ZM15 10.9375H10V9.0625H15V10.9375ZM10 14.6875H12.5V12.8125H10V14.6875Z" fill="currentColor"/>
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_11_270)">
+<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C8 15.4477 8.44772 15 9 15H11C11.5523 15 12 15.4477 12 16C12 16.5523 11.5523 17 11 17H9C8.44772 17 8 16.5523 8 16Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z" fill="currentColor"/>
+</g>
+<defs>
+<clipPath id="clip0_11_270">
+<rect width="24" height="24" fill="currentColor"/>
+</clipPath>
+</defs>
 </svg>
