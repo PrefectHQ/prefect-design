@@ -25,7 +25,14 @@
                   <span class="p-modal__title">{{ title }}</span>
                 </slot>
               </div>
-              <p-button class="p-modal__x-button" icon="XMarkIcon" small flat @click="modalScope.close" />
+              <p-button
+                v-if="!hideCloseButton"
+                class="p-modal__x-button"
+                icon="XMarkIcon"
+                small
+                flat
+                @click="modalScope.close"
+              />
             </div>
 
             <div ref="modalBody" class="p-modal__body">
@@ -34,9 +41,9 @@
 
             <div v-if="$slots.actions" class="p-modal__footer">
               <slot name="actions" v-bind="modalScope" />
-              <slot name="cancel" v-bind="modalScope">
+              <slot v-if="!hideCloseButton" name="cancel" v-bind="modalScope">
                 <p-button class="p-modal__close-button" @click="modalScope.close">
-                  Cancel
+                  Close
                 </p-button>
               </slot>
             </div>
@@ -70,6 +77,7 @@
     showModal?: boolean,
     title?: string,
     icon?: Icon,
+    hideCloseButton?: boolean,
     autoClose?: boolean,
   }>()
 
