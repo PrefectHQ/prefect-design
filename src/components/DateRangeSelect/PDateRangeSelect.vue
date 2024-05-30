@@ -264,14 +264,6 @@
   rounded-l-none
 }
 
-.p-date-range-select__input { @apply
-  overflow-hidden
-  grow
-  shrink
-  min-w-0
-  rounded-none
-}
-
 .p-date-range-select__content { @apply
   w-full
   flex
@@ -281,8 +273,14 @@
 }
 
 .p-date-range-select__input { @apply
-  overflow-hidden
   grow
+  shrink
+  min-w-0
+  rounded-none
+  overflow-hidden
+}
+
+.p-date-range-select__input .p-button__content { @apply
   shrink
   min-w-0
 }
@@ -299,6 +297,7 @@
   shrink
   min-w-0
   whitespace-nowrap
+  truncate
 }
 
 .p-date-range-select__label--placeholder { @apply
