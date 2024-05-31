@@ -1,7 +1,7 @@
 <template>
   <TooltipProvider v-bind="delegatedProviderProps">
     <TooltipRoot v-bind="delegatedRootProps">
-      <TooltipTrigger as-child>
+      <TooltipTrigger as-child v-bind="$attrs">
         <slot />
 
         <TooltipContent
@@ -42,6 +42,9 @@
       ignoreNonKeyboardFocus: undefined,
     })
 
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const delegatedRootProps = computed<TooltipRootProps>(() => {
     const { defaultOpen, open, delayDuration, disableHoverableContent, disableClosingTrigger, disabled, ignoreNonKeyboardFocus } = props
