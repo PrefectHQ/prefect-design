@@ -9,6 +9,7 @@
   @apply
     p-6
     pt-0
+    grow
     only:p-4
     ;
 }
