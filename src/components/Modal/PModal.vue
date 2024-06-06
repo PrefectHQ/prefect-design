@@ -107,10 +107,6 @@
     },
   }))
 
-  function close(): void {
-    emit('update:showModal', false)
-  }
-
   function findFirstFocusable(): HTMLElement | undefined {
     const focusable = useFocusableElements(modalBody)
 
@@ -125,13 +121,13 @@
 
   function handleMaskClick(): void {
     if (props.autoClose) {
-      close()
+      modalScope.close()
     }
   }
 
   function closeOnEscape(event: KeyboardEvent): void {
     if (open.value && props.autoClose && isKeyEvent(keys.escape, event)) {
-      close()
+      modalScope.close()
     }
   }
   useGlobalEventListener('keyup', closeOnEscape)
