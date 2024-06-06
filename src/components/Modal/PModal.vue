@@ -107,6 +107,10 @@
     },
   }))
 
+  function close(): void {
+    emit('update:showModal', false)
+  }
+
   function findFirstFocusable(): HTMLElement | undefined {
     const focusable = useFocusableElements(modalBody)
 
