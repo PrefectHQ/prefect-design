@@ -21,7 +21,6 @@
 
 <style>
 .markdown-renderer { @apply
-  text-base
   block
   overflow-auto
 }
@@ -45,7 +44,6 @@
 .markdown-renderer__blockquote .markdown-renderer__table,
 .markdown-renderer__blockquote .markdown-renderer__codespan { @apply
   font-normal
-  text-base
   not-italic
 }
 
