@@ -40,6 +40,9 @@
             </div>
           </slot>
         </template>
+        <template v-else>
+          <slot name="bottom" />
+        </template>
       </template>
     </PVirtualScroller>
     <slot name="post-options" />
