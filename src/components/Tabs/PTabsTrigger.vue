@@ -25,7 +25,7 @@
   px-3
   py-1.5
   text-sm
-  font-medium
+  text-subdued
   ring-offset-background
   transition-all
   focus-visible:outline-none
@@ -36,6 +36,7 @@
   disabled:opacity-50
   data-[state=active]:bg-background
   data-[state=active]:text-foreground
+  data-[state=active]:text-default
   data-[state=active]:shadow-sm;
 }
 </style>
