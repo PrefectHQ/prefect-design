@@ -47,6 +47,7 @@
   inline-flex
   items-center
   gap-4
+  cursor-default
   text-subdued
 }
 
@@ -65,5 +66,9 @@
 
 .p-wizard-step-header--current { @apply
   text-selected
+}
+
+.p-wizard-step-header:disabled { @apply
+  cursor-not-allowed
 }
 </style>

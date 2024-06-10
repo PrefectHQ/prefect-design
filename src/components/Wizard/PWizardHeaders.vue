@@ -9,6 +9,7 @@
           :loading="loading && index === currentStepIndex"
           :complete="index < wizard.furthestStepIndex.value"
           class="p-wizard-headers__step-header"
+          :disabled="stepIsDisabled(index)"
           :class="classes.stepHeader(index)"
           @click="handleStepHeaderClick(index)"
         >
@@ -42,12 +43,19 @@
 
   const wizard = useWizard()
 
+  const stepIsDisabled = (index: number): boolean => {
+    return !props.nonlinear && index > wizard.furthestStepIndex.value
+  }
+
+
   function handleStepHeaderClick(index: number): void {
-    if (!props.nonlinear && index > wizard.furthestStepIndex.value) {
+    if (props.loading || stepIsDisabled(index)) {
       return
     }
+
     wizard.goto(index + 1)
   }
+
 
   const classes = computed(() => ({
     container: {
@@ -55,7 +63,8 @@
     },
     stepHeader: (index: number) => {
       return {
-        'p-wizard-headers__step-header--interactive': !props.loading && (props.nonlinear || index < wizard.furthestStepIndex.value),
+        'p-wizard-headers__step-header--loading': props.loading,
+        'p-wizard-headers__step-header--interactive': !props.loading && !stepIsDisabled(index) && index !== props.currentStepIndex,
       }
     },
   }))
@@ -75,11 +84,11 @@
   flex-col
 }
 
-.p-wizard-headers__step-header { @apply
-  cursor-default
-}
-
 .p-wizard-headers__step-header--interactive { @apply
   cursor-pointer
+}
+
+.p-wizard-headers__step-header--loading { @apply
+  cursor-wait
 }
 </style>
