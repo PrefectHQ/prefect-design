@@ -8,6 +8,8 @@
           :current="index === currentStepIndex"
           :loading="loading && index === currentStepIndex"
           :complete="index < wizard.furthestStepIndex.value"
+          class="p-wizard-headers__step-header"
+          :class="classes.stepHeader(index)"
           @click="handleStepHeaderClick(index)"
         >
           <template #default="data">
@@ -51,6 +53,11 @@
     container: {
       'p-wizard-headers--wrapped': wrapped.value,
     },
+    stepHeader: (index: number) => {
+      return {
+        'p-wizard-headers__step-header--interactive': !props.loading && (props.nonlinear || index < wizard.furthestStepIndex.value),
+      }
+    },
   }))
 </script>
 
@@ -66,5 +73,13 @@
 .p-wizard-headers--wrapped { @apply
   justify-start
   flex-col
+}
+
+.p-wizard-headers__step-header { @apply
+  cursor-default
+}
+
+.p-wizard-headers__step-header--interactive { @apply
+  cursor-pointer
 }
 </style>
