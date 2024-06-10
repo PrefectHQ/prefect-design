@@ -2,7 +2,7 @@
   <div class="step-one">
     <p-content>
       <p-form @submit="wizard.next">
-        <p-label label="Favorite Color" :state="state" :message="error">
+        <p-label label="Favorite Color" :state :message="error">
           <p-text-input v-model="internalValue" />
         </p-label>
       </p-form>

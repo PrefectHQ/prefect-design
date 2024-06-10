@@ -1,7 +1,7 @@
 <template>
   <div class="step-two">
     <p-form @submit="wizard.next">
-      <p-label label="Here are my terms, agree or perish">
+      <p-label label="Here are my terms, agree or perish" :state :message="error">
         <p-checkbox v-model="internalValue" label="I agree" />
       </p-label>
     </p-form>
@@ -10,6 +10,7 @@
 
 <script lang="ts" setup>
   import { useWizardStep } from '@/compositions/wizard'
+  import { useValidation } from '@prefecthq/vue-compositions'
   import { computed } from 'vue'
 
   const props = defineProps<{
@@ -31,5 +32,14 @@
 
   const { wizard, defineValidate } = useWizardStep()
 
-  defineValidate(() => internalValue.value)
+  const { error, state, validate } = useValidation(internalValue, (value) => {
+    if (!value) {
+      return 'You must accept the terms and conditions to continue.'
+    }
+
+    return true
+  })
+
+
+  defineValidate(validate)
 </script>
