@@ -2,7 +2,7 @@
   <div class="step-one">
     <p-content>
       <p-form @submit="wizard.next">
-        <p-label label="Favorite Color">
+        <p-label label="Favorite Color" :state :message="error">
           <p-text-input v-model="internalValue" />
         </p-label>
       </p-form>
@@ -15,6 +15,7 @@
 
 <script lang="ts" setup>
   import { useWizardStep } from '@/compositions/wizard'
+  import { useValidation } from '@prefecthq/vue-compositions'
   import { computed } from 'vue'
 
   const props = defineProps<{
@@ -36,10 +37,20 @@
 
   const { wizard, defineValidate } = useWizardStep()
 
+
+  const { error, state, validate } = useValidation(internalValue, 'Favorite color', (value) => {
+    if (value.length === 0) {
+      return 'Favorite color is required'
+    }
+
+    return true
+  })
+
+
   defineValidate(() => {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve(internalValue.value.length > 0)
+        resolve(validate())
       }, 2000)
     })
   })
