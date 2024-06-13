@@ -1,5 +1,5 @@
 <template>
-  <p-base-input class="p-code-input">
+  <p-base-input class="p-code-input" multiline>
     <template v-for="(index, name) in $slots" #[name]="scope">
       <slot :name="name" v-bind="scope" />
     </template>

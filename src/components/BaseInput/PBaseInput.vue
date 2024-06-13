@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="p-base-input" :class="classes" :style="styles" v-bind="listeners">
+  <div ref="el" class="p-base-input" :class="classes.root" :style="styles" v-bind="listeners">
     <div v-if="prepend" class="p-base-input__prepend">
       {{ prepend }}
     </div>
@@ -14,7 +14,7 @@
       <PIcon icon="ExclamationCircleIcon" :size="iconSize" />
     </div>
 
-    <div v-if="state?.pending" class="p-base-input__pending-icon">
+    <div v-if="state?.pending" class="p-base-input__pending-icon" :class="classes.pendingIcon">
       <PLoadingIcon :size="iconSize" />
     </div>
   </div>
@@ -42,6 +42,7 @@
     append?: string,
     disabled?: boolean,
     small?: boolean,
+    multiline?: boolean,
   }>()
 
   const { classes: attrClasses, listeners, styles, attrs } = useAttrsStylesClassesAndListeners()
@@ -50,15 +51,20 @@
 
   defineExpose({ el })
 
-  const classes = computed(() => [
-    ...asArray(attrClasses.value),
-    {
-      'p-base-input--disabled': props.disabled,
-      'p-base-input--failed': failed.value,
-      'p-base-input--pending': props.state?.pending,
-      'p-base-input--small': props.small,
+  const classes = computed(() => ({
+    root: [
+      ...asArray(attrClasses.value),
+      {
+        'p-base-input--disabled': props.disabled,
+        'p-base-input--failed': failed.value,
+        'p-base-input--pending': props.state?.pending,
+        'p-base-input--small': props.small,
+      },
+    ],
+    pendingIcon: {
+      'p-base-input__pending-icon--absolute': props.multiline,
     },
-  ])
+  }))
 
   const iconSize = computed(() => props.small ? 'small' : undefined)
 
@@ -78,6 +84,7 @@
   flex
   items-center
   border
+  relative
   focus-within:ring-spacing-focus-ring
   focus-within:ring-focus-ring
   focus-within:ring-offset-focus-ring
@@ -177,5 +184,22 @@
 .p-base-input--small .p-base-input__pending-icon { @apply
   w-4
   h-4;
+}
+
+.p-base-input__pending-icon--absolute { @apply
+  absolute
+  top-0
+  bottom-0
+  left-0
+  right-0
+  bg-rose-500
+  h-full
+  z-10
+}
+
+.p-base-input__pending-icon--absolute .p-base-input__pending-icon { @apply
+  absolute
+  left-1/2
+  top-1/2
 }
 </style>
