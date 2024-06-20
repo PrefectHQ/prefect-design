@@ -189,7 +189,7 @@
   }
 </script>
 
-<style scoped>
+<style>
 .p-table { @apply
   overflow-hidden
   overflow-x-auto
