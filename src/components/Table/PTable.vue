@@ -11,7 +11,7 @@
                 </PTableHeader>
               </template>
 
-              <template v-for="(column, columnIndex) in visibleColumns" :key="column">
+              <template v-for="(column, columnIndex) in visibleColumns" :key="getHeaderColumnKey(column, columnIndex)">
                 <PTableHeader :style="getColumnStyle(column)" :class="getHeaderClasses(column, columnIndex)" :title="column.label">
                   <slot :name="`${kebabCase(column.label)}-heading`" v-bind="{ column }">
                     {{ column.label }}
@@ -22,7 +22,7 @@
           </slot>
         </PTableHead>
         <PTableBody>
-          <template v-for="(row, rowIndex) in data" :key="rowIndex">
+          <template v-for="(row, rowIndex) in data" :key="getRowKey(row, rowIndex)">
             <PTableRow :class="getRowClasses(row, rowIndex)" @click="emit('row:click', { row, rowIndex })">
               <template v-if="showMultiselect">
                 <PTableData class="p-table__checkbox-cell">
@@ -30,7 +30,7 @@
                 </PTableData>
               </template>
 
-              <template v-for="(column, columnIndex) in visibleColumns" :key="column">
+              <template v-for="(column, columnIndex) in visibleColumns" :key="getColumnKey(column, columnIndex)">
                 <PTableData :class="getColumnClasses(column, getValue(row, column.property), columnIndex, row, rowIndex)">
                   <slot :name="kebabCase(column.label)" :value="getValue(row, column.property)" v-bind="{ column, row }">
                     {{ getValue(row, column.property) }}
@@ -84,6 +84,9 @@
     rowClasses?: RowClassesMethod<NoInfer<TData>>,
     headerClasses?: HeaderClassesMethod<NoInfer<TData>>,
     columnClasses?: ColumnClassesMethod<NoInfer<TData>>,
+    rowKey?: (row: TData, index: number) => string | number,
+    columnKey?: (column: TColumn, index: number) => string | number,
+    headerColumnKey?: (column: TColumn, index: number) => string | number,
   }>()
 
   const slots = useSlots()
@@ -186,6 +189,30 @@
         'p-table-column--last': index === columns.value.length - 1,
       },
     ]
+  }
+
+  function getRowKey(row: TData, index: number): string | number {
+    if (props.rowKey) {
+      return props.rowKey(row, index)
+    }
+
+    return index
+  }
+
+  function getHeaderColumnKey(column: TColumn, index: number): string | number {
+    if (props.headerColumnKey) {
+      return props.headerColumnKey(column, index)
+    }
+
+    return index
+  }
+
+  function getColumnKey(column: TColumn, index: number): string | number {
+    if (props.columnKey) {
+      return props.columnKey(column, index)
+    }
+
+    return index
   }
 </script>
 
