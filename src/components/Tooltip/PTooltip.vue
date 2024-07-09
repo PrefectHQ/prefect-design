@@ -61,3 +61,9 @@
     return { side, sideOffset, align, avoidCollisions, collisionBoundary, collisionPadding, arrowPadding, sticky, hideWhenDetached, ariaLabel, alignOffset }
   })
 </script>
+
+<style>
+[data-radix-popper-content-wrapper] {
+  z-index: var(--p-tooltip-content-z-index, 100) !important;
+}
+</style>
