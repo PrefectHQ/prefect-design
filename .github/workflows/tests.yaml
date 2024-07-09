@@ -34,8 +34,5 @@ jobs:
         id: setup
         uses: prefecthq/actions-setup-nodejs@main
 
-      - name: Install dependencies
-        run: npm ci install
-
       - name: Build package
         run: npm run build
