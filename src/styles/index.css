@@ -307,7 +307,7 @@
     --p-color-button-default-border-active: var(--p-color-button-default-border-hover);
     --p-color-button-default-text-active: var(--p-color-button-default-text-hover);
 
-    --p-color-button-primary-bg: hsl(--p-primary);
+    --p-color-button-primary-bg: hsl(var(--p-primary));
     --p-color-button-primary-border: transparent;
     --p-color-button-primary-text: var(--p-color-text-inverse);
     --p-color-button-primary-bg-hover: hsl(var(--p-primary-hue), 89.92%, 52%);
