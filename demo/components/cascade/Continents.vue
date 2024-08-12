@@ -22,7 +22,7 @@
   import { computed, ref } from 'vue'
 
   const search = ref()
-  const value = defineModel('value', { required: true })
+  const value = defineModel<string | undefined>('value', { required: true })
 
   const continents = [
     'Africa',
