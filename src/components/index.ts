@@ -327,7 +327,7 @@ export const installs = [
   installPWizard,
 ]
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     PAccordion: typeof PAccordion,
     PAutoHeightTransition: typeof PAutoHeightTransition,
