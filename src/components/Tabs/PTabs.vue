@@ -2,7 +2,7 @@
   <section class="p-tabs">
     <template v-if="media.sm">
       <PTabNavigation v-model:selected="selected" class="p-tabs--not-mobile" :tabs="tabs">
-        <template v-for="tab in tabs" #[`${kebabCase(tab.label)}-heading`]="data">
+        <template v-for="tab in tabs" #[getHeadingSlotName(tab)]="data">
           <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="data" />
         </template>
 
@@ -13,7 +13,7 @@
     </template>
     <template v-else>
       <PTabSelect v-model:selected="selected" :tabs="tabs">
-        <template v-for="tab in tabs" #[`${kebabCase(tab.label)}-heading`]="data">
+        <template v-for="tab in tabs" #[getHeadingSlotName(tab)]="data">
           <slot :name="`${kebabCase(tab.label)}-heading`" v-bind="data" />
         </template>
 
@@ -85,6 +85,10 @@
       emits('update:selected', value)
     },
   })
+
+  function getHeadingSlotName(tab: Tab<T>): `${string}-heading` {
+    return `${kebabCase(tab.label)}-heading`
+  }
 </script>
 
 <style>
