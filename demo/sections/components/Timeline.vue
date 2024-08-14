@@ -29,7 +29,7 @@
             {{ item.title }}
           </p-heading>
 
-          <p-markdown-renderer :text="item.body" />
+          <p-markdown-renderer v-if="item.body" :text="item.body" />
         </template>
       </p-timeline>
     </template>
@@ -54,7 +54,7 @@
 
     <template #custom-side>
       <p-timeline :items="itemsReversed" class="ordered-list__custom-side" v-bind="{ layout }">
-        <template #content="{ item }: { item: TimelineItem }">
+        <template #content="{ item }">
           <p-card
             :flat="!expandedList.includes(item.id)"
             class="ordered-list__custom-side__card"
@@ -75,13 +75,13 @@
 
     <template #target-a-specific-slot>
       <p-timeline :items="itemsReversed" class="ordered-list__target-specific" item-key="id" v-bind="{ layout }">
-        <template #date="{ item }: { item: TimelineItem }">
+        <template #date="{ item }">
           <div class="ordered-list__target-specific__content" @mouseover="handleMouseoverItem(item)" @mouseout="handleMouseoutItem">
             {{ item.title }}
           </div>
         </template>
 
-        <template v-if="hoveredItemSlotKey" #[hoveredItemSlotKey]="{ item }: { item: TimelineItem }">
+        <template v-if="hoveredItemSlotKey" #[hoveredItemSlotKey]="{ item }">
           <template v-if="item.date">
             <span class="ordered-list__date">{{ item.date }}</span>
           </template>
@@ -164,13 +164,21 @@
     },
   ]
 
-  const itemsNoData: TimelineItem[] = Array.from({ length: 3 }, () => ({
+  type Item = TimelineItem & {
+    id: string,
+    icon?: string,
+    title?: string,
+    date?: string,
+    body?: string,
+  }
+
+  const itemsNoData: Item[] = Array.from({ length: 3 }, () => ({
     id: crypto.randomUUID(),
   }))
 
-  const items: TimelineItem[] = [
+  const items: Item[] = [
     {
-      id: 0,
+      id: '0',
       title: 'Born',
       body: 'I was born in Shangzhou, China.',
     },
@@ -204,14 +212,14 @@
 
   const itemsReversed = [...items].reverse()
 
-  const itemsManyData: TimelineItem[] = Array.from({ length: 1000 }, (item, index) => ({
+  const itemsManyData: Item[] = Array.from({ length: 1000 }, (item, index) => ({
     id: crypto.randomUUID(),
     title: `Item ${index}`,
   }))
 
   const expandedList = ref<string[]>([])
 
-  function expand(item: TimelineItem): void {
+  function expand(item: Item): void {
     if (expandedList.value.includes(item.id)) {
       expandedList.value = expandedList.value.filter((id) => id !== item.id)
     } else {
@@ -228,7 +236,7 @@
     return ''
   })
 
-  const handleMouseoverItem = (item: TimelineItem): void => {
+  const handleMouseoverItem = (item: Item): void => {
     hoveredItem.value = item.id
   }
 

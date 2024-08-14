@@ -1,10 +1,10 @@
 <template>
   <PVirtualScroller
-    v-bind="{ items, itemKey }"
+    :items
     class="p-timeline"
     element="ol"
   >
-    <template #default="{ item, index }: { item: TimelineItem, index: number }">
+    <template #default="{ item, index }">
       <slot v-bind="{ item, index }">
         <slot :name="getItemSlotName(item, index)" v-bind="{ item, index }">
           <PTimelineItem :layout="getItemLayout(item, index)">
@@ -40,7 +40,7 @@
   </PVirtualScroller>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends TimelineItem">
   import { computed } from 'vue'
   import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
   import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
@@ -49,48 +49,48 @@
   import { kebabCase } from '@/utilities/strings'
 
   const props = defineProps<{
-    items: TimelineItem[],
-    itemKey?: string,
+    items: T[],
+    itemKey?: keyof T,
     layout?: TimelineLayout | TimelineLayoutFunction,
   }>()
 
-  const layout = computed(() => props.layout ?? 'date-left')
+  const internalLayout = computed(() => props.layout ?? 'date-left')
 
-  function getItemId(item: TimelineItem, index: number): string | number {
+  function getItemId(item: T, index: number): string | number {
     return props.itemKey ? kebabCase(`${item[props.itemKey]}`) : index
   }
 
-  function getItemSlotName(item: TimelineItem, index: number): string {
+  function getItemSlotName(item: T, index: number): string {
     const base = getItemId(item, index)
     return `item-${base}`
   }
 
-  function getPointSlotName(item: TimelineItem, index: number): string {
+  function getPointSlotName(item: T, index: number): string {
     const base = getItemSlotName(item, index)
     return `${base}-point`
   }
 
-  function getPointContentSlotName(item: TimelineItem, index: number): string {
+  function getPointContentSlotName(item: T, index: number): string {
     const base = getItemSlotName(item, index)
     return `${base}-point-content`
   }
 
-  function getDateSlotName(item: TimelineItem, index: number): string {
+  function getDateSlotName(item: T, index: number): string {
     const base = getItemSlotName(item, index)
     return `${base}-date`
   }
 
-  function getContentSlotName(item: TimelineItem, index: number): string {
+  function getContentSlotName(item: T, index: number): string {
     const base = getItemSlotName(item, index)
     return `${base}-content`
   }
 
-  function getItemLayout(item: TimelineItem, index: number): TimelineLayout {
-    if (typeof layout.value === 'function') {
-      return layout.value(item, index)
+  function getItemLayout(item: T, index: number): TimelineLayout {
+    if (typeof internalLayout.value === 'function') {
+      return internalLayout.value(item, index)
     }
 
-    return layout.value
+    return internalLayout.value
   }
 </script>
 
