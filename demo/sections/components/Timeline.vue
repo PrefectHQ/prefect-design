@@ -9,7 +9,7 @@
     </template>
 
     <template #no-icons>
-      <p-timeline :items="itemsNoData" v-bind="{ layout }" />
+      <p-timeline :items="itemsNoData" v-bind="{ layout }" item-key="title" />
     </template>
 
     <template #no-slots>
@@ -172,8 +172,9 @@
     body?: string,
   }
 
-  const itemsNoData: Item[] = Array.from({ length: 3 }, () => ({
+  const itemsNoData: Item[] = Array.from({ length: 3 }, (_, index) => ({
     id: crypto.randomUUID(),
+    index,
   }))
 
   const items: Item[] = [

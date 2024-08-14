@@ -1,5 +1,6 @@
 <template>
   <component :is="element" class="p-virtual-scroller">
+    {{ itemKey }}
     <template v-for="(chunk, chunkIndex) in chunks" :key="chunkIndex">
       <VirtualScrollerChunk :height="itemEstimateHeight * chunk.length" v-bind="{ observerOptions }">
         <template v-for="(item, itemChunkIndex) in chunk" :key="item[itemKey]">

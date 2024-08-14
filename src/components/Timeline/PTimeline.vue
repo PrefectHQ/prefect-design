@@ -1,9 +1,12 @@
 <template>
+  <!-- eslint-disable vue/no-extra-parens -->
   <PVirtualScroller
     :items
+    :item-key="(itemKey as K)"
     class="p-timeline"
     element="ol"
   >
+    <!-- eslint-enable vue/no-extra-parens -->
     <template #default="{ item, index }">
       <slot v-bind="{ item, index }">
         <slot :name="getItemSlotName(item, index)" v-bind="{ item, index }">
@@ -40,7 +43,7 @@
   </PVirtualScroller>
 </template>
 
-<script lang="ts" setup generic="T extends TimelineItem">
+<script lang="ts" setup generic="T extends TimelineItem, K extends keyof T | undefined">
   import { computed } from 'vue'
   import PTimelineItem from '@/components/Timeline/PTimelineItem.vue'
   import PTimelinePoint from '@/components/Timeline/PTimelinePoint.vue'
@@ -50,7 +53,7 @@
 
   const props = defineProps<{
     items: T[],
-    itemKey?: keyof T,
+    itemKey?: K,
     layout?: TimelineLayout | TimelineLayoutFunction,
   }>()
 
