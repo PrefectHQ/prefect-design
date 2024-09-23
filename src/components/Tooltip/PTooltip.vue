@@ -7,6 +7,7 @@
         <TooltipContent
           v-bind="delegatedContentProps"
           :as-child="Boolean($slots.tooltip)"
+          :avoid-collisions="!allowCollisions"
         >
           <slot name="tooltip">
             <slot name="content">
@@ -28,7 +29,7 @@
   import TooltipTrigger from '@/components/Tooltip/PTooltipTrigger.vue'
 
   const props = withDefaults(
-    defineProps<TooltipRootProps & TooltipProviderProps & Omit<TooltipContentProps, 'asChild' | 'as'> & { text?: string }>(),
+    defineProps<TooltipRootProps & TooltipProviderProps & Omit<TooltipContentProps, 'asChild' | 'as'> & { text?: string, allowCollisions?: boolean }>(),
     {
       text: undefined,
       // Mimicking radix-vue's TooltipRoot props. These need to be undefined rather than Vue's default behavior of
