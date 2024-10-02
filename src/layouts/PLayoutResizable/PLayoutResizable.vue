@@ -19,9 +19,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, useSlots, watch } from 'vue'
+  import { computed, onMounted, ref, useSlots, watch } from 'vue'
   import { LayoutResizablePlacement, isHorizontalPlacement } from '@/types/layoutResizable'
+  import { isDefined } from '@/utilities'
 
+  const size = defineModel<number>('size', { required: false })
 
   const props = defineProps<{
     collapsePoint?: number,
@@ -29,15 +31,26 @@
     placement?: LayoutResizablePlacement,
   }>()
 
-
   const slots = useSlots()
-
   const container = ref<HTMLDivElement>()
   const aside = ref<HTMLDivElement>()
 
   const dragging = ref(false)
   const collapsed = ref(false)
-  const asideSize = ref<number | undefined>(undefined)
+  const asideSizeValue = ref<number | undefined>(undefined)
+
+  const asideSize = computed({
+    get() {
+      return size.value ?? asideSizeValue.value
+    },
+    set(value) {
+      size.value = asideSizeValue.value = value
+    },
+  })
+
+  onMounted(() => {
+    updateAsideSize()
+  })
 
   const placement = computed(() => props.placement ?? 'left')
 
@@ -121,6 +134,14 @@
     const cursorPosition = horizontal.value ? event.clientX : event.clientY
 
     asideSize.value = getAsideSize(cursorPosition)
+
+    updateAsideSize()
+  }
+
+  function updateAsideSize(): void {
+    if (!aside.value || !isDefined(asideSize.value)) {
+      return
+    }
 
     if (horizontal.value) {
       aside.value.style.width = `${asideSize.value}px`
