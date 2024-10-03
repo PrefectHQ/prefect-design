@@ -184,40 +184,40 @@
   disabled:opacity-50
   select-none
   aria-selected:bg-[color:var(--p-color-button-selected-bg)]
-  aria-selected:text-[color:var(--p-color-button-selected-test)]
+  aria-selected:text-[color:var(--p-color-button-selected-text)]
   aria-selected:border-[color:var(--p-color-button-selected-border)]
 }
 
-.p-button--default{ @apply
+.p-button--default { @apply
   bg-primary
   text-primary-foreground
   hover:bg-primary/90
   active:bg-primary/80
 }
 
-.p-button--outline{ @apply
+.p-button--outline { @apply
   border
   border-input
   bg-background
   hover:bg-accent
   hover:text-accent-foreground
-  active:bg-accent/90
+  active:bg-accent/60
 }
 
-.p-button--ghost{ @apply
+.p-button--ghost { @apply
   hover:bg-accent
   hover:text-accent-foreground
-  active:bg-accent/90
+  active:bg-accent/60
 }
 
-.p-button--destructive{ @apply
+.p-button--destructive { @apply
   bg-destructive
   text-destructive-foreground
   hover:bg-destructive/90
   active:bg-destructive/80
 }
 
-.p-button--link{ @apply
+.p-button--link { @apply
   text-primary
   underline-offset-4
   hover:underline

@@ -217,7 +217,7 @@
 
     --p-primary: var(--p-primary-hue) 80.34% 44%;
     --p-primary-foreground: var(--p-primary-hue) 0.0% 100.0%;
-    --p-accent: var(--p-primary-hue) 0.0% 92%;
+    --p-accent: var(--p-primary-hue) 6% 85%;
     --p-accent-foreground: var(--p-primary-hue) 6% 9.02%;
     --p-destructive: 4 74% 49%;
     --p-destructive-foreground: 0.0 0.0% 100.0%;
