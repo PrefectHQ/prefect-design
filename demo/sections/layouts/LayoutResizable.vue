@@ -1,5 +1,5 @@
 <template>
-  <ComponentPage title="Resizable Layout" :demos="demos">
+  <ComponentPage title="Resizable Layout" :demos>
     <template #description>
       <p-select v-model="placement" :options="placements" />
     </template>
@@ -14,6 +14,17 @@
           <div class="layout-resizable__main" />
         </p-layout-resizable>
       </div>
+    </template>
+
+    <template #v-model>
+      {{ size }}
+      <p-layout-resizable v-model:size="size" :placement class="layout-resizable">
+        <template #aside>
+          <div class="layout-resizable__aside" />
+        </template>
+
+        <div class="layout-resizable__main" />
+      </p-layout-resizable>
     </template>
 
     <template #collapse-point>
@@ -84,6 +95,7 @@
 
   const demos = [
     { title: 'Basic' },
+    { title: 'v-model' },
     { title: 'Collapse point', description: 'Collapse the aside when the cursor is below the collapse-point threshold.' },
     {
       title: 'Advanced',
@@ -92,6 +104,7 @@
 
   const placement = ref<LayoutResizablePlacement>('left')
   const placements: LayoutResizablePlacement[] = ['left', 'right', 'top', 'bottom']
+  const size = ref(200)
 
   const classes = computed(() => {
     return {
