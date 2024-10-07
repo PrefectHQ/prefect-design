@@ -77,7 +77,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "4.1.0",
-    "dompurify": "3.1.6",
+    "dompurify": "3.1.7",
     "highlight.js": "11.10.0",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0",
