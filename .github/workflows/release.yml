@@ -28,7 +28,7 @@ jobs:
         id: release-ui-components
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.PREFECT_CONTENTS_PR_RW }}
+          GITHUB_TOKEN: ${{ secrets.UI_COMPONENTS_CONTENTS_PRS_RW }}
           RELEASE_TYPE: ${{ inputs.release_type }}
 
       - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
