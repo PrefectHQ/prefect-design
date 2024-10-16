@@ -9,11 +9,11 @@
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="iconSize" :icon="icon" class="p-button__icon" />
+        <PIcon :size="iconSize" :icon :solid class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="iconSize" :icon="iconAppend" class="p-button__icon" />
+        <PIcon :size="iconSize" :icon="iconAppend" :solid="solidAppend ?? solid" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -71,6 +71,8 @@
   const props = defineProps<{
     variant?: ButtonProps['variant'],
     size?: ButtonProps['size'],
+    solid?: boolean,
+    solidAppend?: boolean,
     primary?: boolean,
     flat?: boolean,
     selected?: boolean,
