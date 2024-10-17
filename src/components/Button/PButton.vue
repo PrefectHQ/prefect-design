@@ -9,11 +9,11 @@
   >
     <div class="p-button__content">
       <template v-if="icon">
-        <PIcon :size="iconSize" :icon :solid class="p-button__icon" />
+        <PIcon :size="iconSize ?? size" :icon :solid class="p-button__icon" />
       </template>
       <slot />
       <template v-if="iconAppend">
-        <PIcon :size="iconSize" :icon="iconAppend" :solid="solidAppend ?? solid" class="p-button__icon" />
+        <PIcon :size="iconSize ?? size" :icon="iconAppend" :solid="solidAppend ?? solid" class="p-button__icon" />
       </template>
     </div>
     <template v-if="loading">
@@ -56,7 +56,7 @@
         {
           size: 'sm',
           icon: true,
-          class: 'max-h-7 max-w-7',
+          class: 'max-h-[30px] max-w-[30px]',
         },
       ],
       defaultVariants: {
@@ -232,6 +232,11 @@
   justify-center
   items-center
   font-normal
+}
+
+.p-button__icon { @apply
+  shrink-0
+  grow
 }
 
 .p-button__loading-icon {

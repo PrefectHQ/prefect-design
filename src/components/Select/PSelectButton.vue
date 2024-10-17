@@ -1,5 +1,5 @@
 <template>
-  <PBaseInput ref="wrapperElement" class="p-select-button" :small="props.small">
+  <PBaseInput ref="wrapperElement" class="p-select-button" :small>
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -8,7 +8,6 @@
         ref="buttonElement"
         type="button"
         class="p-select-button__control"
-        aria-hidden="true"
         v-bind="attrs"
       >
         <span class="p-select-button__value" :class="classes.value">

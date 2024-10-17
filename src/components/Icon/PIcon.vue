@@ -13,7 +13,7 @@
   const props = defineProps<{
     icon: Icon,
     solid?: boolean,
-    size?: 'small' | 'default' | 'large',
+    size?: 'small' | 'default' | 'large' | 'sm' | 'lg',
   }>()
 
   const component = computed(() => {
@@ -46,11 +46,13 @@
   h-5
 }
 
+.p-icon--sm,
 .p-icon--small { @apply
   w-4
   h-4
 }
 
+.p-icon--lg,
 .p-icon--large { @apply
   w-6
   h-6
