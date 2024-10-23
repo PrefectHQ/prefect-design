@@ -1,9 +1,11 @@
-import { Ref, computed } from 'vue'
+import { Ref, computed, ref } from 'vue'
 import { media } from '@/utilities'
 
 type UseOffsetStickyRootMargin = {
   margin: Ref<string>,
 }
+
+export const overrideMargins = ref<string>()
 
 /**
  * The useOffsetStickyRootMargin composition is used to provide a rootMargin
@@ -13,7 +15,13 @@ type UseOffsetStickyRootMargin = {
  * @returns UseOffsetStickyRootMargin
  */
 export function useOffsetStickyRootMargin(): UseOffsetStickyRootMargin {
-  const margin = computed(() => media.lg ? '-1px 0px 0px 0px' : '-65px 0px 0px 0px')
+  const margin = computed(() => {
+    if (overrideMargins.value) {
+      return overrideMargins.value
+    }
+
+    return media.lg ? '-1px 0px 0px 0px' : '-65px 0px 0px 0px'
+  })
 
   return { margin }
 }
