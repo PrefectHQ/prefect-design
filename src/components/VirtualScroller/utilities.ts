@@ -20,11 +20,19 @@ export function getVirtualScroller(name: string): UseVirtualScroller {
     const scroller = scrollers.get(name)
     const callback = scroller?.makeItemVisible(itemKey)
 
+    if (!scroller) {
+      console.warn(`scroller for ${name} not found while attempting to call makeItemVisible for ${itemKey}`)
+    }
+
     return callback ?? noop
   }
 
   const scrollItemIntoView: UseVirtualScroller['scrollItemIntoView'] = (itemKey, options) => {
     const scroller = scrollers.get(name)
+
+    if (!scroller) {
+      console.warn(`scroller for ${name} not found while attempting to call scrollItemIntoView for ${itemKey}`)
+    }
 
     return scroller?.scrollItemIntoView(itemKey, options)
   }
