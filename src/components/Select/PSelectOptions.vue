@@ -9,7 +9,7 @@
     <slot name="pre-options" />
     <PVirtualScroller :items="flattenedOptionsAndGroups" item-key="label" class="p-select-options__options" @bottom="emit('bottom')">
       <template #default="{ item: option, index }">
-        <template v-if="isSelectOptionGroup(option)">
+        <template v-if="isSelectOptionGroupNormalized(option)">
           <PSelectOptionGroup :group="option" :small="small">
             <template #default="scope">
               <slot name="group" v-bind="scope" />
@@ -58,7 +58,7 @@
   import { useHighlightedValue } from '@/compositions/useHighlightedValue'
   import { MaybeReadonly } from '@/types'
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
-  import { flattenSelectOptions, isSelectOptionGroup, normalizeSelectOption, SelectModelValue, SelectOption, SelectOptionGroup, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
+  import { flattenSelectOptions, isSelectOptionGroup, isSelectOptionGroupNormalized, normalizeSelectOption, SelectModelValue, SelectOption, SelectOptionGroup, SelectOptionGroupNormalized, SelectOptionNormalized } from '@/types/selectOption'
   import { toggleArrayValue } from '@/utilities'
 
   const props = defineProps<{
