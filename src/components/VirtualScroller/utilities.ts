@@ -1,7 +1,8 @@
 const scrollers = new Map<string, UseVirtualScroller>()
+const noop = (): void => {}
 
 type UseVirtualScroller = {
-  makeItemVisible: (itemKey: unknown) => void,
+  makeItemVisible: (itemKey: unknown) => () => void,
   scrollItemIntoView: (itemKey: unknown, options?: ScrollIntoViewOptions) => void,
 }
 
@@ -17,8 +18,9 @@ export function getVirtualScroller(name: string): UseVirtualScroller {
 
   const makeItemVisible: UseVirtualScroller['makeItemVisible'] = (itemKey) => {
     const scroller = scrollers.get(name)
+    const callback = scroller?.makeItemVisible(itemKey)
 
-    return scroller?.makeItemVisible(itemKey)
+    return callback ?? noop
   }
 
   const scrollItemIntoView: UseVirtualScroller['scrollItemIntoView'] = (itemKey, options) => {
