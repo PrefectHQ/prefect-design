@@ -1,9 +1,9 @@
 <template>
-  <component :is="element" class="p-virtual-scroller">
+  <component :is="element" ref="scrollerRef" class="p-virtual-scroller">
     <template v-for="(chunk, chunkIndex) in chunks" :key="chunkIndex">
-      <VirtualScrollerChunk :height="itemEstimateHeight * chunk.length" v-bind="{ observerOptions }">
+      <VirtualScrollerChunk :id="getChunkId(chunkIndex)" :height="getChunkHeight(chunkIndex)" :force-visible="getChunkForceVisible(chunkIndex)" :observer-options>
         <template v-for="(item, itemChunkIndex) in chunk" :key="item[itemKey]">
-          <slot :item="item" :index="getItemIndex(chunkIndex, itemChunkIndex)" />
+          <slot :id="getItemId(item)" :item :index="getItemIndex(chunkIndex, itemChunkIndex)" />
         </template>
       </VirtualScrollerChunk>
     </template>
@@ -14,8 +14,9 @@
 
 <script lang="ts" setup generic="T extends Record<string, any>">
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
-  import { computed, onMounted, ref, watch } from 'vue'
+  import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
   import VirtualScrollerChunk from '@/components/VirtualScroller/PVirtualScrollerChunk.vue'
+  import { registerVirtualScroller, scrollIntoView, unregisterVirtualScroller } from '@/components/VirtualScroller/utilities'
 
   const props = withDefaults(defineProps<{
     items: T[],
@@ -24,11 +25,13 @@
     chunkSize?: number,
     observerOptions?: IntersectionObserverInit,
     element?: string,
+    name?: string,
   }>(), {
     itemEstimateHeight: 50,
     itemKey: 'id',
     chunkSize: 50,
     element: 'div',
+    name: undefined,
     observerOptions: () => ({
       rootMargin: '200px',
     }),
@@ -38,8 +41,39 @@
     (event: 'bottom'): void,
   }>()
 
+  defineExpose({
+    scrollItemIntoView,
+  })
+
+  watch(() => props.name, (newName, oldName) => {
+    if (oldName) {
+      unregisterVirtualScroller(oldName)
+    }
+
+    if (newName) {
+      registerVirtualScroller(newName, {
+        makeItemVisible,
+        scrollItemIntoView,
+      })
+    }
+  }, { immediate: true })
+
+  watch(() => props.items, () => check(bottom))
+
+  onMounted(() => {
+    observe(bottom)
+  })
+
+  onUnmounted(() => {
+    if (props.name) {
+      unregisterVirtualScroller(props.name)
+    }
+  })
+
+  const scrollerRef = ref<HTMLElement>()
   const bottom = ref<HTMLDivElement>()
   const { observe, check } = useIntersectionObserver(intersect, props.observerOptions)
+  const chunksForcedToBeVisible = reactive(new Set<number>())
 
   const chunks = computed(() => {
     const chunks = []
@@ -51,6 +85,47 @@
 
     return chunks
   })
+
+  function getItemChunkIndex(itemKey: unknown): number {
+    return chunks.value.findIndex(chunk => chunk.some(item => item[props.itemKey] === itemKey))
+  }
+
+  function makeItemVisible(itemKey: unknown): () => void {
+    const chunkIndex = getItemChunkIndex(itemKey)
+
+    chunksForcedToBeVisible.add(chunkIndex)
+
+    return () => chunksForcedToBeVisible.delete(chunkIndex)
+  }
+
+  function scrollItemIntoView(itemKey: unknown, options?: ScrollIntoViewOptions): void {
+    const hide = makeItemVisible(itemKey)
+    const chunkIndex = getItemChunkIndex(itemKey)
+
+    nextTick(async () => {
+      if (!scrollerRef.value) {
+        return
+      }
+
+      const chunk = scrollerRef.value.querySelector(`#${getChunkId(chunkIndex)}`)
+
+      if (!chunk) {
+        return
+      }
+
+      await scrollIntoView(chunk, { ...options, block: 'nearest' })
+
+      const item = scrollerRef.value.querySelector(`#${props.name}-${itemKey}`)
+
+      if (!item) {
+        return
+      }
+
+      await scrollIntoView(item, options)
+
+      hide()
+    })
+  }
 
   function intersect(entries: IntersectionObserverEntry[]): void {
     entries.forEach(entry => {
@@ -64,11 +139,21 @@
     return props.chunkSize * chunkIndex + itemChunkIndex
   }
 
-  watch(() => props.items, () => check(bottom))
+  function getChunkHeight(index: number): number {
+    return props.itemEstimateHeight * chunks.value[index].length
+  }
 
-  onMounted(() => {
-    observe(bottom)
-  })
+  function getChunkForceVisible(index: number): boolean {
+    return chunksForcedToBeVisible.has(index)
+  }
+
+  function getItemId(item: T): string {
+    return `${props.name}-${item[props.itemKey]}`
+  }
+
+  function getChunkId(index: number): string {
+    return `${props.name}-chunk-${index}`
+  }
 </script>
 
 <style>
