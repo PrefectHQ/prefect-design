@@ -23,6 +23,10 @@ export function isSelectOptionGroup(value: unknown): value is SelectOptionGroup 
   return value !== null && typeof value === 'object' && 'label' in value && 'options' in value && Array.isArray(value.options)
 }
 
+export function isSelectOptionGroupNormalized(value: unknown): value is SelectOptionGroupNormalized {
+  return isSelectOptionGroup(value) && value.options.every(option => typeof option === 'object')
+}
+
 export function filterOptionGroup(optionGroup: SelectOptionGroupNormalized, term: string | null): SelectOptionGroupNormalized {
   return {
     ...optionGroup,
