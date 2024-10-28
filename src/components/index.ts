@@ -90,7 +90,7 @@ import { PToggle, install as installPToggle } from '@/components/Toggle'
 import { PTooltip, PTooltipContent, PTooltipProvider, PTooltipRoot, PTooltipTrigger, install as installPTooltip } from '@/components/Tooltip'
 import { PTypeAhead, install as installPTypeAhead } from '@/components/TypeAhead'
 import { PUnwrap, install as installPUnwrap } from '@/components/Unwrap'
-import { PVirtualScroller, install as installPVirtualScroller } from '@/components/VirtualScroller'
+import { PVirtualScroller, install as installPVirtualScroller, getVirtualScroller } from '@/components/VirtualScroller'
 import { PWindow, install as installPWindow } from '@/components/Window'
 import { PWizard, install as installPWizard } from '@/components/Wizard'
 
@@ -218,6 +218,10 @@ export {
   PVirtualScroller,
   PWindow,
   PWizard
+}
+
+export {
+  getVirtualScroller
 }
 
 export const installs = [
