@@ -1,6 +1,6 @@
 <template>
   <div ref="el" class="p-virtual-scroller-chunk" :style="styles">
-    <template v-if="visible">
+    <template v-if="forceVisible || visible">
       <slot />
     </template>
   </div>
@@ -13,6 +13,7 @@
   const props = defineProps<{
     height: number,
     observerOptions: IntersectionObserverInit,
+    forceVisible?: boolean,
   }>()
 
   const styles = computed(() => ({
