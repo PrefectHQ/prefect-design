@@ -35,7 +35,7 @@
   const exampleState = ref<State>()
   const disabled = ref(false)
 
-  const value = ref({"type":"span","seconds":-604800})
+  const value = ref()
   const min = ref<Date>()
   const max = ref<Date>()
   const clearable = ref(true)
