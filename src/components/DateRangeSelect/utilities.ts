@@ -5,7 +5,7 @@ import {
   secondsInDay,
   secondsInWeek,
   secondsInYear,
-  secondsInMonth,
+  secondsInMonth
 } from 'date-fns/constants'
 import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
