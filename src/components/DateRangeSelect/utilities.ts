@@ -3,9 +3,6 @@ import {
   secondsInHour,
   secondsInMinute,
   secondsInDay,
-  secondsInWeek,
-  secondsInYear,
-  secondsInMonth
 } from 'date-fns/constants'
 import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
@@ -45,10 +42,7 @@ function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
   const absSeconds = Math.abs(seconds)
 
   const duration: Duration = {
-    years: Math.floor(absSeconds / secondsInYear),
-    months: Math.floor(absSeconds % secondsInYear / secondsInMonth),
-    weeks: Math.floor(absSeconds % secondsInMonth / secondsInWeek),
-    days: Math.floor(absSeconds % secondsInWeek / secondsInDay),
+    days: Math.floor(absSeconds / secondsInDay),
     hours: Math.floor(absSeconds % secondsInDay / secondsInHour),
     minutes: Math.floor(absSeconds % secondsInHour / secondsInMinute),
     seconds: Math.floor(absSeconds % secondsInMinute),
