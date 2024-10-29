@@ -98,9 +98,10 @@
     return () => chunksForcedToBeVisible.delete(chunkIndex)
   }
 
-  function scrollItemIntoView(itemKey: unknown, options?: ScrollIntoViewOptions): void {
+  function scrollItemIntoView(itemKey: unknown, options?: ScrollIntoViewOptions): Promise<void> {
     const hide = makeItemVisible(itemKey)
     const chunkIndex = getItemChunkIndex(itemKey)
+    const { promise, resolve } = Promise.withResolvers<void>()
 
     nextTick(async () => {
       if (!scrollerRef.value) {
@@ -124,7 +125,10 @@
       await scrollIntoView(item, options)
 
       hide()
+      resolve()
     })
+
+    return promise
   }
 
   function intersect(entries: IntersectionObserverEntry[]): void {

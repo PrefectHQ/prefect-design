@@ -3,7 +3,7 @@ const noop = (): void => {}
 
 type UseVirtualScroller = {
   makeItemVisible: (itemKey: unknown) => () => void,
-  scrollItemIntoView: (itemKey: unknown, options?: ScrollIntoViewOptions) => void,
+  scrollItemIntoView: (itemKey: unknown, options?: ScrollIntoViewOptions) => Promise<void>,
 }
 
 export function registerVirtualScroller(name: string, scroller: UseVirtualScroller): void {
@@ -34,7 +34,9 @@ export function getVirtualScroller(name: string): UseVirtualScroller {
       console.warn(`scroller for ${name} not found while attempting to call scrollItemIntoView for ${itemKey}`)
     }
 
-    return scroller?.scrollItemIntoView(itemKey, options)
+    const callback = scroller?.scrollItemIntoView(itemKey, options)
+
+    return callback ?? Promise.resolve()
   }
 
   return {
