@@ -1,6 +1,8 @@
-import { intervalToDuration, addSeconds, format, isSameDay, startOfDay, endOfDay } from 'date-fns'
+import { format, isSameDay, startOfDay, endOfDay, Duration } from 'date-fns'
+import { secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns/constants'
 import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
+
 
 type DateRange = {
   startDate: Date,
@@ -33,11 +35,15 @@ export function getDateRangeSelectValueLabel(value: DateRangeSelectValue): strin
 }
 
 function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
-  const now = new Date()
-  const duration = intervalToDuration({
-    start: now,
-    end: addSeconds(now, Math.abs(seconds)),
-  })
+  const absSeconds = Math.abs(seconds)
+
+  const duration: Duration = {
+    weeks: Math.floor(absSeconds / secondsInWeek),
+    days: Math.floor(absSeconds % secondsInWeek / secondsInDay),
+    hours: Math.floor(absSeconds % secondsInDay / secondsInHour),
+    minutes: Math.floor(absSeconds % secondsInHour / secondsInMinute),
+    seconds: Math.floor(absSeconds % secondsInMinute),
+  }
 
   const reduced = Object.entries(duration).reduce<string[]>((durations, [key, value]) => {
     if (value) {
