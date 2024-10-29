@@ -16,7 +16,8 @@
   import { useIntersectionObserver } from '@prefecthq/vue-compositions'
   import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
   import VirtualScrollerChunk from '@/components/VirtualScroller/PVirtualScrollerChunk.vue'
-  import { registerVirtualScroller, scrollIntoView, unregisterVirtualScroller } from '@/components/VirtualScroller/utilities'
+  import { registerVirtualScroller, unregisterVirtualScroller } from '@/components/VirtualScroller/utilities'
+  import { scrollIntoView } from '@/utilities/scrolling'
 
   const props = withDefaults(defineProps<{
     items: T[],
