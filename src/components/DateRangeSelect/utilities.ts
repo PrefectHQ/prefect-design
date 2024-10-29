@@ -1,10 +1,5 @@
 import { format, isSameDay, startOfDay, endOfDay, Duration } from 'date-fns'
-import {
-  secondsInHour,
-  secondsInMinute,
-  secondsInDay,
-  secondsInWeek
-} from 'date-fns/constants'
+import { secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns/constants'
 import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
 
