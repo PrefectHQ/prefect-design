@@ -10,7 +10,9 @@
       :class="classes.handle"
       @mousedown="start"
       @mouseup="handleAsideClick"
-    />
+    >
+      <slot name="handle" />
+    </div>
 
     <main v-if="slots.default" class="p-layout-resizable__main" :class="classes.main">
       <slot v-bind="{ collapsed, expand, collapse, toggle, asideSize }" />
