@@ -5,6 +5,7 @@
       { title: 'Local' },
       { title: 'External' },
       { title: 'Absolute' },
+      { title: 'Route' },
     ]"
   >
     <template #local>
@@ -22,6 +23,12 @@
     <template #absolute>
       <p-link :to="absolute">
         {{ absolute }}
+      </p-link>
+    </template>
+
+    <template #route>
+      <p-link :to="{ name: 'home' }">
+        home
       </p-link>
     </template>
   </ComponentPage>
