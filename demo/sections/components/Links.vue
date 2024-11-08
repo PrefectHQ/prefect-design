@@ -4,6 +4,7 @@
     :demos="[
       { title: 'Local' },
       { title: 'External' },
+      { title: 'Absolute' },
     ]"
   >
     <template #local>
@@ -17,9 +18,18 @@
         Link to prefect.io
       </p-link>
     </template>
+
+    <template #absolute>
+      <p-link :to="absolute">
+        {{ absolute }}
+      </p-link>
+    </template>
   </ComponentPage>
 </template>
 
 <script lang="ts" setup>
+  import { computed } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
+
+  const absolute = computed(() => `${window.location.protocol}//${window.location.host}/components/links`)
 </script>

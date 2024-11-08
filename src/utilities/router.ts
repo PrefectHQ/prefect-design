@@ -30,7 +30,11 @@ export function isRouteExternal(route: RouteLocationRaw): boolean {
   }
 }
 
-export function isRouteRelative(route: string): boolean {
+export function isRouteRelative(route: RouteLocationRaw): boolean {
+  if (typeof route !== 'string') {
+    return false
+  }
+
   return route.startsWith('/')
 }
 
