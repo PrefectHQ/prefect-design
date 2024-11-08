@@ -38,6 +38,14 @@ export function isRouteRelative(route: RouteLocationRaw): boolean {
   return route.startsWith('/')
 }
 
+export function isRouteAbsolute(route: RouteLocationRaw): boolean {
+  if (typeof route !== 'string') {
+    return false
+  }
+
+  return !isRouteRelative(route)
+}
+
 export function stripBaseUrl(href: string): string {
   try {
     const strippedBaseUrl = new URL(href).pathname

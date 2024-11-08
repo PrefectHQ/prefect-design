@@ -11,14 +11,14 @@
   import { computed } from 'vue'
   import { RouteLocationRaw } from 'vue-router'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { isRouteExternal, isRouteRelative } from '@/utilities/router'
+  import { isRouteExternal, isRouteAbsolute } from '@/utilities/router'
 
   const props = defineProps<{
     to?: RouteLocationRaw,
   }>()
 
   const isExternal = computed(() => !!props.to && isRouteExternal(props.to))
-  const isAbsolute = computed(() => !!props.to && !isRouteRelative(props.to))
+  const isAbsolute = computed(() => !!props.to && isRouteAbsolute(props.to))
   const component = computed(() => !props.to || isExternal.value || isAbsolute.value ? 'a' : 'router-link')
   const componentProps = computed(() => {
     if (!props.to) {
@@ -30,7 +30,7 @@
     if (isExternal.value || isAbsolute.value) {
       return {
         href: props.to,
-        target: '_blank',
+        target: isExternal.value ? '_blank' : undefined,
       }
     }
 
