@@ -65,7 +65,7 @@
       variants: {
         size: {
           default: 'h-10',
-          sm: 'h-7',
+          sm: 'h-[30px]',
         },
       },
     })
