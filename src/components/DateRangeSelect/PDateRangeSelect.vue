@@ -4,11 +4,11 @@
       <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
       <PButton class="p-date-range-select__button  p-date-range-select__input" :class="button({ size })" :disabled="disabled" :size="size" @click="open">
         <div class="p-date-range-select__content">
-          <PIcon icon="CalendarIcon" class="shrink-0" />
+          <PIcon icon="CalendarIcon" class="shrink-0" :size />
           <span class="p-date-range-select__label" :class="classes.label">
             {{ label }}
           </span>
-          <PIcon icon="ChevronDownIcon" class="ml-auto shrink-0" />
+          <PIcon icon="ChevronDownIcon" class="ml-auto shrink-0" :size />
         </div>
       </PButton>
 
