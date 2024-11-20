@@ -13,7 +13,7 @@
   const props = defineProps<{
     icon: Icon,
     solid?: boolean,
-    size?: 'small' | 'default' | 'large' | 'sm' | 'lg',
+    size?: 'small' | 'default' | 'large' | 'sm' | 'lg' | null,
   }>()
 
   const component = computed(() => {
