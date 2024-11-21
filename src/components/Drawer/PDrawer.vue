@@ -1,5 +1,5 @@
 <template>
-  <teleport to="body">
+  <teleport :to>
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
         <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
@@ -37,6 +37,7 @@
     open?: boolean,
     resizable?: boolean,
     placement?: DrawerPlacement,
+    to?: string,
   }>()
 
   const emit = defineEmits<{
@@ -44,6 +45,7 @@
   }>()
 
   const placement = computed(() => props.placement ?? 'left')
+  const to = computed(() => props.to ?? 'body')
 
   const attrs = useAttrs()
 
