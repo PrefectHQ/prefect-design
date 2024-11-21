@@ -1,5 +1,9 @@
 <template>
-  <teleport :to :disabled="disableTeleport">
+  <!--
+    This coalesce is important because Vue seems to evaluate the to prop for teleportation
+    before it finishes props destructuring
+  -->
+  <teleport :to="to ?? 'body'" :disabled="disableTeleport">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
         <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
@@ -27,41 +31,29 @@
 </script>
 
 <script lang="ts" setup>
-  import { computed, useAttrs, ref } from 'vue'
+  import { computed, useAttrs } from 'vue'
   import { useDrawer, useGlobalEventListener } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
   import { DrawerPlacement, keys } from '@/types'
   import { isKeyEvent } from '@/utilities'
 
-  const props = defineProps<{
-    open?: boolean,
+  const {
+    resizable = false,
+    placement = 'left',
+    to,
+    disableTeleport = false,
+  } = defineProps<{
     resizable?: boolean,
     placement?: DrawerPlacement,
     to?: string,
     disableTeleport?: boolean,
   }>()
 
-  const emit = defineEmits<{
-    (event: 'update:open', value: boolean): void,
-  }>()
-
-  const placement = computed(() => props.placement ?? 'left')
-  const to = computed(() => props.to ?? 'body')
+  const open = defineModel<boolean>('open', { default: false })
 
   const attrs = useAttrs()
-
-  const internalOpen = ref<boolean>(false)
-  const open = computed<boolean>({
-    get() {
-      return props.open || internalOpen.value
-    },
-    set(value) {
-      internalOpen.value = value
-      emit('update:open', value)
-    },
-  })
-
   const drawerScope = useDrawer(open)
+
   function closeOnEscape(event: KeyboardEvent): void {
     if (isKeyEvent(keys.escape, event)) {
       drawerScope.close()
@@ -71,8 +63,8 @@
 
   const classes = computed(() => ({
     root: {
-      [`p-drawer--${placement.value}`]: true,
-      'p-drawer--teleport': !props.disableTeleport,
+      [`p-drawer--${placement}`]: true,
+      'p-drawer--teleport': !disableTeleport,
     },
   }))
 </script>
