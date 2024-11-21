@@ -6,7 +6,7 @@
   <teleport :to="to ?? 'body'" :disabled="disableTeleport">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
-        <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
+        <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement>
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
               <slot v-bind="drawerScope" />
