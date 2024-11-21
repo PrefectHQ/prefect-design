@@ -24,7 +24,7 @@ import { PDateInput, install as installPDateInput } from '@/components/DateInput
 import { PDatePicker, install as installPDatePicker } from '@/components/DatePicker'
 import { PDateRangeInput, install as installPDateRangeInput } from '@/components/DateRangeInput'
 import { PDateRangePicker, install as installPDateRangePicker } from '@/components/DateRangePicker'
-import { PDateRangeSelect, install as installPDateRangeSelect } from '@/components/DateRangeSelect'
+import { PDateRangeSelect, install as installPDateRangeSelect, getDateRangeSelectValueLabel } from '@/components/DateRangeSelect'
 import { PDialog, install as installPDialog } from '@/components/Dialog'
 import { PDivider, install as installPDivider } from '@/components/Divider'
 import { PDraggableList, install as installPDraggableList } from '@/components/DraggableList'
@@ -221,7 +221,8 @@ export {
 }
 
 export {
-  getVirtualScroller
+  getVirtualScroller,
+  getDateRangeSelectValueLabel
 }
 
 export const installs = [
