@@ -6,7 +6,6 @@
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
               <slot v-bind="drawerScope" />
-              {{ }}
             </div>
           </template>
 
