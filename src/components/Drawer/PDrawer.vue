@@ -3,13 +3,14 @@
     This coalesce is important because Vue seems to evaluate the to prop for teleportation
     before it finishes props destructuring
   -->
-  <teleport :to="to ?? 'body'" :disabled="disableTeleport">
+  <teleport :to :disabled="disableTeleport">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
         <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement>
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
               <slot v-bind="drawerScope" />
+              {{ }}
             </div>
           </template>
 
@@ -38,10 +39,10 @@
   import { isKeyEvent } from '@/utilities'
 
   const {
-    resizable = false,
+    resizable,
     placement = 'left',
-    to,
-    disableTeleport = false,
+    to = 'body',
+    disableTeleport,
   } = defineProps<{
     resizable?: boolean,
     placement?: DrawerPlacement,
@@ -49,7 +50,7 @@
     disableTeleport?: boolean,
   }>()
 
-  const open = defineModel<boolean>('open', { default: false })
+  const open = defineModel<boolean>('open', { required: true })
 
   const attrs = useAttrs()
   const drawerScope = useDrawer(open)
