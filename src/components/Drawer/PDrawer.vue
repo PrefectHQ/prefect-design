@@ -33,17 +33,15 @@
   import { DrawerPlacement, keys } from '@/types'
   import { isKeyEvent } from '@/utilities'
 
-  const {
-    resizable,
-    placement = 'left',
-    to = 'body',
-    disableTeleport,
-  } = defineProps<{
+  const props = withDefaults(defineProps<{
     resizable?: boolean,
     placement?: DrawerPlacement,
     to?: string,
     disableTeleport?: boolean,
-  }>()
+  }>(), {
+    placement: 'left',
+    to: 'body',
+  })
 
   const open = defineModel<boolean>('open', { required: true })
 
@@ -59,8 +57,8 @@
 
   const classes = computed(() => ({
     root: {
-      [`p-drawer--${placement}`]: true,
-      'p-drawer--teleport': !disableTeleport,
+      [`p-drawer--${props.placement}`]: true,
+      'p-drawer--teleport': !props.disableTeleport,
     },
   }))
 </script>
