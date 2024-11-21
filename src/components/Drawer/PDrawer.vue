@@ -1,5 +1,5 @@
 <template>
-  <teleport :to>
+  <teleport :to :disabled="disableTeleport">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
         <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
@@ -38,6 +38,7 @@
     resizable?: boolean,
     placement?: DrawerPlacement,
     to?: string,
+    disableTeleport?: boolean,
   }>()
 
   const emit = defineEmits<{
@@ -69,7 +70,10 @@
   useGlobalEventListener('keyup', closeOnEscape)
 
   const classes = computed(() => ({
-    root: `p-drawer--${placement.value}`,
+    root: {
+      [`p-drawer--${placement.value}`]: true,
+      'p-drawer--teleport': !props.disableTeleport,
+    },
   }))
 </script>
 
@@ -98,9 +102,13 @@
 
 .p-drawer { @apply
   h-full
-  fixed
+  absolute
   w-full
   z-50
+}
+
+.p-drawer--teleport { @apply
+  fixed
 }
 
 .p-drawer--top,
