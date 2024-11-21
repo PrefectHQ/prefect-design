@@ -1,8 +1,4 @@
 <template>
-  <!--
-    This coalesce is important because Vue seems to evaluate the to prop for teleportation
-    before it finishes props destructuring
-  -->
   <teleport :to :disabled="disableTeleport">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
