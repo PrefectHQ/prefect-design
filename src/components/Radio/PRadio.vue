@@ -21,20 +21,16 @@
   </PLabel>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PRadio',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
-  <script lang="ts" setup>
+<script lang="ts" setup>
   import { computed, useSlots } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue } from '@/types/selectOption'
   import { State } from '@/types/state'
   import { isDefined } from '@/utilities'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,

@@ -38,14 +38,6 @@
   </PPopOver>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PTypeAhead',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
   import { computed, ref } from 'vue'
@@ -56,6 +48,10 @@
   import { isAlphaNumeric, keys } from '@/types/keyEvent'
   import { SelectModelValue, normalizeSelectOption, optionIncludes } from '@/types/selectOption'
   import { topLeft, bottomLeft, bottomRight, topRight } from '@/utilities/position'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     modelValue: string | null | undefined,

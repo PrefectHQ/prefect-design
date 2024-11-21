@@ -21,20 +21,16 @@
   </PLabel>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PCheckbox',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed, useSlots } from 'vue'
   import { useAttrsStylesAndClasses } from '@/compositions'
   import { CheckboxModel } from '@/types/checkbox'
   import { State } from '@/types/state'
   import { isDefined } from '@/utilities'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     modelValue: CheckboxModel | null,

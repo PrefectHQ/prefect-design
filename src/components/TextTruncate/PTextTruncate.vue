@@ -7,12 +7,6 @@
   </span>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PTextTruncate',
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
 

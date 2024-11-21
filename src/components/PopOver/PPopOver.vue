@@ -9,14 +9,6 @@
   </teleport>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PPopOver',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { useGlobalEventListener } from '@prefecthq/vue-compositions'
   import { ref, watch, computed, useAttrs } from 'vue'
@@ -25,6 +17,10 @@
   import { PositionMethod } from '@/types/position'
   import { randomId } from '@/utilities'
   import { left, right, bottom, top } from '@/utilities/position'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = withDefaults(defineProps<{
     placement?: PositionMethod | PositionMethod[],

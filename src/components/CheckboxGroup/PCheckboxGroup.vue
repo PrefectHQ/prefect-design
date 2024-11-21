@@ -16,19 +16,15 @@
   </fieldset>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PCheckboxGroup',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { PCheckbox } from '@/components/Checkbox'
   import { useAttrsStylesAndClasses } from '@/compositions'
   import { normalizeSelectOption, SelectOptionNormalized } from '@/types'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     modelValue: string[] | number[] | boolean[],

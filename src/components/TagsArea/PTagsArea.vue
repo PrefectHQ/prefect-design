@@ -31,19 +31,15 @@
   </div>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PTagsArea',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PBaseInput from '@/components/BaseInput/PBaseInput.vue'
   import PTag from '@/components/Tag/PTag.vue'
   import { keys } from '@/types/keyEvent'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     modelValue: string[] | null | undefined,
