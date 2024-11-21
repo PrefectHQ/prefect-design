@@ -61,6 +61,18 @@
         </p-navigation-bar>
       </p-drawer>
     </template>
+
+    <template #local>
+      <div class="drawer__local">
+        Local drawer
+
+        <p-button @click="toggle('local')">Open</p-button>
+
+        <p-drawer v-model:open="drawers.local" :placement disable-teleport class="p-background">
+          Local drawer
+        </p-drawer>
+      </div>
+    </template>
   </ComponentPage>
 </template>
 
@@ -79,6 +91,9 @@
     {
       title: 'Advanced',
     },
+    {
+      title: 'Local',
+    },
   ]
 
   const placement = ref<DrawerPlacement>('left')
@@ -89,6 +104,7 @@
     nested: false,
     nestedBottom: false,
     advanced: false,
+    local: false,
   })
 
   const toggle = (name: keyof typeof drawers): void => {
@@ -122,5 +138,12 @@
 
 .p-drawer--bottom .drawer__navigation-bar { @apply
   rounded-t-default
+}
+
+.drawer__local { @apply
+  bg-slate-500
+  h-96
+  w-full
+  relative
 }
 </style>

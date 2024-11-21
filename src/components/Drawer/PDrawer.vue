@@ -1,8 +1,8 @@
 <template>
-  <teleport :to>
+  <teleport :to :disabled="disableTeleport">
     <transition name="p-drawer__slide" :duration="350">
       <keep-alive>
-        <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement="placement">
+        <PLayoutResizable v-if="open" :disabled="!resizable" class="p-drawer" :class="classes.root" :placement>
           <template #aside>
             <div class="p-drawer__aside" v-bind="attrs">
               <slot v-bind="drawerScope" />
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, useAttrs, ref } from 'vue'
+  import { computed, useAttrs } from 'vue'
   import { useDrawer, useGlobalEventListener } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
   import { DrawerPlacement, keys } from '@/types'
@@ -29,34 +29,21 @@
     inheritAttrs: false,
   })
 
-  const props = defineProps<{
-    open?: boolean,
+  const props = withDefaults(defineProps<{
     resizable?: boolean,
     placement?: DrawerPlacement,
     to?: string,
-  }>()
-
-  const emit = defineEmits<{
-    (event: 'update:open', value: boolean): void,
-  }>()
-
-  const placement = computed(() => props.placement ?? 'left')
-  const to = computed(() => props.to ?? 'body')
-
-  const attrs = useAttrs()
-
-  const internalOpen = ref<boolean>(false)
-  const open = computed<boolean>({
-    get() {
-      return props.open || internalOpen.value
-    },
-    set(value) {
-      internalOpen.value = value
-      emit('update:open', value)
-    },
+    disableTeleport?: boolean,
+  }>(), {
+    placement: 'left',
+    to: 'body',
   })
 
+  const open = defineModel<boolean>('open', { required: true })
+
+  const attrs = useAttrs()
   const drawerScope = useDrawer(open)
+
   function closeOnEscape(event: KeyboardEvent): void {
     if (isKeyEvent(keys.escape, event)) {
       drawerScope.close()
@@ -65,7 +52,10 @@
   useGlobalEventListener('keyup', closeOnEscape)
 
   const classes = computed(() => ({
-    root: `p-drawer--${placement.value}`,
+    root: {
+      [`p-drawer--${props.placement}`]: true,
+      'p-drawer--teleport': !props.disableTeleport,
+    },
   }))
 </script>
 
@@ -94,9 +84,13 @@
 
 .p-drawer { @apply
   h-full
-  fixed
+  absolute
   w-full
   z-50
+}
+
+.p-drawer--teleport { @apply
+  fixed
 }
 
 .p-drawer--top,
