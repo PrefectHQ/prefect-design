@@ -26,6 +26,7 @@
           tabindex="-1"
           aria-controls="options"
           aria-expanded="false"
+          small
           @keydown="handleTextInputKeydown"
           @focus="handleFocus"
         />
