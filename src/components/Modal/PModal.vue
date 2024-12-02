@@ -54,14 +54,6 @@
   </teleport>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PModal',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script setup lang="ts">
   import { nextTick, computed, ref, useSlots, watch, onBeforeUnmount } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
@@ -72,6 +64,10 @@
   import { keys } from '@/types'
   import { Icon } from '@/types/icon'
   import { isKeyEvent } from '@/utilities'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     showModal?: boolean,

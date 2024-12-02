@@ -16,19 +16,15 @@
   </div>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PRadioGroup',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed } from 'vue'
   import { PRadio } from '@/components/Radio'
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { SelectModelValue, normalizeSelectOption, SelectOptionNormalized } from '@/types/selectOption'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     modelValue: string | number | boolean | null | undefined,

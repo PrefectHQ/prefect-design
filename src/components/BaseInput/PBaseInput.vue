@@ -20,14 +20,6 @@
   </div>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'BaseInput',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed, ref } from 'vue'
   import PIcon from '@/components/Icon/PIcon.vue'
@@ -35,6 +27,10 @@
   import { useAttrsStylesClassesAndListeners } from '@/compositions/attributes'
   import { State } from '@/types/state'
   import { asArray } from '@/utilities'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     state?: State,

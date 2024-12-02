@@ -13,17 +13,13 @@
   </teleport>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PFrame',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { useElementRect } from '@prefecthq/vue-compositions'
   import { ref, watch, computed } from 'vue'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = defineProps<{
     bodyClass: Record<string, boolean> | string | string[],

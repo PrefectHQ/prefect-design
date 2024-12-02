@@ -18,20 +18,16 @@
   </teleport>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PDrawer',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { computed, useAttrs } from 'vue'
   import { useDrawer, useGlobalEventListener } from '@/compositions'
   import { PLayoutResizable } from '@/layouts'
   import { DrawerPlacement, keys } from '@/types'
   import { isKeyEvent } from '@/utilities'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   const props = withDefaults(defineProps<{
     resizable?: boolean,

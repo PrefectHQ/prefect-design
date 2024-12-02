@@ -18,14 +18,6 @@
   </PPopOver>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PIconButtonMenu',
-    expose: [],
-    inheritAttrs: false,
-  }
-</script>
-
 <script lang="ts" setup>
   import { ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
@@ -34,6 +26,10 @@
   import { useAttrsStylesAndClasses } from '@/compositions/attributes'
   import { Icon } from '@/types/icon'
   import { topRight, bottomRight, bottomLeft, topLeft } from '@/utilities/position'
+
+  defineOptions({
+    inheritAttrs: false,
+  })
 
   withDefaults(defineProps<{
     icon?: Icon,

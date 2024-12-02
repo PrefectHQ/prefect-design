@@ -3,13 +3,6 @@
   <pre v-else class="p-code-container p-code-container--block"><code><slot /></code></pre>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'PCode',
-    expose: [],
-  }
-</script>
-
 <script lang="ts" setup>
   defineProps<{
     /**
