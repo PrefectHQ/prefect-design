@@ -2,6 +2,7 @@
   <PSelect
     v-model="modelValue"
     :options="filteredSelectOptions"
+    :options-class
     :empty-message="emptyMessage"
     @update:model-value="resetTypedValue"
     @close="resetTypedValue"
@@ -71,10 +72,12 @@
     placeholder?: string,
     search?: string,
     manual?: boolean,
+    optionsClass?: string,
   }>(), {
     emptyMessage: undefined,
     placeholder: 'Search',
     search: undefined,
+    optionsClass: undefined,
   })
 
   const emit = defineEmits<{
