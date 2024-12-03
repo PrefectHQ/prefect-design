@@ -73,6 +73,7 @@
     <PSelectOptions
       v-model="modelValue"
       class="p-select__options"
+      :class="optionsClass"
       :options="options"
       :style="styles.option"
       :multiple="multiple"
@@ -117,6 +118,7 @@
     emptyMessage?: string,
     multiple?: boolean,
     small?: boolean,
+    optionsClass?: string,
   }>()
 
   const emit = defineEmits<{

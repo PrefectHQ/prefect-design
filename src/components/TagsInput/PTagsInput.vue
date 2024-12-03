@@ -1,5 +1,12 @@
 <template>
-  <PCombobox v-model="internalValue" class="p-tags-input" allow-unknown-value :options="[]" :placeholder="placeholder">
+  <PCombobox
+    v-model="internalValue"
+    class="p-tags-input"
+    allow-unknown-value
+    :options="[]"
+    :placeholder
+    :options-class
+  >
     <template v-for="(index, name) in $slots" #[name]="data">
       <slot :name="name" v-bind="data" />
     </template>
@@ -24,8 +31,10 @@
   const props = withDefaults(defineProps<{
     modelValue: string[] | null | undefined,
     placeholder?: string,
+    optionsClass?: string,
   }>(), {
     placeholder: 'Add tag',
+    optionsClass: undefined,
   })
 
   const emit = defineEmits<{
