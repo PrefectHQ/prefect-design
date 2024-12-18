@@ -54,7 +54,7 @@
   const pages = defineModel<number>('pages')
   const limit = defineModel<number>('limit')
 
-  const limits = defineModel<number[]>('limits', { default: () => [5, 10, 25, 50] })
+  const limits = defineModel<number[]>('limits', { default: () => [5, 10, 25, 50, 100] })
   const limitText = computed(() => 'Items per page')
 
   const disableFirst = computed(() => page.value === 1)
