@@ -244,7 +244,11 @@
 }
 
 .p-date-range-select__button { @apply
-  -ml-[1px]
+  -ml-[1px];
+
+  border-color: var(--p-color-input-border) !important;
+  background-color: var(--p-color-input-bg) !important;
+  color: var(--p-color-input-text) !important;
 }
 
 .p-date-range-select__button--clear { @apply

@@ -67,6 +67,7 @@
     --p-color-bg-3: hsl(var(--p-primary-hue), 6%, 20%);
 
     --p-color-bg-floating: hsl(var(--p-primary-hue), 6%, 24%);
+    --p-color-border-floating: hsl(var(--p-primary-hue), 6%, 40%);
     --p-color-bg-floating-sticky: hsl(var(--p-primary-hue) 6% 12% / 0.9);
     --p-color-bg-code: hsl(var(--p-primary-hue), 6%, 8%);
     --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);
@@ -237,6 +238,7 @@
     --p-color-bg-2: hsl(var(--p-primary-hue), 0.0%, 96%);
     --p-color-bg-3: hsl(var(--p-primary-hue), 0.0%, 92%);
     --p-color-bg-floating: hsl(var(--p-primary-hue), 0.0%, 100%);
+    --p-color-border-floating: hsl(var(--p-primary-hue), 11.3%, 76%);
     --p-color-bg-floating-sticky: hsl(var(--p-primary-hue) 0.0% 100.0% / 0.8);
     --p-color-bg-code: hsl(var(--p-primary-hue), 8.2%, 88%);
     --p-color-bg-overlay: hsl(0.0 0.0% 0.0% / 0.5);

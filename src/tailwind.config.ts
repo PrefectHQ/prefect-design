@@ -95,6 +95,7 @@ const darkMode = 'class'
 
 const themeUtilities = {
   '.bg-floating': { backgroundColor: 'var(--p-color-bg-floating)' },
+  '.border-floating': { borderColor: 'var(--p-color-border-floating)' },
   '.bg-floating-sticky': { backgroundColor: 'var(--p-color-bg-floating-sticky)' },
   '.bg-code': { backgroundColor: 'var(--p-color-bg-code)' },
   '.bg-overlay': { backgroundColor: 'var(--p-color-bg-overlay)' },

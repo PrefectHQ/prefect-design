@@ -56,5 +56,6 @@
 .p-date-range-select-options .p-select-option:nth-of-type(4) { @apply
   border-b
   border-b-divider
+  rounded-none
 }
 </style>
