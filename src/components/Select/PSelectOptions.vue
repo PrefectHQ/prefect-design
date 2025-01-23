@@ -163,6 +163,8 @@
   relative
   my-1
   bg-floating
+  border
+  border-floating
   overflow-hidden
   rounded-default
   shadow-lg
