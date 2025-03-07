@@ -2,7 +2,7 @@ import { computed, Ref, ref, watch } from 'vue'
 import { SelectModelValue, SelectOptionNormalized } from '@/types'
 import { MaybeRef } from '@/types/ref'
 
-const unselected = Symbol()
+export const unselected = Symbol()
 
 export type UseHighlightedValue = {
   highlightedValue: Ref<SelectModelValue | typeof unselected>,
