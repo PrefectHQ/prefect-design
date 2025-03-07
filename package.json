@@ -81,7 +81,7 @@
     "highlight.js": "11.11.1",
     "lodash.debounce": "4.0.8",
     "marked": "4.3.0",
-    "radix-vue": "1.9.10",
+    "radix-vue": "1.9.17",
     "tailwindcss-animate": "^1.0.7"
   }
 }
