@@ -2,7 +2,7 @@
   <PSelectOptions v-model="selected" :options="options" class="p-date-range-select-relative" @update:model-value="apply">
     <template #pre-options>
       <div class="p-1">
-        <PTextInput ref="input" v-model="search" placeholder="Relative time (15m, 1h, 1d, 1w)" />
+        <PTextInput ref="input" v-model="search" small placeholder="Relative time (15m, 1h, 1d, 1w)" />
       </div>
     </template>
     <template #option="{ option }">

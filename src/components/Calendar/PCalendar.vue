@@ -3,7 +3,7 @@
     <PCalendarHeader v-model="viewingDate" v-model:mode="mode" v-bind="{ min, max }" />
 
     <div class="p-calendar__mode">
-      <PCalendarDatePicker v-model="selected" :class="classes" v-bind="{ viewingDate, min, max }" @mode="mode = $event">
+      <PCalendarDatePicker v-model="selected" :class="classes" v-bind="{ viewingDate, min, max, minReason, maxReason }" @mode="mode = $event">
         <template #date="scope">
           <slot name="date" v-bind="scope" />
         </template>
@@ -44,7 +44,9 @@
     viewingDate?: Date | null | undefined,
     classes?: Classes,
     min?: Date | null | undefined,
+    minReason?: string,
     max?: Date | null | undefined,
+    maxReason?: string,
   }>()
 
   const emit = defineEmits<{

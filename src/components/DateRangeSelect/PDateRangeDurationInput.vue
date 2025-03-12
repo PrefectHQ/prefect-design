@@ -1,7 +1,7 @@
 <template>
   <div class="p-date-range-duration-input">
-    <PNumberInput v-model="quantity" prepend="±" />
-    <PSelect v-model="unit" :options="units" />
+    <PNumberInput v-model="quantity" prepend="±" :small="small" />
+    <PSelect v-model="unit" :options="units" :small="small" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@
   const props = defineProps<{
     quantity: number,
     unit: DateRangeSelectAroundUnit,
+    small?: boolean,
   }>()
 
   const emit = defineEmits<{

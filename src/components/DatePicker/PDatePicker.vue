@@ -1,6 +1,6 @@
 <template>
   <PContent class="p-date-picker" secondary>
-    <PCalendar v-model="selected" v-model:viewingDate="viewingDate" v-bind="{ min, max }">
+    <PCalendar v-model="selected" v-model:viewingDate="viewingDate" v-bind="{ min, max, minReason, maxReason }">
       <template #date="scope">
         <slot name="date" v-bind="scope" />
       </template>
@@ -37,7 +37,9 @@
     viewingDate?: Date | null | undefined,
     showTime?: boolean,
     min?: Date | null | undefined,
+    minReason?: string,
     max?: Date | null | undefined,
+    maxReason?: string,
   }>()
 
   const emit = defineEmits<{
