@@ -2,7 +2,7 @@
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
       <PTooltip :text="minReason" :disabled="!minReason || !previousDisabled || !modelValue">
-        <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
+        <PButton class="p-date-range-select__button pointer-events-auto" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
       </PTooltip>
 
       <PButton class="p-date-range-select__button  p-date-range-select__input" :class="button({ size })" :disabled="disabled" :size="size" @click="open">
@@ -20,7 +20,7 @@
       </template>
 
       <PTooltip :text="maxReason" :disabled="!maxReason || !nextDisabled || !modelValue">
-        <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" :size="size" @click="next" />
+        <PButton class="p-date-range-select__button pointer-events-auto" icon="ArrowSmallRightIcon" :disabled="nextDisabled" :size="size" @click="next" />
       </PTooltip>
     </template>
 
