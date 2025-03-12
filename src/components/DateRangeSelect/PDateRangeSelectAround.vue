@@ -3,7 +3,7 @@
     <template #after-controls>
       <PLabel label="Duration">
         <template #default="{ id }">
-          <PDateRangeDurationInput :id="id" v-model:quantity="quantity" v-model:unit="unit" />
+          <PDateRangeDurationInput :id="id" v-model:quantity="quantity" v-model:unit="unit" small />
         </template>
       </PLabel>
     </template>

@@ -3,7 +3,7 @@
     v-model:start-date="startDate"
     v-model:end-date="endDate"
     class="p-date-range-select-range"
-    v-bind="{ min, max }"
+    v-bind="{ min, max, minReason, maxReason }"
     show-time
     @close="close"
     @apply="apply"
@@ -16,7 +16,9 @@
 
   defineProps<{
     min?: Date,
+    minReason?: string,
     max?: Date,
+    maxReason?: string,
   }>()
 
   const emit = defineEmits<{

@@ -9,26 +9,31 @@
     </div>
     <div class="p-calendar-date-picker__dates">
       <template v-for="date in dates" :key="date.getTime()">
-        <slot name="date" v-bind="scope(date)">
-          <PButton
-            small
-            flat
-            class="p-calendar-date-picker__date"
-            :class="getDateClasses(date)"
-            :disabled="isDateDisabled(date)"
-            @click="setSelected(date)"
-          >
-            {{ date.getDate() }}
-          </PButton>
-        </slot>
+        <PTooltip :text="getReason(date)" :disabled="getReasonDisabled(date)">
+          <div class="p-calendar-date-picker__trigger">
+            <slot name="date" v-bind="scope(date)">
+              <PButton
+                small
+                flat
+                class="p-calendar-date-picker__date"
+                :class="getDateClasses(date)"
+                :disabled="isDateDisabled(date)"
+                @click="setSelected(date)"
+              >
+                {{ date.getDate() }}
+              </PButton>
+            </slot>
+          </div>
+        </PTooltip>
       </template>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, isToday, startOfMonth, startOfWeek } from 'date-fns'
+  import { eachDayOfInterval, endOfMonth, endOfWeek, format, isAfter, isBefore, isSameDay, isSameMonth, isToday, startOfMonth, startOfWeek } from 'date-fns'
   import { VNode, computed } from 'vue'
+  import { PTooltip } from '@/components/Tooltip'
   import { ClassValue } from '@/types/attributes'
   import { isDateAfter, isDateBefore, isNotNullish } from '@/utilities'
 
@@ -45,7 +50,9 @@
     modelValue: Date | null | undefined,
     viewingDate: Date,
     min?: Date | null | undefined,
+    minReason?: string,
     max?: Date | null | undefined,
+    maxReason?: string,
   }>()
 
   const emit = defineEmits<{
@@ -129,6 +136,22 @@
 
   function setSelected(date: Date): void {
     selected.value = date
+  }
+
+  function getReason(date: Date): string {
+    if (props.min && isBefore(date, props.min)) {
+      return props.minReason ?? ''
+    }
+
+    if (props.max && isAfter(date, props.max)) {
+      return props.maxReason ?? ''
+    }
+
+    return ''
+  }
+
+  function getReasonDisabled(date: Date): boolean {
+    return !getReason(date)
   }
 </script>
 

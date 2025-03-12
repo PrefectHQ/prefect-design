@@ -1,7 +1,10 @@
 <template>
   <PPopOver ref="popover" class="p-date-range-select" :placement="placement" auto-close>
     <template #target="{ open }">
-      <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
+      <PTooltip :text="minReason" :disabled="!minReason || !previousDisabled || !modelValue">
+        <PButton class="p-date-range-select__button" icon="ArrowSmallLeftIcon" :disabled="previousDisabled" :size="size" @click="previous" />
+      </PTooltip>
+
       <PButton class="p-date-range-select__button  p-date-range-select__input" :class="button({ size })" :disabled="disabled" :size="size" @click="open">
         <div class="p-date-range-select__content">
           <PIcon icon="CalendarIcon" class="shrink-0" :size />
@@ -15,7 +18,10 @@
       <template v-if="modelValue && clearable && !disabled">
         <PButton class="p-date-range-select__button p-date-range-select__button--clear" icon="XCircleIcon" :size="size" @click="clear" />
       </template>
-      <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" :size="size" @click="next" />
+
+      <PTooltip :text="maxReason" :disabled="!maxReason || !nextDisabled || !modelValue">
+        <PButton class="p-date-range-select__button" icon="ArrowSmallRightIcon" :disabled="nextDisabled" :size="size" @click="next" />
+      </PTooltip>
     </template>
 
     <template #default>
@@ -29,11 +35,11 @@
         </template>
 
         <template v-if="mode === 'around'">
-          <PDateRangeSelectAround v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
+          <PDateRangeSelectAround v-bind="{ maxSpanInSeconds, min, minReason, max, maxReason }" @close="close" @apply="apply" />
         </template>
 
         <template v-if="mode === 'range'">
-          <PDateRangeSelectRange v-bind="{ maxSpanInSeconds, min, max }" @close="close" @apply="apply" />
+          <PDateRangeSelectRange v-bind="{ maxSpanInSeconds, min, minReason, max, maxReason }" @close="close" @apply="apply" />
         </template>
       </div>
     </template>
@@ -54,6 +60,7 @@
   import { getDateRangeSelectValueLabel, isFullDateRange } from '@/components/DateRangeSelect/utilities'
   import PIcon from '@/components/Icon/PIcon.vue'
   import PPopOver from '@/components/PopOver/PPopOver.vue'
+  import { PTooltip } from '@/components/Tooltip'
   import { DateRangeSelectValue } from '@/types/dateRange'
   import { toPixels } from '@/utilities'
   import { mapDateRangeSelectValueToDateRange } from '@/utilities/dateRangeSelect'
@@ -76,25 +83,26 @@
 
   export type DateRangeSelectMode = 'span' | 'range' | 'around' | null
 
-  const props = withDefaults(defineProps<{
-    modelValue: DateRangeSelectValue,
+  const modelValue = defineModel<DateRangeSelectValue>('modelValue', { required: true })
+
+  const {
+    maxSpanInSeconds,
+    clearable,
+    disabled,
+    min,
+    max,
+    placeholder = 'Select a time span',
+    size = 'default',
+  } = defineProps<{
     placeholder?: string,
     maxSpanInSeconds?: number,
     clearable?: boolean,
     disabled?: boolean,
     min?: Date,
+    minReason?: string,
     max?: Date,
+    maxReason?: string,
     size?: ButtonProps['size'],
-  }>(), {
-    min: undefined,
-    max: undefined,
-    placeholder: undefined,
-    maxSpanInSeconds: undefined,
-    size: 'default',
-  })
-
-  const emit = defineEmits<{
-    'update:modelValue': [DateRangeSelectValue],
   }>()
 
   useKeyDown('Escape', () => {
@@ -108,24 +116,13 @@
   const { width } = useElementRect(target)
   const mode = ref<DateRangeSelectMode>(null)
 
-  const modelValue = computed({
-    get() {
-      return props.modelValue
-    },
-    set(value) {
-      emit('update:modelValue', value)
-    },
-  })
-
-  const placeholder = computed(() => props.placeholder ?? 'Select a time span')
-
   const label = computed(() => {
-    return getDateRangeSelectValueLabel(modelValue.value) ?? placeholder.value
+    return getDateRangeSelectValueLabel(modelValue.value) ?? placeholder
   })
 
   const classes = computed(() => ({
     label: {
-      'p-date-range-select__label--placeholder': label.value === placeholder.value,
+      'p-date-range-select__label--placeholder': label.value === placeholder,
     },
   }))
 
@@ -150,15 +147,15 @@
     const seconds = getIntervalInSeconds()
     const { startDate } = getNewRange(seconds * -1) ?? {}
 
-    if (!startDate || !seconds || props.disabled) {
+    if (!startDate || !seconds || disabled) {
       return true
     }
 
-    if (!props.min) {
+    if (!min) {
       return false
     }
 
-    return isBefore(startDate, props.min)
+    return isBefore(startDate, min)
   })
 
   function previous(): void {
@@ -167,7 +164,7 @@
 
     if (range) {
       const { startDate, endDate } = range
-      emit('update:modelValue', { type: 'range', startDate, endDate })
+      modelValue.value = { type: 'range', startDate, endDate }
     }
   }
 
@@ -175,15 +172,15 @@
     const seconds = getIntervalInSeconds()
     const { endDate } = getNewRange(seconds) ?? {}
 
-    if (!endDate || !seconds || props.disabled) {
+    if (!endDate || !seconds || disabled) {
       return true
     }
 
-    if (!props.max) {
+    if (!max) {
       return false
     }
 
-    return isAfter(endDate, props.max)
+    return isAfter(endDate, max)
   })
 
   function next(): void {
@@ -192,7 +189,7 @@
 
     if (range) {
       const { startDate, endDate } = range
-      emit('update:modelValue', { type: 'range', startDate, endDate })
+      modelValue.value = { type: 'range', startDate, endDate }
     }
   }
 
@@ -225,7 +222,7 @@
   }
 
   function clear(): void {
-    emit('update:modelValue', null)
+    modelValue.value = null
   }
 
   watch(() => popover.value?.visible, (visible) => {
@@ -266,6 +263,10 @@
 
 .p-date-range-select__button:last-child { @apply
   rounded-l-none
+}
+
+.p-date-range-select__button:disabled { @apply
+  pointer-events-auto
 }
 
 .p-date-range-select__content { @apply

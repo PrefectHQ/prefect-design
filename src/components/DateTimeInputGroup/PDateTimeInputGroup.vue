@@ -10,10 +10,10 @@
     </template>
 
     <PContent secondary>
-      <PNativeDateInput v-model="startDate" disable-picker />
+      <PNativeDateInput v-model="startDate" disable-picker small />
 
       <template v-if="showTime">
-        <PNativeTimeInput v-model="startTime" disable-picker />
+        <PNativeTimeInput v-model="startTime" disable-picker small />
       </template>
     </PContent>
   </PLabel>
