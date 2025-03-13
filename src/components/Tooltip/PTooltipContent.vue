@@ -28,7 +28,7 @@
 </script>
 
 <style>
-.p-tooltip{@apply
+.p-tooltip { @apply
   z-50
   overflow-hidden
   rounded-md
@@ -50,5 +50,6 @@
   data-[side=left]:slide-in-from-right-2
   data-[side=right]:slide-in-from-left-2
   data-[side=top]:slide-in-from-bottom-2
+  max-w-[var(--p-tooltip-max-width,300px)]
 }
 </style>

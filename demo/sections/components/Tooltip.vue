@@ -5,7 +5,9 @@
         This is a sentence with a
         <p-tooltip text="This is a Tooltip component">
           <p-link>tooltip</p-link>
-        </p-tooltip> in it.
+        </p-tooltip> in it. And this is another with a longer <p-tooltip open text="Yep, this is a longer tooltip alright. It just keeps on going. A bit to long probably.">
+          <p-link>tooltip</p-link>
+        </p-tooltip>.
       </p>
     </template>
 
