@@ -1,4 +1,4 @@
-import { format, isSameDay, startOfDay, endOfDay, Duration } from 'date-fns'
+import { format, isSameDay, startOfDay, endOfDay, Duration, isSameYear } from 'date-fns'
 import { secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns/constants'
 import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
@@ -9,9 +9,11 @@ type DateRange = {
   endDate: Date,
 }
 
-const dateFormat = 'MMM do, yyyy'
+const dateFormat = 'MMM do'
+const dateAndYearFormat = 'MMM do, yyyy'
 const timeFormat = 'hh:mm a'
 const dateTimeFormat = `${dateFormat} 'at' ${timeFormat}`
+const dateTimeAndYearFormat = `${dateAndYearFormat} 'at' ${timeFormat}`
 
 export function getDateRangeSelectValueLabel(value: DateRangeSelectValue): string | null {
   if (!value) {
@@ -66,18 +68,26 @@ function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
 
 function getDateRangeLabel({ startDate, endDate }: DateRangeSelectRangeValue): string {
   if (isPickerSingleDayRange({ startDate, endDate })) {
-    return format(startDate, dateFormat)
+    const startDateFormat = isSameYear(startDate, new Date()) ? dateFormat : dateAndYearFormat
+
+    return format(startDate, startDateFormat)
   }
 
   if (isFullDateRange({ startDate, endDate })) {
-    return `${format(startDate, dateFormat)} - ${format(endDate, dateFormat)}`
+    const startDateFormat = isSameYear(startDate, new Date()) ? dateFormat : dateAndYearFormat
+    const endDateFormat = isSameYear(endDate, new Date()) ? dateFormat : dateAndYearFormat
+
+    return `${format(startDate, startDateFormat)} - ${format(endDate, endDateFormat)}`
   }
 
-  return `${format(startDate, dateTimeFormat)} - ${format(endDate, dateTimeFormat)}`
+  const startDateFormat = isSameYear(startDate, new Date()) ? dateTimeFormat : dateTimeAndYearFormat
+  const endDateFormat = isSameYear(endDate, new Date()) ? dateTimeFormat : dateTimeAndYearFormat
+
+  return `${format(startDate, startDateFormat)} - ${format(endDate, endDateFormat)}`
 }
 
 function getDateAroundLabel({ date, quantity, unit }: DateRangeSelectAroundValue): string {
-  const dateString = isStartOfDay(date) ? format(date, dateFormat) : format(date, dateTimeFormat)
+  const dateString = isStartOfDay(date) ? format(date, dateAndYearFormat) : format(date, dateTimeAndYearFormat)
 
   return `${quantity} ${toPluralString(unit, quantity)} around ${dateString}`
 }

@@ -33,7 +33,6 @@
 
 <script lang="ts" setup>
   import { DateRangeSelectValue, State } from '@/types'
-  import { endOfDay, startOfWeek } from 'date-fns'
   import { ref } from 'vue'
   import ComponentPage from '@/demo/components/ComponentPage.vue'
   import DemoState from '@/demo/components/DemoState.vue'
@@ -42,8 +41,8 @@
   const disabled = ref(false)
 
   const value = ref<DateRangeSelectValue>({ type: 'span', seconds: -604800 })
-  const min = ref<Date>(startOfWeek(new Date()))
-  const max = ref<Date>(endOfDay(new Date()))
+  const min = ref<Date>()
+  const max = ref<Date>()
   const minReason = ref('min reason')
   const maxReason = ref('max reason')
   const clearable = ref(false)
