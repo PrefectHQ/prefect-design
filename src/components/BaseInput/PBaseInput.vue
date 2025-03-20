@@ -4,7 +4,7 @@
       {{ prepend }}
     </div>
     <slot name="prepend" />
-    <slot name="control" :attrs="attrsForControl" />
+    <slot name="control" v-bind="attrsForControl" />
     <div v-if="append" class="p-base-input__append">
       {{ append }}
     </div>
