@@ -1,5 +1,5 @@
 import { isDate } from 'date-fns'
-import { isDefined, isNumber } from '@/utilities'
+import { isNumber } from '@/utilities'
 import { isRecord } from '@/utilities/objects'
 
 const dateRangeSelectType = ['span', 'range', 'period', 'around'] as const
