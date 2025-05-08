@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PSanitizeHtml, PHashLink, PTable } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PSanitizeHtml, PHashLink, PTable } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import {
   Token,
@@ -26,7 +26,6 @@ import {
 } from '@/types/markdownRenderer'
 import { ColumnClassesMethod } from '@/types/tables'
 import { randomId } from '@/utilities'
-import { isRouteExternal, isRouteRelative, stripBaseUrl } from '@/utilities/router'
 import { unescapeHtml } from '@/utilities/strings'
 
 const baseElement = 'div'
@@ -37,21 +36,7 @@ const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 't
 const mapChildTokens = (tokens: Token[], options: ParserOptions): VNodeChildren => tokens.flatMap((token) => getVNode(token, options))
 
 const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
-  const { headingClasses = defaultHeadingClasses, baseLinkUrl = '' } = options
-
-  const normalizeHref = (href: string): string => {
-    if (isRouteExternal(href)) {
-      return href
-    }
-
-    if (isRouteRelative(href)) {
-      return `${baseLinkUrl}${href}`
-    }
-
-    // This is used to strip the base URL from the href; without this
-    // vue-router will append the entire URL to the current route
-    return stripBaseUrl(href)
-  }
+  const { headingClasses = defaultHeadingClasses } = options
 
   let children: VNodeChildren = []
 
@@ -89,9 +74,8 @@ const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
 
   if (isImage(token)) {
     const { href, text, title } = token
-    const composedHref = normalizeHref(href)
     const classList = [`${baseClass}__image`]
-    return h('img', { src: composedHref, alt: text, class: classList, title })
+    return h('img', { src: href, alt: text, class: classList, title })
   }
 
   if (isHtml(token)) {
@@ -148,8 +132,7 @@ const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
   if (isLink(token)) {
     const { href, title } = token
     const classList = [`${baseClass}__link`]
-    const composedHref = normalizeHref(href)
-    return h(PLink, { to: composedHref, title, class: classList, rel: 'noopener' }, { default: () => token.text })
+    return h('a', { href, title, class: classList, rel: 'noopener', target: href.startsWith('#') ? '_self' : '_blank' }, { default: () => token.text })
   }
 
   return h(baseElement, props, children)

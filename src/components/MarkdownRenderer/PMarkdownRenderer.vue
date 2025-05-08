@@ -137,12 +137,20 @@
   my-2
 }
 
-.markdown-renderer__heading:not(:first-child) { @apply
-  mt-2
+.markdown-renderer__heading--h1:first-child { @apply
+  mt-0
 }
 
-.markdown-renderer__heading:not(:last-child) { @apply
-  mb-2
+.markdown-renderer__heading--h1 { @apply
+  mt-4
+}
+
+.markdown-renderer__heading--h2,
+.markdown-renderer__heading--h3,
+.markdown-renderer__heading--h4,
+.markdown-renderer__heading--h5,
+.markdown-renderer__heading--h6 { @apply
+  my-2
 }
 
 .markdown-renderer__heading--h1,
@@ -163,5 +171,10 @@
   ml-4
   mb-1
   list-item
+}
+
+.markdown-renderer__link { @apply
+  text-link
+  hover:underline
 }
 </style>
