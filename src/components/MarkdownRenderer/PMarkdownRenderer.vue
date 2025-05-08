@@ -6,16 +6,17 @@
   import { computed } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
   import { useMarkdownRenderer } from '@/compositions/useMarkdownRenderer'
+  import { ParserOptions } from '@/types/markdownRenderer'
 
-  const props = defineProps<{
+  const { text, parserOptions } = defineProps<{
     text: string,
-    linkBaseUrl?: string,
+    parserOptions?: ParserOptions,
   }>()
 
-  const { tokens } = useMarkdownRenderer(() => props.text)
+  const { tokens } = useMarkdownRenderer(() => text)
 
   const renderRoot = computed(() => {
-    return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
+    return getRootVNode(tokens.value, parserOptions)
   })
 </script>
 

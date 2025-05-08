@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PSanitizeHtml, PHashLink, PTable } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PSanitizeHtml, PHashLink, PTable } from '@/components'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import {
   Token,
@@ -225,7 +225,7 @@ const getCodeVNode = (token: marked.Tokens.Code): VNode => {
   return h(PCode, { class: classList }, { default: () => unescapeHtml(text) })
 }
 
-export const getRootVNode = (tokens: marked.TokensList | [], options: ParserOptions): VNode => {
+export const getRootVNode = (tokens: marked.TokensList | [], options: ParserOptions = {}): VNode => {
   const children = mapChildTokens(tokens, options)
   return h('article', { class: [baseClass] }, children)
 }
