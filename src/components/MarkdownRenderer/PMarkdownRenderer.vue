@@ -6,16 +6,17 @@
   import { computed } from 'vue'
   import { getRootVNode } from '@/components/MarkdownRenderer/parser'
   import { useMarkdownRenderer } from '@/compositions/useMarkdownRenderer'
+  import { ParserOptions } from '@/types/markdownRenderer'
 
-  const props = defineProps<{
+  const { text, parserOptions } = defineProps<{
     text: string,
-    linkBaseUrl?: string,
+    parserOptions?: ParserOptions,
   }>()
 
-  const { tokens } = useMarkdownRenderer(() => props.text)
+  const { tokens } = useMarkdownRenderer(() => text)
 
   const renderRoot = computed(() => {
-    return getRootVNode(tokens.value, { baseLinkUrl: props.linkBaseUrl })
+    return getRootVNode(tokens.value, parserOptions)
   })
 </script>
 
@@ -137,12 +138,20 @@
   my-2
 }
 
-.markdown-renderer__heading:not(:first-child) { @apply
-  mt-2
+.markdown-renderer__heading--h1:first-child { @apply
+  mt-0
 }
 
-.markdown-renderer__heading:not(:last-child) { @apply
-  mb-2
+.markdown-renderer__heading--h1 { @apply
+  mt-4
+}
+
+.markdown-renderer__heading--h2,
+.markdown-renderer__heading--h3,
+.markdown-renderer__heading--h4,
+.markdown-renderer__heading--h5,
+.markdown-renderer__heading--h6 { @apply
+  my-2
 }
 
 .markdown-renderer__heading--h1,
@@ -163,5 +172,10 @@
   ml-4
   mb-1
   list-item
+}
+
+.markdown-renderer__link { @apply
+  text-link
+  hover:underline
 }
 </style>

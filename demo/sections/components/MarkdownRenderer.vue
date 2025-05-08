@@ -106,7 +106,7 @@
   const lineBreak = 'line break before\nline break after'
   const horizontalRule = '\nhorizontal rule before\n\n---\n\nhorizontal rule after\n'
   const anchor = '[anchor](#heading-1)'
-  const image = '![image](https://via.placeholder.com/200/024DFD/FFFFFF?text=image)'
+  const image = '![image](https://placehold.co/200/024DFD/FFFFFF?text=image)'
   const fencedCodeBlock = '\n```\nfenced = "code block"\n```\n'
   const highlightedCodeBlock = '\n```py\nhighlighted_fenced = "code block"\n```\n'
 
@@ -249,11 +249,17 @@
   > ${heading4}
   > ${heading5}
   > ${heading6}
+  >
   > ${image}
+  >
   > ${lineBreak}
+  >
   > horizontal rule before
+  >
   > ---
+  >
   > horizontal rule after
+  >
   > - unordered list item 1
   > - unordered list item 2
   > - unordered list item 3

@@ -16,7 +16,6 @@ export type ParseMessagePayload = {
 
 export type ParserOptions = {
   headingClasses?: string[],
-  baseLinkUrl?: string | null | undefined,
 }
 
 export function isToken(token: unknown): token is Token {
