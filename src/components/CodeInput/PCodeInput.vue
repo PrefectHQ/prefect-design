@@ -155,12 +155,14 @@
 }
 
 .p-code-input { @apply
-  bg-code
-  text-code
   font-mono
   overflow-hidden
   p-0
-  relative
+  relative;
+
+  border-color: var(--p-color-input-border);
+  background-color: var(--p-color-input-bg);
+  color: var(--p-color-input-text);
 }
 
 .p-code-input__line-numbers-wrapper { @apply
@@ -183,7 +185,6 @@
 }
 
 .p-code-input__control { @apply
-  bg-code
   cursor-text
   grow
   h-full
