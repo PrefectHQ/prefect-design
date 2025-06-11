@@ -2,7 +2,7 @@ import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
 import { PCheckbox, PCode, PCodeHighlight, PDivider, PSanitizeHtml, PHashLink, PTable, PHeading } from '@/components'
-import { HeadingLevel, isHeadingLevel } from '@/components/Heading/utilities'
+import { isHeadingLevel } from '@/components/Heading/utilities'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import {
   Token,
