@@ -12,6 +12,7 @@
       { title: 'HTML' },
       { title: 'CSS' },
       { title: 'YAML' },
+      { title: 'SQL' },
       { title: 'Long lines' },
     ]"
   >
@@ -55,6 +56,10 @@
 
     <template #long-lines>
       <PCodeHighlight :text="long" lang="md" :show-line-numbers="showLineNumbers" />
+    </template>
+
+    <template #sql>
+      <PCodeHighlight :text="sqlContent" lang="sql" :show-line-numbers="showLineNumbers" />
     </template>
   </ComponentPage>
 </template>
@@ -197,4 +202,10 @@ xmas-fifth-day:
     count: 1
     location: "a pear tree"
   turtle-doves: two`
+
+  const sqlContent = `
+  SELECT * FROM users
+  WHERE age > 18
+  ORDER BY name ASC
+  `
 </script>
