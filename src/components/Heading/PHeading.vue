@@ -6,9 +6,10 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue'
+  import { HeadingLevel } from '@/components/Heading/utilities'
 
   const props = defineProps<{
-    heading?: 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6',
+    heading?: HeadingLevel,
     element?: string,
   }>()
 

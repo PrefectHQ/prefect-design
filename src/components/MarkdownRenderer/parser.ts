@@ -1,7 +1,8 @@
 import { marked } from 'marked'
 
 import { VNode, h, createTextVNode as t } from 'vue'
-import { PCheckbox, PCode, PCodeHighlight, PDivider, PLink, PSanitizeHtml, PHashLink, PTable } from '@/components'
+import { PCheckbox, PCode, PCodeHighlight, PDivider, PSanitizeHtml, PHashLink, PTable, PHeading } from '@/components'
+import { HeadingLevel, isHeadingLevel } from '@/components/Heading/utilities'
 import { isSupportedLanguage } from '@/types/codeHighlight'
 import {
   Token,
@@ -31,7 +32,6 @@ import { unescapeHtml } from '@/utilities/strings'
 const baseElement = 'div'
 const baseClass = 'markdown-renderer'
 const defaultHeadingClasses = ['text-4xl', 'text-3xl', 'text-2xl', 'text-lg', 'text-base', 'text-sm']
-
 
 const mapChildTokens = (tokens: Token[], options: ParserOptions): VNodeChildren => tokens.flatMap((token) => getVNode(token, options))
 
@@ -119,12 +119,14 @@ const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
 
   if (isHeading(token)) {
     const { depth, text } = token
-    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
+    const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`, `${baseClass}__heading-wrapper`]
 
     let heading
 
     if (options.headerAnchors) {
-      heading = h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
+      heading = h(PHashLink, { hash: text, depth, class: classList }, { default: () => children })
+    } else if (isHeadingLevel(depth)) {
+      heading = h(PHeading, { class: classList, heading: depth }, { default: () => children })
     } else {
       heading = h(baseElement, { class: classList }, children)
     }
