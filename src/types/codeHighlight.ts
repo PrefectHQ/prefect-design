@@ -8,6 +8,7 @@ const MarkdownLanguageRefs = ['markdown', 'md'] as const
 const PythonLanguageRefs = ['python', 'py'] as const
 const VueLanguageRefs = ['vue'] as const
 const YamlLanguageRefs = ['yaml', 'yml'] as const
+const SqlLanguageRefs = ['sql'] as const
 
 export const SupportedLanguages = [
   ...CssLanguageRefs,
@@ -20,6 +21,7 @@ export const SupportedLanguages = [
   ...PythonLanguageRefs,
   ...VueLanguageRefs,
   ...YamlLanguageRefs,
+  ...SqlLanguageRefs,
 ] as const
 
 export type SupportedLanguage = typeof SupportedLanguages[number]
@@ -81,4 +83,8 @@ export function isJinjaLanguageRef(lang: SupportedLanguage): lang is typeof Jinj
 
 export function isYamlLanguageRef(lang: SupportedLanguage): lang is typeof YamlLanguageRefs[number] {
   return YamlLanguageRefs.includes(lang as typeof YamlLanguageRefs[number])
+}
+
+export function isSqlLanguageRef(lang: SupportedLanguage): lang is typeof SqlLanguageRefs[number] {
+  return SqlLanguageRefs.includes(lang as typeof SqlLanguageRefs[number])
 }
