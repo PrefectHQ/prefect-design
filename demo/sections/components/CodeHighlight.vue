@@ -203,9 +203,30 @@ xmas-fifth-day:
     location: "a pear tree"
   turtle-doves: two`
 
-  const sqlContent = `
-  SELECT * FROM users
-  WHERE age > 18
-  ORDER BY name ASC
-  `
+  const sqlContent = `WITH user_stats AS (
+  SELECT 
+    u.id,
+    u.name,
+    u.email,
+    COUNT(o.id) as order_count,
+    SUM(o.total_amount) as total_spent
+  FROM users u
+  LEFT JOIN orders o ON u.id = o.user_id
+  WHERE u.created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)
+  GROUP BY u.id, u.name, u.email
+  HAVING COUNT(o.id) > 0
+)
+SELECT 
+  us.*,
+  CASE 
+    WHEN total_spent > 1000 THEN 'VIP'
+    WHEN total_spent > 500 THEN 'Regular'
+    ELSE 'Basic'
+  END as customer_tier,
+  ROUND(AVG(total_spent) OVER (PARTITION BY customer_tier), 2) as avg_spend_by_tier
+FROM user_stats us
+WHERE order_count >= 3
+  AND email LIKE '%@example.com'
+ORDER BY total_spent DESC
+LIMIT 10;`
 </script>
