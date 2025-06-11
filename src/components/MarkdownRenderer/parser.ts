@@ -120,7 +120,14 @@ const getVNode = (token: Token, options: ParserOptions): VNode | VNode[] => {
   if (isHeading(token)) {
     const { depth, text } = token
     const classList = [headingClasses[depth], `${baseClass}__heading`, `${baseClass}__heading--h${depth}`]
-    const heading = h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
+
+    let heading
+
+    if (options.headerAnchors) {
+      heading = h(PHashLink, { hash: text, depth, class: [...classList, `${baseClass}__heading-wrapper`] }, { default: () => children })
+    } else {
+      heading = h(baseElement, { class: classList }, children)
+    }
 
     if (depth < 2) {
       return [heading, h(PDivider)]

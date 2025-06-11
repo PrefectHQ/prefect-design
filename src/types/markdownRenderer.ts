@@ -16,6 +16,7 @@ export type ParseMessagePayload = {
 
 export type ParserOptions = {
   headingClasses?: string[],
+  headerAnchors?: boolean,
 }
 
 export function isToken(token: unknown): token is Token {
