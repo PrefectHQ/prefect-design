@@ -4,6 +4,7 @@ import jinja from 'highlight.js/lib/languages/django'
 import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
 import python from 'highlight.js/lib/languages/python'
+import sql from 'highlight.js/lib/languages/sql'
 import xml from 'highlight.js/lib/languages/xml'
 import yaml from 'highlight.js/lib/languages/yaml'
 import { githubFlavoredMarkdownLanguage } from '@/components/CodeHighlight/languages/markdown'
@@ -19,6 +20,7 @@ import {
   isMarkdownLanguageRef,
   isVueLanguageRef,
   isYamlLanguageRef,
+  isSqlLanguageRef,
   SupportedLanguage,
   UnformattedMessagePayload,
   FormattedMessagePayload
@@ -58,6 +60,10 @@ const getLanguageFunctions = (lang: SupportedLanguage): Record<string, LanguageF
 
   if (isGithubFlavoredMarkdownLanguageRef(lang) || isMarkdownLanguageRef(lang)) {
     return { 'gh-markdown': githubFlavoredMarkdownLanguage, markdown, xml, css, python, javascript, vueLanguage }
+  }
+
+  if (isSqlLanguageRef(lang)) {
+    return { sql }
   }
 
   throw new Error(`Language ${lang} is not supported`)
