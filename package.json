@@ -45,7 +45,7 @@
     "@prefecthq/eslint-config": "1.0.32",
     "@types/dompurify": "^3.0.1",
     "@types/marked": "^4.0.8",
-    "@types/node": "^22.1.0",
+    "@types/node": "^24.0.3",
     "@vitejs/plugin-vue": "5.2.4",
     "auto-changelog": "^2.4.0",
     "autoprefixer": "^10.4.6",
