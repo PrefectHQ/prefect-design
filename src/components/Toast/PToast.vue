@@ -11,7 +11,7 @@
         <PIcon :icon="internalIcon" aria-hidden="true" class="p-toast__icon" :class="color" solid />
         <p class="p-toast__message">
           <slot>
-            {{ message }}
+            <PMarkdownRenderer :text="message" />
           </slot>
         </p>
       </div>
@@ -32,6 +32,7 @@
   import { computed, onMounted, ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
+  import { PMarkdownRenderer } from '@/components/MarkdownRenderer'
   import { ToastType } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
@@ -121,6 +122,7 @@
 .p-toast__card-container { @apply
  flex
  justify-between
+ gap-2
 }
 
 .p-toast__info { @apply
@@ -131,9 +133,6 @@
 
 .p-toast__icon { @apply
  flex-shrink-0
- h-6
- w-6
- pr-1
 }
 
 .p-toast__message { @apply
@@ -141,16 +140,13 @@
 }
 
 .p-toast__close { @apply
- ml-4
  flex-shrink-0
  flex
- items-center
+ items-start
 }
 
 .p-toast__close-btn { @apply
   relative
-  rounded-full
-  inline-flex
   justify-center
   items-center
   text-subdued
@@ -160,8 +156,8 @@
   focus:ring-focus-ring
   focus:ring-offset-focus-ring
   focus:ring-offset-focus-ring-offset
-  h-5
-  w-5
+  h-6
+  w-6
 }
 
 .p-toast__close-btn:focus:not(:focus-visible) { @apply
