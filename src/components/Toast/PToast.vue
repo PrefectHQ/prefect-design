@@ -127,7 +127,7 @@
 
 .p-toast__info { @apply
   flex
-  items-center
+  items-start
   gap-2
 }
 

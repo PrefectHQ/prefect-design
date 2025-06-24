@@ -4,7 +4,7 @@
       <div v-for="{ id, message, dismissible, timeout, type, dismiss } in queue" :key="id" class="p-toast-container__toast">
         <PToast v-bind="{ dismissible, timeout, type }" @close="dismiss">
           <template v-if="isStringMessage(message)">
-            {{ message }}
+            <PMarkdownRenderer :text="message" />
           </template>
           <template v-else>
             <component :is="message" />
@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
   import { Component as ComponentType } from 'vue'
+  import { PMarkdownRenderer } from '@/components/MarkdownRenderer'
   import PToast from '@/components/Toast/PToast.vue'
   import { queue } from '@/plugins/Toast'
 

@@ -1,5 +1,6 @@
 import { App, createApp, reactive, Plugin, Component, markRaw } from 'vue'
 import ToastContainer from '@/components/Toast/ToastContainer.vue'
+import { Icon } from '@/types'
 
 type ToastType = 'default' | 'success' | 'error'
 
@@ -15,6 +16,7 @@ type Toast = {
 type ToastOptions = {
   dismissible?: boolean,
   timeout?: number | false,
+  icon?: Icon,
 }
 
 type ToastPluginOptions = {
@@ -74,6 +76,7 @@ function showToast(message: string | Component, type: ToastType = 'default', opt
   const defaultOptions: Required<ToastOptions> = {
     dismissible: true,
     timeout: 5000,
+    icon: 'Info',
   }
 
   const rawMessage = typeof message === 'string' ? message : markRaw(message)
