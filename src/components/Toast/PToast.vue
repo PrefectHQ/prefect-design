@@ -11,7 +11,7 @@
         <PIcon :icon="internalIcon" aria-hidden="true" class="p-toast__icon" :class="color" solid />
         <p class="p-toast__message">
           <slot>
-            <PMarkdownRenderer :text="message" />
+            {{ message }}
           </slot>
         </p>
       </div>
@@ -32,7 +32,6 @@
   import { computed, onMounted, ref } from 'vue'
   import PButton from '@/components/Button/PButton.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
-  import { PMarkdownRenderer } from '@/components/MarkdownRenderer'
   import { ToastType } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
