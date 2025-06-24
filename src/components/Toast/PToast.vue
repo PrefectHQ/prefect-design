@@ -8,7 +8,7 @@
   >
     <div class="p-toast__card-container">
       <div class="p-toast__info">
-        <PIcon :icon="icon" aria-hidden="true" class="p-toast__icon" :class="color" />
+        <PIcon :icon="internalIcon" aria-hidden="true" class="p-toast__icon" :class="color" solid />
         <p class="p-toast__message">
           <slot>
             {{ message }}
@@ -16,14 +16,13 @@
         </p>
       </div>
       <div v-if="dismissible || timeout === false" class="p-toast__close">
-        <button type="button" class="p-toast__close-btn" @click="removeToast">
+        <PButton class="p-toast__close-btn" icon="Close" variant="ghost" size="sm" @click="removeToast">
           <span class="sr-only">Close</span>
-          <PIcon class="p-toast__close-icon" icon="XMarkIcon" aria-hidden="true" />
 
           <svg v-if="dismissible" class="p-toast__svg" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" class="p-toast__svg-circle" />
           </svg>
-        </button>
+        </PButton>
       </div>
     </div>
   </div>
@@ -31,28 +30,36 @@
 
 <script setup lang="ts">
   import { computed, onMounted, ref } from 'vue'
+  import PButton from '@/components/Button/PButton.vue'
   import PIcon from '@/components/Icon/PIcon.vue'
   import { ToastType } from '@/plugins/Toast'
   import { Icon } from '@/types/icon'
 
-  const props = defineProps<{
+  const {
+    message,
+    dismissible,
+    timeout,
+    type,
+    icon,
+  } = defineProps<{
     message?: string,
     dismissible: boolean,
     timeout: number | false,
     type: ToastType,
+    icon?: Icon,
   }>()
 
   const timer = ref<ReturnType<typeof setTimeout>>()
-  const timerStrokeWidth = ref(props.timeout === false ? '0' : '8px')
-  const animationDuration = ref(props.timeout ? `${props.timeout / 1000}s` : '5s')
+  const timerStrokeWidth = ref(timeout === false ? '0' : '8px')
+  const animationDuration = ref(timeout ? `${timeout / 1000}s` : '5s')
   const animationPlayState = ref('running')
 
   const iconMap: Record<string, Icon> = {
-    default: 'InformationCircleIcon',
-    success: 'CheckIcon',
+    default: 'Info',
+    success: 'CheckCircleIcon',
     error: 'ExclamationTriangleIcon',
   }
-  const icon = computed(() => iconMap[props.type] as Icon)
+  const internalIcon = computed(() => icon ?? iconMap[type])
 
   const colorClasses = [
     { className: 'p-toast__icon--success', name: 'success' },
@@ -60,7 +67,7 @@
   ]
 
   const color = computed(() => {
-    return colorClasses.find(color => color.name == props.type)?.className
+    return colorClasses.find(color => color.name == type)?.className
   })
 
   const emit = defineEmits<{
@@ -77,9 +84,9 @@
   }
 
   const startTimeout = (): void => {
-    if (props.timeout) {
+    if (timeout) {
       animationPlayState.value = 'running'
-      timer.value = setTimeout(removeToast, props.timeout)
+      timer.value = setTimeout(removeToast, timeout)
     }
   }
 
@@ -101,7 +108,7 @@
 }
 
 .p-toast__card { @apply
-  max-w-sm
+  max-w-md
   w-full
   bg-floating
   shadow-lg
@@ -119,6 +126,7 @@
 .p-toast__info { @apply
   flex
   items-center
+  gap-2
 }
 
 .p-toast__icon { @apply
