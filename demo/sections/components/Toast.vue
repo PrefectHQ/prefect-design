@@ -6,6 +6,7 @@
       { title: 'Success' },
       { title: 'Error' },
       { title: 'Persistent' },
+      { title: 'Custom' },
       { title: 'Using Message Component' },
     ]"
   >
@@ -26,6 +27,11 @@
     </template>
     <template #persistent>
       <p-button @click="noTimeoutToast">
+        Show Toast
+      </p-button>
+    </template>
+    <template #custom>
+      <p-button @click="customToast">
         Show Toast
       </p-button>
     </template>
@@ -56,6 +62,20 @@
 
   const noTimeoutToast = (): void => {
     showToast('Waiting for you to dismiss', 'default', { timeout: false })
+  }
+
+  const customToast = (): void => {
+    showToast(`__Bold title__
+This is a long message with a markdown link [here](https://www.prefect.io)
+
+And a list:
+
+- Item 1
+- Item 2
+`, 'default', {
+      timeout: false,
+      icon: 'GitlabColoredIcon',
+    })
   }
 
   const componentToast = (): void => {
