@@ -1,5 +1,5 @@
 import { format, isSameDay, startOfDay, endOfDay, Duration, isSameYear } from 'date-fns'
-import { secondsInDay, secondsInHour, secondsInMinute, secondsInWeek } from 'date-fns/constants'
+import { secondsInDay, secondsInHour, secondsInMinute, secondsInMonth, secondsInWeek } from 'date-fns/constants'
 import { DateRangeSelectAroundValue, DateRangeSelectPeriodValue, DateRangeSelectRangeValue, DateRangeSelectSpanValue, DateRangeSelectValue } from '@/types'
 import { toPluralString } from '@/utilities'
 
@@ -39,8 +39,14 @@ export function getDateRangeSelectValueLabel(value: DateRangeSelectValue): strin
 function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
   const absSeconds = Math.abs(seconds)
 
+  // nb: Because secondsInMonth is an average, just return Past month label when option is selected
+  if (absSeconds === secondsInMonth) {
+    return 'Past month'
+  }
+
   const duration: Duration = {
-    weeks: Math.floor(absSeconds / secondsInWeek),
+    months: Math.floor(absSeconds / secondsInMonth),
+    weeks: Math.floor(absSeconds % secondsInMonth / secondsInWeek),
     days: Math.floor(absSeconds % secondsInWeek / secondsInDay),
     hours: Math.floor(absSeconds % secondsInDay / secondsInHour),
     minutes: Math.floor(absSeconds % secondsInHour / secondsInMinute),

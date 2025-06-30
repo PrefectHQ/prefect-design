@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { secondsInDay, secondsInHour, secondsInWeek } from 'date-fns/constants'
+  import { secondsInDay, secondsInHour, secondsInMonth, secondsInWeek } from 'date-fns/constants'
   import { computed } from 'vue'
   import { DateRangeSelectMode } from '@/components/DateRangeSelect/PDateRangeSelect.vue'
   import PSelectOptions from '@/components/Select/PSelectOptions.vue'
@@ -41,6 +41,7 @@
     { label: 'Past hour', value: secondsInHour * -1 },
     { label: 'Past day', value: secondsInDay * -1 },
     { label: 'Past week', value: secondsInWeek * -1 },
+    { label: 'Past month', value: secondsInMonth * -1 },
     { label: 'Today', value: 'Today' },
     { label: 'Relative time', value: 'span' },
     { label: 'Around a time', value: 'around' },
