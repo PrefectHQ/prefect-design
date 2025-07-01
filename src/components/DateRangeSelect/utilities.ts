@@ -9,6 +9,9 @@ type DateRange = {
   endDate: Date,
 }
 
+export const PAST_7_DAYS_SECONDS = secondsInDay * 7
+export const PAST_30_DAYS_SECONDS = secondsInDay * 30
+
 const dateFormat = 'MMM do'
 const dateAndYearFormat = 'MMM do, yyyy'
 const timeFormat = 'hh:mm a'
@@ -39,9 +42,13 @@ export function getDateRangeSelectValueLabel(value: DateRangeSelectValue): strin
 function getDateSpanLabel({ seconds }: DateRangeSelectSpanValue): string {
   const absSeconds = Math.abs(seconds)
 
-  // nb: Because secondsInMonth is an average, just return Past month label when option is selected
-  if (absSeconds === secondsInMonth) {
-    return 'Past month'
+  // nb: Edge case to specifically diplay Past 7 days and Past 30 days options
+  if (absSeconds === PAST_7_DAYS_SECONDS) {
+    return 'Past 7 days'
+  }
+
+  if (absSeconds === PAST_30_DAYS_SECONDS) {
+    return 'Past 30 days'
   }
 
   const duration: Duration = {
