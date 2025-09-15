@@ -29,12 +29,14 @@
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.mjs",
+  "type": "module",
   "exports": {
     "./src/*": "./src/*",
     "./dist/*": "./dist/*",
     ".": {
       "import": "./dist/prefect-design.mjs",
-      "require": "./dist/prefect-design.umd.js"
+      "require": "./dist/prefect-design.umd.js",
+      "types": "./dist/types/src/index.d.ts" 
     }
   },
   "files": [
