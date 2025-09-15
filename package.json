@@ -3,7 +3,7 @@
   "workspaces": [
     "./demo"
   ],
-  "version": "2.15.4",
+  "version": "2.16.0",
   "description": "",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     ".": {
       "import": "./dist/prefect-design.mjs",
       "require": "./dist/prefect-design.umd.js",
-      "types": "./dist/types/src/index.d.ts" 
+      "types": "./dist/types/src/index.d.ts"
     }
   },
   "files": [
