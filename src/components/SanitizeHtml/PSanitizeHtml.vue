@@ -5,16 +5,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { default as dompurify } from 'dompurify'
+  import { default as dompurify, Config } from 'dompurify'
   import { computed } from 'vue'
   import { PUnwrap } from '@/components/Unwrap'
 
   const props = defineProps<{
     html: string | HTMLElement | DocumentFragment,
-    config?: dompurify.Config,
+    config?: Config,
   }>()
 
-  const defaultConfig: dompurify.Config = {
+  const defaultConfig: Config = {
     FORBID_TAGS: ['script', 'style', 'iframe', 'form'],
     FORBID_ATTR: ['style', 'action', 'method', 'onclick', 'onmouseover', 'onload', 'data', 'onmousedown', 'onmouseup'],
     USE_PROFILES: { svg: true, html: true },
