@@ -24,7 +24,8 @@
     "lint:fix": "eslint src --fix",
     "changelog": "auto-changelog --package --commit-limit 0",
     "version": "npm run changelog && git add CHANGELOG.md",
-    "release": "./prefect-design-release"
+    "release": "./prefect-design-release",
+    "validate:types": "vue-tsc --noEmit"
   },
   "main": "./dist/prefect-design.umd.js",
   "module": "./dist/prefect-design.mjs",
@@ -62,7 +63,7 @@
     "vue-tsc": "3.0.7"
   },
   "peerDependencies": {
-    "@prefecthq/vue-compositions": "^1.12.0",
+    "@prefecthq/vue-compositions": "^1.12.1",
     "vue": "^3.5.0",
     "vue-router": "^4.1.6"
   },
