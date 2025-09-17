@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => {
     build: {
       copyPublicDir: true,
       lib: {
-        entry: resolve(__dirname, 'src/index.ts'),
+        entry: 'src/index.ts',
         name: 'PrefectDesign',
       },
       rollupOptions: {
@@ -51,6 +51,8 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
+      outDir: 'dist',
+      emptyOutDir: true,
     },
   }
 
