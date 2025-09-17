@@ -33,6 +33,9 @@
   "type": "module",
   "exports": {
     "./prefect-design.css": "./dist/prefect-design.css",
+    "./src": "./src",
+    "./dist": "./dist",
+    "./tailwind.config": "./src/tailwind.config.ts",
     ".": {
       "types": "./dist/src/index.d.ts",
       "import": "./dist/prefect-design.js"
