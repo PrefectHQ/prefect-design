@@ -27,23 +27,21 @@
     "release": "./prefect-design-release",
     "validate:types": "vue-tsc --noEmit"
   },
-  "main": "./dist/prefect-design.umd.js",
-  "module": "./dist/prefect-design.mjs",
+  "main": "dist/prefect-design.js",
+  "module": "dist/prefect-design.js",
+  "types": "dist/src/index.d.ts",
   "type": "module",
   "exports": {
-    "./src/*": "./src/*",
-    "./dist/*": "./dist/*",
+    "./prefect-design.css": "./dist/prefect-design.css",
     ".": {
-      "import": "./dist/prefect-design.mjs",
-      "require": "./dist/prefect-design.umd.js",
-      "types": "./dist/types/src/index.d.ts"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/prefect-design.js"
     }
   },
   "files": [
     "dist",
     "src"
   ],
-  "types": "./dist/types/src/index.d.ts",
   "devDependencies": {
     "@prefecthq/eslint-config": "1.0.32",
     "@types/dompurify": "^3.0.1",
@@ -66,7 +64,7 @@
   },
   "peerDependencies": {
     "@prefecthq/vue-compositions": "^1.12.1",
-    "vue": "^3.5.0",
+    "vue": "^3.5.21",
     "vue-router": "^4.1.6"
   },
   "dependencies": {
