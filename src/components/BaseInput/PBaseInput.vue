@@ -60,6 +60,7 @@
 
   const attrsForControl = computed(() => ({
     ...attrs.value,
+    ...listeners.value,
     disabled: props.disabled,
     class: {
       'p-base-input__control': true,

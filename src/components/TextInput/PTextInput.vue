@@ -10,7 +10,6 @@
         type="text"
         class="p-text-input__control"
         v-bind="attrs"
-        @focus="handleFocus"
       >
     </template>
   </PBaseInput>
@@ -26,7 +25,6 @@
 
   const emits = defineEmits<{
     (event: 'update:modelValue', value: string | null): void,
-    (event: 'focus'): void,
   }>()
 
   const wrapperElement = ref<typeof PBaseInput>()
@@ -44,10 +42,6 @@
       emits('update:modelValue', value)
     },
   })
-
-  const handleFocus = (): void => {
-    emits('focus')
-  }
 </script>
 
 <style>
