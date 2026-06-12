@@ -20,6 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Generate prefect-ci-bot-public token
+        id: app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.PREFECT_CI_BOT_PUBLIC_CLIENT_ID }}
+          private-key: ${{ secrets.PREFECT_CI_BOT_PUBLIC_PRIVATE_KEY }}
+
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
@@ -58,4 +65,4 @@ jobs:
             Release information can be found at https://github.com/${{ inputs.package_name }}/releases/tag/${{ inputs.package_version }}." \
             --label maintenance
         env:
-          GITHUB_TOKEN: ${{ secrets.UI_COMPONENTS_CONTENTS_PRS_RW }}
+          GITHUB_TOKEN: ${{ steps.app_token.outputs.token }}

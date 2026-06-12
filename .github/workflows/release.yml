@@ -24,25 +24,52 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+      - name: Generate prefect-ci-bot-public release token
+        id: release_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.PREFECT_CI_BOT_PUBLIC_CLIENT_ID }}
+          private-key: ${{ secrets.PREFECT_CI_BOT_PUBLIC_PRIVATE_KEY }}
+
       - uses: prefecthq/actions-release-ui-components@main
         id: release-ui-components
         with:
           NPM_TOKEN: ${{ secrets.PREFECT_UI_COMPONENTS_NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.UI_COMPONENTS_CONTENTS_PRS_RW }}
+          GITHUB_TOKEN: ${{ steps.release_token.outputs.token }}
           RELEASE_TYPE: ${{ inputs.release_type }}
+
+      - name: Generate prefect-ci-bot-bridge token for nebula-ui
+        if: ${{ steps.release-ui-components.outputs.type }}
+        id: bridge_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.PREFECT_CI_BOT_BRIDGE_CLIENT_ID }}
+          private-key: ${{ secrets.PREFECT_CI_BOT_BRIDGE_PRIVATE_KEY }}
+          owner: PrefectHQ
+          repositories: nebula-ui
 
       - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
         id: trigger-downstream-npm-package-update-nebula-ui
         if: ${{ steps.release-ui-components.outputs.type }}
         with:
-          GITHUB_TOKEN: ${{ secrets.NEBULA_UI_ACTIONS_RW }}
+          GITHUB_TOKEN: ${{ steps.bridge_token.outputs.token }}
           DOWNSTREAM_REPO_NAME: nebula-ui
           RELEASE_TAG: ${{ steps.release-ui-components.outputs.version}}
+
+      - name: Generate prefect-ci-bot-public token for prefect
+        if: ${{ steps.release-ui-components.outputs.type }}
+        id: prefect_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.PREFECT_CI_BOT_PUBLIC_CLIENT_ID }}
+          private-key: ${{ secrets.PREFECT_CI_BOT_PUBLIC_PRIVATE_KEY }}
+          owner: PrefectHQ
+          repositories: prefect
 
       - uses: prefecthq/actions-trigger-downstream-npm-package-updates@main
         id: trigger-downstream-npm-package-update-prefect-oss
         if: ${{ steps.release-ui-components.outputs.type }}
         with:
-          GITHUB_TOKEN: ${{ secrets.PREFECT_ACTIONS_RW }}
+          GITHUB_TOKEN: ${{ steps.prefect_token.outputs.token }}
           DOWNSTREAM_REPO_NAME: prefect
           RELEASE_TAG: ${{ steps.release-ui-components.outputs.version}}
