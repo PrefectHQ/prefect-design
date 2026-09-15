@@ -11,6 +11,7 @@
         v-bind="attrs"
         @keydown="preventNonNumericalInput"
         @paste="preventNonNumericalPaste"
+        @wheel="preventWheelValueChange"
       >
     </template>
   </PBaseInput>
@@ -49,6 +50,12 @@
   function preventNonNumericalInput(event: KeyboardEvent): void {
     if (event.key === keys.e || event.key === keys.E) {
       event.preventDefault()
+    }
+  }
+
+  function preventWheelValueChange(event: WheelEvent): void {
+    if (event.target instanceof HTMLElement && event.target === document.activeElement) {
+      event.target.blur()
     }
   }
 
